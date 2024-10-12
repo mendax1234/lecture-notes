@@ -1,3 +1,6 @@
 [submodule "24-S1/MA1511/MA1511-Notes"]
 	path = 24-S1/MA1511/MA1511-Notes
 	url = https://github.com/mendax1234/MA1511-Notes.git
+[submodule "24-S1/MA1511/MA1511-Cheatsheet"]
+	path = 24-S1/MA1511/MA1511-Cheatsheet
+	url = https://github.com/mendax1234/MA1511-Cheatsheet.git
