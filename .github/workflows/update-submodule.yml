@@ -1,0 +1,31 @@
+name: Update Submodules
+
+# Run this workflow every time code is pushed to any branch
+on: 
+  push:
+    branches:
+      - '**'   # This runs on any branch
+
+jobs:
+  update-submodules:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        submodules: 'recursive'  # Ensure submodules are checked out
+
+    # Run the submodule update command
+    - name: Update submodules
+      run: git submodule update --remote
+
+    # Commit updated submodules (if any)
+    - name: Commit changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add .
+        git commit -m "CI: Update submodules" || echo "No changes to commit"
+        git push
