@@ -7,3 +7,6 @@
 [submodule "24-S1/CG1111A/CG1111A-Cheatsheet"]
 	path = 24-S1/CG1111A/CG1111A-Cheatsheet
 	url = https://github.com/mendax1234/CG1111A-Cheatsheet.git
+[submodule "24-S1/CG1111A/CG1111A-Final-Project"]
+	path = 24-S1/CG1111A/CG1111A-Final-Project
+	url = https://github.com/mendax1234/CG1111A-Final-Project
