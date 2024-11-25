@@ -13,3 +13,6 @@
 [submodule "24-S1/LAF1201/LAF1201-Notes"]
 	path = 24-S1/LAF1201/LAF1201-Notes
 	url = https://github.com/mendax1234/LAF1201-Notes.git
+[submodule "24-S1/CS1010/CS1010-Notes"]
+	path = 24-S1/CS1010/CS1010-Notes
+	url = https://github.com/mendax1234/CS1010-Notes.git
