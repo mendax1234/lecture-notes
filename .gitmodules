@@ -16,3 +16,6 @@
 [submodule "24-S1/CS1010/CS1010-Notes"]
 	path = 24-S1/CS1010/CS1010-Notes
 	url = https://github.com/mendax1234/CS1010-Notes.git
+[submodule "24-S1/EG1311/EG1311-Notes"]
+	path = 24-S1/EG1311/EG1311-Notes
+	url = https://github.com/mendax1234/EG1311-Notes.git
