@@ -10,25 +10,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Step 1: Checkout the repository with submodules
     - name: Checkout repository
       uses: actions/checkout@v3
       with:
         submodules: 'recursive'  # Ensure submodules are checked out
 
-    # Check if the submodule is already up-to-date
+    # Step 2: Reset submodule to the latest commit (Solution 3)
+    - name: Reset submodule to latest commit
+      run: |
+        # Reinitialize the submodule (resets its state)
+        git submodule update --init --recursive
+        git submodule foreach 'git reset --hard origin/main'  # This resets the submodule to the latest commit from remote
+
+    # Step 3: Check if the submodule is already up-to-date
     - name: Check submodule status
       id: submodule-status
       run: |
-        # Get the current submodule commit hash
         CURRENT_COMMIT=$(git submodule status --recursive | awk '{ print $1 }')
-        
-        # Update submodule to the latest commit if it's not up to date
-        git submodule update --remote --merge
-        
-        # Get the latest submodule commit hash after the update
+        git submodule update --remote --merge || echo "Merge error occurred"
         LATEST_COMMIT=$(git submodule status --recursive | awk '{ print $1 }')
-
-        # Compare the commit hashes to check if update is needed
         if [ "$CURRENT_COMMIT" != "$LATEST_COMMIT" ]; then
           echo "Submodule updated."
           echo "submodule_updated=true" >> $GITHUB_ENV
@@ -37,7 +38,7 @@ jobs:
           echo "submodule_updated=false" >> $GITHUB_ENV
         fi
 
-    # Commit changes only if submodules were updated
+    # Step 4: Commit changes only if submodules were updated
     - name: Commit changes
       if: env.submodule_updated == 'true'
       run: |
@@ -46,12 +47,12 @@ jobs:
         git add .
         git commit -m "CI: Update submodules" || echo "No changes to commit"
 
-    # Pull the latest changes from the remote branch before pushing
+    # Step 5: Pull the latest changes from the remote branch before pushing
     - name: Pull the latest changes
       if: env.submodule_updated == 'true'
-      run: git pull origin main --rebase
+      run: git pull origin main --rebase --allow-unrelated-histories
 
-    # Push the changes to the repository using the PAT
+    # Step 6: Push the changes back to the repository
     - name: Push changes
       if: env.submodule_updated == 'true'
       env:
