@@ -17,24 +17,43 @@ jobs:
       with:
         submodules: 'recursive'  # Ensure submodules are checked out
 
-    # Run the submodule update command
-    - name: Update submodules
-      run: git submodule update --remote
+    # Check if submodules are already up to date
+    - name: Check for submodule updates
+      id: submodule-check
+      run: |
+        # Save current submodule commit hash
+        CURRENT_COMMIT=$(git submodule status | awk '{ print $1 }')
+        # Fetch the latest changes for submodules
+        git submodule update --remote
+        # Get the latest submodule commit hash after update
+        LATEST_COMMIT=$(git submodule status | awk '{ print $1 }')
+        
+        # Check if the submodule commit hash has changed
+        if [ "$CURRENT_COMMIT" != "$LATEST_COMMIT" ]; then
+          echo "Submodule has been updated."
+          echo "updated=true" >> $GITHUB_ENV
+        else
+          echo "No submodule update needed."
+          echo "updated=false" >> $GITHUB_ENV
+        fi
 
     # Commit updated submodules (if any)
     - name: Commit changes
+      if: env.updated == 'true'  # Only run this step if submodule was updated
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add .
-        git diff --cached --quiet || git commit -m "CI: Update submodules"   # Check if there are any changes before committing
+        git commit -m "CI: Update submodules"
 
-    # Pull the latest changes before pushing to avoid conflicts
+    # Pull the latest changes from the remote main to prevent conflicts before pushing
     - name: Pull the latest changes
+      if: env.updated == 'true'  # Only pull if submodule update occurred
       run: git pull origin main --rebase
 
     # Push changes back to the repository using PAT
     - name: Push changes
+      if: env.updated == 'true'  # Only push if submodule was updated
       env:
         TOKEN: ${{ secrets.PAT_TOKEN }}
       run: |
