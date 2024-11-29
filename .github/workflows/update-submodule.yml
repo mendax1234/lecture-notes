@@ -1,7 +1,6 @@
 name: Update Submodules
 
-# Run this workflow every time code is pushed to any branch
-on: 
+on:
   push:
     branches:
       - '**'   # This runs on any branch
@@ -11,49 +10,50 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout the repository
     - name: Checkout repository
       uses: actions/checkout@v3
       with:
         submodules: 'recursive'  # Ensure submodules are checked out
 
-    # Check if submodules are already up to date
-    - name: Check for submodule updates
-      id: submodule-check
+    # Check if the submodule is already up-to-date
+    - name: Check submodule status
+      id: submodule-status
       run: |
-        # Save current submodule commit hash
-        CURRENT_COMMIT=$(git submodule status | awk '{ print $1 }')
-        # Fetch the latest changes for submodules
-        git submodule update --remote
-        # Get the latest submodule commit hash after update
-        LATEST_COMMIT=$(git submodule status | awk '{ print $1 }')
+        # Get the current submodule commit hash
+        CURRENT_COMMIT=$(git submodule status --recursive | awk '{ print $1 }')
         
-        # Check if the submodule commit hash has changed
+        # Update submodule to the latest commit if it's not up to date
+        git submodule update --remote --merge
+        
+        # Get the latest submodule commit hash after the update
+        LATEST_COMMIT=$(git submodule status --recursive | awk '{ print $1 }')
+
+        # Compare the commit hashes to check if update is needed
         if [ "$CURRENT_COMMIT" != "$LATEST_COMMIT" ]; then
-          echo "Submodule has been updated."
-          echo "updated=true" >> $GITHUB_ENV
+          echo "Submodule updated."
+          echo "submodule_updated=true" >> $GITHUB_ENV
         else
           echo "No submodule update needed."
-          echo "updated=false" >> $GITHUB_ENV
+          echo "submodule_updated=false" >> $GITHUB_ENV
         fi
 
-    # Commit updated submodules (if any)
+    # Commit changes only if submodules were updated
     - name: Commit changes
-      if: env.updated == 'true'  # Only run this step if submodule was updated
+      if: env.submodule_updated == 'true'
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add .
-        git commit -m "CI: Update submodules"
+        git commit -m "CI: Update submodules" || echo "No changes to commit"
 
-    # Pull the latest changes from the remote main to prevent conflicts before pushing
+    # Pull the latest changes from the remote branch before pushing
     - name: Pull the latest changes
-      if: env.updated == 'true'  # Only pull if submodule update occurred
+      if: env.submodule_updated == 'true'
       run: git pull origin main --rebase
 
-    # Push changes back to the repository using PAT
+    # Push the changes to the repository using the PAT
     - name: Push changes
-      if: env.updated == 'true'  # Only push if submodule was updated
+      if: env.submodule_updated == 'true'
       env:
         TOKEN: ${{ secrets.PAT_TOKEN }}
       run: |
