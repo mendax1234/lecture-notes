@@ -27,8 +27,12 @@ jobs:
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add .
-        git commit -m "CI: Update submodules" || echo "No changes to commit"
-   
+        git diff --cached --quiet || git commit -m "CI: Update submodules"   # Check if there are any changes before committing
+
+    # Pull the latest changes before pushing to avoid conflicts
+    - name: Pull the latest changes
+      run: git pull origin main --rebase
+
     # Push changes back to the repository using PAT
     - name: Push changes
       env:
