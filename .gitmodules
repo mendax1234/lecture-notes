@@ -19,6 +19,3 @@
 [submodule "24-S1/EG1311/EG1311-Notes"]
 	path = 24-S1/EG1311/EG1311-Notes
 	url = https://github.com/mendax1234/EG1311-Notes.git
-[submodule "MA1512-Cheatsheet"]
-	path = MA1512-Cheatsheet
-	url = https://github.com/mendax1234/MA1512-Cheatsheet.git
