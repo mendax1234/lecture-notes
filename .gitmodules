@@ -25,3 +25,6 @@
 [submodule "24-S1/MA1512/MA1512-Notes"]
 	path = 24-S1/MA1512/MA1512-Notes
 	url = https://github.com/mendax1234/MA1512-Notes.git
+[submodule "24-S1/CG1111A/CG1111A-Notes"]
+	path = 24-S1/CG1111A/CG1111A-Notes
+	url = https://github.com/mendax1234/CG1111A-Notes.git
