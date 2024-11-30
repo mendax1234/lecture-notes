@@ -15,39 +15,25 @@ jobs:
       uses: actions/checkout@v3
       with:
         submodules: 'recursive'  # Ensure submodules are checked out
+        fetch-depth: 0  # Fetch full history to ensure we can pull latest commits
 
-    # Step 2: Reset submodule to the latest commit
-    - name: Reset submodule to latest commit
+    # Step 2: Update submodules to their latest main branch commits
+    - name: Update submodules
       run: |
-        # Reinitialize the submodule (resets its state)
+        # Initialize and update all submodules to their latest commits on main
         git submodule update --init --recursive
-        git submodule foreach 'git reset --hard origin/main'  # This resets the submodule to the latest commit from remote
+        git submodule foreach 'git fetch origin main:main && git checkout main && git pull origin main'
 
-    # Step 3: Check if the submodule is already up-to-date
+    # Step 3: Check if submodules have changed
     - name: Check submodule status
       id: submodule-status
       run: |
-        # Fetch the current commit of the submodule
-        CURRENT_COMMIT=$(git submodule status --recursive | awk '{ print $1 }')
-        
-        # Ensure we're working with the latest submodule state
-        git submodule update --init --recursive  # Initialize or update submodule to ensure it's in sync
-        
-        # Go to the submodule directory and fetch the latest commits from the remote repository
-        cd path/to/submodule  # Ensure you replace this with the actual submodule path
-        git fetch origin  # Fetch the latest changes from the remote
-        git checkout main  # Ensure we're on the main branch (or whichever branch you want)
-        git pull origin main  # Pull the latest changes from the remote
-
-        # Get the latest commit hash after the update
-        LATEST_COMMIT=$(git rev-parse HEAD)
-
-        # Check if the submodule commit has changed
-        if [ "$CURRENT_COMMIT" != "$LATEST_COMMIT" ]; then
-          echo "Submodule updated."
+        # Check if there are any changes in submodules
+        if [[ -n "$(git status --porcelain)" ]]; then
+          echo "Submodules have been updated."
           echo "submodule_updated=true" >> $GITHUB_ENV
         else
-          echo "No submodule update needed."
+          echo "No submodule updates needed."
           echo "submodule_updated=false" >> $GITHUB_ENV
         fi
 
@@ -58,12 +44,12 @@ jobs:
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add .
-        git commit -m "CI: Update submodules" || echo "No changes to commit"
+        git commit -m "CI: Update submodules to latest main branch commits" || echo "No changes to commit"
 
     # Step 5: Pull the latest changes from the remote branch before pushing
     - name: Pull the latest changes
       if: env.submodule_updated == 'true'
-      run: git pull origin main --rebase --allow-unrelated-histories
+      run: git pull origin ${{ github.ref_name }} --rebase --allow-unrelated-histories
 
     # Step 6: Push the changes back to the repository
     - name: Push changes
