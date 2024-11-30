@@ -4,8 +4,8 @@
 - **Target audience**: NUS Year 1 Engineering Students
 - **Purpose of the course**: Foundational math for modeling real-world system
 - **Notes Structure**:  
-   - **[MA1512-Notes](./MA1512-Notes/)**: This folder contains a comprehensive version of my notes, designed to break down and explain each concept covered in the course in a clear and easy-to-understand manner.  
-   - **[MA1512-Cheatsheet](./MA1512-Cheatsheet/)**: Here, you'll find the cheatsheet I created and used throughout the course, summarizing key formulas and methods for quick reference.  
+   - **[MA1512-Notes](./MA1512-Notes)**: This folder contains a comprehensive version of my notes, designed to break down and explain each concept covered in the course in a clear and easy-to-understand manner.  
+   - **[MA1512-Cheatsheet](./MA1512-Cheatsheet)**: Here, you'll find the cheatsheet I created and used throughout the course, summarizing key formulas and methods for quick reference.  
 
 I took this course in AY24/25 Sem 1 for my degree requirement.
 
