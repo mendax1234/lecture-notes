@@ -14,8 +14,8 @@ The repository is organized into the following sections:
 ## 🔖 **Features**
 - **Structured Format**  
   Notes are organized in a clean and consistent style:  
-  - **Technical Subjects**: Written in Markdown and deployed via GitBook for easy navigation and accessibility.  
-  - **Math and Physics**: Written in LaTeX and compiled using Overleaf to maintain precision and clarity.  
+  - **Technical Subjects**: Written in Markdown and deployed via [GitBook](https://www.gitbook.com/) for easy navigation and accessibility.  
+  - **Math and Physics**: Written in LaTeX and compiled using [Overleaf](https://www.overleaf.com/) to maintain precision and clarity.  
 - **Rich Content**  
   Includes detailed explanations, examples, diagrams, and code snippets where applicable.
 - **Cross-References**  
@@ -32,7 +32,7 @@ To view and use these notes:
   cd lecture-notes
   ```
 2. **Markdown Notes**  
-  - All the markdown notes are hosted on Gitbook. So, to view it, just click the website's url.
+  - All the markdown notes are hosted on [Gitbook](https://www.gitbook.com/). So, to view it, just click the website's url.
   - To edit or contribute, you can open Markdown files using any Markdown viewer or IDE (e.g., VS Code, Obsidian).  
 3. **LaTeX Notes**  
   - For LaTeX notes, upload the `.tex` files to [Overleaf](https://www.overleaf.com/) or use a local LaTeX editor (e.g., TeXShop, MikTeX).  
