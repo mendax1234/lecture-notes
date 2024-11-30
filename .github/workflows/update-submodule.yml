@@ -16,7 +16,7 @@ jobs:
       with:
         submodules: 'recursive'  # Ensure submodules are checked out
 
-    # Step 2: Reset submodule to the latest commit (Solution 3)
+    # Step 2: Reset submodule to the latest commit
     - name: Reset submodule to latest commit
       run: |
         # Reinitialize the submodule (resets its state)
@@ -27,9 +27,22 @@ jobs:
     - name: Check submodule status
       id: submodule-status
       run: |
+        # Fetch the current commit of the submodule
         CURRENT_COMMIT=$(git submodule status --recursive | awk '{ print $1 }')
-        git submodule update --remote --merge || echo "Merge error occurred"
-        LATEST_COMMIT=$(git submodule status --recursive | awk '{ print $1 }')
+        
+        # Ensure we're working with the latest submodule state
+        git submodule update --init --recursive  # Initialize or update submodule to ensure it's in sync
+        
+        # Go to the submodule directory and fetch the latest commits from the remote repository
+        cd path/to/submodule  # Ensure you replace this with the actual submodule path
+        git fetch origin  # Fetch the latest changes from the remote
+        git checkout main  # Ensure we're on the main branch (or whichever branch you want)
+        git pull origin main  # Pull the latest changes from the remote
+
+        # Get the latest commit hash after the update
+        LATEST_COMMIT=$(git rev-parse HEAD)
+
+        # Check if the submodule commit has changed
         if [ "$CURRENT_COMMIT" != "$LATEST_COMMIT" ]; then
           echo "Submodule updated."
           echo "submodule_updated=true" >> $GITHUB_ENV
