@@ -26,18 +26,19 @@ The repository is organized into the following sections:
 ## 🛠 **Setup**
 To view and use these notes:
 1. **Clone the Repository**  
-   Download the repository to your local machine:  
-   ```bash
-   git clone https://github.com/mendax1234/lecture-notes.git
-   cd lecture-notes
-   ```
+  Download the repository to your local machine:  
+  ```bash
+  git clone https://github.com/mendax1234/lecture-notes.git
+  cd lecture-notes
+  ```
 2. **Markdown Notes**  
-   - Open Markdown files using any Markdown viewer or IDE (e.g., VS Code, Obsidian).  
+  - All the markdown notes are hosted on Gitbook. So, to view it, just click the website's url.
+  - To edit or contribute, you can open Markdown files using any Markdown viewer or IDE (e.g., VS Code, Obsidian).  
 3. **LaTeX Notes**  
-   - For LaTeX notes, upload the `.tex` files to [Overleaf](https://www.overleaf.com/) or use a local LaTeX editor (e.g., TeXShop, MikTeX).  
-   - Compile the `.tex` files to generate PDFs for an optimal reading experience.
+  - For LaTeX notes, upload the `.tex` files to [Overleaf](https://www.overleaf.com/) or use a local LaTeX editor (e.g., TeXShop, MikTeX).  
+  - Compile the `.tex` files to generate PDFs for an optimal reading experience.
 4. **Navigation**  
-   Browse through the folders to find the specific notes you need. Notes are organized by semesters, subjects, and topics for easy access.
+  Browse through the folders to find the specific notes you need. Notes are organized by semesters, subjects, and topics for easy access.
 
 ## 📝 **Contribution Guidelines**
 Your contributions are welcome! To contribute:
@@ -46,7 +47,6 @@ Your contributions are welcome! To contribute:
 3. Submit a pull request with a clear description of your changes.
 
 Please ensure that your notes follow the existing structure and maintain clarity and conciseness.
-
 
 ## 🙌 **Acknowledgments**
 A huge thank you to the professors, teaching assistants, and peers at NUS who have contributed to my understanding of these subjects. This repository reflects the collective effort of countless hours of lectures, discussions, and study sessions.

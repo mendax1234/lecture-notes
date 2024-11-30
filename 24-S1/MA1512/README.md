@@ -51,7 +51,7 @@ I took this course in AY24/25 Sem 1 for my degree requirement.
 ### Depth and Balance of Coverage
 - **Theoretical Understanding**:  
 As a mathematics course designed for NUS Engineering freshmen, the focus is less on rigorous mathematical proofs and more on practical applications of theorems and techniques. However, the professor thoughtfully provides supplementary materials for those interested in exploring the derivations and deeper theoretical foundations.
-- **Application and real-world exampels**:  
+- **Application and real-world examples**:  
 This course incorporates a moderate number of applications and real-world examples, many of which are interdisciplinary. For instance, it explores the harmonic oscillator (from Physics) and population dynamics (from Economics). These examples provide valuable insights, opening up a new perspective on how mathematics can be applied to explain and understand various phenomena!
 - **Challenging or Unique Aspects**:
     1. **Formulating the Correct Differential Equation**:  
