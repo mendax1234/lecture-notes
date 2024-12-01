@@ -38,6 +38,12 @@ I took this course in AY24/25 Sem 1 for my degree requirement.
 - **Assessment**:  
    The final examination is the primary assessment for this course. In my opinion, it is quite straightforward and mainly tests your familiarity with the formulas covered in the course. Most of the time, solving the problems involves directly substituting numbers into the equations, making it more of a test of accuracy than deep conceptual understanding.  
 
+### Course Book
+**Reference Book**: There is no specific textbook for this course. But based on my learning experience, I think the book *Calculus: Early Transcendentals, Metric Edition* by James Stewart is awesome! I love reading it since I was in NTU.
+
+<p align="center">
+  <img src="./images/MA1511_Referencebook.jpg" alt="LAF1201 Coursebook" width="200">
+</p>
 
 ## Learning Experience
 - **Personal Insights**:  

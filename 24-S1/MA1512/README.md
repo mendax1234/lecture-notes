@@ -69,6 +69,15 @@ I took this course in AY24/25 Sem 1 for my degree requirement.
 - **Assessment**:  
     The assessment structure consists of 40% Continuous Assessment (CA) and 60% Final Exam. The final exam is the most challenging yet rewarding part of the course. This semester’s (AY24/25 Sem 1) paper was particularly well-designed, pushing us to think comprehensively and quickly, even though completing all the questions within the time limit was tough.
 
+### Course Book
+**Textbook**: *Differential Equations for Engineers* by Wei-Chau Xie.
+
+<p align="center">
+  <img src="./images/MA1512_Textbook.jpg" alt="LAF1201 Coursebook" width="200">
+</p>
+
+This book has lots of classic examples for extra practice.
+
 ## Learning Experience
 - **Personal Insights**:  
     Beyond the excellent content and the significance of differential equations for my future studies, what truly made this course memorable was the incredible teaching team and my supportive classmates. They created an engaging and enjoyable learning environment that I will never forget. I’m deeply grateful to them for making this experience so special!
