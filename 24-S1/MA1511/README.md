@@ -42,7 +42,7 @@ I took this course in AY24/25 Sem 1 for my degree requirement.
 **Reference Book**: There is no specific textbook for this course. But based on my learning experience, I think the book *Calculus: Early Transcendentals, Metric Edition* by James Stewart is awesome! I love reading it since I was in NTU.
 
 <p align="center">
-  <img src="./images/MA1511_Referencebook.jpg" alt="LAF1201 Coursebook" width="200">
+  <img src="./images/MA1511_Referencebook.jpg" alt="MA1511 Coursebook" width="200">
 </p>
 
 ## Learning Experience

@@ -6,7 +6,7 @@
 - **Notes Structure**:
   **LAF1201-Notes**: This folder contains the notes (mainly vocabulary and grammar) when I study this course.
 
-I initially took this course to prepare for my Student Exchange Program (SEP). However, due to certain [reasons](https://ethz.ch/staffnet/en/news-and-events/internal-news/archive/2024/10/dual-use-and-sanctions-these-applications-require-security-screening.html), it seems I may not be able to participate in SEP in the second half of 2024. That said, learning a new language is always a valuable experience, so I don’t regret it—it's still worthwhile!
+I took this course in AY24/25 Sem 1. Initially, I took this course to prepare for my Student Exchange Program (SEP). However, due to certain [reasons](https://ethz.ch/staffnet/en/news-and-events/internal-news/archive/2024/10/dual-use-and-sanctions-these-applications-require-security-screening.html), it seems I may not be able to participate in SEP in the second half of 2024. That said, learning a new language is always a valuable experience, so I don’t regret it—it's still worthwhile!
 
 ## Course Content
 ### Overview of Topics Covered
@@ -32,7 +32,7 @@ The pdf file version can be found [here](./images/LAF1201_Coursebook.pdf).
 **Exercise Book**:
 
 <p align="center">
-  <img src="./images/LAF1201_Workbook.png" alt="LAF1201 Coursebook" width="200">
+  <img src="./images/LAF1201_Workbook.png" alt="LAF1201 Workbook" width="200">
 </p>
 
 The pdf file version can be found [here](./images/LAF1201_Workbook.pdf).

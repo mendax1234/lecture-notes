@@ -73,13 +73,13 @@ I took this course in AY24/25 Sem 1 for my degree requirement.
 **Textbook**: *Differential Equations for Engineers* by Wei-Chau Xie. This book has lots of classic examples for extra practice.
 
 <p align="center">
-  <img src="./images/MA1512_Textbook.jpg" alt="LAF1201 Coursebook" width="200">
+  <img src="./images/MA1512_Textbook.jpg" alt="MA1512 Coursebook" width="200">
 </p>
 
 **Reference book**: Since this course involves some physics problems, for these physics problems, I take this book as reference: *Physics for Scientists & Engineers* by Douglas C. Giancoli. This book is recommended by my physics prof in NTU!
 
 <p align="center">
-  <img src="./images/MA1512_Referencebook.jpg" alt="LAF1201 Coursebook" width="200">
+  <img src="./images/MA1512_Referencebook.jpg" alt="MA1512 Referencebook" width="200">
 </p>
 
 ## Learning Experience
