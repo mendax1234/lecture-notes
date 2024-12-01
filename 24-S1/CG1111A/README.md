@@ -35,24 +35,26 @@ I took this course in AY24/25 Sem 1 for my degree requirement.
 
 ## Teaching Style and Materials
 - **Lab**:
-  The lab sessions were undoubtedly the heart of this course. I feel incredibly lucky to have been taught by Prof. Nguyen Tien Khoa, who is not only extremely knowledgeable but also unbelievably kind. I will never forget how patiently he explained every one of my questions, making even the most complex concepts clear. And how can I not mention the heartfelt gesture of treating everyone to bubble tea during our last lab? That warmth and thoughtfulness truly left a lasting impression on me.  
+  The lab sessions were undoubtedly the heart of this course. I feel incredibly lucky to have been taught by Prof. Nguyen Tien Khoa, who is not only extremely knowledgeable but also unbelievably kind. I will never forget how patiently he explained every one of my questions, making even the most complex concepts clear. And how can I not mention his heartfelt gesture of treating everyone to bubble tea during our last lab? That warmth and thoughtfulness legit left a lasting impression on me.  
 
-  The three TAs were equally amazing—always kind, approachable, and ready to help whenever I had questions during experiments. Their support made the learning experience so much smoother and more enjoyable.  
+  The three TAs were equally amazing — always kind, approachable, and ready to help whenever I had questions during experiments. Their support made the learning experience so much smoother and more enjoyable.  
 
-  And of course, my classmates! Even though we’re all guys, I felt such a genuine sense of camaraderie and support throughout this journey. It’s been an unforgettable experience sharing this class with all of you.  
+  And of course, my classmates! Even though we’re all guys, I felt such a genuine sense of camaraderie and support throughout this journey. It’s been an unforgettable experience sharing this class with yall.  
 
-  This is what makes NUS CEG so special—a community that’s not just about learning but about growing together. I’m so grateful to be part of it. Let’s keep going forward together! LFG!!!
-- **Quiz**: The quizzes were fantastic! I could feel the excitement as I applied theory to real-world problems. Huge thanks to the CG1111A Teaching Team for crafting such engaging and rewarding challenges!
-- **Final Project**: The final project was the ultimate highlight of this course. Building the "a-maze-ing race" robot not only deepened our understanding of theoretical concepts but also let us experience the true beauty of engineering design firsthand!
+  This is what makes NUS CEG so special — a community that’s not just about learning but about growing together. I’m so grateful to be part of it. Let’s keep going forward together! LFG!!!
+- **Quiz**:  
+  The quizzes were fantastic! I could feel the excitement as I applied the theory I have learned to real-world problems. Huge thanks to the CG1111A Teaching Team for crafting such engaging and rewarding challenges!
+- **Final Project**:  
+  The final project was the ultimate highlight of this course. Building the "a-maze-ing race" robot not only deepened our understanding of theoretical concepts but also let us experience the true beauty of engineering design firsthand!
 ### Course Book
-**Textbook**: The textbook we use for this course is *Electrical Engineering: Principles and Applications* by Allen R. Hambley. This is a very famous introductory textbook for Electrical Engineering. I feel I learned a lot after reading this book! Strongly recommended to read!
+**Textbook**: The textbook we use for this course is *Electrical Engineering: Principles and Applications* by Allen R. Hambley. This is a very famous introductory textbook for Electrical Engineering. I feel that I have learned a lot after reading this book! Strongly recommended to read!
 
 <p align="center">
   <img src="./images/CG1111A_Coursebook.jpg" alt="CG1111A Coursebook" width="200">
 </p>
 
 ## Learning Experience
-My journey in this course has been nothing short of extraordinary. I didn’t just gain foundational knowledge in Electrical Engineering—I felt the incredible warmth of everyone around me. From the unwavering support of my Prof and TAs to the camaraderie of my classmates, every moment has been inspiring and unforgettable. I’m deeply moved by the knowledge, the people, and the passion that brought us all together. Thank you all for making this experience so meaningful! Let’s keep the fire burning!
+My journey in this course has been nothing short of extraordinary. I didn’t just gain foundational knowledge in Electrical Engineering — I felt the incredible warmth of everyone around me. From the unwavering support of my Prof and TAs to the camaraderie of my classmates, every moment has been inspiring and unforgettable. I’m deeply moved by the knowledge, the people, and the passion that brought us all together. Thank you all for making this experience so meaningful! LFG!
 
 ## Work Load and Time management
 - **Level of Difficulty**: **6/10**
@@ -60,4 +62,4 @@ My journey in this course has been nothing short of extraordinary. I didn’t ju
   I hope my notes will ease your workload and provide clarity on the concepts covered in this course. They are designed to help you grasp the material more effectively and approach the challenges with confidence.
 
 ## Conclusion
-This is the one of the best and warmest course I have taken in NUS till now! Love it so much!
+This is the one of the best and warmest courses I have taken in NUS till now! Love it so much!
