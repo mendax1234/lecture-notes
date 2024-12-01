@@ -26,11 +26,11 @@ I took this course in AY24/25 Sem 1 for my degree requirement.
 12. **Stidio 12**: Photoelectric Sensors
 
 ### Depth and Balance of Coverage
-- **Theoretical Understanding**: 
+- **Theoretical Understanding**:  
   As a CEG student, the introductory course in Electrical Engineering has truly exceeded my expectations! We began with the fundamentals of circuit analysis theorems and progressed to exploring significant real-world applications, such as operational amplifiers. It’s exciting and challenging! However, likely due to time constraints, the course cannot delve into every theoretical detail. Therefore, self-study remains an essential part of mastering the material.
 - **Application and real-world examples**:  
   This is hands-down one of the most thrilling parts of the course! You can *feel* the power of knowledge coming alive through the quizzes and the final project. This is what engineering is all about—taking the theories you've learned and transforming them into real-world applications. It’s electrifying, it’s impactful, and it’s pure awesomeness!
-- **Challenging or Unique Aspects**:
+- **Challenging or Unique Aspects**:  
   In this course, I’ll admit the most challenging parts for me were the op-amps and op-amp comparators. But thanks to the brilliant explanations from my amazing Prof Khoa, and the dedicated TAs, I feel like I’ve grasped the concepts! That said, if you dive deeper into the material through the textbook, the real challenge may shift toward understanding the underlying signals and the complex mathematics involved.
 
 ## Teaching Style and Materials
