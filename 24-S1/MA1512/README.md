@@ -70,13 +70,17 @@ I took this course in AY24/25 Sem 1 for my degree requirement.
     The assessment structure consists of 40% Continuous Assessment (CA) and 60% Final Exam. The final exam is the most challenging yet rewarding part of the course. This semester’s (AY24/25 Sem 1) paper was particularly well-designed, pushing us to think comprehensively and quickly, even though completing all the questions within the time limit was tough.
 
 ### Course Book
-**Textbook**: *Differential Equations for Engineers* by Wei-Chau Xie.
+**Textbook**: *Differential Equations for Engineers* by Wei-Chau Xie. This book has lots of classic examples for extra practice.
 
 <p align="center">
   <img src="./images/MA1512_Textbook.jpg" alt="LAF1201 Coursebook" width="200">
 </p>
 
-This book has lots of classic examples for extra practice.
+**Reference book**: Since this course involves some physics problems, for these physics problems, I take this book as reference: *Physics for Scientists & Engineers* by Douglas C. Giancoli. This book is recommended by my physics prof in NTU!
+
+<p align="center">
+  <img src="./images/MA1512_Referencebook.jpg" alt="LAF1201 Coursebook" width="200">
+</p>
 
 ## Learning Experience
 - **Personal Insights**:  
