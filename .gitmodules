@@ -28,3 +28,6 @@
 [submodule "24-S1/CG1111A/CG1111A-Notes"]
 	path = 24-S1/CG1111A/CG1111A-Notes
 	url = https://github.com/mendax1234/CG1111A-Notes.git
+[submodule "Self-Learning/Harvard-CS50/Harvard-CS50-Notes"]
+	path = Self-Learning/Harvard-CS50/Harvard-CS50-Notes
+	url = https://github.com/mendax1234/Harvard-CS50-Notes.git
