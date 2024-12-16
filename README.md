@@ -1,2 +1,3 @@
-# CVWO
-Wenbo's guide to ACE in CVWO 2025
+# Welcome
+
+Welcome to Wenbo's guide to ACE in NUS CVWO 2025.
