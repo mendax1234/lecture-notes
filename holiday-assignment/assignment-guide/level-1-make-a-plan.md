@@ -6,6 +6,26 @@
 This will be same as the _uses cases_ that you will need to include in your submission.
 {% endhint %}
 
+To make the design easier to implement at first, the web forum should be for **users** only at first. So, for the **users**, they can this web forum to:
+
+1. **Topics/Threads related**
+   1. Create a new topic
+   2. Post a reply to a new topic
+   3. Search for a certain topic
+   4. View topics that are categorized in tags, etc
+   5. Edit/Delete the user's own topic or reply
+   6. Bookmark a topic to receive any update or mute any update from this topic
+   7. React to others' topic/reply with emojis
+2. **User Profile related**
+   1. View and modify user's own profile (avatar, bio)
+   2. Receive badges if users achieve some goals (e.g. visit consecutively for 90 days)
+   3. Send/Receive personal messages to/from other users
+3. ...
+
+To visually view these user cases, I have drawn the graph below:
+
+<figure><picture><source srcset="../../.gitbook/assets/user-cases-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/user-cases-light.png" alt=""></picture><figcaption><p>User Cases</p></figcaption></figure>
+
 ## Overview of Tools
 
 As you have seen in [overview.md](../overview.md "mention"), the frontend should be written in either [React.js](https://reactjs.org/) or [Typescript](https://www.typescriptlang.org/) and the backend should be written in either [Go](https://golang.org/) or [Ruby on Rails](https://rubyonrails.org/), but must use a _relational database_.
