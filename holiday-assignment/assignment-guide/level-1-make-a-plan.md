@@ -22,8 +22,6 @@ To make the design easier to implement at first, the web forum should be for **u
    3. Send/Receive personal messages to/from other users
 3. ...
 
-To visually view these user cases, I have drawn the graph below:
-
 <figure><picture><source srcset="../../.gitbook/assets/user-cases-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/user-cases-light.png" alt=""></picture><figcaption><p>User Cases</p></figcaption></figure>
 
 ## Overview of Tools
