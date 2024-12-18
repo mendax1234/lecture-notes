@@ -1,6 +1,6 @@
 # Resources
 
-RESTful APIs
+## RESTful APIs
 
 Representational State Transfer, REST in short, is an architecture for networked applications. Being one of the simplest architectures to deploy, it is a popular choice for many web services. It is a client-server architecture where a client initiates a request to the server to be processed, and receives a response with updated data. The Application Programming Interface or API defines the specifications of this communication. In the context of this assignment, the server will be our Go or Ruby on Rails application, while the client will be our React application.
 
@@ -17,6 +17,10 @@ Relational databases are databases that store data **in tables**, each containin
 {% hint style="info" %}
 I would say this part is quite similar to CS50's Week 7 content about SQL. You can find more information at [Week 7 - SQL](https://app.gitbook.com/s/6nZ3LlEi4QjmAU8BqKIP/lec-sec-probset/week-7-sql "mention").
 {% endhint %}
+
+### Schema
+
+At the highest level, a database contains a _schema_. A _schema_ is a blueprint of your tables, containing their structures and relationships.
 
 ### SQL
 
