@@ -48,7 +48,7 @@ MVC stands for "**M**odel-**V**iew-**C**ontroller," which is a **software design
 
 #### What kind of data will your app need?
 
-Based on our [user cases](level-1-make-a-plan.md#user-requirements) shown above, The app will need to store and manage the following types of data:
+Based on our [user cases](level-1-make-a-plan.md#user-requirements) shown above, the app will need to store and manage the following types of data:
 
 1. **Topics/Threads Data:**
    * **Topic Details:** Topic ID, Title, Content, Category/Tags, Creation Date, Author ID, ...
@@ -63,6 +63,6 @@ Based on our [user cases](level-1-make-a-plan.md#user-requirements) shown above,
 
 #### How can you keep track of the data?
 
-To keep track of this data, a _relational database management system_ (I think for me it will be MySQL in this project) can be used, as it allows for structured storage and relationships between entities.
+To keep track of this data, we can use a _relational database management system_ (I think for me it will be MySQL in this project) can be used, as it allows for structured storage and relationships between entities.
 
 <figure><picture><source srcset="../../.gitbook/assets/ERD-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/ERD-light.png" alt=""></picture><figcaption><p>ERD Design</p></figcaption></figure>
