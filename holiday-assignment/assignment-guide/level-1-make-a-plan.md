@@ -1,6 +1,6 @@
 # Level 1 - Make a plan
 
-User requirements
+## User requirements
 
 {% hint style="info" %}
 This will be same as the _uses cases_ that you will need to include in your submission.
@@ -40,9 +40,9 @@ _Backend_ refers to the **server-side** of a website or application, encompassin
 
 MVC stands for "**M**odel-**V**iew-**C**ontroller," which is a **software design pattern** that separates the application's data logic (_Model_), user interface (_View_), and processing logic (_Controller_) into distinct components, allowing for **cleaner code, easier maintenance**, and better organization when building web applications.
 
-### [RESTful APIs](../resources.md#restful-apis)
+### [RESTful APIs](../resources/restful-apis.md)
 
-### [Relational Database](../resources.md#relational-database)
+### [Relational Database](../resources/relational-database.md)
 
 ## Data
 
