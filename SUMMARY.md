@@ -12,3 +12,4 @@
   * [RESTful APIs](holiday-assignment/resources/restful-apis.md)
   * [Relational Database](holiday-assignment/resources/relational-database.md)
   * [JavaScript](holiday-assignment/resources/javascript.md)
+  * [TypeScript](holiday-assignment/resources/typescript.md)

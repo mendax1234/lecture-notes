@@ -1,6 +1,6 @@
 # JavaScript
 
-> This part mainly contains the notes from the textbook: [Eloquent JavaScript](https://eloquentjavascript.net/).
+> This part mainly contains the notes from the textbook: [Eloquent JavaScript](https://eloquentjavascript.net/)
 
 JavaScript is a _scripting language_ used to create and control dynamic website content, e.g. you can interact directly without doing a page reload for every action.
 
@@ -236,5 +236,11 @@ console.log(Object.keys({x: 0, y: 0, z: 2}));
 // → ["x", "y", "z"]
 ```
 {% endcode %}
+
+## Learning Resources
+
+Besides this textbook, there are many other useful resources:
+
+* [JavaScript at the Mozilla Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide)
 
 [^1]: More precisely speaking, not "all". There is still a type called `BigInt`.
