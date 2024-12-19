@@ -1,6 +1,6 @@
 # Level 1 - Make a plan
 
-## User requirements
+User requirements
 
 {% hint style="info" %}
 This will be same as the _uses cases_ that you will need to include in your submission.
@@ -22,7 +22,7 @@ To make the design easier to implement at first, the web forum should be for **u
    3. Send/Receive personal messages to/from other users
 3. ...
 
-<figure><picture><source srcset="../../.gitbook/assets/user-cases-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/user-cases-light.png" alt=""></picture><figcaption><p>User Cases</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/user-cases-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/user-cases-light.png" alt=""></picture><figcaption><p>User cases</p></figcaption></figure>
 
 ## Overview of Tools
 
