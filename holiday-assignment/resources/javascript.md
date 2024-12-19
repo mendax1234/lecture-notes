@@ -149,8 +149,92 @@ const roundTo = (n, step) => {
 
 The arrow comes _after_ the list of parameters and is followed by the function’s body. It expresses something like “this input (the parameters) produces this result (the body)”.
 
-## Browser
+### Data Structures: Objects and Arrays
 
-## Node
+#### Arrays
+
+In JavaScript, we use the notation below to create an array
+
+{% code lineNumbers="true" %}
+```javascript
+let listOfNumbers = [2, 3, 5, 7, 11];
+console.log(listOfNumbers[2]);
+// → 5
+console.log(listOfNumbers[0]);
+// → 2
+console.log(listOfNumbers[2 - 1]);
+// → 3
+```
+{% endcode %}
+
+#### Properties
+
+Some examples are `myString.length`, which is to get the length of a string.
+
+{% hint style="info" %}
+Just like strings,  arrays have a `length` property that tells us how many elements the array has.
+{% endhint %}
+
+#### Methods
+
+Both string and array values contain, in addition to the `length` property, a number of properties that hold function values.
+
+{% code lineNumbers="true" %}
+```javascript
+let doh = "Doh";
+console.log(typeof doh.toUpperCase);
+// → function
+console.log(doh.toUpperCase());
+// → DOH
+```
+{% endcode %}
+
+Properties that contain functions are generally called _methods_ of the value they belong to, as in “`toUpperCase` is a method of a string”.
+
+#### Object
+
+Values of the type _object_ are arbitrary collections of properties. One way to create an object is by using braces as an expression.
+
+{% code lineNumbers="true" %}
+```javascript
+let day1 = {
+  squirrel: false,
+  events: ["work", "touched tree", "pizza", "running"]
+};
+console.log(day1.squirrel);
+// → false
+console.log(day1.wolf);
+// → undefined
+day1.wolf = false;
+console.log(day1.wolf);
+// → false
+```
+{% endcode %}
+
+The binary `in` operator, when applied to a string and an object, tells you whether that object has a property with that name.
+
+{% code lineNumbers="true" %}
+```javascript
+let anObject = {left: 1, right: 2};
+console.log(anObject.left);
+// → 1
+delete anObject.left;
+console.log(anObject.left);
+// → undefined
+console.log("left" in anObject);
+// → false
+console.log("right" in anObject);
+// → true
+```
+{% endcode %}
+
+To find out what properties an object has, you can use the `Object.keys` function. Give the function an object and it will return an array of strings—the object’s property names:
+
+{% code lineNumbers="true" %}
+```javascript
+console.log(Object.keys({x: 0, y: 0, z: 2}));
+// → ["x", "y", "z"]
+```
+{% endcode %}
 
 [^1]: More precisely speaking, not "all". There is still a type called `BigInt`.
