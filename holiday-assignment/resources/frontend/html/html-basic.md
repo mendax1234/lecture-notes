@@ -1,10 +1,10 @@
-# HTML
+# HTML Basic
+
+> This part is mainly from MDN [HTML Crash Course](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content). I found it pretty useful and suitable for beginners.
 
 HTML (**H**yper**T**ext **M**arkup **L**anguage) is the code that is used to structure a web page and its content. For example, content could be structured within a set of paragraphs, a list of bulleted points, or using images and data tables.
 
-## HTML Basic
-
-> This part is mainly from MDN [HTML Crash Course](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content). I found it pretty useful and suitable for beginners.
+## What is HTML?
 
 HTML is a _markup language_ that defines the structure of your content. HTML consists of a series of [**elements**](https://developer.mozilla.org/en-US/docs/Glossary/Element), which you use to enclose, or wrap, different parts of the content to make it appear a certain way, or act a certain way. The enclosing [tags](https://developer.mozilla.org/en-US/docs/Glossary/Tag) can make a word or image hyperlink to somewhere else, can italicize words, can make the font bigger or smaller, and so on. For example, take the following line of content:
 
@@ -18,11 +18,11 @@ If we wanted the line to stand by itself, we could specify that it is a paragrap
 <p>My cat is very grumpy</p>
 ```
 
-### Element <a href="#anatomy_of_an_html_element" id="anatomy_of_an_html_element"></a>
+## Element <a href="#anatomy_of_an_html_element" id="anatomy_of_an_html_element"></a>
 
 Let's explore this paragraph element a bit further.
 
-<figure><img src="../../../.gitbook/assets/html-element.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/html-element.png" alt=""><figcaption></figcaption></figure>
 
 The main parts of our element are as follows:
 
@@ -35,11 +35,11 @@ The main parts of our element are as follows:
 Note that here the element's name is `p`, which represents paragraph.&#x20;
 {% endhint %}
 
-### Attributes
+## Attributes
 
 Elements can also have attributes that look like the following:
 
-<figure><img src="../../../.gitbook/assets/html-element-with-attribute.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/html-element-with-attribute.png" alt=""><figcaption></figcaption></figure>
 
 Attributes contain extra information about the element that you don't want to appear in the actual content. Here, `class` is the attribute _name_ and `editor-note` is the attribute _value_. The `class` attribute allows you to give the element a non-unique identifier that can be used to target it (and any other elements with the same `class` value) with style information and other things. Some attributes have no value, such as [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/required).
 
@@ -49,7 +49,7 @@ Attributes that set a value always have:
 2. The attribute name followed by an equal sign.
 3. The attribute value wrapped by opening and closing quotation marks.
 
-### Void Elements
+## Void Elements
 
 Some elements have no content and are called [**void elements**](https://developer.mozilla.org/en-US/docs/Glossary/Void_element). Take the [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) element that we already have in our HTML page:
 
