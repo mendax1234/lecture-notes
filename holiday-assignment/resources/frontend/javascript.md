@@ -1,12 +1,12 @@
-# JavaScript Basic
+# JavaScript
+
+## JavaScript Basic
 
 > This part is mainly from [MDN's JavaScript Basics Crash Course](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity#language_basics_crash_course). I found it pretty useful and suitable for beginners in JavaScript.
 
-## What is JavaScript
-
 JavaScript is a powerful programming language that can add interactivity to a website. This happens in the behavior of responses when buttons are pressed or with data entry on forms, with dynamic styling, with animation, etc.
 
-## Variables
+### Variables
 
 [Variables](https://developer.mozilla.org/en-US/docs/Glossary/Variable) are containers that store values. Note that variables may hold values that have different [data types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures):
 
@@ -27,7 +27,7 @@ myVariable = "Steve";
 ```
 {% endcode %}
 
-## Comments
+### Comments
 
 Comments are snippets of text that can be added along with code. The browser ignores text marked as comments. You can write comments in JavaScript just as you can in C:
 
@@ -47,7 +47,7 @@ If your comment contains no line breaks, you can put it behind two slashes like 
 ```
 {% endcode %}
 
-## Operators
+### Operators
 
 An [`operator`](https://developer.mozilla.org/en-US/docs/Glossary/Operator) is a mathematical symbol that produces a result based on two values (or variables). In the following table, you can see some of the simplest operators, along with some examples to try in the JavaScript console.
 
@@ -63,7 +63,7 @@ An [`operator`](https://developer.mozilla.org/en-US/docs/Glossary/Operator) is a
 **Note:** Mixing data types can lead to some strange results when performing calculations. Be careful that you are referring to your variables correctly, and getting the results you expect. For example, enter `'35' + '25'` into your console. Why don't you get the result you expected? Because the quote marks turn the numbers into strings, so you've ended up concatenating strings rather than adding numbers. If you enter `35 + 25` you'll get the total of the two numbers.
 {% endhint %}
 
-## Conditionals
+### Conditionals
 
 Conditionals are code structures used to test if an expression returns true or not. A very common form of conditionals is the `if...else` statement. For example:
 
@@ -80,7 +80,7 @@ if (iceCream === "chocolate") {
 
 The expression inside the `if ()` is the test. This uses the strict equality operator (as described above) to compare the variable `iceCream` with the string `chocolate` to see if the two are equal. If this comparison returns `true`, the first block of code runs. If the comparison is not true, the second block of code—after the `else` keyword—runs instead.
 
-## Functions
+### Functions
 
 [Functions](https://developer.mozilla.org/en-US/docs/Glossary/Function) are a way of packaging functionality that you wish to reuse. It's possible to define a body of code as a function that executes when you call the function name in your code. This is a good alternative to repeatedly writing the same code. You have already seen some uses of functions. For example:
 
@@ -117,7 +117,7 @@ function multiply(num1, num2) {
 **Note:** The [`return`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/return) statement tells the browser to return the `result` variable out of the function so it is available to use. This is necessary because variables defined inside functions are only available inside those functions. This is called variable [scoping](https://developer.mozilla.org/en-US/docs/Glossary/Scope). (Read more about [variable scoping](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#variable_scope).)
 {% endhint %}
 
-## Events
+### Events
 
 Real interactivity on a website requires event handlers. These are code structures that listen for activity in the browser, and run code in response. The most obvious example is handling the [click event](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event), which is fired by the browser when you click on something with your mouse. To demonstrate this, enter the following into your console, then click on the current webpage:
 
