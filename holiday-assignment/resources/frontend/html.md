@@ -35,7 +35,7 @@ The main parts of our element are as follows:
 Note that here the element's name is `p`, which represents paragraph.&#x20;
 {% endhint %}
 
-### Elements with Attributes
+### Attributes
 
 Elements can also have attributes that look like the following:
 
