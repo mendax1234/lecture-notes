@@ -19,3 +19,4 @@
   * [Web Basic](holiday-assignment/resources/web-basic/README.md)
     * [How the web works](holiday-assignment/resources/web-basic/how-the-web-works.md)
     * [The web standards model](holiday-assignment/resources/web-basic/the-web-standards-model.md)
+    * [How browsers load websites](holiday-assignment/resources/web-basic/how-browsers-load-websites.md)
