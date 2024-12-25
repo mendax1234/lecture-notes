@@ -107,7 +107,7 @@ JavaScript is applied to your HTML page in a similar manner to CSS. Whereas CSS 
 
 ### Internal JavaScript
 
-The following is an example, and the final effect is [here](https://mdn.github.io/learning-area/javascript/introduction-to-js-1/what-is-js/apply-javascript-internal.html).
+This is to add the JavaScript code directly in your `index.html` in the `script` element, and the final effect is [here](https://mdn.github.io/learning-area/javascript/introduction-to-js-1/what-is-js/apply-javascript-internal.html).
 
 {% code title="index.html" lineNumbers="true" %}
 ```html
