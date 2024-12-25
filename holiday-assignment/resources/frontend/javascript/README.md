@@ -141,6 +141,14 @@ document.querySelector("html").addEventListener("click", () => {
 ```
 {% endcode %}
 
+## JavaScript Advanced
+
+JavaScript is a huge topic, with so many different features, styles, and techniques to learn, and so many APIs and tools built on top of it. The following courses focus mostly on the essentials of the core language, plus some key surrounding topics — learning these topics will give you a solid basis to work from.
+
+{% hint style="info" %}
+These courses are in the sub-directory.
+{% endhint %}
+
 ## Learning Resources
 
 Here are some useful resources I found when learning JavaScript Basics

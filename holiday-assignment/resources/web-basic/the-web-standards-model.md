@@ -53,7 +53,7 @@ There are a number of technologies to learn if you want to be a front-end web de
 
 ### HTML, CSS, and JavaScript
 
-[HTML](../frontend/html.md), [CSS,](../frontend/css.md) and [JavaScript](../frontend/javascript.md) are the main three technologies you'll use to build a website.
+[HTML](../frontend/html.md), [CSS,](../frontend/css.md) and [JavaScript](../frontend/javascript/) are the main three technologies you'll use to build a website.
 
 * HTML is for structure and semantics (meaning).
 * CSS is for styling and layout.
