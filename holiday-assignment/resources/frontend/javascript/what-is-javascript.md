@@ -6,7 +6,7 @@ JavaScript is a scripting or programming language that allows you to implement c
 
 <figure><img src="../../../../.gitbook/assets/three-layer-cake-anatomy.png" alt=""><figcaption></figcaption></figure>
 
-* [HTML](../html.md) is the markup language that we use to structure and give meaning to our web content, for example defining paragraphs, headings, and data tables, or embedding images and videos in the page.
+* [HTML](../html/) is the markup language that we use to structure and give meaning to our web content, for example defining paragraphs, headings, and data tables, or embedding images and videos in the page.
 * [CSS](../css.md) is a language of style rules that we use to apply styling to our HTML content, for example setting background colors and fonts, and laying out our content in multiple columns.
 * [JavaScript](./) is a scripting language that enables you to create dynamically updating content, control multimedia, animate images, and pretty much everything else. (Okay, not everything, but it is amazing what you can achieve with a few lines of JavaScript code.)
 
@@ -49,7 +49,7 @@ Here we'll actually start looking at some code, and while doing so, explore what
 
 Let's briefly recap the story of what happens when you load a web page in a browser (first talked about in our [What is CSS?](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/What_is_CSS#how_is_css_applied_to_html) article). When you load a web page in your browser, you are running your code (the HTML, CSS, and JavaScript) inside an execution environment (the browser tab). This is like a factory that takes in raw materials (the code) and outputs a product (the web page).
 
-<figure><img src="../../../../.gitbook/assets/load-website-process.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/web-load-website-process.png" alt=""><figcaption></figcaption></figure>
 
 A very common use of JavaScript is to dynamically modify HTML and CSS to update a user interface, via the Document Object Model API (as mentioned above).
 
