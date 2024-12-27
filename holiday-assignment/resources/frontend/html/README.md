@@ -183,11 +183,15 @@ To write an HTML comment, wrap it in the special markers `<!--` and `-->`. For e
 
 ## HTML Advanced
 
-For HTML elements reference, MDN has provided a very useful encyclopedia to do this.
+To quickly master HTML, you still need to know the following:
 
-{% embed url="https://developer.mozilla.org/en-US/docs/Web/HTML/Element" %}
-
-The following courses in the **sub-directory** will introduce some advanced usage of HTML.
+* **All HTML elements**: The basic founding stone of HTML. Fortunately, MDN has provided a quite detailed [HTML elements reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
+* **Document structure:** [structuring-documents.md](structuring-documents.md "mention")
+  * **Metadata:** [whats-in-the-head-webpage-metadata.md](whats-in-the-head-webpage-metadata.md "mention")
+  * **Main content:** How to structure the main content in your website
+    * [headings-and-paragraphs-in-html.md](headings-and-paragraphs-in-html.md "mention")
+    * [emphasis-and-importance.md](emphasis-and-importance.md "mention")
+    * [lists.md](lists.md "mention")
 
 ## Learning Resources
 
