@@ -16,6 +16,7 @@
       * [What's in the head? Webpage metadata](holiday-assignment/resources/frontend/html/whats-in-the-head-webpage-metadata.md)
       * [Headings and paragraphs in HTML](holiday-assignment/resources/frontend/html/headings-and-paragraphs-in-html.md)
       * [Emphasis and importance](holiday-assignment/resources/frontend/html/emphasis-and-importance.md)
+      * [Lists](holiday-assignment/resources/frontend/html/lists.md)
     * [CSS](holiday-assignment/resources/frontend/css.md)
     * [JavaScript](holiday-assignment/resources/frontend/javascript/README.md)
       * [What is JavaScript?](holiday-assignment/resources/frontend/javascript/what-is-javascript.md)
