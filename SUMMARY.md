@@ -22,6 +22,7 @@
     * [JavaScript](holiday-assignment/resources/frontend/javascript/README.md)
       * [What is JavaScript?](holiday-assignment/resources/frontend/javascript/what-is-javascript.md)
       * [A first splash into JavaScript](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/A_first_splash)
+      * [Variables](holiday-assignment/resources/frontend/javascript/variables.md)
     * [TypeScript](holiday-assignment/resources/frontend/typescript.md)
   * [Web Basic](holiday-assignment/resources/web-basic/README.md)
     * [How the web works](holiday-assignment/resources/web-basic/how-the-web-works.md)
