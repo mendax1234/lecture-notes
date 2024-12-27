@@ -135,6 +135,10 @@ In a similar way, we need to make sure we are using the correct elements, giving
 ```
 {% endcode %}
 
+{% hint style="info" %}
+The use of **semantic elements** is awesome! Here, `<h1>` is one of the many **semantic elements** in HTML. You will learn more in the later courses.
+{% endhint %}
+
 By default, the browser will give it a large font size to make it look like a heading (although you could style it to look like anything you wanted using CSS). More importantly, its semantic value will be used in multiple ways, for example by search engines and screen readers (as mentioned above).
 
 On the other hand, you could make any element _look_ like a top level heading. Consider the following:
@@ -148,3 +152,7 @@ On the other hand, you could make any element _look_ like a top level heading. C
 {% endcode %}
 
 This is a [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span) element. It has no semantics. You use it to wrap content when you want to apply CSS to it (or do something to it with JavaScript) without giving it any extra meaning. (You'll find out more about these later on in the course.) We've applied some CSS to it to make it look like a top level heading, but since it has no semantic value, it will not get any of the extra benefits described above. It is a good idea to use the relevant HTML element for the job.
+
+{% hint style="info" %}
+[The explanation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span) of the difference between `<span>` and `<div>` is pretty clear and awesome!
+{% endhint %}
