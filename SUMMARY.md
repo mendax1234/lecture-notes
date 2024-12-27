@@ -17,6 +17,7 @@
       * [Headings and paragraphs in HTML](holiday-assignment/resources/frontend/html/headings-and-paragraphs-in-html.md)
       * [Emphasis and importance](holiday-assignment/resources/frontend/html/emphasis-and-importance.md)
       * [Lists](holiday-assignment/resources/frontend/html/lists.md)
+      * [Structuring documents](holiday-assignment/resources/frontend/html/structuring-documents.md)
     * [CSS](holiday-assignment/resources/frontend/css.md)
     * [JavaScript](holiday-assignment/resources/frontend/javascript/README.md)
       * [What is JavaScript?](holiday-assignment/resources/frontend/javascript/what-is-javascript.md)

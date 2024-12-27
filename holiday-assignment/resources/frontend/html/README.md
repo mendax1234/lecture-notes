@@ -183,7 +183,11 @@ To write an HTML comment, wrap it in the special markers `<!--` and `-->`. For e
 
 ## HTML Advanced
 
-The following course in the **sub-directory** will introduce some advanced usage of HTML.
+For HTML elements reference, MDN has provided a very useful encyclopedia to do this.
+
+{% embed url="https://developer.mozilla.org/en-US/docs/Web/HTML/Element" %}
+
+The following courses in the **sub-directory** will introduce some advanced usage of HTML.
 
 ## Learning Resources
 
