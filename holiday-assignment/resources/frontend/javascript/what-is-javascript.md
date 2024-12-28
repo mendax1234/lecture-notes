@@ -211,4 +211,8 @@ As with HTML and CSS, it is possible to write comments into your JavaScript code
 
 So there you go, your first step into the world of JavaScript. We've begun with just theory, to start getting you used to why you'd use JavaScript and what kind of things you can do with it. Along the way, you saw a few code examples and learned how JavaScript fits in with the rest of the code on your website, amongst other things.
 
-JavaScript may seem a bit daunting right now, but don't worry — in this course, we will take you through it in simple steps that will make sense going forward. In the next article, we will plunge straight into the practical, getting you to jump straight in and build your own JavaScript examples.
+JavaScript may seem a bit daunting right now, but don't worry — in this course, we will take you through it in simple steps that will make sense going forward. But before we talk more about the technical details about JavaScript, let's look at a practical example to jump straight in and have a glimpse of the power of JavaScipt.
+
+The practical example is as follows:
+
+{% embed url="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/A_first_splash" %}
