@@ -166,12 +166,13 @@ The updated output is as follows:
 To quickly master CSS, you still need to know the following:
 
 * **All CSS Properties and their acceptable values**: This is the basic founding stone for CSS and fortunately, MDN has provided a quite detailed [CSS reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference).
-* [css-selectors.md](css-selectors.md "mention")
+* [CSS Selectors](css-selectors.md)
   * [**Basic CSS Selectors**](css-selectors.md#basic-css-selectors)
   * [**Attribute Selectors**](css-selectors.md#attribute-selectors)
   * [**Pseudo-class and Pseudo-element**](css-selectors.md#pseudo-classes-and-pseudo-elements)
-* **Combinators**
+* [**CSS Combinators**](css-combinators.md)
 
 ## Learning Resources
 
 * [CSS Crash Course](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Styling_the_content) by MDN
+* [CSS styling basics](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics) by MDN

@@ -20,6 +20,7 @@
       * [Structuring documents](holiday-assignment/resources/frontend/html/structuring-documents.md)
     * [CSS](holiday-assignment/resources/frontend/css/README.md)
       * [CSS Selectors](holiday-assignment/resources/frontend/css/css-selectors.md)
+      * [CSS Combinators](holiday-assignment/resources/frontend/css/css-combinators.md)
     * [JavaScript](holiday-assignment/resources/frontend/javascript/README.md)
       * [What is JavaScript?](holiday-assignment/resources/frontend/javascript/what-is-javascript.md)
       * [Variables](holiday-assignment/resources/frontend/javascript/variables.md)
