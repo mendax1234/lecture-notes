@@ -186,12 +186,13 @@ To write an HTML comment, wrap it in the special markers `<!--` and `-->`. For e
 To quickly master HTML, you still need to know the following:
 
 * **All HTML elements**: The basic founding stone of HTML. Fortunately, MDN has provided a quite detailed [HTML elements reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
-* **Document structure:** [structuring-documents.md](structuring-documents.md "mention")
-  * **Metadata:** [whats-in-the-head-webpage-metadata.md](whats-in-the-head-webpage-metadata.md "mention")
+* **Document page structure:**&#x20;
+  * **Metadata:** [webpage-metadata.md](webpage-metadata.md "mention")
   * **Main content:** How to structure the main content in your website
-    * [headings-and-paragraphs-in-html.md](headings-and-paragraphs-in-html.md "mention")
+    * [headings-and-paragraphs.md](headings-and-paragraphs.md "mention")
     * [emphasis-and-importance.md](emphasis-and-importance.md "mention")
     * [lists.md](lists.md "mention")
+  * **Other areas of your page**: [Header, nagivation menu, ...](structuring-documents.md)
 
 ## Learning Resources
 
