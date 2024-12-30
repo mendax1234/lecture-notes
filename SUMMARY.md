@@ -22,7 +22,7 @@
       * [CSS Selectors](holiday-assignment/resources/frontend/css/css-selectors.md)
       * [CSS Combinators](holiday-assignment/resources/frontend/css/css-combinators.md)
     * [JavaScript](holiday-assignment/resources/frontend/javascript/README.md)
-      * [What is JavaScript?](holiday-assignment/resources/frontend/javascript/what-is-javascript.md)
+      * [JavaScript Advanced Intro](holiday-assignment/resources/frontend/javascript/javascript-advanced-intro.md)
       * [Variables](holiday-assignment/resources/frontend/javascript/variables.md)
     * [TypeScript](holiday-assignment/resources/frontend/typescript.md)
   * [Web Basic](holiday-assignment/resources/web-basic/README.md)

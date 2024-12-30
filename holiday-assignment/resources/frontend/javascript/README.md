@@ -2,9 +2,9 @@
 
 ## JavaScript Basic
 
-> This part is mainly from [MDN's JavaScript Basics Crash Course](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity#language_basics_crash_course). I found it pretty useful and suitable for beginners in JavaScript.
+> This part is a brief intro to JavaScript as a programming language and most of its parts are from [MDN's JavaScript Basics Crash Course](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website/Adding_interactivity#language_basics_crash_course). I found it pretty useful and suitable for beginners in JavaScript.
 
-JavaScript is a powerful programming language that can add interactivity to a website. This happens in the behavior of responses when buttons are pressed or with data entry on forms, with dynamic styling, with animation, etc.
+JavaScript is a powerful **programming language** that can add interactivity to a website. This happens in the behavior of responses when buttons are pressed or with data entry on forms, with dynamic styling, with animation, etc.
 
 ### Variables
 
