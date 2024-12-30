@@ -20,7 +20,7 @@ p {
 
 Let's dissect the CSS code for red paragraph text to understand how it works:
 
-<figure><img src="../../../.gitbook/assets/css-ruleset.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/css-ruleset.png" alt=""><figcaption></figcaption></figure>
 
 The whole structure is called a **ruleset**. (The term _ruleset_ is often referred to as just _rule_.) Note the names of the individual parts:
 
@@ -79,7 +79,7 @@ There are many different types of selectors. The examples above use **element se
 
 Something you'll notice about CSS as you use it more: a lot of it is about boxes. This includes setting size, color, and position. Most HTML elements on your page can be thought of as boxes sitting on top of other boxes.
 
-<figure><img src="../../../.gitbook/assets/css-box-anatomy.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/css-box-anatomy.png" alt=""><figcaption></figcaption></figure>
 
 CSS layout is mostly based on the _box model._ Each box taking up space on your page has properties like:
 
@@ -87,7 +87,7 @@ CSS layout is mostly based on the _box model._ Each box taking up space on your 
 * `border`, the solid line that is just outside the padding.
 * `margin`, the space around the outside of the border.
 
-<figure><img src="../../../.gitbook/assets/css-box-model.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/css-box-model.png" alt=""><figcaption></figcaption></figure>
 
 ### How is CSS applied to HTML?
 
@@ -102,7 +102,7 @@ When a browser displays a document, it must combine the document's content with 
 
 The following diagram also offers a simple view of the process.
 
-<figure><img src="../../../.gitbook/assets/css-basic-load-website-diagram.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/css-basic-load-website-diagram.png" alt=""><figcaption></figcaption></figure>
 
 #### More on the DOM
 
@@ -140,7 +140,7 @@ P
 
 In the DOM, the node corresponding to our `<p>` element is a parent. Its children are a text node and the three nodes corresponding to our `<span>` elements. The `SPAN` nodes are also parents, with text nodes as their children. When the browser renders the above DOM tree, it will look like so:
 
-<figure><img src="../../../.gitbook/assets/css-basic-more-on-dom.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/css-basic-more-on-dom.png" alt=""><figcaption></figcaption></figure>
 
 #### Applying CSS to the DOM
 
@@ -159,13 +159,18 @@ In this case, the browser will first create a DOM tree, as in the previous secti
 
 The updated output is as follows:
 
-<figure><img src="../../../.gitbook/assets/css-basic-more-on-dom-css-updated.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/css-basic-more-on-dom-css-updated.png" alt=""><figcaption></figcaption></figure>
 
 ## CSS Advanced
 
 To quickly master CSS, you still need to know the following:
 
 * **All CSS Properties and their acceptable values**: This is the basic founding stone for CSS and fortunately, MDN has provided a quite detailed [CSS reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference).
+* [css-selectors.md](css-selectors.md "mention")
+  * [**Basic CSS Selectors**](css-selectors.md#basic-css-selectors)
+  * [**Attribute Selectors**](css-selectors.md#attribute-selectors)
+  * [**Pseudo-class and Pseudo-element**](css-selectors.md#pseudo-classes-and-pseudo-elements)
+* **Combinators**
 
 ## Learning Resources
 
