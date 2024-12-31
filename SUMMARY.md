@@ -27,6 +27,8 @@
         * [Numbers and operators](holiday-assignment/resources/frontend/javascript/variables/numbers-and-operators.md)
         * [Strings](holiday-assignment/resources/frontend/javascript/variables/strings.md)
         * [Arrays](holiday-assignment/resources/frontend/javascript/variables/arrays.md)
+      * [Program Flow](holiday-assignment/resources/frontend/javascript/program-flow/README.md)
+        * [Conditionals](holiday-assignment/resources/frontend/javascript/program-flow/conditionals.md)
     * [TypeScript](holiday-assignment/resources/frontend/typescript.md)
   * [Web Basic](holiday-assignment/resources/web-basic/README.md)
     * [How the web works](holiday-assignment/resources/web-basic/how-the-web-works.md)

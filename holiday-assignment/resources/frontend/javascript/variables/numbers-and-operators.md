@@ -113,3 +113,11 @@ Sometimes we will want to run `true/false` tests, then act accordingly depending
 {% hint style="info" %}
 You may see some people using `==` and `!=` in their tests for equality and non-equality. These are valid operators in JavaScript, but they differ from `===`/`!==`. The former versions test whether the **values are the same** but **not** whether the **values' datatypes are the same**. The latter, strict versions test **the equality of both the values and their datatypes**. **The strict versions tend to result in fewer errors, so we recommend you use them**.
 {% endhint %}
+
+### Logical operators
+
+Similar to many other programming languages, JS has **three** logical operators: `&&` (AND), `||` (OR) and `!` (NOT).
+
+* `&&` — AND; allows you to chain together two or more expressions so that **all of them** have to individually evaluate to `true` for the whole expression to return `true`.
+* `||` — OR; allows you to chain together two or more expressions so that **one or more of them** have to individually evaluate to `true` for the whole expression to return `true`.
+* `!` — NOT; allows you to **negate** an expression. `true` after negation will be `false`; `false` after negation will be `true`.
