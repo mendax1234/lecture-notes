@@ -143,11 +143,13 @@ document.querySelector("html").addEventListener("click", () => {
 
 ## JavaScript Advanced
 
-JavaScript is a huge topic, with so many different features, styles, and techniques to learn, and so many APIs and tools built on top of it. The following courses focus mostly on the essentials of the core language, plus some key surrounding topics — learning these topics will give you a solid basis to work from.
+To quickly master JavaScript if you already know one or several programming languages, like C, Java, below are some essential parts you may find useful!
 
-{% hint style="info" %}
-These courses are in the sub-directory.
-{% endhint %}
+* [javascript-advanced-intro.md](javascript-advanced-intro.md "mention"): A detailed introduction to the programming language JavaScript, including some language properties of JS, etc.
+* [**Variables**](./#variables)**:** The basic stuff you need to know when learning a new programming language
+  * [numbers-and-operators.md](variables/numbers-and-operators.md "mention")
+  * [strings.md](variables/strings.md "mention")
+  * [arrays.md](variables/arrays.md "mention")
 
 ## Learning Resources
 
