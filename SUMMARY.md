@@ -25,6 +25,7 @@
       * [JavaScript Advanced Intro](holiday-assignment/resources/frontend/javascript/javascript-advanced-intro.md)
       * [Variables](holiday-assignment/resources/frontend/javascript/variables/README.md)
         * [Numbers and operators](holiday-assignment/resources/frontend/javascript/variables/numbers-and-operators.md)
+        * [Strings](holiday-assignment/resources/frontend/javascript/variables/strings.md)
     * [TypeScript](holiday-assignment/resources/frontend/typescript.md)
   * [Web Basic](holiday-assignment/resources/web-basic/README.md)
     * [How the web works](holiday-assignment/resources/web-basic/how-the-web-works.md)
