@@ -12,7 +12,7 @@ One special thing about variables is that they can contain just about **anything
 We say variables contain values. This is an important distinction to make. **Variables aren't the values themselves**; they are **containers for values**. You can think of them being like little cardboard boxes that you can store things in.
 {% endhint %}
 
-<figure><img src="../../../../.gitbook/assets/js-advanced-variables-container.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/js-advanced-variables-container.png" alt=""><figcaption></figcaption></figure>
 
 ## Declaring a variable
 
