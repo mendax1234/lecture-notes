@@ -150,6 +150,9 @@ To quickly master JavaScript if you already know one or several programming lang
   * [numbers-and-operators.md](variables/numbers-and-operators.md "mention")
   * [strings.md](variables/strings.md "mention")
   * [arrays.md](variables/arrays.md "mention")
+* [program-flow](program-flow/ "mention")
+  * [conditionals.md](program-flow/conditionals.md "mention")
+  * [loops.md](program-flow/loops.md "mention")
 
 ## Learning Resources
 
