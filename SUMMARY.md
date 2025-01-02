@@ -32,6 +32,7 @@
         * [Loops](holiday-assignment/resources/frontend/javascript/program-flow/loops.md)
       * [Functions and events](holiday-assignment/resources/frontend/javascript/functions-and-events.md)
       * [JavaScript OOP features](holiday-assignment/resources/frontend/javascript/javascript-oop-features.md)
+      * [DOM scripting](holiday-assignment/resources/frontend/javascript/dom-scripting.md)
     * [TypeScript](holiday-assignment/resources/frontend/typescript.md)
   * [Web Basic](holiday-assignment/resources/web-basic/README.md)
     * [How the web works](holiday-assignment/resources/web-basic/how-the-web-works.md)
