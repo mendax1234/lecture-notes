@@ -1,4 +1,4 @@
-# JavaScript Advanced Intro
+# JS Advanced Intro
 
 ## A high-level definition
 
@@ -181,8 +181,8 @@ All the HTML on a page is loaded in the order in which it appears. If you are us
 
 There are a few different strategies to make sure your JavaScript only runs after the HTML is parsed:
 
-* In the [Internal JavaScript](javascript-advanced-intro.md#internal-javascript) example above, the script element is placed at the bottom of the body of the document, and therefore only run after the rest of the HTML body is parsed.
-* In the [External JavaScript](javascript-advanced-intro.md#external-javascript) example above, the script element is placed in the head of the document, before the HTML body is parsed. But because we're using `<script type="module">`, the code is treated as a [module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) and the browser waits for all HTML to be processed before executing JavaScript modules. (You could also place external scripts at the bottom of the body. But if there is a lot of HTML and the network is slow, it may take a lot of time before the browser can even start fetching and loading the script, so **placing external scripts in the head is usually better**.)
+* In the [Internal JavaScript](js-advanced-intro.md#internal-javascript) example above, the script element is placed at the bottom of the body of the document, and therefore only run after the rest of the HTML body is parsed.
+* In the [External JavaScript](js-advanced-intro.md#external-javascript) example above, the script element is placed in the head of the document, before the HTML body is parsed. But because we're using `<script type="module">`, the code is treated as a [module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) and the browser waits for all HTML to be processed before executing JavaScript modules. (You could also place external scripts at the bottom of the body. But if there is a lot of HTML and the network is slow, it may take a lot of time before the browser can even start fetching and loading the script, so **placing external scripts in the head is usually better**.)
 
 ## Comments
 

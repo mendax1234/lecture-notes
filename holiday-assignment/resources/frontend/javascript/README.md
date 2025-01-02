@@ -145,7 +145,7 @@ document.querySelector("html").addEventListener("click", () => {
 
 To quickly master JavaScript if you already know one or several programming languages, like C, Java, below are some essential parts you may find useful!
 
-* [javascript-advanced-intro.md](javascript-advanced-intro.md "mention"): A detailed introduction to the programming language JavaScript, including some language properties of JS, etc.
+* [js-advanced-intro.md](js-advanced-intro.md "mention"): A detailed introduction to the programming language JavaScript, including some language properties of JS, etc.
 * [**Variables**](./#variables)**:** The basic stuff you need to know when learning a new programming language
   * [numbers-and-operators.md](variables/numbers-and-operators.md "mention")
   * [strings.md](variables/strings.md "mention")
@@ -153,10 +153,10 @@ To quickly master JavaScript if you already know one or several programming lang
 * [program-flow](program-flow/ "mention"): Basically how you can make your program more complex.
   * [conditionals.md](program-flow/conditionals.md "mention")
   * [loops.md](program-flow/loops.md "mention")
-* [javascript-specific-features](javascript-specific-features/ "mention"): Some JS important and useful features
+* [js-specific-features](js-specific-features/ "mention"): Some JS important and useful features
   * [functions.md](functions.md "mention"): They are useful to make your code clean and websites more interactive.
-  * [javascript-oop-features.md](javascript-specific-features/javascript-oop-features.md "mention"): Introduce the basic OOP features used in JS, prettyt useful!
-  * [dom-scripting.md](javascript-specific-features/dom-scripting.md "mention"): This has been introduced a bit in [CSS](../css/#more-on-the-dom), but in JS, it is also very [important](javascript-specific-features/dom-scripting.md#so-why-is-dom-useful-when-we-learn-javascript)!
+  * [js-oop-features.md](js-specific-features/js-oop-features.md "mention"): Introduce the basic OOP features used in JS, prettyt useful!
+  * [dom-scripting.md](js-specific-features/dom-scripting.md "mention"): This has been introduced a bit in [CSS](../css/#more-on-the-dom), but in JS, it is also very [important](js-specific-features/dom-scripting.md#so-why-is-dom-useful-when-we-learn-javascript)!
 
 ## Learning Resources
 
