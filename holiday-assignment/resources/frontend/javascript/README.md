@@ -153,9 +153,10 @@ To quickly master JavaScript if you already know one or several programming lang
 * [program-flow](program-flow/ "mention"): Basically how you can make your program more complex.
   * [conditionals.md](program-flow/conditionals.md "mention")
   * [loops.md](program-flow/loops.md "mention")
-* [functions-and-events.md](functions-and-events.md "mention"): They are useful to make your code clean and websites more interactive.
-* [javascript-oop-features.md](javascript-oop-features.md "mention"): Introduce the basic OOP features used in JS, prettyt useful!
-* [dom-scripting.md](dom-scripting.md "mention"): This has been introduced a bit in [CSS](../css/#more-on-the-dom), but in JS, it is also very [important](dom-scripting.md#so-why-is-dom-useful-when-we-learn-javascript)!
+* [javascript-specific-features](javascript-specific-features/ "mention"): Some JS important and useful features
+  * [functions.md](functions.md "mention"): They are useful to make your code clean and websites more interactive.
+  * [javascript-oop-features.md](javascript-specific-features/javascript-oop-features.md "mention"): Introduce the basic OOP features used in JS, prettyt useful!
+  * [dom-scripting.md](javascript-specific-features/dom-scripting.md "mention"): This has been introduced a bit in [CSS](../css/#more-on-the-dom), but in JS, it is also very [important](javascript-specific-features/dom-scripting.md#so-why-is-dom-useful-when-we-learn-javascript)!
 
 ## Learning Resources
 

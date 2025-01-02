@@ -8,7 +8,7 @@ Web browsers are very complicated pieces of software with a lot of moving parts,
 
 Despite the limitations, Web APIs still give us access to a lot of functionality that enable us to do a great many things with web pages. There are a few really obvious bits you'll reference regularly in your code — consider the following diagram, which represents the main parts of a browser directly involved in viewing web pages:
 
-<figure><img src="../../../../.gitbook/assets/js-advanced-dom-script-web-browser-parts.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/js-advanced-dom-script-web-browser-parts.png" alt=""><figcaption></figcaption></figure>
 
 * The window is the browser tab that a web page is loaded into; this is represented in JavaScript by the [`Window`](https://developer.mozilla.org/en-US/docs/Web/API/Window) object. Using methods available on this object you can do things like return the window's size (see [`Window.innerWidth`](https://developer.mozilla.org/en-US/docs/Web/API/Window/innerWidth) and [`Window.innerHeight`](https://developer.mozilla.org/en-US/docs/Web/API/Window/innerHeight)), manipulate the document loaded into that window, store data specific to that document on the client-side (for example using a local database or other storage mechanism), attach an [event handler](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Events) to the current window, and more.
 * The navigator represents the state and identity of the browser (i.e. the user-agent) as it exists on the web. In JavaScript, this is represented by the [`Navigator`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator) object. You can use this object to retrieve things like the user's preferred language, a media stream from the user's webcam, etc.
@@ -18,7 +18,7 @@ In this article we'll focus mostly on manipulating the document, but we'll show 
 
 ## The document object model (DOM)
 
-Let's provide a brief recap on the Document Object Model (DOM), which we also looked at earlier in the course about [CSS](../css/#more-on-the-dom). The document currently loaded in each one of your browser tabs is represented by a DOM. This is a "tree structure" representation created by the browser that enables the HTML structure to be easily accessed by programming languages — for example the browser itself uses it to apply styling and other information to the correct elements as it renders a page, and developers like you can manipulate the DOM with JavaScript after the page has been rendered.
+Let's provide a brief recap on the Document Object Model (DOM), which we also looked at earlier in the course about [CSS](../../css/#more-on-the-dom). The document currently loaded in each one of your browser tabs is represented by a DOM. This is a "tree structure" representation created by the browser that enables the HTML structure to be easily accessed by programming languages — for example the browser itself uses it to apply styling and other information to the correct elements as it renders a page, and developers like you can manipulate the DOM with JavaScript after the page has been rendered.
 
 For example, using the HTML source code as follows:
 
@@ -47,7 +47,7 @@ For example, using the HTML source code as follows:
 
 The DOM on the other hand looks like this:
 
-<figure><img src="../../../../.gitbook/assets/js-advanced-dom-dom-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../../.gitbook/assets/js-advanced-dom-dom-example.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 This DOM tree diagram was created using Ian Hickson's [Live DOM viewer](https://software.hixie.ch/utilities/js/live-dom-viewer/).
