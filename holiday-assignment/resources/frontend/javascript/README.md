@@ -157,6 +157,7 @@ To quickly master JavaScript if you already know one or several programming lang
   * [functions.md](functions.md "mention"): They are useful to make your code clean and websites more interactive.
   * [js-oop-features.md](js-specific-features/js-oop-features.md "mention"): Introduce the basic OOP features used in JS, prettyt useful!
   * [dom-scripting.md](js-specific-features/dom-scripting.md "mention"): This has been introduced a bit in [CSS](../css/#more-on-the-dom), but in JS, it is also very [important](js-specific-features/dom-scripting.md#so-why-is-dom-useful-when-we-learn-javascript)!
+  * [make-network-request.md](js-specific-features/make-network-request.md "mention"): This is done by using the [Fetch API](js-specific-features/make-network-request.md#the-fetch-api).
 
 ## Learning Resources
 

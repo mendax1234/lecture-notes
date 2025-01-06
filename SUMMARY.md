@@ -35,6 +35,7 @@
         * [Events](holiday-assignment/resources/frontend/javascript/js-specific-features/events.md)
         * [JS OOP features](holiday-assignment/resources/frontend/javascript/js-specific-features/js-oop-features.md)
         * [DOM scripting](holiday-assignment/resources/frontend/javascript/js-specific-features/dom-scripting.md)
+        * [Make network request](holiday-assignment/resources/frontend/javascript/js-specific-features/make-network-request.md)
     * [TypeScript](holiday-assignment/resources/frontend/typescript.md)
   * [Web Basic](holiday-assignment/resources/web-basic/README.md)
     * [How the web works](holiday-assignment/resources/web-basic/how-the-web-works.md)
