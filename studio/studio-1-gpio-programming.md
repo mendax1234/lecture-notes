@@ -9,7 +9,7 @@ Bit masking is a technique used in programming and computer science to **focus o
 3. [#extract-certain-bits](studio-1-gpio-programming.md#extract-certain-bits "mention")
 4. [#check-certain-bits](studio-1-gpio-programming.md#check-certain-bits "mention")
 
-This technique is done by doing **bitwise logical operation** on the **source binary number `s`** using another **binary number** called **`mask`**. So, for the above three manipulations, the most important part should lie in:
+This technique is done by doing **bitwise logical operation** on the **source binary number** `storage` using another **binary number** called `mask`. So, for the above three manipulations, the most important part should lie in:
 
 1. which **logical bitwise operation** to use
 2. how to form our mask
