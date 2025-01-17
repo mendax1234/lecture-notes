@@ -231,13 +231,21 @@ Check if certain bits are what you want.
 
 void loop() {
     if ((storage & MASK) == bits) {
-        // ...
-    }
+        // After extracting, the bits are what you want
+        // Then do ...
+    } else {
+        // After extracting, the btis are not what you what
+        // Then do...
 }
 ```
 {% endcode %}
 
-Check if certain bits are what you **don't** want.
+In the code above, the conditions in the `else` structure may have the following two conditions:
+
+1. The [_extracted bits_](#user-content-fn-1)[^1] are **not al**l 0.
+2. The _extracted bits_ are all 0.
+
+For the second condition, we may want to do something else, so we can use the following code:
 
 ```arduino
 #define BIT3 (1 << 3)
@@ -257,3 +265,5 @@ void loop() {
 ```
 {% endstep %}
 {% endstepper %}
+
+[^1]: The result of `storage &= mask`.
