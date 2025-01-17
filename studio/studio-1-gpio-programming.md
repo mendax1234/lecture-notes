@@ -4,10 +4,10 @@
 
 Bit masking is a technique used in programming and computer science to **focus on and** **manipulate specific bits** in a **binary number**. In CG2111A, the manipulation includes:
 
-1. Set certain bits
-2. Clear certain bits
-3. Extract certain bits
-4. Check certain bits
+1. [#set-certain-bits](studio-1-gpio-programming.md#set-certain-bits "mention")
+2. [#clear-certain-bits](studio-1-gpio-programming.md#clear-certain-bits "mention")
+3. [#extract-certain-bits](studio-1-gpio-programming.md#extract-certain-bits "mention")
+4. [#check-certain-bits](studio-1-gpio-programming.md#check-certain-bits "mention")
 
 This technique is done by doing **bitwise logical operation** on the **source binary number `s`** using another **binary number** called **`mask`**. So, for the above three manipulations, the most important part should lie in:
 
