@@ -1,6 +1,6 @@
 # Studio 1 - GPIO Programming
 
-Bit masking
+## Bit masking
 
 Bit masking is a technique used in programming and computer science to **focus on and** **manipulate specific bits** in a **binary number**. In CG2111A, the manipulation includes:
 
@@ -456,7 +456,7 @@ Otherwise, if the pull-up resistor is there:
 
 #### Pull-down resistor
 
-Similarly, _Pull-Down resistors_ are simply fixed-value resistors connected **between the** `GND` **and the appropriate pin of a digital logic circuit**, which results in **pulling the input of the digital circuit to logic LOW** [in the absence of a driving signal.](#user-content-fn-4)[^4]
+Similarly, _Pull-Down resistors_ are simply fixed-value resistors connected **between the** `GND` **and the appropriate pin of a digital logic circuit**, which results in **pulling the input of the digital circuit to logic LOW** [in the absence of a driving signal.](#user-content-fn-3)[^3]
 
 <figure><img src="../.gitbook/assets/studio1-pull-down-resistor.png" alt="" width="247"><figcaption><p>Pull-Down resistor circuit</p></figcaption></figure>
 
@@ -499,5 +499,3 @@ Ths method is to move the position of the Pin to be above the switches to form t
 [^2]: **Bare metal programming** is a programming technique that allows programmers to write software that runs directly on a computer's hardware, without an operating system.
 
 [^3]: Here, the "driving signal" is the **switch**. So, "in the absence of a driving signal" means there is **no** switch.
-
-[^4]: Here, the "driving signal" is the **switch**. So, "in the absence of a driving signal" means there is **no** switch.
