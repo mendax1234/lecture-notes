@@ -97,11 +97,7 @@ Note that many register and bit references are presented in a generalized form: 
 
 #### Definition
 
-| Constant | Description                                                                                                                                                                                                                                                  |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| BOTTOM   | The counter reaches the BOTTOM when it becomes zero (`0x00` for 8-bit counters, or `0x0000` for 16-bit counters).                                                                                                                                            |
-| MAX      | The counter reaches its Maximum when it becomes `0xFF` (decimal 255, for 8-bit counters) or `0xFFFF` (decimal 65535, for 16-bit counters).                                                                                                                   |
-| TOP      | The counter reaches the TOP when it becomes equal to the **highest value in the count sequence**. The TOP value can be assigned to be the fixed value MAX or the value stored in the `OCR0A` Register. The assignment is dependent on the mode of operation. |
+<table><thead><tr><th width="100">Constant</th><th>Description</th></tr></thead><tbody><tr><td>BOTTOM</td><td>The counter reaches the BOTTOM when it becomes zero (<code>0x00</code> for 8-bit counters, or <code>0x0000</code> for 16-bit counters).</td></tr><tr><td>MAX</td><td>The counter reaches its Maximum when it becomes <code>0xFF</code> (decimal 255, for 8-bit counters) or <code>0xFFFF</code> (decimal 65535, for 16-bit counters).</td></tr><tr><td>TOP</td><td>The counter reaches the TOP when it becomes equal to the <strong>highest value in the count sequence</strong>. The TOP value can be assigned to be the fixed value MAX or the value stored in the <code>OCR0A</code> Register. The assignment is dependent on the mode of operation.</td></tr></tbody></table>
 
 ### Select Clock Source
 
