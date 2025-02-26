@@ -264,37 +264,14 @@ According to the two tables above, we need to configure `WGM[2:0]` bits in `TCCR
 
 We also need to set `COM0A[1:0]` to `0b10`. This will ensure that when `TCNT0` counts up from 0 to `OCR0A`, it **clears** the `OC0A` (which is our output pin) and **sets** it when `TCNT0` counts down from 255 to `OCR0A`.
 
-***
-
-Below is the whole code demo,
-
-{% code overflow="wrap" lineNumbers="true" %}
-```cpp
-void setup() {
-	TCNT0 = 0;
-	TCCR0A = 0b10000001; // Set OCOM0A to 10 and WGM to 01, Phase-Correct Mode and certain behavior in COMA
-	TIMSK0 |= 0b10; // Enable Int for Output Compare Match, OCFA Flag
-	OCR0A = 191; // This is used to change the duty cycle
-	TCCR0B = 0b00000011; // Set clk source to clk/64, this is used to change the frequency/period
-	//Set PORTD Pin 6 (Arduino Pin 6) as Output
-	DDRD |= PIN6;
-	sei();
-}
-```
-{% endcode %}
-
 ### Summary
 
 {% tabs %}
 {% tab title="Timer 0 (8-bit)" %}
-#### Register
+**Control Register A (TCCR0A)**
 
-1. **Control Register A (TCCR0A)**
-
-**Usage:**&#x20;
-
-* Select compare output mode in `COM0A/B[1:0]`. See [#compare-output-mode-timer-0](studio-4-pwm-programming.md#compare-output-mode-timer-0 "mention")
-* Set `WGM01` and `WGM00`. See [#wave-generation-mode-timer-0](studio-4-pwm-programming.md#wave-generation-mode-timer-0 "mention")
+1. Select compare output mode in `COM0A/B[1:0]`. See [#compare-output-mode-timer-0](studio-4-pwm-programming.md#compare-output-mode-timer-0 "mention")
+2. Set `WGM01` and `WGM00`. See [#wave-generation-mode-timer-0](studio-4-pwm-programming.md#wave-generation-mode-timer-0 "mention")
 
 {% hint style="info" %}
 COM0A for Output Pin `OC0A` and COM0B for Output Pint `OC0B`
@@ -302,38 +279,35 @@ COM0A for Output Pin `OC0A` and COM0B for Output Pint `OC0B`
 
 <figure><img src="../.gitbook/assets/studio4-tccr0a-register.png" alt=""><figcaption></figcaption></figure>
 
-2. **Control Register B (TCCR0B)**
+#### **Control Register B (TCCR0B)**
 
-Usage:
-
-* Set `WGM02`. See [#wave-generation-mode-timer-0](studio-4-pwm-programming.md#wave-generation-mode-timer-0 "mention")
-* Select clock source via `CS0[2:0]`.  See [#configure-clock-source-timer-0](studio-4-pwm-programming.md#configure-clock-source-timer-0 "mention")
+1. Set `WGM02`. See [#wave-generation-mode-timer-0](studio-4-pwm-programming.md#wave-generation-mode-timer-0 "mention")
+2. Select clock source via `CS0[2:0]`.  See [#configure-clock-source-timer-0](studio-4-pwm-programming.md#configure-clock-source-timer-0 "mention")
 
 <figure><img src="../.gitbook/assets/studio4-tccr0b-register.png" alt=""><figcaption></figcaption></figure>
 
-3. **Counter Register (TCNT0)**
+#### **Counter Register (TCNT0)**
 
 Nothing but an 8-bit register.
 
 <figure><img src="../.gitbook/assets/studio4-tcnt0-register.png" alt=""><figcaption></figcaption></figure>
 
-4. **Output Compare A (Duty Cycle, OCR0A)**
+#### **Output Compare A (Duty Cycle, OCR0A)**
 
 Nothing but an 8-bit register.
 
 <figure><img src="../.gitbook/assets/studio4-ocr0a-register.png" alt=""><figcaption></figcaption></figure>
 
-5. **Interrupt Mask Register (TIMSK0)**
+#### **Interrupt Mask Register (TIMSK0)**
 
-**Usage:**
-
-* Enable the Output Pin Interrupt (`OCIEA` for `OC0A` and `OCIEB` for `OC0B`)
+Enable the Output Pin Interrupt (`OCIEA` for `OC0A` and `OCIEB` for `OC0B`)
 
 <figure><img src="../.gitbook/assets/studio4-timsk0-resgiter.png" alt=""><figcaption></figcaption></figure>
 
-6. **Output Pin**
-   1. OC0A: PD6, Arduino Pin 6
-   2. OC0B: PD5, Arduino Pin 5
+#### **Output Pin**
+
+1. OC0A: PD6, Arduino Pin 6
+2. OC0B: PD5, Arduino Pin 5
 
 #### Compare Output Mode (Timer 0)
 
@@ -363,14 +337,12 @@ void setup() {
 }
 ```
 {% endcode %}
-
-
 {% endtab %}
 
 {% tab title="Timer 2 (8-bit)" %}
 Exactly the same as Timer 0, but change all the "0" with "2".
 
-**Output Pin**
+#### **Output Pin**
 
 1. `OC2A` (PB3, Arduino Pin 11)
 2. `OC2B` (PD3, Arduino Pin 3)
@@ -393,39 +365,39 @@ void setup() {
 {% endtab %}
 
 {% tab title="Timer 1 (16-bit)" %}
-#### Register
+#### **Control Register A (TCCR1A)**
 
-1. **Control Register A (TCCR1A)**
-
-**Usage:**&#x20;
-
-* Select compare output mode in `COM1A/B[1:0]`. See [#compare-output-mode-timer-1](studio-4-pwm-programming.md#compare-output-mode-timer-1 "mention")
-* Set `WGM11` and `WGM00`. See [#wave-generation-mode-timer-1](studio-4-pwm-programming.md#wave-generation-mode-timer-1 "mention")
+1. Select compare output mode in `COM1A/B[1:0]`. See [#compare-output-mode-timer-1](studio-4-pwm-programming.md#compare-output-mode-timer-1 "mention")
+2. Set `WGM11` and `WGM00`. See [#wave-generation-mode-timer-1](studio-4-pwm-programming.md#wave-generation-mode-timer-1 "mention")
 
 <figure><img src="../.gitbook/assets/studio4-tccr1a-register.png" alt=""><figcaption></figcaption></figure>
 
-2. **Control Register B (TCCR1B)**
+#### **Control Register B (TCCR1B)**
 
-**Usage:**
-
-* Set `WGM13` and `WGM12`. See [#wave-generation-mode-timer-1](studio-4-pwm-programming.md#wave-generation-mode-timer-1 "mention")
-* Select `CS1[2:0]`. See [#configure-clock-source-timer-1](studio-4-pwm-programming.md#configure-clock-source-timer-1 "mention")
+1. Set `WGM13` and `WGM12`. See [#wave-generation-mode-timer-1](studio-4-pwm-programming.md#wave-generation-mode-timer-1 "mention")
+2. Select `CS1[2:0]`. See [#configure-clock-source-timer-1](studio-4-pwm-programming.md#configure-clock-source-timer-1 "mention")
 
 <figure><img src="../.gitbook/assets/studio4-tccr1b-register.png" alt=""><figcaption></figcaption></figure>
 
-3. **Counter Register (**`TCNT1L` **and** `TCNT1H`**)**
-   1. `TCNT1L`: an 8-bit register for low byte
-   2. `TCNT1H`: an 8-bit register for high byte
-4. **Output Compare Register (**`OCR1AL` **and** `OCR1AH`**)**
-5. **Input Capture Register 1** (`ICR1L` and `ICR1H`)
-   1. This is to **customize the** $$\text{TOP}$$ value.
-6. **Interrupt Mask Register** (`TIMSK1`)
+#### **Counter Register (**`TCNT1L` **and** `TCNT1H`**)**
+
+1. `TCNT1L`: an 8-bit register for low byte
+2. `TCNT1H`: an 8-bit register for high byte
+
+#### **Output Compare Register (**`OCR1AL` **and** `OCR1AH`**)**
+
+#### **Input Capture Register 1** (`ICR1L` and `ICR1H`)
+
+This is to **customize the** $$\text{TOP}$$ value.
+
+#### **Interrupt Mask Register** (`TIMSK1`)
 
 <figure><img src="../.gitbook/assets/studio4-timsk1-register.png" alt=""><figcaption></figcaption></figure>
 
-7. **Output Pin**
-   1. `OC1A` (PB1, Arduino Pin 9)
-   2. `OC1B` (PB2, Arduino Pin 10)
+#### **Output Pin**
+
+1. `OC1A` (PB1, Arduino Pin 9)
+2. `OC1B` (PB2, Arduino Pin 10)
 
 #### Compare Output Mode (Timer 1)
 
