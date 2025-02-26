@@ -107,7 +107,7 @@ The <mark style="color:green;">green</mark> section in the figure about timer/co
 
 <figure><img src="../.gitbook/assets/studio4-tccr0b-register.png" alt=""><figcaption><p>TCCR0B Resgiter (P141)</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/studio4-clock-select-bit-description.png" alt=""><figcaption><p>Table 19.10: Clock Select Bit Description (P142)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio4-clock-select-bit-description-timer0.png" alt=""><figcaption><p>Table 19.10: Clock Select Bit Description (P142)</p></figcaption></figure>
 
 The clock source that you select is directly linked to the desired PWM frequency. The relationship between the clock source frequency and the prescaler is described by the following equation:
 
@@ -120,6 +120,7 @@ where
 1. $$f_{\text{OCnxPCPWM}}$$ refers to the frequency of the **P**hase-**C**orrect **PWM**.
 2. $$f_{\text{clk_I/O}}$$ is the clock frequency, in Arduino, it is 16MHz.
 3. $$N$$ represents the prescaler factor (1, 8, 64, 256 or 1024) that we can configuer from Clock Select bits `CS0[2:0]` in `TCCRnB`, see the Table 19.10 above.
+4. $$\text{TOP}$$ is the highest value the counter can reach, here we leave it as $$\text{MAX}$$, which is 255 in Timer 0 (8-bit).
 
 For setting a desired frequency of 490Hz, the equation will be
 
@@ -255,7 +256,7 @@ In the former mode, the PWM waveform starts with a **rising duty cycle before fa
 
 <figure><img src="../.gitbook/assets/studio4-tccr0a-register.png" alt=""><figcaption><p>TCCR0A Register (P138)</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/studio4-waveform-generation-mode.png" alt=""><figcaption><p>Waveform Generation Mode Bit Representation (P140)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio4-waveform-generation-mode-timer0.png" alt=""><figcaption><p>Waveform Generation Mode Bit Representation (P140)</p></figcaption></figure>
 
 According to the two tables above, we need to configure `WGM[2:0]` bits in `TCCR0A` register to configure the desired type of PWM. There are two Phase-Correct PWM modes. We will be using mode 1.
 
@@ -284,26 +285,98 @@ void setup() {
 
 ### Summary
 
-Here’s a table summarizing the registers and output pins for configuring Phase-Correct PWM on Timer 0, Timer 1, and Timer 2 on the ATmega328P:
-
-| **Feature**                        | **Timer 0 (8-bit)**         | **Timer 1 (16-bit)**                         | **Timer 2 (8-bit)**          |
-| ---------------------------------- | --------------------------- | -------------------------------------------- | ---------------------------- |
-| **Control Register A**             | `TCCR0A`                    | `TCCR1A`                                     | `TCCR2A`                     |
-| **Control Register B**             | `TCCR0B`                    | `TCCR1B`                                     | `TCCR2B`                     |
-| **Counter Register**               | `TCNT0`                     | `TCNT1`                                      | `TCNT2`                      |
-| **Output Compare A**               | `OCR0A` (Duty Cycle)        | `OCR1A` (Duty Cycle)                         | `OCR2A` (Duty Cycle)         |
-| **Output Compare B**               | `OCR0B` (Optional)          | `OCR1B` (Optional)                           | `OCR2B` (Optional)           |
-| **Interrupt Mask**                 | `TIMSK0` (e.g., OCIE0A)     | `TIMSK1` (e.g., OCIE1A)                      | `TIMSK2` (e.g., OCIE2A)      |
-| **Output Pin A**                   | `OC0A` (PD6, Arduino Pin 6) | `OC1A` (PB1, Arduino Pin 9)                  | `OC2A` (PB3, Arduino Pin 11) |
-| **Output Pin B**                   | `OC0B` (PD5, Arduino Pin 5) | `OC1B` (PB2, Arduino Pin 10)                 | `OC2B` (PD3, Arduino Pin 3)  |
-| **Clock Select Bits**              | `CS0[2:0]` (in `TCCR0B`)    | `CS1[2:0]` (in `TCCR1B`)                     | `CS2[2:0]` (in `TCCR2B`)     |
-| **Prescaler Options**              | 1, 8, 64, 256, 1024         | 1, 8, 64, 256, 1024                          | 1, 8, 32, 64, 128, 256, 1024 |
-| **WGM Bits for Phase-Correct PWM** | `WGM0[2:0]` = `001`         | `WGM1[3:0]` = `0001` or `1010` (with `ICR1`) | `WGM2[2:0]` = `001`          |
-
-And below is the demo setup code for Timer 2 (8-bit) and Timer 1 (16-bit)
-
 {% tabs %}
+{% tab title="Timer 0 (8-bit)" %}
+#### Register
+
+1. **Control Register A (TCCR0A)**
+
+**Usage:**&#x20;
+
+* Select compare output mode in `COM0A/B[1:0]`. See [#compare-output-mode-timer-0](studio-4-pwm-programming.md#compare-output-mode-timer-0 "mention")
+* Set `WGM01` and `WGM00`. See [#wave-generation-mode-timer-0](studio-4-pwm-programming.md#wave-generation-mode-timer-0 "mention")
+
+{% hint style="info" %}
+COM0A for Output Pin `OC0A` and COM0B for Output Pint `OC0B`
+{% endhint %}
+
+<figure><img src="../.gitbook/assets/studio4-tccr0a-register.png" alt=""><figcaption></figcaption></figure>
+
+2. **Control Register B (TCCR0B)**
+
+Usage:
+
+* Set `WGM02`. See [#wave-generation-mode-timer-0](studio-4-pwm-programming.md#wave-generation-mode-timer-0 "mention")
+* Select clock source via `CS0[2:0]`.  See [#configure-clock-source-timer-0](studio-4-pwm-programming.md#configure-clock-source-timer-0 "mention")
+
+<figure><img src="../.gitbook/assets/studio4-tccr0b-register.png" alt=""><figcaption></figcaption></figure>
+
+3. **Counter Register (TCNT0)**
+
+Nothing but an 8-bit register.
+
+<figure><img src="../.gitbook/assets/studio4-tcnt0-register.png" alt=""><figcaption></figcaption></figure>
+
+4. **Output Compare A (Duty Cycle, OCR0A)**
+
+Nothing but an 8-bit register.
+
+<figure><img src="../.gitbook/assets/studio4-ocr0a-register.png" alt=""><figcaption></figcaption></figure>
+
+5. **Interrupt Mask Register (TIMSK0)**
+
+**Usage:**
+
+* Enable the Output Pin Interrupt (`OCIEA` for `OC0A` and `OCIEB` for `OC0B`)
+
+<figure><img src="../.gitbook/assets/studio4-timsk0-resgiter.png" alt=""><figcaption></figcaption></figure>
+
+6. **Output Pin**
+   1. OC0A: PD6, Arduino Pin 6
+   2. OC0B: PD5, Arduino Pin 5
+
+#### Compare Output Mode (Timer 0)
+
+<figure><img src="../.gitbook/assets/studio4-compare-output-mode-phase-correct-pwm.png" alt=""><figcaption></figcaption></figure>
+
+#### Wave Generation Mode (Timer 0)
+
+<figure><img src="../.gitbook/assets/studio4-waveform-generation-mode-timer0.png" alt=""><figcaption></figcaption></figure>
+
+#### Configure Clock source (Timer 0)
+
+<figure><img src="../.gitbook/assets/studio4-clock-select-bit-description-timer0.png" alt=""><figcaption></figcaption></figure>
+
+#### Demo setup Code
+
+{% code overflow="wrap" lineNumbers="true" %}
+```cpp
+void setup() {
+	TCNT0 = 0;
+	TCCR0A = 0b10000001; // Set OCOM0A to 10 and WGM to 01, Phase-Correct Mode and certain behavior in COMA
+	TIMSK0 |= 0b10; // Enable Int for Output Compare Match, OCFA Flag
+	OCR0A = 191; // This is used to change the duty cycle
+	TCCR0B = 0b00000011; // Set clk source to clk/64, this is used to change the frequency/period
+	//Set PORTD Pin 6 (Arduino Pin 6) as Output
+	DDRD |= PIN6;
+	sei();
+}
+```
+{% endcode %}
+
+
+{% endtab %}
+
 {% tab title="Timer 2 (8-bit)" %}
+Exactly the same as Timer 0, but change all the "0" with "2".
+
+**Output Pin**
+
+1. `OC2A` (PB3, Arduino Pin 11)
+2. `OC2B` (PD3, Arduino Pin 3)
+
+#### Demo setup code
+
 {% code overflow="wrap" lineNumbers="true" %}
 ```cpp
 void setup() {
@@ -320,17 +393,69 @@ void setup() {
 {% endtab %}
 
 {% tab title="Timer 1 (16-bit)" %}
+#### Register
+
+1. **Control Register A (TCCR1A)**
+
+**Usage:**&#x20;
+
+* Select compare output mode in `COM1A/B[1:0]`. See [#compare-output-mode-timer-1](studio-4-pwm-programming.md#compare-output-mode-timer-1 "mention")
+* Set `WGM11` and `WGM00`. See [#wave-generation-mode-timer-1](studio-4-pwm-programming.md#wave-generation-mode-timer-1 "mention")
+
+<figure><img src="../.gitbook/assets/studio4-tccr1a-register.png" alt=""><figcaption></figcaption></figure>
+
+2. **Control Register B (TCCR1B)**
+
+**Usage:**
+
+* Set `WGM13` and `WGM12`. See [#wave-generation-mode-timer-1](studio-4-pwm-programming.md#wave-generation-mode-timer-1 "mention")
+* Select `CS1[2:0]`. See [#configure-clock-source-timer-1](studio-4-pwm-programming.md#configure-clock-source-timer-1 "mention")
+
+<figure><img src="../.gitbook/assets/studio4-tccr1b-register.png" alt=""><figcaption></figcaption></figure>
+
+3. **Counter Register (**`TCNT1L` **and** `TCNT1H`**)**
+   1. `TCNT1L`: an 8-bit register for low byte
+   2. `TCNT1H`: an 8-bit register for high byte
+4. **Output Compare Register (**`OCR1AL` **and** `OCR1AH`**)**
+5. **Input Capture Register 1** (`ICR1L` and `ICR1H`)
+   1. This is to **customize the** $$\text{TOP}$$ value.
+6. **Interrupt Mask Register** (`TIMSK1`)
+
+<figure><img src="../.gitbook/assets/studio4-timsk1-register.png" alt=""><figcaption></figcaption></figure>
+
+7. **Output Pin**
+   1. `OC1A` (PB1, Arduino Pin 9)
+   2. `OC1B` (PB2, Arduino Pin 10)
+
+#### Compare Output Mode (Timer 1)
+
+<figure><img src="../.gitbook/assets/studio4-compare-output-mode-pha-cor-timer1.png" alt=""><figcaption></figcaption></figure>
+
+#### Wave Generation Mode (Timer 1)
+
+<figure><img src="../.gitbook/assets/studio4-waveform-generation-mode-timer1.png" alt=""><figcaption></figcaption></figure>
+
+#### Configure Clock Source (Timer 1)
+
+<figure><img src="../.gitbook/assets/studio4-clock-select-bit-description-timer1.png" alt=""><figcaption></figcaption></figure>
+
+#### Demo setup code
+
 {% code overflow="wrap" lineNumbers="true" %}
 ```cpp
 void setup() {
-    TCNT1 = 0;                    // Initialize counter to 0
-    TCCR1A = 0b10000010;          // COM1A[1:0] = 10 (clear on up, set on down), WGM1[1:0] = 10 (Phase-Correct PWM with ICR1)
-    TCCR1B = 0b00010011;          // WGM1[3:2] = 10, CS1[2:0] = 011 (prescaler = 64)
-    TIMSK1 |= 0b10;               // Enable interrupt on OCR1A compare match (OCIE1A = 1)
-    ICR1 = 255;                   // Set TOP to 255 for frequency calculation (matches 8-bit timers)
-    OCR1A = 191;                  // Set 75% duty cycle (0.75 * 255 = 191)
-    DDRB |= (1 << PB1);           // Set PB1 (Arduino Pin 9, OC1A) as output
-    sei();                        // Enable global interrupts
+  // 1. Set PB1 (Pin 9 on Arduino) as output (OC1A it is)
+  DDRB |= (1 << PB1);
+
+  // 2. Set Phase Correct PWM mode with ICR1 as TOP
+  TCCR1A = 0b00000010; // ICR1 as TOP, Mode 10
+  TCCR1B = 0b00010010; // (1 << WGM13) | (1 << CS10) = 0b00010000 | 0b00000010 = 0b00010010
+
+  // 3. Set ICR1
+  ICR1 = 20000;
+
+  // 5. Enable Non-Inverting Mode on OC1A (PB1)
+  TCCR1A |= (1 << COM1A1);
 }
 ```
 {% endcode %}
@@ -369,6 +494,6 @@ The difference between row 3 and row 4 is:
   * Clears OC0B (goes LOW) when `TCNT0` matches `OCR0B` while counting down.
   * Waveform: Starts LOW, goes HIGH at the up-count match, and LOW again at the down-count match (negative pulse).
 
-Both maintain symmetry in Phase-Correct PWM, but COM0B\[1:0] = 0b10 produces a **positive** pulse, while COM0B\[1:0] = 0b11 produces an **inverted (negative) pulse**, affecting the duty cycle’s polarity.
+Both maintain symmetry in Phase-Correct PWM, but `COM0B[1:0]` = `0b10` produces a **positive** pulse, while `COM0B[1:0]` = `0b11` produces an **inverted (negative) pulse**, affecting the duty cycle’s polarity.
 {% endstep %}
 {% endstepper %}
