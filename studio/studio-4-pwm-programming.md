@@ -99,6 +99,10 @@ Note that many register and bit references are presented in a generalized form: 
 
 <table><thead><tr><th width="100">Constant</th><th>Description</th></tr></thead><tbody><tr><td>BOTTOM</td><td>The counter reaches the BOTTOM when it becomes zero (<code>0x00</code> for 8-bit counters, or <code>0x0000</code> for 16-bit counters).</td></tr><tr><td>MAX</td><td>The counter reaches its Maximum when it becomes <code>0xFF</code> (decimal 255, for 8-bit counters) or <code>0xFFFF</code> (decimal 65535, for 16-bit counters).</td></tr><tr><td>TOP</td><td>The counter reaches the TOP when it becomes equal to the <strong>highest value in the count sequence</strong>. The TOP value can be assigned to be the fixed value MAX or the value stored in the <code>OCR0A</code> Register. The assignment is dependent on the mode of operation.</td></tr></tbody></table>
 
+{% hint style="warning" %}
+In Phase-Correct Mode, when the counter counts fomr BOTTOM to TOP and from TOP to BOTTOM, this time is called the **period** of the PWM waveform.
+{% endhint %}
+
 ### Select Clock Source
 
 > This step is to setup to get the **frequency** of the PWM waveform we want.
@@ -132,7 +136,11 @@ From the equation above, the prescaler factor `N` is calculated to be approximat
 
 ### Setting Duty Cycle
 
-The **duty cycle** is determined by **configuring the Counter Unit** and the **Output Compare Unit**. The Counter Register `TCNTn` increments at the frequency configured in [Section above](studio-4-pwm-programming.md#select-clock-source). The value in the `TCNTn` register **is continuously compared with the value in the** `OCRnx` **register in the Output Compare Unit**. The output signal is set to HIGH if the value in `TCNTn` is **less than** the value in `OCRnx`. Consequently, the duration of the HIGH state corresponds to the desired duty cycle. Below is a detailed step-by-step illustration of the complete setup process:
+The **duty cycle** is determined by **configuring the Counter Unit** and the **Output Compare Unit**. The Counter Register `TCNTn` increments at the frequency configured in [Section above](studio-4-pwm-programming.md#select-clock-source). The value in the `TCNTn` register **is continuously compared with the value in the** `OCRnx` **register in the Output Compare Unit**.
+
+If you configure your compare output mode to be **non-inverting**. The output signal is set to HIGH if the value in `TCNTn` is **less than** the value in `OCRnx`. Consequently, the duration of the HIGH state corresponds to the desired duty cycle. Below is a detailed step-by-step illustration of the complete setup process:
+
+Otherwise, the behavior is the opposite.
 
 #### Counter Unit
 
@@ -250,7 +258,7 @@ Fast PWM allows higher frequencies. Phase-Correct PWM generates symmetric wavefo
 The `TCCRnx` register is used to configure PWM types and modes in the Atmega328. There are two PWM modes:
 
 1. one where the value in `OCR0x` is updated as the counter increments from BOTTOM to TOP, and&#x20;
-2. another where the value is updated as the counter decrements from TOP to BOTTOM.
+2. another where the value in `OCR0x` is updated as the counter decrements from TOP to BOTTOM.
 
 In the former mode, the PWM waveform starts with a **rising duty cycle before falling**, while in the latter mode, the PWM waveform starts with a **falling duty cycle before rising**.
 
