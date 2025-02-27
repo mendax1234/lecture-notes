@@ -25,15 +25,7 @@ Note the unit for **period** is **seconds**!
 
 The **Duty Cycle** represents the percentage of time the signal is HIGH (ON Time, a.k.a _pulse width_) **during a cycle**. The relationship between duty cycle and ON Time is characterized by the Equation below:
 
-$$
-\text{Duty Cycle(%)}=\frac{\text{On Time (s)}}{\text{Period (s)}}\times 100\%
-$$
-
 When observing a PWM signal closely, the ON and OFF states within a single period appear distinct and separate. However, as the PWM signal's frequency increases, it becomes more difficult to distinguish between these states, making the signal appear more continuous and averaged over time. A peripheral, such as a servo motor, interprets the PWM signal as an effective analog voltage between 0 V and VCC, depending on the duty cycle. The value of this average analog signal can be determined by the Duty Cycle in the PWM waveform:
-
-$$
-\text{Average Analog Signal (V)}=\text{Duty Cycle (%)} \times \text{Vcc (V)}
-$$
 
 ### PWM vs. DAC
 
@@ -81,87 +73,153 @@ This is also why we mentioned this sentence above because the role of **frequenc
 
 > However, as the PWM signal's frequency increases, it becomes more difficult to distinguish between these states, making the signal appear more continuous and averaged over time.&#x20;
 
-## Bare Metal Programming
-
-> Suppose in this section, we want to setup a Phase-Correct PWM waveform using Timer 0 (hence, the register number `n` = 0), with the duty cycle of 75% and a frequency of 490 Hz as an example.
-
-### Timer/Counter
+## Timer/Counter
 
 In ATmega328p, the core concept to generate a PWM waveform involves utilizing the 8-bit Timer/Counter to precisely control the duration of the signal’s high and low states, enabling us to achieve **the specified period** and **duty cycle** for the PWM waveform.
 
 <div align="center"><figure><img src="../.gitbook/assets/studio4-timer-counter-block-diagram.png" alt="" width="563"><figcaption><p>Timer/Counter Block Diagram (P126)</p></figcaption></figure></div>
 
 {% hint style="info" %}
-Note that many register and bit references are presented in a generalized form: `n` represents the register number, `x` = `A`, `B` denotes Unit `A` or `B`.
+Note that many register and bit references are presented in a generalized form: `n` represents the Timer/Counter number, `x` = `A`, `B` denotes Unit `A` or `B`.
 {% endhint %}
 
-#### Definition
+### Some Useful Terms
 
-<table><thead><tr><th width="100">Constant</th><th>Description</th></tr></thead><tbody><tr><td>BOTTOM</td><td>The counter reaches the BOTTOM when it becomes zero (<code>0x00</code> for 8-bit counters, or <code>0x0000</code> for 16-bit counters).</td></tr><tr><td>MAX</td><td>The counter reaches its Maximum when it becomes <code>0xFF</code> (decimal 255, for 8-bit counters) or <code>0xFFFF</code> (decimal 65535, for 16-bit counters).</td></tr><tr><td>TOP</td><td>The counter reaches the TOP when it becomes equal to the <strong>highest value in the count sequence</strong>. The TOP value can be assigned to be the fixed value MAX or the value stored in the <code>OCR0A</code> Register. The assignment is dependent on the mode of operation.</td></tr></tbody></table>
+<table><thead><tr><th width="79">Constant</th><th>Description</th></tr></thead><tbody><tr><td>BOTTOM</td><td>The counter reaches the BOTTOM when it becomes zero (<code>0x00</code> for 8-bit counters, or <code>0x0000</code> for 16-bit counters).</td></tr><tr><td>MAX</td><td>The counter reaches its Maximum when it becomes <code>0xFF</code> (decimal 255, for 8-bit counters) or <code>0xFFFF</code> (decimal 65535, for 16-bit counters).</td></tr><tr><td>TOP</td><td>The counter reaches the TOP when it becomes equal to the <strong>highest value in the count sequence</strong>. The TOP value can be assigned to be the fixed value MAX or the value stored in the <code>OCR0A</code> Register. The assignment is dependent on the mode of operation.</td></tr></tbody></table>
 
-{% hint style="warning" %}
-In Phase-Correct Mode, when the counter counts fomr BOTTOM to TOP and from TOP to BOTTOM, this time is called the **period** of the PWM waveform.
+### Timer/Counter Clock Sources
+
+The Timer/Counter can be clocked by an internal or an external clock source. The clock source is selected by writing to the Clock Select Bit (`CS0[2:0]`) bits in the `TCCRnB`.
+
+{% hint style="success" %}
+Selecting the clock source and prescaler **determines** the **frequency** of the timer/counter.
 {% endhint %}
 
-### Select Clock Source
+### Counter Unit
 
-> This step is to setup to get the **frequency** of the PWM waveform we want.
+The Counter Unit block diagram (Figure 1.3) is shown as follows for reference:
 
-The <mark style="color:green;">green</mark> section in the figure about timer/counter block diagram represents the clock source. The Timer/Counter can be driven by either an internal or external clock source. The clock source is selected by configuring the Clock Select bits `CS0[2:0]` in the Timer/Counter Control Register (`TCCRnB`), highlighted in the <mark style="color:yellow;">yellow</mark> section of same figure above.
+<figure><img src="../.gitbook/assets/studio4-counter-unit-block-diagram.png" alt="" width="563"><figcaption><p>Couter Unit Block Diagram (P127)</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/studio4-tccr0b-register.png" alt=""><figcaption><p>TCCR0B Resgiter (P141)</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/studio4-clock-select-bit-description-timer0.png" alt=""><figcaption><p>Table 19.10: Clock Select Bit Description (P142)</p></figcaption></figure>
 
-The clock source that you select is directly linked to the desired PWM frequency. The relationship between the clock source frequency and the prescaler is described by the following equation:
+Once the clock is set, the `TCNTn` register **increments at a certain frequency which is determined** [**above**](studio-4-pwm-programming.md#timer-counter-clock-sources).
+
+{% hint style="info" %}
+Initialize the counter value to 0 if you are generating a phase-correct PWM waveform.
+{% endhint %}
+
+### Output Compare Unit
+
+The Output Compare Unit block diagram is shown as follows,
+
+<figure><img src="../.gitbook/assets/studio4-output-compare-unit-block-diagram.png" alt="" width="375"><figcaption><p>Output Compare Unit Block Diagram (P129)</p></figcaption></figure>
+
+The comparator **continuously compares** `TCNTn` with the Output Compare Registers (`OCR0A` and `OCR0B`). Whenever `TCNTn` equals `OCR0A` or `OCR0B`, the **comparator signals a match**. A match will be used in **2** ways:
+
+1. it will be used to set the **Output Compare Flag** (`OCF0A` or `OCF0B`) at the next timer clock cycle. If the corresponding interrupt is [**enabled**](#user-content-fn-1)[^1], the Output Compare Flag generates an Output Compare interrupt.
+2. it will be used by the **Waveform Generator** to generate an output on the **Output Compare pins** (`OCnA` or `OCnB`) according to **operating mode** set by `WGMx[2:0]` and **Compare Output mode** (`COMnx[1:0]`)
+
+### Modes of Operation
+
+There are four modes of operation on for the timer/counter unit on ATmega328p, they are
+
+1. Normal mode (Not discussed)
+2. Clear Timer on Compare Match (CTC) Mode
+3. Fast PWM Mode (Not discussed for now)
+4. Phase Correct PWM Mode
+
+#### CTC Mode
+
+> This is **not** a **PWM** mod&#x65;**!**
+
+In CTC Mode, the counter is cleared to ZERO when the counter value (`TCNT0`) matches the `OCR0A`.  An example timing diagram for the CTC mode is shown below.
+
+<figure><img src="../.gitbook/assets/studio4-ctc-mode-timing-diagram.png" alt="" width="563"><figcaption><p>CTC Mode Timing Diagram (P132)</p></figcaption></figure>
+
+In this example, the **Compare Output Mode** of `OC0A`  is set to **toggle mode**, and it will toggle its logical level on each compare match.
+
+{% hint style="success" %}
+1. An interrupt can be generated each time the counter value reaches the **TOP** value by setting the `OCF0A` Flag. If the interrupt is enabled, the interrupt handler routine can be used for updating the **TOP** value.
+2. The `OCRnx` value is **always** updated **immediately!**
+{% endhint %}
+
+#### Phase Correct PWM Mode
+
+The Phase Correct PWM Mode is based on **dual-slope operation**: The counter counts repeatedly from BOTTOM to TOP, and then from TOP to BOTTOM. The **dual-slope opeartion** has a **lower maximum operation frequency** than **single-slope operation.** An example timing diagram for the Phase-Correct PWM Mode is shown below (The small horizontal line marks on the `TCNT0` slopes represent compare matches between `OCR0x` and `TCNT0`):
+
+<figure><img src="../.gitbook/assets/studio4-phase-correct-mode-timing-diagram.png" alt="" width="563"><figcaption><p>Phase Correct  Mode Timing Diagram (P132)</p></figcaption></figure>
+
+In this example, the **Compare Output Mode** of `OC0A` is set to either **inverting mode** (`COMnx[1:0]=0x10`) or **non-inverting mode** (`COMnx[1:0]=0x11`). The PWM waveform is generated by[^2]
+
+1. clearing (or setting) the `OC0x` Register at the compare match between `OCR0x` and `TCNT0` **when the counter increments**, and
+2. setting (or clearing) the `OC0x` Register at compare match between `OCR0x` and `TCNT0` **when the counter decrements**.
+
+{% hint style="success" %}
+1) The Timer/Counter Overflow Flag (TOV0) is set each time the counter reaches BOTTOM
+2) The `OCRnx` Update is **always** done at **TOP**!
+{% endhint %}
+
+At the very start of period 2 in the timing diagram above, `OC0x` has a transition from high to low even though there is no Compare Match. This transition serves to **guarantee** [**symmetry** around **BOTTOM**](#user-content-fn-3)[^3].&#x20;
+
+## Bare Metal Programming
+
+### Set Period
+
+The **period** of the PWM signal depends on 3 factors here:
+
+1. the frequency of the clock source (internal or external)
+2. the prescaler $$N$$
+3. the $$\text{TOP}$$ value
+
+***
+
+{% stepper %}
+{% step %}
+**Clock source**
+
+> This is done by setting `CSx[2:0]` in `TCCRnB` register.
+
+In CG2111A, at most times, we will use the **internal clock source,** whose frequency is denoted by $$\text{clk}_{\text{I/O}}$$ and the frequency value is $$16\text{Mhz}$$.
+{% endstep %}
+
+{% step %}
+**Prescaler**
+
+> This is done by setting `CSx[2:0]` in `TCCRnB` register also.
+
+The prescaler is used to **slow down** your clock source. For example, if your prescaler is $$N$$, then your timer/counter's frequency will become $$\frac{\text{clk}_{\text{I/O}}}{N}$$, meaning that your timer/counter will update by 1 in every $$\frac{N}{\text{clk}_{\text{I/O}}}$$ seconds.
+{% endstep %}
+
+{% step %}
+**TOP**
+
+> This is done by setting the `WGMn[2:0]` bits (`WGM[1:0]` are in `TCCR0A`, `WGM02` is in `TCCR0B`)
+
+The **TOP** value defines the maximum value the counter [**will** count to](#user-content-fn-4)[^4]. Why it affects the **period** of PWM?
+
+In Phase-Correct PWM Mode, the **period** of the PWM signal is equal to the time when the counter counts from **BOTTOM** to **TOP** and then from **TOP** to **BOTTOM**. Thus, the **period** will be
+
+$$
+T=\frac{N}{\text{clk}_{\text{I/O}}}\times 2\times \text{TOP}
+$$
+
+Since $$f=\frac{1}{T}$$, we will get the following formula for Phase-Correct PWM Mode from the ATmega328p data sheet
 
 $$
 f_{\text{OCnxPCPWM}}=\frac{f_{\text{clk_I/O}}}{\text{N}\cdot 2\cdot \text{TOP}}
 $$
 
-where
+where $$f_{\text{OCnxPCPWM}}$$ refers to the frequency of the **P**hase-**C**orrect **PWM**.
+{% endstep %}
+{% endstepper %}
 
-1. $$f_{\text{OCnxPCPWM}}$$ refers to the frequency of the **P**hase-**C**orrect **PWM**.
-2. $$f_{\text{clk_I/O}}$$ is the clock frequency, in Arduino, it is 16MHz.
-3. $$N$$ represents the prescaler factor (1, 8, 64, 256 or 1024) that we can configuer from Clock Select bits `CS0[2:0]` in `TCCRnB`, see the Table 19.10 above.
-4. $$\text{TOP}$$ is the highest value the counter can reach, here we leave it as $$\text{MAX}$$, which is 255 in Timer 0 (8-bit).
-
-For setting a desired frequency of 490Hz, the equation will be
-
-$$
-f_{\text{OCnxPCPWM}}=\frac{16\times 10^6\text{ (Hz)}}{\text{N}\cdot 2 \cdot 255}=490\text{ (Hz)}
-$$
-
-From the equation above, the prescaler factor `N` is calculated to be approximately 64.025. Since the prescaler must be a standard value, the closest available `N` is 64. Therefore, the value that needs to be set in the Clock Select bits `CS0[2:0]` in `TCCRnB` is `0b011`.
-
-### Setting Duty Cycle
-
-The **duty cycle** is determined by **configuring the Counter Unit** and the **Output Compare Unit**. The Counter Register `TCNTn` increments at the frequency configured in [Section above](studio-4-pwm-programming.md#select-clock-source). The value in the `TCNTn` register **is continuously compared with the value in the** `OCRnx` **register in the Output Compare Unit**.
-
-If you configure your compare output mode to be **non-inverting**. The output signal is set to HIGH if the value in `TCNTn` is **less than** the value in `OCRnx`. Consequently, the duration of the HIGH state corresponds to the desired duty cycle. Below is a detailed step-by-step illustration of the complete setup process:
-
-Otherwise, the behavior is the opposite.
-
-#### Counter Unit
-
-The <mark style="color:blue;">blue section</mark> in the figure above about timer block diagram represents the **Counter Unit**. Its equivalent block diagram (Figure 1.3) is shown below for reference:
-
-<figure><img src="../.gitbook/assets/studio4-counter-unit-block-diagram.png" alt=""><figcaption><p>Couter Unit Block Diagram (P127)</p></figcaption></figure>
-
-Once the clock is set, the `TCNTn` register **increments at a rate determined by the configured frequency**. For generating a phase-correct PWM, the initial value of the Counter Register `TCNT0` must be **set to 0** at the start of the timer. This guarantees that the timer begins counting from the correct baseline, enabling accurate waveform generation.
-
-#### Output Compare Unit
-
-> This is where you will set the **duty cycle** of your PWM waveform.
-
-The pink section in the figure above about timer block diagram represents the **Output Compare Unit**. Its equivalent block diagram is shown as follows,
-
-<figure><img src="../.gitbook/assets/studio4-output-compare-unit-block-diagram.png" alt="" width="375"><figcaption><p>Output Compare Unit Block Diagram (P129)</p></figcaption></figure>
+### Set Duty Cycle
 
 The **duty cycle** is determined by the value stored in the `OCRnA` register, based on the following formula.
 
 $$
-\text{Duty Cycle (%)}=\frac{\text{OCR0A}}{255}\times 100\%
+\text{Duty Cycle (%)}=\frac{\text{OCR0A}}{\text{TOP}}\times 100\%
 $$
 
 For generating the desired PWM waveform with 75% duty cycle, we have:
@@ -172,162 +230,97 @@ $$
 
 Thus, the value we want to write to `OCR0A` is 191.
 
-### Interrupts During PWM
+### Set Interrupts
 
 The timer can be configured to generate interrupts:
 
-1. **whenever there is an output compare match** or
-2. when `TCNT0` rolls over.
+1. **whenever there is an output compare match** (`OCFx` Interrupt Flag)
+2. timer overflow flag (`TOVn`), this depends on which PWM we are using.
 
-{% hint style="info" %}
-"TCNT0 roll over" means when the Timer/Counter 0 (TCNT0) register on the ATmega328P reaches its **maximum value** and resets back to zero. So, the roll over signals **the end of one full period**. That's why we have the following useful application. :smile:
-{% endhint %}
+All interrupt request signals are visible in the Timer Interrupt Flag Register (`TIFRn`). (We don't need to configure this register since the flag will be set automatically based on compare match and overflow)
 
-This is useful when **setting a new PWM duty cycle** at the end of the current PWM signal (a.k.a when `TCNT0` rolls over)
+<figure><img src="../.gitbook/assets/studio4-tifr0-register.png" alt="" width="563"><figcaption></figcaption></figure>
 
-***
+And all interrupts are individually **masked** with the Timer Interrupt Mask Register (`TIMSKn`). (We need to configure this register because this **mask** can enable or disable the three interrupt flags above)
 
-To enable the interrupts on Timer 0, we can use the `TIMSK0` register,
+<figure><img src="../.gitbook/assets/studio4-timsk0-resgiter.png" alt="" width="563"><figcaption><p>TIMSK0 register (P143)</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/studio4-timsk0-resgiter.png" alt=""><figcaption><p>TIMSK0 register (P143)</p></figcaption></figure>
+Here, we want to enable the `OCFA` output compare flag, which basically means when there is a output compare match between `TCNT0` and `OCR0A`. So, we will set `OCIEA` to 1. Thus, we should write `0b10` to `TIMSK0`.
 
-Since we are using the `OCR0A` in the previous step, here we will set `OCIEA` to 1. Thus, we should write `0b10` to `TIMSK0`.
+### Set Desired PWM Mode
 
-#### Set a new PWM duty cycle
+Here, we need to determine **2** modes:
 
-{% stepper %}
-{% step %}
-`TIMER0_COMPA_vect` **(Interrupt generated by output compare match)**
+1.  **Waveform Generation Mode** (`WGMn[2:0]`): these bits will control the following accroding to the Table 19-9 below
 
-This is what we do in our studio. But it is **not recommended**.
+    1. Timer/Counter [**Operating Mode**](studio-4-pwm-programming.md#modes-of-operation)
+    2. the **TOP** counter value
+    3. the time to update `OCRnx`
+    4. the time to set `TOV` Flag
 
-**What Happens**:
+    <figure><img src="../.gitbook/assets/studio4-waveform-generation-mode-timer0.png" alt="" width="563"><figcaption><p>Waveform Generation Mode Bit Representation (P140)</p></figcaption></figure>
 
-* The ISR fires when TCNT0 = OCR0A, which occurs **twice per cycle** (once counting up, once counting down). If you update OCR0A here, the change could affect the waveform mid-cycle:
-  * Updating on the up-count match might alter the LOW duration of the current cycle.
-  * Updating on the down-count match might affect the HIGH duration of the ongoing cycle.
-* This could lead to an inconsistent or glitchy output, as the timer is still in the middle of generating the current waveform.
 
-**Why It’s Less Ideal**: Mid-cycle updates can cause abrupt changes in the output pin’s state, especially if the new OCR0A value differs significantly from the old one.
-{% endstep %}
+2.  **Compare Output Mode** (`COMnx[1:0]`): These bits will control the **Output Compare Pin** (`OCnx`) behavior. (Below is an example if we use Phase Correct PWM Mode)
 
-{% step %}
-`TIMER0_OVF_vect` **(Interrupt generated by timer/counter rolls over)**
-
-This is not done during the studio. But it's **recommended**.
-
-**Why It’s Ideal**:
-
-* The roll over marks the end of one full PWM period and the beginning of the next. Updating OCR0A here ensures the new duty cycle takes effect cleanly at the start of the next cycle, avoiding mid-cycle glitches.
-* In Phase-Correct PWM, the waveform is symmetric, and the roll over (at BOTTOM, after counting down) is a natural boundary between cycles.
-
-**Behavior**: If you change OCR0A right after TCNT0 resets to 0, the new duty cycle applies **consistently** across the entire next up-and-down count.
-
-{% code title="Code-demo.ino" overflow="wrap" lineNumbers="true" %}
-```cpp
-void setup() {
-    TCNT0 = 0;
-    TCCR0A = 0b10000001;      // Phase-Correct PWM, COM0A = 10
-    TIMSK0 |= 0b01;           // Enable overflow interrupt (TOIE0 = 1), not compare match
-    OCR0A = 191;              // Initial 75% duty cycle
-    TCCR0B = 0b00000011;      // Prescaler = 64
-    DDRD |= (1 << PD6);       // PD6 (OC0A) as output
-    sei();
-}
-
-// ISR for overflow (roll over)
-ISR(TIMER0_OVF_vect) {
-    OCR0A = new_duty_cycle;   // Update duty cycle here (e.g., new_duty_cycle = 191 or another value)
-}
-```
-{% endcode %}
-{% endstep %}
-{% endstepper %}
-
-### Selected Desired PWM Mode
-
-There are two PWM types in Atmega328:
-
-1. Fast PWM
-2. Phase-Correct PWM.
-
-Fast PWM allows higher frequencies. Phase-Correct PWM generates symmetric waveforms, which have better resolution at the expense of maximum frequency. Because the Phase-Correct PWM is more suitable for motors, in CG2111A, **we will only use Phase-Correct PWM**.
-
-***
-
-The `TCCRnx` register is used to configure PWM types and modes in the Atmega328. There are two PWM modes:
-
-1. one where the value in `OCR0x` is updated as the counter increments from BOTTOM to TOP, and&#x20;
-2. another where the value in `OCR0x` is updated as the counter decrements from TOP to BOTTOM.
-
-In the former mode, the PWM waveform starts with a **rising duty cycle before falling**, while in the latter mode, the PWM waveform starts with a **falling duty cycle before rising**.
-
-<figure><img src="../.gitbook/assets/studio4-tccr0a-register.png" alt=""><figcaption><p>TCCR0A Register (P138)</p></figcaption></figure>
-
-<figure><img src="../.gitbook/assets/studio4-waveform-generation-mode-timer0.png" alt=""><figcaption><p>Waveform Generation Mode Bit Representation (P140)</p></figcaption></figure>
-
-According to the two tables above, we need to configure `WGM[2:0]` bits in `TCCR0A` register to configure the desired type of PWM. There are two Phase-Correct PWM modes. We will be using mode 1.
-
-<figure><img src="../.gitbook/assets/studio4-compare-output-mode-phase-correct-pwm.png" alt=""><figcaption><p>Compare Output Mode, Phase Correct PWM Mode (P140)</p></figcaption></figure>
-
-We also need to set `COM0A[1:0]` to `0b10`. This will ensure that when `TCNT0` counts up from 0 to `OCR0A`, it **clears** the `OC0A` (which is our output pin) and **sets** it when `TCNT0` counts down from 255 to `OCR0A`.
+    <figure><img src="../.gitbook/assets/studio4-compare-output-mode-phase-correct-pwm.png" alt="" width="563"><figcaption><p>Compare Output Mode, Phase Correct PWM Mode (P140)</p></figcaption></figure>
 
 ### Summary
 
 {% tabs %}
 {% tab title="Timer 0 (8-bit)" %}
-**Control Register A (TCCR0A)**
+#### **Control Register A (**`TCCR0A`**)**
 
-1. Select compare output mode in `COM0A/B[1:0]`. See [#compare-output-mode-timer-0](studio-4-pwm-programming.md#compare-output-mode-timer-0 "mention")
+1. Select Compare Output Mode in `COM0A/B[1:0]`. See [#compare-output-mode-timer-0](studio-4-pwm-programming.md#compare-output-mode-timer-0 "mention")
 2. Set `WGM01` and `WGM00`. See [#wave-generation-mode-timer-0](studio-4-pwm-programming.md#wave-generation-mode-timer-0 "mention")
 
 {% hint style="info" %}
 COM0A for Output Pin `OC0A` and COM0B for Output Pint `OC0B`
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/studio4-tccr0a-register.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio4-tccr0a-register.png" alt="" width="563"><figcaption></figcaption></figure>
 
-#### **Control Register B (TCCR0B)**
+#### **Control Register B (`TCCR0B`)**
 
 1. Set `WGM02`. See [#wave-generation-mode-timer-0](studio-4-pwm-programming.md#wave-generation-mode-timer-0 "mention")
 2. Select clock source via `CS0[2:0]`.  See [#configure-clock-source-timer-0](studio-4-pwm-programming.md#configure-clock-source-timer-0 "mention")
 
-<figure><img src="../.gitbook/assets/studio4-tccr0b-register.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio4-tccr0b-register.png" alt="" width="563"><figcaption></figcaption></figure>
 
-#### **Counter Register (TCNT0)**
-
-Nothing but an 8-bit register.
-
-<figure><img src="../.gitbook/assets/studio4-tcnt0-register.png" alt=""><figcaption></figcaption></figure>
-
-#### **Output Compare A (Duty Cycle, OCR0A)**
+#### **Counter Register (`TCNT0`)**
 
 Nothing but an 8-bit register.
 
-<figure><img src="../.gitbook/assets/studio4-ocr0a-register.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio4-tcnt0-register.png" alt="" width="563"><figcaption></figcaption></figure>
 
-#### **Interrupt Mask Register (TIMSK0)**
+#### **Output Compare A (Duty Cycle, `OCR0A`)**
+
+Nothing but an 8-bit register.
+
+<figure><img src="../.gitbook/assets/studio4-ocr0a-register.png" alt="" width="563"><figcaption></figcaption></figure>
+
+#### **Interrupt Mask Register (`TIMSK0`)**
 
 Enable the Output Pin Interrupt (`OCIEA` for `OC0A` and `OCIEB` for `OC0B`)
 
-<figure><img src="../.gitbook/assets/studio4-timsk0-resgiter.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio4-timsk0-resgiter.png" alt="" width="563"><figcaption></figcaption></figure>
 
 #### **Output Pin**
 
-1. OC0A: PD6, Arduino Pin 6
-2. OC0B: PD5, Arduino Pin 5
+1. `OC0A`: PD6, Arduino Pin 6
+2. `OC0B`: PD5, Arduino Pin 5
 
 #### Compare Output Mode (Timer 0)
 
-<figure><img src="../.gitbook/assets/studio4-compare-output-mode-phase-correct-pwm.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio4-compare-output-mode-phase-correct-pwm.png" alt="" width="563"><figcaption></figcaption></figure>
 
 #### Wave Generation Mode (Timer 0)
 
-<figure><img src="../.gitbook/assets/studio4-waveform-generation-mode-timer0.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio4-waveform-generation-mode-timer0.png" alt="" width="563"><figcaption></figcaption></figure>
 
 #### Configure Clock source (Timer 0)
 
-<figure><img src="../.gitbook/assets/studio4-clock-select-bit-description-timer0.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio4-clock-select-bit-description-timer0.png" alt="" width="563"><figcaption></figcaption></figure>
 
 #### Demo setup Code
 
@@ -373,19 +366,19 @@ void setup() {
 {% endtab %}
 
 {% tab title="Timer 1 (16-bit)" %}
-#### **Control Register A (TCCR1A)**
+#### **Control Register A (`TCCR1A`)**
 
 1. Select compare output mode in `COM1A/B[1:0]`. See [#compare-output-mode-timer-1](studio-4-pwm-programming.md#compare-output-mode-timer-1 "mention")
 2. Set `WGM11` and `WGM00`. See [#wave-generation-mode-timer-1](studio-4-pwm-programming.md#wave-generation-mode-timer-1 "mention")
 
-<figure><img src="../.gitbook/assets/studio4-tccr1a-register.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio4-tccr1a-register.png" alt="" width="563"><figcaption></figcaption></figure>
 
-#### **Control Register B (TCCR1B)**
+#### **Control Register B (`TCCR1B`)**
 
 1. Set `WGM13` and `WGM12`. See [#wave-generation-mode-timer-1](studio-4-pwm-programming.md#wave-generation-mode-timer-1 "mention")
 2. Select `CS1[2:0]`. See [#configure-clock-source-timer-1](studio-4-pwm-programming.md#configure-clock-source-timer-1 "mention")
 
-<figure><img src="../.gitbook/assets/studio4-tccr1b-register.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio4-tccr1b-register.png" alt="" width="563"><figcaption></figcaption></figure>
 
 #### **Counter Register (**`TCNT1L` **and** `TCNT1H`**)**
 
@@ -400,7 +393,7 @@ This is to **customize the** $$\text{TOP}$$ value.
 
 #### **Interrupt Mask Register** (`TIMSK1`)
 
-<figure><img src="../.gitbook/assets/studio4-timsk1-register.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio4-timsk1-register.png" alt="" width="563"><figcaption></figcaption></figure>
 
 #### **Output Pin**
 
@@ -409,15 +402,15 @@ This is to **customize the** $$\text{TOP}$$ value.
 
 #### Compare Output Mode (Timer 1)
 
-<figure><img src="../.gitbook/assets/studio4-compare-output-mode-pha-cor-timer1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio4-compare-output-mode-pha-cor-timer1.png" alt="" width="563"><figcaption></figcaption></figure>
 
 #### Wave Generation Mode (Timer 1)
 
-<figure><img src="../.gitbook/assets/studio4-waveform-generation-mode-timer1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio4-waveform-generation-mode-timer1.png" alt="" width="563"><figcaption></figcaption></figure>
 
 #### Configure Clock Source (Timer 1)
 
-<figure><img src="../.gitbook/assets/studio4-clock-select-bit-description-timer1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio4-clock-select-bit-description-timer1.png" alt="" width="563"><figcaption></figcaption></figure>
 
 #### Demo setup code
 
@@ -442,38 +435,10 @@ void setup() {
 {% endtab %}
 {% endtabs %}
 
-## Tips
+[^1]: via Timer Interrupt Mask Register `TIMSKx`.
 
-{% stepper %}
-{% step %}
-**Interrupts during PWM**
+[^2]: the words inside "()" represents the inverting mode
 
-In this studio, the ISR is triggerred by:
+[^3]: This means that we should see kind of symmetry of the signal around the **BOTTOM**. So, you think about it. If at the start of period 2, there is no such transition, we won't the the symmetry at the BOTTOM in period 2.
 
-* **whenever there is an output compare match** or
-* when `TCNT0` rolls over.
-
-And the only thing we need to do is to **set a new duty cycle** if we want. If we want to remain the original duty cycle, then we don't need to do anything in the ISR.
-{% endstep %}
-
-{% step %}
-**Compare Output Mode (up-counting and down-counting)**
-
-In the phase correct compare output mode,
-
-<figure><img src="../.gitbook/assets/studio4-compare-output-mode-phase-correct-pwm.png" alt=""><figcaption><p>Compare Output Mode, Phase Correct PWM Mode (P140)</p></figcaption></figure>
-
-The difference between row 3 and row 4 is:
-
-* **COM0B\[1:0] = 0b10**:
-  * Clears OC0B (goes LOW) when `TCNT0` matches `OCR0B` while counting up.
-  * Sets OC0B (goes HIGH) when `TCNT0` matches `OCR0B` while counting down.
-  * Waveform: Starts HIGH, goes LOW at the up-count match, and HIGH again at the down-count match (positive pulse).
-* **COM0B\[1:0] = 0b11**:
-  * Sets OC0B (goes HIGH) when `TCNT0` matches `OCR0B` while counting up.
-  * Clears OC0B (goes LOW) when `TCNT0` matches `OCR0B` while counting down.
-  * Waveform: Starts LOW, goes HIGH at the up-count match, and LOW again at the down-count match (negative pulse).
-
-Both maintain symmetry in Phase-Correct PWM, but `COM0B[1:0]` = `0b10` produces a **positive** pulse, while `COM0B[1:0]` = `0b11` produces an **inverted (negative) pulse**, affecting the duty cycle’s polarity.
-{% endstep %}
-{% endstepper %}
+[^4]: "will" is different from "can".
