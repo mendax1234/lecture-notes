@@ -105,8 +105,8 @@ The Counter Unit block diagram (Figure 1.3) is shown as follows for reference:
 
 Once the clock is set, the `TCNTn` register **increments at a certain frequency which is determined** [**above**](studio-4-pwm-programming.md#timer-counter-clock-sources).
 
-{% hint style="info" %}
-Initialize the counter value to 0 if you are generating a phase-correct PWM waveform.
+{% hint style="success" %}
+Always remember to initialize the counter value to 0
 {% endhint %}
 
 ### Output Compare Unit
@@ -170,9 +170,7 @@ The **period** of the PWM signal depends on 3 factors here:
 
 1. the frequency of the clock source (internal or external)
 2. the prescaler $$N$$
-3. the $$\text{TOP}$$ value
-
-***
+3. the $$\text{MAX}$$ value
 
 {% stepper %}
 {% step %}
