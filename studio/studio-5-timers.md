@@ -58,7 +58,7 @@ Below is the table summarizes all the available timer 0 resolutions on ATmega328
 
 ### CTC Mode
 
-This mode is introduced in [studio 4](studio-4-pwm-programming.md#ctc-mode) already. Here, the real world application of **CTC** mode is to generate an interrupt at a **fixed time period.** To do so, we need to follow the following steps in general
+This mode is introduced in [studio 4](studio-4-pwm-programming.md#ctc-mode) already. Here, the real-world application of **CTC** mode is to generate an interrupt at a **fixed time period.** To do so, we need to follow the following steps in general
 
 {% stepper %}
 {% step %}
@@ -72,9 +72,9 @@ Choose a time interval, denote it as $$\text{T}_{\text{cycle}}$$. For example, w
 {% step %}
 **Set the** `OCR0A` **Value**
 
-In the preivous PWM studio, we have seen that under the **Phase-Correct PWM Mode**, the `OCR0A` value can be used to determine **the duty cycle**. We also have learned that, the timer's **TOP** value will affect the **period** of the PWM waveform.
+In the preivous PWM studio, we have seen that under the **Phase-Correct PWM Mode**, the `OCR0A` value can be used to determine **the duty cycle**. Also, under teh **Phase-Correct Mode**, we have learned that the timer's **TOP** value will affect the **period** of the PWM waveform.
 
-But in **CTC** Mode, since the **TOP** value is **always** `OCR0A`, meaning that the **period** we want is determined by `OCR0A`. So, we can use the following formula to determine the value of `OCR0A`
+But in **CTC** Mode, since the **TOP** value is **always** `OCR0A`, meaning that the **period** we want is  determined by `OCR0A`. So, we can use the following formula to determine the value of `OCR0A`
 
 $$
 \text{OCR0A}=\frac{\text{T}_{\text{cycle}}}{\text{res}}-1
@@ -88,11 +88,11 @@ For example, for $$\text{T}_{\text{cycle}}=1\text{ms}$$, the following table sum
 
 | Prescaler | Resolution (16 MHz Clock) | OCR0A Value (for 1 ms or 1000 microseconds) |
 | --------- | ------------------------- | ------------------------------------------- |
-| 1         | 0.0625 microseconds       | 16000-1                                     |
-| 8         | 0.5 microseconds          | 2000-1                                      |
-| 64        | 4 microseconds            | 250-1                                       |
-| 256       | 16 microseconds           | 62.5-1                                      |
-| 1024      | 64 microseconds           | 15.63-1                                     |
+| 1         | 0.0625 microseconds       | 16000-1=15999                               |
+| 8         | 0.5 microseconds          | 2000-1=1999                                 |
+| 64        | 4 microseconds            | 250-1=249                                   |
+| 256       | 16 microseconds           | 62.5-1=52.5                                 |
+| 1024      | 64 microseconds           | 15.63-1=14.63                               |
 {% endstep %}
 {% endstepper %}
 
