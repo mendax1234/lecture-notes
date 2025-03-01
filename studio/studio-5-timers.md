@@ -96,6 +96,60 @@ For example, for $$\text{T}_{\text{cycle}}=1\text{ms}$$, the following table sum
 {% endstep %}
 {% endstepper %}
 
+## Debouncing
+
+**Bouncing** refers to the electrical phenomenon that occurs when a **mechanical switch** or **button is pressed**. The effect happens because the internal metal contacts d**on't make a clean, immediate connection** but instead "bounce" against each other, rapidly connecting and disconnecting multiple times before settling into a stable state.
+
+For example, when you press a button, the electrical signal doesn't immediately switch from OFF to ON in a single clean transition. Instead, it oscillates between states for a brief period (typically milliseconds) until it stabilizes. A similar bouncing effect occurs when releasing the button. This oscillation creates a "waveform" of rapid ON-OFF-ON transitions before finally settling.
+
+<figure><img src="../.gitbook/assets/studio5-debouncing.png" alt="" width="375"><figcaption><p>Bouncing demo of a mechanical switch</p></figcaption></figure>
+
+This phenomenon is important to understand in electronics design because these rapid transitions can be misinterpreted as multiple button presses by digital systems, requiring software or hardware **debouncing** solutions to filter out the unwanted signals.
+
+***
+
+The way to **solve** the bouncing issue is called **debouncing**. In this studio, we will mainly introduce the **SW** approach.
+
+```cpp
+currTime = millis();
+if (currTime – lastTime > THRESHOLD) {
+    lastTime = currTime;
+    /* DO WHATEVER WE NEED TO DO WHEN WE PRESS THE SWITCH */
+}
+```
+
+We place this algorithm in the ISR that is triggered when the button is pressed. Each time the ISR is triggered, this algorithm checks the current “time” as returned by `millis()`, and subtracts away the last time we recognized a switch press (tracked by `lastTime`). If the difference is more than a certain number of milliseconds given by `THRESHOLD`, we **recognize this as a switch press**, and save the time in `lastTime`.
+
+{% hint style="info" %}
+The idea of `THRESHOLD` can also be used to implement in the SW approach to generate a PWM signal with a very long period that is not achieveable by TC Module on ATmega328p. (See more [#id-01.-understanding-the-pwm-module](../tutorial/tut-2-pwm-and-timers.md#id-01.-understanding-the-pwm-module "mention"))
+{% endhint %}
+
+***
+
+The seemingly true approach should be
+
+{% code lineNumbers="true" %}
+```cpp
+currentBtnState = digitalRead(btnPin);
+
+if (currentBtnState != previousBtnState) {            
+
+lastDebounceTime = millis();
+        // every time the button state changes, get the time of that change
+}
+
+if ((millis() - lastDebounceTime) > debounceDelay) {
+        /*
+        *if the difference between the last time the button changed is greater
+                *than the delay period, it is safe to say
+                *the button is in the final steady state, so set the LED state to
+                *button state.
+        */
+        currentLedState = currentBtnState;
+}
+```
+{% endcode %}
+
 ## Bare Metal Programming
 
 The steps here are very similar to [studio 4's PWM generation](studio-4-pwm-programming.md#bare-metal-programming). It's just we will use our newly calculated `OCR0A` value instead.&#x20;

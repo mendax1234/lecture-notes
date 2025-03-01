@@ -29,7 +29,11 @@ When the peripheral block is used to generate the PWM, **only the initial setup 
 {% step %}
 **Decrease the PWM frequency / Increase the PWM Period**
 
-Use the ISR to keep track of the number of Interrupts and then toggle the output pin accordingly. In this approach, we cannot allow the PWM block to control the pin directly. The ISR needs to handle it.
+Use the ISR to keep track of the number of Interrupts and then toggle the output pin accordingly. In this approach, we **cannot** allow the Timter/Counter Module to control the pin directly. The ISR needs to handle it.
+
+{% hint style="info" %}
+This idea actually borrows the `THRESHOLD` from [#debouncing](../studio/studio-5-timers.md#debouncing "mention")!
+{% endhint %}
 {% endstep %}
 {% endstepper %}
 
