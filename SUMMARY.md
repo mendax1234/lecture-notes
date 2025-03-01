@@ -12,3 +12,4 @@
 ## Tutorial
 
 * [Tut 1 - GPIO and Interrupts](tutorial/tut-1-gpio-and-interrupts.md)
+* [Tut 2 - PWM and Timers](tutorial/tut-2-pwm-and-timers.md)

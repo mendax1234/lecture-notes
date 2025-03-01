@@ -320,7 +320,7 @@ For example, we want to use Pin 8 on the Arduino, by using the mapping table, we
 
 This is done using the `DDRX` register, **"1" configures that Pin to output and "0" configures it to  input**.&#x20;
 
-<figure><img src="../.gitbook/assets/stduio1-ddrb.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/stduio1-ddrb.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 The Bit number is an **alias** for the Pin number in the GPIO Port. Also, for `DDRC` and `DDRD`, everything is the same except that we change `B` to `C` / `D`.
@@ -364,7 +364,7 @@ The `|=` we use here has the purpose of **set certain bits** while not affecting
 
 This is done by using the `PORTx` registers. Similarly, "1" means writing Logic HIGH to the certain Pin and "0" means writing Logic LOW to the certain Pin.
 
-<figure><img src="../.gitbook/assets/studio1-portb.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio1-portb.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Similarly as `DDRb`,  for `PORTC` and `PORTD`, everything is the same except that we change `B` to `C` / `D`.
@@ -394,7 +394,7 @@ For `|=`, it is used to [#set-certain-bits](studio-1-gpio-programming.md#set-cer
 
 This mainly will use the technology we have seen in Bit Masking - [#check-certain-bits](studio-1-gpio-programming.md#check-certain-bits "mention"). And `PINx` register will store all the 8 bits we read, so it will serve the same purpose as `storage`.
 
-<figure><img src="../.gitbook/assets/studio1-pinb.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio1-pinb.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Similarly as `DDRb`,  for `PINB` and `PIND`, everything is the same except that we change `B` to `C` / `D`.
@@ -430,7 +430,7 @@ void loop() {
 {% step %}
 **In the circuit below, do we still need pull-up resistors?**
 
-<figure><img src="../.gitbook/assets/studio1-exerciseb-q2.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio1-exerciseb-q2.png" alt="" width="375"><figcaption></figcaption></figure>
 
 This is a question involving pull-up/pull-down resistors and before delving into this question, I think it will be good to review the knowledge about the pull-up/pull-down resistors and three logic states for a digital logic circuit.
 
@@ -474,13 +474,13 @@ So, going back to our problem, the reason why we **don't need pull-up resistors*
 1. Pull-up resistors are redundant
 2. When the switch is **closed**, we may not pull the Pin to Vcc, it will be some value a bit smaller than Vcc, this may cause the input cannot reach the voltage to be recognized as HIGH.
 
-<figure><img src="../.gitbook/assets/studio1-exb-2-pull-up-down.png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio1-exb-2-pull-up-down.png" alt="" width="188"><figcaption></figcaption></figure>
 
 **How about we move the pull-down resistors up directly and now it will be a circuit with only pull-up resistors?**
 
 This is not acceptable since it won't become the classic pull-up resistors circuit we have seen above. Instead, it will be something looks as follows:
 
-<figure><img src="../.gitbook/assets/studio1-exb-2-pull-up-only-wrong.png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio1-exb-2-pull-up-only-wrong.png" alt="" width="188"><figcaption></figcaption></figure>
 
 And we will find out that no matter what the state of the switch is (open or closed), the input at P1 will always be 0.
 
@@ -490,7 +490,7 @@ And we will find out that no matter what the state of the switch is (open or clo
 
 Ths method is to move the position of the Pin to be above the switches to form the classic pull-up resistors circuit as we have seen above.
 
-<figure><img src="../.gitbook/assets/studio1-exb-2-pull-up-only-correct.png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio1-exb-2-pull-up-only-correct.png" alt="" width="188"><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 

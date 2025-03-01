@@ -44,7 +44,7 @@ For example, the ATmega328p (commonly found in Arduino Uno boards) typically run
 
 #### Clock Source on Atmega 328p
 
-<figure><img src="../.gitbook/assets/tut1-clock-source-options.png" alt=""><figcaption><p>Table 13-1: Device CLocking Options Select (P49)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-clock-source-options.png" alt="" width="563"><figcaption><p>Table 13-1: Device CLocking Options Select (P49)</p></figcaption></figure>
 
 The following table briefly summarizes the usage of each clock source.
 
@@ -88,7 +88,7 @@ We don't need to design a pull-up or pull-down resistor system here.
 {% endstep %}
 
 {% step %}
-#### Configure the GPIO Pin
+**Configure the GPIO Pin**
 
 ```cpp
 DDRB |= 0b00000010; // Set Bit 1 to output by OR with ‘1’.
@@ -100,7 +100,7 @@ DDRB |= 0b00000010; // Set Bit 1 to output by OR with ‘1’.
 
 Ans: 20mA.
 
-<figure><img src="../.gitbook/assets/tut1-common-dc-characteristic-vol.png" alt=""><figcaption><p>Table 32-2: Common DC Characteristics (VOL, P365-P366)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-common-dc-characteristic-vol.png" alt="" width="563"><figcaption><p>Table 32-2: Common DC Characteristics (VOL, P365-P366)</p></figcaption></figure>
 
 {% hint style="info" %}
 The positive sign indicates current flowing into of the pin (sinking)
@@ -108,7 +108,7 @@ The positive sign indicates current flowing into of the pin (sinking)
 
 The note 4 here is as follows:
 
-<figure><img src="../.gitbook/assets/tut1-common-dc-characteristic-note-4.png" alt=""><figcaption><p>Table 32-2: Common DC Characteristics (Note 4, P366)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-common-dc-characteristic-note-4.png" alt="" width="563"><figcaption><p>Table 32-2: Common DC Characteristics (Note 4, P366)</p></figcaption></figure>
 
 This note tells us that there is a **maximum limit** on the **total amount of current that the various pins can collectively sink**.
 {% endstep %}
@@ -132,7 +132,7 @@ This $$R$$ is the **minimum** value.
 
 20mA. The absolute maximum is 40mA.
 
-<figure><img src="../.gitbook/assets/tut1-common-dc-characteristic-voh.png" alt=""><figcaption><p>Table 32-2: Common DC Characteristics (VOH, P365-P366)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-common-dc-characteristic-voh.png" alt="" width="563"><figcaption><p>Table 32-2: Common DC Characteristics (VOH, P365-P366)</p></figcaption></figure>
 
 {% hint style="info" %}
 Here, "how much" specifies that we are only interested in **maganitude**. The negative sign of $$I_{OH}$$ indicates current flowing out of the pin (sourcing)
@@ -257,17 +257,17 @@ This is why selecting the appropriate resistor value is so important - it limits
 
 Below is the SMRC Register:
 
-<figure><img src="../.gitbook/assets/tut1-smrc-resgiter.png" alt=""><figcaption><p>Sleep Mode Control Resgiter (P68)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-smrc-resgiter.png" alt="" width="563"><figcaption><p>Sleep Mode Control Resgiter (P68)</p></figcaption></figure>
 
 To put it in "Standby Mode", according to the Sleep Mode Select Table as follows, we need to set the `SM[2:0]` to `110`.
 
-<figure><img src="../.gitbook/assets/tut1-sleep-mode-select.png" alt=""><figcaption><p>Table 14-2: Sleep Mode Select (P68)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-sleep-mode-select.png" alt="" width="563"><figcaption><p>Table 14-2: Sleep Mode Select (P68)</p></figcaption></figure>
 {% endstep %}
 
 {% step %}
 **Events to "wake-up" the device**
 
-<figure><img src="../.gitbook/assets/tut1-power-down-mode.png" alt=""><figcaption><p>Power Down Mode (P64)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-power-down-mode.png" alt="" width="563"><figcaption><p>Power Down Mode (P64)</p></figcaption></figure>
 
 **Why these events for Power Down Mode applies to Standby Mode also?**
 
@@ -293,7 +293,7 @@ The main advantage of Standby mode over Power-Down is the significantly faster w
 
 From the following description of standby mode, we can see the it takes **6 cycles** to fully "wake-up" from Standby Mode.
 
-<figure><img src="../.gitbook/assets/tut1-standby-mode.png" alt=""><figcaption><p>Standby Mode (P65)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-standby-mode.png" alt="" width="563"><figcaption><p>Standby Mode (P65)</p></figcaption></figure>
 {% endstep %}
 
 {% step %}
@@ -303,17 +303,17 @@ From the following description of standby mode, we can see the it takes **6 cycl
 
 This is because according to the following description, the ADC will be **enabled** in all sleep modes! So, if we don't want to use it, we should disable it manually to **save power!**
 
-<figure><img src="../.gitbook/assets/tut1-adc.png" alt=""><figcaption><p>ADC (P65)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-adc.png" alt="" width="563"><figcaption><p>ADC (P65)</p></figcaption></figure>
 
 **How to disable ADC?**
 
 From the description of Power Reduction Register (PRR), we know that it provides a method to stop the clock to individual peripherals to reduce power consumption.
 
-<figure><img src="../.gitbook/assets/tut1-prr-description.png" alt=""><figcaption><p>Power Reduction Register (PRR, P65)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-prr-description.png" alt="" width="563"><figcaption><p>Power Reduction Register (PRR, P65)</p></figcaption></figure>
 
 The method is achieved by setting certain bits inside the register, the following is a complete guide.
 
-<figure><img src="../.gitbook/assets/tut1-prr-configuration.png" alt=""><figcaption><p>PRR Configuration (P71)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-prr-configuration.png" alt="" width="563"><figcaption><p>PRR Configuration (P71)</p></figcaption></figure>
 
 So, to disable the ADC, we only need to set Bit 0 to be 1.
 
@@ -337,7 +337,7 @@ It is important that Energy Consumption must be thought through while you are de
 
 According to the data sheet, we have the following **Rule of Thumb** about minimizing power consumption in Atmega328p.
 
-<figure><img src="../.gitbook/assets/tut1-minimize-power-consumption-atmega.png" alt=""><figcaption><p>Minimizing Powe Consumption (P65)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-minimize-power-consumption-atmega.png" alt="" width="563"><figcaption><p>Minimizing Powe Consumption (P65)</p></figcaption></figure>
 
 The following modules which need special consideration are:
 
@@ -460,7 +460,7 @@ This distinction matters in practice - for example, when calculating how long it
 
 ### Question
 
-<figure><img src="../.gitbook/assets/tut1-qns-05.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-qns-05.png" alt="" width="563"><figcaption></figcaption></figure>
 
 ### Solution
 
@@ -483,7 +483,7 @@ This means “character devices” like the mouse, keyboard, and UART port do no
 
 ### Question
 
-<figure><img src="../.gitbook/assets/tut1-qns-06.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-qns-06.png" alt="" width="563"><figcaption></figcaption></figure>
 
 ### Solution
 
@@ -491,7 +491,7 @@ This means “character devices” like the mouse, keyboard, and UART port do no
 
 This is done by setting the Bit 7 (I) in the Status Register (SREG)
 
-<figure><img src="../.gitbook/assets/tut2-status-register.png" alt=""><figcaption><p>Status Register (SREG, P27)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut2-status-register.png" alt="" width="563"><figcaption><p>Status Register (SREG, P27)</p></figcaption></figure>
 
 So, `cli()` is basically equivalent to `SREG &= 0b01111111;`
 
@@ -510,7 +510,7 @@ NMI are often used for extremely critical interrupts like “power failure” in
 
 ### Question
 
-<figure><img src="../.gitbook/assets/tut1-qns-07.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-qns-07.png" alt="" width="563"><figcaption></figcaption></figure>
 
 ### Solution
 
@@ -519,7 +519,7 @@ There are two main types of interrupt request lines:
 * Two external interrupt lines INT0 and INT1 (PD2 and PD3)
 * 23 “pin change” interrupt request lines PCINT0 to PCINT23 (note: No PCINT15).
 
-<figure><img src="../.gitbook/assets/tut1-atmega-pin-out.png" alt=""><figcaption><p>ATmega328p Pin-out (P14)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-atmega-pin-out.png" alt="" width="375"><figcaption><p>ATmega328p Pin-out (P14)</p></figcaption></figure>
 
 INT0 and INT1 are much more flexible. They can be triggered by (See more at [Studio 2](../studio/studio-2-interrupts.md#external-interrupts-for-digital-i-o))
 
@@ -532,13 +532,13 @@ Additionally, INT0 and INT1 each have their own ISR.
 
 The pin change interrupt requests (PCINT0 to PCINT23) only respond to **changes in voltage levels**. In addition, the 23 PCINT lines are grouped into 2 groups of 8 lines each and one group of 7 lines. **All lines in the same group will trigger the execution of the same ISR**. i.e. there are **only 3 unique ISRs** even though there are 23 lines.
 
-<figure><img src="../.gitbook/assets/tut1-vector-table-pin-interrupt.png" alt=""><figcaption><p>ISR for Pin Change Interrupts (Modified from the Vector Table, P82)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-vector-table-pin-interrupt.png" alt="" width="563"><figcaption><p>ISR for Pin Change Interrupts (Modified from the Vector Table, P82)</p></figcaption></figure>
 
 ## 08. Handling the Interrupts - The ISR
 
 ### Question
 
-<figure><img src="../.gitbook/assets/tut1-qns-08.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/tut1-qns-08.png" alt="" width="563"><figcaption></figcaption></figure>
 
 ### Solution
 

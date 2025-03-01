@@ -286,7 +286,7 @@ In the ATmega328p, when an interrupt occurs,&#x20;
 
 The vector table is located at the beginning of flash memory and stores addresses for each interrupt source.
 
-<figure><img src="../.gitbook/assets/studio2-atmega-vector-table.png" alt=""><figcaption><p>Reset and Interrupt Vectors in ATmega328/P (P82)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio2-atmega-vector-table.png" alt="" width="563"><figcaption><p>Reset and Interrupt Vectors in ATmega328/P (P82)</p></figcaption></figure>
 
 ### External Interrupts for Digital I/O
 
@@ -300,7 +300,7 @@ The vector table is located at the beginning of flash memory and stores addresse
 
 **EICRA** (External Interrupt Control Register A) is used to configure how the external interrupts are triggered.
 
-<figure><img src="../.gitbook/assets/studio2-eicra-register.png" alt=""><figcaption><p>EICRA (P89)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio2-eicra-register.png" alt="" width="563"><figcaption><p>EICRA (P89)</p></figcaption></figure>
 
 The configuration for **INT0** and **INT1** is done by setting specific bits in **EICRA**.
 
@@ -327,7 +327,7 @@ This is the table summarizing the `ISCx[1:0]` bits' behavior. (`x` means either 
 
 **EIMSK** (External Interrupt Mask Register) enables or disables external interrupts for INT0 and INT1.
 
-<figure><img src="../.gitbook/assets/studio2-eimsk-register.png" alt=""><figcaption><p>EIMSK (P90)</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio2-eimsk-register.png" alt="" width="563"><figcaption><p>EIMSK (P90)</p></figcaption></figure>
 
 **Example:**
 
