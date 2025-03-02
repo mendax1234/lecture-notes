@@ -8,6 +8,7 @@
 * [Studio 2 - Interrupts](studio/studio-2-interrupts.md)
 * [Studio 4 - PWM Programming](studio/studio-4-pwm-programming.md)
 * [Studio 5 - Timers](studio/studio-5-timers.md)
+* [Studio 8 - ADC Module](studio/studio-8-adc-module.md)
 
 ## Tutorial
 
