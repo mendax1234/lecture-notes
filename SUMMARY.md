@@ -9,6 +9,7 @@
 * [Studio 4 - PWM Programming](studio/studio-4-pwm-programming.md)
 * [Studio 5 - Timers](studio/studio-5-timers.md)
 * [Studio 8 - ADC Module](studio/studio-8-adc-module.md)
+* [Studio 9 - Serial Communication](studio/studio-9-serial-communication.md)
 
 ## Tutorial
 
