@@ -1,5 +1,7 @@
 # Studio 4 - PWM Programming
 
+> In EPP2 Quiz, whenever you see **PWM**, it is by default using **Phase-Correct Mode**.
+
 ## PWM Concepts
 
 In previous studios, we learnt how to generate digital signals using the GPIO pins. This studio will introduce _Pulse-Width Modulation_ (PWM), a digital technique used to simulate an analog signal by rapidly toggling a signal between a HIGH (1) and a LOW (0) state at a controlled frequency. By adjusting the proportion of time the signal remains HIGH versus LOW, we can approximate different analog voltages.

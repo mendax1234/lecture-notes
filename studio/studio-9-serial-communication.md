@@ -112,6 +112,10 @@ From the demo, we have the following **key takeaways:**
 * stop bit is 1 or HIGH and is **at the end of each UART frame,** it is used to signal the **end** of data transmission.
 * the parity bit is always **before the stop bit** in the "frame"
 
+{% hint style="info" %}
+In U(S)ART, **what you send is what you get**. e.g. You send the **start bit first**, then the **first bit** received by the receiver will be the **start bit**.
+{% endhint %}
+
 ## Bare Metal Programming
 
 ### The Programming Procedure

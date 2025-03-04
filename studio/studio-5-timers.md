@@ -1,5 +1,7 @@
 # Studio 5 - Timers
 
+> In EPP2 Quiz, whenever you see **Timer**, it is by default using **CTC Mode**.
+
 ## Timer Concepts
 
 Timer/Counter(TC) is one module in ATmega328p, in this studio and the previous studio, we are just using different modes of this TC module to achieve different things. In the last studio, we use the **Phase-Correct Mode** to generate a **PWM waveform** on the Output Compare pin. Now, in this studio, we mainly want to use the **CTC** **Mode** to generate an interrupt at **fixed time interval.**
@@ -14,8 +16,8 @@ In this studio, the **resolution** we are referring to is **timer resolution**, 
 
 #### Resolution[^1] vs. Frequency
 
-* The **timer frequency** ($$\frac{\text{F}_\text{clk}}{\text{P}}$$) tells you **how many times the counter increments per second.**
-* The **timer resolution** ($$\frac{1}{\text{Timer Frequency}}$$) tells you **how much time each increment takes**.
+* The **timer frequency** ($$\frac{\text{F}_\text{clk}}{\text{P}}$$) tells you **how many times the counter increments per second.** Its unit is **Hertz** (Hz).
+* The **timer resolution** ($$\frac{1}{\text{Timer Frequency}}$$) tells you **how much time each increment takes**. Its unit is **seconds** (s).
 
 #### Steps to calculate resolution
 
@@ -110,15 +112,22 @@ This phenomenon is important to understand in electronics design because these r
 
 The way to **solve** the bouncing issue is called **debouncing**. In this studio, we will mainly introduce the **SW** approach.
 
+{% hint style="warning" %}
+The whole idea of **debouncing** is to **decrease the times of doing the thing we want to do.** e.g. changing the state of the LED.
+{% endhint %}
+
 ```cpp
 currTime = millis();
 if (currTime – lastTime > THRESHOLD) {
     lastTime = currTime;
     /* DO WHATEVER WE NEED TO DO WHEN WE PRESS THE SWITCH */
+    function();
 }
 ```
 
 We place this algorithm in the ISR that is triggered when the button is pressed. Each time the ISR is triggered, this algorithm checks the current “time” as returned by `millis()`, and subtracts away the last time we recognized a switch press (tracked by `lastTime`). If the difference is more than a certain number of milliseconds given by `THRESHOLD`, we **recognize this as a switch press**, and save the time in `lastTime`.
+
+The `THRESHOLD` is usually chosen to be **long enough** via **trial-and-error** so that it may cover the whole range and the times we **mis-called** the `function()` **can be minimized**.
 
 {% hint style="info" %}
 The idea of `THRESHOLD` can also be used to implement in the SW approach to generate a PWM signal with a very long period that is not achieveable by TC Module on ATmega328p. (See more [#id-01.-understanding-the-pwm-module](../tutorial/tut-2-pwm-and-timers.md#id-01.-understanding-the-pwm-module "mention"))
@@ -132,9 +141,8 @@ The seemingly true approach should be
 ```cpp
 currentBtnState = digitalRead(btnPin);
 
-if (currentBtnState != previousBtnState) {            
-
-lastDebounceTime = millis();
+if (currentBtnState != previousBtnState) {
+        lastDebounceTime = millis();
         // every time the button state changes, get the time of that change
 }
 
