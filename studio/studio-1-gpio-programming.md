@@ -14,7 +14,7 @@ This technique is done by doing **bitwise logical operation** on the **source bi
 1. which **logical bitwise operation** to use;
 2. how to form our `mask`.
 
-Before delving into these four manipulations, let's make some clarification on the vairables we will be used in this part first:
+Before delving into these four manipulations, let's make some clarification on the vairables we will be using in this part first:
 
 1. `storage` : this is our **source** binary number.
 2. `mask` : this is the binary number we will use to do bit-masking.
