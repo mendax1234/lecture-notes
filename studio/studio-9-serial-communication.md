@@ -150,12 +150,12 @@ void main( void )
 void USART_Init( unsigned int ubrr)
 {
  /*Set baud rate */
- UBRR0H = (unsigned char)(ubrr>>8);
- UBRR0L = (unsigned char)ubrr;
- Enable receiver and transmitter */
- UCSR0B = (1<<RXEN0)|(1<<TXEN0);
+ UBRR0H = (unsigned char) (ubrr >> 8);
+ UBRR0L = (unsigned char) ubrr;
+ /* Enable receiver and transmitter */
+ UCSR0B = (1 << RXEN0)|(1 << TXEN0);
  /* Set frame format: 8data, 2stop bit */
- UCSR0C = (1<<USBS0)|(3<<UCSZ00);
+ UCSR0C = (1 << USBS0)|(3 << UCSZ00);
 }
 ```
 {% endcode %}
@@ -169,18 +169,17 @@ The USART Transmitter is enabled by **setting the Transmit Enable** (`TXEN`) bit
 A data transmission is initiated by **loading the transmit buffer with the data to be transmitted**. The CPU can load the transmit buffer by writing to the `UDRn` I/O location. The buffered data in the **transmit buffer** will be **moved to the** **Shift Register** when the Shift Register is ready to send a new frame. The **Shift Register** is loaded with new data if it is in idle state (no ongoing transmission) or immediately after the last stop bit of the previous frame is transmitted. When the Shift Register is loaded with new data, it will **transfer one complete frame** at the configured baud rate.
 
 {% hint style="info" %}
-There is a bit difference between sending the frame of 9-bits and the frame of 5-8 bits. For more information, please read P231-P232 from the ATmega328p's datasheet.
+There is a bit difference between **sending** the frame of 9-bits and the frame of 5-8 bits. For more information, please read P231-P232 from the ATmega328p's datasheet.
 {% endhint %}
 
-The following example shows a simple USART transmit function based on polling of the Data Register Empty (`UDRE`) Flag.
+The following example shows a simple USART transmit function based on polling of the **Data Register Empty** (`UDRE`) Flag.
 
 {% code lineNumbers="true" %}
 ```cpp
 void USART_Transmit( unsigned char data )
 {
     /* Wait for empty transmit buffer */
-    while ( !( UCSR0A & (1<<UDRE)) )
-    ;
+    while (!( UCSR0A & (1 << UDRE)));
     /* Put data into buffer, sends the data */
     UDR0 = data;
 }
@@ -192,9 +191,98 @@ void USART_Transmit( unsigned char data )
 2. The USART has to be initialized (Step 1) before the function can be used.
 {% endhint %}
 {% endstep %}
+
+{% step %}
+**Data Reception — The USART Receiver**
+
+The USART Receiver is enabled by writing the Receive Enable (`RXEN`) bit in the `UCSRnB` Register to '1'. When the Receiver is enabled, the normal pin operation of the `RxDn` pin is overridden by the USART and given the function as the Receiver’s serial input. The baud rate, mode of operation and frame format must be set up once before any serial reception can be done.
+
+The Receiver starts data reception when it detects a **valid start bit**. Each bit that follows the start bit will be sampled at the baud rate or `XCKn` clock, and **shifted into the Receive Shift Register** until the **first stop bit** of a frame is received. A **second stop bit will be ignored** by the Receiver. When the first stop bit is received, i.e., a complete serial frame is present in the **Receive Shift Register**, the contents of the **Shift Register will be moved into the receive buffer**. The receive buffer can then be read by reading the `UDRn` I/O location.
+
+{% hint style="info" %}
+There is a bit difference between **receiving** the frame of 9-bits and the frame of 5-8 bits. For more information, please read P233-P234 from the ATmega328p's datasheet.
+{% endhint %}
+
+The following code example shows a simple USART receive function based on polling of the **Receive Complete** (`RXC`) Flag.
+
+```cpp
+unsigned char USART_Receive( void )
+{
+    /* Wait for data to be received */
+    while (!(UCSR0A & (1 << RXC)));
+    /* Get and return received data from buffer */
+    return UDR0;
+}
+```
+{% endstep %}
 {% endstepper %}
 
+### Register
 
+#### USART Baud Rate Register (UBRR)
+
+UBRR is a 12-bit register. The value inside this register will set the **baud rate** of your USART. The equations are given below:
+
+$$
+\begin{align*}
+\text{BAUD}&=\frac{f_{\text{OSC}}}{16\times(\text{UBRRn+1})}\\
+\text{UBRR}&=\frac{f_{\text{OSC}}}{16\times \text{BAUD}}-1
+\end{align*}
+$$
+
+### Sample Code
+
+The following code shows how we can use the interrupt to send/receive the data.
+
+```cpp
+ISR(USART_RX_vect)
+{
+  // Write received data to dataRecv
+  dataRecv = UDR0;
+}
+
+ISR(USART_UDRE_vect)
+{
+  // Write dataSend to UDR0
+  UDR0 = dataSend;
+
+  // Disable UDRE interrupt
+  UCSR0B &= ~(1 << UDRIE0);
+}
+
+void sendData(const char buttonVal)
+{
+  // Copy data to be sent to dataSend
+  dataSend = buttonVal+'0';
+  // Enable UDRE interrupt below
+  UCSR0B |= (1 << UDRIE0);
+}
+
+char recvData()
+{
+  return dataRecv - '0';
+}
+
+void startSerial()
+{
+  // Start the serial port.
+  // Enable RXC interrupt, but NOT UDRIE
+  // Remember to enable the receiver
+  // and transmitter
+  uint16_t baud = (F_CPU / 16 / 9600) - 1; // Calculate baud rate for 9600 bps
+  UBRR0H = (baud >> 8);  // Set high byte
+  UBRR0L = baud;         // Set low byte
+
+  // Set frame format: 8 data bits, no parity, 1 stop bit (8N1)
+  UCSR0C = (1 << UCSZ01) | (1 << UCSZ00);
+
+  // Enable transmitter and receiver
+  UCSR0B = (1 << RXEN0) | (1 << TXEN0) | (1 << RXCIE0);
+
+  // Disable double speed and clear flags
+  UCSR0A = 0;
+}
+```
 
 [^1]: **Bit rate** refers to the number of bits processed per second or bits per second (bps). **Baud rate** and **Bit rate** are **not the same thing**, but they are often used **interchangeably**.
 
