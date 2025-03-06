@@ -25,7 +25,11 @@ Note the unit for **period** is **seconds**!
 
 ### Duty Cycle
 
-The **Duty Cycle** represents the percentage of time the signal is HIGH (ON Time, a.k.a _pulse width_) **during a cycle**. The relationship between duty cycle and ON Time is characterized by the Equation below:
+The **Duty Cycle** represents the percentage of time the signal is HIGH (ON Time, a.k.a _pulse width_) **during a cycle**. The relationship between **duty cycle** and **ON Time** is characterized by the Equation below:
+
+$$
+\text{Duty Cycle}=\frac{\text{On Time}}{\text{Period}}
+$$
 
 When observing a PWM signal closely, the ON and OFF states within a single period appear distinct and separate. However, as the PWM signal's frequency increases, it becomes more difficult to distinguish between these states, making the signal appear more continuous and averaged over time. A peripheral, such as a servo motor, interprets the PWM signal as an effective analog voltage between 0 V and VCC, depending on the duty cycle. The value of this average analog signal can be determined by the Duty Cycle in the PWM waveform:
 
@@ -142,8 +146,9 @@ In CTC Mode, the counter is cleared to ZERO when the counter value (`TCNT0`) mat
 In this example, the **Compare Output Mode** of `OC0A`  is set to **toggle mode**, and it will toggle its logical level on each compare match.
 
 {% hint style="success" %}
-1. An interrupt can be generated each time the counter value reaches the **TOP** value by setting the `OCF0A` Flag. If the interrupt is enabled, the interrupt handler routine can be used for updating the **TOP** value.
-2. The `OCRnx` value is **always** updated **immediately!**
+1. In **CTC Mode**, the **TOP** value of the TC Module is always set to `OCRnA`/`OCRnB`.
+2. An interrupt can be generated each time the counter value reaches the **TOP** value by setting the `OCF0A` Flag. If the interrupt is enabled, the interrupt handler routine can be used for updating the **TOP** value.
+3. The `OCRnA`/`OCRnB` value is **always** updated **immediately!**
 {% endhint %}
 
 #### Phase Correct PWM Mode
@@ -172,7 +177,7 @@ The **period** of the PWM signal depends on 3 factors here:
 
 1. the frequency of the clock source (internal or external)
 2. the prescaler $$N$$
-3. the $$\text{MAX}$$ value
+3. the $$\text{TOP}$$ value
 
 {% stepper %}
 {% step %}
