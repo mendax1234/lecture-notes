@@ -452,8 +452,8 @@ This distinction matters in practice - for example, when calculating how long it
 
 #### Calculation Tips on Polling, Interrupts and DMA
 
-* **Polling:** The key for polling calculation is to calculate the total clock cycles the CPU spends **in the polling loop** while waiting for each byte to be ready.
-* **Interrupt:** The key for interrupt calculation is to calculate the total clock cycles required to **handle each interrupt**, which typically processes one byte.
+* **Polling:** The key for polling calculation is to calculate the total clock cycles the CPU spends **in the polling loop** (a.k.a we are only interested in the **number of cycles wasted** between each arrival of the byte). We ignore the cycles taken to **read the data**.
+* **Interrupt:** The key for interrupt calculation is to calculate the total clock cycles required to **handle each interrupt**, which typically **processes one byte**. (But in interrupt, we care again)
 * **DMA:** The key for DMA calculation is to calculate the CPU cycles spent on setting up the DMA transfer, which can then transfer multiple bytes without further CPU intervention.
 
 ## 05. Small Block Sizes
