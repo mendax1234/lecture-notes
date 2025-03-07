@@ -6,7 +6,7 @@
 
 <figure><img src="../.gitbook/assets/studio8-adc-demo.png" alt="" width="375"><figcaption><p>ADC Demo</p></figcaption></figure>
 
-In this studio, we will explore an interesting between ADC and PWM. While ADC converts **an analog voltag**e into a **digital number**, PWM performs the inverse operation by generating an **analog-like effect** from a **digital signal**. To illustrate this relationship, consider a scenario where a flex sensor is used to control an LED. A flex sensor is a type of variable resistor whose resistance changes when bent. The resistance changes result in a varying voltage when placed in a voltage divider circuit. Since this voltage is an analog signal, it must be digitized before the microcontroller can process it. The ADC module accomplishes this by **sampling the voltage** and **mapping it to a corresponding digital value**.
+In this studio, we will explore an interesting application between ADC and PWM. While ADC converts **an analog voltage** into a **digital number**, PWM performs the inverse operation by generating an **analog-like effect** from a **digital signal**. To illustrate this relationship, consider a scenario where a flex sensor is used to control an LED. A flex sensor is a type of variable resistor whose resistance changes when bent. The resistance changes result in a varying voltage when placed in a voltage divider circuit. Since this voltage is an analog signal, it must be digitized before the microcontroller can process it. The ADC module accomplishes this by **sampling the voltage** and **mapping it to a corresponding digital value**.
 
 Once the digital value is obtained from the ADC, it can be used to adjust the brightness of an LED through PWM. For example, if the ADC **measures a higher voltage**, this might correspond to a greater degree of bending in the flex sensor. The microcontroller can then **increase the duty cycle** of the PWM signal, causing the LED to glow more brightly. Conversely, if the sensor produces **a lower voltage**, the microcontroller **reduces the duty cycle**, dimming the LED.
 
@@ -73,7 +73,7 @@ In the modern EE industry, **resolution** is defined to be the **number of quant
 
 ## Bare Metal Programming
 
-The ADC on ATmega328p converts an **analog input voltage** to a **10-bit** **digital value**. This means that the **quantization bits** of the ADC are 10. Thus, we have decided **one** of the **two** important characteristics of the ADC Module. The other characteristic — **sampling rate**, will be determined in the following procedure.
+The ADC on ATmega328p converts an **analog input voltage** to a **10-bit** **digital value**. This means that the **quantization bits** of the ADC are 10. Thus, we have decided half of the **one** of the **two** important characteristics of the ADC Module. The other characteristic — **sampling rate**, will be determined in the following procedure.
 
 ### The Programming Procedure
 
