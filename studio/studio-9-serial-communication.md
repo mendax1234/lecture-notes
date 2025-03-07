@@ -131,7 +131,7 @@ The USART has to be initialized before any communication can take place. The ini
 3. enabling the Transmitter or Receiver depending on the usage.
 
 {% hint style="info" %}
-For **interrupt driven** USART operation, the Global Interrupt Flag should be cleared (and interrupts globally disabled) when doing the initialization. (This is done by using `sei()` in your setup code)
+For **interrupt driven** USART operation, the Global Interrupt Flag should be **cleared** (and interrupts globally disabled) when doing the initialization. (This is done by using `cli()` in your setup code)
 {% endhint %}
 
 The following example code assumes asynchronous operation using polling (no interrupts enabled) and a fixed frame format.
@@ -166,7 +166,7 @@ void USART_Init( unsigned int ubrr)
 
 The USART Transmitter is enabled by **setting the Transmit Enable** (`TXEN`) bit in the `UCSRnB` Register. When the Transmitter is enabled, the normal port operation of the TxDn pin is **overridden** by the USART and **given the function as the Transmitter’s serial output**. The **baud rate**, **mode of operation** and **frame format** must be set up once **before doing any transmissions**.
 
-A data transmission is initiated by **loading the transmit buffer with the data to be transmitted**. The CPU can load the transmit buffer by writing to the `UDRn` I/O location. The buffered data in the **transmit buffer** will be **moved to the** **Shift Register** when the Shift Register is ready to send a new frame. The **Shift Register** is loaded with new data if it is in idle state (no ongoing transmission) or immediately after the last stop bit of the previous frame is transmitted. When the Shift Register is loaded with new data, it will **transfer one complete frame** at the configured baud rate.
+A data transmission is initiated by **loading the transmit buffer** `UDR0` **with the data to be transmitted**. The CPU can load the transmit buffer by writing to the `UDRn` I/O location. The buffered data in the **transmit buffer** will be **moved to the** **Shift Register** when the Shift Register is ready to send a new frame. The **Shift Register** is loaded with new data if it is in idle state (no ongoing transmission) or immediately after the last stop bit of the previous frame is transmitted. When the Shift Register is loaded with new data, it will **transfer one complete frame** at the configured baud rate.
 
 {% hint style="info" %}
 There is a bit difference between **sending** the frame of 9-bits and the frame of 5-8 bits. For more information, please read P231-P232 from the ATmega328p's datasheet.
@@ -179,7 +179,7 @@ The following example shows a simple USART transmit function based on polling of
 void USART_Transmit( unsigned char data )
 {
     /* Wait for empty transmit buffer */
-    while (!( UCSR0A & (1 << UDRE)));
+    while (!(UCSR0A & (1 << UDRE)));
     /* Put data into buffer, sends the data */
     UDR0 = data;
 }
