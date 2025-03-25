@@ -104,7 +104,7 @@ The UART parity bit is set up when the **transmitting device is preparing to sen
 
 Here is an demo of a "frame[^2]" of the data transmission using UART.
 
-<figure><img src="../.gitbook/assets/image.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/studio9-baud-rate.png" alt="" width="563"><figcaption></figcaption></figure>
 
 From the demo, we have the following **key takeaways:**
 
