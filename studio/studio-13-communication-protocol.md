@@ -148,7 +148,7 @@ Checksum is usually included in the packet to be sent out. The **receiver** will
 
 To implement a packet, the easiest way is to use strctures. For example,
 
-```c
+```cpp
 typedef tc {
     int command;
     int speed;
@@ -169,7 +169,7 @@ The common steps to do serialize is to:
 With this idea, the following is an example code to **serialize**
 
 {% code lineNumbers="true" %}
-```c
+```cpp
 unsigned int serialize(char *buf, void *p, size_t size)
 {
     char checksum = 0;
@@ -216,7 +216,7 @@ Similarly, **deserialize** means converting a stream of bytes back to structures
 For example, the following is a demo code to deserialize.
 
 {% code lineNumbers="true" %}
-```c
+```cpp
 unsigned int deserialize(void *p, char *buf)
 {
     size_t size = buf[0];
