@@ -14,11 +14,12 @@ A **protocol** is a standardized "language" that devices agree to use for intera
 
 #### Protocol Suite/Stack
 
-A protocol suite or stack is a **collection of protocols**, each operating at a **different layer** of the communication process. They are designed to work together seamlessly, ensuring that data is transmitted, routed, and interpreted correctly, from the physical connection all the way to the application-level services.
+A protocol suite or stack is a **collection of protocols**, each operating at a **different layer** of the communication process.
 
 For example, in the OSI model, the network communication is divided into seven layers:
 
-* **Physical Layer:** Deals with the hardware transmission of raw bits. e.g. agreement on voltage levels, number of wires to use, how wires are to be connected, etc.
+* **Physical Layer:** Deals with the hardware transmission of raw bits.
+  * e.g. agreement on voltage levels, number of wires to use, how wires are to be connected, etc.
 * **Data Link Layer:** Organizes bits into frames and handles error detection.
 * **Network Layer:** Manages addressing and routing (similar to IP).
 * **Transport Layer:** Provides end-to-end communication services (similar to TCP/UDP).
