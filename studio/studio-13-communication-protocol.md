@@ -48,13 +48,16 @@ A **packet** is a structured unit of data that adheres to protocol rules. Think 
 #### **Types of Packets in Embedded Systems**
 
 1. **Command Packets**
-   * Sent by the RPi to instruct the Arduino.
+   * Sent from RPi to Arduino
    * Example: `(move, 50, 1)` → Move at 50% speed for 1 meter.
 2. **Acknowledgment (ACK) Packets**
+   * Sent from Arduino to RPi.
    * Confirm receipt of a command (e.g., `(ack)`).
 3. **Data Packets**
+   * Sent from Arduino to RPi.
    * Carry sensor data (e.g., `(compass, 180)`).
 4. **Status Packets**
+   * Sent from Arduino to RPi.
    * Signal task completion (`(done)`) or errors (`(error, motor_stuck)`).
 
 #### **Key Role of Packets**
@@ -65,7 +68,7 @@ A **packet** is a structured unit of data that adheres to protocol rules. Think 
 
 ### &#x20;**Communication Methods: The Conversation Styles**
 
-How devices initiate and manage data flow depends on the **communication method** used. Two primary approaches exist
+How devices initiate and manage data flow depends on the **communication method** used. There are two primary approaches exist
 
 #### **Method 1: Event-Driven (Interrupt-Based)**
 
@@ -105,7 +108,7 @@ Now, let's take a deeper look at the **packets** and some potential issues that 
 
 ### Checksum
 
-**Checksums** are used to check that data is received correctly.
+**Checksum** is used to check that data is received correctly. In CG2111A, the **checksum** is stored in one byte. (By nature of the XOR Operation).
 
 #### Find Checksum
 
@@ -117,11 +120,13 @@ checksum = b1 XOR b2 XOR ...
 
 where, `b1, b2, ...` are the bytes within the packet.
 
+***
+
 For example, we want to calculate the checksum of `FF EE`
 
 {% stepper %}
 {% step %}
-**Organize using bytes and change to binary**
+**Organize the packet using bytes and change to binary**
 
 So, our packet will become `11111111 11101110`.
 {% endstep %}
@@ -199,7 +204,7 @@ void sendSerialData(char *buffer, int len)
 
 Although you can technically do that. But it will have some issues:
 
-1. Your Raw structs lack headers, checksums, or packet delimiters, making error detection impossible. (a.k.a you need add more fields explicitly in your data structure)
+1. Your Raw structs **lack** headers, checksums, or packet delimiters, making error detection impossible. (a.k.a you need add more fields explicitly in your data structure)
 
 So, TLDR, always serialize the packet into a byte stream, which is stored in buffer, and then send them out.
 
@@ -238,5 +243,209 @@ unsigned int deserialize(void *p, char *buf)
         return PACKET_BAD_CHECKSUM;
     }
 }
+```
+{% endcode %}
+
+## Issues
+
+In real-world, our serialization/deserialization may not work as we expected due to the following three issues:
+
+1. Endianness
+2. Differing sizes used for the same data type between sender and receiver
+3. Data Padding
+
+### Endianness
+
+#### Big and Little Endianness
+
+Endianness affects how multi-byte values (e.g., integers, floating-point numbers) are stored in memory.
+
+***
+
+For example, if we have a multi-byte data `0x87654321`.
+
+{% stepper %}
+{% step %}
+**Big Endian**
+
+Higher order bytes at lower addresses.
+
+```
+data   : 87   65   43   21
+Address: a    a+1  a+2  a+3
+```
+{% endstep %}
+
+{% step %}
+**Little Endian**
+
+Lower order bytes at lower addresses.
+
+```
+data   : 21   43   65   87
+Address: a    a+1  a+2  a+3
+```
+
+{% hint style="info" %}
+Note the the sequence within **each byte** will not change!
+{% endhint %}
+{% endstep %}
+{% endstepper %}
+
+#### What happens if sending between machines using different endianness?
+
+First, the general rule to decide the bytes received is as follows:
+
+* **Sending:** Always send the data **starting from the lower memory address** first.
+* **Receiving:** Always store the first byte received **at the lower memory address** and reconstruct the value based on the system's endianness.
+
+***
+
+For example, we want to send `0x87654321` from a little endianness machine to a big endianness machine. We expected the receiver to receive `0x87654321`.
+
+{% stepper %}
+{% step %}
+**Data sent**
+
+```
+data sent: 21   43   65   87
+Address  : a    a+1  a+2  a+3
+```
+
+By using the general rule, `21` is sent first, then `43` and so on.
+{% endstep %}
+
+{% step %}
+**Data received**
+
+By using the general rule again, `21` is received first and stored at the lower address. Then `43` so on and so forth.
+
+```
+data received: 21   43   65   87
+Address      : a    a+1  a+2  a+3
+```
+
+So, we realize that our received receives `0x21436587` instead of the what we expect, which is `0x87654321`. Thus, here is where the error comes from.
+{% endstep %}
+{% endstepper %}
+
+#### Industry Solution to the endianness Issue
+
+This can be done by using the following two methods
+
+1. **Use Network Byte Order (Big-Endian)**
+   * Convert values before sending:
+     * In C/C++: `htonl(value)` (Host to Network Long)
+     * Convert back on the receiver: `ntohl(value)` (Network to Host Long)
+   * Many networking protocols (e.g., TCP/IP) already use big-endian by default.
+2. **Use Serialization Libraries**
+   * Protocol Buffers, MessagePack, or CBOR handle endianness automatically.
+
+### Different Data Sizes
+
+This issue is actually because our sender and receiver may use **different size** to store the same data type. For example, `int` on RPi is 4-byte, but on Arduino is 2-byte.
+
+<figure><img src="../.gitbook/assets/studio13-different-data-size-example.png" alt="" width="563"><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+In CG2111A, this issue only happens on `int` or `long`. For **floats** (`float` and `double`), this issue doesn't exist because they use 32-bit IEEE 754 format.
+{% endhint %}
+
+#### Solution
+
+Use **standardized** integer types.
+
+* Replace `int` with `in32_t`.
+* Replace `unsigned int` with `uint32_t`.
+* Replace `long` with `int64_t`.
+* Replace `unsigned long` with `uint64_t`.
+
+{% hint style="info" %}
+To use the standardized integer types, must `#include <stdint.h>`.
+{% endhint %}
+
+### Data Padding
+
+Data padding is the process of adding extra bytes to align data structures in memory according to the system’s architecture. Compilers do this to optimize access speed and prevent misalignment issues.
+
+***
+
+For example, a struct like this:
+
+```c
+struct Data {
+    int x;      // 4 bytes
+    char c;     // 1 byte
+    float z;    // 4 bytes
+};
+```
+
+On a **32-bit system**, `x` is naturally aligned (4 bytes), but `c` is only 1 byte. To keep `z` correctly aligned (4-byte boundary), the compiler **adds 3 padding bytes** after `c`:
+
+```css
+[ x x x x ][ c _ _ _ ][ z z z z ]
+```
+
+{% hint style="info" %}
+Here, `_` represents padding bytes.
+{% endhint %}
+
+#### Misalignment
+
+Misalignment happens when a variable is not stored at a memory address that is a multiple of its required alignment.
+
+***
+
+The table below summarizes the difference between the alignment rules on 32-bit and 64-bit machines.
+
+| Data Type   | Size                                                           | 32-bit x86 Alignment                                      | 64-bit Alignment                                          |
+| ----------- | -------------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
+| `char`      | 1 byte                                                         | 1-byte aligned                                            | 1-byte aligned                                            |
+| `short`     | 2 bytes                                                        | 2-byte aligned                                            | 2-byte aligned                                            |
+| `int`       | 4 bytes                                                        | 4-byte aligned                                            | 4-byte aligned                                            |
+| `long`      | <p>4 bytes on 32-bit machine,<br>8 bytes on 64-bit machine</p> | 4-byte aligned                                            | 8-byte aligned                                            |
+| `float`     | 4 bytes                                                        | 4-byte aligned                                            | 4-byte aligned                                            |
+| `double`    | 8 bytes                                                        | <p>4-byte aligned (Linux)<br>8-byte aligned (Windows)</p> | <p>8-byte aligned (Windows)<br>8-byte aligned (Linux)</p> |
+| `long long` | 8 bytes                                                        | <p>4-byte aligned (Linux)<br>8-byte aligned (Windows)</p> | <p>8-byte aligned (Windows)<br>8-byte aligned (Linux)</p> |
+| `pointer`   | 4 bytes                                                        | 4-byte aligned                                            | 8-byte aligned                                            |
+
+<details>
+
+<summary>What's the use of CPU Bit-Width here? (32-bit, 64-bit, etc)</summary>
+
+The CPU Bit-Width is not the root cause of misalignment, it is because the CPU Bit-Width will affect the size of the data type first, then this will cause new rules for data alignment.
+
+</details>
+
+#### Padding Example
+
+Here is a structure with members of various types, totaling 8 bytes before compilation:
+
+{% code lineNumbers="true" %}
+```c
+struct MixedData
+{
+    char Data1;
+    short Data2;
+    int Data3;
+    char Data4;
+};
+```
+{% endcode %}
+
+After compilation the data structure will be supplemented with padding bytes to ensure a proper alignment for each of its members:
+
+{% code overflow="wrap" lineNumbers="true" %}
+```c
+struct MixedData  /* After compilation in 32-bit x86 machine */
+{
+    char Data1; /* 1 byte */
+    char Padding1[1]; /* 1 byte for the following 'short' to be aligned on a 2-byte boundary
+assuming that the address where structure begins is an even number */
+    short Data2; /* 2 bytes */
+    int Data3;  /* 4 bytes - largest structure member */
+    char Data4; /* 1 byte */
+    char Padding2[3]; /* 3 bytes to make total size of the structure 12 bytes */
+};
 ```
 {% endcode %}
