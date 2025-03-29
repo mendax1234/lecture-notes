@@ -11,6 +11,7 @@
 * [Studio 8 - ADC Module](studio/studio-8-adc-module.md)
 * [Studio 9 - Serial Communication](studio/studio-9-serial-communication.md)
 * [Studio 13 - Communication Protocol](studio/studio-13-communication-protocol.md)
+* [Studio 15 - Secure Networking](studio/studio-15-secure-networking.md)
 
 ## Tutorial
 
