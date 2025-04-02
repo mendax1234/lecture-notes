@@ -236,7 +236,7 @@ If the third person wants to decrypt, he needs to know
 
 ### Digital Signature
 
-The use of **digital signature** is to ensure that a message is legit sent by someone, not anyone else! This is done by a neat feature of PKC, which is:
+The use of **digital signature** is to ensure that a message is **not modified**! This is done by a neat feature of PKC, which is:
 
 > If we encrypt using the private key, we can **also** decrypt using the public key!
 
@@ -268,7 +268,7 @@ $$
 m'=2^{7}\mod15=3
 $$
 
-If $$m'==m$$, Alice can make sure the message is sent by Bob.
+If $$m'==m$$, Alice can make sure the message is not modified by someone else. To check whether it is sent by Bob, [#certificate](studio-15-secure-networking.md#certificate "mention") is needed to verify that the public key is legit Bob's public key!
 {% endstep %}
 {% endstepper %}
 
