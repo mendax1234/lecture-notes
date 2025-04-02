@@ -316,9 +316,13 @@ The sender (e.g., Bob) takes a message, creates a **hash** of it (using a hash f
 
 The receiver (e.g., Alice) can use the **public key** to **decrypt** the digital signature, to get the **hash** and compare it with the hash sent by the sender. If they are the same, then the receiver can be sure that it's the sender that sends the message.
 
-#### Certificate
+### Certificate
 
 A **certificate** in cryptography is a signed statement that binds an **identity** (like Bob) to a **public key**. A **certificate** is usually signed by a **certificate authority (CA)**
+
+{% hint style="info" %}
+**Digital certificates** are used to **validate the identity of the sender**, and **digital signatures** are used to **validate the sent data**.
+{% endhint %}
 
 ***
 
