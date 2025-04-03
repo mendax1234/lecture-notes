@@ -32,6 +32,8 @@ A communication session is **always** initialized by a **host system**, e.g., a 
 * If a data packet is sent from host systems to RPLIDARs, such a packet is called a **Request**.
 * Once an RPILIDAR receives a request, it will reply the host system with a data packet called a **Response**.
 
+<figure><img src="../.gitbook/assets/studio10-request-respond-mode.png" alt="" width="563"><figcaption></figcaption></figure>
+
 Based on the related **request types**, there are **three** different request/response modes:
 
 1. Single Request-Single Response
@@ -48,17 +50,16 @@ A fixed `0xA5` byte is used for each request packet, RPLIDAR uses this byte as t
 
 #### Request Overview
 
-All the available requests are listed in the below table. Their detailed descriptions&#x20;are given in the following sections.
+All the available requests are listed in the below table. Their detailed descriptions&#x20;are given in the following sections. The value should be in `Command`.
 
 <figure><img src="../.gitbook/assets/studio10-request-review.png" alt="" width="563"><figcaption></figcaption></figure>
 
 ### Response Packets' Format
 
-All the response packets are divided into two classes: **response descriptors** and&#x20;**data responses**. If the current request received by RPLIDAR requires a response,&#x20;RPLDAR will always send a **response descriptor packet first** and then send one or&#x20;more data response packets based on the type of requests.&#x20;
+All the response packets are divided into two classes: **response descriptors** and&#x20;**data responses**. If the current request received by RPLIDAR requires a response,&#x20;RPLDAR will always send a **response descriptor packet first** and then send **one or&#x20;more data response packets** based on the type of requests.&#x20;
 
 {% hint style="info" %}
-Only **one response&#x20;descriptor packet** will be sent out during a request/response session. The response\
-descriptors carry the information of the incoming data responses. All the response&#x20;descriptors share a same format.
+Only **one response&#x20;descriptor packet** will be sent out during a request/response session.&#x20;
 {% endhint %}
 
 {% tabs %}
@@ -73,6 +74,14 @@ descriptors carry the information of the incoming data responses. All the respon
 {% endtab %}
 {% endtabs %}
 
+The response&#x20;descriptors carry the information of the incoming data responses. All the response&#x20;descriptors share a same format. Its format is shown as follows
 
+<figure><img src="../.gitbook/assets/studio10-reponse-descriptor-format.png" alt="" width="563"><figcaption></figcaption></figure>
+
+A response descriptor uses fixed two bytes’ pattern 0xA5 0x5A for the host system&#x20;to identify the start of a response descriptor.
+
+The 2 bits for Send Mode will determine whether its **single response mode** or **multiple response mode**.
+
+<figure><img src="../.gitbook/assets/studio10-response-descriptor-send-mode.png" alt="" width="563"><figcaption></figcaption></figure>
 
 [^1]: "uniform" means the general structure of packets is standardized (e.g., header, payload, checksum). But within this structure, **request and response packets have different formats based on their role**.
