@@ -50,13 +50,13 @@ A fixed `0xA5` byte is used for each request packet, RPLIDAR uses this byte as t
 
 #### Request Overview
 
-All the available requests are listed in the below table. Their detailed descriptions&#x20;are given in the following sections. The value should be in `Command`.
+All the available requests are listed in the below table. The value should be in `Command`.
 
 <figure><img src="../.gitbook/assets/studio10-request-review.png" alt="" width="563"><figcaption></figcaption></figure>
 
 ### Response Packets' Format
 
-All the response packets are divided into two classes: **response descriptors** and&#x20;**data responses**. If the current request received by RPLIDAR requires a response,&#x20;RPLDAR will always send a **response descriptor packet first** and then send **one or&#x20;more data response packets** based on the type of requests.&#x20;
+All the response packets are divided into two classes: **response descriptors** and&#x20;**data responses**. If the current request received by RPiLiDAR requires a response,&#x20;RPiLiDAR will always send a **response descriptor packet first** and then send **one or&#x20;more data response packets** based on the type of requests.&#x20;
 
 {% hint style="info" %}
 Only **one response&#x20;descriptor packet** will be sent out during a request/response session.&#x20;
@@ -78,7 +78,7 @@ The response&#x20;descriptors carry the information of the incoming data respon
 
 <figure><img src="../.gitbook/assets/studio10-reponse-descriptor-format.png" alt="" width="563"><figcaption></figcaption></figure>
 
-A response descriptor uses fixed two bytes’ pattern 0xA5 0x5A for the host system&#x20;to identify the start of a response descriptor.
+A response descriptor uses fixed two bytes’ pattern `0xA5 0x5A` for the host system&#x20;to identify the start of a response descriptor.
 
 The 2 bits for Send Mode will determine whether its **single response mode** or **multiple response mode**.
 

@@ -236,11 +236,11 @@ If the third person wants to decrypt, he needs to know
 
 ### Digital Signature
 
-The use of **digital signature** is to ensure that a message is **not modified**! This is done by a neat feature of PKC, which is:
+The use of **digital signature** is to ensure that a message is **not modified** and t**he message was signed by someone with access to the private key** that corresponds to the public key! This is done by a neat feature of PKC, which is:
 
 > If we encrypt using the private key, we can **also** decrypt using the public key!
 
-Still use the example of Bob and Alice above, with Bob's **public key** $$(7,15)$$ and Bob's private key $$(23,15)$$. Bob sends 3 to Alice and Alice wants to know this message is sent from Bob.
+Still use the example of Bob and Alice above, with Bob's **public key** $$(7,15)$$ and Bob's private key $$(23,15)$$. Bob sends 3 to Alice and Alice wants to know this message is not modified by others.
 
 {% stepper %}
 {% step %}
@@ -268,20 +268,24 @@ $$
 m'=2^{7}\mod15=3
 $$
 
-If $$m'==m$$, Alice can make sure the message is not modified by someone else. To check whether it is sent by Bob, [#certificate](studio-15-secure-networking.md#certificate "mention") is needed to verify that the public key is legit Bob's public key!
+If $$m'==m$$, Alice can make sure the message is not modified by someone else.
+
+{% hint style="info" %}
+To check whether it is sent by Bob, [#certificate](studio-15-secure-networking.md#certificate "mention") is needed to verify that the public key is legit Bob's public key! Because someone else other than Bob can use his own private key to encrypt the message and send his public key to Alice!
+{% endhint %}
 {% endstep %}
 {% endstepper %}
 
-However, in real-world, the raw message $$m$$ can be quite large, which makes it harder to compute the ciphertext $$c$$. To solve this, computer scientists introduce the **hash function** (like SHA256), so now the steps become as follows:
+However, in real-world, the raw message $$m$$ can be quite large, which makes it harder to compute the ciphertext $$c$$. To solve this, computer scientists introduce the **hash function** (like SHA256), which is basically used to generate a "digest" of the message $$m$$. So now the steps become as follows:
 
-1. Bob uses the hash function to generate $$h(m)$$, where $$h(m)$$ is sa much shorter summary of $$m$$.
+1. Bob uses the hash function to generate $$h(m)$$, where $$h(m)$$ is a much shorter summary of $$m$$.
 2. Bob encrypts $$h(m)$$ (instead of $$m$$) using his private key to get the ciphertext $$c$$.
 3. Bob sends $$(m,c)$$ as usual to Alice.
 4. Alice receives $$(m,c)$$, then computes $$h(m)$$.
-5. Alice decryptes $$c$$ using Bob's public key, and if the result **is equal to** $$h(m)$$, she knows that Bob sent her that message.
+5. Alice decryptes $$c$$ using Bob's public key, and if the result **is equal to** $$h(m)$$, she knows that the message is **not modified!**
 
 {% hint style="info" %}
-c is called the **digital signature**.&#x20;
+$$c$$ is called the **digital signature**.&#x20;
 {% endhint %}
 
 #### Hash Function
@@ -296,7 +300,7 @@ Below are some important properties of hash functions
 
 #### Real-world Applications of Digital Signature
 
-As public keys are public, how does others know this public key is legit sent by someone? We can use **digital signature**!
+As public keys are public, how does others know this public key is legit sent by someone? We can use **digital signature** to sign our **public key**!
 
 ***
 
@@ -307,14 +311,18 @@ For example, Bob wants to send his public key to Alice, and Alice wants to verif
 3. **(Bob)** Bob then distributes $$(\text{PUB}, h(\text{PUB}), c)$$ to everyone (This pair is called a **certificate**)
 4. **(Alice)** Compute $$h(\text{PUB})$$, then decrypt $$c$$ using Bob's public key, if the result is equal to $$h(\text{PUB})$$, then this public key is legit sent by Bob!
 
+{% hint style="info" %}
+In Real World, the public key is **signed** by an Certificate Authority (CA) instead of Bob himself signing his own public key.
+{% endhint %}
+
 #### Sign and Digital Signature
 
 * **Sign** is the process (the act of creating the signature).
 * **Signature** is the value (the output of the signing process).
 
-The sender (e.g., Bob) takes a message, creates a **hash** of it (using a hash function like SHA-256), and then **encrypts** that hash with their **private key**. This **encrypted hash** is the **digital signature**.
+The sender (e.g., Bob) takes a message, creates a **hash** of it (using a hash function like SHA-256), and then **encrypts** that hash with their **private key**. This **encrypted hash** is the **digital signature**. This process is called **signing.**
 
-The receiver (e.g., Alice) can use the **public key** to **decrypt** the digital signature, to get the **hash** and compare it with the hash sent by the sender. If they are the same, then the receiver can be sure that it's the sender that sends the message.
+The receiver (e.g., Alice) can use the **public key** to **decrypt** the digital signature, to get the **hash** and compare it with the hash sent by the sender. If they are the same, then the receiver can be sure the message is not modified! But who is the sender, we need a **certificate** to verify that the public key legit is from the sender we want!
 
 ### Certificate
 
@@ -329,6 +337,194 @@ A **certificate** in cryptography is a signed statement that binds an **identity
 Differences between Digital Signature and Certificate
 
 <table><thead><tr><th width="140">Aspect</th><th>Digital Signature</th><th>Certificate</th></tr></thead><tbody><tr><td><strong>Definition</strong></td><td>A cryptographic proof that a message/document is authentic and unchanged.</td><td>A signed document that binds an identity (e.g., a person or website) to a public key.</td></tr><tr><td><strong>Purpose</strong></td><td>Ensures data integrity, authenticity, and non-repudiation.</td><td>Confirms the authenticity of a public key.</td></tr><tr><td><strong>What is Signed?</strong></td><td>A hash of a document or message.</td><td>A public key (along with identity information).</td></tr><tr><td><strong>Who Signs It?</strong></td><td>The owner of the private key uses his private key to sign it.</td><td>A trusted authority (e.g., a Certificate Authority, CA) uses his private key to sign it.</td></tr><tr><td><strong>Verification</strong></td><td>Anyone with the public key can verify the signature.</td><td>Anyone with the CA’s public key can verify the certificate.</td></tr><tr><td><strong>Real-World Example</strong></td><td>A contract signed digitally to prevent forgery.</td><td>An SSL certificate proving a website's authenticity.</td></tr></tbody></table>
+
+### Key Exchange
+
+So, as we have seen above, to ensure the security of the communication between the Alice and Bob, we can use **PKC** and **CA** method. In this case, Alice and Bob would exchange public keys, verified by a CA, and encrypt messages using **asymmetric encryption** (like RSA). However, this method has drawbacks:
+
+* It relies on a **trusted CA**, which may not always be available.
+* Public-key cryptography is **computationally expensive** compared to symmetric encryption.
+
+Instead, the second solution, which uses **Diffie-Hellman (DH) Key Exchange** lets Alice and Bob **securely agree on a shared secret key** without ever transmitting it directly. This shared secret key is then used for **fast symmetric encryption (e.g., AES)** to protect communication. And even if Eve listens in, she won’t be able to compute the key!
+
+#### Diffie-Hellman Key Exchange Algorithm
+
+{% stepper %}
+{% step %}
+**(Alice and Bob)** **Agree on Public Parameters** $$p$$ **and** $$g$$
+
+* $$p$$: A **large prime number**. It defines the range in which all calculations are done (modulo $$p$$).
+* $$g$$: A **generator** (or **primitive root**) modulo $$p$$. It’s a number such that its powers modulo $$p$$ can generate all numbers from 1 to $$p-1$$. (( $$g^1,g^2,\dots,g^{p-1} \mod p$$ will produce all integers from 1 to $$p-1$$ (no repeats))&#x20;
+
+{% hint style="info" %}
+Together, ppp and ggg define a **finite cyclic group**, and the security of Diffie-Hellman relies on the difficulty of the discrete logarithm problem in this group.
+{% endhint %}
+
+For simplicity reason, in our example we choose
+
+$$
+p=23\\g=5
+$$
+{% endstep %}
+
+{% step %}
+**(Alice and Bob) Generate their own secret numbers** $$a$$ **and** $$b$$
+
+* Alice picks a **random private number** $$a$$. Let's say $$a=6$$
+* Bob picks a **random private number** $$b$$. Let's say $$b=15$$
+{% endstep %}
+
+{% step %}
+**(Alice and Bob) Compute the public shared numbers and Exchange them** $$A$$ **and** $$B$$
+
+Alice computes her public shared number:
+
+$$
+A=g^a\mod p=5^6\mod 23=8
+$$
+
+She sends $$A=8$$ to Bob.
+
+Bob computes his public shared number:
+
+$$
+B=g^b\mod p=5^{15}\mod 23=19
+$$
+
+Bob sends $$B=19$$ to Alice.
+{% endstep %}
+
+{% step %}
+**(Alice and Bob) Compute the shared secret key** $$S_{\text{Alice}}$$ **and** $$S_{\text{Bob}}$$
+
+Now, both Alice and Bob use the received **public shared number** ($$A$$ **and** $$B$$) and their own **secret number** ($$a$$ **and** $$b$$) to compute the shared key.
+
+Alice computes
+
+$$
+S_{\text{Alice}}=B^a\mod p=19^6\mod23=2
+$$
+
+Bob computes
+
+$$
+S_{\text{Bob}}=A^b\mod p=8^{15}\mod23=2
+$$
+
+Now, both of them get the same shared key 2! They can use it with **symmetric cryptosytem** (or [#private-key-cryptosystem](studio-15-secure-networking.md#private-key-cryptosystem "mention")) to encrypy their communication without worring the third person will know their shared secret key!)
+{% endstep %}
+{% endstepper %}
+
+This step can be shown vividly using the following diagram
+
+<figure><img src="../.gitbook/assets/studio15-key-exchange.png" alt="" width="330"><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+**Common paint** is the public parameters  $$p$$ and $$g$$ in the first step!
+{% endhint %}
+
+<details>
+
+<summary>Why is Diffie-Hellman Secure?</summary>
+
+Even though the third person knows $$p,g,A,B$$ he **cannot** compute the shared key easily because of the **Discrete Logarithm Problem**:
+
+* Given $$g,p,A$$ it’s **extremely hard** to find $$a$$.
+* Given $$g,p,B$$ it’s **extremely hard** to find $$b$$.
+
+Without knowing $$a$$ or $$b$$, the third person **cannot** compute the shared key.
+
+</details>
+
+### Transport Layer Security
+
+Transport Layer Security (TLS) is like a secure tunnel that protects messages from being read or changed by anyone except the intended recipient. It ensures that data stays **private** and **authentic** when traveling over the internet.
+
+Let's see how TLS combines all what we have learned together with an example
+
+#### TLS Handshake — Alice & Bob's Example
+
+{% stepper %}
+{% step %}
+**(Bob) Bob Sends a HELLO Message**
+
+Bob (the server) sends a "HELLO" message to Alice (the client), listing the encryption methods (ciphers) it supports (e.g., AES, DES).
+{% endstep %}
+
+{% step %}
+**(Alice) Alice Sends a HELLO Message Back**
+
+Alice replies with her chosen **encryption method** from the list Bob provided. In this example, we choose the **symmetric cyrptosystem**.
+
+{% hint style="info" %}
+The **encryption method** selected in Step 2 (e.g., AES, DES, etc.) is used to **define how the data will be encrypted and decrypted** during the actual communication, once the handshake is complete.
+{% endhint %}
+{% endstep %}
+
+{% step %}
+**(Alice) Alice Sends Her Certificate**
+
+Alice sends Bob her **digital certificate**, which includes her public key.
+
+{% hint style="info" %}
+This proves her identity and allows Bob to **verify** the certificate using the trusted third-party (CA , like Charlie’s) public key.
+{% endhint %}
+{% endstep %}
+
+{% step %}
+**(Bob) Bob Sends a Random Secret Encrypted with Alice’s Public Key**
+
+Bob generates a **random secret** (used to create a session key) and encrypts it using Alice’s **public key** from the certificate. He sends this encrypted secret to Alice.
+
+{% hint style="info" %}
+This ensures only Alice can decrypt and access the secret using her **private key**. [#public-key-cryptosystem](studio-15-secure-networking.md#public-key-cryptosystem "mention") is used here!
+{% endhint %}
+{% endstep %}
+
+{% step %}
+**(Alice) Alice Decrypts the Secret and Creates the Session Key**
+
+Alice decrypts Bob’s encrypted random secret using her **private key**. Both Alice and Bob now generate the **session key (S)** using Diffie-Hellman or another method. This session key is used for **symmetric encryption** (fast encryption for the actual data).
+{% endstep %}
+
+{% step %}
+**(Bob) Bob Sends a FINISHED Message**
+
+Bob sends a "FINISHED" message encrypted with the session key (S). This is a known message, so Alice can check if it matches by decrypting it.
+
+{% hint style="info" %}
+If Alice can decrypt the message correctly, it confirms that Bob has the same session key and that the handshake is valid.
+{% endhint %}
+{% endstep %}
+
+{% step %}
+**(Alice) Alice Sends a FINISHED Message Back**
+
+Alice sends her own "FINISHED" message to Bob, encrypted with the session key (S).
+
+{% hint style="info" %}
+If Bob can decrypt this message correctly, it confirms the handshake is complete and both parties are ready to securely communicate.
+{% endhint %}
+{% endstep %}
+
+{% step %}
+**Secure Communication Begins**
+
+Alice and Bob now use the **session key (S)** and the selected symmetric cipher (like AES) to securely exchange data.
+
+{% hint style="info" %}
+This **session key** allows fast encryption and decryption for the rest of the communication.
+{% endhint %}
+{% endstep %}
+{% endstepper %}
+
+<details>
+
+<summary>What is Handshake?</summary>
+
+A **handshake** in the context of **network communication** (like TLS) refers to the **initial process** where two parties (like Alice and Bob) establish a secure communication channel by agreeing on how they will communicate, authenticate each other, and exchange the necessary keys for encryption.
+
+</details>
 
 ## Reference
 

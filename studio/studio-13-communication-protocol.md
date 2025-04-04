@@ -102,7 +102,7 @@ The following is a demo picture, the LHS is RPI and the RHS is Arduino.
 
 <figure><img src="../.gitbook/assets/studio13-poll-driven.png" alt="" width="195"><figcaption></figcaption></figure>
 
-## Transfer Packets
+## Transmit Packets
 
 Now, let's take a deeper look at the **packets** and some potential issues that may occur during packet transmission.
 
@@ -161,7 +161,7 @@ typedef tc {
 } TCommand;
 ```
 
-But, when transferring this packet to other devices, we need to **serialize** this packet.
+But, when transmitting this packet to other devices, we need to **serialize** this packet first.
 
 > **Serialization** means converting data into a **platform-agnostic byte stream**, ensuring reliable transmission. This is because when communicating between devices like a **Raspberry Pi (RPi)** and an **Arduino**, data must traverse a **serial interface** (e.g., USB/UART), which only understands **streams of bytes**.
 
@@ -292,7 +292,7 @@ Note the the sequence within **each byte** will not change!
 {% endstep %}
 {% endstepper %}
 
-#### What happens if sending between machines using different endianness?
+#### What happens if sending packets between machines using different endianness?
 
 First, the general rule to decide the bytes received is as follows:
 
@@ -325,7 +325,7 @@ data received: 21   43   65   87
 Address      : a    a+1  a+2  a+3
 ```
 
-So, we realize that our received receives `0x21436587` instead of the what we expect, which is `0x87654321`. Thus, here is where the error comes from.
+By using Big Endianess to interpret the data we received, we realize that our receiver receives `0x21436587` instead of the what we expect, which is `0x87654321`. Thus, here is where the error comes from.
 {% endstep %}
 {% endstepper %}
 
