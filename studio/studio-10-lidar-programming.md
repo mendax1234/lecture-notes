@@ -78,9 +78,9 @@ The response&#x20;descriptors carry the information of the incoming data respon
 
 <figure><img src="../.gitbook/assets/studio10-reponse-descriptor-format.png" alt="" width="563"><figcaption></figcaption></figure>
 
-A response descriptor uses fixed two bytes’ pattern `0xA5 0x5A` for the host system&#x20;to identify the start of a response descriptor.
-
-The 2 bits for Send Mode will determine whether its **single response mode** or **multiple response mode**.
+1. A response descriptor uses fixed two bytes’ pattern `0xA5 0x5A` for the host system   &#x20;to identify the start of a response descriptor.
+2. The response descriptor is **different** from the data response, and it doesn't tell any information about the RPiLiDAR's error code and status, only the data reponse contains this information!
+3. The 2 bits for Send Mode will determine whether its **single response mode** or **multiple response mode**.
 
 <figure><img src="../.gitbook/assets/studio10-response-descriptor-send-mode.png" alt="" width="563"><figcaption></figcaption></figure>
 
