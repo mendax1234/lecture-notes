@@ -4,24 +4,17 @@ Welcome to my **Lecture Notes**! This repository contains carefully curated and 
 
 ## 📚 **Contents**
 The repository is organized into the following sections:
-- **Semester-wise Notes**  
-  Notes are categorized based on academic semesters, making it easy to track progress over time.
-- **Subject-wise Topics**  
-  Within each semester folder, notes are further divided by subject and module codes for clarity.
-- **Additional Resources**  
-  Includes summaries, cheat sheets, and references to external resources when applicable.
+- **Semester-wise Notes**: Notes are categorized based on academic semesters, making it easy to track progress over time.
+- **Subject-wise Topics**: Within each semester folder, notes are further divided by subject and module codes for clarity.
+- **Additional Resources**: Includes summaries, cheat sheets, and references to external resources when applicable.
 
 ## 🔖 **Features**
-- **Structured Format**  
-  Notes are organized in a clean and consistent style:  
+- **Structured Format**: Notes are organized in a clean and consistent style:  
   - **Technical Subjects**: Written in Markdown and deployed via [GitBook](https://www.gitbook.com/) for easy navigation and accessibility.  
   - **Math and Physics**: Written in LaTeX and compiled using [Overleaf](https://www.overleaf.com/) to maintain precision and clarity.  
-- **Rich Content**  
-  Includes detailed explanations, examples, diagrams, and code snippets where applicable.
-- **Cross-References**  
-  Links to related topics or prerequisite material are provided for a seamless learning experience.
-- **Version Controlled**  
-  Changes and improvements to the notes are tracked using Git, ensuring the latest updates are always available.
+- **Rich Content**: Includes detailed explanations, examples, diagrams, and code snippets where applicable.
+- **Cross-References**: Links to related topics or prerequisite material are provided for a seamless learning experience.
+- **Version Controlled**: Changes and improvements to the notes are tracked using Git, ensuring the latest updates are always available.
 
 ## 🛠 **Setup**
 To view and use these notes:
@@ -55,4 +48,4 @@ A huge thank you to the professors, teaching assistants, and peers at NUS who ha
 ## 📨 **Feedback and Contact**
 If you have any feedback, suggestions, or questions, feel free to open an issue or contact me directly via GitHub. Let’s learn and grow together!  
 
-Hope you find these notes helpful in your learning journey. 😊 
+Hope you find these notes helpful in your learning journey. 😊
