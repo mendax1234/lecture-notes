@@ -1,0 +1,1247 @@
+\documentclass[math,code]{amznotes}
+\setcounter{tocdepth}{2}  % Only show subsections and sections in the ToC
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage{tabularx}
+\usepackage{float} % Needed for [H] placement specifier
+\usepackage{wrapfig} % Needed for wrapping figures
+\usepackage{diagbox} % For diagonal split in table
+\usepackage{booktabs} % For better table formatting
+
+\graphicspath{ {./images/} }
+\geometry{
+    a4paper,
+    headheight = 1.5cm
+}
+
+\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}
+
+\theoremstyle{remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{remark}{Remark}
+\newtheorem{case}{Case}
+
+\newcommand{\entry}[5]{\markboth{#1}{#1}\textbf{#1}\ {(#2)}\ \textit{#3}\ $\bullet$\ \textbf{\textit{#4}} \begin{small}#5\end{small}}  % Defines the command to print each word on the page, \markboth{}{} prints the first word on the page in the top left header and the last word in the top right
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+\fancyhead[L]{
+    French II
+}
+\fancyhead[R]{
+    Lecture Notes
+}
+\tableofcontents
+%----------------------------------------------------------------------------------------
+%	Le passé composé
+%----------------------------------------------------------------------------------------
+\chapter{Le passé composé (Unit 5)}
+\section{Le passé composé avec \textit{avoir}}
+\begin{enumerate}
+    \item Le passé composé présente des \textbf{actions passées}, ponctuelles et limitées dans le temps. (The past tense presents \textbf{past actions}, punctual and limited in time.) \newline
+    e.g. \textit{\underline{Hier}, j'\underline{ai mangé}} une crêpe au chocolat. (Yesterday, I ate a chocolate crepe.)
+    \item Le passé composé se construit avec deux élément: \newline
+    \centerline{sujet+\textbf{avoir} au présent de l'indicatif + \textbf{participe passé} du verbe} \newline
+    e.g. Samedi dernier, j'\textbf{ai acheté} un pantalon.
+    \item Le \textbf{participe passé} change selon les groupes de verbes. \newline
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{verbes en:} & \textbf{participe passé} & \textbf{exemples} \\ \hline
+        -er comme parler    & -é                       & parlé             \\ \hline
+        -ir comme finir     & -i                       & fini              \\ \hline
+        \end{tabular}
+        \caption{Le participe passé change table}
+        \label{tab:participe-passe-change-table}
+    \end{table}
+    \newline
+    Il y a des participes passé irréguliers. \newline
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{|l|l|l|}
+        \hline
+        avoir $\rightarrow$ eu{[}y{]} & (ap)prendre $\rightarrow$ (ap)pris & voir $\rightarrow$ vu  \\ \hline
+        être $\rightarrow$ été        & pouvoir $\rightarrow$ pu           & boire $\rightarrow$ bu \\ \hline
+        faire $\rightarrow$ fait      & vouloir $\rightarrow$ voulu        & descendre $\rightharpoondown$ descendu        \\ \hline
+        mourir $\rightarrow$ mort     & venir $\rightarrow$ venu           & naître $\rightarrow$ né \\ \hline
+        \end{tabular}
+        \caption{participe passe irregular}
+        \label{tab:participe-passe-irregular}
+    \end{table}
+\end{enumerate}
+
+\section{C'était, Il y avait, Il faisait}
+\begin{enumerate}
+    \item Pour décriere une situation au passé, on peut utiliser une \textbf{structure impersonnelle} à l'imparfait: \textit{c'était, il y avait, il faisait} (To describe a situation in the past, we can use an \textbf{impersonal structure} in the imperfect: \textit{it was, there was, he was doing}) \newline
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{|l|l|l|}
+        \hline
+        Imparfait  &                                                                         & exemples                                                                                                                    \\ \hline
+        C'était    & \begin{tabular}[c]{@{}l@{}}+adjectif\\ +date, mois, saison\end{tabular} & \begin{tabular}[c]{@{}l@{}}C'était beau.\\ C'était en juin. (It was in June.)\end{tabular}                                  \\ \hline
+        Il y avait & +article+nom                                                            & \begin{tabular}[c]{@{}l@{}}Il y avait des gens. (There were people.)\\ Il y avait du bruit. (There was noise.)\end{tabular} \\ \hline
+        Il faisait & +adjectif                                                               & Il faisait chaud. (It was hot.)                                                                                             \\ \hline
+        \end{tabular}
+        \caption{cetait-ilyavait-ilfaisait}
+        \label{tab:cetait-ilyavait-ilfaisaitmy-table}
+    \end{table} \\
+    
+    Parfois, à l'oral, on ne prononce pas le \textit{l} dans l'expression \textit{\underline{il} y avait}. (Sometimes, when speaking, we do not pronounce the \textit{l} in the expression \textit{\underline{il} y avait}.)
+\end{enumerate}
+
+\section{Le passé composé avec \textit{avoir} et la form négative}
+\begin{enumerate}
+    \item À la \textbf{forme négative}, \textit{avoir} est entre \textit{ne} et \textit{pas}. \newline
+    \centerline{sujet+\textbf{ne}+\textbf{avoir} au présent de l'indicatif+\textbf{pas}+\textbf{participe passé} du verbe} \newline
+    e.g. Hier, il \textbf{n'}ai \textbf{pas} acheté de pantalon. \\
+    \begin{multicols}{2}
+        \entry{Je \textbf{n'ai}}{}{}{}{I didn't $\cdots$}
+
+        \entry{Tu \textbf{n'as}}{}{}{}{You didn't $\cdots$}
+
+        \entry{Il/Elle/On \textbf{n'a}}{}{}{}{She/He/We didn't $\cdots$}
+
+        \entry{Nous \textbf{n'avons}}{}{}{}{We didn't $\cdots$}
+
+        \entry{Vous \textbf{n'avez}}{}{}{}{You didn't $\cdots$}
+
+        \entry{Ils/Elles \textbf{n'ont}}{}{}{}{They didn't $\cdots$}
+    \end{multicols}
+\end{enumerate}
+
+\section{Le passé composé avec \textit{être}}
+\begin{enumerate}
+    \item Pour quelques verbes, on utilise être. \newline
+    \centerline{sujet+\textbf{être} au présent de l'indicatif+\textbf{participe passé} du verbe} \newline
+    e.g. Samedi dernier, il \textbf{est allé} au cinéma. \newline
+    \begin{notebox}
+        \begin{remark}
+            Pour mémoriser ces verbes, pensez aux lettres qui composent \textbf{DR \& MRS VANDERTRAMPP}! \newline
+            \textit{Devenir, Revenir, Monter, Rester, Sortir, Venir, Aller, Naître, Descendre, Entrer, Retourner, Tomber, Rentrer, Arriver, Mourir, Partir, Passer} \newline
+            (\textit{To become, To return, To rise, To remain, To go out, To come, To go, To be born, To descend, To enter, To return, To fall, To return, To arrive, To die, To leave, To pass})
+        \end{remark}
+    \end{notebox}
+    \item Avec être, le participle passé \textbf{s'accorde} en genre et en nombre avec le sujet. (With être, the past participle \textbf{agrees} in gender and number with the subject.) This means: 
+    \begin{enumerate}
+        \item If sujet is feminin, we plus \textit{e}
+        \item If sujet is pluriel, we plus \textit{s} e.g. Mon frere et moi, nous ne sommes pas tombes.
+        \item If sujet is both feminin and pluriel, we plus \textit{es} e.g. \underline{Elles} sont allé\textbf{es} au cinéma.
+        \item If sujet is masculin, we leave it as it is. e.g. \underline{Il} est allé au cinéma. 
+    \end{enumerate}
+    \item À la \textbf{forme négative}, être est entre \textit{ne} et \textit{pas}. \newline
+    \centerline{sujet+\textbf{ne}+\textbf{être} au présent de l'indicatif+\textbf{pas}+\textbf{participe passé} du verbe} \newline
+    e.g. Elle \textbf{n'}est \textbf{pas} allée au cinéma.
+    \item Pay attention to the table \ref{tab:participe-passe-change-table} about the irregular participes passés!!!
+\end{enumerate}
+
+\chapter{Unit 6}
+\section{Les questions: les interrogatifs avec est-ce que}
+Pour poser une question, on peut utiliser: \textbf{un pronom interrogatif}, e.g., qui, quand, etc
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+         & pour interroger sur: & pronom interrogatif+est-ce que+sujet+verbe...? \\ \hline
+qui      & une personne         & \textbf{Qui} est-ce que tu connais?                     \\ \hline
+que/quoi & une chose            & \textbf{Qu}'est-ce que tu fais? Tu fais \textbf{quoi}?            \\ \hline
+où       & le lieu              & \textbf{Où}'est-ce que tu pars?                         \\ \hline
+quand    & le temps             & \textbf{Quand} est-ce que tu pars?                      \\ \hline
+comment  & la manière (method)  & \textbf{Comment} est-ce que tu pars?                    \\ \hline
+combien  & la quantité          & \textbf{Combien} de gâteaux est-ce que tu veux?         \\ \hline
+pourquoi & la cause             & \textbf{Pourquoi} est-ce que tu travailles?             \\ \hline
+\end{tabular}
+\caption{Pronom Interrogatif}
+\label{tab:pronom-interrogatif}
+\end{table}
+
+\begin{notebox}
+    \textit{Remark}.
+    \begin{enumerate}
+        \item Sans \textit{est-ce que}, le pronom interrogatif (sauf \textit{pourquoi}) est à la fin de la phrase. (Without \textit{est-ce que}, the interrogative pronoun (except \textit{pourquoi}) is at the end of the sentence.) \\
+        Tu connais \textbf{qui}? Tu pars \textbf{où}? Tu pars \textbf{quand}? Tu pars \textbf{comment}? Tu veux \textbf{combien} de gâteaux?
+        \item \textbf{Qui} est-ce \textbf{qui} va partir avec elle? Sa sœur, Virginie, va partir avec elle.
+    \end{enumerate}
+\end{notebox}
+
+\section{L'obligation et la possibilité}
+\begin{enumerate}
+    \item Pour exprimer l'\textbf{obligation}, on peut utiliser:
+    \begin{enumerate}
+        \item \textbf{Il faut (It's necessary)} + verbe à l'infinitif \\
+        e.g. \textbf{Il faut} arriver à l'heure. (Obligation: You must arrive on time) \\
+        e.g. \textbf{Il} \underline{ne} \textbf{faut} \underline{pas} manger trop de sucre. (Interdiction/``Prohibition'': You shouldn't eat too much sugar.)
+        \begin{notebox}
+            \begin{remark}
+                \textit{il faut} est une forme impersonnelle. (\textit{il faut} is an impersonal (non-personnal) form.)
+            \end{remark}
+        \end{notebox}
+        \item \textbf{devoir} + verbe à l'infinitif \\
+        e.g. Vous \textbf{devez} travailler. (You have to work)
+    \end{enumerate}
+    \item Pour exprimer la \textbf{possibilité}, on peut utiliser
+    \begin{enumerate}
+        \item \textbf{pouvoir} + verbe à l'infinitif \\
+        e.g. Vous \textbf{pouvez} partif. (You can go)
+    \end{enumerate}
+\end{enumerate}
+\begin{notebox}
+    \begin{remark}
+        Dans le verbe pronominal, ``\textbf{se}'' s'accorde avec le \textbf{sujet} et le verb est l'infiniti (In the pronominal verb, ``\textbf{se}'' agrees with the subject and the verb is still in infinitive) \\
+        se réveiller: \underline{Je} dois \textbf{me} réveille\textbf{r} à 7 heures demain matin. \\
+        se coucher: \underline{Nous} pouvons \textbf{nous} couche\textbf{r} à 22 heures.
+    \end{remark}
+\end{notebox}
+
+\section{Les verbes pronominaux}
+\begin{enumerate}
+    \item Pronominal verbs are verbs that use a reflexive pronoun before the verb
+    \item Le verbe pronominal \textit{se} conjugue avec un \textit{pronom réfléchi}. \\
+    Je \textbf{me} lève à 7 heures. (``me'' est \textit{se}, ``lève'' est un pronom réfléchi
+    \item Le \textbf{pronom réfléchi} s'accorde avec le sujet.
+    \begin{notebox}
+        \begin{remark}
+            Devant une \textit{voyelle} ou un \textit{h}, \textbf{me, te, se} $\rightarrow$ \textbf{m', t', s'}.
+        \end{remark}
+    \end{notebox}
+    e.g. Elle \textbf{s'}\underline{a}ppelle Julie. Il \textbf{s'}\underline{e}ntraîne tous les matins.
+    \item À la \textbf{forme négative}: sujet + \textbf{ne} + \textbf{pronom réfléchi} + verbe + \textbf{pas} \\
+    e.g. Je \textbf{ne} me lève \textbf{pas}. Il \textbf{ne} se rase \textbf{pas} ce soir.
+    \item Au \textbf{futur proche}: sujet + \textbf{aller} + \textbf{pronom réfléchi} + \textbf{verbe} \\
+    e.g. Il \textbf{va} se \textbf{coucher}. Nous \textbf{allons} nous \textbf{préparer}.
+    \item Certains verbes ont aussi une \textbf{forme simple}(=sans pronom) (Some verbs also have a \textbf{simple form}(=without pronoun)) \\
+    \begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+    laver $\rightarrow$ se laver         & Je lave mon tee-shirt & Je me lave.      \\ \hline
+    réveiller $\rightarrow$ se réveiller & Je réveille ma souer  & Je me réveiller  \\ \hline
+    préparer $\rightarrow$ se préparer   & Elle prépare son sac. & Elle se prépare. \\ \hline
+    \end{tabular}
+    \caption{ Verbes with simple form}
+    \label{tab:verbes-with-simple-form}
+    \end{table}
+    \item \textbf{Classic Examples}
+    \begin{itemize}
+        \item Vous n'\textbf{allez} vous maquiller \textbf{pas} aujourd'hui?
+        \item Tu \textbf{ne vas} te raser \textbf{pas} ce matin.
+    \end{itemize}
+\end{enumerate} 
+
+\section{L'accord des adjectifs}
+\begin{enumerate}
+    \item L'adjectif s'accorde en \textbf{genre} (masculin ou féminin) avec le nom. \\
+    \begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+    masculin      & féminin & exemples                                                                                                                    \\ \hline
+    -a, i, o, u   & +-e     & Il est joli. Elle est jolie.                                                                                                \\ \hline
+    -une consonne & +-e     & Il est grand. Elle est grande.                                                                                              \\ \hline
+    -e            &         & Il est calme. Elle est calme                                                                                                \\ \hline
+    -ien/-on      & +-ne    & \begin{tabular}[c]{@{}l@{}}Il est équatorien. Elle est équatorienne.\\ Il est mignon. Elles Elle est mignonne.\end{tabular} \\ \hline
+    -(i)er        & $\rightarrow$-(i)ère & \begin{tabular}[c]{@{}l@{}}Il est étranger. Elle est étrangère.\\ Il est fier. Elle est fière.\end{tabular}                 \\ \hline
+    -eux          & $\rightarrow$-euse   & Il est heureux. Elle est heureuse.                                                                                          \\ \hline
+    -if           & $\rightarrow$-ive    & IL est créatif. Elle est heureuse.                                                                                          \\ \hline
+    -el           & $\rightarrow$-elle   & Il est exceptionnel. Elle est exceptionnelle.                                                                               \\ \hline
+    \end{tabular}
+    \caption{L'accord des adjectifs}
+    \label{tab:laccord-des-adjectifs}
+    \end{table}
+    \begin{notebox}
+        \begin{remark}
+            \text{beau} $\rightarrow$ \text{belle}, \text{doux} $\rightarrow$ \text{douce}, \text{fou} $\rightarrow$ \text{folle}, \text{gentil} $\rightarrow$ \text{gentille}, \text{gros} $\rightarrow$ \text{grosse}, \text{nouveau} $\rightarrow$ \text{nouvelle}, \text{roux} $\rightarrow$ \text{rousse}, \text{vieux} $\rightarrow$ \text{vieille}.
+        \end{remark}
+    \end{notebox}
+    \item \textbf{Rappel}\footnote{Recall}: L'adjectif s'accorde en \textbf{nombre} (singulier ou pluriel) avec le nom. \\
+    En général, on ajoute un \textbf{s} au pluriel, sauf s'il y a déjà un \texttt{-s} ou un \texttt{-x}.\footnote{In general, we add a \textbf{s} in the plural, unless there is already a \texttt{-s} or a \texttt{-x}}
+    \begin{notebox}
+        \begin{remark}
+            \texttt{-eau}$\rightarrow$\texttt{-eaux}, \texttt{-al}$\rightarrow$\texttt{-aux} \\
+            e.g. Ils sont \textbf{beaux}, \textbf{sympathiques} et \textbf{chaleureux}
+        \end{remark}
+    \end{notebox}
+    \item \textbf{Class examples}
+    \begin{itemize}
+        \item Elle porte des chaussures \textbf{noires}.
+        \item Dans le jardin, il y a des poules \textbf{rousses}.
+        \item J'ai des amis \textbf{loyaux}.
+    \end{itemize}
+\end{enumerate}
+
+\chapter{Unit 7}
+\section{Les adjectifs possessifs}
+
+\begin{table}[h]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|l|c|c|c|}
+        \hline
+        \textbf{Rappel :} & \textbf{masculin singulier} & \textbf{féminin singulier} & \textbf{pluriel} \\
+        \hline
+        à moi & \textcolor{orange}{mon} & \textcolor{orange}{ma} & \textcolor{orange}{mes} \\
+        \hline
+        à toi & \textcolor{orange}{ton} & \textcolor{orange}{ta} & \textcolor{orange}{tes} \\
+        \hline
+        à elle/lui & \textcolor{orange}{son} & \textcolor{orange}{sa} & \textcolor{orange}{ses} \\
+        \hline
+        à nous/on & \textcolor{orange}{notre} & \textcolor{orange}{notre} & \textcolor{orange}{nos} \\
+        \hline
+        à vous & \textcolor{orange}{votre} & \textcolor{orange}{votre} & \textcolor{orange}{vos} \\
+        \hline
+        à elles/eux & \textcolor{orange}{leur} & \textcolor{orange}{leur} & \textcolor{orange}{leurs} \\
+        \hline
+    \end{tabular}
+\end{table}
+\begin{notebox}
+    \begin{remark}
+        Devant un nom féminin qui commence par une voyelle, on utilise \textit{mon, ton, son}. \newline
+        e.g. C'est \textbf{mon} \underline{a}mie. C'est Marie, \textbf{son} \underline{é}lève.
+    \end{remark}
+\end{notebox}
+
+\section{Le passé récent}
+Le passé récent indique uen \textcolor{orange}{action terminée} depuis peu.\footnote{The recent past indicates a recently completed action.} \newline
+e.g. Je \textbf{viens de} finir ce livre.
+\begin{enumerate}
+    \item Le passé récent se construit avec le verbe \textcolor{orange}{venir} et la préposition \textcolor{orange}{de}.
+    \begin{center}
+        sujet + \textcolor{orange}{venir} au présent de l'indicatif + \textcolor{orange}{de} + verbe à l'infinitif
+    \end{center}
+    e.g. Nous \textbf{venons de} quitter le restaurant.
+    \item À la \textcolor{orange}{forme négative}, la négation entoure le verbe venir.\footnote{The negation surrounds the verb \textit{venir}}
+    \begin{center}
+        sujet + \textcolor{orange}{ne} + \textbf{venir} au présent de l'indicatif + \textcolor{orange}{pas} + \textbf{de} + verbe à l'infinitif
+    \end{center}
+    e.g. Il \textbf{ne} vient \textbf{pas} de courir.
+\end{enumerate}
+\begin{notebox}
+    \begin{remark}
+        Common usage is as follows,
+        \begin{enumerate}
+            \item Je \textbf{viens de} finir.
+            \item Tu \textbf{viens de} partir.
+            \item Il/Elle/On \textbf{vient d'}arrêter.
+            \item Nous \textbf{venons de} manger.
+            \item Vous \textbf{venez de} dormir.
+            \item Ils/Elles \textbf{viennent de} faire du sport.
+        \end{enumerate}
+    \end{remark}
+\end{notebox}
+
+\section{Les pronoms compléments directs \textit{le, la, les}}
+Le pronom \textcolor{orange}{remplace un nom} (de personne, de chose ou d'idée).\footnote{The pronoun replaces a noun (of a person, thing or idea)}
+\begin{table}[h]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|l|c|c|}
+        \hline
+         & \textbf{masculin} & \textbf{féminin} \\
+        \hline
+        \textbf{singulier} & \textcolor{orange}{le} & \textcolor{orange}{la} \\
+        \hline
+        \textbf{pluriel} & \multicolumn{2}{c|}{\textcolor{orange}{les}} \\
+        \hline
+    \end{tabular}
+\end{table}
+\begin{enumerate}
+    \item Le pronom complément direct remplace un nom placé directement après le verbe.\footnote{The direct complement pronoun replaces a noun placed directly after the verb} \newline
+    e.g. Il regarde \underline{Julie}. $\rightarrow$ Il \textbf{la} regarde. Il ne \textbf{la} regarde pas.
+    \item Le pronom complément répond à la question \textit{qui}? ou \textit{quoi}?\footnote{The complement pronoun answers the question \textit{who}? or \textit{what}?} \newline
+    e.g. Il \textbf{la} regarde. Il regarde qui? $\rightarrow$ \textbf{la} (- Julie)
+\end{enumerate}
+\begin{notebox}
+    \begin{remark}
+        Devant un verbe qui commence par une voyelle, \textit{le} or \textit{la} $\rightarrow$ \textit{l'} \newline
+        e.g. Julie, Il \textbf{l'}\underline{i}magine grande et rousse. Il \textbf{l'}\underline{a}ime déjà!
+    \end{remark}
+\end{notebox}
+
+\section{La comparaison}
+\begin{enumerate}
+    \item On utilise la comparaison pour comparer des personnes, des choses ou des idées.\footnote{We use the comparison to compare people, things, or ideas} \newline
+    e.g. Il est \underline{plus} grand \underline{que} moi.
+    \item La comparaison peut porter sur \textcolor{orange}{un adjectif} ou \textcolor{orange}{un nom}.
+    \begin{table}[H]
+        \centering
+        \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{|l|c|c|c|}
+            \hline
+             & \textbf{–} & \textbf{=} & \textbf{+} \\
+            \hline
+            \textbf{+ un adjectif} & \textcolor{orange}{moins}... \textcolor{orange}{que} & \textcolor{orange}{aussi}... \textcolor{orange}{que} & \textcolor{orange}{plus}... \textcolor{orange}{que} \\
+            \hline
+            \textbf{+ un nom} & \textcolor{orange}{moins de}... (\textcolor{orange}{que}) & \textcolor{orange}{autant de}... (\textcolor{orange}{que}) & \textcolor{orange}{plus de}... (\textcolor{orange}{que}) \\
+            \hline
+        \end{tabular}
+    \end{table}
+    Par exemple, \newline
+    Cet appartement est \textbf{plus} grand \textbf{que} l'autre\footnote{the other}. \newline
+    Il y a \textbf{plus de} chambres \textbf{que} dans l'autre.
+\end{enumerate}
+\begin{notebox}
+    \begin{remark} \textbf{Attention}!
+    \begin{enumerate}
+        \item Devant un nom qui commence par une voyelle, \textit{de} $\rightarrow$ \textit{d'} \newline
+        e.g. Elle fait moins \textbf{d'}\underline{e}xercises que toi.
+        \item On prononce le \textit{s} dans les expressions \textit{plu\textbf{s} de} et \textit{plu\textbf{s} que}.
+    \end{enumerate}
+    \end{remark}
+\end{notebox}
+
+\section{Les pronoms toniques et les prépositions}
+\textbf{Rappel}: Le pronom \textcolor{orange}{tonique} sert à insister.\footnote{The tonic pronoun is used to emphasize} \\
+e.g. \textbf{Lui}, \underline{il} est anglais mais \textbf{nous}, \underline{on} est français.
+\begin{enumerate}
+    \item On utilise le pronom tonique avec \textit{et}. \newline
+    e.g. Paul \underline{et} \textbf{moi}, nous sommes allés au cinéma.
+    \item On utilise le pronom tonique après une préposition: \textit{chez, pour, avec, sans, en face de, à côté de ...}\footnote{en face de: opposite, à côté de: next to} \\
+    e.g. Ce week-end, mon frère rentre \underline{chez} \textbf{nous}. \underline{Sans} \textbf{lui}, je m'ennuie\footnote{I'm bored}.
+\end{enumerate}
+\begin{notebox}
+    \begin{enumerate}
+        \item moi
+        \item toi
+        \item lui/elle
+        \item nous
+        \item vous
+        \item eux/elles
+    \end{enumerate}
+\end{notebox}
+
+\section{Le passé composé: synthèse}
+\textbf{Rappel}: Le passé composé présente des actions passées, ponctuelles et limitées dans le temps.\footnote{The past tense presents past actions, punctual and limited in time}
+\begin{enumerate}
+    \item \textcolor{orange}{À la forme affirmative}:\\
+    e.g. \underline{Hier}\footnote{action ponctuelle}, je \textbf{suis allée} au restaurant et j'\textbf{ai mangé}\footnote{action ponctuelle} une crêpe au chocolat.
+    \begin{center}
+        sujet + \textcolor{orange}{avoir} ou \textcolor{orange}{être}\footnote{Rule of DR \& MRS VANDERTRAMPP} au présent de l'indicatif + \textcolor{orange}{participe passé} du verbe
+    \end{center}
+    \item \textcolor{orange}{À la forme négative}: \\
+    e.g. Elles ne \textbf{sont} pas \textbf{nées} en 2020.
+    \begin{center}
+        sujet + \textcolor{orange}{ne} + \textbf{avoir} ou \textbf{être} au présent de l'indicatif + \textcolor{orange}{pas} + \textbf{participe passé} du verbe
+    \end{center}
+    \item Avec \textcolor{orange}{être}, le participe passé s'accorde en genre et en nombre avec le sujet.\footnote{The past participle agrees in gender and number with the subject}
+\end{enumerate}
+\begin{notebox}
+    \begin{remark}
+        Il ya a des participes passés irréguliers (Conjugaison p.174)
+    \end{remark}
+\end{notebox}
+
+\chapter{Unit 8}
+\section{L'impératif}
+On utilise l'impératif pour donner une instruction, un conseil ou un ordre.\footnote{The imperative is used to give an instruction, advice or an order.} \\
+e.g. \textbf{Écoutez} la chanson.\footnote{song}
+\begin{notebox}
+    \begin{remark}
+        Pour les ordres, on met souvent un \textbf{!} à la fin de la phrase.\footnote{For orders, we often put a \textbf{!} at the end of the sentence}
+    \end{remark}
+\end{notebox}
+\begin{enumerate}
+    \item On utilise l'impératif pour \textit{tu, nous} et \textit{vous} mais \textcolor{orange}{sans pronom sujet} \\
+    \textbf{Écoute} la chanson (=tu)\\
+    \textbf{Écoutons} la chanson (=nous) \\
+    \textbf{Écoutez} la chanson (=vous)
+    \item Le \textcolor{orange}{conjugaison} à l'impératif est la même que celle au présent de l'indicatif.\footnote{The conjugation in the imperative is the same as that in the present indicative}
+    \begin{table}[H]
+        \centering
+        \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{|l|c|c|}
+            \hline
+             & \textbf{verbe en \textit{-er}} & \textbf{verbe en \textit{-ir}} \\
+            \hline
+            \textbf{impératif affirmatif} & \textcolor{orange}{écoute} & \textcolor{orange}{finis} \\ 
+             & \textcolor{orange}{écoutons} & \textcolor{orange}{finissons} \\ 
+             & \textcolor{orange}{écoutez} & \textcolor{orange}{finissez} \\ 
+            \hline
+            \textbf{impératif négatif} & \textcolor{orange}{n'écoute pas} & \textcolor{orange}{ne finis pas} \\ 
+             & \textcolor{orange}{n'écoutons pas} & \textcolor{orange}{ne finissons pas} \\ 
+             & \textcolor{orange}{n'écoutez pas} & \textcolor{orange}{ne finissez pas} \\ 
+            \hline
+        \end{tabular}
+    \end{table}
+    \begin{notebox}
+        \begin{remark}
+            \textbf{Attention!}
+            \begin{enumerate}
+                \item Pour les verbes en \textit{-er}, pas de \textit{s} à la $\text{2}^\text{e}$ pers. du singulier.\footnote{For -er verbs, there is no s at the second-person singular (tu) form in the imperative.}
+                \item Il y a des verbes irréguliers.
+                \begin{itemize}
+                    \item avoir $\rightarrow$ aie, ayons, ayez
+                    \item être $\rightarrow$ sois, soyons, soyez
+                    \item aller $\rightarrow$ va, allons, allez
+                    \item savoir\footnote{to know} $\rightarrow$ sache, sachons, sachez
+                \end{itemize}
+            \end{enumerate}
+        \end{remark}
+    \end{notebox}
+    \item Le \textcolor{orange}{pronoms compléments \textit{le, la, les}} se placent \textbf{après le verbe à l’impératif affirmatif} et \textbf{avant le verbe a impératif négatif}. \\
+    e.g. Regarde\textbf{-la}. \underline{Ne} \textbf{la} regarde \underline{pas}!
+\end{enumerate}
+
+\section{Les pronoms démonstratifs}
+Le pronom démonstratifs remplace un élément désigne avant. On l'utilise pour \textcolor{orange}{montrer}.\footnote{The demonstrative pronoun replaces a previously mentioned element. It is used to show or point out something.} \\
+Je voudrais voir cette montre.\footnote{watch} \\
+\textbf{Celle} à 50 euros?
+\begin{enumerate}
+    \item Le pronom démonstratif change selon le \textcolor{orange}{genre} et le \textcolor{orange}{nombre} du mot remplacé.
+    \begin{table}[H]
+        \centering
+        \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{|l|c|c|}
+            \hline
+             & \textbf{masculin} & \textbf{féminin} \\
+            \hline
+            \textbf{singulier} & \textcolor{orange}{celui} & \textcolor{orange}{celle} \\ 
+            \hline
+            \textbf{pluriel} & \textcolor{orange}{ceux} & \textcolor{orange}{celles} \\ 
+            \hline
+        \end{tabular}
+    \end{table}
+    \item On utilise \textcolor{orange}{-là} âpres le pronom démonstratif pour désigner une personne ou une chose parmi d'autres.\footnote{We use -là after the demonstrative pronoun to indicate a person or a thing among others.} \\
+    e.g. Ce garçon n'est pas très sympa. \textbf{Celui-là} non plus.\footnote{This boy is not very nice. That one isn't either.}
+    \item On utilise \textcolor{orange}{-ci} après le pronom démonstratif pour proposer ou faire un choix. \\
+    Tu préfères quelle montre: \textbf{celle-ci} ou \textbf{celle-là}? \\
+    \textbf{Celle-ci} est plus jolie.
+    \begin{notebox}
+        \begin{remark}
+            \textit{-ci} est plus près du locuteur que \textit{-là}\footnote{-ci is closer to the speaker than -là (By physical location)}
+        \end{remark}
+    \end{notebox}
+\end{enumerate}
+
+\section{Le pronoms relatifs qui et que}
+Pour éviter une répétition, le pronom relatif remplace un nom et relie deux phrases.\footnote{To avoid repetition, the relative pronoun replaces a noun and links two sentences.} \\
+e.g. Sophia est \underline{un robot}. \underline{Ce robot} peut exprimer des émotions. \\
+e.g. Sophia est un robot \textbf{qui} peut exprimer des émotions.
+\begin{enumerate}
+    \item Le pronom relatif \textcolor{orange}{qui} est \textcolor{orange}{sujet} \\
+    e.g. Sophia est un robot \textbf{qui} peut exprimer des émotions.
+    \item Le pronom relatif \textcolor{orange}{que} est \textcolor{orange}{complément d'objet direct}. \\
+    e.g. Sophia est un robot \textbf{que} j'adore. = J'adore \underline{ce robot}.
+\end{enumerate}
+\begin{notebox}
+    \begin{remark}
+        Devant un nom qui commence par une voyelle, \textit{que} $\rightarrow$ \textit{qu'}. \\
+        e.g. Sophia est une femme \textbf{qu'}\underline{É}tienne adore.
+    \end{remark}
+\end{notebox}
+
+\section{La durée avec pendant et depuis}
+La durée exprime un temps. \\
+e.g. J'habite à Paris \textbf{depuis} \underline{cinq ans}.
+\begin{enumerate}
+    \item Avec \textcolor{orange}{pendant}, on connaît la fin de la durée. \\
+    e.g. J'ai habité à Paris \textbf{pendant} cinq ans. (=Aujourd'hui, je n'habite plus à Paris). \\
+    e.g. J'ai pris trois kilos pendant l’été.\footnote{I gained three kilos over the summer.}
+    \begin{notebox}
+        \begin{remark}
+            On utilise rarement \textit{pendant} avec le présent de l'indicatif.\footnote{We rarely use pendant with the present tense of the indicative.} \\
+            e.g. J'\textbf{ai travaillé}\footnote{passé composé} \underline{pendant} deux heures. Je \textbf{vais travailler}\footnote{futur proche} \underline{pendant} deux heures.
+        \end{remark}
+    \end{notebox}
+    \item Avec \textcolor{orange}{depuis}, on ne connaît pas la fin de la durée. \\
+    e.g. J'habite à Paris \textbf{depuis} cinq ans. (=Aujourd'hui, j'habite toujours à Paris)
+\end{enumerate}
+
+\section{La place des adjectifs}
+L'adjectif est généralement à côté du nom.
+\begin{notebox}
+    \begin{remark}
+        Il se place aussi après le verbe \textit{être}\footnote{It is also placed after the verb \textit{to be}}: Il est \textbf{grand}.
+    \end{remark}
+\end{notebox}
+\begin{enumerate}
+    \item En général, l'adjectif se place \textcolor{orange}{après le nom}. \\
+    e.g. Il écoute la radio \textbf{francophone}.
+    \item L'adjectif court se place \textcolor{orange}{avant le nom}: \textit{petit, grand, gros, beau, joli, bon, mauvais, vieux, autre, nouveau, ...}\footnote{mauvais: bad} \\
+    e.g. Elle porte un \textbf{grand} sac et un \textbf{joli} manteau. \\
+    The rule is called \textbf{BAGS}:
+    \begin{center}
+        \textbf{B}eauty, \textbf{A}ge, \textbf{G}ood, \textbf{S}ize 
+    \end{center}
+    \begin{notebox}
+        \begin{remark}
+            Devant un nom masculin singulier qui commence par une voyelle ou un \textit{h}: \textit{beau} $\rightarrow$ \textit{bel}, \textit{nouveau} $\rightarrow$ \textit{nouvel}, \textit{vieux}  $\rightarrow$ \textit{vieil}. \\
+            Elle a un \textbf{vieil} \underline{o}rdinateur et lui, un \textbf{bel} \underline{o}rdinateur! \\
+            C'est un \textbf{nouvel} \underline{é}tudiant?
+        \end{remark}
+    \end{notebox}
+    \item L'adjectif ordinal se place \textcolor{orange}{avant le nom}.\footnote{The ordinal adjective is placed before the noun.} \\
+    e.g. Elle habite au \textbf{premier} étage. Elle est au \textbf{dernier} rang\footnote{rank}.\
+    \begin{notebox}
+        \begin{remark}
+            On dit \textit{la semaine/l'année dernière, le mois prochain}
+        \end{remark}
+    \end{notebox}
+    \item Quand adjectif est après le nom, liaisons. Quand adjectif est avant le nom, pas de liaisons. \\
+    e.g. les bon\underline{s} \underline{a}rtistes. \\
+    e.g. de\underline{s} \underline{a}mis exceptionnels
+\end{enumerate}
+%----------------------------------------------------------------------------------------
+%	Verb
+%----------------------------------------------------------------------------------------
+\chapter{Verb}
+\section{-re}
+\subsection*{mettre (Unit 5)}
+{\small to put on}
+\begin{multicols}{2}
+    \entry{Je met\underline{s}}{}{}{I put on}{| Je mets une robe.}
+
+    \entry{Tu met\underline{s}}{}{}{You put on}{}
+
+    \entry{Il/Elle/On me\underline{t}}{}{}{He/She/We put(s) on}{}
+
+    \entry{Vous mett\underline{ez}}{}{}{You put on}{| mostly used for more than one person or one \textbf{formal} personne}
+
+    \entry{Ils/Elles mett\underline{ent}}{}{}{They put on}{}
+\end{multicols}
+
+\section{-ir}
+\subsection*{devoir (Unit 6)}
+{\small have to + infinitif}
+\begin{multicols}{2}
+    \entry{Je doi\underline{s}}{}{}{I have to}{}
+
+    \entry{Tu doi\underline{s}}{}{}{You have to}{}
+
+    \entry{Il/Elle/On doi\underline{t}}{}{}{He/She/We have(-s) to}{}
+
+    \entry{Vous dev\underline{ez}}{}{}{You have to}{| mostly used for more than one person or one \textbf{formal} personne}
+
+    \entry{Nous dev\underline{ons}}{}{}{We have to}{}
+
+    \entry{Il/Elles doi\underline{vent}}{}{}{They have to}{}
+\end{multicols}
+
+\subsection*{pouvoir (Unit 6)}
+{\small can + infinitif}
+\begin{multicols}{2}
+    \entry{Je pue\underline{x}}{}{}{I can}{}
+
+    \entry{Tu peu\underline{x}}{}{}{You can}{}
+
+    \entry{Il/Elle/On peu\underline{t}}{}{}{He/She/We can}{}
+
+    \entry{Vous pouv\underline{ez}}{}{}{You can}{| mostly used for more than one person or one \textbf{formal} personne}
+
+    \entry{Nous pouv\underline{ons}}{}{}{We can}{}
+
+    \entry{Ils/Elle p\underline{euvent}}{}{}{They can}{}
+\end{multicols}
+
+%----------------------------------------------------------------------------------------
+%	Regular Vocabulary
+%----------------------------------------------------------------------------------------
+\chapter{Regular Vocabulary}
+\section{Unit 5}
+\subsection*{Les vêtements}
+{\small The clothes}
+\begin{multicols}{2}
+    \entry{un manteau}{}{n.m.}{coat}{}
+
+    \entry{un pantalon}{}{n.m.}{long pant}{}
+
+    \entry{un pull}{}{n.m.}{sweater}{}
+
+    \entry{une ceinture}{}{n.f.}{belt}{}
+
+    \entry{des bottes}{}{n.f.}{boots}{}
+
+    \entry{une robe}{}{n.f.}{dress}{}
+
+    \entry{une jupe}{}{n.f.}{skirt}{}
+
+    \entry{une veste}{}{n.f.}{jacket}{}
+
+    \entry{un tee-shirt}{}{n.m.}{T-shirt}{}
+
+    \entry{un pull}{}{n.m.}{sweater}{}
+
+    \entry{des chaussettes}{}{n.f.}{socks}{}
+\end{multicols}
+
+\subsection*{La mode}
+{\small The fashion}
+\begin{multicols}{2}
+    \entry{un défilé}{}{n.m.}{fashion show}{}
+
+    \entry{un mannequin}{}{n.m.}{model}{| profession}
+
+    \entry{une maison de couture}{}{}{a fashion house}{}
+
+    \entry{un styliste}{}{n.m.}{stylist}{| a person who is specialized in designing fashion clothes}
+\end{multicols}
+
+\subsection*{Des instruments}
+\begin{multicols}{2}
+    \entry{une guitare}{}{n.m.}{guitar}{| Je jouer \textbf{de la} guitare. (I play \textbf{the} guitar.)}
+
+    \entry{un piano}{}{n.m.}{piano}{| Je jouer \textbf{du} piano.}
+
+    \entry{une flûté}{}{n.f.}{flute}{| long pipe, a kind of instrument}
+
+    \entry{une batterie}{}{n.f.}{drum}{}
+
+    \entry{un violon}{}{n.m.}{violin}{}
+\end{multicols}
+
+\subsection*{Décrire une ambiance}
+{\small Describe an atmosphere}
+\begin{multicols}{2}
+    \entry{animé}{}{adj.}{lively}{}
+
+    \entry{tranquille}{}{adj.}{quiet}{}
+
+    \entry{agréable}{}{adj.}{pleasant}{}
+
+    \entry{désagréable}{}{adj.}{unpleasant}{}
+
+    \entry{calme}{}{adj.}{calm}{}
+
+    \entry{bruyant}{}{adj.}{noisy}{}
+
+    \entry{triste}{}{adj.}{sad}{}
+
+    \entry{amusant}{}{adj.}{funny}{}
+
+    \entry{passionnant}{}{adj.}{exciting}{}
+
+    \entry{ennuyeux}{}{adj.}{boring}{}
+
+    \entry{génial}{}{adj.}{great}{}
+
+    \entry{nul}{}{adj.}{no}{}
+\end{multicols}
+
+\subsection*{La musique}
+\begin{multicols}{2}
+    \entry{la musique électro}{}{}{electro music}{}
+
+    \entry{une salle de concert}{}{}{a concert hall}{}
+
+    \entry{un DJ}{}{}{a DJ}{| a profession}
+
+    \entry{une ambiance}{}{}{atmosphere}{}
+
+    \entry{un chanson}{}{}{a song}{}
+
+    \entry{une playlist}{}{}{a playlist}{}
+
+    \entry{un musicien}{}{}{a musician}{| a profession}
+\end{multicols}
+
+\subsection*{Les nombres}
+\begin{multicols}{2}
+    \entry{100}{}{}{cent}{}
+
+    \entry{101}{}{}{cent un}{}
+
+    \entry{200}{}{}{deux cent}{}
+
+    \entry{1000}{}{}{mille}{}
+
+    \entry{1984}{}{}{mille neuf cent quatre-vingt-quatre}{}
+
+    \entry{10000}{}{}{dix mille}{}
+
+    \entry{100000}{}{}{cent mille}{}
+
+    \entry{1000000}{}{}{un million}{}
+\end{multicols}
+
+\subsection*{Les émotions}
+\begin{multicols}{2}
+    \entry{la tristesse}{}{}{the sadness}{| $\rightarrow$ être triste (am sad)}
+
+    \entry{la colère}{}{}{the anger}{| $\rightarrow$ être en colère (am angry)}
+
+    \entry{la surprise}{}{}{the surprise}{| $\rightarrow$ être supris. (am surprised)}
+
+    \entry{la joie}{}{}{the joy}{| $\rightarrow$ être content, heureux (am happy)}
+\end{multicols}
+
+\subsection*{Les indicateurs de temps}
+\begin{multicols}{2}
+    \entry{dernier}{}{adj.}{last}{| l'hiver dernier (The last winter) | l'année dernièr\textbf{e} (The last year)}
+
+    \entry{hier}{}{adv.}{yesterday}{}
+
+    \entry{avant-hier}{}{adv.}{the day before yesterday}{}
+
+    \entry{d'abord}{}{adv.}{Firstly}{}
+
+    \entry{puis}{}{adv.}{Then}{}
+
+    \entry{ensuite}{}{adv.}{Then}{}
+
+    \entry{enfin}{}{adv.}{Finally}{}
+\end{multicols}
+\begin{notebox}
+    \begin{remark}
+        For \textit{d'abord, puis, ensuite, enfin}, you must use them in your essay writing!
+    \end{remark}
+\end{notebox}
+
+\section{Unit 6}
+\subsection*{Les activités quotidiennes}
+{\small Daily activities}
+\begin{multicols}{2}
+    \entry{se réveiller tôt/tard}{}{}{wake up early/late}{}
+
+    \entry{se lever}{}{}{get up}{}
+
+    \entry{se doucher}{}{}{shower}{}
+
+    \entry{se raser}{}{}{shave}{}
+
+    \entry{se préparer}{}{}{prepare}{}
+
+    \entry{se maquiller}{}{}{make up}{}
+
+    \entry{s’entraîner}{}{}{to train}{}
+
+    \entry{travailler}{}{}{work}{}
+
+    \entry{se coucher}{}{}{to go to bed}{}
+\end{multicols}
+
+\subsection*{Les qualités et les défauts}
+{\small The qualities (good) and the defects (bad)}
+
+\begin{multicols}{2}
+    \entry{énergique}{}{}{energetic}{}
+
+    \entry{créatif(-ive)}{}{}{creative}{}
+
+    \entry{positif(-ive)}{}{}{positive}{}
+
+    \entry{sociable}{}{}{sociable}{}
+
+    \entry{calme}{}{}{calm}{}
+
+    \entry{patient(e)}{}{}{patient}{}
+
+    \entry{doux(-ce)}{}{}{soft}{}
+
+    \entry{précis(e)}{}{}{accurate}{}
+
+    \entry{prudent(e)}{}{}{careful}{}
+
+    \entry{rigoureux(-se)}{}{}{rigorous}{| meaning very ``strict''}
+
+    \entry{impatient(e)}{}{}{impatient}{}
+
+    \entry{autoritaire}{}{}{authoritarian}{}
+\end{multicols}
+
+\subsection*{La description physique}
+\begin{multicols}{2}
+    \entry{être grand(e)}{}{}{tall}{| $\neq$petit(e) (small)}
+
+    \entry{être mince}{}{}{thin}{| $\neq$gros(se) (fat)}
+
+    \entry{être brun(e)}{}{}{brown (hair)}{| avoir les cheveux bruns, noirs (have darker brown, black hair)}
+
+    \entry{être blond(e)}{}{}{golden (hair)}{| avoir les cheveux blonds (have golden hair)}
+
+    \entry{être châtain}{}{}{brown (hair)}{| avoir les cheveux châtain (have lighter brown hair)}
+
+    \entry{être roux(-sse)}{}{}{red (hair)}{| avoir les cheveux roux (have red hair)}
+
+    \entry{avoir les yeux bleus}{}{}{}{have blue eyes}
+
+    \entry{avoir les yeux noirs}{}{}{}{have black eyes}
+
+    \entry{avoir les yeux marron}{}{}{}{have brown eyes}
+
+    \entry{avoir lex yuex verts}{}{}{}{have green eyes}
+\end{multicols}
+
+\section*{Unit 7}
+\subsection*{La famille}
+\begin{multicols}{2}
+    \entry{la grand-mère}{}{n.f.}{grandmother}{| la mère de ma mère ou de mon père}  
+    
+    \entry{le grand-père}{}{n.m.}{grandfather}{| le père de ma mère ou de mon père}  
+    
+    \entry{la mère}{}{n.f.}{mother}{| la femme qui m'a donné naissance\footnote{the woman who gave birth to me}}  
+    
+    \entry{le père}{}{n.m.}{father}{| l'homme qui m'a donné naissance\footnote{the man who gave birth to me}}  
+    
+    \entry{l'oncle}{}{n.m.}{uncle}{| le frère de ma mère ou de mon père}  
+    
+    \entry{la tante}{}{n.f.}{aunt}{| la sœur de ma mère ou de mon père}  
+    
+    \entry{la fille}{}{n.f.}{daughter}{| l'enfant féminine de ses parents}  
+    
+    \entry{le fils}{}{n.m.}{son}{| l'enfant masculin de ses parents}  
+    
+    \entry{la sœur}{}{n.f.}{sister}{| la fille des mêmes parents que moi\footnote{the daughter of the same parents as me}}  
+    
+    \entry{le frère}{}{n.m.}{brother}{| le fils des mêmes parents que moi\footnote{the son of the same parents as me}}  
+    
+    \entry{la belle-sœur}{}{n.f.}{sister-in-law}{| la femme de mon frère ou la sœur de mon conjoint(e)\footnote{my brother's wife or my partner's sister}}  
+    
+    \entry{le beau-frère}{}{n.m.}{brother-in-law}{| le mari de ma sœur ou le frère de mon conjoint(e)\footnote{my sister's husband or my partner's brother}}  
+    
+    \entry{la nièce}{}{n.f.}{niece}{| la fille de mon frère ou de ma sœur}  
+    
+    \entry{le neveu}{}{n.m.}{nephew}{| le fils de mon frère ou de ma sœur}  
+
+    \entry{la famille à proximité}{}{}{the family nearby}{}
+\end{multicols}
+
+\subsection*{Le logement}
+{\small The accommodation}
+\begin{multicols}{2}
+    \entry{un appartement}{}{n.m.}{appartment}{}
+
+    \entry{un loft}{}{n.m.}{loft}{| room or space which is directly under the roof}
+
+    \entry{un studio}{}{n.m.}{studio}{}
+
+    \entry{une maison}{}{n.f.}{house}{}
+
+    \entry{un chalet}{}{n.m.}{cottage}{| a small house, typically one in the country.}
+
+    \entry{un logement meublé}{}{}{a furnished appartment}{| non meublé: not furnished}
+\end{multicols}
+
+\subsection*{Les pièces de la maison}
+\begin{multicols}{2}
+    \entry{un salon/séjour}{}{n.m.}{living room}{}
+
+    \entry{une cuisine}{}{n.f.}{kitchen}{}
+
+    \entry{une chambre}{}{n.f.}{bedroom}{}
+
+    \entry{une salle de bains}{}{n.f.}{bathroom}{}
+
+    \entry{une cour}{}{n.f.}{courtyard}{}
+
+    \entry{les toilettes}{}{}{toilets}{}
+
+    \entry{un balcon}{}{n.m.}{balcony}{}
+
+    \entry{une terrasse}{}{n.f.}{terrace}{| a level paved area next to a building, like a balcony}
+
+    \entry{une piscine}{}{n.f.}{pool}{}
+
+    \entry{un jardin}{}{n.m.}{garden}{}
+\end{multicols}
+
+\subsection*{Les objets de la maison}
+\begin{multicols}{2}
+    \entry{un réfrigérateur}{}{n.m.}{fridge}{}
+
+    \entry{un lit}{}{n.m.}{bed}{}
+
+    \entry{un four}{}{n.m.}{oven}{}
+
+    \entry{un canapé}{}{n.m.}{sofa}{}
+
+    \entry{un lavabo}{}{n.m.}{sink}{}
+
+    \entry{une bibliothèque}{}{n.f.}{bookshelf}{}
+
+    \entry{une baignoire}{}{n.f.}{bathtub}{}
+\end{multicols}
+
+\subsection*{Les éléments du courriel}
+{\small The elements of the email}
+\begin{multicols}{2}
+    \entry{le destinataire}{}{n.m.}{The person who receives the email.}{| e.g. récepteur}
+    
+    \entry{l'expéditeur}{}{n.m.}{The person who sends the email.}{| e.g. envoyeur}
+    
+    \entry{la date}{}{n.f.}{The date the email was sent.}{| e.g. $1^{\text{er}}$ janvier}
+    
+    \entry{l'objet}{}{n.m.}{The subject of the email.}{| e.g. sujet}
+    
+    \entry{la formule de politesse}{}{n.f.}{The polite closing phrase.}{| e.g. Cordialement\footnote{Sincerely}}
+    
+    \entry{l'information principale}{}{n.f.}{The central content of the email.}{| e.g. réunion}
+    
+    \entry{la demande}{}{n.f.}{The request or question in the email.}{| e.g. rendez-vous}
+\end{multicols}
+
+\subsection*{Miscs}
+\begin{multicols}{2}
+    \entry{Appartement à louer}{}{}{Apartment for rent}{}
+
+    \entry{la location}{}{n.f.}{rental}{}
+
+    \entry{Durée}{}{n.f.}{Duration}{| La durée de la location est 6 mois.}
+
+    \entry{$m^2$}{}{}{one square meter}{| un mètre carré}
+
+    \entry{un faux amis}{}{}{a fake friend}{}
+
+    \entry{Je t'aime}{}{}{I love you}{}
+\end{multicols}
+
+\section*{Unit 8}
+\subsection*{Les parties du corps}
+{\small Body parts}
+\begin{multicols}{2}
+    \entry{la tête}{}{n.f.}{head}{}
+
+    \entry{la bouche}{}{n.f.}{mouth}{}
+
+    \entry{l’œil}{}{n.m.}{eye}{| les yeux}
+
+    \entry{la gorge}{}{n.f.}{throat}{}
+
+    \entry{le cou}{}{n.m.}{neck}{}
+
+    \entry{le bras}{}{n.m.}{arm}{}
+
+    \entry{le ventre}{}{n.m.}{belly}{}
+
+    \entry{la main}{}{n.f.}{hand}{}
+
+    \entry{le doigt}{}{n.m.}{finger}{}
+
+    \entry{la jambe}{}{n.f.}{leg}{}
+\end{multicols}
+\begin{notebox}
+    \begin{remark}
+        We use
+        \begin{center}
+            J'ai mal au/à la/aux + les parties du corps
+        \end{center}
+        to indicate that we have \textbf{pain on some parts}. \\
+        e.g. J'ai mal à la gorge.\footnote{I have a sore throat}
+    \end{remark}
+\end{notebox}
+
+\subsection*{Les réseaux sociaux et le téléphone}
+{\small Social networks and the telephone}
+\begin{multicols}{2}
+    \entry{un internaute}{}{n.m.}{Internet user}{}
+
+    \entry{une messagerie}{}{n.f.}{messaging service}{}
+
+    \entry{une discussion}{}{n.f.}{discussion}{| un forum/tchatter (verb.)}
+
+    \entry{partager}{}{v.}{to share}{}
+
+    \entry{commenter}{}{v.}{to comment}{}
+
+    \entry{une publication}{}{n.f.}{publication}{}
+
+    \entry{publier}{}{v.}{to publish}{}
+
+    \entry{un appel}{}{n.m.}{a call}{}
+
+    \entry{un message/SMS}{}{n.m.}{message}{}
+
+    \entry{un forfait}{}{n.m.}{pakage}{| phone planes}
+
+    \entry{le wi-fi}{}{n.m.}{Wi-Fi}{}
+
+    \entry{un réseau}{}{n.m.}{Network}{| can refer to a computer network, social network ...}
+
+    \entry{une appli}{}{n.f.}{app}{| application}
+
+    \entry{éteindre}{}{v.}{to turn off}{}
+
+    \entry{(r)allumer}{}{v.}{to turn on}{}
+
+    \entry{être déchargé(e)}{}{}{is discharged}{}
+
+    \entry{recharger la batterie}{}{}{}{recharge the battery}
+\end{multicols}
+
+\subsection*{Les objets connectés}
+{\small Objects connected to the Internet}
+\begin{multicols}{2}
+    \entry{une brosse à dents}{}{n.f.}{toothbrush}{}
+
+    \entry{une montre}{}{n.f.}{watch}{}
+
+    \entry{un bracelet}{}{n.m.}{bracelet}{| a piece of jewellery worn on the arm}
+
+    \entry{un porte-clés}{}{n.m.}{a key ring}{}
+\end{multicols}
+
+\subsection*{Chez le médecin}
+\begin{multicols}{2}
+    \entry{une maladie}{}{n.f.}{disease}{}
+
+    \entry{avoir mal à la tête}{}{}{have a headache}{}
+
+    \entry{avoir de la fièvre}{}{}{have a fever}{}
+
+    \entry{une grippe}{}{n.f.}{flu}{}
+
+    \entry{un rhume}{}{n.m.}{cold}{}
+
+    \entry{la toux}{}{n.f.}{cough}{}
+
+    \entry{tousser}{}{v.}{cough}{}
+
+    \entry{une ordonnasse}{}{n.f.}{ordinance}{| A rule set by officials to manage healthcare activities.}
+
+    \entry{une carte vitale}{}{n.m.}{a carte vitale}{| French card for healthcare access and reimbursement}
+
+    \entry{un médicament}{}{n.m.}{drug}{}
+\end{multicols}
+
+\subsection*{Miscs}
+\begin{multicols}{2}
+    \entry{perdu}{}{adj.}{lost}{| trouver un objet perdu\footnote{find a lost item}}
+\end{multicols}
+
+\chapter{Phrases}
+\section*{Unit 5}
+\subsection*{Acheter des vêtements}
+{\small Buy clothes}
+\begin{multicols}{2}
+    \entry{Quelle est votre taille? / Vous faites quelle taille?}{}{}{}{What is your size?}
+
+    \entry{Vous voulez essayer?}{}{}{}{Do you want to try?}
+
+    \entry{Où est la cabine d'essayage?}{}{}{}{Where's the fitting room?}
+
+    \entry{Vous avez la taille 38.}{}{}{}{You have size 38.}
+
+    \entry{C'est trop petit / court}{}{}{}{It's too small/short}
+\end{multicols}
+
+\subsection*{Donner des instructions}
+{\small Give instructions}
+\begin{multicols}{2}
+    \entry{Ne pas sécher au sèche-linge}{}{}{}{Do not dry in the dryer}
+
+    \entry{Ne pas repasser}{}{}{}{Do not iron}
+
+    \entry{Trier (le linge)}{}{}{}{Classify (the laundry)}
+
+    \entry{Laver (à la main)}{}{}{}{Wash (by hand)}
+\end{multicols}
+
+\section*{Unit 6}
+\subsection*{Décrivez ce personne}
+\begin{enumerate}
+    \item Monsieur
+    \begin{itemize}
+        \item Il est châtain. (He has brown hair.)
+        \item Il a les yeux marron. (He has brown eyes.)
+        \item Il a une moustache. (He has a mustache.)
+        \item Il a une barbe. (He has a beard.)
+        \item Il a les cheveux courts. (He has short hair.)
+    \end{itemize}
+    \item Mademoiselle
+    \begin{itemize}
+        \item Elle est rousse. (She is red-haired/redhead)
+        \item Elle a les cheveux roux. (She has red hair.)
+        \item Elle a les yeux bleus. (She has blue eyes.)
+        \item Elle a des lunettes. (She has glasses.)
+        \item Elle a les cheveux long. (She has long hair.)
+    \end{itemize}
+\end{enumerate}
+
+\section*{Unit 7}
+\subsection*{Justifier un choix}
+\begin{enumerate}
+    \item \textbf{Pour}: un but\footnote{a goal} \newline
+    e.g. J'ai quitté Paris \textbf{pour} avoir plus de confort.
+    \item \textbf{Parce que}: une cause\footnote{a cause} \newline
+    e.g. J'ai quitté Paris \textbf{parce que} c'est cher.
+\end{enumerate}
+
+\section*{Unit 8}
+\subsection*{Conseil}
+\begin{enumerate}
+    \item Essaye de te coucher plus tôt le soir.\footnote{Try to go to bed earlier at night.}
+\end{enumerate}
+
+\subsection*{Expose un problème}
+\begin{enumerate}
+    \item J'ai quelques problèmes.
+    \item J'ai un problème avec ma facture.\footnote{I have a problem with my bill.}
+    \item J'ai essayé mais ça ne marche pas.\footnote{I tried but it doesn't work}
+    \item Je ne comprends pas pourquoi ça ne fonctionne pas.
+\end{enumerate}
+
+\subsection*{Écrire une invitation par courriel}
+{\small Write an invitation by email}
+\begin{enumerate}
+    \item \textbf{Inviter}:
+    \begin{itemize}
+        \item Qu'est-ce que tu fais ce soir?
+        \item Ça te dit d'aller au cinéma?\footnote{Do you want to go to the cinema?}
+        \item Tu es libre jeudi?\footnote{Are you free on Thursday?}
+        \item Tu as envie d'aller au salon des nouvelles technologies?\footnote{Do you want to go to the new technology fair?}
+        \item TU veux aller au restaurant?
+        \item On se retrouve ou?\footnote{Where are we meeting?}
+    \end{itemize}
+    \item \textbf{Common sentences in writing an email for invitation}
+    \begin{itemize}
+        \item Salut Céline, ..., Bises Luice.\footnote{Start and end of the email}
+        \item Je sais que ...\footnote{I know that ...}
+    \end{itemize}
+\end{enumerate}
+
+\subsection*{Donner son opinion}
+\begin{enumerate}
+    \item Il pense qu'elle est exceptionnelle.\footnote{He thinks she is exceptional.}
+    \item À mon avis, c'est très utile.\footnote{In my opinion, it is very useful}
+    \item Je trouve que ce robot est formidable.\footnote{I think this robot is great.}
+\end{enumerate}
+
+\subsection*{Désigner un objet}
+{\small Designate an object, to assign an object for a specific purpose, role, or function}
+\begin{enumerate}
+    \item J'utilise cet objet.
+    \item Cette liseuse est très pratique.\footnote{This e-reader is very practical}
+    \item Je connais bien ces objets.
+    \item Ce vêtement est connecté.
+\end{enumerate}
+
+\chapter{Culture}
+\section*{Unit 7}
+\subsection*{La Ch'tite Famille}
+Valentin et Constance, un couple d'architectes, préparent le vernissage de leur exposition au Palais de Tokyo. Mais Valentin a \textbf{menti} sur ses origines sociales.
+
+Pour ses 80 ans, sa mère arrive au Palais de Tokyo, avec le frère, la belle-sœur et la nièce de Valentin. < Ah, notre chère famille ! > dit Valentin, surpris. Le père est resté dans le Nord, près du mobil-home familial.
+
+Et c'est la catastrophe ! Valentin a un accident et perd la mémoire. Il se \textbf{retrouve} 20 ans en arrière, plus ch'ti\footnote{habitant du Nord de la France} que jamais.
+
+\textbf{Translation}:
+Valentin and Constance, an architect couple, are preparing the opening of their exhibition at the Palais de Tokyo. But Valentin has \textbf{lied} about his social origins.
+
+For his 80th birthday, his mother arrives at the Palais de Tokyo, along with Valentin's brother, sister-in-law, and niece. ``Ah, our dear family!'' says Valentin, surprised. His father has stayed in the North, near the family mobile home.
+
+And disaster strikes! Valentin has an accident and loses his memory. He \textbf{finds} himself 20 years back in time, more ch'ti\footnote{resident of North of France} than ever.
+
+\textbf{Culture behind}: A sophisticated Parisian architect who has hidden his Ch’ti origins loses his memory in an accident and hilariously reverts to his old self, speaking Ch’ti and embracing his northern roots, causing chaos in his refined life.
+
+\subsection*{La famille des rois de France}
+En 1533, Henri II épouse Catherine de Médicis. Ils ont trois enfants : François II, Charles IX et Henri III. Ils n'ont pas de \textbf{petits-enfants}. Le père de Henri II s'appelle François $\text{I}^{\text{er}}$. François $\text{I}^{\text{er}}$ est le petit-fils de Jean d'Orléans.
+
+\textbf{Translation}: In 1533, Henry II married Catherine de Medici. They had three children: Francis II, Charles IX, and Henry III. They had no \textbf{grandchildren}. Henry II's father was Francis I. Francis I was the grandson of Jean d'Orléans.
+
+\subsection*{Se loger en Suisse}
+Se loger en Suisse, c'est cher ! Du studio à la villa luxueuse, tout est possible... quand on a de l'argent ! \textbf{En moyenne}, le prix du logement en Suisse est 60 \% plus \textbf{élevé} que dans la moyenne des 28 pays de l'Union européenne. Pour une location, vous devez fournir votre contrat de travail et une pièce d'identité. Il faut savoir que les grandes villes sont 10 \% plus chères, mais dans les zones rurales\footnote{à la campagne}, \textbf{les loyers} sont 20 \% moins chers. Dans le canton de Genève, un studio coûte en moyenne 800 CHF, un 3 pièces entre 1600 à 2000 CHF.
+
+\textbf{Translation}: Housing in Switzerland is expensive! From a studio to a luxurious villa, anything is possible... when you have the money! \textbf{On average}, housing prices in Switzerland are 60\% \textbf{higher} than the average for the 28 countries of the European Union. To rent, you must provide your employment contract and proof of identity. It's important to know that large cities are 10\% more expensive, but in rural areas, \textbf{rents} are 20\% cheaper. In the canton of Geneva, a studio costs an average of CHF 800, and a 3-room apartment costs between CHF 1,600 and 2,000.
+
+\subsection*{Jean Nouvelle}
+Je suis un architecte français. Je suis né en 1945. À Paris, j'ai \textbf{construit} l'Institut du Monde Arabe, l'immeuble \textbf{en verre} de la Fondation Cartier, le musée du Quai Branly et la Philharmonie de Paris. J'ai \textbf{créé} le musée du Louvre à Abou Dabi en 2017.
+
+\textbf{Translation}: I am a French architect. I was born in 1945. In Paris, I \textbf{built} the Arab World Institute, the \textbf{glass} building of the Fondation Cartier, the Quai Branly Museum, and the Philharmonie de Paris. I \textbf{designed} the Louvre Museum in Abu Dhabi in 2017.
+
+\subsection*{Les Français disent}
+< Avoir le coup de foudre\footnote{To fall in love at first sight} > means ``Tomber amoureux''\footnote{Fall in love}.
+\end{document}
