@@ -1,0 +1,419 @@
+\documentclass[10pt, landscape]{article}
+\usepackage[scaled=0.92]{helvet}
+\usepackage{calc}
+\usepackage{multicol}
+\usepackage{ifthen}
+\usepackage[a4paper,margin=3mm,landscape]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage{color,graphicx,overpic}
+\usepackage{hyperref}
+\usepackage{newtxtext} 
+\usepackage{enumitem}
+\usepackage{amssymb}
+\usepackage[table]{xcolor}
+\usepackage{vwcol}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
+\usepackage{mathtools}
+\usepackage{nicematrix}
+%For pictures / figures
+\usepackage{color,graphicx,overpic}
+\graphicspath{ {./images/} }
+% for relations
+\usepackage{cancel}
+\usepackage{ mathrsfs }
+\graphicspath{ {./images/} }
+\setlist{nosep}
+
+\pdfinfo{
+  /Title (MA1511.pdf)
+  /Creator (TeX)
+  /Producer (pdfTeX 1.40.0)
+  /Author (Seamus)
+  /Subject (Example)
+  /Keywords (pdflatex, latex,pdftex,tex)}
+
+% Turn off header and footer
+\pagestyle{empty}
+
+\newenvironment{tightcenter}{%
+  \setlength\topsep{0pt}
+  \setlength\parskip{0pt}
+  \begin{center}
+}{%
+  \end{center}
+}
+
+% redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}%
+\renewcommand{\familydefault}{\sfdefault}
+\renewcommand\rmdefault{\sfdefault}
+% makes nested numbering (e.g. 1.1.1, 1.1.2, etc)
+\renewcommand{\labelenumii}{\theenumii}
+\renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
+\renewcommand\labelitemii{•}
+%  for logical not operator
+\renewcommand{\lnot}{\mathord{\sim}}
+\renewcommand{\bf}[1]{\textbf{#1}}
+\newcommand{\abs}[1]{\vert #1 \vert}
+\newcommand{\Mod}[1]{\ \mathrm{mod}\ #1}
+
+\makeatother
+\definecolor{myblue}{cmyk}{1,.72,0,.38}
+\everymath\expandafter{\the\everymath \color{myblue}}
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\let\iff\leftrightarrow
+\let\Iff\Leftrightarrow
+\let\then\rightarrow
+\let\Then\Rightarrow
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+%% this changes all items (enumerate and itemize)
+\setlength{\leftmargini}{0.5cm}
+\setlength{\leftmarginii}{0.5cm}
+\setlist[itemize,1]{leftmargin=2mm,labelindent=1mm,labelsep=1mm}
+\setlist[itemize,2]{leftmargin=4mm,labelindent=1mm,labelsep=1mm}
+
+%My Environments
+\newtheorem{example}[section]{Example}
+% -----------------------------------------------------------------------
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{multicols}{4}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{center}
+    \fbox{%
+        \parbox{0.8\linewidth}{\centering \textcolor{black}{
+            {\Large\textbf{MA1511}}
+            \\ \normalsize{AY24/25 sem 1}}
+            \\ {\footnotesize \textcolor{myblue}{github.com/mendax1234}} 
+        }%
+    }
+\end{center}
+
+\section{01. Partial Derivatives}
+\subsection{Level Curves}
+\begin{enumerate}
+    \item The projection of the contour curve onto $xy$-plane is a \textbf{level curve} of $f$. It consists of the \textbf{set} of points $(x,y)$ for which $f(x,y)$ has a constant value. \\
+    For example, to find a typical level curve of $f(x,y)=yx^2$, just let $yx^2=k$, solve for $y$, we will get $y=k/x^2$
+\end{enumerate}
+
+\subsection{First Order Partial Derivatives}
+\begin{enumerate}
+    \item \textbf{(Rule of Differentiation)} $(\frac{f}{g})=\frac{f'g-g'f}{g^2}$ (quotient rule)
+\end{enumerate}
+
+\subsection{Higher Order Partial Derivatives}
+\begin{enumerate}
+    \item Given a function $f(x,y)$, $f_x(x,y)$ and $f_y(x,y)$ are both functions of $x$ and $y$. Thus differentiating these functions produces the so-called \textbf{second order partial derivatives} of $f$. For example, $f_{xy}$, $(f_x)_y$ or $\frac{\partial^2f}{\partial y \partial x}$ denotes $\frac{\partial}{\partial y}(\frac{\partial f}{\partial x})$.
+    \item (\textbf{The Mixed Derivative Theorem}) For all functions covered in MA1511, we have $f_{xy} = f_{yx}$
+\end{enumerate}
+
+\subsection{Normal Lines and Tangent Planes}
+\begin{enumerate}
+    \item \textbf{(Tangent Plane)} A vector equation of the tangent plane at $P$ is $r\cdot(f_x(a,b), f_y(a,b), -1)=(a,b,f(a,b))\cdot(f_x(a,b), f_y(a,b), -1)$
+    where $r=(x,y,z)$.
+    Equivalently, a Cartesian equation of the plane is $z=f_x(a,b)\cdot (x-a) + f_y(a,b)\cdot (y-b) + f(a,b)$. It is achieved by doing the dot product on the vectors.
+    \item \textbf{(Normal Lines)} The equation of the normal line at $P$ (which is the line passing through $P$ and perpendicular to the tangent plane) is $r=(a,b,f(a,b))+(f_x(a,b), f_y(a,b), -1)t, t\in R$. Notice that for line in $R^3$ or above, there is usually \textbf{no} single Cartesian equation for a line.
+\end{enumerate}
+
+\subsection{Chain Rule}
+\begin{enumerate}
+    \item \textbf{(Chain Rule with one independent variable)} If $z$ is a function of $x$ and $y$, and both $x$ and $y$ are functions of an \textbf{independent variable} $t$, then $\frac{dz}{dt} = \frac{\partial z}{\partial x} \times \frac{dx}{dt} + \frac{\partial z}{\partial y} \times \frac{dy}{dt}$
+    \item \textbf{(Chain rule with two independent variables)} If $z$ is a function of $x$ and $y$, and both $x$ and $y$ are functions of two independent variables $s, t$ then $\frac{\partial z}{\partial s} = \frac{\partial z}{\partial x} \times \frac{\partial x}{\partial s} + \frac{\partial z}{\partial y} \times \frac{\partial y}{\partial s}$ and $\frac{\partial z}{\partial t} = \frac{\partial z}{\partial x} \times \frac{\partial x}{\partial t} + \frac{\partial z}{\partial y} \times \frac{\partial y}{\partial t}$
+    \item \textbf{(Implicit Differentiation)}
+    \begin{enumerate}
+        \item (\textbf{Single Independent Variable}) $y=f(x)$ where $F(x,f(x))=0$, for all $x$ in the domain of $f$. We have $\frac{dy}{dx} =-\frac{F_x}{F_y}$
+        \item (\textbf{Two Independent Variables}) If $\partial F / \partial z \neq 0$, we have $\frac{\partial z}{\partial x} = -\frac{F_x}{F_z}$ and $\frac{\partial z}{\partial y} = -\frac{F_y}{F_z}$
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{Directional Derivatives}
+\begin{enumerate}
+    \item (\textbf{Compute Directional Derivatives}) For any unit vector $u=u_1i+u_2j$, $D_uf(a,b) = u_1f_x(a,b) + u_2f_y(a,b)=(f_x(a,b), f_y(a,b))\cdot(u_1,u_2)$
+    \item (\textbf{Significance of the Gradient Vector}) The gradient vector is defined as $\nabla f = \frac{\partial f}{\partial x} i + \frac{\partial f}{\partial y}j$
+    \begin{enumerate}
+        \item $\nabla f(x)$ points in the direction of maximum rate of increase of $f$ at $x$, and the maximum rate of change of $x$ is $|\nabla f(x)|$
+        \item $\nabla f(x)$ is perpendicular to the \textbf{level curve or level surface} of $f$ through $x$.
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{Local Extrema}
+\begin{enumerate}
+    \item If $f$ has a \textbf{local maximum/minimum} at an \textit{interior point} $(a,b)$ of its domain, then $f_x(a,b) = 0 ~~\textbf{and}~~ f_y(a,b) = 0$ And $(a,b)$ is called the \textbf{critical point} of $f$.
+    \item Saddle point is a \textbf{critical point}, but it is \textbf{neither a local maximum nor a local minimum}.
+    \item To find the \textbf{absolute maximum/minimum}, we should find the \textbf{critical points} and \textbf{boundary points} and then compare the corresponding value.
+    \item (\textbf{Derivative Test for Nature of Critical Points}) Let $(a,b)$ be a critical point of $f$. Let $D=f_{xx}(a,b)f_{yy}{a,b} - (f_{xy}(a,b))^2$.
+    \begin{itemize}
+        \item $f$ has a \textbf{local maximum} at $(a,b)$ if $D > 0$ and $f_{xx}(a,b) < 0$
+        \item $f$ has a \textbf{local minimum} at $(a,b)$ if $D > 0$ and $f_{xx}(a,b) > 0$
+        \item $f$ has neither a local maximum nor a local minimum point at $(a,b)$ if $D < 0$ (In this case, $(a,b)$ is known as a \textbf{saddle point})
+    \end{itemize}
+    The above test is \textbf{inconclusive} if $D = 0$
+\end{enumerate}
+
+\subsection{Lagrange Multipliers}
+The maximum/minimum value of $f(x_1, x_2, \cdots, x_n)$ subject to the constraint $g(x_1, x_2, \cdots, x_n) = 0$ occurs at a point $(x_1, x_2, \cdots, x_n)$ that satisfies the following $(n+1)$ equations $f_{x_i}=\lambda g_{x_i}, i = 1,2,3,\cdots, n$ and $g(x_1, x_2, \cdots, x_n)=0$ for some constant $\lambda$, called \textbf{the Lagrange multiplier}. The solving method is
+\begin{enumerate}
+    \item Solve for the variables in $\lambda$
+    \item Substitute the variables in $\lambda$ into the constraints
+    \item Solve for $\lambda$ and substitute it back to get the variables' value
+\end{enumerate}
+
+\section{02. Multiple Integrals}
+\subsection{Double Integrals over Rectangular Domain}
+\begin{enumerate}
+    \item (\textbf{Fubini's Theorem}) Let $f$ be a continuous function on the \textbf{rectangular domain} $\{(x,y):a\leq x \leq b, c \leq y \leq d\}$. Then $\int_a^b\int_c^df(x,y)dydx=\int_c^d\int_a^bf(x,y)dxdy$. When $f(x,y)=1$, the double integral $\int_D\int f(x,y)dA=\int_D\int 1 dA=\text{area of the region }D$
+    \item (\textbf{A special case}) Let $f$ be defined on the \textbf{rectangular domain} $\{(x,y):a\leq x \leq b, c \leq y \leq d\}$. If $f(x,y)=a(x)b(y)$ for some continuous functions $a(x)$ and $b(y)$, then $\int_a^b\int_c^df(x,y)dydx = (\int_a^ba(x)dx)(\int_c^db(y)dy)$
+\end{enumerate}
+
+\subsection{Double Integrals over General Domains}
+\begin{enumerate}
+    \item (\textbf{Type I Domain}) Denoted as $\{(x,y): a \leq x \leq b, g(x) \leq y \leq h(x)\}$. The double integral is given by $\iint_Df(x,y)dA=\int_a^b\int_{g(x)}^{h(x)}f(x,y)dydx$.
+    \item (\textbf{Type II Domain}) Denoted as $\{(x,y): c \leq y \leq d, g(y) \leq x \leq h(y)\}$ The double integral is given by $\iint_Df(x,y)dA=\int_c^d\int_{g(y)}^{h(y)}f(x,y)dxdy$. \\
+    In conclusion, the variable with a constant boundary should be at \textbf{outer}. And \textbf{the order cannot be changed by just swapping the variables!}
+    \item (\textbf{Steps to calculate double integrals})
+    \begin{enumerate}
+        \item Draw a diagram.
+        \item For a Type I region, draw a \textbf{vertical line} from the lower boundary to the upper boundary
+        \item For a Type II region, draw a \textbf{horizontal line} from the left boundary to the right boundary
+    \end{enumerate}
+    \item (\textbf{Change the order of Integration}) This means changing from Type I region to Type II region or from Type II region to Type I region.
+\end{enumerate}
+
+\subsection{Double Integrals in Polar Coordinates}
+\begin{enumerate}
+    \item (\textbf{The angle range in polar coordinates}) The point $P(x,y)$ in Cartesian coordinates can be represented by the ordered pair $(r, \theta)$ where $\theta = \alpha \text{ if } y \geq 0  \text{ or } -\alpha \text{ if } y < 0, \alpha \geq 0$
+    \item (\textbf{Calculation}) If $f$ is continuous on a polar rectangle $R$ given by $\{(r, \theta): a \leq r \leq b, \alpha \leq \theta \leq \beta\}$, where $0 \leq \beta - \alpha \leq 2 \pi$. Then, $\int_R\int f(x,y)dA = \int_\alpha^\beta\int_a^bf(rcos\theta, rsin\theta)rdrd\theta$. The steps are below:
+    \begin{enumerate}
+        \item Use the geometric meaning of Double Integrals, which is the \textit{Area} $\cdot$ \textit{height}.
+        \item Area is found by intersecting two planes (thus the range of $r, \theta$ can be determined).
+        \item Height is the founded by using \textbf{upper surface $-$ lower surface}.
+        \item Substitute $x=rcos\theta$ and $y=rsin\theta$ into the \textit{Height} function.
+    \end{enumerate}
+    Sometimes $a, b$ can be replaced by functions of $\theta$.
+\end{enumerate}
+
+
+
+
+\section{03. Vector Valued Functions}
+\subsection{Curves and Motion in Space}
+\begin{enumerate}
+    \item A particle moving in the three-dimensional space, whose position $P(x,y,z)$ at time $t$ is described by three \textbf{parametric equations} $x=f(t), y=g(t), z=h(t)$ with $r(t)$ defined as $
+        r(t) = f(t)i+g(t)j+h(t)k$. We call $r(t)$ a \textbf{vector-valued function} in one variable. The functions in $f(t), g(t), h(t)$ are the \textbf{components} of $r(t)$.
+    \item The differentiation of a vector function $r(t)$ is done by \textbf{componentwise differentiation}. \\
+    \item The magnitude of the velocity vector is $|r'(t)|=\sqrt{(f'(t))^2+(g'(t))^2+(h'(t))^2}$.
+    \item A curve $r(t)=f(t)i + g(t)j + h(t)k$ is said to be \textbf{smooth} if it has no sharp corners (cusps). In MA1511, we only deal with smooth curves
+    \item A \textbf{vector equation} of the \textbf{tangent line} to a curve $r(t)=f(t)i + g(t)j + h(t)k$ at the point where $t=t_0$ is $r = (f(t_0), g(t_0), h(t_0) + s(f'(t_0), g'(t_0), h'(t_0)), s \in R$
+    in which $s$ is a parameter and each value of $s$ corresponds to a specific point on the tangent line.
+    \item The line segment joining two distinct points, $A(x_1, y_1, z_1)$ and $B(x_2, y_2, z_2)$ has parametric representations
+    $
+        r(t)=(1-t)(x_1,y_1,z_1)+t(x_2,y_2,z_2)$ where $0 \leq t \leq 1$
+\end{enumerate}
+
+\subsection{Integrals of Vector-valued Functions}
+\begin{enumerate}
+    \item We define the indefinite integral $\int r(t)dt$ in terms of its component functions $f, g ~\text{and}~h$ by $\int r(t)dt=(\int f(t)dt)i + (\int g(t)dt)j + (\int h(t)dt)k$
+    Note that we \textbf{do not use the same} integration constant for the three integrals.
+    \item An application of this is that we can integrate the velocity vector to get the position vector. Similarly, we can integrate the acceleration vector to obtain the velocity vector.
+\end{enumerate}
+
+\subsection{Arc Length}
+\begin{enumerate}
+    \item The Length, $L$ of a smooth curve defined by the vector function $r(t) = f(t)i + g(t)j + h(t)k, a \leq t \leq b$ and traced exactly once as $t$ increases from $t=a$ to $t=b$, is given by $L=\int_a^b\sqrt{(f'(t))^2+(g'(t))^2+(h'(t))^2}dt$
+\end{enumerate}
+
+\subsection{Line Integrals}
+\begin{enumerate}
+    \item If $f(x,y)$ is defined on a smooth curve $C: r(t)=x(t)i+y(t)j, a \leq t \leq b$, the line integral of $f$ along $C$, denoted by $\int_Cf(x,y)ds$, is $\int_a^bf(x(t), y(t))\sqrt{(x'(t))^2+(y'(t))^2}dt$. We can think $\sqrt{(x'(t))^2+(y'(t))^2}dt$ as integrating \textit{speed} over time, it will produce \textit{distance} $ds$ and then we integrate \textit{distance} over height, it will produce \textit{area}.
+    \item When $f(x,y)=1$, the line integral gives the length of the curve $C$.
+    \item The three-dimensional variant is similar.
+    \item When solving problems, find the parametric representation of the Curve $C$ in $t$, then substitute $x,y$ in $t$ back into the function $f$, then apply the formula.
+\end{enumerate}
+
+\subsection{Parametric Surfaces}
+\begin{enumerate}
+    \item A parametric surface is defined as a vector function of two variables $u$ and $v$, $r(u,v)=x(u,v)i + y(u,v)+ z(u,v)k$. For each $(u,v)$ in $D$, $r(u,v)$ represents the position vector of a point in space. These points constitute a surface.
+    \item For a parametric surface, the vectors of partial derivatives $r_u, r_v$ are defined by $r_u=x_ui+y_uj+z_uk$ and $r_v=x_vi+y_vj+z_vk$.
+    \item Given a smooth surface $r(u,v)$ and a point $P$ where $(u,v) = (u_0, v_0)$, the \textbf{normal vector to the tangent plane at $P$} is given by $(r_u \times r_v)(u_0, v_0)$, which means the vector $r_u \times r_v$ evaluated at $(u_0, v_0)$
+\end{enumerate}
+
+\section{04. Vector Fields}
+\subsection{Vector Fields}
+\begin{enumerate}
+    \item A vector field in two dimensions is a two-dimensional vector whose component functions are functions of two variables. $F(x,y)=P(x,y)i + Q(x,y)j$
+    Vector fields are vectors that depend on their \textbf{initial points}.
+    \item In this chapter, a vector field, $F(x,y)$ (respectively $F(x,y,z)$) represents a variable \textbf{force} that depends on the position of the point $(x,y)$ (respectively $(x,y,z)$) at which it acts.
+    \item The \textbf{gradient field (or gradient vector)}, denoted by $\nabla f$, is defined by $\nabla f=\frac{\partial f}{\partial x}i + \frac{\partial f}{\partial y}j$
+\end{enumerate}
+
+\subsection{Line Integrals of Vector Fields}
+\begin{enumerate}
+    \item (\textbf{The general method to calculate Line Integrals of Vector Fields}) The total work done by a vector field and $F(x,y)=P(x,y)i+Q(x,y)j$ in moving a particle along the curve $C: r(t)=x(t)i+y(t)j, a\leq r \leq b$, from the point $t=a$ (initial point) to the point $t=b$ (terminal point), denoted by $\int_CF\cdot dr$ is $\int_a^bF(r(t))\cdot r'(t)dt = \int_a^bP(x(t)), y(t))\cdot x'(t)+Q(x(t), y(t))\cdot y'(t)dt$ and $\int_CF\cdot dr$ is known as the \textbf{line integral} of the vector field $F$ along $C$
+    \item (\textbf{The Steps for calculation}) Get the parametric equations of $r(t)$, then substitute the unknown variables with $\cdots t$.
+\end{enumerate}
+
+\subsection{Conservative Fields}
+\begin{enumerate}
+    \item A vector field $F$ is said to be \textbf{conservative} if there is a scalar function $f$ such that $F=\nabla f$. The scalar function $f$ is called a \textbf{potential function} of $F$. Obviously, if $f$ is potential function for $F$, then so is $(f+c)$ for any constant $c$.
+    \item To find potential functions of a 2-D conservative field, let $f_x=P(x,y) ~\text{and}~ f_y=Q(x,y)$, then do partial integration, compare the results and add the \textbf{missing terms}. (3-D is similar)
+\end{enumerate}
+
+\subsection{Line Integrals in Conservative Fields}
+\begin{enumerate}
+    \item Given a \textbf{conservative field} $F=\nabla f$ for some differentiable scalar function $f$ and a smooth curve $C: r(t), a\leq t\leq b$ joining the point $r(a)$ to the point $r(b)$, the work done by $F$ in moving a particle along $C$ (or the line integral of $F$ along $C$) from $t=a$ to $t=b$ is $f(r(b))-f(r(a))$. \textbf{This means if $F$ is conservative, we have an easier way to calculate its line integral along a curve $C$}.
+    \item Under the situation in the point 1, if the curve $C$ is closed, we have the work done/line integral to be $0$, which can be denoted as $\oint_CF\cdot dr=0$
+    \item \textbf{(Test for conservative fields)}
+    \begin{enumerate}
+        \item $F(x,y,z)=P(x,y,z)i+Q(x,y,z)j+R(x,y,z)k$ is conservative \textbf{if and only if} $P_y=Q_x, Q_z=R_y\text{ and }R_x=P_z$
+        \item $F(x,y)=P(x,y)i+Q(x,y)j$ is conservative \textbf{if and only if} $P_y=Q_x$
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{Green's Theorem}
+\begin{enumerate}
+    \item Let $F(x,y)=P(x,y)i+Q(x,y)j$. If $D$ is a region enclosed by a simple, closed and positively oriented curve $C$, then $\oint_CF\cdot dr=(\oint Pdx+Qdy)=\int\int_D(\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y})dA$. If the curve is negative oriented, then add a minus sign. And notice that the vector field \textbf{doesn't need to be conservative}. (\textbf{Green Theorem provides another way that uses double integral to calculate line integral of a vector field along a curve})
+    \item The steps to use Green's Theorem is to find $P, Q$ first, form the double integrals. Then find the type of the region. Do the calculation on double integrals.
+\end{enumerate}
+
+\subsection{Curl and Divergence}
+\begin{enumerate}
+    \item Let $F$ be a vector field in three-dimensions. The curl of $F$, denoted by curl $F$, is a \textbf{vector} defined by $(R_y-Q_z)i+(P_z-R_x)j+(Q_x-P_y)k$
+    \item The \textbf{divergence} of $F$, denoted by div $F$, is a \textbf{scalar} defined by $\text{div }F=P_x+Q_y+R_z$
+\end{enumerate}
+
+\section{05. Infinite Series}
+\subsection{Sequences}
+\begin{enumerate}
+    \item For a sequence \{$a_n$\}, if $a_n\to 0 \text{ or a finite real number}$, then we say the sequence \{$a_n$\} is \textbf{convergent}. Otherwise, we say the sequence is \textbf{divergent} and it may diverge to \textbf{infinity} or diverge to nothing.
+    \item When encountering a limit of the form $\frac{\infty}{\infty}$, divide the numerator and denominator by the highest power of $n$ that appears in the expression $\frac{P(n)}{Q(n)}$.
+    \item \textbf{Some standard results on limits of sequences}
+    \begin{enumerate}
+        \item $lim_{n\to \infty} a^{\frac{1}{n}}=1$ fro any non-zero $a$
+        \item $lim_{n\to \infty} n^{\frac{1}{n}}=1$
+        \item $lim_{n\to \infty} r^n=0$ for $-1 \leq r \leq 1$
+        \item $lim_{n\to \infty}(1+\frac{a}{n})^n=e^a$ for any $a \in R$
+    \end{enumerate}
+    \item (\textbf{Limit Laws}) Let \{$a_n$\} and \{$b_n$\} be two convergent sequences with $lim_{n\to \infty}a_n=A$ and $lim_{n\to \infty}b_n=B$
+    \begin{enumerate}
+        \item $lim_{n\to \infty}ca_n=cA$ and $lim_{n\to \infty}(c+a_n)=c+A$ for any real number $c$
+        \item $lim_{n\to \infty}(a_n+b_n)=A+B$ and $lim_{n\to \infty}(a_n-b_n)=A-B$
+        \item $lim_{n\to \infty}a_nb_n=AB$
+        \item $lim_{n\to \infty}\frac{a_n}{b_n}=\frac{A}{B}$ provided $B\neq 0$ and $b_n \neq 0$ for all $n$
+        \item $lim_{n\to \infty}f(a_n)=f(A)$ if $f$ is a function and the limit on the left exists
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{Infinite Series}
+\begin{enumerate}
+    \item Given a sequence \{$a_n$\}, and its $n^{th}$ partial sum $S_n$ is the sum of  its first $n$ terms. Since \{$S_n$\} is itself a sequence, we can consider the limit of \{$S_n$\} as $n$ tends to infinity, which is $\sum_{k=1}^{\infty}a_k$, this is called an \textbf{infinite series} with constant terms.
+    \item The geometric series $\sum_{k=1}^{\infty}ar^{k-1}$ converges \textbf{if and only if} $-1 < r < 1$. Furthermore, for $-1 < r < 1$, $\sum_{k=1}^{\infty}ar^{k-1}=\frac{a}{1-r}$
+    \item A tip to find the geometric series is to form $(\cdots x)^k$ and $(\cdots x)$ will be your $r$ in the formula above.
+    \item Suppose $\sum a_k$ and $\sum b_k$ are two convergent series. Then, for any constants $\alpha, \beta, \sum (\alpha a_k+\beta b_k)$ converges and $\sum (\alpha a_k+\beta b_k) = \alpha \sum a_k + \beta \sum b_k$
+    \item Let $m$ be a positive integer. Then, $\sum_{k=1}^{\infty}a_k$ is convergent if and only if $\sum_{k=m}^{\infty}a_k$ is convergent.
+\end{enumerate}
+
+\subsection{Two Convergence Tests for Infinite Series}
+\begin{enumerate}
+    \item (\textbf{$n^{th}$ Term Test, also known as Divergence Test}) If \{$a_n$\} does \textbf{not} converge to $0$, then the infinite series $\sum_{k=1}^{\infty}a_k$ is \textbf{divergent}. The converse of the test is \textbf{not true}.
+    \item (\textbf{p-series Test}) The series $\sum_{k=1}^{\infty}\frac{1}{k^p}$ (known as p-series) is \textbf{convergent} if $p > 1$ and is \textbf{divergent} if $p \leq 1$
+\end{enumerate}
+
+\subsection{Power Series}
+\begin{enumerate}
+    \item In power series, our terms contain some variable, let's say $x$. The general form of power series is $\sum_{k=0}^{\infty}c_k(x-a)^k$, where $a$ is the \textbf{center} of the series. $c_1, c_2, \cdots$ are the \textbf{coefficients} of the series.
+    \item Any given power series behaves in the following three ways
+    \begin{enumerate}
+        \item it diverges for all values of $x$ (other than $x=a$), its \textbf{radius of convergence} $R$ is $0$
+        \item it converges for all values of $x$, its \textbf{radius of convergence} $R$ is $\infty$
+        \item it converges if $|x-a|<R$ and diverges when $|x-a|>R$ for some positive real number $R$, called \textbf{radius of convergence} of the power series (\textbf{$a$ doesn't need to be 1})
+    \end{enumerate}
+    \item (\textbf{Ratio/Root Test for Power Series}) Methods to find the radius of convergence. Given a power series $\sum_{k=0}^{\infty}c_k(x-a)^k$, let $a_k=c_k(x-a)^k$
+    \begin{enumerate}
+        \item (\textbf{Ratio Test}) Let $L=lim_{k\to \infty}|\frac{a_{k+1}}{a_k}|$
+        \item If $L < 1$(including $L=0$), the power series converges.
+        \item If $L > 1$(including $L=\infty$, the power series diverges.
+        \item (\textbf{Root Test}) Let $L=lim_{k\to \infty}|a_k^{1/k}|$
+        \item If $L < 1$(including $L=0$), the power series converges.
+        \item If $L > 1$(including $L=\infty$, the power series diverges.
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{Taylor Series}
+\begin{enumerate}
+    \item The \textbf{Taylor Series} for $f$ centered at $a$ is given by the infinite power series $\sum_{k=0}^{\infty}\frac{f^{(k)}(a)}{k!}(x-a)^k$. This is a power series whose coefficients are given by $\frac{f^{(k)}(a)}{k!}$. (When encountering terms like this , think about \textbf{Taylor Series} and \textbf{Maclaurin series}).
+    \item The Taylor series of $f$ centered at $a=0$, $\sum_{k=1}^{\infty}\frac{f^{(k)}(0)}{k!}x^k$, is called the \textbf{Maclaurin series} of $f$.
+    \item Some examples of functions with their associated Maclaurin series ($a=0$)
+    \begin{enumerate}
+        \item $\frac{1}{1-x}=\sum_{k=0}^{\infty}x^k=1+x+x^2+x^3+\cdots$ for $-1 < x <1$
+        \item $\frac{1}{1+x}=\sum_{k=0}^{\infty}x^k=1-x+x^2+x^3+\cdots+(-x)^n+\cdots$ for $-1 < x <1$
+        \item $e^x=\sum_{k=0}^{\infty}\frac{1}{k!}x^k=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots$ for all $x$
+        \item $sinx=\sum_{k=0}^{\infty}\frac{(-1)^k}{(2k+1)!}x^{2k+1}=x-\frac{x^3}{3!}+\frac{x^5}{5!}+\cdots$ for all $x$
+        \item $cosx=\sum_{k=0}^{\infty}\frac{(-1)^k}{(2k)!}x^{2k}=1-\frac{x^2}{2!}+\frac{x^4}{4!}+\cdots$ for all $x$
+        \item $tan^{-1}x=x-\frac{x^3}{3}+\frac{x^5}{5}-\frac{x^7}{7}+\cdots$ for $-1\leq x\leq 1$
+        \item $ln(1+x)=\sum_{k=0}^{\infty}\frac{(-1)^{k+1}}{k}x^k=x-\frac{x^2}{2}+\frac{x^3}{3}+\cdots$ for $-1 < x \leq 1$
+        \item $(1+x)^p=\sum_{k=0}^{\infty}
+        \begin{pmatrix}
+            p \\
+            k
+        \end{pmatrix}x^k=1+px+\frac{p(p-1)}{2!}x^2+\frac{p(p-1)(p-2)}{3!}x^3+\cdots$ for $-1<x<1$, where $\begin{pmatrix}
+            p \\
+            0
+        \end{pmatrix}=1, \begin{pmatrix}
+            p \\
+            k
+        \end{pmatrix}=\frac{p(p-1)(p-2)\cdots(p-k+1)}{k!}, k=1,2,3\cdots$
+    \end{enumerate}
+    \item (\textbf{Taylor Polynomial}) Given a function $f$, its $n^{th}$ order Taylor polynomial centered at $a$, denoted by $P_n$, is the sum of the first $(n+1)$ terms of its Taylor Series $\sum_{k=0}^{\infty}\frac{f^{(k)}(a)}{k!}(x-a)^k$. That is, $P_n(x)=\sum_{k=0}^{\infty}\frac{f^{(k)}(a)}{k!}(x-a)^k$
+\end{enumerate}
+
+\end{multicols}
+
+% Dividing Line
+\hrulefill \\
+
+\begin{multicols}{3}
+    \begin{enumerate}
+        \item When doing higher order differentiation questions, if it is hard to differentiate at first, try using \textbf{Mixed Derivatives Theorem}.
+        \item For \textbf{Double Integrals}, if it is hard to integrate, consider changing the order of integration. But pay attention to the region Type.
+        \item When changing region type, notice that you may need to change the function expression also. For example, $y=\cdots$ may become $x=\cdots$.
+        \item When trying to get the formula for \textbf{polar curves}, if it is not obvious, try to time $r$ to see if can substitute with $x=rcos\theta, y=rsin\theta, r^2=x^2+y^2$
+        \item For problems where two or more space curves are involved, different symbols should be used when finding the \textbf{intersection} of the curves. And only when all these different variables share the same value can we say the two or more curves intersect. Otherwise, they don't collide.
+        \item The vector cross product's sign is $+, -, +$
+        \item Given a gradient field/gradient vector with an unknown constant, try using \textbf{Mixed Derivative Theorem} to solve for the unknown constant.
+        \item In vector-field, it is important if you denote the $P, Q$ parts at first, then it will be easier to substitute the formulas in.
+    \end{enumerate}
+\end{multicols}
+
+\end{document}
