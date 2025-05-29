@@ -63,3 +63,6 @@ My journey in this course has been nothing short of extraordinary. I didn’t ju
 
 ## Conclusion
 This is the one of the best and warmest courses I have taken in NUS till now! Love it so much!
+
+## Useful Links
+- My team's final project: [mendax1234/CG1111A-Final-Project](https://github.com/mendax1234/CG1111A-Final-Project).
