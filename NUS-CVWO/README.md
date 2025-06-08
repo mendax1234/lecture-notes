@@ -1,0 +1,2 @@
+# NUS CVWO 25 Notes
+The notes are hosted on [Gitbook](https://wenbo-notes.gitbook.io/nus-cvwo-notes). And the repo is here: mendax1234/[Harvard-CS50-Notes](https://github.com/mendax1234/NUS-CVWO-Notes).
