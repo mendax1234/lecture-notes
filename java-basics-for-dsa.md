@@ -1,0 +1,166 @@
+# Java Basics for DSA
+
+## Data Type
+
+### Numeric Type Conversion
+
+As we have seen in CS2030S, Java is a strongly typed language, thus it will do _widening type conversion_  automatically, but _narrowing type conversion_ must be done explicitly.
+
+The syntax for casting a type is to specify the target type in parentheses, followed by the **variable's name** or the **value** to be cast. For example,
+
+```java
+System.out.println((int) 1.7);
+```
+
+## Single Dimensional Array
+
+In Java, we create a single dimensional array using the following convention
+
+```
+elementType[] arrayRefVar = new elementType[arraySize];
+```
+
+For example,
+
+```java
+double[] myList = new double[10];
+```
+
+### Array size and Default values
+
+The size of array can be accessed by calling the `.length` **field** of an array object.
+
+{% hint style="warning" %}
+The size of an array cannot be changed after creation.
+{% endhint %}
+
+When an array is created, its elements are assigned the default value of `0` for the numeric primitive data types, `\u0000` for `char` types, and `false` for `boolean` types.
+
+## Multidimensional Array
+
+In Java, we create a multidimensional (two dimensions here) array using the following convention
+
+```
+elementType[][] arrayRefVar = new elementType[rowSize][columnSize];
+```
+
+For example,
+
+```java
+int[][] matrix = new int[10][10];
+```
+
+Sometimes, we may want to create a multidimensional array with different column size between each row. This kind of arrays is called **Ragged Array** and its creation is as follows,
+
+{% code lineNumbers="true" %}
+```java
+int[][] raggedArray = new int[5][];
+raggedArray[0] = new int[4];
+// Similar for the rest rows
+```
+{% endcode %}
+
+{% hint style="warning" %}
+In Line 1 of the code above, we must specify the first element, which is the size of the row!
+{% endhint %}
+
+<details>
+
+<summary>Variable-Length Array</summary>
+
+> Don't know whether it's a good practice in Java anot. But at least it's a very bad practice in C 😂
+
+In CS2040S, we can just create the variable length array as we want. For example, if we want to create an array whose size depends on the input, we can do
+
+{% code lineNumbers="true" %}
+```java
+Scanner sc = new Scanner(System.in);
+int n = sc.nextInt();
+int[] a = new int[n];
+```
+{% endcode %}
+
+Similarly, this works for a two-dimensional and multi-dimensional array. Just to remember when you **create** a multi-dimensional array in Java with `new`, you must specify the sizes for **all dimensions except the last one**
+
+</details>
+
+## String
+
+`char` in Java is very similar to `char` in C. So, I will just skip it and talk about String only.
+
+String can be declard as follows
+
+```java
+String message = "Welcome to Java";
+```
+
+### Getting String length
+
+This can be done by calling the `.length()` method of a `String` object. For example,
+
+{% include ".gitbook/includes/getting-string-length.md" %}
+
+It will display
+
+```
+The length of Welcome to Java is 15
+```
+
+### Getting Characters from a String
+
+The `s.charAt(index)` method can be used to retrieve a specific character in a string `s`.
+
+{% hint style="warning" %}
+If your `index` is out of the bound, it will cause a `StringIndexOutOfBoundsException`.
+{% endhint %}
+
+### Concatenating Strings
+
+Just to save time, we can use the `+` operator. As you have seen below
+
+{% include ".gitbook/includes/getting-string-length.md" %}
+
+To quickly display a numeric value / variable in the `println` statement, we can just put at least one string in the statement and put the numeric value / variable. For example,
+
+{% code lineNumbers="true" %}
+```java
+String s = "Chapter " + 2;       // s becomes Chapter 2
+String y = "Chapter " + 1 + 2;   // y becomes Chapter 12
+String z = "Chapter " + (1 + 2); // z becomes Chapter 3
+```
+{% endcode %}
+
+### Reading a String from the Console
+
+There are two methods to do this,
+
+1. `.next()`: read a string that ends with a whitespace
+2. `.nextLine()`: read an entire line of text, as well as the `\n` character.
+
+<details>
+
+<summary>Token-based input and Line-based input</summary>
+
+**Token-based input**: `.next()`, `.nextByte()`, `.nextShort()`, `nextInt()`, `nextLong()`, `nextFloat()`, and `.nextDouble()`. These methods read individual elements separated by **whitespace** characters rather an entire line.
+
+**Line-based input**: `.nextLine()`.
+
+{% hint style="danger" %}
+To avoid input errors (usually implicit), **do not** use a line-based input after a token-based input in the program. If you persist on doing so, add one mroe `.nextLine()` to consume the `\n` character first!
+{% endhint %}
+
+</details>
+
+### Reading a character from the Console
+
+This is done by read the whole line and retrieve the char at 0 index. For example,
+
+{% code lineNumbers="true" %}
+```java
+Scanner sc = new Scanner(System.in);
+System.out.println("Enter a character: ");
+String s = sc.nextLine();
+char ch = s.charAt(0);
+System.out.println("The character entered is " + ch);
+```
+{% endcode %}

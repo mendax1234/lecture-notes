@@ -1,6 +1,7 @@
 # Table of contents
 
 * [Welcome](README.md)
+* [Java Basics for DSA](java-basics-for-dsa.md)
 
 ## PS
 
