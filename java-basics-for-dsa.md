@@ -64,6 +64,27 @@ raggedArray[0] = new int[4];
 In Line 1 of the code above, we must specify the first element, which is the size of the row!
 {% endhint %}
 
+### Reading Multi-dimensional Array from the Console
+
+{% code lineNumbers="true" %}
+```java
+Scanner sc = new Scanner(System.in);
+int n = sc.nextInt(); // rows
+int m = sc.nextInt(); // columns
+sc.nextLine(); // consume the next line after the numbers
+
+char[][] mines = new char[n][m];
+
+for (int i = 0; i < n; i += 1) {
+  String line = sc.nextLine();
+  for (int j = 0; j < m; j += 1) {
+    mines[i][j] = line.charAt(j);
+  }
+}
+sc.close()
+```
+{% endcode %}
+
 <details>
 
 <summary>Variable-Length Array</summary>
