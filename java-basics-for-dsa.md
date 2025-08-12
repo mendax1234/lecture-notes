@@ -190,11 +190,11 @@ System.out.println("The character entered is " + ch);
 ```
 {% endcode %}
 
-### Create Mutable "String"
+### String Manipulation with Loops
 
-The normal `String` in Java is **immutable**. To manipulate with mutable "String", we can use `StringBuilder` provided by Java.
+The normal `String` in Java is **immutable**. So, using conventional method like loops to manipulate on `String` is impossible. Luckily, Java has provided a special class called `StringBuilder`, which makes "String" **mutable**.
 
-For example, if we want to manipulate with each character in a string, which is to change them into lower case letter.
+For example, if we want to manipulate with each character in a string, which is to change them into lower case.
 
 {% code lineNumbers="true" %}
 ```java
@@ -209,5 +209,5 @@ public String toLowerCase(String s) {
 {% endcode %}
 
 {% hint style="danger" %}
-`StringBuilder` and `String` are two different type, thus in the `return` statement above, we need to convert `StringBuilder` to `String`.
+`StringBuilder` and `String` are two different types, thus in the `return` statement above, we need to convert `StringBuilder` to `String`.
 {% endhint %}
