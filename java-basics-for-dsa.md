@@ -109,11 +109,15 @@ Similarly, this works for a two-dimensional and multi-dimensional array. Just to
 
 `char` in Java is very similar to `char` in C. So, I will just skip it and talk about String only.
 
-String can be declard as follows
+String can be declard as follows,
 
 ```java
 String message = "Welcome to Java";
 ```
+
+{% hint style="danger" %}
+In Java, `String` **cannot** be regarded as `char[]`. Thus using `string[]` is **not allowed**! This is different from[ String in C in CS1010](https://wenbo-notes.gitbook.io/cs1010-notes/lec-tut-lab-exes/lecture/lec-07-pointers-memory-management#string).
+{% endhint %}
 
 ### Getting String length
 
@@ -185,3 +189,25 @@ char ch = s.charAt(0);
 System.out.println("The character entered is " + ch);
 ```
 {% endcode %}
+
+### Create Mutable "String"
+
+The normal `String` in Java is **immutable**. To manipulate with mutable "String", we can use `StringBuilder` provided by Java.
+
+For example, if we want to manipulate with each character in a string, which is to change them into lower case letter.
+
+{% code lineNumbers="true" %}
+```java
+public String toLowerCase(String s) {
+    StringBuilder newS = new StringBuilder(s);
+    for (int i = 0; i < s.length(); i += 1) {
+        newS.setCharAt(i, Character.toLowerCase(newS.charAt(i)));
+    }
+    return newS.toString();
+}
+```
+{% endcode %}
+
+{% hint style="danger" %}
+`StringBuilder` and `String` are two different type, thus in the `return` statement above, we need to convert `StringBuilder` to `String`.
+{% endhint %}
