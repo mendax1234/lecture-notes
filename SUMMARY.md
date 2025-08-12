@@ -9,4 +9,4 @@
   * [PS0](practical/kattis/ps0.md)
 * [LeetCode](practical/leetcode/README.md)
   * [66. Plus One](practical/leetcode/66.-plus-one.md)
-  * [709. To Lower Case](practical/leetcode/709.-to-lower-case.md)
+  * [709. To Lower CaseF](practical/leetcode/709.-to-lower-casef.md)
