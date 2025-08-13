@@ -171,7 +171,13 @@ There are two methods to do this,
 **Line-based input**: `.nextLine()`.
 
 {% hint style="danger" %}
-To avoid input errors (usually implicit), **do not** use a line-based input after a token-based input in the program. If you persist on doing so, add one mroe `.nextLine()` to consume the `\n` character first!
+To avoid input errors (usually implicit), **do not** use a line-based input after a token-based input in the program. If you persist on doing so, add one more `.nextLine()` to consume the `\n` character first! Or you can use the following if your line only contains one `int` or other variables of primitive type.
+
+```java
+int n = Integer.parseInt(sc.nextLine());
+```
+
+This style will help you deal with the `\n` character, so you don't need to use `.nextLine()` again to consume the `\n` character.
 {% endhint %}
 
 </details>
@@ -211,3 +217,15 @@ public String toLowerCase(String s) {
 {% hint style="danger" %}
 `StringBuilder` and `String` are two different types, thus in the `return` statement above, we need to convert `StringBuilder` to `String`.
 {% endhint %}
+
+### String Iteration
+
+Given a String `s` / Or your input in Java, the way that Prof Halim does to iterate through it is as follows,
+
+{% code lineNumbers="true" %}
+```java
+for (char Si : sc.nextLine().toCharArray()) {
+    // manipulate with Si
+}
+```
+{% endcode %}

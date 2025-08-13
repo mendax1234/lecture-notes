@@ -75,3 +75,34 @@ If you are curious, I happen to encounter this famous Josephus problem's idea in
 This is a problem I have encounter when doing open kattis, and the notes for it is as follows:
 
 {% embed url="https://wenbo-notes.gitbook.io/coding/kattis/easy/bergur" %}
+
+However, there is a smarter version, which uses exactly  $$O(N)$$ to solve this problem. For this problem, it's quite hard if we start from day 1, 2, ..., and so on until day $$N$$. But what if we change our viewpoint?
+
+We can start from the last day, the last day must be the longest. And by moving forward one by one, we check whether the newly encountered element is smaller than the `min` we used to keep track of the minimum of the last days.
+
+{% code lineNumbers="true" %}
+```java
+import java.util.*;
+
+public class bergur {
+    public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+    int[] a = new int[n];
+    for (int i = 0; i < n; i += 1) {
+      a[i] = sc.nextInt();
+    }
+    sc.close();
+
+    int sum = a[n - 1], min = a[n - 1];
+    for (int i = n - 2; i >= 0 ; i -= 1) {
+      if (a[i] <= min) {
+        min = a[i];
+      }
+      sum += min;
+    }
+    System.out.println(sum);
+  }
+}
+```
+{% endcode %}
