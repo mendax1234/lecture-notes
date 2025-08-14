@@ -4,6 +4,8 @@
 
 ### Numeric Type Conversion
 
+#### Convert between numeric types
+
 As we have seen in CS2030S, Java is a strongly typed language, thus it will do _widening type conversion_  automatically, but _narrowing type conversion_ must be done explicitly.
 
 The syntax for casting a type is to specify the target type in parentheses, followed by the **variable's name** or the **value** to be cast. For example,
@@ -11,6 +13,17 @@ The syntax for casting a type is to specify the target type in parentheses, foll
 ```java
 System.out.println((int) 1.7);
 ```
+
+#### String to Numeric Types
+
+From String to `int`, we can use the `parseInt()` provided in the `Integer` class. For example,
+
+{% code lineNumbers="true" %}
+```java
+String s = "100";
+int index = Integer.parseInt(s);
+```
+{% endcode %}
 
 ## Single Dimensional Array
 
@@ -63,6 +76,58 @@ raggedArray[0] = new int[4];
 {% hint style="warning" %}
 In Line 1 of the code above, we must specify the first element, which is the size of the row!
 {% endhint %}
+
+## Java ArrayList
+
+This is a powerful implementation of array in Java!&#x20;
+
+### Create an ArrayList
+
+For example, to create an Integer ArrayList, we can use the following
+
+```java
+ArrayList<Integer> Teams = new ArrayList<Integer>();
+```
+
+After creating an `ArrayList`, we can treat it as an array! And `ArrayList` has provided many many powerful and useful operations than the normal Java Array.
+
+### Basic Manipulation
+
+{% stepper %}
+{% step %}
+**Add element**
+
+{% code lineNumbers="true" %}
+```java
+Teams.add(value);
+Teams.add(index, value);
+```
+{% endcode %}
+
+* The first line appends the specified element (`value`) to the end of the list.
+* The second line inserts the specified element (`value`) at the specified position (`index`). And the movement of other elements is all down internally!
+{% endstep %}
+
+{% step %}
+**Search for element**
+
+```java
+Teams.indexOf(value)
+```
+
+This line will return the index of the specified element (`value`). This is equal to searching an element in the array!
+{% endstep %}
+
+{% step %}
+**Remove element**
+
+```java
+Teams.remove(index)
+```
+
+This line will remove the element at the specified position (`index`). And again, the shifting of other elements are all done internally!
+{% endstep %}
+{% endstepper %}
 
 ### Reading Multi-dimensional Array from the Console
 
@@ -229,3 +294,19 @@ for (char Si : sc.nextLine().toCharArray()) {
 }
 ```
 {% endcode %}
+
+### Getting a substring
+
+Sometimes, we may find that the value we want is the substring of the string we read. For example, the string we get from input is `T100`, but we only want the `100` because this number will be the index. To get the `100`, we can use substring manipulation.
+
+{% code lineNumbers="true" %}
+```java
+String s = "T100";
+String usefulS = s.subString(1);
+int index = Integer.parseInt(usefulS);
+```
+{% endcode %}
+
+In Line 2, `1` is the `beginIndex`, and this will return a String that starts from index 1 and ends at the original end of the original String.
+
+After getting the "useful" substring, you may use the `parseInt()` to convert the string to `int`.
