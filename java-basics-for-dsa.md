@@ -310,3 +310,24 @@ int index = Integer.parseInt(usefulS);
 In Line 2, `1` is the `beginIndex`, and this will return a String that starts from index 1 and ends at the original end of the original String.
 
 After getting the "useful" substring, you may use the `parseInt()` to convert the string to `int`.
+
+### The great use of `.next()`
+
+As we have seen before, `.next()` is a token-based input. It stops reading when it hits a whitespace. So, if we have a line of strings and we want to read each string, we can use `.next()`. For example,
+
+{% code lineNumbers="true" %}
+```java
+Scanner sc = new Scanner(System.in);
+String si = sc.next();
+String sj = sc.next();
+sc.nextLine();         // Consume the ending not read \n char
+```
+{% endcode %}
+
+And if our input is
+
+```
+T1 T2\n
+```
+
+We will store `T1` in `si` and `T2` in `sj`.
