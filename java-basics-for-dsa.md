@@ -77,6 +77,18 @@ raggedArray[0] = new int[4];
 In Line 1 of the code above, we must specify the first element, which is the size of the row!
 {% endhint %}
 
+### Getting Length and Width of a Rectangular Array
+
+This can be done by calling the `.length` property twice
+
+{% code lineNumbers="true" %}
+```java
+int[][] twodarray = new int[3][4];
+int rows = twodarray.length;
+int columns = twodarray[0].length;
+```
+{% endcode %}
+
 ## Java ArrayList
 
 This is a powerful implementation of array in Java!&#x20;
