@@ -165,3 +165,34 @@ class Solution {
 {% endcode %}
 
 The learning point of this problem is to know how to get the length and width of a 2-D array.
+
+## Friday
+
+### Problem
+
+{% embed url="https://leetcode.com/problems/count-odd-numbers-in-an-interval-range/description/?envType=study-plan-v2&envId=programming-skills" %}
+
+### Solution
+
+#### My Solution
+
+My initial idea is to use a for loop to solve, but the last two test cases I got Time Limit Exceed. And after looking at the hints, I find out this problem is just a **finding pattern** problem in Java. The pattern should be: (denote `high-low+1` as `range`)
+
+1. If range is even, then the number of odd should be `range/2`.
+2. Else, meaning that low and high must be both odd or even
+   1. If low and high are odd, the number of odd should be `range/2 + 1`
+   2. Else, the number of odd should be `range/2`
+
+{% code lineNumbers="true" %}
+```java
+class Solution {
+    public int countOdds(int low, int high) {
+        int range = high - low + 1;
+        if (range % 2 == 1 && low % 2 == 1) {
+            return range / 2 + 1;
+        }
+        return range / 2;
+    }
+}
+```
+{% endcode %}
