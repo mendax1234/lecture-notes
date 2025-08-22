@@ -5,6 +5,7 @@
 ## LEC
 
 * [Lec 01](lec/lec-01.md)
+* [Lec 02](lec/lec-02.md)
 
 ## Weekly Progress
 
