@@ -89,6 +89,47 @@ int columns = twodarray[0].length;
 ```
 {% endcode %}
 
+### Reading Multi-dimensional Array from the Console
+
+{% code lineNumbers="true" %}
+```java
+Scanner sc = new Scanner(System.in);
+int n = sc.nextInt(); // rows
+int m = sc.nextInt(); // columns
+sc.nextLine(); // consume the next line after the numbers
+
+char[][] mines = new char[n][m];
+
+for (int i = 0; i < n; i += 1) {
+  String line = sc.nextLine();
+  for (int j = 0; j < m; j += 1) {
+    mines[i][j] = line.charAt(j);
+  }
+}
+sc.close()
+```
+{% endcode %}
+
+<details>
+
+<summary>Variable-Length Array</summary>
+
+> Don't know whether it's a good practice in Java anot. But at least it's a very bad practice in C 😂
+
+In CS2040S, we can just create the variable length array as we want. For example, if we want to create an array whose size depends on the input, we can do
+
+{% code lineNumbers="true" %}
+```java
+Scanner sc = new Scanner(System.in);
+int n = sc.nextInt();
+int[] a = new int[n];
+```
+{% endcode %}
+
+Similarly, this works for a two-dimensional and multi-dimensional array. Just to remember when you **create** a multi-dimensional array in Java with `new`, you must specify the sizes for **all dimensions except the last one**
+
+</details>
+
 ## Java ArrayList
 
 This is a powerful implementation of array in Java!&#x20;
@@ -140,47 +181,6 @@ Teams.remove(index)
 This line will remove the element at the specified position (`index`). And again, the shifting of other elements are all done internally!
 {% endstep %}
 {% endstepper %}
-
-### Reading Multi-dimensional Array from the Console
-
-{% code lineNumbers="true" %}
-```java
-Scanner sc = new Scanner(System.in);
-int n = sc.nextInt(); // rows
-int m = sc.nextInt(); // columns
-sc.nextLine(); // consume the next line after the numbers
-
-char[][] mines = new char[n][m];
-
-for (int i = 0; i < n; i += 1) {
-  String line = sc.nextLine();
-  for (int j = 0; j < m; j += 1) {
-    mines[i][j] = line.charAt(j);
-  }
-}
-sc.close()
-```
-{% endcode %}
-
-<details>
-
-<summary>Variable-Length Array</summary>
-
-> Don't know whether it's a good practice in Java anot. But at least it's a very bad practice in C 😂
-
-In CS2040S, we can just create the variable length array as we want. For example, if we want to create an array whose size depends on the input, we can do
-
-{% code lineNumbers="true" %}
-```java
-Scanner sc = new Scanner(System.in);
-int n = sc.nextInt();
-int[] a = new int[n];
-```
-{% endcode %}
-
-Similarly, this works for a two-dimensional and multi-dimensional array. Just to remember when you **create** a multi-dimensional array in Java with `new`, you must specify the sizes for **all dimensions except the last one**
-
-</details>
 
 ## String
 
