@@ -343,3 +343,12 @@ T1 T2\n
 ```
 
 We will store `T1` in `si` and `T2` in `sj`.
+
+### Replace certain chars in String
+
+To do so, we can use the `.replace()` provided by the Java `String`.
+
+```java
+String s = sc.nextLine();
+String newS = s.replace("D", ""); // first is target, second is replacement
+```
