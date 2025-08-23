@@ -10,3 +10,4 @@
   * [PS1](practical/kattis/ps1.md)
 * [LeetCode](practical/leetcode/README.md)
   * [Week 1](practical/leetcode/week-1.md)
+  * [Week 2](practical/leetcode/week-2.md)
