@@ -11,3 +11,7 @@
 * [LeetCode](practical/leetcode/README.md)
   * [Week 1](practical/leetcode/week-1.md)
   * [Week 2](practical/leetcode/week-2.md)
+
+## LEC/LAB
+
+* [Week 2 Sorting](lec-lab/week-2-sorting.md)
