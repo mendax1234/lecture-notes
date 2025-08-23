@@ -420,10 +420,6 @@ void loop() {
 
 ## Studio
 
-### Studio Report
-
-{% embed url="https://docs.google.com/document/d/13E56VOc47a1P3zRq8E4-ILEQTxaJoKMXu5M9XBmXzEo/edit?usp=sharing" %}
-
 ### Interesting Questions
 
 {% stepper %}
