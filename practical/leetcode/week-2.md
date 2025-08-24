@@ -125,3 +125,40 @@ class Solution {
 }
 ```
 {% endcode %}
+
+## Wednesday\*
+
+### Problem
+
+{% embed url="https://leetcode.com/problems/robot-bounded-in-circle/description/?envType=study-plan-v2&envId=programming-skills" %}
+
+### Solution
+
+Today's problem is interesting. Bascially, we need to learn that whenever we are dealing with robot-centered problem, use a fixed 2-D map to record the available four steps!
+
+And for this problem, we just need to find the final vector, if it is not facing north, or the robot stays at the origin, then the robot will be in a circle.
+
+{% code lineNumbers="true" %}
+```java
+class Solution {
+    public boolean isRobotBounded(String instructions) {
+        int x = 0;
+        int y = 0;
+        int i = 0;
+        int[][] d = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        for (char s : instructions.toCharArray()) {
+            if (s == 'R') {
+                i = (i + 1) % 4;
+            } else if (s == 'L') {
+                i = (i + 3) % 4;
+            } else {
+                x += d[i][0];
+                y += d[i][1];
+            }
+        }
+        return (x == 0 && y == 0) || i > 0;
+    }
+}
+```
+{% endcode %}
+

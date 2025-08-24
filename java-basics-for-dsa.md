@@ -132,7 +132,7 @@ Similarly, this works for a two-dimensional and multi-dimensional array. Just to
 
 ## Java ArrayList
 
-This is a powerful implementation of array in Java!&#x20;
+[Java ArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html) is a powerful implementation of array in Java!&#x20;
 
 ### Create an ArrayList
 
