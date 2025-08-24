@@ -1,8 +1,11 @@
 # Week 2 Sorting
 
-## Lec
+In Java, the sorting is implemented in
 
-In Java, the sorting is implemented in [`Collections`](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html). An example which uses this feature to solve a problem is as follows,
+1. &#x20;[Collections](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html) (Use `Collections.sort(List)` to sort a List)
+2. [Arrays](https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html) (Use `Arrays.sort(array)` to sort an array, like `int[]`)
+
+An example which uses this feature to solve a problem is as follows,
 
 {% embed url="https://open.kattis.com/problems/nothanks" %}
 
