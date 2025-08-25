@@ -49,6 +49,17 @@ The size of an array cannot be changed after creation.
 
 When an array is created, its elements are assigned the default value of `0` for the numeric primitive data types, `\u0000` for `char` types, and `false` for `boolean` types.
 
+### Copy an array
+
+We can use `array.clone()` to quickly copy an array in Java.
+
+{% code lineNumbers="true" %}
+```java
+int[] candies = new int[5];
+int[] copy = candies.clone();
+```
+{% endcode %}
+
 ## Multidimensional Array
 
 In Java, we create a multidimensional (two dimensions here) array using the following convention

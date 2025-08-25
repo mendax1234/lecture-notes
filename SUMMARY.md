@@ -11,6 +11,7 @@
 * [LeetCode](practical/leetcode/README.md)
   * [Week 1](practical/leetcode/week-1.md)
   * [Week 2](practical/leetcode/week-2.md)
+  * [Week 3](practical/leetcode/week-3.md)
 
 ## LEC/LAB
 
