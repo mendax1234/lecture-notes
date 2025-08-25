@@ -180,6 +180,20 @@ Teams.remove(index)
 
 This line will remove the element at the specified position (`index`). And again, the shifting of other elements are all done internally!
 {% endstep %}
+
+{% step %}
+**Print element in the ArrayList**
+
+We can simply use a for-each loop to print out all the elements in the ArrayList.
+
+```java
+ArrayList<String> list = new ArrayList<>();
+
+for (String ele : list) {
+  System.out.println(ele);
+}
+```
+{% endstep %}
 {% endstepper %}
 
 ## String
