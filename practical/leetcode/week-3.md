@@ -43,3 +43,57 @@ class Solution {
 {% hint style="info" %}
 Here I am lame so just sort the list first LOL.
 {% endhint %}
+
+## Tuesday
+
+### Problem
+
+{% embed url="https://leetcode.com/problems/merge-strings-alternately/description/?envType=study-plan-v2&envId=leetcode-75" %}
+
+### Solution
+
+This problem is very similar to the one Prof. Halim live-coded on Lec 02. The high level algorithm is:
+
+1. Use two pointers (`pt1` and `pt2`) to mark char dealth with in `word1` and `word2`
+2. while pt1 < length of word1 and pt2 < length of word 2, build the result string alternatively
+3. while pt1 < length of word1, append the remaining chars of word1 into res string
+4. while pt2 < length of word2, append the remaining chars of word2 into res string
+5. return res string
+
+The overall time complexity is $$O(m+n)$$.
+
+{% code lineNumbers="true" %}
+```java
+class Solution {
+    public String mergeAlternately(String word1, String word2) {
+        int pt1 = 0;
+        int pt2 = 0;
+        boolean dir = true;
+        int word1Len = word1.length();
+        int word2Len = word2.length();
+        StringBuilder res = new StringBuilder();
+        while (pt1 < word1Len && pt2 < word2Len) {
+            if (dir) {
+                res.append(word1.charAt(pt1));
+                pt1++;
+            } else {
+                res.append(word2.charAt(pt2));
+                pt2++;
+            }
+            dir = !dir;
+        }
+        // word 1 not ending
+        while (pt1 < word1Len) {
+            res.append(word1.charAt(pt1));
+            pt1++;
+        }
+        // word 2 not ending
+        while (pt2 < word2Len) {
+            res.append(word2.charAt(pt2));
+            pt2++;
+        }
+        return res.toString();
+    }
+}
+```
+{% endcode %}
