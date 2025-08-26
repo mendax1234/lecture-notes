@@ -1,8 +1,10 @@
 # Week 2 Sorting
 
+## Default Sorting
+
 In Java, the sorting is implemented in
 
-1. &#x20;[Collections](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html) (Use `Collections.sort(List)` to sort a List)
+1. [Collections](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html) (Use `Collections.sort(List)` to sort a List)
 2. [Arrays](https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html) (Use `Arrays.sort(array)` to sort an array, like `int[]`)
 
 An example which uses this feature to solve a problem is as follows,
@@ -34,3 +36,5 @@ public class nothanks {
 }
 ```
 {% endcode %}
+
+## Customized Sorting

@@ -88,7 +88,7 @@ raggedArray[0] = new int[4];
 In Line 1 of the code above, we must specify the first element, which is the size of the row!
 {% endhint %}
 
-### Getting Length and Width of a Rectangular Array
+### Get Dimensions
 
 This can be done by calling the `.length` property twice
 
@@ -100,7 +100,7 @@ int columns = twodarray[0].length;
 ```
 {% endcode %}
 
-### Reading Multi-dimensional Array from the Console
+### Read Multi-d Array
 
 {% code lineNumbers="true" %}
 ```java
@@ -145,7 +145,7 @@ Similarly, this works for a two-dimensional and multi-dimensional array. Just to
 
 [Java ArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html) is a powerful implementation of array in Java!&#x20;
 
-### Create an ArrayList
+### Creation
 
 For example, to create an Integer ArrayList, we can use the following
 
@@ -221,7 +221,7 @@ String message = "Welcome to Java";
 In Java, `String` **cannot** be regarded as `char[]`. Thus using `string[]` is **not allowed**! This is different from[ String in C in CS1010](https://wenbo-notes.gitbook.io/cs1010-notes/lec-tut-lab-exes/lecture/lec-07-pointers-memory-management#string).
 {% endhint %}
 
-### Getting String length
+### Get length
 
 This can be done by calling the `.length()` method of a `String` object. For example,
 
@@ -233,7 +233,7 @@ It will display
 The length of Welcome to Java is 15
 ```
 
-### Getting Characters from a String
+### Get char in String
 
 The `s.charAt(index)` method can be used to retrieve a specific character in a string `s`.
 
@@ -241,7 +241,7 @@ The `s.charAt(index)` method can be used to retrieve a specific character in a s
 If your `index` is out of the bound, it will cause a `StringIndexOutOfBoundsException`.
 {% endhint %}
 
-### Concatenating Strings
+### Concatenate Strings
 
 Just to save time, we can use the `+` operator. As you have seen below
 
@@ -257,7 +257,7 @@ String z = "Chapter " + (1 + 2); // z becomes Chapter 3
 ```
 {% endcode %}
 
-### Reading a String from the Console
+### Read a String
 
 There are two methods to do this,
 
@@ -284,7 +284,7 @@ This style will help you deal with the `\n` character, so you don't need to use 
 
 </details>
 
-### Reading a character from the Console
+### Read a char
 
 This is done by read the whole line and retrieve the char at 0 index. For example,
 
@@ -298,7 +298,7 @@ System.out.println("The character entered is " + ch);
 ```
 {% endcode %}
 
-### String Manipulation with Loops
+### String Manipulation
 
 The normal `String` in Java is **immutable**. So, using conventional method like loops to manipulate on `String` is impossible. Luckily, Java has provided a special class called `StringBuilder`, which makes "String" **mutable**.
 
@@ -320,6 +320,10 @@ public String toLowerCase(String s) {
 `StringBuilder` and `String` are two different types, thus in the `return` statement above, we need to convert `StringBuilder` to `String`.
 {% endhint %}
 
+{% hint style="success" %}
+Whenever we need to return a String from a method, we can create a `StringBuilder` and then return `StringBuilder.toString()`.
+{% endhint %}
+
 ### String Iteration
 
 Given a String `s` / Or your input in Java, the way that Prof Halim does to iterate through it is as follows,
@@ -332,7 +336,7 @@ for (char Si : sc.nextLine().toCharArray()) {
 ```
 {% endcode %}
 
-### Getting a substring
+### Get a substring
 
 Sometimes, we may find that the value we want is the substring of the string we read. For example, the string we get from input is `T100`, but we only want the `100` because this number will be the index. To get the `100`, we can use substring manipulation.
 
