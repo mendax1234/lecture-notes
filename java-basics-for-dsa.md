@@ -321,7 +321,7 @@ public String toLowerCase(String s) {
 {% endhint %}
 
 {% hint style="success" %}
-Whenever we need to return a String from a method, we can create a `StringBuilder` and then return `StringBuilder.toString()`.
+Whenever we need to return a String from a method, we can create a `StringBuilder`, do the manipulation on the `StringBuilder`, and then return `StringBuilder.toString()`.
 {% endhint %}
 
 ### String Iteration
