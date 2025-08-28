@@ -11,3 +11,4 @@
 
 * [Week 1](weekly-progress/week-1.md)
 * [Week 2](weekly-progress/week-2.md)
+* [Week 3](weekly-progress/week-3.md)
