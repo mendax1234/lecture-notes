@@ -51,12 +51,19 @@ When an array is created, its elements are assigned the default value of `0` for
 
 ### Copy an array
 
-We can use `array.clone()` to quickly copy an array in Java.
+We can use `Array.copyOf()` to copy an array in Java
 
 {% code lineNumbers="true" %}
 ```java
-int[] candies = new int[5];
-int[] copy = candies.clone();
+int[] a = new int[]{1,2,3,4};
+
+int[] b = Arrays.copyOf(a, 3); // copy first three elements
+System.out.println(Arrays.toString(b));
+// Print: [1, 2, 3]
+
+int[] c = Arrays.copyOf(a, a.length); // copy all elements
+System.out.println(Arrays.toString(c));
+// Print: [1, 2, 3, 4]
 ```
 {% endcode %}
 
@@ -209,6 +216,8 @@ for (String ele : list) {
 
 ## String
 
+> Some parts are borrowed from NUS CS2113's [explanation on String](https://nus-cs2113-ay2526s1.github.io/website/schedule/week3/topics.html#c-to-java-some-useful-classes-the-string-class)! It's awesome and worth to refer to!
+
 `char` in Java is very similar to `char` in C. So, I will just skip it and talk about String only.
 
 String can be declard as follows,
@@ -233,13 +242,28 @@ It will display
 The length of Welcome to Java is 15
 ```
 
-### Get char in String
+### Find char in String
 
 The `s.charAt(index)` method can be used to retrieve a specific character in a string `s`.
 
 {% hint style="warning" %}
 If your `index` is out of the bound, it will cause a `StringIndexOutOfBoundsException`.
 {% endhint %}
+
+### Search within String
+
+The `indexOf` method searches for a single character (or a substring) in a string and returns the index of the first occurrence. The method returns `-1` if there are no occurrences.
+
+* `"banana".indexOf('a')` -> `1`
+* `"banana".indexOf('a', 2)` -> `3` searches for `'a'`, starting from position 2
+* `"banana".indexOf('x')` -> `-1`
+* `"banana".indexOf("nan")` -> `2` searches for the substring `"nan"`
+
+Some other useful methods when doing search within String
+
+* `contains`: checks if one string is a sub-string of the other e.g., `Snapple` and `app`
+* `startsWith`: checks if one string has the other as a substring at the _beginning_ e.g., `Apple` and `App`
+* `endsWith`: checks if one string has the other as a substring at the _end_ e.g., `Crab` and `ab`
 
 ### Concatenate Strings
 
@@ -336,21 +360,23 @@ for (char Si : sc.nextLine().toCharArray()) {
 ```
 {% endcode %}
 
-### Get a substring
+### Access substring
 
-Sometimes, we may find that the value we want is the substring of the string we read. For example, the string we get from input is `T100`, but we only want the `100` because this number will be the index. To get the `100`, we can use substring manipulation.
+The `substring` method returns a new string that copies letters from an existing string, starting at the given index.
 
-{% code lineNumbers="true" %}
-```java
-String s = "T100";
-String usefulS = s.subString(1);
-int index = Integer.parseInt(usefulS);
-```
-{% endcode %}
+* `"banana".substring(0)` -> `"banana"`
+* `"banana".substring(2)` -> `"nana"`
+* `"banana".substring(6)` -> `""`
 
-In Line 2, `1` is the `beginIndex`, and this will return a String that starts from index 1 and ends at the original end of the original String.
+If it’s invoked with two arguments, they are treated as a start and end index:
 
-After getting the "useful" substring, you may use the `parseInt()` to convert the string to `int`.
+* `"banana".substring(0, 3)` -> `"ban"`
+* `"banana".substring(2, 5)` -> `"nan"`
+* `"banana".substring(6, 6)` -> `""`
+
+{% hint style="info" %}
+After getting the "useful" substring, you may want to [#parse-string](java-basics-for-dsa.md#parse-string "mention") further.
+{% endhint %}
 
 ### The great use of `.next()`
 
@@ -373,11 +399,46 @@ T1 T2\n
 
 We will store `T1` in `si` and `T2` in `sj`.
 
-### Replace certain chars in String
+### Replace parts in String
 
-To do so, we can use the `.replace()` provided by the Java `String`.
+Another useful method is `replace`, which finds and replaces instances of one string within another.
 
 ```java
-String s = sc.nextLine();
-String newS = s.replace("D", ""); // first is target, second is replacement
+String text = "Computer Science is fun!";
+text = text.replace("Computer Science", "CS");
+System.out.println(text);
 ```
+
+### String formatting
+
+Sometimes programs need to create strings that are formatted in a certain way. `String.format` takes a _format specifier_ followed by a sequence of values and returns a new string formatted as specified.
+
+```java
+public static String timeString(int hour, int minute) {
+    String ampm;
+    if (hour < 12) {
+        ampm = "AM";
+        if (hour == 0) {
+            hour = 12;  // midnight
+        }
+    } else {
+        ampm = "PM";
+        hour = hour - 12;
+    }
+
+    // returns "07:05 PM"
+    return String.format("%02d:%02d %s", hour, minute, ampm);
+}
+```
+
+The above method returns a time string in 12-hour format. The format specifier `\%02d` means “two digit integer padded with zeros”, so `timeString(19, 5)` returns the string `"07:05 PM"`.
+
+### Parse String
+
+**Wrapper classes provide methods for&#x20;**_**parsing**_**&#x20;strings to other types** e.g., `Integer.parseInt` converts a string to (you guessed it) an integer. The other wrapper classes provide similar methods, like `Double.parseDouble` and `Boolean.parseBoolean`.
+
+`Integer.parseInt("1234")` -> `1234`
+
+Wrapper classes also provide `toString`, which returns a string representation of a value.
+
+&#x20;`Integer.toString(1234)` -> `"1234"`\
