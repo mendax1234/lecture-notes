@@ -1,4 +1,4 @@
-# Week 3 More Sorting
+# Lec 03 - More Sorting
 
 ## Stable Sort
 
@@ -6,7 +6,7 @@ A sorting algorithm is called **stable** if the relative order of elements **wit
 
 ### Customized Sorting
 
-As in Java, usually the [#default-sorting](week-2-sorting.md#default-sorting "mention") is **stable**, what is sometimes we need a **customized sorting**? For example, the following Kattis problem is a good example.
+As in Java, usually the [#default-sorting](lec-02-sorting.md#default-sorting "mention") is **stable**, what is sometimes we need a **customized sorting**? For example, the following Kattis problem is a good example.
 
 {% embed url="https://open.kattis.com/problems/sortofsorting" %}
 
@@ -35,7 +35,7 @@ This customized sorting is implemented using a [**lambda expression**](https://w
 
 ## Fast I/O
 
-Instead of using the standard I/O [`Scanner`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Scanner.html) provided, we can use the fast I/O — [`BufferReader`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/io/BufferedReader.html). Still use the [Kattis problem above](week-3-more-sorting.md#customized-sorting) as the background, to use `BufferReader` in the problem, we can write the following code,
+Instead of using the standard I/O [`Scanner`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Scanner.html) provided, we can use the fast I/O — [`BufferReader`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/io/BufferedReader.html). Still use the [Kattis problem above](lec-03-more-sorting.md#customized-sorting) as the background, to use `BufferReader` in the problem, we can write the following code,
 
 {% code lineNumbers="true" %}
 ```java

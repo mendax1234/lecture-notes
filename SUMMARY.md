@@ -15,5 +15,5 @@
 
 ## LEC/LAB
 
-* [Week 2 Sorting](lec-lab/week-2-sorting.md)
-* [Week 3 More Sorting](lec-lab/week-3-more-sorting.md)
+* [Lec 02 - Sorting](lec-lab/lec-02-sorting.md)
+* [Lec 03 - More Sorting](lec-lab/lec-03-more-sorting.md)
