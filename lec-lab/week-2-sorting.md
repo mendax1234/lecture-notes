@@ -36,5 +36,3 @@ public class nothanks {
 }
 ```
 {% endcode %}
-
-## Customized Sorting

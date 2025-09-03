@@ -16,3 +16,4 @@
 ## LEC/LAB
 
 * [Week 2 Sorting](lec-lab/week-2-sorting.md)
+* [Week 3 More Sorting](lec-lab/week-3-more-sorting.md)
