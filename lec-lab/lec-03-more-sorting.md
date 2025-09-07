@@ -6,7 +6,7 @@ A sorting algorithm is called **stable** if the relative order of elements **wit
 
 ### Customized Sorting
 
-As in Java, usually the [#default-sorting](lec-02-sorting.md#default-sorting "mention") is **stable**, what is sometimes we need a **customized sorting**? For example, the following Kattis problem is a good example.
+As in Java, usually the [#default-sorting](lec-02-sorting.md#default-sorting "mention") if **stable**, what is sometimes we need a **customized sorting**? For example, the following Kattis problem is a good example.
 
 {% embed url="https://open.kattis.com/problems/sortofsorting" %}
 
@@ -85,3 +85,38 @@ After each round, the **pivot** is put at the **correct** position. For visualiz
 ### Random Quick Sort
 
 It is a slight variation of quick sort, which picks the pivot **randomly**, and then **swap** the pivot with the first index element. Then the remaining are the same.
+
+## Counting Sort
+
+I first learned counting sort in [CS1010](https://wenbo-notes.gitbook.io/cs1010-notes/lec-tut-lab-exes/lecture/lec-09-searching-and-sorting#counting-sort). The actual time complexity for counting sort is $$O(k+n)$$, where $$k$$ is the **size** of the frequency table.
+
+One example is to use counting sort to solve the following leetcode
+
+{% embed url="https://leetcode.com/problems/sort-colors/description/?envType=study-plan-v2&envId=top-100-liked" %}
+
+The code will look like
+
+{% code lineNumbers="true" %}
+```java
+class Solution {
+  public void sortColors(int[] nums) {
+    int num0 = 0, num1 = 0, num2 = 0;
+    for (int i = 0; i < nums.length; ++i) {
+      if (nums[i] == 0)
+        ++num0;
+      else if (nums[i] == 1)
+        ++num1;
+      else // if (nums[i] == 2)
+        ++num2;
+    }
+    int k = 0;
+    for (int i = 0; i < num0; ++i)
+      nums[k++] = 0;
+    for (int i = 0; i < num1; ++i)
+      nums[k++] = 1;
+    for (int i = 0; i < num2; ++i)
+      nums[k++] = 2;
+  }
+}
+```
+{% endcode %}

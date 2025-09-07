@@ -97,3 +97,39 @@ class Solution {
 }
 ```
 {% endcode %}
+
+## Wednesday
+
+### Problem
+
+{% embed url="https://leetcode.com/problems/sort-colors/description/?envType=study-plan-v2&envId=top-100-liked" %}
+
+### Solution
+
+This problem is discussed during the [Lec 03](../../lec-lab/lec-03-more-sorting.md). Can use library sort, idea of quick sort and counting sort to solve it.
+
+## Thursday
+
+### Problem
+
+{% embed url="https://leetcode.com/problems/find-the-highest-altitude/description/?envType=study-plan-v2&envId=leetcode-75" %}
+
+### Solution
+
+This is a classic **prefix sum** problem. We use a `cur` variable to record the prefix sum and update the `max` during each iteration.
+
+{% code lineNumbers="true" %}
+```java
+class Solution {
+    public int largestAltitude(int[] gain) {
+        int cur = 0;
+        int max = 0;
+        for (int g : gain) {
+            cur += g;
+            max = Math.max(cur, max);
+        }
+        return max;
+    }
+}
+```
+{% endcode %}
