@@ -29,7 +29,7 @@ int index = Integer.parseInt(s);
 
 In Java, we create a single dimensional array using the following convention
 
-```
+```java
 elementType[] arrayRefVar = new elementType[arraySize];
 ```
 
@@ -144,13 +144,17 @@ int[] a = new int[n];
 ```
 {% endcode %}
 
-Similarly, this works for a two-dimensional and multi-dimensional array. Just to remember when you **create** a multi-dimensional array in Java with `new`, you must specify the sizes for **all dimensions except the last one**
+Similarly, this works for a two-dimensional and multi-dimensional array. Just to remember when you **create** a multi-dimensional array in Java with `new`, you must specify the sizes for **all dimensions except the last one.**
+
+{% hint style="success" %}
+In Java, the [variable-length array](lec-lab/lec-01-resizeable-array.md#variable-space) is actually implemented as [ArrayList](java-basics-for-dsa.md#java-arraylist).
+{% endhint %}
 
 </details>
 
 ## Java ArrayList
 
-[Java ArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html) is a powerful implementation of array in Java!&#x20;
+[Java ArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html) is a powerful implementation of [variable-length array](lec-lab/lec-01-resizeable-array.md#variable-space) in Java!
 
 ### Creation
 
@@ -204,6 +208,7 @@ This line will remove the element at the specified position (`index`). And again
 
 We can simply use a for-each loop to print out all the elements in the ArrayList.
 
+{% code lineNumbers="true" %}
 ```java
 ArrayList<String> list = new ArrayList<>();
 
@@ -211,6 +216,7 @@ for (String ele : list) {
   System.out.println(ele);
 }
 ```
+{% endcode %}
 {% endstep %}
 {% endstepper %}
 
@@ -236,12 +242,6 @@ This can be done by calling the `.length()` method of a `String` object. For exa
 
 {% include ".gitbook/includes/getting-string-length.md" %}
 
-It will display
-
-```
-The length of Welcome to Java is 15
-```
-
 ### Find char in String
 
 The `s.charAt(index)` method can be used to retrieve a specific character in a string `s`.
@@ -254,10 +254,14 @@ If your `index` is out of the bound, it will cause a `StringIndexOutOfBoundsExce
 
 The `indexOf` method searches for a single character (or a substring) in a string and returns the index of the first occurrence. The method returns `-1` if there are no occurrences.
 
-* `"banana".indexOf('a')` -> `1`
-* `"banana".indexOf('a', 2)` -> `3` searches for `'a'`, starting from position 2
-* `"banana".indexOf('x')` -> `-1`
-* `"banana".indexOf("nan")` -> `2` searches for the substring `"nan"`
+{% code lineNumbers="true" %}
+```java
+"banana".indexOf('a');    // return 1
+"banana".indexOf('a', 2); // return 3, searches for 'a', starting from position 2
+"banana".indexOf('x');    // return -1, cannot find
+"banana".indexOf("nan");  // return 2, search for the substring "nan"
+```
+{% endcode %}
 
 Some other useful methods when doing search within String
 
@@ -364,17 +368,25 @@ for (char Si : sc.nextLine().toCharArray()) {
 
 The `substring` method returns a new string that copies letters from an existing string, starting at the given index.
 
-* `"banana".substring(0)` -> `"banana"`
-* `"banana".substring(2)` -> `"nana"`
-* `"banana".substring(6)` -> `""`
+{% code lineNumbers="true" %}
+```java
+"banana".substring(0) // return "banana"
+"banana".substring(2) // return "nana"
+"banana".substring(6) // return ""
+```
+{% endcode %}
 
 If it’s invoked with two arguments, they are treated as a start and end index:
 
-* `"banana".substring(0, 3)` -> `"ban"`
-* `"banana".substring(2, 5)` -> `"nan"`
-* `"banana".substring(6, 6)` -> `""`
+{% code lineNumbers="true" %}
+```java
+"banana".substring(0, 3) // return "ban"
+"banana".substring(2, 5) // return "nan"
+"banana".substring(6, 6) // return ""
+```
+{% endcode %}
 
-{% hint style="info" %}
+{% hint style="success" %}
 After getting the "useful" substring, you may want to [#parse-string](java-basics-for-dsa.md#parse-string "mention") further.
 {% endhint %}
 
@@ -403,16 +415,19 @@ We will store `T1` in `si` and `T2` in `sj`.
 
 Another useful method is `replace`, which finds and replaces instances of one string within another.
 
+{% code lineNumbers="true" %}
 ```java
 String text = "Computer Science is fun!";
 text = text.replace("Computer Science", "CS");
 System.out.println(text);
 ```
+{% endcode %}
 
 ### String formatting
 
 Sometimes programs need to create strings that are formatted in a certain way. `String.format` takes a _format specifier_ followed by a sequence of values and returns a new string formatted as specified.
 
+{% code lineNumbers="true" %}
 ```java
 public static String timeString(int hour, int minute) {
     String ampm;
@@ -430,6 +445,7 @@ public static String timeString(int hour, int minute) {
     return String.format("%02d:%02d %s", hour, minute, ampm);
 }
 ```
+{% endcode %}
 
 The above method returns a time string in 12-hour format. The format specifier `\%02d` means “two digit integer padded with zeros”, so `timeString(19, 5)` returns the string `"07:05 PM"`.
 
@@ -437,8 +453,12 @@ The above method returns a time string in 12-hour format. The format specifier `
 
 **Wrapper classes provide methods for&#x20;**_**parsing**_**&#x20;strings to other types** e.g., `Integer.parseInt` converts a string to (you guessed it) an integer. The other wrapper classes provide similar methods, like `Double.parseDouble` and `Boolean.parseBoolean`.
 
-`Integer.parseInt("1234")` -> `1234`
+```java
+Integer.parseInt("1234") // return 1234
+```
 
 Wrapper classes also provide `toString`, which returns a string representation of a value.
 
-&#x20;`Integer.toString(1234)` -> `"1234"`\
+```java
+Integer.toString(1234) // return "1234"
+```

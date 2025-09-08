@@ -15,5 +15,7 @@
 
 ## LEC/LAB
 
+* [Lec 01 - (Resizeable) Array](lec-lab/lec-01-resizeable-array.md)
 * [Lec 02 - Sorting](lec-lab/lec-02-sorting.md)
 * [Lec 03 - More Sorting](lec-lab/lec-03-more-sorting.md)
+* [Lec 04 - LL/Stack/Queue/DLL/Deque](lec-lab/lec-04-ll-stack-queue-dll-deque.md)
