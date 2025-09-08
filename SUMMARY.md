@@ -1,7 +1,6 @@
 # Table of contents
 
 * [Welcome](README.md)
-* [Java Basics for DSA](java-basics-for-dsa.md)
 
 ## Practical
 
@@ -12,6 +11,8 @@
   * [Week 1](practical/leetcode/week-1.md)
   * [Week 2](practical/leetcode/week-2.md)
   * [Week 3](practical/leetcode/week-3.md)
+  * [Week 4](practical/leetcode/week-4.md)
+* [Java Basics for DSA](practical/java-basics-for-dsa.md)
 
 ## LEC/LAB
 

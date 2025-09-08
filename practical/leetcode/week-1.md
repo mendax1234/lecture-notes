@@ -97,7 +97,7 @@ class Solution {
 ```
 {% endcode %}
 
-Btw, this problem also invokes us to think the general String Manipulation in Java. For the sake of this, see [#string-manipulation-with-loops](../../java-basics-for-dsa.md#string-manipulation-with-loops "mention").
+Btw, this problem also invokes us to think the general String Manipulation in Java. For the sake of this, see [#string-manipulation-with-loops](../java-basics-for-dsa.md#string-manipulation-with-loops "mention").
 
 ## Wednesday
 

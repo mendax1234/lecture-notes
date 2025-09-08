@@ -147,14 +147,14 @@ int[] a = new int[n];
 Similarly, this works for a two-dimensional and multi-dimensional array. Just to remember when you **create** a multi-dimensional array in Java with `new`, you must specify the sizes for **all dimensions except the last one.**
 
 {% hint style="success" %}
-In Java, the [variable-length array](lec-lab/lec-01-resizeable-array.md#variable-space) is actually implemented as [ArrayList](java-basics-for-dsa.md#java-arraylist).
+In Java, the [variable-length array](../lec-lab/lec-01-resizeable-array.md#variable-space) is actually implemented as [ArrayList](java-basics-for-dsa.md#java-arraylist).
 {% endhint %}
 
 </details>
 
 ## Java ArrayList
 
-[Java ArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html) is a powerful implementation of [variable-length array](lec-lab/lec-01-resizeable-array.md#variable-space) in Java!
+[Java ArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html) is a powerful implementation of [variable-length array](../lec-lab/lec-01-resizeable-array.md#variable-space) in Java!
 
 ### Creation
 
@@ -240,7 +240,7 @@ In Java, `String` **cannot** be regarded as `char[]`. Thus using `string[]` is *
 
 This can be done by calling the `.length()` method of a `String` object. For example,
 
-{% include ".gitbook/includes/getting-string-length.md" %}
+{% include "../.gitbook/includes/getting-string-length.md" %}
 
 ### Find char in String
 
@@ -273,7 +273,7 @@ Some other useful methods when doing search within String
 
 Just to save time, we can use the `+` operator. As you have seen below
 
-{% include ".gitbook/includes/getting-string-length.md" %}
+{% include "../.gitbook/includes/getting-string-length.md" %}
 
 To quickly display a numeric value / variable in the `println` statement, we can just put at least one string in the statement and put the numeric value / variable. For example,
 
