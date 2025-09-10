@@ -11,7 +11,9 @@ In the later implementation using binary max heap, we may notice that this "prio
 A Binary (Max) Heap is a [complete binary tree](https://en.wikipedia.org/wiki/Binary_tree#Types_of_binary_trees) that maintains the [Max Heap property](https://en.wikipedia.org/wiki/Binary_heap).
 
 * **Complete Binary Tree**: Every level in the binary tree, except possibly the last/lowest level, is completely filled, and all vertices in the last level are as far left as possible
-* **Binary Max Heap property**: The value of a vertex — except the leaf/leaves — must be greater than (or equal to) the value of its one (or two) child(ren).
+* **Binary Heap property**: It has two versions, max and min.
+  * **Binary Max Heap Property**: The value of a vertex — except the leaf/leaves — must be greater than (or equal to) $$\geq$$ the value of its one (or two) child(ren).
+  * **Binary Min Heap Property**: Just the opposite of the above. The value of a vertex — except the leaf/leaves — must be less than (or equal to) $$\leq$$ the value of its one (or two) child(ren).
 
 Below is an example of a binary max heap from **visualgo**. And remember this general shape of a complete binary tree as it will be useful when we analyze the basic operation inside ths binary max heap.
 
@@ -22,6 +24,18 @@ Below is an example of a binary max heap from **visualgo**. And remember this ge
 
 1. **Height**: the height of a tree is the **number** of edges from the top-most node to the farthest node in a subtree. For example, in the figure above, the height of this complete binary tree is 3.
 {% endhint %}
+
+<details>
+
+<summary>Conversion between Binary Max Heap and Binary Min Heap</summary>
+
+As we will see later, in Java, the implementation of priority queue uses the **binary min heap**. So, to do the conversion, if we only deal with numbers (including this visualization that is restricted to integers only), it is easy. Why?
+
+We can re-create a Binary Heap with the negation of every integer in the original Binary Heap. If we start with a Binary Max Heap, the resulting Binary Heap is a Binary Min Heap (if we ignore the negative symbols — see the picture above), and vice versa.
+
+<figure><img src="../.gitbook/assets/lec05-binary-max-to-binary-min.png" alt=""><figcaption></figcaption></figure>
+
+</details>
 
 ## Basic Manipulation
 
@@ -64,4 +78,4 @@ One advantage of Heapsort is that we can use it to achieve **partial sort**! (It
 
 {% embed url="https://leetcode.com/problems/kth-largest-element-in-an-array/description/?envType=study-plan-v2&envId=leetcode-75" %}
 
-For the explanation, please see from here!
+For the explanation, please see from [here](../practical/leetcode/week-5.md#solution)!
