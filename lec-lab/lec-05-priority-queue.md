@@ -86,7 +86,7 @@ After knowing the above three points and using the idea to start from $$h=1$$ al
 
 $$
 \begin{align*}
-\sum_{h=0}^{\lfloor \lg n \rfloor} \frac{n}{2^{h+1}} \cdot O(h)  &= \sum_{h=0}^{\lfloor \lg n \rfloor} \frac{n}{2^{h+1}} \cdot c^* h \\
+\sum_{h=0}^{\lfloor \lg n \rfloor} \frac{n}{2^{h+1}} \cdot O(h)  &= \sum_{h=0}^{\lfloor \lg n \rfloor} \frac{n}{2^{h+1}} \cdot (c\cdot h) \\
 &= O \left( n \sum_{h=0}^{\lfloor \lg n \rfloor} \frac{h}{2^h} \right) \\
 &= O \left( n \sum_{h=0}^{\infty} \frac{h}{2^h} \right) \\
 &= O(2n) \\
