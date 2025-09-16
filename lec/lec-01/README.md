@@ -13,7 +13,7 @@
 {% step %}
 **Weekly topics: Things to do, things to learn**
 
-<figure><img src="../.gitbook/assets/lec01-1.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/lec01-1.png" alt="" width="563"><figcaption></figcaption></figure>
 
 For example, the following is week 2's things to do and learn
 
@@ -43,7 +43,7 @@ The Forum for this course is the [Github Issue](https://github.com/nus-cs2113-AY
 
 It is highly recommended to follow the following weekly work cycle.
 
-<figure><img src="../.gitbook/assets/lec01-2.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/lec01-2.png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 

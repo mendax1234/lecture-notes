@@ -1,30 +1,30 @@
-# Week 3
+# Topics
 
 ## Important Points
 
 {% stepper %}
 {% step %}
-**Object-Oriented Basics**
+#### **Object-Oriented Basics**
 
 1. **Every object** has both **state** (data) and **behavior** (operations on data)**.**
 2. Objects usually match nouns in the description.
 {% endstep %}
 
 {% step %}
-**Naming Convention**
+#### **Naming Convention**
 
 Use **nouns for classes/variables** and **verbs for methods/functions**.
 {% endstep %}
 
 {% step %}
-**Git Check out**
+#### **Git Check out**
 
 **When you check out a commit, Git:**
 
 1. **Updates your working directory to match the snapshot in that commit**, overwriting current files as needed.
 2. **Moves the** `HEAD` **ref to that commit**, marking it as the current state you’re viewing.
 
-<figure><img src="../.gitbook/assets/git-check-out-demo.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/git-check-out-demo.png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 
@@ -32,7 +32,7 @@ Use **nouns for classes/variables** and **verbs for methods/functions**.
 
 {% stepper %}
 {% step %}
-**Object-Oriented Property**
+#### **Object-Oriented Property**
 
 > OO is a higher level mechanism than the procedural paradigm.
 
@@ -40,14 +40,14 @@ This is **true**.
 {% endstep %}
 
 {% step %}
-**Encapsulation vs. Abstraction**
+#### **Encapsulation vs. Abstraction**
 
 1. An object is an **encapsulation** because it packages data and behavior into one bundle.
 2. An object is an **abstraction** because it lets us think in terms of higher level concepts such as Students rather than student-related functions and data separately.
 {% endstep %}
 
 {% step %}
-**API**
+#### **API**
 
 > **An&#x20;**_**Application Programming Interface (API)**_**&#x20;specifies the interface through which other programs can interact with a software component.** It is a contract between the component and its clients.
 

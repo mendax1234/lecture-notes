@@ -4,16 +4,14 @@
 
 ## LEC
 
-* [Lec 01](lec/lec-01.md)
-* [Lec 02](lec/lec-02.md)
-* [Lec 03](lec/lec-03.md)
-
-## Weekly Progress
-
-* [Week 1](weekly-progress/week-1.md)
-* [Week 2](weekly-progress/week-2.md)
-* [Week 3](weekly-progress/week-3.md)
-* [Week 4](weekly-progress/week-4.md)
+* [Lec 01](lec/lec-01/README.md)
+  * [Topics](lec/lec-01/topics.md)
+* [Lec 02](lec/lec-02/README.md)
+  * [Topics](lec/lec-02/topics.md)
+* [Lec 03](lec/lec-03/README.md)
+  * [Topics](lec/lec-03/topics.md)
+* [Lec 04](lec/lec-04/README.md)
+  * [Topics](lec/lec-04/topics.md)
 
 ## Tools
 
