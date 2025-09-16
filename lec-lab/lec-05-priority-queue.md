@@ -8,6 +8,10 @@ In a priority queue, each element has a "priority" and an element with higher pr
 In the later implementation using binary max heap, we may notice that this "priority" is related to the magnitude of the number, but not exactly everywhere, but **on the same level**.
 {% endhint %}
 
+And in Java, the priority queue is implemented using Binary Min Heap. So, here we will introduce the definition of binary heap also.
+
+### Binary Max Heap
+
 A Binary (Max) Heap is a [complete binary tree](https://en.wikipedia.org/wiki/Binary_tree#Types_of_binary_trees) that maintains the [Max Heap property](https://en.wikipedia.org/wiki/Binary_heap).
 
 * **Complete Binary Tree**: Every level in the binary tree, except possibly the last/lowest level, is completely filled, and all vertices in the last level are as far left as possible
@@ -145,3 +149,64 @@ One advantage of Heapsort is that we can use it to achieve **partial sort**! (It
 {% embed url="https://leetcode.com/problems/kth-largest-element-in-an-array/description/?envType=study-plan-v2&envId=leetcode-75" %}
 
 For the explanation, please see from [here](../practical/leetcode/week-5.md#solution)!
+
+## More Binary Heap
+
+This part mainly comes from the Week 6's [tutorial content](https://www.comp.nus.edu.sg/~stevenha/cs2040/tutorials/tut04.pdf).
+
+{% stepper %}
+{% step %}
+#### Number of comparisons
+
+The orginal question is,
+
+> What is the **minimum** and **maximum** number of comparisons between Binary Heap elements> \
+> required to construct a Binary (Max) Heap of arbitrary n elements using the $$O(n)$$ [`Create(array)`](lec-05-priority-queue.md#analysis-of-create)?
+
+The **minimum** case is when everything is in order, the number of comparions is just the **number of edges** in the bianry tree.
+
+The **maximum** case needs manual computation starting from the second-last layer, but the idea is **"try to bubble/shift every node to the bottom layer**"
+{% endstep %}
+
+{% step %}
+#### Find the all numbers greater than k in Binary Max Heap in  $$O(k)$$
+
+This problem is a bit different from the [leetcode one](https://wenbo-notes.gitbook.io/cs2040s-notes/practical/leetcode/week-5#problem), as it explicitly specifies that the algorithm should be within $$O(k)$$ time. And it needs to print out all the vertices that are greater than k.
+
+***
+
+To solve it, we need to use the [**recursive/wishful thinking**](https://wenbo-notes.gitbook.io/cs1010-notes/lec-tut-lab-exes/lab/lab-02#wishful-thinking) (we have learned in CS1010 or maybe CS1101S). So, we can break a bigger Binary Heap into three parts,
+
+1. The left Binary Heap,
+2. The root,
+3. The right Binary Heap
+
+In each breakdown, we compare the root with k, if it's bigger than k, we print the root and recursively call the function on the left binary heap and the right binary heap. Else, we return from the current function call, meaning this below this level, there isn't any value that is bigger than k.
+
+So, the pseudocode will look like,
+
+```
+findVerticesBiggerThanX(vertex v, int x)
+	if (v.value > x)
+		output v.value
+		findVerticesBiggerThanX(v.left, x)
+		findVerticesBiggerThanX(v.right, x)
+```
+{% endstep %}
+
+{% step %}
+#### Change from Binary Max Heap to Binary Min Heap — Practical
+
+This can be done by changing the order of `Comparator.comparingInt()`. For example,
+
+{% code lineNumbers="true" %}
+```java
+PriorityQueue<Moose> pq = new PriorityQueue<>(
+    Comparator.comparingInt((Moose m) -> m.power).reversed()
+);
+```
+{% endcode %}
+
+`Moose` is a class with an integer member called `power`. This Comparator also defines how the priority in the priority queue should be implemented!
+{% endstep %}
+{% endstepper %}

@@ -22,3 +22,4 @@
 * [Lec 03 - More Sorting](lec-lab/lec-03-more-sorting.md)
 * [Lec 04 - List](lec-lab/lec-04-list.md)
 * [Lec 05 - Priority Queue](lec-lab/lec-05-priority-queue.md)
+* [Lec 06 - Hash Table](lec-lab/lec-06-hash-table.md)
