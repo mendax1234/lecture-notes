@@ -351,7 +351,9 @@ Always remember to switch back to the `master` branch before creating a new bran
 {% endstep %}
 {% endstepper %}
 
-#### Merging Branches **Merging combines the changes from one branch into another**, bringing their diverged timelines back together.
+#### Merging Branches
+
+**Merging combines the changes from one branch into another**, bringing their diverged timelines back together.
 
 When you merge, Git looks at the two branches and figures out how their histories have diverged since their merge base (i.e., the most recent common ancestor commit of two branches). It then applies the changes from the other branch onto your current branch, creating a new commit. **The new commit created when merging is called a merge commit — it records the result of combining both sets of changes.**
 
@@ -545,6 +547,36 @@ Rebasing will change the entire commit history in your developer branch (in our 
 {% endhint %}
 {% endstep %}
 {% endstepper %}
+
+#### Working with Remote Branches
+
+Playing with branches locally sounds not interesting enough, thus, we introduce how to interact with the remote branches on GitHub.
+
+{% stepper %}
+{% step %}
+#### Push Branches to a Remote
+
+Suppose you have an existing local branch, now you want to push this local branch to your remote GitHub repository. You can use the following command,
+
+```bash
+git push origin -u branchName
+```
+{% endstep %}
+
+{% step %}
+#### Delete Branches from a Remote
+
+You can also delete the branches from a remote by using the following command,
+
+```bash
+git push origin --delete branchName
+```
+{% endstep %}
+{% endstepper %}
+
+#### Put it all together
+
+After learning so much stuff about RCS branching, I believe you can't help practicing on your own. And if you are curious, the [tP requirement in Week 7](https://nus-cs2113-ay2526s1.github.io/website/schedule/week7/project.html#tp-project-schedule-tracking) actually sets a very good standard for collaborating using Git in a big project.
 
 ## Classic Questions
 
