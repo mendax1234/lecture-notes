@@ -46,7 +46,7 @@ default:
 ```
 {% endcode %}
 
-### Regression
+### SWE Regression
 
 When you modify a system, the modification may result in some unintended and undesirable effects on the system. Such an effect is called a _regression_.
 
@@ -54,7 +54,7 @@ When you modify a system, the modification may result in some unintended and und
 _Regression testing_ is the re-testing of the software to detect regressions. The typical way to detect regressions is retesting all related components, even if they had been tested before.
 {% endhint %}
 
-### [Code Quality: Readability](https://nus-cs2113-ay2526s1.github.io/website/schedule/week4/topics.html#w4-6-code-quality-readability)
+### [SWE Code Quality: Readability](https://nus-cs2113-ay2526s1.github.io/website/schedule/week4/topics.html#w4-6-code-quality-readability)
 
 Here are some tips for this week's code quality task:
 
@@ -65,7 +65,7 @@ Here are some tips for this week's code quality task:
 5. [Avoid premature optimization](https://nus-cs2113-ay2526s1.github.io/website/schedule/week4/topics.html#implementation-code-quality-readability-intermediate-avoid-premature-optimizations): Make it work, make it right, make it fast.
 6. Avoid having multiple levels of abstraction within a code fragment: This is guided by the rule called SLAP (Single Level of Abstraction Principle)
 
-### Code Quality: Refactoring
+### SWE Code Quality: Refactoring
 
 The process of restructuring code in small steps without modifying its external behavior is called _refactoring_.
 
