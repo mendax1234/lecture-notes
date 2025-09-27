@@ -2,6 +2,8 @@
 
 ## Useful Shortcut
 
+> This part has appeared in the course website also, basically, it's just a [YouTube Video](https://se-education.org/guides/tutorials/intellijProductivityShortcuts.html).
+
 | Shortcut                                                           | Usage                                                                                                                         |
 | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
 | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd>                    | Reformat the code. (Different from VSCode, which uses <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd>)                       |
