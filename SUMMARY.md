@@ -16,6 +16,8 @@
   * [Topics](lec/lec-05/topics.md)
 * [Lec 06](lec/lec-06/README.md)
   * [Topics](lec/lec-06/topics.md)
+* [Lec 07](lec/lec-07/README.md)
+  * [Topics](lec/lec-07/topics.md)
 
 ## Tools
 
