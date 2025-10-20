@@ -21,6 +21,10 @@
 * [Lec 08](lec/lec-08/README.md)
   * [Topics](lec/lec-08/topics.md)
 
+## TUT
+
+* [Tut 10 - Class and Object Diagrams](tut/tut-10-class-and-object-diagrams.md)
+
 ## Tools
 
 * [IntelliJ Cheatsheet](tools/intellij-cheatsheet.md)
