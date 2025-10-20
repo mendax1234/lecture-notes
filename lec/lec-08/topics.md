@@ -238,6 +238,14 @@ _**Association Role**_ are used to indicate the **role played by the classes** i
 
 <figure><img src="../../.gitbook/assets/association-role.png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
+
+{% step %}
+#### Association Class
+
+To know what an association class in Java is, please read this [part](topics.md#java-association-class) in advance. In a class diagram, association classes are denoted as a connection to an association link using a d**ashed line** as shown below.
+
+<figure><img src="../../.gitbook/assets/uml-association-class.png" alt="" width="416"><figcaption></figcaption></figure>
+{% endstep %}
 {% endstepper %}
 
 ***
@@ -332,6 +340,64 @@ Below are some commonly used multiplicities:
 **There is no&#x20;**_**default**_**&#x20;multiplicity** in UML. If a class diagram does not show the multiplicity of an association, it simply means the _multiplicity is unspecified_.
 {% endhint %}
 
+#### Object Diagrams
+
+An **object diagram** shows an object structure at a given point of time and it can be used to **complement class diagrams**. For example, we can use object diagrams to model different object structures that can result from a design represented by a given class diagram.
+
+{% stepper %}
+{% step %}
+#### Object Notation
+
+The following is an example notation to represent an object.
+
+<figure><img src="../../.gitbook/assets/object-notation.png" alt="" width="256"><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+#### Notes
+
+1. Unlike classes, there is no compartment for methods.
+2. _Attributes_ compartment can be omitted if it is not relevant to the purpose of the diagram.
+3. Object name can be omitted too e.g., `:Car` which is meant to say 'an _unnamed_ instance of a `Car` object'.
+{% endhint %}
+
+The following are examples of some **acceptable** object notations also.
+
+<figure><img src="../../.gitbook/assets/object-acceptable-examples.png" alt=""><figcaption></figcaption></figure>
+{% endstep %}
+
+{% step %}
+#### Association
+
+In object diagrams, we also have **associations**. A solid line indicates an association between two objects, which is similar to the convention used in the class diagram.
+
+<figure><img src="../../.gitbook/assets/object-association.png" alt="" width="482"><figcaption></figcaption></figure>
+{% endstep %}
+{% endstepper %}
+
+#### Object diagrams vs. Class diagrams
+
+Compared to the notation for class diagrams, object diagrams differ in the following ways:
+
+* Show objects instead of classes:
+  * Instance name may be shown
+  * There is a `:` before the class name
+  * Instance and class names are underlined
+* **Methods** are **omitted**
+* **Multiplicities** are **omitted**. Reason: an association line in an object diagram represents a connection to **exactly one object** (e.g., the multiplicity is always 1).
+* Furthermore, **multiple object diagrams** can correspond to **a single class diagram**.
+* When the class diagram has an inheritance relationship, **the object diagram** should show either an object of the **parent class** or the **child class, but not both**.
+* Association labels/roles _can_ be **omitted** unless they add value.
+
+### Java Association Class
+
+An _**association class**_ represents **additional information** about an association. It is a normal class but plays a special role from a design point of view.
+
+For example, a `Man` class and a `Woman` class are linked with a ‘married to’ association and there is a need to store the date of marriage. However, that data is related to the association rather than specifically owned by either the `Man` object or the `Woman` object. In such situations, an additional association class can be introduced, e.g., a `Marriage` class, to store such information.
+
+#### Implement an association class
+
+There is no special way to implement an association class. It can be implemented as a **normal class** that has variables to represent the endpoint of the association it represents.
+
 ## Classic Questions
 
 {% stepper %}
@@ -378,6 +444,34 @@ Which of these follow the correct UML notation?
 
 * 4: Both _Attributes_ and _Methods_ compartments can be omitted.
 * 5: The _Attributes_ and _Methods_ compartments can be empty.
+{% endstep %}
+
+{% step %}
+#### Association Class
+
+Which of these are suitable as an Association Class? Note: the orange color class in the middle is the one being proposed as an association class.
+
+<figure><img src="../../.gitbook/assets/classic-question-association-class.png" alt=""><figcaption></figcaption></figure>
+
+***
+
+**(a)(b)(d)**
+
+**Explanation**: `Mileage` is a property of the car, and not specifically about the association between the `Driver` and the `Car`. If `Mileage` was defined as the total number of miles that car was driven by that driver, then it would be suitable as an association class.
+{% endstep %}
+
+{% step %}
+#### Project Management: Team Structure
+
+Which team structure is the most suitable for a school project?
+
+* [x] &#x20;a. Egoless
+* [ ] &#x20;b. Chief programmer
+* [ ] &#x20;c. Strict hierarchy
+
+***
+
+**(a)**: Given that students are all peers and beginners, the egoless team structure seems most suitable for a school project.
 {% endstep %}
 {% endstepper %}
 
