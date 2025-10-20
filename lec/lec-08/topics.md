@@ -246,6 +246,14 @@ To know what an association class in Java is, please read this [part](topics.md#
 
 <figure><img src="../../.gitbook/assets/uml-association-class.png" alt="" width="416"><figcaption></figcaption></figure>
 {% endstep %}
+
+{% step %}
+#### UML Notes
+
+**UML notes** can augment UML diagrams with additional information. These notes can be shown connected to a particular element in the diagram or can be shown without a connection. The diagram below shows examples of both.
+
+<figure><img src="../../.gitbook/assets/uml-notes.png" alt="" width="563"><figcaption></figcaption></figure>
+{% endstep %}
 {% endstepper %}
 
 ***
