@@ -24,6 +24,8 @@
 * [Lec 09](lec/lec-09/README.md)
   * [Topics](lec/lec-09/topics.md)
   * [Diagnostic Quiz](lec/lec-09/diagnostic-quiz.md)
+* [Lec 10](lec/lec-10/README.md)
+  * [Topics](lec/lec-10/topics.md)
 
 ## TUT
 
