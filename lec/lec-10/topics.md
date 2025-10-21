@@ -196,6 +196,75 @@ For example, `Logic` is calling methods `CloudServer#poll()` and `LocalData#poll
 If you show parallel paths in a sequence diagram, the corresponding Java implementation is likely to be _multi-threaded_ because a normal Java program cannot do multiple things at the same time.
 {% endhint %}
 
+### SWE Design Patterns
 
+In Lec 09, we have seeen the [design principles](../lec-09/topics.md#swe-design-principles), now we will two design patterns that build on the several design principles we have introduced.
+
+**Design pattern** is an **elegant reusable** _solution_ to a _c_**ommonly recurring problem** within a given _context_ in software design.
+
+Usually, a design pattern has the following format:
+
+* **Context**: The situation or scenario where the design problem is encountered.
+* **Problem**: The main difficulty to be resolved.
+* **Solution**: The core of the solution. It is important to note that the solution presented only includes the most general details, which may need further refinement for a specific context.
+* **Anti-patterns** (optional): Commonly used solutions, which are usually incorrect and/or inferior to the Design Pattern.
+* **Consequences** (optional): Identifying the pros and cons of applying the pattern.
+* **Other useful information** (optional): Code examples, known uses, other related patterns, etc.
+
+#### Singleton Pattern
+
+Let's see what is a singleton pattern design from its **context**, **problem** and **solution**
+
+1. **Context**: Certain classes should have no more than just one instance (e.g. the main controller class of the system). These single instances are commonly known as _singletons_.
+2. **Problem**: A normal class can be instantiated multiple times by invoking the constructor.
+3. **Solution**: Make the constructor of the singleton class `private`, because a `public` constructor will allow others to instantiate the class at will. Provide a `public` class-level method to access the _single instance_.
+
+To implement a singleton pattern, the following code is an example,
+
+{% code lineNumbers="true" %}
+```java
+class Logic {
+    private static Logic theOne = null;
+
+    private Logic() {
+        ...
+    }
+
+    public static Logic getInstance() {
+        if (theOne == null) {
+            theOne = new Logic();
+        }
+        return theOne;
+    }
+}
+```
+{% endcode %}
+
+#### Facade Pattern
+
+Similarly, let's see what is a facade pattern design from its **context**, **problem** and **solution:**
+
+* **Context**: Components need to access functionality deep inside other components.
+* **Problem**: Access to the component should be allowed without exposing its internal details.
+* **Solution**: Include a Façade[^2] class that sits between the component internals and users of the component such that all access to the component happens through the Facade class.
+
+For example, the `UI` component of a `Library` system might want to access functionality of the `Book` class contained inside the `Logic` component. After applying  the facade pattern, the `LibraryLogic` class is the Facade class.
+
+<figure><img src="../../.gitbook/assets/facade-class-example.png" alt="" width="378"><figcaption></figcaption></figure>
+
+### SWE Testing Coverage
+
+**Test coverage** is a metric used to measure the extent to which testing exercises the code. e.g., how much of the code is 'covered' by the tests.
+
+* **Function/method coverage** : based on functions executed e.g., testing executed 90 out of 100 functions.
+* **Statement coverage** : based on the number of lines of code executed e.g., testing executed 23k out of 25k LOC.
+* **Decision/branch coverage** : based on the decision points exercised e.g., an `if` statement evaluated to both `true` and `false` with separate test cases during testing is considered 'covered'.
+* **Condition coverage** : based on the boolean sub-expressions, each evaluated to both true and false with different test cases. Condition coverage is not the same as the decision coverage.
+* **Path coverage** measures coverage in terms of possible paths through a given part of the code executed. 100% path coverage means all possible paths have been executed. A commonly used notation for path analysis is called the _Control Flow Graph (CFG)_.
+* **Entry/exit coverage** measures coverage in terms of possible _calls to_ and _exits_ from the operations in the SUT.
+  * _Entry points_ refer to all places from which the method is called from the rest of the code i.e., all places where the control is handed over to the method in concern.
+  * _Exit points_ refer to points at which the control is returned to the caller e.g., return statements, throwing of exceptions.
 
 [^1]: e.g., information relevant to the purpose of the diagram
+
+[^2]: a French word that means 'front of a building'
