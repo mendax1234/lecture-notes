@@ -2,7 +2,7 @@
 
 ## Problems
 
-### 07. Interface Inheritance
+### 1-7. Interface Inheritance
 
 > Interface **inherits** another interface. A class **implements** an interface.
 
@@ -17,7 +17,7 @@ Staff interface _implements_ the TaxPayer interface. TA _implements_ the Staff i
 
 False. Staff **inherits**, not **implements**, the `TaxPayer` interface.
 
-### 13. Java Logging
+### 1-13. Java Logging
 
 > Java has a default logging facility.
 
@@ -30,7 +30,7 @@ Java programmers need to use third-party logging libraries as Java does not have
 
 False. Java has a default logging facility.
 
-### 18. SoC Principle
+### 2-18. SoC Principle
 
 The principle of SoC states that the code which we are more concerned about should be separated out.
 
