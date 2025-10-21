@@ -188,7 +188,7 @@ In UML class diagrams, **underlines** denote **class-level attributes** and **me
 2. **Associations** in an **object structure** can change over time.
 3. **Associations** among objects can be **generalized** as **associations between the corresponding classes** too.
 
-To implement associations, we use instance level variables. For example, the `Course` class can have a `students` variable to keep track of students associated with a particular course.
+To implement associations, we use instance level variables. In other words, An association is a relationship resulting from one object **keeping a reference** to another object (e.g., storing an object in an instance variable). For example, the `Course` class can have a `students` variable to keep track of students associated with a particular course.
 
 {% stepper %}
 {% step %}
