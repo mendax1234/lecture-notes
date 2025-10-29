@@ -132,13 +132,16 @@ A **model** provides a **simpler** view of a complex entity because a model capt
 
 > For example, in addition to a **class diagram** (or even multiple class diagrams), a number of other diagrams may be needed to capture various interesting aspects of the software.
 
-### SWE Class & Object Diagrams Basics
+### SWE Class Diagrams Basics
 
 **UML&#x20;**_**Object Diagrams**_ model object structures. **UML&#x20;**_**Class Diagrams**_ model class structures. Those rules that object structures need to follow can be illustrated as a _class structure_.
 
-#### Class Diagrams
+**UML&#x20;**_**class diagrams**_ describe the structure (but not the behavior) of an OOP solution. (You have already seen a class diagram from above). In this section, we will mainly touch the following:
 
-**UML&#x20;**_**class diagrams**_ describe the structure (but not the behavior) of an OOP solution. (You have already seen a class diagram from above)
+1. [Class Diagram Notation](https://wenbo-notes.gitbook.io/cs2113-notes/lec/lec-08/topics#basic-structure)
+2. [Association](topics.md#association)
+3. [Navigability](topics.md#navigability)
+4. [Multiplicity](topics.md#multiplicity)
 
 {% stepper %}
 {% step %}
@@ -180,9 +183,9 @@ In UML class diagrams, **underlines** denote **class-level attributes** and **me
 {% endstep %}
 {% endstepper %}
 
-***
+#### Association
 
-> _**Associations**_ are the main connections among the classes in a class diagram.
+**Associations** are the main connections among the classes in a class diagram.
 
 1. Objects in an OO solution need to be connected to each other to form a network so that they can interact with each other. Such **connections between objects are called&#x20;**_**associations**_**.**
 2. **Associations** in an **object structure** can change over time.
@@ -256,7 +259,7 @@ To know what an association class in Java is, please read this [part](topics.md#
 {% endstep %}
 {% endstepper %}
 
-***
+#### Navigability
 
 When two classes are linked by an association, it does not necessarily mean both objects taking part in an instance of the association _knows about_ (e.g., has a reference to) each other. **The concept of&#x20;**_**navigability**_**&#x20;tells us if an object taking part in association knows about the other.** In other words, it tells us if we can 'navigate' from the one object to the other in a given direction — because if the object 'knows' about the other, it has a reference to the other object, and we can use that reference to 'navigate to' (e.g., access) that other object.
 
@@ -289,7 +292,7 @@ We use **arrowheads** to indicate the navigability of an association.
 
 <figure><img src="../../.gitbook/assets/navigability.png" alt="" width="341"><figcaption></figcaption></figure>
 
-***
+#### Multiplicity
 
 _**Multiplicity**_ is the aspect of an OOP solution that dictates **how many objects take part in each association**.
 
@@ -348,7 +351,7 @@ Below are some commonly used multiplicities:
 **There is no&#x20;**_**default**_**&#x20;multiplicity** in UML. If a class diagram does not show the multiplicity of an association, it simply means the _multiplicity is unspecified_.
 {% endhint %}
 
-#### Object Diagrams
+### SWE Object Diagrams Basics
 
 An **object diagram** shows an object structure at a given point of time and it can be used to **complement class diagrams**. For example, we can use object diagrams to model different object structures that can result from a design represented by a given class diagram.
 
