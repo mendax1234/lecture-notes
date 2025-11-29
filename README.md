@@ -24,25 +24,23 @@ The repository is organized into the following sections:
 To view and use these notes:
 
 1. **Clone the Repository**  
-  Download the repository to your local machine:  
+    Download the repository to your local machine:  
 
-  ```bash
-  git clone https://github.com/mendax1234/lecture-notes.git
-  cd lecture-notes
-  ```
+    ```bash
+    git clone https://github.com/mendax1234/lecture-notes.git
+    cd lecture-notes
+    ```
 
 2. **Markdown Notes**  
-
-- All the markdown notes are hosted on [Gitbook](https://www.gitbook.com/). So, to view it, just click the website's url.
-- To edit or contribute, you can open Markdown files using any Markdown viewer or IDE (e.g., VS Code, Obsidian).  
+    - All the markdown notes are hosted on [Gitbook](https://www.gitbook.com/). So, to view it, just click the website's url.
+    - To edit or contribute, you can open Markdown files using any Markdown viewer or IDE (e.g., VS Code, ).  
 
 3. **LaTeX Notes**  
-
-- For LaTeX notes, upload the `.tex` files to [Overleaf](https://www.overleaf.com/) or use a local LaTeX editor (e.g., TeXShop, MikTeX).  
-- Compile the `.tex` files to generate PDFs for an optimal reading experience.
+    - For LaTeX notes, upload the `.tex` files to [Overleaf](https://www.overleaf.com/) or use a local LaTeX editor (e.g., TeXShop, MikTeX).  
+    - Compile the `.tex` files to generate PDFs for an optimal reading experience.
 
 4. **Navigation**  
-  Browse through the folders to find the specific notes you need. Notes are organized by semesters, subjects, and topics for easy access.
+    Browse through the folders to find the specific notes you need. Notes are organized by semesters, subjects, and topics for easy access.
 
 ## Contribution Guidelines
 
