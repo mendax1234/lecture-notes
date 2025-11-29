@@ -1,0 +1,1534 @@
+\documentclass[math,code]{amznotes}
+\setcounter{tocdepth}{2}  % Show subsections, sections and chapters in the ToC
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage{tabularx}
+\usepackage{float} % Needed for [H] placement specifier
+\usepackage{wrapfig} % Needed for wrapping figures
+\usepackage{diagbox} % For diagonal split in table
+\usepackage{booktabs} % For better table formatting
+\usepackage[normalem]{ulem} % For Strikethrough formatting
+\usepackage{multirow} % For multirow
+\usepackage{xeCJK} % For Chinese support
+\usepackage{longtable} % For longtable
+
+\graphicspath{ {./images/} }
+\geometry{
+    a4paper,
+    headheight = 1.5cm
+}
+
+\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}
+
+\theoremstyle{remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{remark}{Remark}
+\newtheorem{case}{Case}
+
+\newcommand{\entry}[5]{\markboth{#1}{#1}\textbf{#1}\ {(#2)}\ \textit{#3}\ $\bullet$\ \textbf{\textit{#4}} \begin{small}#5\end{small}}  % Defines the command to print each word on the page, \markboth{}{} prints the first word on the page in the top left header and the last word in the top right
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+\fancyhead[L]{
+    French in Normandie
+}
+\fancyhead[R]{
+    Learning Notes
+}
+\tableofcontents
+
+\chapter{La Semaine 1}
+\section{Leçon 1}
+\subsection{Vocabulaire}
+\subsubsection*{Les Dimensions}
+\begin{multicols}{2}
+    \entry{minuscule}{}{adj.}{tiny}{| $\neq$ géant = énorme\footnote{huge}}
+
+    \entry{haut}{}{adj.}{high}{| $\neq$ bas\footnote{low}}
+
+    \entry{long}{}{adj.}{long}{| $\neq$ court\footnote{short}}
+
+    \entry{étroit}{}{adj.}{narrow}{| $\neq$ large\footnote{wide}}
+
+    \entry{mince}{}{adj.}{small}{| $\neq$ gros\footnote{big}}
+
+    \entry{lourd}{}{adj.}{heavy}{| $\neq$ léger\footnote{light}}
+
+    \entry{moyenne}{}{adj.}{average}{| de taille moyenne\footnote{medium-sized}}
+
+    \entry{épais}{}{adj.}{thick}{}
+\end{multicols}
+
+\subsubsection*{La matière}
+\begin{notebox}
+    \begin{remark}
+        Pour utiliser la matière, nous utilisons ``\textbf{en $+$ la matière}''. Par exemple, on dit que c'est une chose en bois.\footnote{It's a wooden thing.}''
+    \end{remark}
+\end{notebox}
+\begin{multicols}{2}
+    \entry{coton}{}{n.m.}{cotton}{}
+
+    \entry{laine}{}{n.f.}{wool}{}
+
+    \entry{tissu}{}{n.m.}{fabric}{}
+
+    \entry{soie}{}{n.f.}{silk}{}
+
+    \entry{verre}{}{n.m.}{glass}{}
+
+    \entry{faïence}{}{n.f.}{china}{}
+
+    \entry{argent}{}{n.m.}{silver}{}
+
+    \entry{or}{}{n.m.}{gold}{}
+\end{multicols}
+
+\subsubsection*{L'utilité}
+\begin{notebox}
+    \begin{remark}
+        This structure is used to express that something can be used for doing what, \textit{tout + infinitif}
+    \end{remark}
+\end{notebox}
+\begin{multicols}{2}
+    \entry{permettre de}{}{}{help, allow to do}{| ça \textbf{permet} de protéger $\cdots$ \footnote{It helps to protect $\cdots$}}
+
+    \entry{servir à}{}{}{serve to do}{| C'est un chose qui \textbf{sert} à allumer une cigarette.}
+
+    \entry{être pratique pour}{}{}{be practical for}{}
+
+    \entry{être utile pour}{}{}{be useful for}{}
+
+    \entry{être indispensable pour}{}{}{be essential for}{}
+\end{multicols}
+
+\subsubsection*{Misc}
+\begin{multicols}{2}
+    \entry{connu}{}{adj.}{well-known}{| C'est \textbf{connu} en tout le monde.\footnote{Everybody knows it.}}
+    
+    \entry{Normalement}{}{adv.}{Usually}{| \textbf{Normalement}, les gens qui utilisent ce sac sont des personnes qui aiment la mode}
+    
+    \entry{D'autre part}{}{adv.}{On the other hand}{}
+    
+    \entry{chic}{}{adj.}{beautiful}{| Louis Vuitton est très cher mais bien \textbf{chic}.}
+
+    \entry{domaine}{}{n.m.}{field}{| Ils sont les plus beaux dans ce \textbf{domaine}.}
+
+    \entry{penser à}{}{}{think of}{| Quand vous \textbf{pensez aux} marques francaises.\footnote{When you think of the French brands}}
+
+    \entry{oublier}{}{v.}{forget}{| vous ne pouvez pas \textbf{oublier} les vins.\footnote{You cannot forget the wine.}}
+
+    \entry{comme}{}{conj.}{like}{| Nous pensons que les produits en supermarché sont toujours locaux \textbf{comme} les produits laitiers.\footnote{We believe that supermarket products are always local, like dairy products.}}
+
+    \entry{étui}{}{n.m.}{case}{| un \textbf{étui} à lunettes}
+
+    \entry{appareil}{}{n.m.}{device}{}
+
+    \entry{arroser}{}{v.}{water}{| \textbf{arroser} les plantes}
+
+    \entry{pouvoir}{}{v.}{enable}{| pour \textbf{pouvoir} brancher\footnote{to be able to connect}}
+
+    \entry{intérieur}{}{n.m.}{inside}{| dans l'intérieur}
+
+    \entry{plusieurs}{}{adj.}{several}{}
+\end{multicols}
+
+\subsection{Phrase}
+\begin{enumerate}
+    \item Mise en route.\footnote{Getting Started.}
+    \item Si on dit ``marques françaises'' à quoi cela vous fait penser ?\footnote{When we say “French brands,” what does that make you think of?}
+    \item Les produits \textbf{tiennent longtemps}.\footnote{The product lasts a long time.}
+    \item Les touristes peuvent apporter une petite partie de Paris.\footnote{Tourists can bring a little piece of Paris.}
+    \item Elle mesure 20 centimètres de long et 8 centimètres de large.\footnote{It measures 20 centimeters long and 8 centimeters wide.}
+\end{enumerate}
+
+\section{Leçon 2}
+\subsection{Vocabulaire}
+\subsubsection*{Les vêtements}
+\begin{multicols}{2}
+    \entry{pull}{}{n.m.}{sweater}{}
+
+    \entry{le sac à main}{}{}{handbag}{}
+
+    \entry{la boucle d'oreille}{}{}{the earing}{}
+
+    \entry{l'écharpe}{}{n.f.}{scarf}{}
+
+    \entry{les gants}{}{n.m.}{gloves}{}
+
+    \entry{tenue}{}{n.f.}{outfit}{| decrire la tenue d'une personne}
+\end{multicols}
+\subsubsection*{Miscs}
+\begin{multicols}{2}
+    \entry{coloré}{}{adj.}{colorful}{}
+
+    \entry{motif}{}{n.m.}{pattern}{| Normalement, on utilise \textbf{à + motif}, par exemple, \textbf{à des fleurs}}
+
+    \entry{suivre la mode}{}{}{poter ce qui est à la mode}{| Elle aime \textbf{suivre la mode}.}
+
+    \entry{être a la mode}{}{}{être habiller comme les gens modernes}{| Ce jean est \textbf{à la mode}.}
+
+    \entry{être tendance}{}{}{être moderne et populaire}{| Cette couleur \textbf{est tendance}.}
+
+    \entry{sortir de la mode}{}{}{ne plus \textbf{être à la mode}}{}
+
+    \entry{être démode}{}{}{ne plus \textbf{être moderne}}{}
+
+    \entry{les tendances évoluent}{}{}{les styles changent avec le temps}{}
+
+    \entry{une queue de cheval}{}{}{a ponytail}{}
+
+    \entry{passer un examen}{}{}{take an exam}{}
+
+    \entry{réussir un examen}{}{}{pass an exam}{}
+\end{multicols}
+
+\subsection{Phrase}
+\begin{enumerate}
+    \item \textbf{Porter + vêtements, en + matière, à + motifs} \\
+    e.g., Elle porte un pantalon à carreaux en velours.\footnote{She is wearing velvet plaid pants.}
+    \item Une chemise verte \textbf{à manches longues}.\footnote{A green long-sleeved shirt}
+\end{enumerate}
+
+\section{Leçon 3}
+\subsection{Vocabulaire}
+\begin{multicols}{2}
+    \entry{se rendre compte que}{}{}{to realize that}{| On \textbf{se rend} vite \textbf{compte que} la publicité est partout\footnote{\textbf{adv.} everywhere}.}
+
+    \entry{attrayante}{}{adj.}{attractive}{| des images \textbf{attrayantes}}
+
+    \entry{efficace}{}{adj.}{effective}{| des slogans \textbf{efficaces}}
+
+    \entry{car}{}{conj.}{because}{| La publicité est utile pour les marques, \textbf{car} elle leur permet de vendre plus.\footnote{because it allows them to sell more.}}
+
+    \entry{grâce à}{}{prép}{thanks to}{| L'état gagne de l'argent \textbf{grâce aux} taxes sur les ventes.\footnote{The state earns money thanks to the sales taxes.}}
+
+    \entry{se plaindre}{}{v.}{to complain}{| De nombreuses personnes \textbf{se plaignent de} cette pollution visuelle.\footnote{Many people complain about this visual pollution.}}
+
+    \entry{empêcher de}{}{v.}{to prevent}{| Elles \textbf{empêchent} parfois \textbf{de} profiter du paysage.\footnote{They sometimes prevent you from enjoying the scenery.}}
+
+    \entry{cible}{}{n.f.}{target}{| Les premières cibles}
+
+    \entry{convaincant}{}{adj.}{convincing}{}
+
+    \entry{Petit à petit}{}{adv.}{Gradually}{}
+
+    \entry{disparu}{}{adj.}{disappeared}{}
+
+    \entry{paysage}{}{n.m.}{scenary}{}
+
+    \entry{étoile}{}{n.f.}{star}{| le ciel \textbf{étoilé}\footnote{\textbf{adj.} full of stars}}
+\end{multicols}
+
+\subsection{Phrase}
+\begin{enumerate}
+    \item C'est \textbf{claire et facile à} comprendre.\footnote{It's clear and easy to understand.}
+
+    \item Une bonne pub \textbf{doit être} ...\footnote{A good publicity has to be ...}
+\end{enumerate}
+
+\section{Leçon 4}
+\subsection{Vocabulaire}
+\begin{multicols}{2}
+    \entry{une boisson gazeuse}{}{n.f.}{soft drink}{}
+
+    \entry{parfum}{}{n.m.}{perfume}{}
+
+    \entry{sentir}{}{v.}{feel}{| Vous pouvez \textbf{sentir} Paris.}
+
+    \entry{mettre}{}{v.}{to put on}{| Si vous \textbf{mettez} du parfum, }
+
+    \entry{promouvoir}{}{v.}{to promote}{| La pub \textbf{promeut} la consommation du lait.}
+
+    \entry{santé}{}{n.f.}{health}{}
+\end{multicols}
+
+\subsection{Phrase}
+\begin{enumerate}
+    \item Cette publicité \textbf{s'adresse / est adressée aux} enfants.\footnote{That publicity is aimed at kids.}
+\end{enumerate}
+
+\section{Grammaire}
+\subsection{Hypothèse}
+On fait une hypothèse sur le présent lorsqu'on imagine une chose, un fait qui n'existe pas ou qui n'est pas vrai au moment ou on le dit.\footnote{We make an assumption about the present when we imagine something, a fact that does not exist or is not true at the time we say it.} \\
+\centerline{\color{orange}Si + imparfait, + conditionnel présent}
+Par exemple,
+\begin{enumerate}
+    \item Si j'étais grand, je ferais du basketball. (Mais en fait, je ne suis pas grand $\cdots$)
+    \item Elles ne vont pas au théâtre parce qu'elles n'ont pas le temps. $\Leftrightarrow$ Si elles avaient le temps, elles iraient au théâtre.
+\end{enumerate}
+\begin{notebox}
+    \begin{remark}
+        Notez que dans ce cas, l'imparfait n'a pas de valeur passée. Il faut considérer l'imparfait dans sa valeur modale. L'imparfait ici = \textbf{présent imaginaire}\footnote{Note that in this case, the imperfect tense has no past value. We must consider the imperfect tense in its modal value. The imperfect tense here = \textbf{imaginary present}}
+    \end{remark}
+\end{notebox}
+
+\subsection{L'imparfait} 
+L'imparfait est un temps qui exprime le passé. C'est un temps qui exprime une durée indéfinie et qui nous sert à expliquer le décor de l'action, la répétition dans le passé, etc.\footnote{It is a tense that expresses an indefinite duration and which helps us explain the setting of the action, repetition in the past, etc.}
+
+Pour la plupart des verbes, le radical de l'imparfait est la première personne du pluriel (\textit{nous}) du présent de l'indicatif.\footnote{For most verbs, the root of the imperfect tense is the first person plural (\textit{nous}) of the present indicative.}
+
+\begin{center}
+\begin{tabular}{>{\bfseries}l c}
+\toprule
+Je & -ais \\
+Tu & -ais \\
+Il/Elle/On & -ait \\
+Nous & -ions \\
+Vous & -iez \\
+Ils/Elles & -aient \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Verbe} & \textbf{Présent} & \textbf{Imparfait} \\
+\hline
+\textbf{Aimer} & Nous \textbf{aim}ons & J'aim\textbf{ais} \\
+\hline
+\textbf{Choisir} & Nous \textbf{choisiss}ons & Tu choisiss\textbf{ais} \\
+\hline
+\textbf{Partir} & Nous \textbf{part}ons & Il part\textbf{ait} \\
+\hline
+\textbf{Pouvoir} & Nous \textbf{pouv}ons & Nous pou\textbf{}v\textbf{ions} \\
+\hline
+\textbf{Faire} & Nous \textbf{fais}ons & Vous fais\textbf{iez} \\
+\hline
+\textbf{Venir} & Nous \textbf{ven}ons & Ils ven\textbf{aient} \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{notebox}
+    \begin{remark}
+        Il y a une seule exception, le verbe \textit{être}
+        \begin{enumerate}
+            \item J'étais
+            \item Tu étais
+            \item Il, elle, on était
+            \item Nous étions
+            \item Voue étiez
+            \item Ils, elles étaient
+        \end{enumerate}
+    \end{remark}
+\end{notebox}
+
+\begin{enumerate}
+    \item (\textbf{Modifications de l'orthographe})\footnote{Spelling changes}: Il faut faire attention à l'orthographe de certains verbes:
+    \begin{center}
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Type de verbe} & \textbf{Présent (nous)} & \textbf{Imparfait} \\
+    \hline
+    Les verbes en \textbf{-ger} & Nous mang\textbf{e}ons & Nous mang\textbf{ions} / Vous mang\textbf{iez} \\
+    \hline
+    Les verbes en \textbf{-cer} & Nous pla\textbf{ç}ons & Nous plac\textbf{ions} / Vous plac\textbf{iez} \\
+    \hline
+    Les verbes en \textbf{-yer} & Nous pa\textbf{y}ons & Nous pay\textbf{ions} / Vous pay\textbf{iez} \\
+    \hline
+    Les verbes en \textbf{-ier} & Nous étud\textbf{i}ons & Nous étud\textbf{iions} / Vous étud\textbf{iiez} \\
+    \hline
+    \end{tabular}
+    \end{center}
+    \item (\textbf{Emploi}): Il y a quatre situations où il faut utiliser l'imparfait.
+    \begin{enumerate}
+        \item Pour décrire des actions \textbf{habituelles} du passé\footnote{To describe \textbf{habitual} actions of the past}. Par exemple,
+        \begin{enumerate}
+            \item Quand j'étais petit, je jouais avec mes sœurs.
+            \item Mon père nous amenait à la plage pendant l'été.
+        \end{enumerate}
+        \item Pour décrire le décor d'une action, faire des commentaires, des explications, etc\footnote{the setting of an action, making comments, explanations}. Par exemple,
+        \begin{enumerate}
+            \item Il était trois heures, il n'y avait personne dans la rue, la pluie tombait\footnote{the rain was falling} et je marchais en silence.
+            \item Autrefois\footnote{Formerly} à Paris, il y avait plein de commerçants\footnote{full of merchants} dans la rue.
+        \end{enumerate}
+        \item Pour exprimer \textbf{l'hypothèse} avec la conjonction \textit{si}. Par exemple,
+        \begin{enumerate}
+            \item Si j'étais riche, je voyagerais à l'étranger\footnote{travel abroad}.
+            \item Elle parle comme si elle avait de l'expérience.
+        \end{enumerate}
+        \item Pour exprimer une demande atténuée (\textbf{formule de politesse}).\footnote{To express a lesser request (polite formula)} Par exemple,
+        \begin{enumerate}
+            \item Je voulais vous demander une chose.
+            \item Je vous téléphonais pour l'appartement en location.\footnote{the rental apartment}
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{Le Conditionnel Présent}
+\begin{enumerate}
+    \item \textbf{Emploi}
+    \begin{itemize}
+        \item Pour exprimer une action \textbf{hypothétique}
+        \item Pour \textbf{atténuer} une demande, un conseil
+    \end{itemize}
+    \item (\textbf{Formation du conditionnel présent}): radical du \textbf{futur} + terminaisons de l'\textbf{imparfait} 
+    \begin{center}
+    \begin{tabular}{>{\bfseries}l c}
+    \toprule
+    Je \textit{infinitif} & + ais \\
+    Tu \textit{infinitif} & + ais \\
+    Il/Elle/On \textit{infinitif} & + ait \\
+    Nous \textit{infinitif} & + ions \\
+    Vous \textit{infinitif} & + iez \\
+    Ils/Elles \textit{infinitif} & + aient \\
+    \bottomrule
+    \end{tabular}
+    \end{center}
+    \item (\textbf{Exemples de conjugaison})
+    \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    & \textbf{PARLER} & \textbf{FINIR} & \textbf{PRENDRE} \\
+    \hline
+    je & parler\textbf{ais} & finir\textbf{ais} & prendr\textbf{ais} \\
+    tu & parler\textbf{ais} & finir\textbf{ais} & prendr\textbf{ais} \\
+    il & parler\textbf{ait} & finir\textbf{ait} & prendr\textbf{ait} \\
+    nous & parler\textbf{ions} & finir\textbf{ions} & prend\textbf{}r\textbf{ions} \\
+    vous & parler\textbf{iez} & finir\textbf{iez} & prendr\textbf{iez} \\
+    ils & parler\textbf{aient} & finir\textbf{aient} & prendr\textbf{aient} \\
+    \hline
+    \end{tabular}
+    \end{table}
+
+    \begin{notebox}
+        \begin{remark}
+            \textbf{Attention}:
+            \begin{enumerate}
+                \item Pour les verbes avec ``-re'', Il faut retirer le -e de l'infinitif avant d'ajouter la terminaison.\footnote{The -e must be removed from the infinitive before adding the ending}
+                \item Le ``e'' avant le ``r'' n'est généralement pas prononcé et le ``y'' des verbes en \textit{-yer} devient ``i''.\footnote{The ``e'' before the ``r'' is generally not pronounced, and the ``y'' in verbs ending in \textit{-yer} becomes ``i''}
+            \end{enumerate}
+        \end{remark}
+    \end{notebox}
+    \item (\textbf{Les irréguliers})
+    \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    \textbf{ALLER} & \textbf{AVOIR} & \textbf{ÊTRE} & \textbf{FAIRE} & \textbf{SAVOIR} & \textbf{POUVOIR} & \textbf{VOULOIR} \\
+    \hline
+    j'irais & j'aurais & je serais & je ferais & je saurais & je pourrais & je voudrais \\
+    \hline
+    \end{tabular}
+    \end{table}
+    
+    \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    \textbf{VENIR} & \textbf{COURIR} & \textbf{VOIR} & \textbf{DEVOIR} & \textbf{RECEVOIR} & \textbf{ENVOYER} \\
+    \hline
+    je viendrais & je courrais & je verrais & je devrais & je recevrais & j'enverrais \\
+    \hline
+    \end{tabular}
+    \end{table}
+    
+    \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    \textbf{DEVENIR} & \textbf{MOURIR} & \textbf{FALLOIR} & \textbf{PLEUVOIR} & \textbf{ENVOYER} & \textbf{VALOIR} \\
+    \hline
+    je deviendrais & je mourrais & il faudrait & il pleuvrait & j'enverrais & je vaudrais \\
+    \hline
+    \end{tabular}
+    \end{table}
+\end{enumerate}
+
+\chapter{La Semaine 2}
+\section{Leçon 1}
+\subsection{Vocabulaire}
+\begin{multicols}{2}
+    \entry{endormi}{}{adj.}{asleep}{| Je me sens \textbf{endormi}.\footnote{I feel sleepy.}}
+
+    \entry{mauvaise}{}{adj.}{bad}{}
+
+    \entry{habitude}{}{n.f.}{habit}{}
+
+    \entry{arnaque}{}{n.f.}{scam}{}
+
+    \entry{caricature}{}{n.f.}{caricature}{| en chinois, il s'appelle ``man-hua''.}
+
+    \entry{en ligne}{}{}{online}{| faire du shopping \textbf{en ligne}.}
+
+    \entry{partager}{}{v.}{to share}{}
+
+    \entry{jeu}{}{n.m.}{game}{| Il joue beaucoup aux \textbf{jeux} vidéos\footnote{the video games}}
+
+    \entry{privée}{}{adj.}{private}{| la vie \textbf{privée}\footnote{privacy}}
+
+    \entry{réseau}{}{n.m.}{network}{| les \textbf{réseaux sociaux}\footnote{the social networks}}
+
+    \entry{seul}{}{adj.}{lonely}{| Il se sens \textbf{seul}.\footnote{He feels lonely.}}
+
+    \entry{écran}{}{n.m.}{screen}{}
+
+    \entry{recevoir}{}{v.}{to receive}{| Il \textbf{reçoit} tout les temps\footnote{This is just an \textbf{adv} which means ``always''} des notifications}
+
+    \entry{incruster}{}{v.}{to embed}{| Les ecrans sont \textbf{incrustés} dans tous les domaines.}
+
+    \entry{enregistrer}{}{v.}{to record}{| Les réseaux sociaux \textbf{enregistre} tes centres d'intérêt.\footnote{Social networks record your interests.}}
+
+    \entry{gaspillage}{}{n.m.}{waste}{}
+
+    \entry{rendre}{}{v.}{to make}{| Les vidéos qui nous \textbf{rendent} mal à l'aise\footnote{The videos that make us uncomfortable.}}
+
+    \entry{se détendre}{}{v.}{to relax oneself}{| Il offre une autre méthode pour \textbf{se détendre}.}
+\end{multicols}
+
+\subsection{Phrase}
+\begin{enumerate}
+    \item On ne peut pas \textbf{rencontrer dans la vraie vie}.\footnote{We cannot meet in the real life.}
+
+    \item C'est important \textbf{de ne pas} parler, \textbf{de ne pas} partager/poster des informations personnelles sur internet.\footnote{It is important not to talk, share/post personal information on the internet}
+
+    \item \textbf{L'addiction aux} jeux vidéo.\footnote{Video games addiction.}
+
+    \item \textbf{être accros aux} quelque chose = \textbf{avoir une addiction pour} quelque chose.
+
+    \item C'est \textbf{chouette}\footnote{It's cool.}
+
+    \item être à l'aise\footnote{to be comfortable} $\neq$ être mal à l'aise.
+\end{enumerate}
+
+\section{Leçon 2}
+\subsection{Vocabulaire}
+\begin{multicols}{2}
+    \entry{déchet}{}{n.m.}{rubbish}{}
+
+    \entry{étonnant}{}{adj.}{surprising}{}
+
+    \entry{cerveau}{}{n.m.}{brain}{}
+
+    \entry{pertinence}{}{n.f.}{high relevance}{}
+
+    \entry{panacée}{}{n.f.}{panacea}{| Solution miracle à un problème / Remède universel}
+
+    \entry{plutôt}{}{adv.}{rather}{| Je choisirais \textbf{plutôt} celui-ci que celui-la.}
+
+    \entry{sanitaire}{}{adj.}{related to health}{| relatif à la santé}
+
+    \entry{désastre}{}{n.m.}{disaster}{}
+
+    \entry{refuge}{}{n.m.}{shelter}{}
+
+    \entry{reprocher}{}{v.}{to scold}{}
+
+    \entry{évoquer}{}{v.}{to mention}{| le même que \textbf{mentionner}}
+
+    \entry{nuisible}{}{adj.}{harmful}{| Les écrans sont \textbf{nuisibles} pour les enfants.}
+
+    \entry{espace}{}{n.m.}{space}{}
+
+    \entry{un pave tactile}{}{n.m.}{touchpad}{}
+
+    \entry{sauvegarder}{}{v.}{to safeguard}{}
+\end{multicols}
+
+\subsection{Phrase}
+\begin{enumerate}
+    \item avis = point de vue\footnote{point of view} = opinion
+
+    \item sous prétexte de\footnote{under the pretext of = excuse}
+
+    \item Pour exprimer la difficulté de faire quelque chose
+    \begin{itemize}
+        \item C'est difficile de + \textit{verbe à l'infinitif}
+        \item J'ai beaucoup de mal avec + quelque chose
+        \item Je galère avec\footnote{I am struggling with} + quelque chose
+        \item Je ne suis pas très a l'aise avec + quelque chose
+    \end{itemize}
+
+    \item Pour exprimer le désir\footnote{desire} de faire quelque chose
+    \begin{itemize}
+        \item J'aimerais savoir + \textit{verbe à l'infinitif}
+    \end{itemize}
+\end{enumerate}
+
+\section{Leçon 3}
+\subsection{Vocabulaire}
+\begin{multicols}{2}
+    \entry{carton}{}{n.m.}{cardboard}{| la maison en \textbf{carton}}
+
+    \entry{écologique}{}{adj.}{ecological}{| Relatif à l'écologie.}
+
+    \entry{recyclé}{}{adj.}{recycled}{| les cartons \textbf{recyclés}}
+
+    \entry{recyclable}{}{adj.}{recyclable}{}
+
+    \entry{durée de vie}{}{n.f.}{lifespan}{}
+
+    \entry{éco-responsable}{}{adj.}{eco-responsible}{}
+
+    \entry{l'énergie solaire}{}{n.f.}{solar energy}{}
+
+    \entry{un système de ventilation}{}{n.m.}{ventilation system}{}
+
+    \entry{monter}{}{v.}{to assemble}{| monter un meuble\footnote{to assemble a piece of furniture}}
+
+    \entry{démonter}{}{v.}{to disassemble}{}
+
+    \entry{forêt}{}{n.f.}{forest}{}
+
+    \entry{vivant}{}{adj.}{alive}{| C'est une maison \textbf{vivante}}
+
+    \entry{béton}{}{n.m.}{concrete}{}
+
+    \entry{mer}{}{n.f.}{sea}{}
+
+    \entry{hauteur}{}{n.f.}{height}{| Il est 175 de \textbf{hauteur}}
+
+    \entry{magnifique}{}{adj.}{magnificent}{| wonderful}
+\end{multicols}
+
+\subsection{Phrase}
+\begin{enumerate}
+    \item \textbf{C'est construit à partir de}\footnote{It is built from} + quelque chose \\
+    e.g., C'\textbf{est construit à partir de} plusieurs couches\footnote{layers} de cartons
+    \item \textbf{à base de} + quelque chose\footnote{be based on something} \\
+    e.g., C'est une maison écologique construite \textbf{à base de} carton recyclé.
+    \item quelque chose être \textbf{à la pointe de la technologie}\footnote{at the cutting edge of technology}
+    \item \textbf{être résistante a} + quelque chose\footnote{be resistant to} \\
+    e.g., Elle \textbf{est résistante aux} climats difficiles.
+    \item \textbf{Elle se trouve où?}\footnote{Where is it located?}
+    \item \textbf{être suitée} + prep. + un lieu\footnote{be located at} \\
+    e.g., Elle \textbf{est située} dans la forêt.
+\end{enumerate}
+
+\section{Leçon 4}
+\subsection{Vocabulaire}
+\begin{multicols}{2}
+    \entry{les outils numériques}{}{}{digital tools}{}
+
+    \entry{surtout}{}{adv.}{especially}{}
+
+    \entry{bouger}{}{v.}{to move}{}
+
+    \entry{néfaste}{}{adj.}{harmful}{| les consequences \textbf{néfastes}}
+
+    \entry{tranquille}{}{adj.}{quiet}{}
+\end{multicols}
+
+\subsection{Phrase}
+\begin{enumerate}
+    \item à notre époque moderne\footnote{in our modern era}
+    \item \textbf{des problèmes de}\footnote{the problem of} + quelque chose \\
+    e.g., \textbf{des problèmes de} sociabilité, de langage, etc.
+    \item \textbf{manque de}\footnote{the lack of} + quelque chose \\
+    e.g., \textbf{manque de} vocabulaire
+\end{enumerate}
+
+\section{Leçon 5}
+\subsection{Vocabulaire}
+\begin{multicols}{2}
+    \entry{rêve}{}{n.m.}{dream}{}
+
+    \entry{siège}{}{n.m.}{seat}{}
+
+    \entry{stimuler}{}{v.}{to stimulate}{| \textbf{stimuler} l'imagination}
+\end{multicols}
+
+\subsection{Phrase}
+\begin{enumerate}
+    \item \textbf{le plutôt possible}\footnote{as soon as possible}
+
+    \item \textbf{C'est prouvé par}\footnote{It is proved by} + quelque chose \\
+    e.g., \textbf{C'est prouvé par} des études scientifiques
+\end{enumerate}
+
+\section{Grammaire}
+\subsection{Le Subjonctif Présent}
+En français, on utilise plusieurs structures impersonnelles avec \textit{il} suivies par le subjonctif.\footnote{Le \textit{il} ne représente personne et ne peut pas être changé par un autre pronom.} Par exemple, Il faut que, Il vaut mieux que\footnote{It is better that}, etc. Tout s'ajoute\footnote{adds itself with} \textbf{sujet + subjonctif}
+
+\begin{notebox}
+    \begin{remark}
+    \textbf{Attention}:
+    \begin{enumerate}
+        \item Les structures avec \textit{``il est''} expriment une opinion \textbf{plus personnelle}, \textit{``c'est''} est utilisé pour \textbf{la généralité}.
+        \item Après une construction impersonnelle, il n'y a pas toujours le subjonctif. Il est aussi possible d'avoir l'indicatif.
+        \begin{itemize}
+            \item \textbf{Le subjonctif} est utilisé pour parler \textbf{d'une réalité incertaine}.
+            \item \textbf{L'indicatif} pour \textbf{une réalité certaine} ou probable.
+        \end{itemize}
+        Et tous les cas sont les suivants,
+        
+        \centerline{\includegraphics[width=0.5\linewidth]{images/1.png}}
+    \end{enumerate}
+    \end{remark}
+\end{notebox}
+
+\begin{enumerate}
+    \item \textbf{Emploi}: Pour exprimer une action \textbf{éventuelle}, dont la réalisation n'est \textbf{pas certaine}.
+    \item (\textbf{Conjugaison Règle}): Radicale de la $3^{\text{ème}}$ personne du pluriel\footnote{ils/elles} du présent de l'indicatif. Retirez le \textit{-ent} et suivez la règle suivante.
+    \begin{table}[h]
+    \centering
+    \begin{tabular}{|>{\centering\arraybackslash}p{2.5cm}|>{\centering\arraybackslash}p{2.5cm}|>{\centering\arraybackslash}p{2.5cm}|>{\centering\arraybackslash}p{2.5cm}|}
+    \hline
+    \textbf{\textcolor{red}{QUE} + Personne} & \textbf{1er groupe radical +} & \textbf{2ème groupe radical +} & \textbf{3ème groupe radical +} \\
+    \hline
+    Que je/j' & \textcolor{red}{\textbf{e}} & \textcolor{red}{\textbf{isse}} & \textcolor{red}{\textbf{e}} \\
+    \hline
+    Que tu & \textcolor{red}{\textbf{es}} & \textcolor{red}{\textbf{isses}} & \textcolor{red}{\textbf{es}} \\
+    \hline
+    Qu'il/elle/on & \textcolor{red}{\textbf{e}} & \textcolor{red}{\textbf{isse}} & \textcolor{red}{\textbf{e}} \\
+    \hline
+    Que nous & \textcolor{red}{\textbf{ions}} & \textcolor{red}{\textbf{issions}} & \textcolor{red}{\textbf{ions}} \\
+    \hline
+    Que vous & \textcolor{red}{\textbf{iez}} & \textcolor{red}{\textbf{issiez}} & \textcolor{red}{\textbf{iez}} \\
+    \hline
+    Qu'ils/elles & \textcolor{red}{\textbf{ent}} & \textcolor{red}{\textbf{issent}} & \textcolor{red}{\textbf{ent}} \\
+    \hline
+    \end{tabular}
+    \caption{Les terminaisons du subjonctif présent}
+    \end{table}
+
+    \begin{notebox}
+        \begin{remark}
+            Le 1er groupe est les verbes avec \textbf{-er}, le 2eme groupe est les verbes avec \textbf{-ir}, le 3eme groupe est les verbes avec \textbf{-re}.
+        \end{remark}
+    \end{notebox}
+    \item (Des exemples)
+    \begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Indicatif (3e personne)} & \textbf{Subjonctif (1e personne)} \\
+        \hline
+        Ils part\sout{ent} & que je part\textbf{e} \\
+        \hline
+        Ils mett\sout{ent} & que je mett\textbf{e} \\
+        \hline
+        Ils lis\sout{ent} & que je lis\textbf{e} \\
+        \hline
+        Ils écriv\sout{ent} & que j'écriv\textbf{e} \\
+        \hline
+        \end{tabular}
+    \end{table}
+    \item (\textbf{Les irréguliers})
+    \begin{center}
+    \begin{longtable}{|c|c|c|c|c|}
+    \caption{Verbes irréguliers au subjonctif} \\
+    \hline
+    \multicolumn{5}{|c|}{\textbf{\textcolor{blue}{Verbes irréguliers}}} \\
+    \hline
+    & \textbf{avoir} & \textbf{être} & \textbf{aller} & \textbf{faire} \\
+    \hline
+    \multirow{6}{*}{\textbf{que/qu'}} 
+    & j'aie & je sois & j'aille & je fasse \\
+    \cline{2-5}
+    & tu aies & tu sois & tu ailles & tu fasses \\
+    \cline{2-5}
+    & il ait & il soit & il aille & il fasse \\
+    \cline{2-5}
+    & nous ayons & nous soyons & nous allions & nous fassions \\
+    \cline{2-5}
+    & vous ayez & vous soyez & vous alliez & vous fassiez \\
+    \cline{2-5}
+    & ils aient & ils soient & ils aillent & ils fassent \\
+    \hline
+    & \textbf{pouvoir} & \textbf{valoir} & \textbf{savoir} & \textbf{vouloir} \\
+    \hline
+    \multirow{6}{*}{\textbf{que/qu'}} 
+    & je puisse & je vaille & je sache & je veuille \\
+    \cline{2-5}
+    & tu puisses & tu vailles & tu saches & tu veuilles \\
+    \cline{2-5}
+    & il puisse & il vaille & il sache & il veuille \\
+    \cline{2-5}
+    & nous puissions & nous valions & nous sachions & nous voulions \\
+    \cline{2-5}
+    & vous puissiez & vous valiez & vous sachiez & vous vouliez \\
+    \cline{2-5}
+    & ils puissent & ils vaillent & ils sachent & ils veuillent \\
+    \hline
+    \end{longtable}
+    \end{center}
+    \vspace{-30pt} % or -5pt or -8mm etc.
+\end{enumerate}
+
+\subsection{Le Participe Présent}
+Le participe présent est utilisé à l'écrit pour remplacer \textit{qui + verbe}.
+
+\begin{enumerate}
+    \item (\textbf{Conjugaison Règle}): Trouvez la première personne du pluriel (\textit{nous}) du présent de l'indicatif. Retirez le \textit{-ons} et ajoutez\footnote{add} le \textit{-ant}. Par exemple,
+    \begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Infinitif} & \textbf{1ère personne pluriel} & \textbf{Participe présent} \\
+    \hline
+    Parler & nous \textbf{parlons} & \textbf{parlant} \\
+    \hline
+    Finir & nous \textbf{finissons} & \textbf{finissant} \\
+    \hline
+    Prendre & nous \textbf{prenons} & \textbf{prenant} \\
+    \hline
+    Aller & nous \textbf{allons} & \textbf{allant} \\
+    \hline
+    \end{tabular}
+    \caption{Formation du participe présent}
+    \end{table}
+\end{enumerate}
+
+\subsection{La Négation}
+\begin{enumerate}
+    \item (\textbf{Règle})
+    \begin{center}
+    \begin{longtable}{|p{3.5cm}|p{6cm}|}
+    \hline
+    \textbf{Forme affirmative} & \textbf{Forme négative} \\
+    \hline
+    \endfirsthead
+    
+    \hline
+    \textbf{Forme affirmative} & \textbf{Forme négative} \\
+    \hline
+    \endhead
+    
+    \hline
+    \endfoot
+    
+    \hline
+    \caption{Les formes de négation en français} \\
+    \endlastfoot
+    
+    Encore & ne.........plus \\
+    \hline
+    Déjà & ne..........pas encore \\
+    \hline
+    Toujours, souvent & ne.......jamais \\
+    \hline
+    Quelqu'un, tout le monde & ne........personne / personne ne...... \\
+    \hline
+    Tout, quelque chose & ne.......rien / rien ne...... \\
+    \hline
+    Et / ou & ne....... ni....... ni...... / Ni....... ni.........ne..... \\
+    \hline
+    \end{longtable}
+    \end{center}
+    \vspace{-60pt} % or -5pt or -8mm etc.
+    \begin{notebox}
+        \begin{remark}
+            Le verbe est toujours \textbf{après} \textit{ne}.
+        \end{remark}
+    \end{notebox}
+\end{enumerate}
+
+\subsection{Le Futur Simple}
+Le futur simple exprime un fait ou une action qui se déroulera plus tard, elle n'a pas encore eu lieu au moment où nous nous exprimons.\footnote{The simple future expresses a fact or action that will take place later; it has not yet taken place at the time we are speaking.}
+
+\begin{enumerate}
+    \item (\textbf{Emploi})
+    \begin{itemize}
+        \item Lorsqu'on situe un événement ou un fait dans un avenir assez, voire très lointain (dans une semaine, l'année prochaine, etc.)\footnote{when we place an event or fact in a fairly, or even very, distant future (in a week, next year, etc.)} \\
+        e.g., J'habiterai encore à Paris dans deux ans
+        \item Dans les phrases qui contiennent une proposition subordonnée de temps introduite par \textbf{quand, lorsque, dès que}.\footnote{In sentences containing a subordinate clause of time introduced by quand, when, as soon as.}\\
+        e.g., Nous sortirons quand la pluie s'arrêtera.
+    \end{itemize}
+    \item (\textbf{Règles Conjugaison})
+    \begin{center}
+        \begin{tabular}{|p{4cm}|p{4cm}|p{4.5cm}|}
+        \hline
+        \centering Groupe & Formation & Exemple (je) \\
+        \hline
+        1\textsuperscript{er} groupe \newline (verbes en -ER) & Infinitif \textbf{complet} + terminaisons & \textit{manger} $\rightarrow$ je \textbf{mangerai} \\
+        \hline
+        2\textsuperscript{e} groupe \newline (verbes en -IR) & Infinitif \textbf{complet} + terminaisons & \textit{finir} $\rightarrow$ je \textbf{finirai} \\
+        \hline
+        3\textsuperscript{e} groupe \newline (verbes en -RE) & Infinitif \textbf{sans -E} + terminaisons & \textit{attendre} $\rightarrow$ j'\textbf{attendrai} \\
+        \hline
+        \end{tabular}
+    \end{center}
+    \item (\textbf{Les terminaisons du futur simple})
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|l|}
+        \hline
+        je  & tu  & il/elle/on & nous & vous & ils/elles \\ \hline
+        \textbf{-ai} & \textbf{-as} & \textbf{-a}         & \textbf{-ons} & \textbf{-ez}  & \textbf{-ont}      \\ \hline
+        \end{tabular}
+    \end{center}
+    \begin{notebox}
+        \begin{remark}
+            \textbf{Attention}:
+            \begin{enumerate}
+                \item Les verbes en \textit{``eler''} ou \textit{``eter''} doublent leur \textbf{consonne} ou \textbf{prennent un accent}.
+                    \begin{center}
+                        appe\textbf{l}er $\Rightarrow$ j'appe\textbf{ll}erai \\
+                        acheter $\Rightarrow$ j'ach\textbf{è}terai
+                    \end{center}
+                \item Les verbes en \textit{``yer''} changent le \textit{y} en \textit{i}.
+                    \begin{center}
+                        essu\textbf{y}er $\Rightarrow$ j'essu\textbf{i}erai
+                    \end{center}
+            \end{enumerate}
+        \end{remark}
+    \end{notebox}
+    \item \textbf{La différence entre Future Simple et Future Proche}
+    \begin{longtable}{|>{\centering\arraybackslash}m{5.5cm}|>{\centering\arraybackslash}m{5.5cm}|}
+    \hline
+    \textbf{Futur simple} & \textbf{Futur proche} \\
+    \hline
+    \endfirsthead
+    
+    \hline
+    \textbf{Futur simple} & \textbf{Futur proche} \\
+    \hline
+    \endhead
+    
+    \hline
+    \endfoot
+    
+    \hline
+    \endlastfoot
+    
+    Plus formel & Plus familier \\
+    \hline
+    Utilisé à l'écrit & Utilisé à l'oral \\
+    \hline
+    \end{longtable}
+
+    \item (\textbf{Les irréguliers})
+    \begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \textbf{Infinitif} & \textbf{1ère personne} & \textbf{Infinitif} & \textbf{1ère personne} \\
+    \hline
+    être & je serai & savoir & je saurai \\
+    \hline
+    avoir & j'aurai & tenir & je tiendrai \\
+    \hline
+    aller & j'irai & venir & je viendrai \\
+    \hline
+    devoir & je devrai & voir & je verrai \\
+    \hline
+    envoyer & j'enverrai & vouloir & je voudrai \\
+    \hline
+    faire & je ferai & valoir & je vaudrai \\
+    \hline
+    pouvoir & je pourrai & pleuvoir & il pleuvra \\
+    \hline
+    recevoir & je recevrai & falloir & il faudra \\
+    \hline
+    \end{tabular}
+    \caption{Verbes irréguliers au futur simple}
+    \label{tab:irregular_verbs}
+    \end{table}
+\end{enumerate}
+
+\subsection{Le Pronom Possessif}
+Le pronom possessif marque l'appartenance, la possession. Comme les autres pronoms, il remplace un nom ou un groupe nominal.\footnote{The possessive pronoun indicates belonging, possession. Like other pronouns, it replaces a noun or a noun phrase.} e.g., en anglais, it's like \textit{mine, yours, his, hers, etc}.
+
+\begin{enumerate}
+    \item (\textbf{Règle}): Le pronom possessif est formé d'un article défini (\textit{le, la} ou \textit{les}) et du mot \textit{mien, tien, sien, nôtre, vôtre} ou \textit{leur}. Le pronom s'accorde \textbf{en genre} et \textbf{en nombre} avec son antécédent. 
+
+    \begin{center}
+        \includegraphics[width=1\linewidth]{images/2.png}
+    \end{center}
+    \item (\textbf{Exemples}): J'ai acheté mes skis en Italie. Pierre a acheté \textbf{les siens} en France.
+\end{enumerate}
+
+\chapter{La Semaine 3}
+\section{Leçon 1}
+\subsection{Vocabulaire}
+\begin{multicols}{2}
+    \entry{ailleurs}{}{adv.}{elsewhere}{| Dans un autre lieu}
+
+    \entry{vivre}{}{v.}{to live}{| 10 habitants \textbf{vivent} en Italie.}
+
+    \entry{compter}{}{v.}{to count}{| La Slovénie \textbf{compte} 2 habitants. $\equiv$ En Slovénie, il y a 2 habitants.}
+
+    \entry{légèrement}{}{adv.}{slightly}{}
+
+    \entry{manière}{}{n.f.}{manner}{}
+
+    \entry{baisse}{}{n.f.}{drop}{| la \textbf{baisse} de natalité\footnote{The drop of birth rate}}
+
+    \entry{hausse}{}{n.f.}{increase}{| la \textbf{hausse} de mortalité\footnote{The increase of death rate}}
+
+    \entry{tranche}{}{n.f.}{slice}{}
+
+    \entry{ampleur}{}{n.f.}{magnitude}{}
+
+    \entry{espérance}{}{n.f.}{hope}{| L'espérance de vie\footnote{Life expectancy}}
+
+    \entry{écart}{}{n.m.}{gap}{}
+\end{multicols}
+
+\section{Leçon 2}
+\subsection{Vocabulaire}
+\begin{multicols}{2}
+    \entry{la colline}{}{n.f.}{hill}{}
+
+    \entry{la bosquet}{}{n.f.}{grove}{| en chinois, c'est ``树林''}
+
+    \entry{la marais}{}{n.f.}{marshe}{| en chinois, c'est ``沼泽''}
+
+    \entry{la forêt}{}{n.f.}{forest}{}
+
+    \entry{le sommet}{}{n.m.}{summit}{}
+
+    \entry{le plateau}{}{n.m.}{plateau}{| en chinois, c'est ``高原''}
+
+    \entry{le col}{}{n.m.}{col}{| en chinois, c'est ``山口''}
+
+    \entry{le gorge}{}{n.m.}{gorge}{| en chinois, c'est ``峡谷''}
+
+    \entry{la plaine}{}{n.f.}{plain}{| en chinois, c'est ``平原''}
+
+    \entry{le massif}{}{n.m.}{massif}{| en chinois, c'est ``山丘''}
+
+    \entry{le cap}{}{n.m.}{cap}{| en chinois, c'est ``海角''}
+
+    \entry{le golfe}{}{n.m.}{golf}{| en choinois, c'est ``海湾''}
+
+    \entry{la falaise}{}{n.f.}{cliff}{}
+
+    \entry{le affluent}{}{n.m.}{tributary}{| en choinois, c'est ``支流''}
+
+    \entry{le biome}{}{n.m.}{biome}{| en chinois, c'est ``生物群落区''}
+
+    \entry{d'outre-mer}{}{adj.}{overseas}{}
+
+    \entry{siècle}{}{n.m.}{century}{}
+
+    \entry{aventurier}{}{n.m.}{adventurer}{}
+
+    \entry{itinéraire}{}{n.m.}{route}{}
+
+    \entry{gravir}{}{v.}{to climb}{}
+
+    \entry{ensoleillé}{}{adj.}{sunny}{}
+
+    \entry{île}{}{n.f.}{island}{}
+
+    \entry{posséder}{}{v.}{to have}{| la même chose que ``avoir''}
+
+    \entry{relief}{}{n.m.}{relief}{| en chinois, c'est ``地貌''}
+
+    \entry{principalement}{}{adv.}{mainly}{}
+
+    \entry{actif}{}{adj.}{active}{}
+\end{multicols}
+
+\subsection{Phrase}
+\begin{enumerate}
+    \item \textbf{au sud / au nord / à l'est / à l'ouest} de\footnote{at the south/north/east/west of} + quelque chose
+\end{enumerate}
+
+\section{Leçon 3}
+\subsection{Vocabulaire}
+\begin{multicols}{2}
+    \entry{le glissement de terrain}{}{n.m.}{landside}{| en choinois, c'est ``滑坡''}
+
+    \entry{l'éruption volcanique}{}{n.f.}{volcanic eruption}{| en chinois, c'est ``火山喷发''}
+
+    \entry{inondation}{}{n.f.}{flood}{}
+
+    \entry{le tsunami}{}{n.m.}{tsunami}{}
+
+    \entry{le séisme}{}{n.m.}{earthquake}{}
+
+    \entry{l'incendie}{}{n.m.}{fire}{}
+
+    \entry{la tornade}{}{n.f.}{tornado}{}
+
+    \entry{la canicule}{}{n.f.}{heatwave}{}
+
+    \entry{l'onde}{}{n.f.}{wave}{}
+
+    \entry{la vague}{}{n.f.}{(sea) wave}{}
+
+    \entry{le fond}{}{n.m.}{bottom}{}
+
+    \entry{le dégât}{}{n.m.}{damage}{}
+
+    \entry{le recul}{}{n.m.}{moving back}{}
+
+    \entry{la dizaine}{}{n.f.}{ten}{}
+
+    \entry{le mascaret}{}{n.m.}{tidal bore}{}
+
+    \entry{propager}{}{v.}{to spread}{}
+
+    \entry{la secousse}{}{n.f.}{tremor}{| en chinois, c'est ``发抖''}
+
+    \entry{ralentir}{}{v.}{to slow down}{}
+
+    \entry{retenir}{}{v.}{to catch hold of sth}{}
+
+    \entry{côtier}{}{adj.}{coastal}{}
+
+    \entry{lorsque}{}{conj.}{when}{| la même chose que ``quand''}
+\end{multicols}
+
+\subsection{Phrase}
+\begin{enumerate}
+    \item \textbf{contrairement à}\footnote{contrary to} + quelque chose
+
+    \item \textbf{la semaine suivante}\footnote{The following week}
+\end{enumerate}
+
+\section{Leçon 4}
+\subsection{Vocabulaire}
+\begin{multicols}{2}
+    \entry{cosmétique}{}{n.m.}{beauty product}{}
+
+    \entry{agroalimentaire}{}{adj.}{food-processing}{}
+
+    \entry{édition}{}{n.f.}{publication}{}
+
+    \entry{touristique}{}{adj.}{touristic}{}
+
+    \entry{mondial}{}{adj.}{global}{}
+
+    \entry{mondialisation}{}{n.f.}{globalization}{}
+
+    \entry{détrôner}{}{v.}{to dethrone}{}
+
+    \entry{descendre}{}{v.}{to go down}{}
+
+    \entry{augmenter}{}{v.}{to increase}{}
+
+    \entry{diriger}{}{v.}{to guide/lead}{}
+\end{multicols}
+
+\subsection{Phrase}
+\begin{enumerate}
+    \item \textbf{à l'inverse,}\footnote{Conversely,} + quelque phrase
+\end{enumerate}
+
+
+
+\section{Leçon 5}
+\subsection{Vocabulaire}
+\begin{multicols}{2}
+    \entry{respectivement}{}{adv.}{respectively}{}
+
+    \entry{peuple}{}{n.m.}{people}{}
+
+    \entry{pouvoir}{}{n.m.}{power}{}
+
+    \entry{démocratie}{}{n.f.}{democracy}{}
+
+    \entry{élire}{}{v.}{to elect}{}
+\end{multicols}
+
+\section{Grammaire}
+\subsection{Les Pronoms Relatifs}
+Les \textbf{pronoms relatifs} sont utilises pour remplacer un nom et réunir deux phrases ou mettre en relief. On le choisit selon la fonction du mot remplacé.\footnote{Relative pronouns are used to replace a noun and join two sentences or to emphasize them. They are chosen according to the function of the replaced word.}
+\subsubsection{Les Pronoms Relatifs Simples}
+\begin{enumerate}
+    \item \textbf{qui}: Reprend le \textbf{sujet} du verbe qui suit\footnote{Takes the \textbf{subject} of the following verb}:
+    \begin{center}
+        \textcolor{orange}{qui + verbe}
+    \end{center}
+    e.g., La fille \textbf{qui} parle st ma sœur.
+    \begin{notebox}
+        \begin{remark}
+            Après une préposition, remplace une personne (jamais un objet) \\
+            e.g., Voici la femme \underline{chez} \textbf{qui} j'habite.
+        \end{remark}
+    \end{notebox}
+    \item \textbf{que}: Reprend le \textbf{complément d'objet} (COD) du verbe qui suit:
+    \begin{center}
+        \textcolor{orange}{que + sujet + verbe}
+    \end{center}
+    e.g., Les documents \textbf{que} j'ai mis sur la table sont pour toi.
+    \item \textbf{où}: Reprend \textbf{le lieu ou le moment}:
+    \begin{center}
+        \textcolor{orange}{où + sujet + verbe}
+    \end{center}
+    e.g., Regarde! C'est l'entreprise \textbf{où} je travaille.
+    \item \textbf{dont}: Reprend le \textbf{complément} + \textbf{de}
+    \begin{center}
+        \textcolor{orange}{dont + sujet + verbe}
+    \end{center}
+    e.g., La seule chose \textbf{dont} \underline{j'ai besoin} c'est dormir. \\
+    Voici le tableau des verbes et expressions suivis de “de”:
+    \begin{center}
+    \begin{longtable}{|>{\centering\arraybackslash}m{6cm}|>{\centering\arraybackslash}m{6cm}|}
+    \hline
+    \textbf{Français} & \textbf{English} \\
+    \hline
+    \endfirsthead
+    
+    \hline
+    \textbf{Français} & \textbf{English} \\
+    \hline
+    \endhead
+    
+    \hline
+    \endfoot
+    
+    \hline
+    \caption{Verbes et expressions suivis de ``de''} \\
+    \endlastfoot
+    
+    avoir besoin de & to need \\
+    \hline
+    avoir peur de & to be afraid of \\
+    \hline
+    avoir envie de & to want / feel like \\
+    \hline
+    avoir l'habitude de & to be used to \\
+    \hline
+    parler de & to talk about \\
+    \hline
+    être responsable de & to be responsible for \\
+    \hline
+    être conscient de & to be aware of \\
+    \hline
+    être fan de & to be a fan of \\
+    \hline
+    être sûr / certain de & to be sure / certain of \\
+    \hline
+    se servir de & to make use of \\
+    \hline
+    s'occuper de & to take care of \\
+    \hline
+    abuser de & to abuse / misuse \\
+    \hline
+    s'agir de & to be about \\
+    \hline
+    s'assurer de & to make sure of \\
+    \hline
+    avoir honte de & to be ashamed of \\
+    \hline
+    avoir l'intention de & to intend to \\
+    \hline
+    avoir raison / tort de & to be right / wrong to \\
+    \hline
+    discuter de & to discuss \\
+    \hline
+    douter de & to doubt \\
+    \hline
+    s'éloigner de & to move away from \\
+    \hline
+    être amoureux de & to be in love with \\
+    \hline
+    être désolé de & to be sorry about \\
+    \hline
+    jouer de (musique) & to play (a musical instrument) \\
+    \hline
+    se moquer de & to make fun of \\
+    \hline
+    rêver de & to dream of / want \\
+    \hline
+    venir de (passé récent) & to have just (done something) \\
+    \hline
+    la manière / façon de & the way of \\
+    \end{longtable}
+    \end{center}
+    \vspace{-60pt} % or -5pt or -8mm etc.
+\end{enumerate}
+
+\subsubsection{Les Pronoms Relatifs Composés}
+Le prénom relatif composé est formé d'une \textbf{préposition + lequel / laquelle / lesquels / lesquelles} selon le \textbf{genre} et le \textbf{nombre} du nom qu'il remplace. 
+\begin{enumerate}
+    \item \textbf{préposition + lequel / laquelle / lesquels / lesquelles}: \\
+    e.g., Il habit \textbf{dans} \underline{cet appartement.} $\Rightarrow$ C'est l'appartement \textbf{dans lequel} il habite. \\
+    e.g., J'achète ces lunettes. J'ai économisé \textbf{pour} \underline{ces lunettes.} $\Rightarrow$ J'achète ces lunettes \textbf{pour lesquelles} j'ai économisé.
+    \item \textbf{auquel / à laquelle / auxquels / auxquelles}: \textbf{Si la préposition est ``à''}, certaines contractions sont nécessaires, \textbf{auquel}(à + lequel), \textbf{à laquelle}, \textbf{auxquels}(à + lesquels), \textbf{auxquelles}(à + lesquelles).\\
+    e.g., J'adore ce film. Je pense souvent \textbf{à} \underline{ce film.} $\Rightarrow$  J'adore ce film \textbf{auquel} je pense souvent.
+    \item \textbf{duquel / de laquelle / desquels / desquelles}: \textbf{Si la préposition est ``de''}, certaines contractions sont nécessaires, \textbf{duquel}(de + lequel), \textbf{de laquelle}, \textbf{desquels}(de + lesquels), \textbf{desquelles}(de + lesquelles).\\
+    e.g., Il vit dans cette maison. \textbf{À côté de} \underline{cette maison}, il y a une église $\Rightarrow$ Il vit dans cette maison \textbf{à côté de laquelle} il y a une église.
+    \item \textbf{préposition + qui}: Si on remplace \textbf{une personne}, on peut utiliser \textbf{qui} au lieu de\footnote{instead of} \textbf{lequel, laquelle, lesquels, lesquelles}. \\
+    e.g., Je m'entends bien \textbf{avec} \underline{ces collègues.} $\Rightarrow$ Ce sont des collègues \textbf{avec lesquels / avec qui} je m'entends bien.
+\end{enumerate}
+
+\subsection{La Cause et La Conséquence}
+\subsubsection{La Cause}
+\begin{enumerate}
+    \item \textbf{Parce que}: introduit une cause et \textbf{répond à ``pourquoi''} \\
+    e.g. Le match a été ennuie, \textbf{parce qu}'il pleuvait.
+    \item \textbf{Comme}: place la case \textbf{en début} de phrase \\
+    e.g., \textbf{Comme} il pleuvait, le match a été annulé.
+    \item \textbf{Car}: c'est ``parce que'' en langage formel ou à l'écrit \\
+    e.g., Le match a été annulé, \textbf{car} il pleuvait.
+    \item \textbf{Puisque}: introduit une cause connue ou évidente \\
+    e.g., \textbf{Puisque} le match est annulé, ils doivent rembourser.
+    \item \textbf{À cause de}: cause \textbf{négative ou neutre} \\
+    e.g., J'ai raté \textbf{à cause de} toi.
+    \item \textbf{Grâce à}: cause \textbf{positive} \\
+    e.g., J'ai réussi \textbf{grâce à} toi.
+\end{enumerate}
+\subsubsection{La Conséquence}
+\begin{enumerate}
+    \item \textbf{Donc}: exprime une conséquence qui s'apparente à une évidence \\
+    e.g., Je n'ai pas 18 ans \textbf{donc} je ne peux conduire une voiture.
+    \item \textbf{C'est pourquoi}: exprime également une conséquence mais \textbf{l'explique}: \\
+    e.g., Je ne suis pas capable de traiter\footnote{treat} ce problème, \textbf{c'est pourquoi} j'ai fait appel à un spécialiste.
+    \item \textbf{C'est la raison pour laquelle}: s'utilise plutôt à l'écrit ou dans un langage plus formel: \\
+    e.g., Je désire apprendre le français. \textbf{C'est la raison pour laquelle} je souhaiterais m'inscrire\footnote{record} dans votre cours.
+    \item \textbf{Alors} et \textbf{c'est pour ça que}: s'utilisent quant à\footnote{as to} eux en langage courant\footnote{common}: \\
+    e.g., J'ai une réunion à deux heures \textbf{alors} je vais partir à une heure.
+\end{enumerate}
+
+\chapter{Le Semaine 4}
+\section{Leçon 1}
+\subsection{Vocabulaire}
+\begin{multicols}{2}
+    \entry{drôle}{}{adj.}{funny}{| la même chose que ``amusante''}
+
+    \entry{supposition}{}{n.f.}{supposition}{| la meme chose que ``hypothèse''}
+
+    \entry{fragile}{}{adj.}{fragile}{}
+
+    \entry{fiable}{}{adj.}{reliable}{}
+
+    \entry{contradictoire}{}{adj.}{contradictory}{}
+\end{multicols}
+
+\subsection{Phrase}
+\begin{enumerate}
+    \item \textbf{croire à}\footnote{believe in} + quelque chose
+    \item \textbf{je suis du même avis que}\footnote{I agree with} + quelqu'on
+\end{enumerate}
+
+\section{Leçon 2}
+\subsection{Vocabulaire}
+\begin{multicols}{2}
+    \entry{pronostic}{}{n.m.}{prediction}{}
+
+    \entry{équipe}{}{n.f.}{team}{}
+
+    \entry{gagner}{}{v.}{to win/earn}{}
+\end{multicols}
+
+\subsection{Phrase}
+\begin{enumerate}
+    \item \textbf{Je crois que}\footnote{I believe that} + quelque chose
+    \item \textbf{C'est certain que} + quelque chose
+\end{enumerate}
+
+\section{Lecon 3}
+\subsection{Vocabulaire}
+\subsubsection*{L'hébergement}
+{\small accommodation}
+\begin{multicols}{2}
+    \entry{le camping}{}{n.m.}{camping}{}
+
+    \entry{l'auberge de jeunesse}{}{n.f.}{cheap hotel}{}
+
+    \entry{la pension}{}{n.f.}{boarding school}{}
+
+    \entry{la location de vacances}{}{n.f.}{vacation rental}{}
+
+    \entry{la chambre d'hôtes}{}{n.f.}{guest room}{}
+\end{multicols}
+
+\subsubsection*{Les moyens de transport}
+{\small means of transport}
+\begin{multicols}{2}
+    \entry{la voiture}{}{n.f.}{car}{}
+    
+    \entry{le train}{}{n.m.}{train}{}
+    
+    \entry{l'avion}{}{n.m.}{airplane}{}
+    
+    \entry{le bateau}{}{n.m.}{boat}{}
+    
+    \entry{le bus / le car}{}{n.m.}{bus / coach}{}
+    
+    \entry{le taxi}{}{n.m.}{taxi}{}
+    
+    \entry{le camping-car}{}{n.m.}{motorhome}{}
+    
+    \entry{le mobile home}{}{n.m.}{mobile home}{}
+\end{multicols}
+
+\subsubsection*{La réservation}
+{\small booking}
+\begin{multicols}{2}
+    \entry{l'agence de voyages}{}{n.f.}{travel agency}{}
+    
+    \entry{la gare}{}{n.f.}{train station}{}
+    
+    \entry{l'aéroport}{}{n.m.}{airport}{}
+    
+    \entry{le guichet}{}{n.m.}{ticket counter}{}
+    
+    \entry{les horaires}{}{n.m. pl.}{schedules}{}
+    
+    \entry{le billet}{}{n.m.}{ticket}{}
+    
+    \entry{l'aller simple}{}{n.m.}{one-way trip}{}
+    
+    \entry{l'aller-retour}{}{n.m.}{round trip}{}
+\end{multicols}
+
+\subsubsection*{Le type de voyage}
+{\small type of travel}
+\begin{multicols}{2}
+    \entry{voyager seul}{}{}{to travel alone}{}
+    
+    \entry{voyager en famille}{}{}{to travel with family}{}
+    
+    \entry{voyager avec des amis}{}{}{to travel with friends}{}
+    
+    \entry{faire un voyage organisé}{}{}{to go on an organized trip}{}
+\end{multicols}
+
+\subsubsection*{La destination}
+{\small destination}
+\begin{multicols}{2}
+    \entry{la plage / la mer}{}{n.f.}{beach / sea}{}
+    
+    \entry{la campagne}{}{n.f.}{countryside}{}
+    
+    \entry{la montagne}{}{n.f.}{mountains}{}
+    
+    \entry{l'étranger}{}{n.m.}{abroad / foreign country}{}
+\end{multicols}
+
+\subsubsection*{Les activités}
+{\small activities}
+\begin{multicols}{2}
+    \entry{aller à la plage}{}{}{to go to the beach}{}
+    
+    \entry{se baigner}{}{}{to bathe / swim}{}
+    
+    \entry{nager}{}{}{to swim}{}
+    
+    \entry{se bronzer}{}{}{to tan}{}
+    
+    \entry{se promener}{}{}{to take a walk}{}
+    
+    \entry{se reposer / se détendre}{}{}{to rest / relax}{}
+    
+    \entry{faire la grasse matinée}{}{}{to sleep in}{}
+    
+    \entry{faire du tourisme}{}{}{to go sightseeing}{}
+    
+    \entry{faire du sport}{}{}{to do sports}{}
+    
+    \entry{faire de la randonnée}{}{}{to hike}{}
+    
+    \entry{visiter une région / une ville / un village / un musée}{}{}{to visit a region / a city / a village / a museum}{}
+    
+    \entry{sortir avec les amis}{}{}{to go out with friends}{}
+    
+    \entry{aller en boîte de nuit}{}{}{to go to a nightclub}{}
+    
+    \entry{danser}{}{}{to dance}{}
+    
+    \entry{aller au restaurant}{}{}{to go to a restaurant}{}
+\end{multicols}
+
+\subsubsection*{Les services}
+{\small services}
+\begin{multicols}{2}
+    \entry{la location de voiture}{}{n.f.}{car rental}{}
+    
+    \entry{le parking}{}{n.m.}{parking}{}
+    
+    \entry{la piscine}{}{n.f.}{swimming pool}{}
+    
+    \entry{le wifi}{}{n.m.}{Wi-Fi}{}
+    
+    \entry{le petit déjeuner inclus}{}{n.m.}{breakfast included}{}
+    
+    \entry{les animaux acceptés}{}{n.m. pl.}{pets allowed}{}
+    
+    \entry{le service de blanchisserie}{}{n.m.}{laundry service}{}
+    
+    \entry{la climatisation}{}{n.f.}{air conditioning}{}
+\end{multicols}
+
+\subsubsection*{Les objets}
+{\small objects}
+\begin{multicols}{2}
+    \entry{la valise}{}{n.f.}{suitcase}{}
+    
+    \entry{le passeport}{}{n.m.}{passport}{}
+    
+    \entry{le visa}{}{n.m.}{visa}{}
+    
+    \entry{la carte d'identité}{}{n.f.}{ID card}{}
+    
+    \entry{l'équipage de main}{}{n.m.}{carry-on luggage}{}
+    
+    \entry{le sac de voyage}{}{n.m.}{travel bag}{}
+    
+    \entry{l'appareil photo}{}{n.m.}{camera}{}
+    
+    \entry{la crème solaire}{}{n.f.}{sunscreen}{}
+    
+    \entry{le parasol}{}{n.m.}{sun umbrella}{}
+    
+    \entry{l'anti-moustique}{}{n.m.}{mosquito repellent}{}
+    
+    \entry{la casquette}{}{n.f.}{cap}{}
+    
+    \entry{le maillot de bain}{}{n.m.}{swimsuit}{}
+    
+    \entry{la serviette}{}{n.f.}{towel}{}
+    
+    \entry{le chargeur de téléphone}{}{n.m.}{phone charger}{}
+\end{multicols}
+
+\subsubsection*{Autres expressions}
+{\small other expressions}
+\begin{multicols}{2}
+    \entry{prendre des vacances}{}{}{to take a vacation}{}
+    
+    \entry{prendre des congés}{}{}{to take time off}{}
+    
+    \entry{les grandes vacances}{}{n.f. pl.}{summer break / long holidays}{}
+\end{multicols}
+
+\subsection{Phrase}
+\begin{enumerate}
+    \item \textbf{le long de / au fil de}\footnote{along} \\
+    e.g., Faire une promenade\footnote{walk} \textbf{le long de/ au fil de} la côte, de la Seine, de la rivière.
+    \item \textbf{au bord de / en bord de}\footnote{by, on the edge of} \\
+    e.g., Faire une promenade au bord de / en bord de la mer, de la rivière, de le lac.
+    \item Parler des ses \textbf{projets}\footnote{plan}
+    \begin{itemize}
+        \item commencer à + infinitif $\neq$ arrêter de + infinitif
+        \item avoir des projets
+        \item croire que + futur, espérer que + futur
+        \item penser + infinitif
+    \end{itemize}
+    \item \textbf{Exprimer la possibilité}: peut-être (=50\%) = probablement $\neq$ certainement/ sûrement
+\end{enumerate}
+
+\section{Grammaire}
+\subsection{L'expression du temps}
+\begin{enumerate}
+    \item \textbf{Pour parler des jours de la semaine}:
+    \begin{center}
+        lundi = le prochain lundi \\
+        le lundi = chaque lundi
+    \end{center}
+    e.g., Aujourd'hui on est lundi\footnote{Today is Monday}. J'arrive mardi. Je travaille le dimanche.
+    \item \textbf{Pour parler des mois de l'année}:
+    \begin{center}
+        \textcolor{orange}{en} janvier = \textcolor{orange}{au} mois de janvier
+    \end{center}
+    e.g., Mes vacances sont au mois d'août. = Mes vacances sont en août.
+    \item \textbf{Parler de la date}
+    \begin{center}
+        01/09 $\Rightarrow$ Le premier septembre, 12/04 $\Rightarrow$ Le douze avril 
+    \end{center}
+    e.g., Il est né le 15 septembre 2008.
+    \item \textbf{Parler des saisons}
+    \begin{center}
+        \textbf{le} printemps - \textbf{l'}été - \textbf{l'}automne - \textbf{l'}hiver \\
+        \textbf{au} printemps - \textbf{en} été - \textbf{en} automne - \textbf{en} hiver
+    \end{center}
+    e.g., C'est le printemps. Je suis né au printemps.
+\end{enumerate}
+
+
+
+
+\end{document}
