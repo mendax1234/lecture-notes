@@ -149,7 +149,7 @@ public class FileClassDemo {
 #### Code Explanation
 
 1. This code creates a `File` object to represent a file `fruits.txt` that exists in the `data` directory relative to the current working directory and uses that object to print some properties of the file.
-2. On Windows, you can just write your using forward slash "`/`".
+2. On Windows, you can just write your path using forward slash "`/`".
 {% endhint %}
 {% endstep %}
 

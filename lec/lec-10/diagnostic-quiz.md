@@ -41,7 +41,7 @@ Method m3 calls method m4 of self.
 Using the convention we have defined at the beginning, we can know that
 
 1. `m2(f)` is a method from `b`.
-2. `m2(f)` calls `m3()` from `f` and the ncalls `m4()` from itself.
+2. `m2(f)` calls `m3()` from `f` and then calls `m4()` from itself.
 
 Thus, the statement is False because its `m2(f)`, not `m3()` that calls `m4()`.
 

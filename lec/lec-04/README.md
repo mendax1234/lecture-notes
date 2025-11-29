@@ -47,8 +47,8 @@ Statement 2, 3 and 6 are obviously ok, and statement 1 and 4 are obviously not O
 
 Let's recall the rule we have learned in CS2030S.
 
-1. To see whether a code will generate compile-error or not, we **only** see the CTT of the variable and the type casting. The casted type must be the subtype of CTT of L.H.S and should be withn the type hierarchy (either subtype of supertype) of the CTT of R.H.S
-2. Run-time error judgement **only** needs us to see the RTT of the variable. We **must** ignore the type casting! So, during the run-time, we can just **ignore** the type casting and see the subtype relationship between the RTT of the L.H.S and R.H.S variable.
+1. To see whether a code will generate compile-error or not, we **only** see the CTT of the variable and the type casting. The casted type must be the subtype of CTT of L.H.S and should be within the type hierarchy (either subtype of supertype) of the CTT of R.H.S.
+2. Run-time error judgment **only** needs us to see the RTT of the variable. We **must** ignore the type casting! So, during the run-time, we can just **ignore** the type casting and see the subtype relationship between the RTT of the L.H.S and R.H.S variable.
 
 So, obviously, statement 5 won't generate a compile-error. Instead, it will generate a **runtime error** because the RTT of o1 is `Shape`, and it is **not a subtype** of `Box`.
 {% endstep %}

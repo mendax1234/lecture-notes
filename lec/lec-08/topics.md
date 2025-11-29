@@ -237,7 +237,7 @@ Here, an `Admin` uses a `Student` while a `Student` is used by an `Admin`.
 {% step %}
 #### Association Roles
 
-_**Association Role**_ are used to indicate the **role played by the classes** in the association. We have two classes involved in an association, thus there are two **roles**.
+_**Association Roles**_ are used to indicate the **role played by the classes** in the association. We have two classes involved in an association, thus there are two **roles**.
 
 <figure><img src="../../.gitbook/assets/association-role.png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
@@ -245,7 +245,7 @@ _**Association Role**_ are used to indicate the **role played by the classes** i
 {% step %}
 #### Association Class
 
-To know what an association class in Java is, please read this [part](topics.md#java-association-class) in advance. In a class diagram, association classes are denoted as a connection to an association link using a d**ashed line** as shown below.
+To know what an association class in Java is, please read this [part](topics.md#java-association-class) in advance. In a class diagram, association classes are denoted as a connection to an association link using a **dashed line** as shown below.
 
 <figure><img src="../../.gitbook/assets/uml-association-class.png" alt="" width="416"><figcaption></figcaption></figure>
 {% endstep %}
@@ -336,7 +336,7 @@ class Logic {
 {% endstep %}
 {% endstepper %}
 
-We use the following notation to draw **multiplicty** in the class diagram
+We use the following notation to draw **multiplicity** in the class diagram.
 
 <figure><img src="../../.gitbook/assets/multiplicity-notation.png" alt="" width="544"><figcaption></figcaption></figure>
 
@@ -345,7 +345,7 @@ Below are some commonly used multiplicities:
 * `0..1` : _optional_, can be linked to 0 or 1 objects.
 * `1` : _compulsory_, must be linked to one object at all times.
 * `*` : can be linked to 0 or more objects.
-* `n..m` : the number of linked objects must be within `n` to `m` inclusive e.g., `2..5`, `1..*` (one or more), `*..5` (up to five)
+* `n..m` : the number of linked objects must be within `n` to `m` **inclusive** e.g., `2..5`, `1..*` (one or more), `*..5` (up to five)
 
 {% hint style="warning" %}
 **There is no&#x20;**_**default**_**&#x20;multiplicity** in UML. If a class diagram does not show the multiplicity of an association, it simply means the _multiplicity is unspecified_.

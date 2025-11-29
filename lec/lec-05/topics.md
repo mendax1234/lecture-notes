@@ -42,7 +42,7 @@ The call to the `speak()` method in the code below always executes the `speak()`
 
 > As we have seen in [CS2030S](https://wenbo-notes.gitbook.io/cs2030s-notes/lec-rec-lab-exes/lecture/lec-04-exception-and-wrapper-classes#exceptions-are-always-triggered-at-run-time), exceptions are always triggered at run-time!
 
-Casting to an incompatible type can result in a `ClassCastException` at **runtime**.
+Casting to an incompatible type can result in a `ClassCastException` at **runtime**. If the casting is incompatible at the compile time, a **compile time error** (not exception) will be given.
 {% endstep %}
 
 {% step %}
@@ -226,14 +226,14 @@ Access level modifiers determine whether other classes can use a particular fiel
    * **`private`**: the member can only be accessed in its own class
    * **`protected`**: the member can only be accessed within its own package (as with package-private) and, in addition, by a subclass of its class in another package
 
-The following table shows the access to members permitted by each modifier.
+The following table shows the access to **members** permitted by each modifier.
 
-| Modifier    | Class | Package | Subclass | World  |
-| ----------- | ----- | ------- | -------- | ------ |
-| `public`    | ✅     | ✅       | ✅        | ✅      |
-| `protected` | ✅     | ✅       | ✅        | :wrong |
-| no modifier | ✅     | ✅       | ❌        | ❌      |
-| `private`   | ✅     | ❌       | ❌        | ❌      |
+| Modifier    | Class | Package | Subclass | World |
+| ----------- | ----- | ------- | -------- | ----- |
+| `public`    | ✅     | ✅       | ✅        | ✅     |
+| `protected` | ✅     | ✅       | ✅        | ❌     |
+| no modifier | ✅     | ✅       | ❌        | ❌     |
+| `private`   | ✅     | ❌       | ❌        | ❌     |
 
 ### Java Exceptions
 
@@ -617,7 +617,7 @@ Choose the correct statements
 * [ ] &#x20;a. User stories are short and written in a formal notation.
 * [ ] &#x20;b. User stories is another name for use cases.
 * [ ] &#x20;c. User stories describes past experiences users had with similar systems. These are helpful in developing the new system.
-* [x] &#x20;d. User stories are not detailed enough to tell us exact details of the produc
+* [x] &#x20;d. User stories are not detailed enough to tell us exact details of the product
 
 ​**Explanation**: Only d is correct. User stories are short and written in natural language, NOT in a formal language. They are used for estimation and scheduling purposes but do not contain enough details to form a complete system specification.
 {% endstep %}
