@@ -185,6 +185,38 @@ _Logging_ is the deliberate recording of certain information during a program ex
 A log file is like the black box of an airplane.
 {% endhint %}
 
+#### Creating a Logger
+
+To use the default Java logging system, import `java.util.logging.*`. We obtain a logger instance using a factory method.
+
+{% code lineNumbers="true" %}
+```java
+// Standard syntax
+private static final Logger logger = Logger.getLogger(MyClass.class.getName());
+```
+{% endcode %}
+
+{% hint style="danger" %}
+Although we can use arbitrary names (e.g., "Foo"), it is **recommended** to use the class name: `Logger.getLogger(MyClass.class.getName())`.
+{% endhint %}
+
+#### Logging Levels (Hierarchy)
+
+Java assigns a level of importance to every log message. This hierarchy determines which messages are important enough to be saved. The standard levels from highest to lowest are:
+
+* **SEVERE** (Highest): Critical failures (crashes).
+* **WARNING**: Potential issues.
+* **INFO**: Standard operational messages (e.g., "Start", "Stop").
+* **CONFIG**: Configuration details.
+* **FINE / FINER / FINEST** (Lowest): Detailed tracing for debugging.
+
+#### Filtering Mechanism
+
+The Logger acts as a filter (like a volume threshold). We set a specific level for the Logger, and it will only output messages that are **equal to or higher** than that level.
+
+* If Level is set to **WARNING**: It records `WARNING` and `SEVERE`. (It ignores `INFO` and below).
+* If Level is set to **INFO**: It records `INFO`, `WARNING`, and `SEVERE`.
+
 ### Java Assertions
 
 **Assertions** are used to define assumptions about the program state so that the runtime can verify them. If the runtime detects an **assertion failure**, it typically takes some drastic action such as terminating the execution with an error message.&#x20;
