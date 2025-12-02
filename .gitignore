@@ -1,0 +1,14 @@
+# ==========================
+# System & Editor Junk
+# ==========================
+# VSCode
+.DS_Store
+.vscode/
+*.swp
+*~
+
+# MkDocs
+.venv/
+site/
+__pycache__/
+.cache/
