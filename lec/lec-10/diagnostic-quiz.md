@@ -8,10 +8,16 @@
 
 <figure><img src="../../.gitbook/assets/quiz10-1-2.png" alt="" width="434"><figcaption></figcaption></figure>
 
-This is the correct way to show a for-loop.
+This is the correct way to show a for-loop?
 
-* [x] True
-* [ ] False
+* [ ] True
+* [x] False
+
+Because the keyword to use is `loop`, not `for`.
+
+{% hint style="warning" %}
+This question has appeared in CS2113 AY25/26 Sem 1 Final!
+{% endhint %}
 
 ### 1-12. Sequential Diagrams Alternative Paths
 
