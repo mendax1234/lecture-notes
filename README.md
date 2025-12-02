@@ -7,7 +7,7 @@
 
 ---
 
-## 🛠 Development
+## Development
 
 This repository hosts the source code for my MkDocs documentation site.
 
@@ -21,7 +21,7 @@ This repository hosts the source code for my MkDocs documentation site.
 1. **Clone & Install**
 
    ```bash
-   git clone [https://github.com/mendax1234/lecture-notes.git](https://github.com/mendax1234/lecture-notes.git)
+   git clone https://github.com/mendax1234/lecture-notes.git
    cd lecture-notes
    
    # Recommended: Use a virtual environment
