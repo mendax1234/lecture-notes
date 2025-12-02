@@ -30,6 +30,7 @@ theme:
     - navigation.tabs # Top-level tabs for major sections
     - navigation.sections # Clean sidebar grouping
     - navigation.path
+    - navigation.indexes # index pages merged into sidebar
     - navigation.top # "Back to top" button
     - content.code.copy # Copy button on code blocks
 
@@ -41,7 +42,6 @@ plugins:
   - git-committers:
       repository: mendax1234/lecture-notes
       branch: main
-  - print-site # Print-friendly version of pages
 
 # Extensions essential for Hardware Docs
 markdown_extensions:
@@ -59,8 +59,12 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.arithmatex: # LaTeX Math support
       generic: true
-  - toc:
+  - toc: # Table of Contents Settings
       toc_depth: 3
+  - md_in_html
+  - pymdownx.emoji: # Emoji support
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 # MathJax Setup (Required for rendering Equations)
 extra_javascript:
@@ -76,13 +80,18 @@ extra:
 nav:
   - Home: index.md
   - Year 1:
+    - year-1/index.md
     - Semester 1:
-      - CS1010 Programming Methodology: year-1/CS1010.md
-      - CG1111A Engineering Principles and Practice I: year-1/CG1111A.md
-      - MA1511 Engineering Calculus: year-1/MA1511.md
-      - MA1512 Differential Equations for Engineering: year-1/MA1512.md
-      - EG1311 Design and Make: year-1/EG1311.md
-      - LAF1201 French I: year-1/LAF1201.md
+      - year-1/sem-1/index.md
+      - CS1010 Programming Methodology: year-1/sem-1/CS1010.md
+      - CG1111A Engineering Principles and Practice I: year-1/sem-1/CG1111A.md
+      - MA1511 Engineering Calculus: year-1/sem-1/MA1511.md
+      - MA1512 Differential Equations for Engineering: year-1/sem-1/MA1512.md
+      - EG1311 Design and Make: year-1/sem-1/EG1311.md
+      - LAF1201 French I: year-1/sem-1/LAF1201.md
+    - Semester 2:
+      - year-1/sem-2/index.md
+      - CG2111A Engineering Principles and Practice II: year-1/sem-2/CG2111A.md
   # - Year 2:
   # - Year 3:
   # - Year 4:
