@@ -5,8 +5,6 @@
 
 > **Looking for the notes?** > Access the rendered site here: **[The Core Dump](https://mendax1234.github.io/lecture-notes/)**
 
----
-
 ## Development
 
 This repository hosts the source code for my MkDocs documentation site.
