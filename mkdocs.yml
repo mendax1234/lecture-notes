@@ -59,6 +59,9 @@ plugins:
   - git-committers:
       repository: mendax1234/lecture-notes
       branch: main
+  - optimize:         # Compresses all images for faster loading
+      enabled: true
+      cache: true     # Speeds up future builds by not re-doing unchanged images
 
 # ==============================================================================
 # 4. MARKDOWN EXTENSIONS (Grouped by Function)
