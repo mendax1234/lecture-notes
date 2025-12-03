@@ -6,6 +6,7 @@ repo_name: mendax1234/lecture-notes
 # Theme configuration
 theme:
   name: material
+  custom_dir: overrides # For theme customizations
   palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
@@ -32,6 +33,7 @@ theme:
     - navigation.path
     - navigation.indexes # index pages merged into sidebar
     - navigation.top # "Back to top" button
+    - navigation.footer # The previous/next links at the bottom of each page
     - content.code.copy # Copy button on code blocks
 
 plugins:
