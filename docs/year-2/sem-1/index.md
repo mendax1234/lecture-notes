@@ -13,4 +13,8 @@ The course reviews for this semester can be found below (The two not shown on th
 
     [View Course Review](CG3207.md)
 
+- __CG2027__
+
+    [View Course Review](CG2027.md)
+
 </div>
