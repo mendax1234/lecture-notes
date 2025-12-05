@@ -17,4 +17,16 @@ The course reviews for this semester can be found below (The two not shown on th
 
     [View Course Review](CG2027.md)
 
+- __CS2113__
+
+    [View Course Review](CS2113.md)
+
+- __LAF3202__
+
+    [View Course Review](LAF3202.md)
+
+- __ES2631__
+
+    [View Course Review](ES2631.md)
+
 </div>
