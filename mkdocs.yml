@@ -128,3 +128,8 @@ nav:
       - year-1/sem-2/index.md
       - CG2111A Engineering Principles and Practice II: year-1/sem-2/CG2111A.md
       - CS2030S Programming Methodology II: year-1/sem-2/CS2030S.md
+  - Year 2:
+    - year-2/index.md
+    - Semester 1:
+      - year-2/sem-1/index.md
+      - CG3207 Computer Architecture: year-2/sem-1/CG3207.md
