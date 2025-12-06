@@ -1,0 +1,1275 @@
+\documentclass[math,code]{amznotes}
+\setcounter{tocdepth}{2}  % Only show subsections and sections in the ToC
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage{tabularx}
+\usepackage{float} % Needed for [H] placement specifier
+\usepackage{wrapfig} % Needed for wrapping figures
+\usepackage{diagbox} % For diagonal split in table
+\usepackage{booktabs} % For better table formatting
+\usepackage[normalem]{ulem} % For table usage
+\useunder{\uline}{\ul}{} % For table usage
+\usepackage{multirow}
+
+\graphicspath{ {./images/} }
+\geometry{
+    a4paper,
+    headheight = 1.5cm
+}
+
+\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}
+
+\theoremstyle{remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{remark}{Remark}
+\newtheorem{case}{Case}
+
+\newcommand{\entry}[5]{\markboth{#1}{#1}\textbf{#1}\ {(#2)}\ \textit{#3}\ $\bullet$\ \textbf{\textit{#4}} \begin{small}#5\end{small}}  % Defines the command to print each word on the page, \markboth{}{} prints the first word on the page in the top left header and the last word in the top right
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+\fancyhead[L]{
+    French 4
+}
+\fancyhead[R]{
+    Lecture Notes
+}
+\tableofcontents
+\chapter{Unité 5}
+\section{La place des adjectifs}
+L'adjectif donne une information ou une précision sur quelque chose ou quelqu'un.
+\begin{enumerate}
+    \item En général, l'adjectif se place \textcolor{orange}{\textbf{après le nom}}.
+    \item Mais certains adjectifs se placent \textcolor{orange}{\textbf{avant le nom}}.
+        \begin{table}[h]
+            \centering
+            \begin{tabularx}{\textwidth}{|X|X|X|}
+            \hline
+            \textbf{Les adjectifs courts et fréquents} & petit, grand, gros, beau, joli, bon, mauvais, vieux, autre, nouveau & C'est un \textbf{beau} voyage. \\
+            \hline
+            \textbf{ Les adjectifs qui indiquent un classement} & premier, deuxième, troisième, dernier & Il habite au \textbf{deuxième} étage. \\
+            \hline
+            \end{tabularx}
+        \end{table}
+        \begin{notebox}
+            \textbf{Attention}:
+                \begin{enumerate}
+                    \item Such kind of rules are summarized into a rule called, ``BAGS'' (\textbf{B}eauty, \textbf{A}ge, \textbf{G}ood, \textbf{S}ize). Les adjectifs comme, \textit{petit, grand, gros, beau, joli, bon, mauvais, vieux, autre, nouveau, ...}
+                    \item Devant un nom masculin qui commence par une voyelle ou un \textit{h} meut:
+                    \begin{center}
+                        beau $\rightarrow$ bel, vieux $\rightarrow$ vieil, nouveau $\rightarrow$ nouvel
+                    \end{center}
+                    e.g., C'est un \textbf{bel} \underline{h}omme!
+                    \item Pour l’année, le mois ou la semaine, \textit{dernier} est après le nom. \\
+                    e.g., La semaine \textbf{dernière}, je suis allé en France.
+                \end{enumerate}
+        \end{notebox}
+    \item Certains \textcolor{orange}{\textbf{changent de sens}} s'ils sont places avant ou après le nom.    
+    \begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \multicolumn{1}{|c|}{ancien}  & \begin{tabular}[c]{@{}l@{}}qui était mais n'est plus\\ qui est vieux\end{tabular}        & \begin{tabular}[c]{@{}l@{}}mon ancienne maison\\ une maison ancienne\end{tabular}     \\ \hline
+    \multicolumn{1}{|c|}{curieux} & \begin{tabular}[c]{@{}l@{}}étrange, bizarre\\ qui a de l’intérêt pour\end{tabular}       & \begin{tabular}[c]{@{}l@{}}une curieuse personne\\ une personne curieuse\end{tabular} \\ \hline
+    grand                         & \begin{tabular}[c]{@{}l@{}}célébré\\ de grande taille\end{tabular}                       & \begin{tabular}[c]{@{}l@{}}un grand homme\\ un homme grand\end{tabular}               \\ \hline
+    nouveau                       & \begin{tabular}[c]{@{}l@{}}différent de ceux que l'on a\\ imprimé récemment\end{tabular} & \begin{tabular}[c]{@{}l@{}}un nouveau livre\\ un livre nouveau\end{tabular}           \\ \hline
+    seul                          & \begin{tabular}[c]{@{}l@{}}unique\\ solitaire\end{tabular}                               & \begin{tabular}[c]{@{}l@{}}un seul homme\\ un homme seul\end{tabular}                 \\ \hline
+    \end{tabular}
+    \end{table}
+    \begin{notebox}
+        \textbf{Attention:}
+        \begin{enumerate}
+            \item Quand un adjectif pluriel est devant un nom, \textit{des} $\rightarrow$ de. \\
+            e.g., Il apprend \textbf{de} nouvelles choses.
+            \item A l'oral, si on veux insister sur l'adjectif, on le place avant le nom.
+        \end{enumerate}
+    \end{notebox}
+\end{enumerate}
+
+\section{Les pronoms en et y}
+Les pronoms \textit{en} et \textit{y} sont des pronoms \textbf{indirects}.
+\begin{enumerate}
+    \item \textcolor{orange}{\textbf{en}} remplace un nom qui exprime \textcolor{orange}{\textbf{une quantité}}. Si la quantité est précise, on peut l'indiquer. \\
+    \underline{Des pas}\footnote{pas: footsteps}? J'\textbf{en} fais tous les jours. \\
+    \underline{Des pas}? Mon application \textbf{en} compte 12 345.
+    \item \textcolor{orange}{\textbf{en}} remplace une chose, une idée ou un animal avec \textcolor{orange}{\textbf{un verbe construit avec la préposition \textit{de}}}. \\
+    e.g., Ils sont fiers \underline{de} cette victoire $\rightarrow$ Ils \textbf{en} sont fiers. (être fier de\footnote{be pround of} quelque chose)
+    \item \textcolor{orange}{\textbf{y}} remplace \textcolor{orange}{\textbf{un lieu}} \\
+    e.g., On allait \underline{au bureau} à pied. $\rightarrow$ On \textbf{y} allait à pied.
+    \begin{notebox}
+            Quand il s'agit d'un lieu d’où l'on vient, on utilise \textbf{en} car le verbe utilise \textit{de}. \\
+            e.g., On revient \underline{de} Paris. $\rightarrow$ On \textbf{en} revient. 
+    \end{notebox}
+    \item \textcolor{orange}{\textbf{y}} remplace une chose, une idée ou un animal avec \textcolor{orange}{\textbf{un verbe construit avec la préposition \textit{à}}}. \\
+    e.g., L’équipe a participe \underline{à} cet événement $\rightarrow$ Elle \textbf{y} a participe. (participer à quelque chose)
+    \begin{notebox}
+        La regle est la meme avec \textit{au} (= à + le). \\
+        e.g., L'équipe a participé \underline{au} défi\footnote{défi: challenge}. $\rightarrow$ Elle \textbf{y} a participé.
+    \end{notebox}
+    \item Les pronoms \textcolor{orange}{\textbf{en}} et \textcolor{orange}{\textbf{y}} se placent généralement \textbf{avant le verbe}. \\
+    e.g., J'\textbf{y} vais. J'\textbf{en} acheté. N'\textbf{en} achète pas!
+    \begin{notebox}
+        \textbf{Attention}
+        \begin{enumerate}
+            \item Sauf \footnote{sauf: except that} à l’impératif et c'est à la forme affirmative. e.g., Vas-\textbf{y}! Mais, à la forme négative, c'est normal, N’\textbf{y} va pas!
+            \item On ajoute un \textit{-s} aux verbes en \textit{-er}, à la $2^\text{e}$ personne du singulier. e.g., Mange\textbf{s-en}! Achète\textbf{s-en} trois!
+        \end{enumerate}
+    \end{notebox}
+    \item \textbf{Plusieurs exemples classiques}
+    \begin{itemize}
+        \item N'oublie pas de m'\textbf{en} envoyer \underline{une ou deux}.
+        \item Tu te souviens de ce voyage? $\rightarrow$ Je ne m'\textbf{en} souviens pas.
+        \item Je voudrais participer à ce défi. Et toi? $\rightarrow$ Oui, je voudrais \textbf{y} participer.
+        \item Je rêve d'aller en Australie. Et toi? $\rightarrow$ Oui, j'\textbf{en} rêve./Non, je \textbf{n'en} rêve pas.
+        \item Je vais manger des pommes. $\rightarrow$ Oui, je vais \textbf{en} manger./ Non, je ne vais pas \textbf{en} manger.
+        \item Je me suis occupé de ça $\rightarrow$ Je m'\textbf{en} suis occupé.
+    \end{itemize}
+\end{enumerate}
+
+\section{La négation}
+La négation a deux éléments qui entourent le verbe conjugué \footnote{that surround the conjugated verb}.
+\begin{center}
+    \textcolor{orange}{\textbf{ne}} + verbe conjugué + \textcolor{orange}{\textbf{pas}}
+\end{center}
+\begin{enumerate}
+    \item Pour exprimer une négation, on peut utiliser:
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{|l|l|}
+            \hline
+            \textbf{négations} & \textbf{exemples} \\ \hline
+            ne...pas & Ça \textbf{ne} change \textbf{pas}. \\ \hline
+            ne...plus ($\neq$ encore) & Ça \textbf{ne} change \textbf{plu}s. \\ \hline
+            ne...jamais ($\neq$ toujours) & Ça \textbf{ne} change \textbf{jamais}. \\ \hline
+            ne...personne ($\neq$ quelqu'un) & Ça \textbf{ne} change \textbf{personn}e. \\ \hline
+            ne...rien ($\neq$ quelque chose) & Ça \textbf{ne} change \textbf{rien}. \\ \hline
+            ne...ni...ni (pour deux éléments) & Ça \textbf{ne} change \textbf{ni} ma décision \textbf{ni} celle de ton père. \\ \hline
+        \end{tabular}
+    \end{table}
+    \item Au \textcolor{orange}{\textbf{futur proche}}:
+    \begin{center}
+        sujet + \textcolor{orange}{\textbf{ne}} + aller + \textcolor{orange}{\textbf{pas}} + verbe à l'infinitif
+    \end{center}
+    e.g., Ça \textbf{ne} va \textbf{jamais} changer.
+    \item Au \textbf{passé composé}
+    \begin{center}
+        sujet + \textcolor{orange}{\textbf{ne}} + avoir/être + \textcolor{orange}{\textbf{pas}} + participe passé
+    \end{center}
+    e.g., Ça \textbf{n'}a \textbf{jamais} changé.
+    \begin{notebox}
+        Sauf avec \textit{ne$\cdots$ personne} $\rightarrow$ sujet + \textbf{ne} + avoir/être + participe passé + \textbf{personne} \\
+        e.g., Ça \textbf{n}'a changé \textbf{personne}.
+    \end{notebox}
+    \item A l'oral, on ne prononce pas toujours le \textit{ne}. \\
+    e.g., Ça (ne) change pas!
+    \begin{notebox}
+        C'est pour \textit{pas} seulement.
+    \end{notebox}
+    \item \textbf{Plusieurs exemples classiques}
+    \begin{itemize}
+        \item Il \textbf{ne} faut \textbf{rien} manger de gras.
+        \item Tu \textbf{ne} dois \textbf{jamais} rater\footnote{rater: miss} ton entraînement\footnote{entraînement: training}.
+        \item Il \textbf{ne} faut \textbf{ni} manger trop \textbf{ni} se coucher\footnote{se coucher: go to bed} tard.
+        \item Thomas Pesquet \textbf{ne} s'est \textbf{jamais} marié.
+        \item Il \textbf{ne} va \textbf{plus} retourner dans la Station spatiale internationale.
+        \item Dans mon equipe, tout le monde a un handicap. $\rightarrow$ $\cdots$, \textbf{personne n'}a un handicap.
+        \item Avant, il y avait beaucoup d'articles. $\rightarrow$ Avant, il \textbf{n'}y avait \textbf{aucun}\footnote{aucun: none} article.
+    \end{itemize}
+\end{enumerate}
+
+\section{Le préfixe pour le contraire}
+On ajoute \textbf{dé- / dés- / in- / im- / ir- / il- / mal-} devant un adjectif pour former le contraire.
+\begin{enumerate}
+    \item Le choix dépend souvent de la lettre qui suit pour que ce soit plus facile à prononcer\footnote{The choice often depends on the letter that follows to make it easier to pronounce.}
+    \begin{itemize}
+        \item \textbf{im-} devant \textit{m} ou \textit{p} (e.g., impatient, impossible)
+        \item \textbf{ir-} devant \textit{r} (e.g., irresponsable, irréel)
+        \item \textbf{il-} devant \textit{l} (e.g., illogique, illisible)
+        \item \textbf{in-} dans les autres cas (e.g., incapable, injuste)
+        \item \textbf{dé- / dés-} pour certains \textbf{verbes/adjectifs} (e.g., désorganisé, démodé)
+        \item \textbf{mal-} parfois pour donner une idée de ``\textit{mal fait}''\footnote{mal fait: badly done} (e.g., malhonnête, maladroit).
+    \end{itemize}
+    \item \textbf{Plusieurs exemples classiques}: \textbf{mal}honnête $\rightarrow$ honnête, \textbf{dés}agréable $\rightarrow$ agréable, \textbf{dés}ordonné $\rightarrow$ ordonné, \textbf{mal}adroit $\rightarrow$ adroit, \textbf{ir}responsable $\rightarrow$ responsable, \textbf{im}poli $\rightarrow$ poli, \textbf{im}prudent $\rightarrow$ prudent\footnote{prudent: careful, cautious}
+\end{enumerate}
+
+\chapter{Unité 6}
+\section{Le superlatif}
+Le superlatif exprime la supériorité ou l'infériorité.
+\begin{table}[h]
+    \begin{tabularx}{\textwidth}{|X|X|X|}
+    \hline
+                                      & \textbf{La supériorité} (+)                           & \textbf{L'infériorité} (-)           \\ \hline
+    \multirow{3}{*}{\textbf{avec un adjectif}} & Cet exercice est \textbf{le plus} difficile.                   & Cet exercice est \textbf{le moins} difficile.                  \\ \cline{2-3} 
+                                      & Hiba est \textbf{la plus} grande.                              & Xiao est \textbf{la moins} grande.                             \\ \cline{2-3} 
+                                      & Ce sont \textbf{les plus} sérieux de la classe.                & Ce sont \textbf{les moins} sérieux de la classe.               \\ \hline
+    \textbf{avec un adverbe}                   & C'est l'homme qui court \textbf{le plus} vite.                 & C'est l'homme qui court \textbf{le moins} vite.                \\ \hline
+    \textbf{avec un nom}                       & Paris est la ville qui a \textbf{le plus} de touristes par an. & C'est le pays où il y a \textbf{le moins} de touristes par an. \\ \hline
+    \textbf{avec un verbe}                     & C'est elle qui mange \textbf{le plus}.                         & C'est lui qui mange \textbf{le moins}.                         \\ \hline
+    \end{tabularx}
+\end{table}
+\begin{notebox}
+    \textbf{Attention}! 
+    \begin{enumerate}
+        \item Quand l'adjectif est après le nom, il faut répéter l'article défini avant l'adjectif. \\
+        e.g., Hiba est \textbf{la} femme \textbf{la plus} grande de la classe.
+        \item Plusieurs exemples classiques
+        \begin{itemize}
+            \item bon $\rightarrow$ le(s), la meilleur(e)(s). e.g., C'est \textbf{le meilleur} moyen d'apprendre!
+            \item mauvais $\rightarrow$ le(s), la pire(s). e.g., Ce sont \textbf{les pires} choses à manger!
+            \item bien $\rightarrow$ le(s), la mieux. e.g., C'est \textbf{le mieux} habillé.
+        \end{itemize}
+    \end{enumerate}
+\end{notebox}
+\begin{enumerate}
+    \item Le superlatif peut avoir un complément introduit par \textcolor{orange}{\textbf{de}}. \\
+    e.g., C'est le plus beau jour \textbf{de} ma vie!
+    \item L'article (l\textit{e, la, les}) peut-être remplace par un \textbf{possessif}. \\
+    e.g., C'est la meilleure amie de Chloé. $\rightarrow$ C'est \textbf{sa} meilleure amie.
+    \item \textbf{Plusieurs exemples classiques}
+    \begin{itemize}
+        \item Ce sont les épices\footnote{épice: spice} \textbf{les plus savoureuses}\footnote{savoureuse: delicious}.
+    \end{itemize}
+\end{enumerate}
+
+\section{Les pronoms interrogatifs}
+Pour interroger\footnote{interroger: query} parmi\footnote{parmi: among} des éléments déjà cites, on utilise \textit{lequel}, \textit{laquelle}, \textit{lesquels}, \textit{lesquelles}.
+\begin{enumerate}
+    \item Le pronom s'accorde en \textcolor{orange}{\textbf{genre}} et en \textcolor{orange}{\textbf{nombre}} avec l’élément cite et la réponse souhaitée (une ou des réponses)
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{|l|l|l|}
+        \hline
+         & \textbf{masculin} & \textbf{féminin} \\ \hline
+        \textbf{singulier} & lequel & laquelle \\ \hline
+        \textbf{pluriel} & lesquels & lesquelles \\ \hline
+        \end{tabular}
+    \end{table}
+    
+    \underline{Ces machines} sont extraordinaires. (féminin, pluriel). Vous avez préféré \textbf{laquelle}? (= une seule réponse) \\
+    Parmi \underline{ces appréciations.} (féminin, pluriel) \textbf{lesquelles} entendez-vous? (= plusieurs réponses)
+\end{enumerate}
+
+\section{Les adverbes}
+L'adverbe donne une précision sur un verbe, un adjectif ou un autre adverbe. Il est invariable.
+\begin{notebox}
+    \begin{remark}
+        L'adverbe n'ai pas besoin de s'accorder avec le \textcolor{orange}{\textbf{nombre}} et le \textcolor{orange}{\textbf{genre}}.
+    \end{remark}
+\end{notebox}
+\begin{enumerate}
+    \item En général, on ajoute \textcolor{orange}{\textbf{-ment}} au \textcolor{orange}{\textbf{féminin de l'adjectif}}. \\
+    Écoute \textbf{attentivement}. (attentif $\rightarrow$ attentive $\rightarrow$ attentivement) \\
+    Rédige\footnote{Rédiger: write} ce texte \textbf{immédiatement}. (immédiat $\rightarrow$ immédiate $\rightarrow$ immédiatement)
+    \item On ajoute \textcolor{orange}{\textbf{-ment}} au \textcolor{orange}{\textbf{masculin}} de l'adjectif termine par une \textcolor{orange}{\textbf{voyelle}}. \\
+    Il est \textbf{vraiment} incroyable! (var\underline{i} + -ment $\rightarrow$ vraiment) \\
+    Il est \textbf{incroyablement} beau. (incroyabl\underline{e} + -ment $\rightarrow$ incroyablement
+    \item Quand l'adjectif masculin se termine par \textcolor{orange}{\textbf{-ant}} ou \textcolor{orange}{\textbf{-ent}}, l'adverbe se termine par \textcolor{orange}{\textbf{-amment}} ou \textcolor{orange}{\textbf{-emment}}. \\
+    Prends \textbf{suffisamment} le temps! (suffis\underline{ant} $\rightarrow$ suffisamment) \\
+    As-tu lu \textbf{récemment} un livre? (réc\underline{ent} $\rightarrow$ récemment) 
+    \begin{notebox}
+        \textbf{Attention!} Il existe quelques cas particuliers:
+        \begin{multicols}{2}
+            précis $\rightarrow$ précisément
+            
+            profond $\rightarrow$ profondément
+
+            énorme $\rightarrow$ énormément
+
+            intense $\rightarrow$ intensément
+        \end{multicols}
+    \end{notebox}
+    \item L'adverbe se place \textcolor{orange}{\textbf{avant un adjectif ou un autre adverbe}}. \\
+    e.g., Il est \textbf{vraiment} drôle.
+    \item L'adverbe se place \textbf{après un verbe} au présent, imparfait, futur simple, etc. mais \textcolor{orange}{\textbf{entre l'auxiliaire et le participe passé}} au passé composé. Le futur proche aussi. Mais l’adverbe se place après le verbe pronominal (e.g., se placer), \\
+    Je travaille \textbf{énormément}. \\
+    J'ai \textbf{énormément} travaille.
+    \item \textbf{Plusieurs exemples classiques}
+    \begin{itemize}
+        \item Ma collègue va \textbf{sûrement} prendre des congés\footnote{congé: leave}.
+        \item Cette pause gourmande me fait \textbf{extrêmement} plaisir.
+        \item Elle est \underline{bruyante}. $\rightarrow$ Elle parle \textbf{bruyamment}.
+    \end{itemize}
+\end{enumerate}
+
+\chapter{Unité 7}
+\section{Passé composé et l'imparfait}
+Dans ce section, nous allons discuter de la différence entre le passé composé et l'imparfait.
+\begin{enumerate}
+    \item \textcolor{orange}{\textbf{L'imparfait}} indique \textcolor{orange}{\textbf{la situation}} de départ\footnote{starting situation}. \\
+    e.g., C'\textbf{était} en 2021. J'\textbf{étais} étudiant à l’université.
+    \item \textcolor{orange}{\textbf{L'imparfait}} indique \textcolor{orange}{\textbf{une habitude}} dans le passé et qui ne se passe pas maintenant. \\
+    Petit, j'\textbf{allais} souvent au marche avec ma grand-mère.\\
+    Tous les dimanches, nous \textbf{mangions} un poulet rôti\footnote{rôti: roasted}.
+    \item \textcolor{orange}{\textbf{L'imparfait}} présente \textcolor{orange}{\textbf{une émotion, une description}} \\
+    e.g., Le public \textbf{était} ravi. Elle \textbf{avait} un magnifique sourire\footnote{sourire: smile}.
+    \item \textcolor{orange}{\textbf{Le passé composé}} présente une \textcolor{orange}{\textbf{action passée}} à un moment précis. \\
+    e.g., Elle \textbf{a présente} sa première collection à New York.
+    \item \textcolor{orange}{\textbf{Le passé composé}} présente \textcolor{orange}{\textbf{une continuité}} avec le présent. \\
+    e.g., Elle s'\textbf{est} toujours \textbf{inspirée} de son héritage.
+    \item \textcolor{orange}{\textbf{Le passé composé}} indique \textcolor{orange}{\textbf{un changement}} dans la situation. \\
+    e.g., Elle \textbf{a} finalement \textbf{changé} de voie\footnote{voie n.f.: way}.
+    \item Dans un récit\footnote{récit: story}, on utilise le passé composé  et/ou l'imparfait selon les actions et les situations décrites. \\
+    e.g., Il \textbf{était} à l’université quand il \textbf{a décidé} d’être styliste. 
+\end{enumerate}
+\begin{notebox}
+    \textbf{Attention!}
+    \begin{enumerate}
+        \item Les mots comme \textcolor{orange}{\textbf{tout à coup, soudain, brusquement\footnote{suddenly}, un jour, a ce moment-là, alors, d'abord, puis, après, ensuite}}, etc, qui indiquent un changement dans le récit, s'utilisent avec \textbf{le passé composé}. \\
+        e.g., Je \textbf{dormais} profondément quand, \underline{tout à coup}, un bruit violent m'\textbf{a réveille}.
+        \item Pour \textbf{l'imparfait}, il y a quelque mots clés: \textcolor{orange}{\textbf{souvent, toujours, normalement, d'habitude, tous les jours, chaque jour, pendant que, quelque fois, rarement}}, etc.
+        \item Pour le verbe pronominal, comme \textcolor{orange}{\textbf{se laver}}, son imparfait est comme
+        \begin{center}
+            Sujet + pronom réfléchi + être + participe passé
+        \end{center}
+        e.g., Elles se sont rencontrées.
+    \end{enumerate}
+\end{notebox}
+
+\section{Le pronom indirect et direct}
+En français, il y a deux types de pronoms compléments
+\begin{enumerate}
+    \item le pronom complément d’objet direct (\textit{COD})
+    \item le pronom complément d’objet indirect (\textit{COI})
+\end{enumerate}
+\subsection{Le COD et le pronom direct}
+Le COD répond à la question ``qui ?'' ou ``quoi ?'' après le verbe, sans préposition. Par exemple,
+\begin{center}
+    Je vois Marie. $\rightarrow$ Je vois \textbf{qui}? $\rightarrow$ Marie (Marie, c'est COD ici)
+\end{center}
+On remplace le COD (Marie) par un pronom direct :
+\begin{center}
+    Je \textbf{la} vois.
+\end{center}
+Est le règle est suivant
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{masculin singulier} & \textbf{féminin singulier} & \textbf{pluriel} \\ \hline
+    le                 & la                & les     \\ \hline
+    \end{tabular}
+\end{table}
+
+Pour plus de exemples, nous avons suivant
+\begin{itemize}
+    \item Il mange \textbf{la pomme} $\rightarrow$ Il \textbf{la} mange.
+    \item Nous aimons \textbf{les films} $\rightarrow$ Nous \textbf{les} aimons.
+    \item Te vois le prof $\rightarrow$ Te \textbf{le} vois.
+\end{itemize}
+\subsection{Le COI et le pronom indirect}
+Le COI répond à la question ``à qui ?'' ou ``à quoi ?'' après le verbe, et il a toujours une préposition (souvent ``à''). Par exemple,
+\begin{center}
+    Le professeur permet \textbf{aux étudiants} de manger en classe. \\$\rightarrow$ Le professeur permet \textbf{à qui} ? $\rightarrow$ \textbf{aux étudiants} (C'est COI ici)
+\end{center}
+On remplace aux étudiants par le pronom indirect ``leur'' :
+\begin{center}
+    Le professeur \textbf{leur} permet de manger en classe.
+\end{center}
+Est le règle est suivant
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{singulier}   & \textbf{pluriel}       \\ \hline
+    lui (à lui / à elle) & leur (à eux / à elles) \\ \hline
+    \end{tabular}
+\end{table}
+
+Pour plus de exemples, nous avons suivant
+\begin{itemize}
+    \item Je parle \textbf{à Paul} $\rightarrow$ Je \textbf{lui} parle.
+    \item Tu écris \textbf{à tes amis} $\rightarrow$ Tu \textbf{leur} écris.
+    \item Elle téléphone \textbf{à sa mère} $\rightarrow$ Elle \textbf{lui} téléphone.
+\end{itemize}
+
+\section{La cause et la conséquence}
+On utilise les expressions de la \textcolor{orange}{\textbf{cause}} pour expliquer une situation. \\
+e.g., Je suis malade \textbf{parce que} \underline{j'ai attrapé froid hier.}\footnote{explication}
+
+On utilise les expressions de la \textcolor{orange}{\textbf{conséquence}} pour indiquer un résultat. \\
+J'ai attrape froid hier. \textbf{Donc}, \underline{je suis malade aujourd'hui.}\footnote{résultat}
+
+\begin{enumerate}
+    \item \textcolor{orange}{\textbf{La cause}}
+    \begin{table}[h]
+        \centering
+        \begin{tabularx}{\textwidth}{|X|X|X|}
+        \hline
+        \multicolumn{1}{|c|}{neutre} & \begin{tabular}[c]{@{}l@{}}...\textcolor{orange}{parce que}...\\ ...\textcolor{orange}{car}...\end{tabular} & \begin{tabular}[c]{@{}l@{}}J'ai créé Famicity \textbf{parce que / car}\\ mon grand-père me l'a demandé.\end{tabular} \\ \hline
+        \multicolumn{1}{|c|}{négative} & \begin{tabular}[c]{@{}l@{}}\textcolor{orange}{à cause de} + déterminant + nom\\ \textcolor{orange}{à cause de} + pronom\end{tabular} & \begin{tabular}[c]{@{}l@{}}Je suis en retard \textbf{à cause de} mon frère.\\ Je suis en retard \textbf{à cause de} lui.\end{tabular} \\ \hline
+        \multicolumn{1}{|c|}{positive} & \begin{tabular}[c]{@{}l@{}}\textcolor{orange}{grâce à} + déterminant + nom\\ \textcolor{orange}{grâce à} + pronom\end{tabular} & \begin{tabular}[c]{@{}l@{}}C'est \textbf{grâce à} mon grand-père.\\ C'est \textbf{grâce à} lui.\end{tabular} \\ \hline
+        \end{tabularx}
+    \end{table}
+
+    \begin{notebox}
+    \textbf{Attention}
+    \begin{enumerate}
+        \item On ne peut pas utiliser \textit{car} en début de phrase.
+        \item grâce a + le(s) $\rightarrow$ grâce au(x), à cause de + le(s) $\rightarrow$ à cause du/des \\
+        On peut faire beaucoup de choses \textbf{grâce aux} nouvelles technologies. \\
+        Je n'ai pas pu retrouver ma famille à la mer \textbf{à cause du} mauvais temps.
+    \end{enumerate}
+    \end{notebox}
+    \item \textcolor{orange}{\textbf{La conséquence}}
+    \begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{|X|X|X|}
+    \hline
+    \multicolumn{1}{|c|}{\textcolor{orange}{donc, alors}} & \begin{tabular}[c]{@{}l@{}}indique une conséquence\end{tabular} & \begin{tabular}[c]{@{}l@{}}Je voulais \textbf{donc} lui permettre de\\ créer un arbre généalogique.\\ \textbf{Alors}, pour se donner des \\nouvelles, c’était l’idéal.\end{tabular} \\ \hline
+    \multicolumn{1}{|c|}{\textcolor{orange}{c’est pourquoi}} & \begin{tabular}[c]{@{}l@{}}indique une conséquence\\ s’utilise surtout à l’écrit\end{tabular} & \begin{tabular}[c]{@{}l@{}}\textbf{C’est pourquoi} j’ai créé Famicity.\end{tabular} \\ \hline
+    \end{tabularx}
+    \end{table}
+
+    \begin{notebox}
+        C'est pourquoi s'utilise surtout à l’écrit.
+    \end{notebox}
+\end{enumerate}
+
+\section{Les indéfinis de quantité}
+Ces déterminants servent a exprimer une variation dans les quantités.
+\begin{enumerate}
+    \item \textcolor{orange}{\textbf{aucun(e)}}: quantité nulle \\
+    e.g., Je \textbf{ne} connais \textbf{aucune} de ses œuvres.
+    \begin{notebox}
+        Aucun(e) est toujours au singulier et s'utilise avec ne.
+    \end{notebox}
+    \item \textcolor{orange}{\textbf{chaque}}: quantité unitaire. \\
+    e.g., Une plante dans \textbf{chaque} pièce.
+    \begin{notebox}
+        Chaque est toujours au singulier.
+    \end{notebox}
+    \item \textcolor{orange}{\textbf{quelques}}: faible\footnote{adj. weak} quantité \\
+    e.g., Je connais \textbf{quelques} créateurs.
+    \begin{notebox}
+        Quelques est toujours au pluriel.
+    \end{notebox}
+    \item \textcolor{orange}{\textbf{plusieurs}}: quantité plus importante \\
+    e.g., J'ai assisté à \textbf{plusieurs} défiles.
+    \begin{notebox}
+        Plusieurs est toujours au pluriel.
+    \end{notebox}
+    \item \textcolor{orange}{tout(e), tou(te)s}: totalité \\
+    e.g., \textbf{Tous} les créateurs étaient réunis.
+    \begin{notebox}
+    \begin{enumerate}
+        \item Tout(e), tou(te)s s'accorde en genre et en nombre avec le nom qui suit.
+        \item On ne prononce pas le \textit{s} de \textit{tous} quand il détermine un nom. \\
+        e.g., Je n'ai pas acheté tou\underline{s} ces objets.
+    \end{enumerate}
+    \end{notebox}
+\end{enumerate}
+
+\section{La voix passive}
+On utilise la voix passive pour mettre l'accent sur l'objet qui subit l'action, plutôt que sur le sujet qui fait l'action. Le règle est suivant:
+\begin{center}
+    Nouveau objet + \textcolor{orange}{être (conjugué)} + \textcolor{orange}{Participe Passé} + par + agent\footnote{qui a fait l'action}
+\end{center}
+Par exemple,
+\begin{enumerate}
+    \item Le chat mange la souris. $\rightarrow$ La souris est \textbf{mangée} par le chat.
+    \item Il \textbf{a été créé} par Alphadi en 1998.
+\end{enumerate}
+
+\chapter{Unité 8}
+\section{L’impératif et les pronoms indirects}
+A l’impératif, pour remplacer une personne qui suit un verbe + \textit{à}, on utilise un pronom indirect. \\
+e.g., Tu parles \underline{à} mon frère! $\rightarrow$ Parle-\textbf{lui}!
+\begin{center}
+    \textcolor{orange}{\textbf{moi, me*}} $\rightarrow$ je \\
+    \textcolor{orange}{\textbf{toi, te*}} $\rightarrow$ tu \\
+    \textcolor{orange}{\textbf{il, elle}} $\rightarrow$ il, elle \\
+    \textcolor{orange}{\textbf{nous}} $\rightarrow$ nous \\
+    \textcolor{orange}{\textbf{vous}} $\rightarrow$ vous \\
+    \textcolor{orange}{\textbf{leur}} $\rightarrow$ ils, elles
+\end{center}
+\begin{notebox}
+    \textbf{Attention}! À l’impératif affirmatif, les pronoms indirects \textit{me, te} $\rightarrow$ \textit{moi, toi}. \\
+    e.g., Tu me téléphones. $\rightarrow$ Téléphone-moi!
+\end{notebox}
+\begin{enumerate}
+    \item À l’impératif affirmatif, les pronoms compléments indirects \textcolor{orange}{\textbf{moi, toi, lui, nous, vous, leur}} se placent \textcolor{orange}{\textbf{après le verbe}} (avec un  tiret). \\
+    e.g., Présentez-\textbf{lui} votre CV.
+    \item À l’impératif négatif, les pronoms compléments indirects \textcolor{orange}{\textbf{me*, te*, lui, nous, vous, leur}} se placent \textcolor{orange}{\textbf{avant le verbe}}. \\
+    Ne \textbf{me} téléphone pas! \\
+    Ne \textbf{leur} rendez pas service.
+    \begin{notebox}
+        \textbf{Attention}
+        \begin{enumerate}
+            \item Devant une voyelle or un \textit{h}, me $\rightarrow$ m', te $\rightarrow$ t'.
+            \item Le pronoms indirects est toujours \textit{à quelqu'un}. Pas \textit{à quelque chose}.
+        \end{enumerate}
+    \end{notebox}
+\end{enumerate}
+
+\section{Le but avec afin de et pour}
+Quand on exprime un but, on répond a la question dans quel but? ou pour faire quoi?
+\begin{enumerate}
+    \item \textcolor{orange}{\textbf{pour}} + verbe a l'infinitif \\
+    e.g., Elle fait un service civique \textbf{pour} \underline{faire} une action généreuse.
+    \item \textcolor{orange}{\textbf{pour}} + pronom tonique \\
+    e.g., Elle fait cela \textbf{pour} \underline{lui}.
+    \item \textcolor{orange}{\textbf{pour}} + nom \\
+    e.g., Elle fait ça \textbf{pour} \underline{l'avenir}\footnote{l'avenir: n.m. future}.
+    \item \textcolor{orange}{\textbf{afin de}} + verbe a l'infinitif \\
+    e.g., Il engage\footnote{engager: v. to appoint} un détective \textbf{afin de}\footnote{in order to} \underline{retrouver} son oncle.
+\end{enumerate}
+
+\section{Le conditionnel et la condition avec si}
+\subsection{Le Conditionnel}
+Le conditionnel sert à exprimer:
+\begin{enumerate}
+    \item la \textcolor{orange}{\textbf{politesse}} \\
+    e.g., Je \textbf{voudrais} un café, s'il vous plaît.
+    \item le \textcolor{orange}{\textbf{souhait}} \\
+    e.g., J'\textbf{aimerais} vivre en Suisse.
+    \item un \textcolor{orange}{\textbf{conseil}} \\
+    e.g., Tu \textbf{devrais} travailler davantage.
+    \item une \textcolor{orange}{\textbf{condition}} \\
+    e.g., \underline{Si} j’étais, riche, j'\textbf{aurais} une piscine.
+    \item Pour former le conditionnel, on utilise:
+    \begin{center}
+        infinitif du verbe + \textcolor{orange}{\textbf{ais, ais, ait, ions, iez, aient}}
+    \end{center}
+\end{enumerate}
+\begin{notebox}
+    \textbf{Attention} Le conditionnel suit les mêmes règles et exceptions que le futur simple. $\rightarrow$ Mon notes a la FIN!
+\end{notebox}
+
+\subsection{La condition}
+La condition exprime un résultat possible.
+\begin{enumerate}
+    \item Pour une action réelle, on utilise:
+    \begin{center}
+        \textbf{si} + présente + présent ou futur
+    \end{center}
+    \textbf{Si} tu \textbf{veux} gagner de l'argent, tu \textbf{peux} travailler. \\
+    \textbf{Si} j'\textbf{ai} assez d'argent, j'\textbf{achèterai} une voiture. \\
+    \textbf{Si} j'\textbf{ai} assez d'argent, je \textbf{vais acheter} une voiture. (a l'oral)
+    \begin{notebox}
+        \textbf{Attention}
+        \begin{enumerate}
+            \item Quand l'action est un ordre ou un conseil, on utilise:
+            \begin{center}
+                si + présent + impératif
+            \end{center}
+            \textbf{Si} tu \textbf{veux} gagner de l'argent, \textbf{travaille}!
+            \item Devant \textit{il} ou \textit{ils}. \textit{si} $\rightarrow$ \textit{s'} \\
+            e.g., \textbf{S'}il neige, nous irons a la montagne.
+        \end{enumerate}
+    \end{notebox}
+    \item Pour une action irréelle, on utilise:
+    \begin{center}
+        si + imparfait + conditionnel
+    \end{center}
+    \textbf{Si} j'\textbf{étais} plus jeune, je \textbf{ferais} le tour du monde a vélo. \\
+    \textbf{Si} elle \textbf{était} riche, elle \textbf{achèterait} une maison.
+\end{enumerate}
+
+\chapter{Vocabulaire} 
+\section{Unité 5}
+\subsection*{Des qualités et des défauts}
+\begin{multicols}{2}
+    \entry{organisé}{}{adj.}{organized}{| It means plan for everything}
+
+    \entry{solitaire}{}{adj.}{alone}{| travel alone}
+
+    \entry{sociable}{}{adj.}{sociable}{| It means like to meet people, locals or friends during travel}
+
+    \entry{inventif}{}{adj.}{creative}{| It means like to find new travel routes}
+
+    \entry{curieux}{}{adj.}{curious}{}
+
+    \entry{souriant}{}{adj.}{smiley}{}
+
+    \entry{spontané}{}{adj.}{spontaneous}{| It means do things naturally, often guided by intuition}
+
+    \entry{passionné}{}{adj.}{passionate}{}
+
+    \entry{fier}{}{adj.}{proud}{}
+
+    \entry{désorganisé/désordonné}{}{adj.}{unorganized}{}
+
+    \entry{malhonnête}{}{adj.}{dishonest}{}
+
+    \entry{maniaque}{}{adj.}{fastidious/obsessive}{| It means perfectionist, very paticular about details}
+
+    \entry{têtu}{}{adj.}{stubborn}{| It means refuse to change their mind}
+
+    \entry{maladroit}{}{adj.}{clumsy}{| It means lack coordination}
+\end{multicols}
+\subsection*{La forme physique}
+\begin{multicols}{2}
+    \entry{entretenir son corps}{}{}{maintain your body}{}
+
+    \entry{grandir}{}{v.}{get taller}{| = s'allonger}
+
+    \entry{faire de l'exercice}{}{}{exercise}{}
+
+    \entry{un entraînement}{}{n.m.}{training}{}
+
+    \entry{être sportif(ive)}{}{adj.}{sportive}{}
+
+    \entry{se reposer}{}{v.}{rest, relax}{| = se détendre}
+\end{multicols}
+\subsection*{Partir en voyage}
+\begin{multicols}{2}
+    \entry{s’évader}{}{v.}{escape, get away}{}
+
+    \entry{faire le tour du monde}{}{}{travel around the world}{}
+
+    \entry{découvrir des paysages}{}{}{discover the scenary}{}
+
+    \entry{préparer minutieusement}{}{prepare carefully}{}{}
+
+    \entry{bronzer}{}{v.}{sunbath}{}
+
+    \entry{se déplacer}{}{v.}{move, travel}{| \textbf{se déplacer} dans les paysages du monde entier}
+
+    \entry{aller dans un endroit}{}{}{go to a place}{}
+\end{multicols}
+\subsection*{Le voyage}
+\begin{multicols}{2}
+    \entry{un voyageur}{}{n.m.}{traveller}{}
+
+    \entry{un touriste}{}{n.m.}{tourist}{| le tourisme}
+
+    \entry{un paysage}{}{n.m.}{scenary}{| la nature}
+
+    \entry{une balade}{}{n.f.}{walk}{}
+
+    \entry{le tourisme solidaire}{}{solidarity tourism}{| a trip to support the locals}
+
+    \entry{un mode de vie nomade}{}{}{a nomadic\footnote{people who move from one place to another} lifestyle}{}
+\end{multicols}
+\subsection*{Se lancer un défi}
+Launch a challenge/Challenge yourself
+\begin{multicols}{2}
+    \entry{supporter un rythme}{}{}{to keep up with a pace}{}
+
+    \entry{constituer des équipes}{}{}{set up teams}{}
+
+    \entry{s'affronter}{}{v.}{fight each other}{| Des milliers de salaries\footnote{salaries: employees} \textbf{s'affrontent} dans un challenge de marche au travail.}
+
+    \entry{être dans le classement}{}{}{be in the ranking}{}
+
+    \entry{consacrer du temps}{}{}{sacrifice the time}{}
+
+    \entry{gagner}{}{v.}{to win}{| $\neq$ perdre\footnote{perdre: to lose}, main = être vainqueur\footnote{vainqueur: winner}}
+
+    \entry{avoir peur de}{}{}{to be afraid of}{}
+
+    \entry{se tester}{}{v.}{to try oneself out}{}
+\end{multicols}
+\subsection*{Miscs}
+\begin{multicols}{2}
+    \entry{rêve}{}{v.}{dream}{| rêve de quelque chose. }
+
+    \entry{baigner}{}{v.}{walk around}{}
+
+    \entry{être plongé}{}{}{be immersed in}{| \textbf{être plongé} dans l'image}
+
+    \entry{se plonge dans}{}{}{to immerse oneself in}{| Je veux \textbf{me plonge dans} la nature.}
+
+    \entry{se retrouver}{}{v.}{to find oneself}{| \textbf{se retrouver} dans des situations impossibles}
+
+    \entry{A propos}{}{}{About us}{| Normalement, il s'agit d'une page qui contient\footnote{contenir: include} des informations sur nous sur le site.}
+
+    \entry{Actus}{}{}{News}{| Page présentant les dernières actualités\footnote{actualités: news}, régulièrement mise à jour\footnote{mise à jour: update}.}
+
+    \entry{s'inscrire}{}{v.}{to sign up for}{| \textbf{s'inscrire} à quelque chose}
+
+    \entry{en direct}{}{adv.}{live}{}
+
+    \entry{se battre}{}{v.}{to beat, fight}{| Ça signifie ``faire beaucoup d'efforts''. Les conjugaisons: Je \textbf{me} bats, tu \textbf{te} bats, il/elle/on \textbf{se} bat, nous \textbf{nous} battons, vous \textbf{vous} battez, ils/elles \textbf{se} battent}
+
+    \entry{de temps en temps}{}{adv.}{from time to time}{}
+
+    \entry{être un pissou}{}{}{a shit}{| = être peureux}
+\end{multicols}
+\subsection*{Les Phrases Utiles}
+\begin{enumerate}
+    \item J'aime apprendre de \textbf{me lancer de nouveaux défis}.\footnote{set myself on new challenges.}
+    \item Nous devons \textbf{consacrer} deux heures et demie par jour \textbf{à} l'exercice.
+    \item On \textbf{bosse} énormément = On travail énormément.
+    \item \textbf{Encourager quelqu'un}
+    \begin{itemize}
+        \item Allez!
+        \item Vas-y!
+        \item Courage!
+        \item Ne t’inquiète pas!
+        \item Te peux \textbf{y} arriver!
+        \item N'aie pas peur! N'ayez pas peur!
+        \item Aie confiance! Ayez confiance!
+    \end{itemize}
+    \item \textbf{Insister pour inviter}
+    \begin{itemize}
+        \item Je compte sur toi!
+        \item Mais si!
+        \item Je t'assure.
+        \item Tu dois absolument venir.
+        \item Ça va être génial/super!
+    \end{itemize}
+\end{enumerate}
+
+\section{Unité 6}
+\subsection*{Les 5 sens}
+\begin{multicols}{2}
+    \entry{le goût}{}{n.m.}{taste}{| = goûter}
+
+    \entry{l'odorat}{}{n.m.}{smell}{| = sentir}
+
+    \entry{l’ouïe}{}{n.f.}{hearing}{| = ecouter/entendre}
+
+    \entry{le toucher}{}{n.m.}{touch}{| = toucher}
+
+    \entry{la vue}{}{n.f.}{sight}{| regarder/voir}
+
+    \entry{une odeur}{}{n.f.}{smell}{}
+
+    \entry{une saveur}{}{n.f.}{flavour}{}
+
+    \entry{des sons}{}{n.m.}{sound}{| $\approx$ des bruits\footnote{bruit: noise}}
+\end{multicols}
+\subsection*{L'art et la culture}
+\begin{multicols}{2}
+    \entry{publier}{}{v.}{to publish}{| = sortir un album}
+
+    \entry{une pochette d'album}{}{}{an album cover}{}
+
+    \entry{une tournée}{}{n.f.}{tour}{}
+
+    \entry{la scène}{}{n.f.}{stage}{| être sur scène\footnote{be on stage}}
+
+    \entry{la classique}{}{n.f.}{classic}{| le jazz}
+
+    \entry{une exposition}{}{n.f.}{exhibition}{| exposer\footnote{to exhibit}}
+
+    \entry{une galerie}{}{n.f.}{gallery}{}
+
+    \entry{l'art urbain}{}{n.m.}{urban art}{}
+\end{multicols}
+\subsection*{Les emotions}
+\begin{multicols}{2}
+    \entry{la joie}{}{n.f.}{joy}{}
+
+    \entry{la tristesse}{}{n.f.}{sadness}{}
+
+    \entry{la colère}{}{n.f.}{anger}{}
+
+    \entry{la surprise}{}{n.f.}{surprise}{}
+
+    \entry{le dégoût}{}{n.m.}{disgust}{}
+
+    \entry{le désintérêt}{}{n.m.}{disinterest}{}
+
+    \entry{la peur}{}{n.f.}{fear}{}
+\end{multicols}
+\subsection*{La nature}
+\begin{multicols}{2}
+    \entry{une feuille}{}{n.f.}{leaf}{}
+
+    \entry{un arbre}{}{n.m.}{tree}{}
+
+    \entry{une bête}{}{n.f.}{animal}{}
+
+    \entry{un bois}{}{n.m.}{wood}{}
+
+    \entry{le vent}{}{n.m.}{wind}{}
+\end{multicols}
+\subsection*{Des adjectifs pour apprécier}
+\begin{multicols}{2}
+    \entry{extraordinaire}{}{adj.}{extraordinary}{}
+
+    \entry{impressionnant(e)}{}{adj.}{impressive}{}
+
+    \entry{délicate(e)}{}{adj.}{delicate}{| En anglais, ça signifie ``fragile''}
+
+    \entry{délicieux(euse)}{}{adj.}{delicious}{}
+
+    \entry{drôle}{}{adj.}{funny}{}
+
+    \entry{ironique}{}{adj.}{ironic}{}
+
+    \entry{tendre}{}{adj.}{soft}{}
+
+    \entry{original(e)}{}{adj.}{original}{}
+\end{multicols}
+\subsection*{Les adverbes}
+\begin{multicols}{2}
+    \entry{sainement}{}{adv.}{healthily}{| féminin + \textit{-ment}, e.g., Mange \textbf{sainement}}
+
+    \entry{quasiment}{}{adv.}{nearly, almost}{| Cette pianiste de formation\footnote{formation: training} a composé et écrit son premier album, \textit{Brol}, \textbf{quasiment} seule.}
+
+    \entry{immédiatement}{}{adv.}{immediately}{| féminin + \textit{-ment}}
+
+    \entry{attentivement}{}{adv.}{attentively}{| féminin + \textit{-ment}}
+
+    \entry{vraiment}{}{adv.}{really}{| voyelle, plus \textit{-ment} directement}
+
+    \entry{profondément}{}{adv.}{deeply}{| féminin + \textit{-ment}. Mais c'est un cas particulier, parce que \textit{e} devient \textit{é}}
+
+    \entry{suffisamment}{}{adv.}{sufficiently}{| \textit{-ant} (suffis\underline{ant})$\rightarrow$ \textit{-amment}}
+
+    \entry{récemment}{}{adv.}{recently}{| \textit{-ent} (réc\underline{ent}) $\rightarrow$ \textit{-emment}}
+
+    \entry{faussement}{}{adv.}{wronly}{| = incorrectement, féminin (fausse) + \textit{-ment}}
+
+    \entry{puissamment}{}{adv.}{powerfully}{| \textit{-ant} (puiss\underline{ant}) $\rightarrow$ \textit{-amment}}
+
+    \entry{prudemment}{}{adv.}{prudently, carefully}{| \textit{-ent} (prud\underline{ent}) $\rightarrow$ \textit{-emment}}
+
+    \entry{certainement}{}{adv.}{certainly}{| féminin + \textit{-ment}}
+
+    \entry{totalement}{}{adv.}{totally}{| féminin + \textit{-ment}}
+
+    \entry{méchamment}{}{adv.}{badly}{| \textit{-ant} (méch\underline{ant}) $\rightarrow$ \textit{-amment}}
+
+    \entry{régulièrement}{}{adv.}{regularly}{| féminin + \textit{-ment}}
+
+    \entry{rapidement}{}{adv.}{rapidly}{| féminin + \textit{-ment}}
+\end{multicols}
+\subsection*{Miscs}
+\begin{multicols}{2}
+    \entry{la façon}{}{n.f.}{way}{| la meilleure \textbf{façon} de l’infinitif}
+
+    \entry{dispose de}{}{v.}{have sth available to us}{| Nous \textbf{disposons} de cinq sens.}
+
+    \entry{à partir de}{}{prep.}{from}{| Nous construisons donc notre monde \textbf{à partir de} 20\% de toutes les informations disponibles.\footnote{So we build our world from 20\% of all available information.}}
+
+    \entry{se servir de}{}{v.}{use}{| Le plus difficile d'apprendre à \textbf{se servir de} nos sens.}
+
+    \entry{à force de}{}{}{by, thanks to}{| \textbf{À force d'}écouter tous ces sons}
+
+    \entry{les renseignements}{}{n.m.}{information}{| = les informations}
+
+    \entry{s'asseoir}{}{v.}{to sit down}{| Je m'ass\textbf{ie}ds, tu t'ass\textbf{ie}ds, il/elle/on s'ass\textbf{ie}d, nous nous asse\textbf{y}ons, vous vous asse\textbf{y}ez, ils/elles s'ass\textbf{ey}ent}
+
+    \entry{un album très attendu}{}{}{a highly anticipated album}{}
+
+    \entry{Autre atout}{}{}{Another strength}{| \textbf{Autre atout}: sa créativité.}
+
+    \entry{une pause gourmande}{}{}{a food break}{| faire \textbf{une pause gourmande}}
+
+    \entry{prendre soin de quelqu'un}{}{}{take care of}{| Est-ce que tu penses à \textbf{prendre soin de} toi?}
+
+    \entry{bouger}{}{v.}{to move}{| \textbf{Bouge} ton corps!}
+
+    \entry{les pays de rêves}{}{}{the land of dream}{}
+
+    \entry{agir}{}{v.}{to act}{}
+
+    \entry{attraper l'argent}{}{}{catch the money}{| Ça signifie ``gagner sa vie''}
+\end{multicols}
+\subsection*{Les Phrases Utiles}
+\begin{enumerate}
+    \item \textbf{Donner un avis/une appréciation}
+    \begin{itemize}
+        \item A mon avis, $\cdots$
+        \item Je pense que $\cdots$
+        \item Je trouve que $\cdots$
+        \item C'est génial !
+        \item Pour moi, $\cdots$
+        \item Bof !\footnote{Bof: meh}
+        \item Je n'ai pas vraiment aimé.
+        \item Je suis déçu(e).\footnote{I am disappointed }
+    \end{itemize}
+    \item \textbf{Pour décrire une sensation}
+    \begin{itemize}
+        \item J'aime beaucoup marcher pied nus\footnote{nus: naked} sur le sable.
+        \item Je \textbf{sens} sa chaleur\footnote{chaleur: heat} sous mes pieds.
+        \item J'\textbf{entends} le son relaxant de l’océan et je \textbf{vois} le beau ciel bleu à l'horizon.
+        \item J'adore \textbf{goûter} de nouvelles saveurs\footnote{saveur: flavour}!
+    \end{itemize}
+    \item \textbf{Ce que} vs. \textbf{Ce qui}
+    \begin{itemize}
+        \item \textbf{Ce que}: Peut être \textbf{COD} et représente une chose ou une idée abstraite. Il répond à ``quoi ?'' après un verbe.\\
+        e.g., J'aime \textit{quoi}? $\rightarrow$ J'aime \textbf{ce que} tu cuisines.
+        \item \textbf{Ce qui}: Quand ``ce qui'' est utilisé, il est généralement le \textbf{sujet} de la proposition subordonnée. Il représente une chose ou une idée abstraite\footnote{abstraite: abstract} qui fait l'action du verbe dans cette subordonnée. \\
+        e.g., \textit{Quoi} est surprenant\footnote{surprenant: surprising}? $\rightarrow$ \textbf{Ce qui} arrive est surprenant.
+    \end{itemize}
+    \item \textbf{Pour exprimer ton sensation}
+    \begin{itemize}
+        \item \textbf{ressentir de + nom}: e.g., Je \textbf{ressens de} la tristesse.
+        \item \textbf{sentir + adjectif}: Pour decrire une odeur ou une impression extérieure\footnote{extérieure: external}. e.g., Ça \textbf{sent} mauvais.
+        \item \textbf{se sentir + adjectif}: Pour decrire un état\footnote{état: state} physique ou émotionnel interne\footnote{interne: internal}. e.g., Je \textbf{me sens} bien.
+    \end{itemize}
+    \item \textbf{Acheter}
+    \begin{itemize}
+        \item Je voudrais/souhaiterais acheter $\cdots$
+        \item Est-ce que vous auriez\footnote{C'est conditionnel présent ici.} $\cdots$?\footnote{Ça signifie: Would you have $\cdots$?}
+        \item Je peux payer par carte bancaire / par chèque / en espèces?
+        \item Je voudrais une facture\footnote{facture: receipt}.
+        \item Nous avons un budget précis.
+    \end{itemize}
+    \item \textbf{Conseiller}
+    \begin{itemize}
+        \item \textbf{Quelqu'un a bien fait de + l'infinitif}: e.g., Tu \textbf{as bien fait} de m’écrire.
+        \item \textbf{conseiller à quelqu'un de faire quelque chose}
+        \item Je te / vous conseille de $\cdots$
+        \item Il faut $\cdots$
+        \item Il est utile / inutile\footnote{inutile: useless} de $\cdots$
+        \item Tu devrais / Vous devriez\footnote{You should $\cdots$} $\cdots$
+        \item Tu pourrais / Vous pourriez\footnote{You cound $\cdots$} $\cdots$
+        \item Ce serait mieux de\footnote{It would be better to $\cdots$} $\cdots$
+        \begin{notebox}
+            \textbf{Attention !} Ce serait mieux de réviser cette section parce que peut-être c'est le sujet de votre composition!
+        \end{notebox}
+    \end{itemize}
+\end{enumerate}
+\section{Unité 7}
+\subsection{Les participes passe irréguliers}
+\begin{multicols}{2}
+    \entry{venir}{}{}{venu}{}
+
+    \entry{faire}{}{}{fait}{}
+
+    \entry{voir}{}{}{vu}{}
+
+    \entry{prendre}{}{}{pris}{}
+
+    \entry{être}{}{}{été}{}
+
+    \entry{avoir}{}{}{au}{}
+
+    \entry{boire}{}{}{bu}{}
+
+    \entry{lire}{}{}{lu}{}
+
+    \entry{entendre}{}{}{entendu}{}
+
+    \entry{offrir}{}{}{offert}{}
+
+    \entry{connaître}{}{}{connu}{}
+
+    \entry{grandir}{}{}{grandi}{}
+
+    \entry{ouvrir}{}{}{ouvert}{}
+
+    \entry{mourir}{}{}{mort}{}
+
+    \entry{savoir}{}{}{su}{}
+\end{multicols}
+\subsection{L'accessoire}
+\begin{multicols}{2}
+    \entry{la tresse}{}{n.f.}{braid}{| Ça signifie ``long hair'' en anglais}
+
+    \entry{la coiffure}{}{n.f.}{hairstyle}{}
+
+    \entry{un tatouage}{}{n.m.}{tatoo}{}
+
+    \entry{un henné}{}{n.m.}{the makeup on nail}{}
+
+    \entry{le maquillage}{}{n.m.}{makeup}{}
+
+    \entry{le bijoux}{}{n.m.}{jewellery}{}
+
+    \entry{un foulard}{}{n.m.}{scarf}{}
+\end{multicols}
+\subsection{La mode}
+\begin{multicols}{2}
+    \entry{un défile}{}{n.m.}{a parade}{}
+
+    \entry{la haute couture}{}{n.f.}{high-fashion}{}
+
+    \entry{une marque}{}{n.f.}{brand}{}
+
+    \entry{un styliste}{}{n.}{designer}{}
+
+    \entry{classique}{}{adj.}{classic}{| = tranditionnel, $\neq$moderne}
+
+    \entry{original}{}{adj.}{original}{| $\neq$ commun}
+\end{multicols}
+\subsection{Miscs}
+\begin{multicols}{2}
+    \entry{un parcours}{}{n.m.}{route}{}
+
+    \entry{sur}{}{adj.}{safe}{}
+
+    \entry{privé}{}{adj.}{private}{| un lieu de partage sur et \textbf{privé} sur Internet.}
+
+    \entry{chacun}{}{pron.}{each one}{| \textbf{Chacun} a son travail.}
+
+    \entry{retrouver}{}{v.}{to find}{| Vous l'avez déjà trouvé.}
+
+    \entry{chercher}{}{v.}{to search}{| Vous ne l'avez pas encore trouvé.}
+
+    \entry{un bout}{}{n.m.}{tip}{| un \textbf{bout} de\footnote{a piece of}}
+
+    \entry{la verdure}{}{n.f.}{greenary}{}
+
+    \entry{proche}{}{n.m.f./adj}{close friends}{}
+
+    \entry{chiner}{}{v.}{to bargain hunt}{| chercher des objets d'occasion.}
+
+    \entry{retro}{}{adj.}{retro}{| d'un style ancien}
+
+    \entry{si}{}{conj./adv.}{so}{| Tu es \textbf{si} grande maintenant !}
+
+    \entry{rassembler}{}{v.}{to gather}{}
+
+    \entry{valoriser}{}{v.}{to add value to}{}
+
+    \entry{la étagère}{}{adj.}{shelf}{}
+
+    \entry{charger}{}{v.}{to load}{| comme ``telecharger: to download''}
+
+    \entry{le génie}{}{n.m.}{genius}{}
+
+    \entry{maléfique}{}{adj.}{evil}{}
+
+    \entry{empêcher}{}{v.}{to prevent}{}
+\end{multicols}
+\subsection{Les Phrases Utiles}
+\begin{enumerate}
+    \item permettre \textbf{à} quelqu'un \textbf{de faire} quelque chose\\
+    e.g., On veut \textbf{permettre} à chacun de pouvoir retrouver à tout moment\footnote{at any time} les membres de sa famille.
+    \item tous les deux années\footnote{every two years}
+    \item éclairer la lanterne\footnote{ça signifie ``faire comprendre, expliquer quelque chose à quelqu'un''.}
+    \item Des phrases sur \textbf{rappeler}
+    \begin{itemize}
+        \item \textbf{Rappeler quelqu'un}: appeler quelqu'un qui a déjà téléphoné.
+        \begin{itemize}
+            \item rappeler à quelqu'un de faire: \textbf{Remind} someone to do.
+        \end{itemize}
+        \item \textbf{Se rappeler quelqu'un}: se souvenir de quelqu'un.
+        \item \textbf{Se souvenir de quelque chose}: penser à quelque chose du passé.
+        \item \textbf{Se rappeler quelque chose}: parler de quelque chose qu'on avait oublié.
+        \item \textbf{rappeler à l'ordre}: donner un avertissement.
+    \end{itemize}
+    \item \textbf{La famille}
+    \begin{itemize}
+        \item \textbf{une arbre généalogique}: a family tree.
+        \item \textbf{le PACS}: A civil relationship other than marriage.
+        \item \textbf{tenir de quelqu'un}: to care about someone, to be deeply attached to someone.
+        \item \textbf{ressembler à quelqu'un}: to look like someone
+    \end{itemize}
+    \item \textbf{Parler d'un changement}
+    \begin{itemize}
+        \item \textbf{changer de voie}: Change the job.
+        \item \textbf{remettre au goût du jour}: Bring something up to date.
+        \item \textbf{propose une vision de}: Propose a vision of $\cdots$
+    \end{itemize}
+    \item \textbf{Décrire un objet}
+    \begin{itemize}
+        \item \entry{personnalise}{}{adj.}{personalised}{}
+        \item \textbf{personnalise}: C'est un adjectif et ça veut dire ``personalised'' en anglais.
+        \item \textbf{en soie}: in silk
+        \item \textbf{en porcelaine}: in china
+        \item \textbf{en bois}: in wood
+        \item \textbf{C'est (très) utile pour}: It is very useful for $\cdots$
+    \end{itemize}
+    \item \textbf{Retrouver}
+    \begin{itemize}
+        \item \textbf{donner des nouvelles}: give some news.
+        \item \textbf{prendre des nouvelles}: ask for some news. C'est l'opposite de ``donner des nouvelles''.
+        \entry{se souvenir}{}{v.}{to remember}{}
+        \item \textbf{replonger dans le passé}: dive back into the past
+        \entry{hériter}{}{v.}{to inherit}{}
+    \end{itemize}
+    \item \textbf{Prendre des nouvelles}
+    \begin{itemize}
+        \item Vous allez bien? Comment ça va? Tu vas mieux?
+        \item Qu'est ce-que tu deviens?
+        \item Je t'appelle pour prendre de te tes nouvelles.\footnote{I am calling to check on you.}
+    \end{itemize}
+    \item \textbf{Donner des nouvelles}
+    \begin{itemize}
+        \item J'ai une bonne / mauvaise nouvelle.
+        \item Je suis toujours $\cdots$
+        \item Je vais $\cdots$
+        \item Je suis en \textbf{congé}\footnote{n.m. leave}
+        \item J'ai eu un accident.
+        \item Elle va mieux.
+        \item Il est guéri\footnote{healed}
+    \end{itemize}
+    \item \textbf{Raconter une histoire}
+    \begin{itemize}
+        \item Il était une fois $\cdots$
+        \item C’était en $\cdots$
+        \item Un jour, le lendemain\footnote{the next day}, la veille\footnote{the day before}
+        \item Au début
+        \item Ensuite, puis, finalement
+        \item Alors, donc, ainsi\footnote{In this way}
+        \item Soudain\footnote{adv. suddenly}
+    \end{itemize}
+\end{enumerate}
+ \subsection{La culture}
+\begin{enumerate}
+    \item \textbf{Le FIMA}
+    \begin{itemize}
+        \item \textbf{Quoi}: Le FIMA est le Festival International de la Mode en Afrique.
+        \item \textbf{Où}: C'est en Afrique. Il a été créé au Niger.
+        \item \textbf{Qui l'a créé}: Il a été créé par Alphadi, un créateur de mode nigérien.
+        \item \textbf{Quand}: Le festival a été créé en 1998.
+        \item \textbf{Pour qui}: Pour les créateurs de mode africains, les artistes et les journalistes du monde entier.
+    \end{itemize}
+    \item \textbf{Makembé}
+    \begin{itemize}
+        \item \textbf{Qui}: Makembé est le héros qui combat un génie maléfique pour sauver son village.
+        \item \textbf{Quel pays}: C'est un conte de la République Démocratique du \textbf{Congo}.
+        \item \textbf{Où}: L'histoire se passe dans un village et sur une montagne.
+        \item \textbf{Qu'est-ce qui s'est passé}: Makembé cherche un arc magique et utilise une poudre magique pour vaincre (defeat) le génie.
+        \item \textbf{La fin}: Le génie est tombé et les enfants peuvent naître dans le village.
+    \end{itemize}
+\end{enumerate}
+\section{Unité 8}
+\subsection{Améliorer un logement}
+\begin{multicols}{2}
+    \entry{améliorer}{}{v.}{to improve}{}
+
+    \entry{un logement}{}{n.m.}{accommodation}{}
+
+    \entry{le meuble}{}{n.m.}{furniture}{}
+
+    \entry{locataire}{}{n.m./n.f.}{tenant\footnote{a person who occupies land or property rented from a landlord.}}{}
+
+    \entry{le rangement}{}{n.m.}{storage}{}
+
+    \entry{le tiroir}{}{n.m.}{drawer}{}
+
+    \entry{le couchage}{}{n.m.}{sleeping unit}{}
+
+    \entry{accéder}{}{v.}{to access/reach}{}
+
+    \entry{rénover}{}{v.}{to renovate}{| une rénovation}
+
+    \entry{bricoler}{}{v.}{to DIY}{| la bricolage}
+
+    \entry{un chantier}{}{n.m.}{construction site}{}
+
+    \entry{faire des travaux}{}{}{to do work/renovation}{}
+
+    \entry{aménager}{}{v.}{to set up}{| \textbf{aménager} la chambre, ça  veut dire il y a rien dans la chambre au début.}
+
+    \entry{isoler}{}{v.}{insulate}{}
+
+    \entry{ventiler une pièce}{}{}{ventilate a room}{}
+
+    \entry{un bâtiment basse}{}{}{a low building}{}
+
+    \entry{la consommation}{}{}{consumption}{}
+\end{multicols}
+\subsection{Exprimer un souhait}
+\begin{multicols}{2}
+    \entry{tant de}{}{adv.}{so much}{| Après \textbf{tant d}’année de silence.}
+
+    \entry{à peu près}{}{adv.}{around}{| Elle a \textbf{à peu près} ton âge.}
+
+    \entry{notaire}{}{n.m./n.f.}{lawyer}{}
+
+    \entry{une dispute}{}{n.f.}{dispute}{| un désaccord entre deux personnes.}
+
+    \entry{un testament}{}{n.m.}{last will}{| un texte avec les souhaits\footnote{n.m. wish} d'une personne après sa mort\footnote{n.f. death}.}
+
+    \entry{bonheur}{}{n.m.}{joy}{}
+
+    \entry{des pièces jointes}{}{n.f.}{attachments}{}
+
+    \entry{la voie publique}{}{n.f.}{public space}{}
+
+    \entry{sale}{}{adj.}{dirty}{}
+\end{multicols}
+\subsection{S'engager}
+\begin{multicols}{2}
+    \entry{un service civique}{}{n.m.}{civic service\footnote{a voluntary engagement in a community service}}{}
+
+    \entry{un volontaire}{}{n.m./adj.}{volunteer/voluntary}{}
+
+    \entry{avoir l'occasion de}{}{}{have the change to do}{}
+
+    \entry{une mission}{}{n.f.}{task}{}
+
+    \entry{un partenariat}{}{n.m.}{partnership}{}
+
+    \entry{être au service de qqn/qch}{}{}{to be in service of serving sb/sth\footnote{be ready to help with something or someone}}{}
+\end{multicols}
+\subsection{Des objets de la maison}
+\begin{multicols}{2}
+    \entry{un micro-onde}{}{n.m.}{microwave}{}
+
+    \entry{des fenêtres}{}{n.f.}{window}{}
+
+    \entry{des volets}{}{n.m.}{shutter\footnote{the window block, c'est commun en France}}{}
+
+    \entry{une douche}{}{n.f.}{shower stall}{}
+
+    \entry{un canapé convertible}{}{n.m.}{a convertable sofa}{}
+
+    \entry{le chauffage}{}{n.m.}{heater}{}
+
+    \entry{un mur}{}{n.m.}{wall}{}
+
+    \entry{un escalier}{}{n.m.}{the staircase}{}
+
+    \entry{une marche}{}{n.m.}{a step}{| C'est un parte de un escalier}
+\end{multicols}
+\subsection{Rendre service}
+\begin{multicols}{2}
+    \entry{aider}{}{v.}{to help}{| \textbf{aider} gracieusement}
+
+    \entry{faire une action généreuse}{}{}{do a generous action}{}
+
+    \entry{ouvrir sa porte}{}{}{open his door}{}
+
+    \entry{proposer ses services}{}{}{offer your services}{}
+
+    \entry{créer du lien social}{}{}{create social connections}{}
+\end{multicols}
+\subsection{Faire des démarches administratives}
+\begin{multicols}{2}
+    \entry{accéder a un service}{}{}{access a service}{}
+
+    \entry{donner accès à}{}{}{give access t}{}
+
+    \entry{parvenir à}{}{}{achieve}{}
+
+    \entry{contacter un notaire}{}{}{contact a notary}{}
+
+    \entry{rédiger un testament}{}{}{write a testament}{}
+
+    \entry{hériter}{}{v.}{to inherit}{}
+
+    \entry{recevoir un héritage}{}{}{receive an inheritance}{}
+
+    \entry{engager un détective}{}{}{appoint a detective}{}
+\end{multicols}
+\subsection{Le logement}
+\begin{multicols}{2}
+    \entry{l'habitat}{}{n.m.}{accommodation}{}
+
+    \entry{un propriétaire}{}{n.m.}{landlord/owner}{}
+
+    \entry{un bureau}{}{n.m.}{desk}{}
+\end{multicols}
+\subsection{Les Phrases Utiles}
+\begin{enumerate}
+    \item \textbf{rendre service à quelque'un}: do someone a favor.
+    \item \textbf{Des gens dans le besoin}: The people in need.
+    \item quelque chose \textbf{occupe}\footnote{v. to equip} quelque chose = quelque chose \textbf{est munie de/est équipé de\footnote{be equipped with}} quelque chose
+    \item parvenir à quelque chose\footnote{achieve something}
+    \item Exprimer son mécontentement
+    \begin{itemize}
+        \item C'est n'importe quoi\footnote{That's ridiculous}!
+        \item Ce n'est pas normal!
+        \item J'en ai assez! J'en ai marre!\footnote{I've had enough! I'm fed up!}
+        \item Ça m’énerve!\footnote{That annoys me!}
+        \item C'est insupportable.\footnote{It's unbearable!}
+        \item Ce n'est pas possible.
+    \end{itemize}
+    \item \textbf{Recommander un logement}
+    \begin{itemize}
+        \item Je recommande fortement\footnote{highly} ce logement.
+        \item Je conseille vivement. (La même signification que ci-dessus\footnote{above})
+        \item L’équipement est complet.
+        \item La chambre est propre.
+        \item Il ne manque rien.\footnote{Nothing is missing}
+        \item Je reviendrai avec plaisir.\footnote{I will come back with pleasure.}
+        \item Vous pouvez y aller les yeux fermes! (Ça veut dire quelque chose est très simple!)
+    \end{itemize}
+\end{enumerate}
+\end{document}

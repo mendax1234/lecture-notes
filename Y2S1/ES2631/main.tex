@@ -1,0 +1,199 @@
+\documentclass[math,code]{amznotes}
+\setcounter{tocdepth}{2}  % Only show sections in the ToC
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage{tabularx}
+\usepackage{float} % Needed for [H] placement specifier
+\usepackage{wrapfig} % Needed for wrapping figures
+\usepackage{diagbox} % For diagonal split in table
+\usepackage{booktabs} % For better table formatting
+\usepackage{hyperref} % For hyperlink
+\usepackage{epigraph} % Used for quotes
+
+\graphicspath{ {./images/} }
+\geometry{
+    a4paper,
+    headheight = 1.5cm
+}
+
+\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}
+
+\theoremstyle{remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{remark}{Remark}
+\newtheorem{case}{Case}
+
+\begin{document}
+\fancyhead[L]{
+    ES2631 Critique and Communication of Thinking and Design
+}
+\fancyhead[R]{
+    Lecture Notes
+}
+\tableofcontents
+
+\chapter{Lectures and Tutorials}
+\section{Week 1}
+\subsection{Lecture 01}
+There are three \textbf{objectives} in this course
+\begin{enumerate}
+    \item \textbf{Critically analyze ideas} in engineering and design $\rightarrow$ Engineering Reasoning Framework
+    \item Work effectively in a team to \textbf{develop and present} an engineering \textbf{conceptual design} $\rightarrow$ Engineering design
+    \item \textbf{Understand} academic conventions and apply them to \textbf{communicate} critical thought in a \textbf{clear and coherent} manner $\rightarrow$ Academic conventions
+\end{enumerate}
+All in all, till now, in my mind, this course is mainly focused on the cultivation of \textbf{critical thinking}. Additionally, another interesting thing for me is about the \textbf{Engineering Reasoning Framework}. How it will affect my existing framework for solving a problem creatively and crazily? Hope to find out in this sem!
+
+The recommended workflow for this course mentioned is
+\begin{enumerate}
+    \item \textbf{Note down questions} during \textbf{online lectures, course readings and quizzes}.
+    \item \textbf{Ask these questions} during \textbf{tutorial and conferencing}
+\end{enumerate}
+
+\section{Week 2}
+\subsection{Lecture 02}
+\begin{enumerate}
+    \item \textbf{Every one of the eight elements of thought} should be \textbf{linked} to the \textbf{purpose} and \textbf{question at issue}.
+    \item \textbf{Inference} should be based on the \textbf{information}.
+\end{enumerate}
+\subsection{Readings}
+\begin{enumerate}
+    \item It is important for the field of engineering to be understood as systems of overlapping and interrelated ideas, rather than isolated and different fields of knowledge. Moreover, it is important to recognize and effectively deal with multiple environmental, social and ethical aspects that complicate responsible engineering.
+    \item Good thinking can be seen as a tool for improving the quality of our lives.
+    \item (\textbf{The summary of the Engineering Reasoning Framework}): Engineers concerned with good thinking routinely apply intellectual standards to the elements of thought as they seek to develop the traits of a mature engineering mind.
+\end{enumerate}
+
+\section{Week 3}
+\subsection{Lecture 03}
+\textbf{For Assignment 1 presentation}:
+\begin{enumerate}
+    \item Use an intro to embody why we need to tackle this certain problem? And remember to narrow down.
+    \item In the purpose, e.g., a solution, split the goals into several small ones, a.k.a, divide-and-conquer.
+\end{enumerate}
+
+\section{Week 4}
+\subsection{Lecture 04}
+When doing the engineering design, think about what elements of thoughts can be used, and what intellectual standards can be used to analyze the problem. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{images/w4-01.png}
+    \caption{Engineering Reasoning Framework with intellectual standards}
+    \label{fig:erf-intellectual-standard}
+\end{figure}
+
+\chapter{Useful Resources}
+In this course, the main tool we need to master is the \textbf{engineering reasoning framework} shown in Figure \ref{fig:erf-intellectual-standard}, in which you can think of it composing of \textbf{eight elements of thoughts}. These eight elements of thoughts make up of the body of our writing\footnote{It can be any paper in your FYP or phd research}. Also, we have introduced the \textbf{nine intellectual standards}, and these standards are to be applied on \textbf{each of} the eight element of thought, to make it \textbf{solid}\footnote{well-written, no weak point, etc}.
+
+However, this is not easy for a non-English major undergraduate. Thus, I have summarized some general ``checks'' for each intellectual standard followed by its usage on each element of thought so that you can refer to! Applying these intellectual standards on the element of thought can help make it not only solid, but also eye-catching!
+
+\section{Intellectual Standards}
+\subsection{Logic}
+When we say a \textit{subject} is logic, we can prove from two standards, which are
+\begin{enumerate}
+    \item whether the \textit{subject} \textbf{itself} makes sense, or
+    \item whether it has contradiction with \textbf{others}
+\end{enumerate}
+From here, we notice that by checking the first standard ``make sense'', our \textit{subject} is \textbf{one thing}. And to check it, we can usually try to prove from two aspects:
+\begin{enumerate}
+    \item whether it is a \textbf{common sense}
+    \item whether some \textbf{external science sources} can be used to prove it.
+\end{enumerate}
+The second standard ``contradiction'' is usually used on many \textit{subjects} and is usually easier to find.
+\begin{notebox}
+    \begin{remark}
+        The \textit{subject} we used here and in this section can be replaced with any one of the element of thought.
+    \end{remark}
+\end{notebox}
+\subsection{Depth}
+One \textbf{depth} defines one \textbf{direction} of the development of many \textit{subjects}. Within this direction, the \textit{subject} should follow a \textbf{logic chain} so that if we start from one \textit{subject}, we can derive the next, so on and so forth. We can call this chain an \textit{subject depth chain}.
+
+So, one easy way to check whether a \textit{subject} demonstrates depth or not is to see if within that direction, there are enough \textit{subjects} of the same type being \textbf{linked} together one followed by another. And here, we can also use \textit{logic} on these \textbf{links}.
+\subsection{Breadth}
+Breadth is something that is usually bonded with depth, which essentially means the \textbf{different directions} of our \textit{subject depth chain}. So, now, your \textit{subject} grows from one dimension line to a two dimension plane!
+
+Thus one way to check breadth is to check whether there are \textbf{different directions} on the \textit{subject} you are analyzing.
+\subsection{Significance}
+Significance is defined as the \textbf{importance} or the \textbf{the quality of being worthy of attention}. To prove significance, we should avoid being \textbf{subjective}. So, one way to do that is to try to be \textbf{objective}, which means we should use as much \textbf{evidence} as possible. And this evidence can come from two sources:
+\begin{enumerate}
+    \item from \textbf{us} or just the \textbf{author}: this is reflected as the \textbf{explanation} we make to support the \textit{subject}.
+    \item from \textbf{``others''}: this is reflected as the use of \textbf{external sources} like data and graphs to support the \textit{subject}.
+\end{enumerate}
+While the second source is easier to understand, we should pay attention to the first one, which is about ``explanation''. The \textbf{explanation} shouldn't be nonsense or subjective, so it should better be grounded with either \textbf{some external evidence} or some \textbf{proof} you have made yourself but using some \textbf{theories} that are accepted by others.
+\subsection{Clarity}
+Clarity is defined as clear, understandable and in which the meaning can be grasped easily, even for those who don't have background knowledge in that field. As clarity is also a quite \textbf{subjective} term, so the similar method used in analyzing \textbf{significance} can be used here except that the focus should be on the \textbf{explanation}. No matter we are using
+\begin{enumerate}
+    \item external science sources, or
+    \item examples, or
+    \item data/evidence
+\end{enumerate}
+we should be able to \textbf{adapt} the above three elements into the explanation of our \textbf{context}, which is the \textit{subject} we are analyzing.
+
+\subsection{Precision}
+Precision is defined as exact to the necessary level of detail/specificity. In the article or paragraph that we write or look at, a typical sign of being \textbf{not precise} is the use of some very \textbf{general} or \textbf{big} words.
+
+\subsection{Relevance}
+Relevance is defined as the quality or state of being closely connected to the \textbf{question at issue} or \textbf{purpose}\footnote{We explicitly use two elements of thought here}.
+
+\section{Elements of thought}
+\subsection{Implications}
+\epigraph{All reasoning leads somewhere. It has implications and, when acted upon, has consequences.}{\textit{Paul}}
+Implications usually come together with consequences. So, we can understand implications simply as outcomes. In an article, the author can propose \textbf{many} implications. In this section, our subject is on how to organize these \textbf{many} implications.
+
+Usually, we use \textbf{depth}, \textbf{breadth}, \textbf{logic}, \textbf{significance}, \textbf{clarity} and \textbf{precision} on the implications.
+\subsubsection{Depth}
+If we want to use depth to analyze the implications of the usage of ERP in Singapore in the direction of \textbf{reduced traffic in peak hours}, we can build our \textit{implication depth chain} as follows,
+\begin{enumerate}
+    \item The use of ERP can reduce traffic jams during peak hours. This can lead to
+    \item More people will use public transport. This can lead to
+    \item Fewer fuel cars on the road. This can lead to
+    \item Less carbon dioxide emission. This can lead to
+    \item More environmental-friendly.
+\end{enumerate}
+\subsubsection{Breadth}
+The common approach to achieve breadth is to define your \textbf{directions} from different aspects, guided by the two big categories of \textbf{positive} and \textbf{negative}. So, think about the implications from positive and negative aspect first, then come up with some small directions within each category, then build the \textit{implication-depth-chain}.
+\subsubsection{Logic}
+Followed closely from the two dimensional place about implications we have derived using \textbf{depth} and \textbf{breadth}, we can use \textbf{logic} to validate the \textbf{links} between two implications to make our implication unassailable.
+\subsubsection{Significance}
+Skilled Thinkers trace out a number of significant potential implications and consequences of their reasoning. If we wish to apply significance to implications, we should consider if we have successfully explained the importance of the outcomes or if we have provided any data/evidence to show the impact of the outcomes.
+\subsubsection{Clarity}
+One example to apply clarity on implications is to check if we are \textbf{clear in explaining} what the outcomes will be in relation to the context of the problem.
+\subsubsection{Precision}
+For precision on implications, we are checking if we provide the \textbf{necessary amount of details} to illustrate what the outcome is/ what the impact of the outcome is. For example, if the outcome is that this solution will bring about \textbf{health benefits}, we can argue that it lacks precision as it does not specify what kind of \textbf{health benefits}, \textbf{who} will stand to gain those health benefits and \textbf{how} exactly the solution will contribute to attaining those benefits.
+
+\subsection{Assumptions}
+\epigraph{All reasoning is based on assumptions -- beliefs we take for granted.}{\textit{Paul}}
+Assumptions are usually derived from a claim that the author has made. This will inevitably cause the fact of ambiguity and subjectiveness because different people might derive different assumptions from one claim.
+
+Usually, we use \textbf{logic} and \textbf{clarity} on the implications.
+\subsubsection{Logic}
+When using logic on assumptions, we usually focus on checking if \textbf{one assumption} ``makes sense'' or not. But if we want to focus on \textbf{more than one} assumptions, we can use the ``contradiction check''.
+\subsubsection{Clarity}
+If we want to use clarity on our assumptions, we should check whether we are \textbf{clear in explaining} what the assumptions are and how they contribute to either the problem or solution.
+
+\subsection{Point of View}
+\epigraph{All reasoning is done from some point of view.}{\textit{Paul}}
+Should point of view be considered as the POV on the problem, or the POV on the solution or after the solution has been taken?
+
+Usually, we use \textbf{breadth}, \textbf{relevance} and \textbf{clarity} on the POV.
+
+\subsection{Concepts}
+\epigraph{All reasoning is expressed through, and shaped by, concepts and ideas.}{\textit{Paul}}
+We can just think concepts as the \textbf{technology} or the \textbf{theory} we have used to implement our engineering design. This is something that is more scientific.
+
+Usually, we use \textbf{clarity}, \textbf{relevance}, \textbf{depth} and \textbf{accuracy} on the concepts.
+\subsubsection{Clarity}
+To use clarity on concepts, we should focus on the \textbf{explanation}, which is done by either using clear examples such as the daily examples which are easy to understand, or using clear explanation.
+
+One example of using\textbf{ not clear explanation} is that when the author tries to show that using AI to train AI will get the worse content. And he uses a statement, ``It is like taking a photocopy of a photocopy of a photocopy''. This left the user with some confusion, what do you mean by taking a photocopy of photocopy? Does it demonstrate that the quality will become worse and worse? If so, where is the explanation of that?
+
+\subsubsection{Relevance}
+This is relatively easy to apply as the \textbf{concepts} you use in your engineering solution must be truly useful, which is closely related to your question at issue or purpose. Instead of just fluffing some general concepts, but they are not really useful or relevant to the project.
+
+\subsubsection{Depth}
+To use depth on concepts, can I understand it as I should go deep to introduce how our solution works from the bottom level?
+
+
+\end{document}

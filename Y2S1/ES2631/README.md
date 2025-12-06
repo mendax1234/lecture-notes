@@ -1,14 +1,14 @@
-# LAF2201-Notes
+# ES2631-Notes
 
 ## 📂 Repository Structure
 
 | PDF File                      | Description                                   | LaTeX File        |
 |-------------------------------|-----------------------------------------------|-------------------|
-| [Notes](./LAF2201_Notes.pdf) | This file contains my key notes for LAF2201. | [main.tex](./main.tex) |
+| [Notes](./ES2631_Notes.pdf) | This file contains my key notes for ES2631. | [main.tex](./main.tex) |
 
 ## 🛠 **Overleaf Compiler Settings**
 
 | **Setting**         | **Value**     |
 |----------------------|---------------|
 | Compiler            | `pdfLaTeX`    |
-| TeX Live version    | `2024`        |
+| TeX Live version    | `2025`        |
