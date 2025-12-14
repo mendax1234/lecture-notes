@@ -4,9 +4,9 @@ In Year 1 Sem 2, I took the following courses:
 
 <div class="grid cards" markdown>
 
-- __CS2030__
+- __CS2030S__
 
-    [View Course Review](CS2030.md)
+    [View Course Review](CS2030S.md)
 
 - __CG2111A__
 
