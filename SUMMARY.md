@@ -6,3 +6,7 @@
 
 * [Lec 01](lecture/lec-01/README.md)
   * [Lec 01a - Intro](lecture/lec-01/lec-01a-intro.md)
+
+## Textbook 1: DICADP
+
+* [Introduction](textbook-1-dicadp/introduction.md)
