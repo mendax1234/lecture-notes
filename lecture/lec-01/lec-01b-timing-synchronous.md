@@ -23,6 +23,8 @@ In module 1, the <mark style="color:green;">fast path</mark> gives earliest poss
 
 1. **Cross-hatched (zig-zag) region**: This means that the signal is **unstable**. So, in<sub>1</sub> is stable only after the first dashed line.
 2. **Flat solid line:** This means that the signal is **stable**.&#x20;
+
+These two notations have appeared in [Harris and Harris's DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/combinational-logic-design/timing#propagation-and-contamination-delay)!
 {% endhint %}
 
 ### Synchronous vs. Asynchronous
