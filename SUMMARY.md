@@ -11,3 +11,4 @@
 ## Textbook 1: DICADP
 
 * [Introduction](textbook-1-dicadp/introduction.md)
+* [Timing Issues in Digital Circuits](textbook-1-dicadp/timing-issues-in-digital-circuits.md)
