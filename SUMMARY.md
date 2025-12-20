@@ -11,4 +11,5 @@
 ## Textbook 1: DICADP
 
 * [Introduction](textbook-1-dicadp/introduction.md)
+* [Designing Sequential Logic Circuits](textbook-1-dicadp/designing-sequential-logic-circuits.md)
 * [Timing Issues in Digital Circuits](textbook-1-dicadp/timing-issues-in-digital-circuits.md)
