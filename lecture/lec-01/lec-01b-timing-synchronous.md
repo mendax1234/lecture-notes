@@ -91,7 +91,7 @@ In digital logic, the order of data flow is critical. Usually, we want to achiev
 
 <figure><img src="../../.gitbook/assets/lec01-sequence-synchronous-data-independent.png" alt=""><figcaption></figcaption></figure>
 
-However, in reality, In real silicon, the time it takes for a signal to propagate through a combinational block depends on the specific input values. As we have seen in [Harris & Harris DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/combinational-logic-design/timing#propagation-and-contamination-delay):
+However, in reality, the time it takes for a signal to propagate through a combinational block depends on the specific input values. As we have seen in [Harris & Harris DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/combinational-logic-design/timing#propagation-and-contamination-delay):
 
 * Propagation Delay (t<sub>pd</sub>): The time taken by the _slowest_ path (critical path).
 * Contamination Delay (t<sub>cd</sub>): The time taken by the _fastest_ path (short path).
@@ -115,3 +115,85 @@ To prevent the "race conditions" described previously, we enforce a strict rule:
 <figure><img src="../../.gitbook/assets/lec01-sequencing-with-register.png" alt=""><figcaption></figcaption></figure>
 
 The abstract "Box" shown in the sequencing diagrams is implemented using storage elements. As recalled from EE2026 and [_Harris & Harris DDCA_](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/latches-and-flip-flops)_**.**_
+
+## Clock Non Idealities
+
+Ideally, the clock signal is
+
+1. instantaneously distributed to all flip-flops (FFs)
+2. periodic
+
+However, as clock is distributed throughout the chip with wires + repeaters:
+
+1. delays in clock distribution network maybe different
+2. different **arrival time t**<sub>**i**</sub> of clock signal clk<sub>i</sub> (same clcok signal but arrives at different FFs at different time)
+
+<details>
+
+<summary>Repeater and Interconnect Wire</summary>
+
+<figure><img src="../../.gitbook/assets/repeater-interconnect-wire.png" alt=""><figcaption></figcaption></figure>
+
+First, let's look at the symbols in the diagram above,
+
+* **The Repeater (Triangle)**: This is a buffer or amplifier. Clock signals have to travel long distances across a chip. Repeaters are placed at intervals to "boost" the signal back up so it stays strong.
+* **The Interconnect Wire (The shaded bar)**: This is the physical metal wire connecting the clock source to the Flip-Flops (FF<sub>i</sub> and FF<sub>j</sub>).
+* **The "Squiggly" and "Parallel lines" below the wire**: This is an electrical circuit model (**RC Model**) of the wire.
+  * Real wires are not perfect conductors. They have **Resistance**. And real wires interact with the ground/substrate. They have **Capacitance**.
+  * **The Result**: To get the voltage from the Repeater to the Flip-Flop, the current has to "fill up" those capacitors through those resistors. This takes physical time (called RC Delay).
+
+The wire leading to FF<sub>i</sub> might be slightly longer, or have slightly different resistance/capacitance than the wire leading to FF<sub>j</sub>. Therefore, it takes a different amount of time for the clock signal to charge up the wire and trigger FF<sub>i</sub> compared to FF<sub>j</sub>.
+
+{% hint style="info" %}
+In digital circuits, all information — including the clock signal — travels in the form of **Voltage**.
+{% endhint %}
+
+</details>
+
+### Clock Skew
+
+We define the DC time shift of clk<sub>i</sub> w.r.t. clk<sub>j</sub>, which is also the clock skew seen by FF<sub>i</sub> w.r.t. FF<sub>j</sub>, to be
+
+$$
+t_{\text{skew, ij}}=t_i-t_j
+$$
+
+{% hint style="info" %}
+In synchronous circuit design, while we originate from a **single global clock source** (CLK),
+
+* clk<sub>i</sub> refers to the local clock signal branch connected to FF<sub>i</sub>.&#x20;
+* The variable t<sub>i</sub> denotes the specific time instant when the clock edge actually arrives at FF<sub>i</sub>.
+{% endhint %}
+
+When distributing clk in the **same direction** as data flow, the skew t<sub>skew, ij</sub> is positive. If **opposite direction**, the skew is **nagative**. For example, the following diagram shows a **positive clock skew** by assuming that the data and clock distribution flows from register R1 to register R2.
+
+<figure><img src="../../.gitbook/assets/clock-skew-sign-example.png" alt="" width="563"><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+An analogy is to think of the clock skew as a **vector** and the two points are t<sub>i</sub> and t<sub>j</sub>. Thus,
+
+<p align="center"><span class="math">t_{\text{skew, ij}}=t_i-t_j=-t_{\text{skew, ji}}</span></p>
+{% endhint %}
+
+Another example will be the timing diagram we have seen in [Harris & Harris DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/timing-of-sequential-logic#clock-skew), the following diagram will indicate a **negative skew** seen by R1 (t<sub>1</sub> - t<sub>2</sub> < 0, assuming the data flows from R1 to R2).
+
+<figure><img src="../../.gitbook/assets/image.png" alt="" width="563"><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+The clock skew is relative. But we usually calculate the clock skew following the direction of the data path.
+
+* If data flows from register A to register B, we calculate skew as t<sub>B</sub>- t<sub>A</sub>.
+{% endhint %}
+
+#### Clock Skew Calculation
+
+The clock skew can randomly vary due to delay variations, but it can be calculated using the following formula,
+
+$$
+t_{\text{skew}} = t_{\text{skew,DET}} \pm \left| t_{\text{skew,RAND}} \right|
+$$
+
+From this formula, we can see that the clock skew has two components
+
+1. **Deterministic skew**: Predictable delay caused by the fixed physical layout of wires and repeaters. Since its sign and magnitude are known, it can be intentionally engineered to optimize timing paths (useful skew).
+2. **Random skew**: Unpredictable variation arising from manufacturing mismatches or environmental factors like temperature. It creates a bounded uncertainty range ($$\pm$$) with an unknown sign that designers must account for as noise.
