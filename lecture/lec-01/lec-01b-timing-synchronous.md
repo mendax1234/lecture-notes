@@ -177,7 +177,7 @@ An analogy is to think of the clock skew as a **vector** and the two points are 
 
 Another example will be the timing diagram we have seen in [Harris & Harris DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/timing-of-sequential-logic#clock-skew), the following diagram will indicate a **negative skew** seen by R1 (t<sub>1</sub> - t<sub>2</sub> < 0, assuming the data flows from R1 to R2).
 
-<figure><img src="../../.gitbook/assets/image.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/clock-skew-example-ddca.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 The clock skew is relative. But we usually calculate the clock skew following the direction of the data path.
@@ -197,3 +197,24 @@ From this formula, we can see that the clock skew has two components
 
 1. **Deterministic skew**: Predictable delay caused by the fixed physical layout of wires and repeaters. Since its sign and magnitude are known, it can be intentionally engineered to optimize timing paths (useful skew).
 2. **Random skew**: Unpredictable variation arising from manufacturing mismatches or environmental factors like temperature. It creates a bounded uncertainty range ($$\pm$$) with an unknown sign that designers must account for as noise.
+
+### Clock Jitter
+
+In reality, the clock period T<sub>CK</sub> is not perfectly constant due to jitter. Specifically, we define **cycle-to-cycle jitter** (t<sub>jitter</sub>) as the random, time-varying deviation between two successive clock events (such as two rising clock edges). This means the actual clock period is not fixed; instead, it fluctuates around a nominal period (T<sub>nom</sub>), strictly bounded within the range of $$T_{\text{nom}} - |t_{\text{jitter}}|$$ to $$T_{\text{nom}} + |t_{\text{jitter}}|$$.
+
+<figure><img src="../../.gitbook/assets/clock-jitter.png" alt=""><figcaption></figcaption></figure>
+
+#### The Reason of Clock Jitter
+
+The two main reasons for clock jitter are:
+
+1. **clock generator**'s intrinsic jitter
+2. **clock distribution network**: due to time-varying delay of repeaters (supply noise)
+
+<figure><img src="../../.gitbook/assets/clock-jitter-cause.png" alt=""><figcaption></figcaption></figure>
+
+Based on the above diagram, we have the formula for calculating the t<sub>jitter,i</sub> to be
+
+$$
+t_{\text{jitter},i} = t_{\text{jitter,clock\_gen}} + \sum_{j=1}^{n} \left| \Delta \tau_{\text{PD,buffer},j} \right|
+$$
