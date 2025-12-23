@@ -182,7 +182,7 @@ Another example will be the timing diagram we have seen in [Harris & Harris DDCA
 {% hint style="info" %}
 The clock skew is relative. But we usually calculate the clock skew following the direction of the data path.
 
-* If data flows from register A to register B, we calculate skew as t<sub>B</sub>- t<sub>A</sub>.
+* If data flows from register A to register B, we calculate skew as t<sub>B</sub>- t<sub>A</sub>. During the calculation, treat t<sub>B</sub> and t<sub>A</sub> as two **algebric values** and the result will be either negative or positive!
 {% endhint %}
 
 #### Clock Skew Calculation
@@ -218,3 +218,190 @@ Based on the above diagram, we have the formula for calculating the t<sub>jitter
 $$
 t_{\text{jitter},i} = t_{\text{jitter,clock\_gen}} + \sum_{j=1}^{n} \left| \Delta \tau_{\text{PD,buffer},j} \right|
 $$
+
+## Timing Parameters of Edge-Triggered Flip Flops
+
+> This section has a lot of similarities with the [Timing of Sequential circuits](https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/jTJFBPtKk6NwweAooH53/) in Harris & Harris DDCA!
+
+In positive-edge triggered (PET) flip flops, input is **sampled** at rising clock edge. And the **timing parameters** for D Flip Flops are:
+
+1. input must be kept stable from **t**<sub>**SETUP**</sub>**&#x20;before** the active edge to **t**<sub>**HOLD**</sub>**&#x20;after** this edge. Otherwise, we will have **metastability**.
+2. CK-Q delay: output is updated at t<sub>CK-Q</sub> after clock edge.
+
+<figure><img src="../../.gitbook/assets/timing-parameters-for-edge-triggered-ffs.png" alt="" width="563"><figcaption></figcaption></figure>
+
+### Asynchronous Resettable Filp Flops
+
+> This section is partly discussed in the [resettable flip flops](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/latches-and-flip-flops#resettable-flip-flop) in Harris & Harris DDCA!
+
+In asynchronous resettable flip flops, the RESET signal has **higher** priority than the CLK signal. So sometimes the RESET can be used to "mask" (hide or block) the CLK signal causing the fact that the Flip-Flop didn't "see" the clock rise because the RESET was blinding it.
+
+Simiarly, its timing parameters are:
+
+1. For normal clock event, reset must be kept stable from **t**<sub>**RECOVERY**</sub>**&#x20;before** clock edge to **t**<sub>**REMOVAL**</sub>**&#x20;after** this edge.
+
+For example, the following diagram shows an active-low asynchronous reset
+
+<figure><img src="../../.gitbook/assets/active-low-asynchronous-reset-ffs.png" alt=""><figcaption></figcaption></figure>
+
+* If you want to enable the clock event, release the RESET button at least t<sub>RECOVERY</sub> before the rising clock edge.
+* If you want to ignore the clock event, press and hold the RESET and don't release until t<sub>REMOVAL</sub> after the rising clock edge.
+
+{% hint style="warning" %}
+Even if this is an active-low asynchronous resettable FF, pressing the RESET button will reset the FF, meaning that pressing the RESET button is equivalent to set RESET signal to be 0.
+{% endhint %}
+
+## Timing Constraints in Synchronous Circuits
+
+> Again, this part is almost the same as [Timing of Sequential Circuits](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/timing-of-sequential-logic) covered in Harris & Harris DDCA. But with some more info added on the **timing overhead** caused by clock skew and clock jitter.
+
+The FF timing constraints imply the system timing constraints. The FF timing constraints have
+
+* Setup Time Constraint
+* Hold Time Constraint
+
+While the system timing constraint is more about the global CLK signal speed. So, what the first sentence says is that the FF timing constraint will affect the speed of the system clock, which is an indispensible part of the system timing constraint. So, when designing a system, we should prevent setup/hold violations.
+
+System timing constraints are affected by
+
+* FF time constraints
+* combinational logic timing parameters
+* clock non-idealities (skew and jitter)
+
+To start, let's first see an intuitive understanding of FF timing constraints.
+
+<figure><img src="../../.gitbook/assets/intuitive-understand-ff-timing-constraint.png" alt="" width="563"><figcaption></figcaption></figure>
+
+* To meet the setup time constraint, we can think of it as "the computation should be completed before next edge in REG<sub>2</sub>" -> This gives us the **max-delay constraint** for the combinational logic
+* To meet the hold time constraint, we can think of it as "the computation must affect REG<sub>2</sub> only after a certain time" -> This gives us the **min-delay constraint** for the combinational logic
+
+### Max-Delay Constraint
+
+{% hint style="warning" %}
+In this section, let $$ $t_1$ $$t<sub>1</sub> denote the time of the **launching clock edge** at the source register and $$ $t_2$ $$t<sub>2</sub> denote the time of the **capturing clock edge** at the destination register.
+{% endhint %}
+
+Using the intuitive understanding of the setup time constraint from above, we can see clearly from the diagram below that:
+
+<figure><img src="../../.gitbook/assets/max-delay-constraint.png" alt=""><figcaption></figcaption></figure>
+
+$$
+\begin{align*}
+% Setup Constraint Derivation
+% Left Side: Data Arrival Time (start time + clock-to-q delay + logic delay)
+% Right Side: Data Required Time (next clock edge - setup time)
+\tau_{\text{COMB}} + t_{\text{SETUP,REG2}} - \tau_{\text{CK-Q,REG1}}&\le T_{\text{CK}}  \\
+
+% Final inequality for Maximum Combinational Delay
+\tau_{\text{COMB,max}} &\le T_{\text{CK}} - t_{\text{SETUP,REG2}} - \tau_{\text{CK-Q,REG1}} \\
+
+% Rearranging to isolate Combinational Delay
+% Note: t2 - t1 is substituted with T_CK (Clock Period)
+\tau_{\text{COMB}} &\le \underbrace{t_2 - t_1}_{T_{\text{CK}}} - t_{\text{SETUP,REG2}} - \tau_{\text{CK-Q,REG1}} \\
+\end{align*}
+$$
+
+Adding the consideration of the clock non idealities, we will derive the **worst-case** t<sub>2</sub>-t<sub>1</sub> so that the inequality above will always hold if the T<sub>COMB</sub> satisfies the worst-case scenario.
+
+To make t<sub>2</sub>-t<sub>1</sub> the smallest, given that we already now the diagram as above, we may want
+
+1. t<sub>skew</sub> to be the smallest, although it is always a positive term
+2. we want the two clock jitters to behave in the <mark style="color:blue;">blue</mark> way
+
+In the [#clock-skew](lec-01b-timing-synchronous.md#clock-skew "mention") section, we have already seen that t<sub>skew</sub> = t<sub>skew, det</sub> <i class="fa-plus-minus">:plus-minus:</i> |t<sub>skew, rand</sub>|. So, to get the smallest value, we will take the **minus** sign. Thus, our t<sub>2</sub>-t<sub>1</sub> will be as follows:
+
+$$
+t_2 - t_1 = T_{\text{CK}} + t_{\text{skew,DET,21}} - \left| t_{\text{skew,RAND,21}} \right| - 2 \left| t_{\text{jitter}} \right|
+$$
+
+Substitute the t<sub>2</sub>-t<sub>1</sub> into the inequality above and rearrange it, we will have
+
+$$
+\begin{align*}
+\tau_{\text{COMB}} &\leq T_{\text{CK}} - \left( t_{\text{SETUP,REG2}} + \tau_{\text{CK-Q,REG1}} \right) \\
+&\quad - \left( \left| t_{\text{skew,RAND,21}} \right| - t_{\text{skew,DET,21}} + 2 \left| t_{\text{jitter}} \right| \right)
+\end{align*}
+$$
+
+The largest value for T<sub>COMB</sub> is denoted as T<sub>COMB, MAX</sub> and it is the maximum value of the propagation delay of the combinational logic. We can further group the last two terms into one term called t<sub>OH</sub> (the overhead time), we can simplify our formula as follows
+
+$$
+\tau_{\text{COMB, max}}=T_{\text{CK}}-t_{\text{OH}}
+$$
+
+The timing overhead t<sub>OH</sub> reduces available time or the combinational logic and it can be further divided into register and clocking overhead:
+
+$$
+t_{\text{OH}}=t_{\text{OH, REG}}+t_{\text{OH, clocking}}
+$$
+
+where,
+
+$$
+\begin{align*}
+t_{\text{OH,REG}} &= t_{\text{SETUP,REG2}} + \tau_{\text{CK-Q,REG1}} \\[1em]
+t_{\text{OH,clocking}} &= \left| t_{\text{skew,RAND,21}} \right| - t_{\text{skew,DET,21}} + 2 \left| t_{\text{jitter}} \right|
+\end{align*}
+$$
+
+Within the whole thing we have discussed till now,
+
+* T<sub>CK</sub> is usually set as system specification
+* register overhead always reduce available time for computation
+* same for random skew/jitter, but **positive deterministic skew can increase the available time for computation!**
+
+To fix the max-delay violations, T<sub>CK</sub> can be increased.
+
+### Min-Delay Constraint
+
+{% hint style="warning" %}
+In this section, let $$ $t_1$ $$t<sub>1</sub> denote the time of the **launching clock edge** at the source register and $$ $t_2$ $$t<sub>2</sub> denote the time of the **launching clock edge** at the destination register.
+{% endhint %}
+
+<figure><img src="../../.gitbook/assets/min-delay-constraint.png" alt=""><figcaption></figcaption></figure>
+
+Using the hold time constraint, we can see from the above diagram that the follwoing formula must hold. Otherwise, the hold time constraint is violated
+
+$$
+\tau_{\text{CK-Q, REG1}}+\tau_{\text{COMB}}\geq t_{\text{skew, 21}}+t_{\text{HOLD, REG2}}
+$$
+
+Substitute t<sub>skew, 21</sub> with t<sub>2</sub>-t<sub>1</sub> and rearrange the formula, we can get
+
+$$
+\tau_{\text{COMB}}\geq t_2-t_1+t_{\text{HOLD, REG2}}-\tau_{\text{CK-Q, REG1}}
+$$
+
+Let's denote the value of R.H.S as $$\tau_{\text{COMB, min}}$$. Similarly, let's do the worst-case scenario analysis. This time we want to make the $$\tau_{\text{COMB, min}}$$ as big as possible, so
+
+$$
+t_2-t_1= t_{\text{skew,DET,21}} + \left| t_{\text{skew,RAND,21}} \right|
+$$
+
+{% hint style="danger" %}
+As we assume that REG1 and REG2 are in the same clock domain, the clock jitter has no effect (The edge is shifted by same amount in clk<sub>1</sub>)
+{% endhint %}
+
+After substitution, we will group the first three terms into one term called t<sub>HOLD, REG2, eq</sub>, this is called the **equivalent hold time of REG2** but extended by including clock non idealities.
+
+$$
+t_{\text{HOLD,REG2,eq}} = t_{\text{HOLD,REG2}} + t_{\text{skew,DET,21}} + \left| t_{\text{skew,RAND,21}} \right|
+$$
+
+Using t<sub>HOLD, REG2, eq</sub>, we can simplify our formula as follows:
+
+$$
+\tau_{\text{COMB,min}} = t_{\text{HOLD,REG2,eq}} - \tau_{\text{CK-Q,REG1}}
+$$
+
+Up till now, we can see that
+
+* The robustness margin $$\tau_{\text{CD}}-\tau_{\text{COMB, min}}$$ will indicate whether the design have violated hold time constraint or not
+  * If the margin is positive, no hold time violation. Otherwise, got hold time violation
+  * $$\tau_{\text{CD}}$$ is the **contamination delay**, it is the actual time when the input signal travels through the fast path in the combinational logic
+  * $$\tau_{\text{\text{COMB, min}}}$$ is the **minimum required time requirement** and the combinational logic's contamination delay must be at least this value for it to not violate hold time constraint
+* robustness will be degraded by **larger** t<sub>HOLD, REG2, eq</sub>,
+* **clock jitter** has no impact but **random clock skew** always degrades robustness
+* **negative deterministic clock skew** can improve robustness
+
+Unlike the setup time constraint, the hold time constraint **cannot** be fixed by increasing T<sub>CK</sub>.
