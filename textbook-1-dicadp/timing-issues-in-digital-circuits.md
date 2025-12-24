@@ -261,13 +261,15 @@ Now consider the case when the **skew** is **negative** ($$\delta<0$$) as shown 
 {% step %}
 #### Performance Analysis
 
-T
+The situation is the same as [above](https://wenbo-notes.gitbook.io/ee4415-icd-notes/textbook-1-dicadp/timing-issues-in-digital-circuits#performance-analysis), and remember the we still use $$T_{\text{CLK}}+\delta$$ but just treat $$\delta$$ as a negative value. So, the equation will be the same as Eq. (10.6).
+
+As the skew is negative, the T<sub>CLK</sub> must be larger to compensate the effect causing by the negative skew, making negative skew reduce performance. This is the same as we stated above.
 {% endstep %}
 
 {% step %}
-###
+#### Functionality Analysis
 
-
+In this case, hold time constraint violations become much easier to satisfy. Since CLK<sub>2</sub> arrives earlier than CLK<sub>1</sub> ($$\delta < 0$$), the destination flip-flop completes its hold requirement earlier, widening the safety margin against the new data arriving from CLK<sub>1</sub>.
 {% endstep %}
 {% endstepper %}
 
