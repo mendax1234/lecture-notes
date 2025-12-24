@@ -27,3 +27,17 @@ t_{\text{cdregister}}+t_{\text{cdlogic}}\geq t_{\text{hold}} \text{ ,or}\\t_{\te
 $$
 
 where t<sub>cdregister</sub> / t<sub>c-q,min</sub> is the minimum propagation delay (or contamination delay) of the register and t<sub>cdlogic</sub> / t<sub>cd</sub> is the minimum propagation delay (or contamination delay) of the combinational logic.
+
+$$
+t_{\text{hold}}<t_{\text{(c-q, cd)}}+t_{\text{(logic, cd)}}
+$$
+
+The above analysis is simplistic since the **clock** is never ideal. As a result of **process** and **environmental variations**, the **clock signal** can have **spatial** and **temporal variations**.
+
+#### Clock Skew
+
+The **spatial variation** in arrival time of a **clock transition** on an integrated circuit is commonly referred to as **clock skew**. The **clock skew** between two points i and j on an IC is given by $$\delta(i, j)=t_i-t_j$$, where t<sub>i</sub> and t<sub>j</sub> are the position of the rising edge of the clock **with respect to a reference**.
+
+{% hint style="warning" %}
+$$\delta$$, t<sub>i</sub> and t<sub>j</sub> are all scalars! Treat them just as a signed number!
+{% endhint %}

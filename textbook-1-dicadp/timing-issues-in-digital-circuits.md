@@ -34,4 +34,31 @@ For example, if you have a signal called `valid_flag`. And `valid_flag` is outpu
 
 </details>
 
+## Synchronous Design — An In-depth Perspective
+
+### Synchronous Timing Basic
+
+For a **positive edge-triggered system**, the **rising edge** of the **clock** is used to denote the beginning and completion of a **clock cycle**. In the ideal world, assuming the **clock paths** from a central distribution point to each **register** are perfectly balanced, the **phase** of the **clock** (i.e., the position of the **clock edge** relative to a reference) at various points in the system is going to be exactly equal. However, the **clock** is neither perfectly periodic nor perfectly simultaneous. This results in performance degradation and/or circuit malfunction. The following figure shows the basic structure of a **synchronous pipelined datapath**.
+
+<figure><img src="../.gitbook/assets/pipelined-datapath-circuit.png" alt=""><figcaption><p>Pipelined Datapath Circuit and timing parameters</p></figcaption></figure>
+
+In the ideal scenario, the **clock** at **registers 1** and **2** have the same **clock period** and transition at the exact same time. The following **timing parameters** characterize the **timing** of the **sequential circuit**.
+
+* The **contamination (minimum) delay** t<sub>c-q,cd</sub>, and **maximum propagation delay** of the register t<sub>c-q</sub>.
+* The **set-up** (t<sub>su</sub>) and **hold time** (t<sub>hold</sub>) for the registers.
+* The **contamination delay** t<sub>logic,cd</sub> and **maximum delay** t<sub>logic</sub> of the **combinational logic**.
+* t<sub>clk1</sub> and t<sub>clk2</sub>, corresponding to the position of the **rising edge** of the **clock** relative to a global reference.
+
+Under ideal conditions (t<sub>clk1</sub> = t<sub>clk2</sub>), the **worst case propagation delays** determine the **minimum clock period** required for this **sequential circuit**. The period must be long enough for the data to propagate through the **registers** and **logic** and be set-up at the destination **register** before the next **rising edge** of the **clock**. This constraint is given by (as derived in [designing-sequential-logic-circuits.md](designing-sequential-logic-circuits.md "mention")):
+
+$$
+T\geq t_{\text{c-q}}+t_{\text{plogic}}+t_{\text{su}}
+$$
+
+At the same time, the **hold time** of the destination **register** must be shorter than the **minimum propagation delay** through the **logic network**, so that the new data won't affect the old data in register 2.
+
+$$
+f(x) = x * e^{2 pi i \xi x}
+$$
+
 [^1]: This is the **propagation delay**!
