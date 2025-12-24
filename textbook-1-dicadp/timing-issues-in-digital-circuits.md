@@ -116,7 +116,7 @@ $$
 
 Figure 10.7 shows the timing diagram for the case when $$\delta<0$$.
 
-<figure><img src="../.gitbook/assets/timing-diagram-with-negative-clock-skew.png" alt=""><figcaption><p><strong>Figure 10.6</strong> Timing diagram to study the impact of clock skew on performance and functionality. In this sample timing diagram, <span class="math">\delta&#x3C;0</span></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/timing-diagram-with-negative-clock-skew.png" alt=""><figcaption><p><strong>Figure 10.7</strong> Timing diagram to study the impact of clock skew on performance and functionality. In this sample timing diagram, <span class="math">\delta&#x3C;0</span></p></figcaption></figure>
 
 For its impact on performance, the **rising edge** of CLK<sub>2</sub> happens before the **rising edge** of **CLK1**. On the **rising edge** of CLK<sub>1</sub>, a new input is sampled by R<sub>1</sub>. The new sampled data propagates through the **combinational logic** and is sampled by R<sub>2</sub> on the **rising edge** of CLK<sub>2</sub>, which corresponds to edge <i class="fa-circle-2">:circle-2:</i>. As can be seen from **Figure 10.7** and Eq. (10.3), a **negative skew** directly impacts the **performance** of **sequential system**, making the **minimum clock period** for the system to be larger.
 
@@ -126,7 +126,7 @@ $$
 t_{\text{hold}}<t_{\text{(c-q, cd)}}+t_{\text{(logic, cd)}}
 $$
 
-And in this case, our $$\delta<0$$, which means adding a negative to the L.H.S of the inequality above will make it always hold! $$\ref$$
+And in this case, our $$\delta<0$$, which means adding a negative to the L.H.S of the inequality above will make it always hold!
 
 {% hint style="warning" %}
 In whichever case, the newly derived two time constraints (setup and hold) are the same for both positive and negative skew. Recall that we treat $$\delta$$ as a **scalar**! So the equation doesn't change, it's just the value of $$\delta$$ might change!
