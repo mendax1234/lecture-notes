@@ -195,4 +195,80 @@ The computation of the **worst-case propagation delay** for **combinational logi
 
 </details>
 
+#### Clock Jitter
+
+**Clock jitter** refers to the **temporal variation** of the **clock period** at a given point —  that is, the **clock period** can reduce or expand on a **cycle-by-cycle** basis. It is strictly a **temporal uncertainty** measure and is often specified at a given point on the chip. **Jitter** can be measured and cited in one of many ways.
+
+* **Absolute jitter** (t<sub>jitter</sub>) refers to the worst-case variation (absolute value) of a clock edge at a given location relative to the edge of an ideal periodic reference clock.
+* **Cycle-to-cycle jitter** (T<sub>jitter</sub>) refers to time varying deviation of a single **clock period** and for a given spatial location i is given as $$T^i_{\text{jitter}}(n)=t^i_{\text{clk, n+1}}-t^i_{\text{clk, n}}-T_{\text{CLK}}$$, where $$t^i_{\text{clk, n+1}}$$ is the **clock period** for period (n+1), $$t^i_{\text{clk, n}}$$ is **clock period** for period n, and T<sub>CLK</sub> is the **nominal clock period**.
+
+In the worst-case scenario, the value of **cycle-to-cycle jitter** is equal to twice the **absolute jitter** (2t<sub>jitter</sub>).
+
+**Jitter** directly impacts the **performance** of a **sequential system**. **Figure 10.11** shows the **nominal clock period** as well as variation in period. Ideally the **clock period** starts at edge <i class="fa-circle-2">:circle-2:</i> and ends at edge <i class="fa-circle-5">:circle-5:</i> and with a **nominal clock period** of T<sub>CLK</sub>. However, as a result of **jitter**, the **worst case** scenario happens when the **leading edge** of the **current** clock period is **delayed** (edge <i class="fa-circle-3">:circle-3:</i>), and the **leading** edge of the **next** clock period occurs **early** (edge <i class="fa-circle-5">:circle-5:</i>). As a result, the total time available to complete the operation is reduced by **2t**<sub>**jitter**</sub> in the **worst case** and is given by,
+
+$$
+T_{\text{CLK}} - 2t_{\text{jitter}} \geq t_{\text{c-q}} + t_{\text{logic}} + t_{\text{su}} \quad \text{or} \quad T \geq t_{\text{c-q}} + t_{\text{logic}} + t_{\text{su}} + 2t_{\text{jitter}} \tag{10.5}
+$$
+
+<figure><img src="../.gitbook/assets/jitter-on-performance.png" alt=""><figcaption><p><strong>Figure 10.11</strong> Circuit for studying the impact of jitter on performance</p></figcaption></figure>
+
+{% hint style="warning" %}
+Worst case is to make the total time available **smaller** so that the T<sub>CLK</sub> has to become larger to compensate the effect casued by t<sub>jitter</sub>.
+{% endhint %}
+
+#### Impace of Skew and Jitter on Performance
+
+In this section, the **combined impact** of **skew** and **jitter** is studied with respect to **conventional edge-triggered clocking**. Consider the **sequential circuit** shown in **Figure 10.12**.
+
+<figure><img src="../.gitbook/assets/skew-jitter-on-performance.png" alt=""><figcaption><p><strong>Figure 10.12 Sequential circuit</strong> to study the impact of <strong>skew</strong> and <strong>jitter</strong> on <strong>edge-triggered systems</strong>. In this example, a <strong>positive skew</strong> (<span class="math">\delta</span>) is assumed.</p></figcaption></figure>
+
+Assume that nominally ideal clocks are distributed to both registers (the **clock period** is identical every cycle and the **skew** is 0). In reality, there is static **skew** $$\delta$$ between the two **clock signals** (assume that $$\delta>0$$). Assume that **CLK**<sub>**1**</sub> has a **jitter** of **t**<sub>**jitter1**</sub> and **CLK**<sub>**2**</sub> has a **jitter** of **t**<sub>**jitter2**</sub>.&#x20;
+
+{% stepper %}
+{% step %}
+#### Performance Analysis
+
+To determine the constraint on the **minimum clock period**, we must look at the minimum available time to perform the required computation. The **worst case** happens when the leading edge of the current **clock period** on **CLK**<sub>**1**</sub> happens late (edge <i class="fa-circle-3">:circle-3:</i>) and the leading edge of the next cycle of **CLK**<sub>**2**</sub> happens early (edge 10). This results in the following constraint
+
+$$
+T_{\text{CLK}} + \delta - t_{\text{jitter}1} - t_{\text{jitter}2} \geq t_{\text{c-q}} + t_{\text{logic}} + t_{\text{su}} 
+\\ \text{or} \quad T \geq t_{\text{c-q}} + t_{\text{logic}} + t_{\text{su}} - \delta + t_{\text{jitter}1} + t_{\text{jitter}2} \tag{10.6}
+$$
+
+As the above equation illustrates, while **positive skew** can provide potential **performance** advantage, **jitter** has a **negative impact** on the **minimum clock period**.
+{% endstep %}
+
+{% step %}
+#### Functionality Analysis
+
+To formulate the **minimum delay constraint**, consider the case when the leading edge of the **CLK**<sub>**1**</sub> cycle arrives early (edge <i class="fa-circle-1">:circle-1:</i>) and the leading edge of the current cycle of **CLK**<sub>**2**</sub> arrives late (edge <i class="fa-circle-6">:circle-6:</i>). The separation between edge <i class="fa-circle-1">:circle-1:</i> and <i class="fa-circle-6">:circle-6:</i> should be smaller than the **minimum delay** through the network. This results in,
+
+$$
+\delta + t_{\text{hold}} + t_{\text{jitter}1} + t_{\text{jitter}2} < t_{(\text{c-q, cd})} + t_{(\text{logic, cd})} \\
+\text{or} \\
+\delta < t_{(\text{c-q, cd})} + t_{(\text{logic, cd})} - t_{\text{hold}} - t_{\text{jitter}1} - t_{\text{jitter}2} \tag{10.7}
+$$
+
+The above relation indicates that the **acceptable skew** is reduced by the **jitter** of the two signals.
+{% endstep %}
+{% endstepper %}
+
+Now consider the case when the **skew** is **negative** ($$\delta<0$$) as shown in **Figure 10.13**. For the timing shown, $$\left|\delta\right|>t_{\text{jitter2}}$$. It can be easily verified that the **worst case** timing is exactly the same as the previous analysis, with $$\delta$$ taking a **negative** value. That is, **negative skew** reduces **performance**.
+
+<figure><img src="../.gitbook/assets/skew-jitter-on-performance-negative.png" alt=""><figcaption><p><strong>Figure 10.13</strong> Consider a negative clock skew (<span class="math">\delta</span>) and the skew is assumed to be larger than the jitter.</p></figcaption></figure>
+
+{% stepper %}
+{% step %}
+#### Performance Analysis
+
+T
+{% endstep %}
+
+{% step %}
+###
+
+
+{% endstep %}
+{% endstepper %}
+
 [^1]: This is the **propagation delay**!
