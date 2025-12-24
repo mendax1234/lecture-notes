@@ -273,4 +273,51 @@ In this case, hold time constraint violations become much easier to satisfy. Sin
 {% endstep %}
 {% endstepper %}
 
+#### Tips for memorization and calculation
+
+Up till this point, we have seen many equations and they vary with the consideration of the existence of clock skew and clock jitter. However, I have summarized the following rules to help you understand and then memorized those formulas easier.
+
+{% stepper %}
+{% step %}
+#### Setup Time (Performance)
+
+When doing the performance analysis, we are basically considering the **setup time constraint**, or **maximum delay constraint**. We have a fixed amount of time to get the data from Start to Finish.
+
+* **The Available Time**: Start with the clock period (T<sub>CLK</sub>). Add the skew ($$\delta$$) because it is a scalar and will always affect the available time. Subtract the jitter ($$2t_{\text{jitter}}$$) because uncertainty eats away at our usable margin.
+  * Formula: $$\text{Time}_{\text{Available}} = T_{\text{CLK}} + \delta - 2t_{\text{jitter}}$$
+* **The Required Time**: This is the time it takes the data to travel. It is the sum of the Max delays ($$t_{c-q} + t_{\text{logic}}$$) plus the setup time ($$t_{su}$$).
+
+The rule is:
+
+$$
+\text{Time}_{\text{Available}} \geq \text{Time}_{\text{Required}}
+$$
+{% endstep %}
+
+{% step %}
+#### Hold Time (Functionality)
+
+Think of Hold Time as the "Minimum Delay" constraint. We must ensure the _new_ data doesn't arrive too fast and overwrite the _old_ data before it's safe.
+
+* **The "Danger" Window**: This is how long the destination register is vulnerable. Start with the Hold Time ($$t_{\text{hold}}$$). Add the skew ($$\delta$$). Add the jitter ($$2t_{jitter}$$) because uncertainty **widens** the window where errors can occur.
+  * Formula: $$\text{Window}_{\text{Danger}} = t_{\text{hold}} + \delta + 2t_{\text{jitter}}$$
+* The "Safety" Delay: This is the fastest the new data can possibly travel. It is the sum of the Contamination (Min) delays ($$t_{\text{c-q,cd}} + t_{\text{logic,cd}}$$).
+
+The rule is:
+
+$$
+\text{Window}_{\text{Danger}} < \text{Time}_{\text{Safety}}
+$$
+{% endstep %}
+
+{% step %}
+#### The "Worst-Case" Mental Check
+
+Always assume the universe is working against us:
+
+* **Jitter is always bad**: It always reduces performance (subtracts from Clock Period) and endangers functionality (adds to Hold requirement).
+* **Skew is a trade-off**: Positive skew ($$\delta > 0$$) helps Setup (Performance) but hurts Hold (Functionality). Negative skew ($$\delta < 0$$) hurts Setup but helps Hold. But we always add it to our calculation thanks to its property of being a scalar.
+{% endstep %}
+{% endstepper %}
+
 [^1]: This is the **propagation delay**!
