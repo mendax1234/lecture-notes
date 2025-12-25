@@ -275,133 +275,455 @@ To start, let's first see an intuitive understanding of FF timing constraints.
 * To meet the setup time constraint, we can think of it as "the computation should be completed before next edge in REG<sub>2</sub>" -> This gives us the **max-delay constraint** for the combinational logic
 * To meet the hold time constraint, we can think of it as "the computation must affect REG<sub>2</sub> only after a certain time" -> This gives us the **min-delay constraint** for the combinational logic
 
-### Max-Delay Constraint
+#### Terminology Mapping
 
-{% hint style="warning" %}
-In this section, let $$ $t_1$ $$t<sub>1</sub> denote the time of the **launching clock edge** at the source register and $$ $t_2$ $$t<sub>2</sub> denote the time of the **capturing clock edge** at the destination register.
+As the following parts are mostly covered in [DICADP](../../textbook-1-dicadp/timing-issues-in-digital-circuits.md#synchronous-design-an-in-depth-perspective), here is the table summarizing the difference between some terminologies used:
+
+| DICADP (Textbook1)      | EE4415                                                           | Description                                                                                           |
+| ----------------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| $$T_{CLK}$$ or $$T$$    | $$T_{CK}$$                                                       | Nominal clock period                                                                                  |
+| $$t_{logic}$$           | $$\tau_{\text{COMB,max}}$$                                       | Maximum propagation delay through combinational logic                                                 |
+| $$t_{logic,cd}$$        | $$\tau_{\text{COMB,min}}$$                                       | Minimum contamination delay through combinational logic                                               |
+| $$t_{c-q}$$             | $$\tau_{\text{CK-Q},\text{REG1}}$$                               | Register clock-to-Q propagation delay                                                                 |
+| $$t_{c-q, cd}$$         | $$\tau_{\text{CK-Q},\text{REG1}}$$                               | Register clock-to-Q contamination delay (Don't know why EE4415 uses the same notation for both :joy:) |
+| $$t_{su}$$              | $$t_{\text{SETUP},\text{REG2}}$$                                 | Setup time of the destination register                                                                |
+| $$t_{hold}$$            | $$t_{\text{HOLD},\text{REG2}}$$                                  | Hold time of the destination register                                                                 |
+| $$\delta$$ (Clock Skew) | $$t_{\text{skew,DET}} \pm \left|t_{\text{skew,RAND,21}}\right|$$ | Clock skew (deterministic ± random in EE4415 but only deterministic in DICADP)                        |
+| $$t_{\text{jitter}}$$   | $$t_{\text{jitter}}$$                                            | Clock jitter                                                                                          |
+
+{% hint style="danger" %}
+In EE4415, the definition of clock jitter is a bit different from DICADP. So, we must follow EE4415's logic: **Jitter cancels out for Hold Time** because it is a "common mode" noise source in the same clock domain. However, in EE4415 we introduces Random Skew ($$|t_{skew,RAND}|$$) to account for the variation that _does_ differ between the two registers (like thermal noise in the wires), which the DICADP textbook might have just lumped into "jitter."
 {% endhint %}
 
-Using the intuitive understanding of the setup time constraint from above, we can see clearly from the diagram below that:
+### Max-Delay Constraint
+
+{% tabs %}
+{% tab title="Textbook DICADP" %}
+In the textbook, if we take both clock skew and clock jitter into account, the formula we get is
+
+$$
+T_{\text{CLK}} + \delta - t_{\text{jitter}1} - t_{\text{jitter}2} \geq t_{\text{c-q}} + t_{\text{logic}} + t_{\text{su}} 
+\\ \text{or} \\ T \geq t_{\text{c-q}} + t_{\text{logic}} + t_{\text{su}} - \delta + t_{\text{jitter}1} + t_{\text{jitter}2} \tag{1}
+$$
+
+{% hint style="info" %}
+The t<sub>jitter1</sub> and t<sub>jitter2</sub> can be treated as the same.
+{% endhint %}
+{% endtab %}
+
+{% tab title="EE4415" %}
+Use the table above to map the formula into EE4415, we will get
+
+$$
+T_{\text{CK}} \ge \tau_{\text{COMB,max}} + t_{\text{SETUP, REG2}} + \tau_{\text{CK-Q, REG1}} - t_{\text{skew,DET}} + |t_{\text{skew,RAND,21}}| + 2|t_{\text{jitter}}| \\ 
+\text{or} \\ 
+\tau_{\text{COMB,max}} \le T_{\text{CK}} - t_{\text{SETUP, REG2}} - \tau_{\text{CK-Q, REG1}} + t_{\text{skew,DET}} - |t_{\text{skew,RAND,21}}| - 2|t_{\text{jitter}}| \tag{2}
+$$
+
+{% hint style="warning" %}
+As the spirit is to make R.H.S as big as possible (worst-case scenraio), we will map the clock skew $$\delta$$ to $$t_{\text{skew,DET}} - |t_{\text{skew,RAND}}|$$.
+{% endhint %}
+
+To simplify it, we group some terms and get the following
+
+$$
+\tau_{COMB,max} \le T_{CK} - t_{OH} \\ \text{where} \\ t_{\text{OH}}= t_{\text{SETUP}} + \tau_{\text{CK-Q}} - t_{\text{skew,DET}} + |t_{\text{skew,RAND}}| + 2|t_{\text{jitter}}|
+$$
 
 <figure><img src="../../.gitbook/assets/max-delay-constraint.png" alt=""><figcaption></figcaption></figure>
-
-$$
-\begin{align*}
-% Setup Constraint Derivation
-% Left Side: Data Arrival Time (start time + clock-to-q delay + logic delay)
-% Right Side: Data Required Time (next clock edge - setup time)
-\tau_{\text{COMB}} + t_{\text{SETUP,REG2}} - \tau_{\text{CK-Q,REG1}}&\le T_{\text{CK}}  \\
-
-% Final inequality for Maximum Combinational Delay
-\tau_{\text{COMB,max}} &\le T_{\text{CK}} - t_{\text{SETUP,REG2}} - \tau_{\text{CK-Q,REG1}} \\
-
-% Rearranging to isolate Combinational Delay
-% Note: t2 - t1 is substituted with T_CK (Clock Period)
-\tau_{\text{COMB}} &\le \underbrace{t_2 - t_1}_{T_{\text{CK}}} - t_{\text{SETUP,REG2}} - \tau_{\text{CK-Q,REG1}} \\
-\end{align*}
-$$
-
-Adding the consideration of the clock non idealities, we will derive the **worst-case** t<sub>2</sub>-t<sub>1</sub> so that the inequality above will always hold if the T<sub>COMB</sub> satisfies the worst-case scenario.
-
-To make t<sub>2</sub>-t<sub>1</sub> the smallest, given that we already now the diagram as above, we may want
-
-1. t<sub>skew</sub> to be the smallest, although it is always a positive term
-2. we want the two clock jitters to behave in the <mark style="color:blue;">blue</mark> way
-
-In the [#clock-skew](lec-01b-timing-synchronous.md#clock-skew "mention") section, we have already seen that t<sub>skew</sub> = t<sub>skew, det</sub> <i class="fa-plus-minus">:plus-minus:</i> |t<sub>skew, rand</sub>|. So, to get the smallest value, we will take the **minus** sign. Thus, our t<sub>2</sub>-t<sub>1</sub> will be as follows:
-
-$$
-t_2 - t_1 = T_{\text{CK}} + t_{\text{skew,DET,21}} - \left| t_{\text{skew,RAND,21}} \right| - 2 \left| t_{\text{jitter}} \right|
-$$
-
-Substitute the t<sub>2</sub>-t<sub>1</sub> into the inequality above and rearrange it, we will have
-
-$$
-\begin{align*}
-\tau_{\text{COMB}} &\leq T_{\text{CK}} - \left( t_{\text{SETUP,REG2}} + \tau_{\text{CK-Q,REG1}} \right) \\
-&\quad - \left( \left| t_{\text{skew,RAND,21}} \right| - t_{\text{skew,DET,21}} + 2 \left| t_{\text{jitter}} \right| \right)
-\end{align*}
-$$
-
-The largest value for T<sub>COMB</sub> is denoted as T<sub>COMB, MAX</sub> and it is the maximum value of the propagation delay of the combinational logic. We can further group the last two terms into one term called t<sub>OH</sub> (the overhead time), we can simplify our formula as follows
-
-$$
-\tau_{\text{COMB, max}}=T_{\text{CK}}-t_{\text{OH}}
-$$
-
-The timing overhead t<sub>OH</sub> reduces available time or the combinational logic and it can be further divided into register and clocking overhead:
-
-$$
-t_{\text{OH}}=t_{\text{OH, REG}}+t_{\text{OH, clocking}}
-$$
-
-where,
-
-$$
-\begin{align*}
-t_{\text{OH,REG}} &= t_{\text{SETUP,REG2}} + \tau_{\text{CK-Q,REG1}} \\[1em]
-t_{\text{OH,clocking}} &= \left| t_{\text{skew,RAND,21}} \right| - t_{\text{skew,DET,21}} + 2 \left| t_{\text{jitter}} \right|
-\end{align*}
-$$
-
-Within the whole thing we have discussed till now,
-
-* T<sub>CK</sub> is usually set as system specification
-* register overhead always reduce available time for computation
-* same for random skew/jitter, but **positive deterministic skew can increase the available time for computation!**
-
-To fix the max-delay violations, T<sub>CK</sub> can be increased.
+{% endtab %}
+{% endtabs %}
 
 ### Min-Delay Constraint
 
-{% hint style="warning" %}
-In this section, let $$ $t_1$ $$t<sub>1</sub> denote the time of the **launching clock edge** at the source register and $$ $t_2$ $$t<sub>2</sub> denote the time of the **launching clock edge** at the destination register.
-{% endhint %}
+{% tabs %}
+{% tab title="Textbook DICADP" %}
+Similarly, for the hold time constraint / min-delay constraint, the formula we get is,
+
+$$
+\delta + t_{\text{hold}} + t_{\text{jitter}1} + t_{\text{jitter}2} < t_{(\text{c-q, cd})} + t_{(\text{logic, cd})} \\
+\text{or} \\
+\delta < t_{(\text{c-q, cd})} + t_{(\text{logic, cd})} - t_{\text{hold}} - t_{\text{jitter}1} - t_{\text{jitter}2} \tag{3}
+$$
+{% endtab %}
+
+{% tab title="EE4415" %}
+To map the formula into EE4415, we will get,
+
+$$
+\tau_{\text{COMB,min}} + \tau_{\text{CK-Q, REG1}} \ge t_{\text{HOLD,REG2,eq}} \\ \text{where} \\ t_{\text{HOLD,REG2,eq}} = t_{\text{HOLD, REG2}} + t_{\text{skew,DET}} + |t_{\text{skew,RAND,21}}| \tag{4}
+$$
+
+Rearrange it, we will get,
+
+$$
+\tau_{\text{COMB,min}} \ge t_{\text{HOLD,REG2,eq}} - \tau_{\text{CK-Q,REG1}}
+$$
 
 <figure><img src="../../.gitbook/assets/min-delay-constraint.png" alt=""><figcaption></figcaption></figure>
+{% endtab %}
+{% endtabs %}
 
-Using the hold time constraint, we can see from the above diagram that the follwoing formula must hold. Otherwise, the hold time constraint is violated
+## Intentional Skew
 
-$$
-\tau_{\text{CK-Q, REG1}}+\tau_{\text{COMB}}\geq t_{\text{skew, 21}}+t_{\text{HOLD, REG2}}
-$$
+As we have seen in DICADP, positive skew will improve **performance** but decrease hold robustness while negative skew will decrease performance but improve hold robustness.
 
-Substitute t<sub>skew, 21</sub> with t<sub>2</sub>-t<sub>1</sub> and rearrange the formula, we can get
-
-$$
-\tau_{\text{COMB}}\geq t_2-t_1+t_{\text{HOLD, REG2}}-\tau_{\text{CK-Q, REG1}}
-$$
-
-Let's denote the value of R.H.S as $$\tau_{\text{COMB, min}}$$. Similarly, let's do the worst-case scenario analysis. This time we want to make the $$\tau_{\text{COMB, min}}$$ as big as possible, so
+From the Eq. (2) in [#min-delay-constraint](lec-01b-timing-synchronous.md#min-delay-constraint "mention"), we can derive the maximum positive skew as follows,
 
 $$
-t_2-t_1= t_{\text{skew,DET,21}} + \left| t_{\text{skew,RAND,21}} \right|
+t_{\text{skew,DET,max}}
+=
+\tau_{\text{COMB,min}}
++
+\tau_{\text{CK-Q,REG1}}
+-
+t_{\text{HOLD,REG2}}
+-
+\left| t_{\text{skew,RAND,21}} \right|
 $$
 
-{% hint style="danger" %}
-As we assume that REG1 and REG2 are in the same clock domain, the clock jitter has no effect (The edge is shifted by same amount in clk<sub>1</sub>)
+Substitue the maximum skew into the Eq. (4) in [#max-delay-constraint](lec-01b-timing-synchronous.md#max-delay-constraint "mention"), the resulting clock cycle T<sub>CK</sub> will be,
+
+$$
+T_{\text{CK}}
+=
+\left(
+\tau_{\text{COMB,max}}
+-
+\tau_{\text{COMB,min}}
+\right)
++
+\left(
+t_{\text{SETUP,REG2}}
++
+t_{\text{HOLD,REG2}}
+\right)
++
+2\left(
+\left| t_{\text{skew,RAND,21}} \right|
++
+\left| t_{\text{jitter}} \right|
+\right)
+$$
+
+The following compares the minimum clock period (T<sub>CK</sub>) we can achieve in two different design scenarios, which is either to use skew or not use it at all
+
+| TCK=                  | zero (intentional skew)                                                        | max (intentional skew)                                                                      |
+| --------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
+| **combinational +**   | $$\tau_{\text{COMB,max}}$$                                                     | $$\tau_{\text{COMB,max}} - \tau_{\text{COMB,min}}$$                                         |
+| **FF overhead +**     | $$t_{\text{SETUP,REG2}} + \tau_{\text{CK-Q,REG1}}$$                            | $$t_{\text{SETUP,REG2}} + t_{\text{HOLD,REG2}}$$                                            |
+| **clocking overhead** | $$\left| t_{\text{skew,RAND,21}} \right| + 2\left| t_{\text{jitter}} \right|$$ | $$2\left(\left| t_{\text{skew,RAND,21}} \right| + \left| t_{\text{jitter}} \right|\right)$$ |
+
+From the table, we can see that if you intentionally design to use a positive skew to improve performance:
+
+* the impact of combinational delay drastically reduced
+* FF overhead increased a bit
+* doubled impact of random clock skew
+
+{% hint style="info" %}
+In the "zero" column, $$t_{\text{skew,DET}} = 0$$. In the "max" column, $$t_{\text{skew,DET}} = t_{\text{skew,DET,max}}$$.
 {% endhint %}
 
-After substitution, we will group the first three terms into one term called t<sub>HOLD, REG2, eq</sub>, this is called the **equivalent hold time of REG2** but extended by including clock non idealities.
+<details>
+
+<summary>Sequencing vs. Timing Constraint</summary>
+
+As we have talked about [#sequencing-in-synchronous-systems](lec-01b-timing-synchronous.md#sequencing-in-synchronous-systems "mention") before, now we may find an interesting interpretion that
+
+> timing constraints <-> conditions for correct sequencing
+
+| Sequencing                        | Meaning                                                    | Timing Constraint                                                                     |
+| --------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| data moves by **one**             | COMB must complete computation within one cycle            | [#max-delay-constraint](lec-01b-timing-synchronous.md#max-delay-constraint "mention") |
+| and **only one** stage each cycle | input of REG 1 does not affect output of REG2 at one event | [#min-delay-constraint](lec-01b-timing-synchronous.md#min-delay-constraint "mention") |
+
+</details>
+
+## Performance in Synchronous VLSI Systems
+
+In Synchronous VLSI systems, **performance** is an application-dependent term.
+
+### Throughput
+
+**Throughput** is defined as the number of computations completed per unit of time.
 
 $$
-t_{\text{HOLD,REG2,eq}} = t_{\text{HOLD,REG2}} + t_{\text{skew,DET,21}} + \left| t_{\text{skew,RAND,21}} \right|
+\text{Throughput} = \frac{\text{Number of Computations}}{\text{Time (seconds)}}
 $$
 
-Using t<sub>HOLD, REG2, eq</sub>, we can simplify our formula as follows:
+Depending on the application, throughput is measured differently:
+
+* **Generic Digital Logic**: Operations/sec (MOPS - Million Operations Per Second).
+* **Microprocessors** ($$\mu$$P): Instructions/sec (MIPS, BIPS).
+* **Arithmetic-Intensive (GPU)**: Floating-point ops/sec (FLOPS).
+* **Signal Processing (DSP)**: Samples/sec (kSPS).
+
+{% hint style="success" %}
+**Throughput** is the primary metric for continuous processing tasks like video streaming, DSP, or servers.&#x20;
+{% endhint %}
+
+#### Single Block Throughput Model
+
+When analyzing a specific hardware block (e.g., an accelerator), we assume:
+
+* **Conservation**: Data is not randomly created or lost; every input word generates a specific number of output words.
+* **Ideal Flow**: Inputs are applied "just in time" (no stalling).
+* **Functionality Factor** ($$X$$): Each input value generates $$X$$ sequential output values.
+
+This leads to the relationship between Input Data Rate ($$DR_{in}$$) and Output Data Rate ($$DR_{out}$$):
 
 $$
-\tau_{\text{COMB,min}} = t_{\text{HOLD,REG2,eq}} - \tau_{\text{CK-Q,REG1}}
+DR_{out} = X \cdot DR_{in}
 $$
 
-Up till now, we can see that
+Where $$X$$ is the **Data Rate Gain** set by the function of the block
 
-* The robustness margin $$\tau_{\text{CD}}-\tau_{\text{COMB, min}}$$ will indicate whether the design have violated hold time constraint or not
-  * If the margin is positive, no hold time violation. Otherwise, got hold time violation
-  * $$\tau_{\text{CD}}$$ is the **contamination delay**, it is the actual time when the input signal travels through the fast path in the combinational logic
-  * $$\tau_{\text{\text{COMB, min}}}$$ is the **minimum required time requirement** and the combinational logic's contamination delay must be at least this value for it to not violate hold time constraint
-* robustness will be degraded by **larger** t<sub>HOLD, REG2, eq</sub>,
-* **clock jitter** has no impact but **random clock skew** always degrades robustness
-* **negative deterministic clock skew** can improve robustness
+$$
+X = \frac{DR_{out}}{DR_{in}} = \frac{\# \text{words}_{out}}{\# \text{words}_{in}}
+$$
 
-Unlike the setup time constraint, the hold time constraint **cannot** be fixed by increasing T<sub>CK</sub>.
+<details>
+
+<summary>Example of Data Rate Gain</summary>
+
+The value of $$X$$ tells us if the block is **compressing or expanding** data.
+
+| Case                | Application Example      | Input                               | Output                            | Ratio (X) |
+| ------------------- | ------------------------ | ----------------------------------- | --------------------------------- | --------- |
+| Compression (X < 1) | 4K Video Compression     | 3840 × 2160 pixels (high bandwidth) | Compressed stream (3:1 reduction) | 1/3       |
+| Reduction (X < 1)   | AlexNet (Neural Network) | 224 × 224 pixels (image)            | 1,000 classes (classification)    | 1/50      |
+| Transform (X = 1)   | 1024-point FFT           | 1,024 audio samples                 | 1,024 frequency points            | 1         |
+| Expansion (X > 1)   | 12-filter FIR Bank       | 6 samples                           | 12 filtered outputs per sample    | 12        |
+
+</details>
+
+#### Cascaded Blcoks & The Bottleneck
+
+Real systems consist of multiple blocks chained together. To find the maximum performance of the entire chain, we must find the "bottleneck" (the **slowest block**).
+
+However, because the data rate changes (expands or compresses) at each stage, we cannot simply compare the raw speeds of Block 1 and Block 2. We must normalize everything to the **Output-Referred Data Rate**, which basically means asking
+
+> If this specific block runs at its maximum speed, how much final output does that equal?
+
+{% stepper %}
+{% step %}
+#### Single Block Limit
+
+The output of a single block is limited by either the incoming data or its own maximum internal speed ($$maxDR_{out}$$):
+
+$$
+\text{DR}_{out} = \min(X \cdot \text{DR}_{in}, \ max\text{DR}_{out})
+$$
+{% endstep %}
+
+{% step %}
+#### Chain Limit (The Bottleneck Formula)
+
+For a chain of blocks ($$1 \to 2 \to \dots \to N$$), the maximum system throughput is the minimum of all blocks' capacities, **scaled to the output**:
+
+$$
+maxDR_{out} = \min \left( \underbrace{X_2 \cdot \dots \cdot X_N \cdot maxDR_{out,1}}_{\text{Block 1 limit reflected at output}}, \ \dots \ , \underbrace{maxDR_{out,N}}_{\text{Block N limit}} \right)
+$$
+
+1. **For the First Block 1**:
+   1. Take its raw max speed ($$maxDR_{out,1}$$).
+   2. Multiply it by the gain of Block 2 ($$X_2$$), then Block 3 ($$X_3$$), all the way to Block N.
+   3. This result tells us: _"If Block 1 runs at 100%, how much final output is produced?"_
+2. **For the Last Block N**: Its limit is just its own max speed ($$maxDR_{out,N}$$).
+{% endstep %}
+{% endstepper %}
+
+In a perfect design, no block should be faster than necessary. If Block 2 is 10x faster than the system bottleneck, it is "wasted" potential (and wasted silicon area/power). So
+
+{% stepper %}
+{% step %}
+#### The Goal
+
+Every term inside the min() function should be equal.
+{% endstep %}
+
+{% step %}
+#### The Math
+
+Ideally, the max speed of any specific block i ($$maxDR_{out,i}$$) should be exactly:
+
+$$
+maxDR_{out,i} = \frac{\text{Target System Throughput}}{\prod_{j=i+1}^{N} X_j}
+$$
+
+This basically means that a block's designed speed should equal the target final speed divided by all the gains that come after it.
+{% endstep %}
+{% endstepper %}
+
+{% hint style="warning" %}
+#### Practical Bottlenecks
+
+In real-world chips (like the Roofline Model), the bottleneck usually shifts between three areas:
+
+* Compute-Bound: The arithmetic logic (ALU) is too slow.
+* Memory-Bound: We cannot read/write data to RAM fast enough.
+* Communication-Bound: We cannot move data between cores fast enough.
+{% endhint %}
+
+### Latency
+
+> While throughput measures the "volume" of work (how many?), Latency measures the "speed" of a single task (how fast?).
+
+**Latency** is the time required to complete a **single** computation from the moment inputs arrive until the final output is valid.
+
+<figure><img src="../../.gitbook/assets/latency.png" alt=""><figcaption></figcaption></figure>
+
+Latency is measured as:
+
+* Absolute Time: Nanoseconds (ns), milliseconds (ms).
+* Clock Cycles: How many "ticks" it takes.
+
+It is critical for real-time systems where a delay is unacceptable, such as autonomous vehicles braking or network packet switching.
+
+#### Throughput vs. Latency Relationship
+
+There is a common misconception that throughput is just the inverse of latency ($$1/\text{Latency}$$). This is only true in the specific case.
+
+{% stepper %}
+{% step %}
+#### Case A: No Overlap (Serial Execution)
+
+If the system can only accept a new request _after_ the previous one is completely finished, then:
+
+$$
+\text{Throughput} = \frac{1}{\text{Latency}}
+$$
+{% endstep %}
+
+{% step %}
+#### Case B: Execution Overlap (Pipelining/Parallelism)
+
+In most modern VLSI systems, we use **pipelining** (as we did in NUS CG3207!). We accept new inputs while the previous ones are still being processed in later stages.
+
+$$
+\text{Throughput} \gg \frac{1}{\text{Latency}}
+$$
+{% endstep %}
+{% endstepper %}
+
+#### Calculating System Latency
+
+Unlike throughput (which is limited by the _slowest_ block), latency is additive. We must sum up the time spent in every block along the path.
+
+{% stepper %}
+{% step %}
+#### Block-Level Latency ($$LAT_i$$)
+
+This is the time taken by a single block to finish its job.
+
+**The Worst-Case Rule**: If the latency is **data-dependent** (e.g., a multiplier takes longer for large numbers than small ones), we must use the Upper Bound ($$\max(LAT_i)$$) to guarantee timing correctness.
+{% endstep %}
+
+{% step %}
+#### System-Level Latency Formula
+
+For a system with N blocks, the total latency is not just the simple sum. We must account for **loops** or repeated execution of specific blocks.
+
+<figure><img src="../../.gitbook/assets/system-level-latency.png" alt=""><figcaption></figcaption></figure>
+
+$$
+\text{Total Latency} \le \sum_{i=1}^{N} (\#execution_i \cdot \max(LAT_i))
+$$
+
+* $$\#execution_i$$: The number of times Block i is executed to complete _one_ full system computation.
+* $$\max(LAT_i)$$: The worst-case latency of Block i.
+{% endstep %}
+{% endstepper %}
+
+### Case Study: AlexNet CNN
+
+To understand how throughput and latency principles apply to real-world hardware, we analyze the **AlexNet Convolutional Neural Network (CNN)**. This example demonstrates how data expansion/compression ($$X$$) and computational intensity vary dramatically across different stages of a system.
+
+#### Architecture Overview
+
+AlexNet is a classic CNN used for image classification (mapping a raw image to 1 of 1,000 classes). It consists of a pipeline of layers with distinct functions:
+
+* **CONV (Convolutional Layers)**: The "Trainable" feature extractors. They use kernels ($$k \times k$$) to filter input images.
+  * **Dominant Operation**: Multiply-Accumulate (MAC).
+  * **Data Flow**: Input Frame ($$227 \times 227$$ RGB) -> Convolved Features.
+* **ReLU (Rectified Linear Unit)**: Non-linear activation function ($$output = \max(0, input)$$). Simple and fast.
+* **POOL (Max Pooling)**: Down-sampling layer. Reduces data size by taking the maximum value in a patch.
+* **FC (Fully Connected Layers)**: The final classification stage. Every input neuron connects to every output neuron (matrix-vector multiplication).
+
+<figure><img src="../../.gitbook/assets/alex-cnn-architecture.png" alt=""><figcaption></figcaption></figure>
+
+#### Throughput Analysis: "The Bottleneck Shift"
+
+{% stepper %}
+{% step %}
+#### Data Volume vs. Operations
+
+&#x20;($$words_{out}$$): The number of data words _decreases_ as we move deeper into the network.
+
+* _Early Layers (Conv1-Conv2):_ High data volume (hundreds of thousands of words) due to large spatial maps.
+* _Later Layers (FC6-FC8):_ Low data volume (thousands of words).
+
+**Computational Load (MACs)**: The number of operations is massive in the middle layers.
+
+* _Conv2:_ Requires 224 Million MACs (Peak Compute Load).
+* _FC8:_ Requires only 4.1 Million MACs.
+
+<figure><img src="../../.gitbook/assets/wordsout-mac.png" alt=""><figcaption></figcaption></figure>
+{% endstep %}
+
+{% step %}
+#### Target Throughput Calculation
+
+To sustain a real-time performance of 30 frames per second (fps), each layer must meet a specific throughput target. This target depends on the layer's "Gain" ($$X$$):
+
+$$
+\text{Throughput(Layer } i) = \frac{\#ops}{\#words_{out}} \cdot \frac{DR_{out, final}}{\prod_{j=i+1}^{N} X_j}
+$$
+
+* Expansion ($$X > 1$$): Layers like Conv1 ($$X=1.89$$) and Conv2 ($$X=2.67$$) expand data, increasing the throughput burden on subsequent blocks.
+* Compression ($$X < 1$$): Layers like MaxPool ($$X \approx 0.23$$) and FC6 ($$X=0.44$$) aggressively reduce data rates.
+
+<figure><img src="../../.gitbook/assets/x-factor.png" alt=""><figcaption></figcaption></figure>
+{% endstep %}
+
+{% step %}
+#### The "Roofline" Reality
+
+When we map these requirements to hardware limits, we see distinct bottlenecks:
+
+* **Compute-Bound**: The system is limited by how many MACs it can do per second.
+  * _Dominant Layers:_ CONV Layers (require 215 MMACs/s to sustain 30fps).
+  * _Implication:_ CNN accelerators are essentially huge arrays of MAC units.
+* **Memory-Bound**: (See next section).
+
+<figure><img src="../../.gitbook/assets/total-throughput.png" alt=""><figcaption></figcaption></figure>
+{% endstep %}
+{% endstepper %}
+
+#### Memory Bandwidth and Capacity
+
+Throughput is not just about computing; it is about moving data.
+
+{% stepper %}
+{% step %}
+#### Memory Capacity (Storage)
+
+* **Feature Memory (Intermediate Data)**: Largest at the _start_ (hundreds of KBs for Conv1/Conv2).
+* **Weight Memory (Parameters)**: Dominant at the _end_ (FC Layers).
+  * **FC6** alone requires **37.7 Million** parameters (Weights/Biases).
+  * _Implication:_ FC layers are heavily memory-capacity constrained (often requiring off-chip DRAM).
+{% endstep %}
+
+{% step %}
+#### Memory Bandwidth (Speed)
+
+To feed the compute units for 30fps, we need high bandwidth:
+
+* Peak Bandwidth: Occurs at FC6 ($$\approx$$ 1,100 MB/s).
+* **Trend:**
+  * _First Layers:_ Low bandwidth (compute-bound).
+  * _Last Layers:_ Massive bandwidth spike (memory-bound) because FC layers read huge weight matrices for relatively few computations.
+
+<figure><img src="../../.gitbook/assets/memory-bandwidth.png" alt=""><figcaption></figcaption></figure>
+{% endstep %}
+{% endstepper %}

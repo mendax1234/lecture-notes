@@ -318,6 +318,14 @@ Always assume the universe is working against us:
 * **Jitter is always bad**: It always reduces performance (subtracts from Clock Period) and endangers functionality (adds to Hold requirement).
 * **Skew is a trade-off**: Positive skew ($$\delta > 0$$) helps Setup (Performance) but hurts Hold (Functionality). Negative skew ($$\delta < 0$$) hurts Setup but helps Hold. But we always add it to our calculation thanks to its property of being a scalar.
 {% endstep %}
+
+{% step %}
+#### The Variable Breakdown: Given vs. Calculated
+
+* **The Constants (Given)**: t<sub>su</sub>, t<sub>hold</sub> ,t<sub>c-q</sub>,t<sub>c-q, cd</sub>(Register specs) and usually t<sub>jitter</sub> (Clock spec).
+* **The Calculated (Analyze the Circuit)**: t<sub>logic</sub> (Max delay) and t<sub>logic, cd</sub> (Min delay). We must calculate these by tracing the Longest and Shortest paths in the diagram. (See the [example above](timing-issues-in-digital-circuits.md#example-propagation-and-contamination-delay-estimation))
+* **The Unknowns (Solve for One)**: The final equation typically links Clock Period (T<sub>CLK</sub>) and Skew ($$\delta$$). Usually, we are given one and asked to find the limit of the other (e.g., "Find the max allowable skew").
+{% endstep %}
 {% endstepper %}
 
 [^1]: This is the **propagation delay**!
