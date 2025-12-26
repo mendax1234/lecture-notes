@@ -1,46 +1,10 @@
-# Timing Issues in Digital Circuits
+# Synchronous Design - An In-depth Perspective
 
-## Classification of Digital Systems
-
-In digital systems, signals can be classified depending on how they are related to a local clock.
-
-1. Signals that transition only at predetermined periods in time can be classified as synchronous, mesochronous, or plesiochronous with respect to a system clock.
-2. A signal that can transition at arbitrary times is considered asynchronous.
-
-### Synchronous Interconnect
-
-In digital systems, a **synchronous signal** is one that has the exact same [frequency](timing-issues-in-digital-circuits.md#whats-the-frequency-of-a-signal-that-is-not-a-clk-signal) and a known fixed phase offset with respect to the local clock. In such a timing methodology, the signal is “synchronized” with the clock, and the data can be sampled directly without any uncertainty. In digital logic design, synchronous systems are the most straightforward type of interconnect, where the flow of data in a circuit proceeds in lockstep with the system clock as shown below.
-
-<figure><img src="../.gitbook/assets/dicadp-synchronous-interconnect-methadology.png" alt=""><figcaption></figcaption></figure>
-
-Here, the input data signal `In` is sampled with register R<sub>1</sub> to give signal C<sub>in</sub>, which is synchronous with the system clock and then passed along to the combinational logic block. After a [suitable setting period](#user-content-fn-1)[^1], the output C<sub>out</sub> becomes valid and can be sampled by R<sub>2</sub> which synchronizes the output with the clock. In a sense, the "certainty period" of signal C<sub>out</sub>, or the period where data is valid is synchronized with the system clock, which allows register R<sub>2</sub> to sample the data with complete confidence. The length of the “uncertainty period,” or the period where data is not valid, places an _upper bound on how fast a synchronous interconnect system can be clocked_.
-
-In short, in digital logic, **synchronization** turns "random arrival" into "scheduled arrival".
-
-1. The input `In` might arrive at any random time. It is "asynchronous." However, once `In` goes into R<sub>1</sub>, the output C<sub>in</sub> is now synchronized. C<sub>in</sub> is _only_ allowed to change its value immediately after the rising edge of the `CLK`.
-2. However, there is another problem, which is with the _combination logic_ in between. When C<sub>in</sub> changes, the logic gates inside take time to calculate. During this calculation, the signal C<sub>out</sub> might glitch, toggle randomly, or be invalid for a few nanoseconds. This is the "uncertainty." To solve this problem, we use "synchronization"
-   1. The system ignores everything happening in the middle of the clock cycle (the messy part).
-   2. R<sub>2</sub> is trained to only look at the data at the _very end_ of the cycle (the next clock edge).
-   3. By that time, the "messy" calculation must be finished, and the data must be stable ("valid").
-3. So, when we say a signal is synchronized, we are effectively saying: "I guarantee that this signal will be stable and valid setup<sub>time</sub> before the next clock edge arrives." This also explains why the data can be sampled directly without any uncertainty if the timing constraint it met.
-
-<details>
-
-<summary>What's the frequency of a signal that is not a CLK signal?</summary>
-
-In the context of that definition, the "frequency of the signal" actually refers to the **frequency of the clock domain that generates/launches that signal.**
-
-For example, if you have a signal called `valid_flag`. And `valid_flag` is output by a register triggered by a 100 MHz clock. Then, for the purpose of synchronization and timing analysis, `valid_flag` is considered a 100 MHz signal.
-
-</details>
-
-## Synchronous Design — An In-depth Perspective
-
-### Synchronous Timing Basic
+## Synchronous Timing Basic
 
 For a **positive edge-triggered system**, the **rising edge** of the **clock** is used to denote the beginning and completion of a **clock cycle**. In the ideal world, assuming the **clock paths** from a central distribution point to each **register** are perfectly balanced, the **phase** of the **clock** (i.e., the position of the **clock edge** relative to a reference) at various points in the system is going to be exactly equal. However, the **clock** is neither perfectly periodic nor perfectly simultaneous. This results in performance degradation and/or circuit malfunction. The following figure shows the basic structure of a **synchronous pipelined datapath**.
 
-<figure><img src="../.gitbook/assets/pipelined-datapath-circuit.png" alt=""><figcaption><p>Pipelined Datapath Circuit and timing parameters</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/pipelined-datapath-circuit.png" alt=""><figcaption><p>Pipelined Datapath Circuit and timing parameters</p></figcaption></figure>
 
 In the ideal scenario, the **clock** at **registers 1** and **2** have the same **clock period** and transition at the exact same time. The following **timing parameters** characterize the **timing** of the **sequential circuit**.
 
@@ -49,7 +13,7 @@ In the ideal scenario, the **clock** at **registers 1** and **2** have the same 
 * The **contamination delay** t<sub>logic,cd</sub> and **maximum delay** t<sub>logic</sub> of the **combinational logic**.
 * t<sub>clk1</sub> and t<sub>clk2</sub>, corresponding to the position of the **rising edge** of the **clock** relative to a global reference.
 
-Under ideal conditions (t<sub>clk1</sub> = t<sub>clk2</sub>), the **worst case propagation delays** determine the **minimum clock period** required for this **sequential circuit**. The period must be long enough for the data to propagate through the **registers** and **logic** and be set-up at the destination **register** before the next **rising edge** of the **clock**. This constraint is given by (as derived in [designing-sequential-logic-circuits.md](designing-sequential-logic-circuits.md "mention")):
+Under ideal conditions (t<sub>clk1</sub> = t<sub>clk2</sub>), the **worst case propagation delays** determine the **minimum clock period** required for this **sequential circuit**. The period must be long enough for the data to propagate through the **registers** and **logic** and be set-up at the destination **register** before the next **rising edge** of the **clock**. This constraint is given by (as derived in [designing-sequential-logic-circuits.md](../designing-sequential-logic-circuits.md "mention")):
 
 $$
 T\geq t_{\text{c-q}}+t_{\text{plogic}}+t_{\text{su}}\tag{10.1}
@@ -63,7 +27,7 @@ $$
 
 The above analysis is simplistic since the **clock** is never ideal. As a result of **process** and **environmental variations**, the **clock signal** can have **spatial** and **temporal variations**.
 
-#### Clock Skew
+### Clock Skew
 
 The **spatial variation** in arrival time of a **clock transition** on an integrated circuit is commonly referred to as **clock skew**. The **clock skew** between two points i and j on an IC is given by $$\delta(i, j)=t_i-t_j$$, where t<sub>i</sub> and t<sub>j</sub> are the position of the rising edge of the clock **with respect to a reference**.
 
@@ -73,7 +37,7 @@ $$\delta$$, t<sub>i</sub> and t<sub>j</sub> are all scalars! Treat them just as 
 
 Consider the transfer of data between registers R1 and R2 in **Figure 10.5**. The **clock skew** can be **positive or negative** depending upon the routing direction and position of the **clock source**. The **timing diagram** for the case with **positive skew** is shown in **Figure 10.6**. As the figure illustrates, the **rising clock edge** is delayed by a positive $$\delta$$ at the second register.
 
-<figure><img src="../.gitbook/assets/timing-diagram-with-positive-clock-skew.png" alt=""><figcaption><p><strong>Figure 10.6</strong> Timing diagram to study the impact of clock skew on performance and functionality. In this sample timing diagram, <span class="math">\delta>0</span></p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/timing-diagram-with-positive-clock-skew.png" alt=""><figcaption><p><strong>Figure 10.6</strong> Timing diagram to study the impact of clock skew on performance and functionality. In this sample timing diagram, <span class="math">\delta>0</span></p></figcaption></figure>
 
 **Clock skew** is caused by static path-length mismatches in the **clock** load and by definition **skew** is constant from cycle to cycle. That is, if in one cycle **CLK**<sub>**2**</sub> lagged **CLK**<sub>**1**</sub> by $$\delta$$, then on the next cycle it will lag it by the same amount.
 
@@ -116,7 +80,7 @@ $$
 
 Figure 10.7 shows the timing diagram for the case when $$\delta<0$$.
 
-<figure><img src="../.gitbook/assets/timing-diagram-with-negative-clock-skew.png" alt=""><figcaption><p><strong>Figure 10.7</strong> Timing diagram to study the impact of clock skew on performance and functionality. In this sample timing diagram, <span class="math">\delta&#x3C;0</span></p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/timing-diagram-with-negative-clock-skew.png" alt=""><figcaption><p><strong>Figure 10.7</strong> Timing diagram to study the impact of clock skew on performance and functionality. In this sample timing diagram, <span class="math">\delta&#x3C;0</span></p></figcaption></figure>
 
 For its impact on performance, the **rising edge** of CLK<sub>2</sub> happens before the **rising edge** of **CLK1**. On the **rising edge** of CLK<sub>1</sub>, a new input is sampled by R<sub>1</sub>. The new sampled data propagates through the **combinational logic** and is sampled by R<sub>2</sub> on the **rising edge** of CLK<sub>2</sub>, which corresponds to edge <i class="fa-circle-2">:circle-2:</i>. As can be seen from **Figure 10.7** and Eq. (10.3), a **negative skew** directly impacts the **performance** of **sequential system**, making the **minimum clock period** for the system to be larger.
 
@@ -136,7 +100,7 @@ In whichever case, the newly derived two time constraints (setup and hold) are t
 
 Example scenarios for positive and negative clock skew are shown in Figure 10.8.
 
-<figure><img src="../.gitbook/assets/positive-and-negative-clock-skew.png" alt=""><figcaption><p><strong>Figure 10.8</strong> Positive and egative clock skew</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/positive-and-negative-clock-skew.png" alt=""><figcaption><p><strong>Figure 10.8</strong> Positive and egative clock skew</p></figcaption></figure>
 
 {% stepper %}
 {% step %}
@@ -158,7 +122,7 @@ The circuit operates correctly independent of the **skew**. The **skew** reduces
 
 Unfortunately, since a general **logic circuit** can have data flowing in **both direction**s (for example, circuits with **feedback**), this solution to eliminate **races** will not always work (**Figure 10.9**).
 
-<figure><img src="../.gitbook/assets/datapath-structure-with-feedback.png" alt=""><figcaption><p><strong>Figure 10.9</strong> Datapath structure with feedback</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/datapath-structure-with-feedback.png" alt=""><figcaption><p><strong>Figure 10.9</strong> Datapath structure with feedback</p></figcaption></figure>
 
 The **skew** can assume both **positive** and **negative** values depending on the direction of the **data transfer**. Under these circumstances, the designer has to account for the **worst-case skew** condition. In general, routing the **clock** so that only **negative skew** occurs is not feasible. Therefore, the design of a **low-skew clock network** is essential.
 
@@ -172,7 +136,7 @@ This is a very classic question!
 
 Consider the logic network shown in Figure 10.10. Determine the propagation and contamination delay of the network, assuming that the worst case gate delay is t<sub>gate</sub>. The maximum and minimum delays of the gates is made, as they are assumed to be identical.
 
-<figure><img src="../.gitbook/assets/example-pd-cd.png" alt=""><figcaption><p><strong>Figure 10.10</strong> Logic network for computation of performance</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/example-pd-cd.png" alt=""><figcaption><p><strong>Figure 10.10</strong> Logic network for computation of performance</p></figcaption></figure>
 
 **Sol:** The **contamination delay** is given by **2 t**<sub>**gate**</sub> (the delay through **OR**<sub>**1**</sub> and **OR**<sub>**2**</sub>). On the other hand, computation of the **worst case propagation delay** is not as simple as it appears. At first glance, it would appear that the **worst case** corresponds to path <i class="fa-circle-1">:circle-1:</i> and the delay is **5 t**<sub>**gate**</sub>. However, when analyzing the data dependencies, it becomes obvious that path <i class="fa-circle-1">:circle-1:</i> is **never exercised**. Path <i class="fa-circle-1">:circle-1:</i> is called a **false path**.
 
@@ -195,7 +159,7 @@ The computation of the **worst-case propagation delay** for **combinational logi
 
 </details>
 
-#### Clock Jitter
+### Clock Jitter
 
 **Clock jitter** refers to the **temporal variation** of the **clock period** at a given point —  that is, the **clock period** can reduce or expand on a **cycle-by-cycle** basis. It is strictly a **temporal uncertainty** measure and is often specified at a given point on the chip. **Jitter** can be measured and cited in one of many ways.
 
@@ -210,17 +174,17 @@ $$
 T_{\text{CLK}} - 2t_{\text{jitter}} \geq t_{\text{c-q}} + t_{\text{logic}} + t_{\text{su}} \quad \text{or} \quad T \geq t_{\text{c-q}} + t_{\text{logic}} + t_{\text{su}} + 2t_{\text{jitter}} \tag{10.5}
 $$
 
-<figure><img src="../.gitbook/assets/jitter-on-performance.png" alt=""><figcaption><p><strong>Figure 10.11</strong> Circuit for studying the impact of jitter on performance</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/jitter-on-performance.png" alt=""><figcaption><p><strong>Figure 10.11</strong> Circuit for studying the impact of jitter on performance</p></figcaption></figure>
 
 {% hint style="warning" %}
 Worst case is to make the total time available **smaller** so that the T<sub>CLK</sub> has to become larger to compensate the effect casued by t<sub>jitter</sub>.
 {% endhint %}
 
-#### Impace of Skew and Jitter on Performance
+### Impact of Skew and Jitter on Performance
 
 In this section, the **combined impact** of **skew** and **jitter** is studied with respect to **conventional edge-triggered clocking**. Consider the **sequential circuit** shown in **Figure 10.12**.
 
-<figure><img src="../.gitbook/assets/skew-jitter-on-performance.png" alt=""><figcaption><p><strong>Figure 10.12 Sequential circuit</strong> to study the impact of <strong>skew</strong> and <strong>jitter</strong> on <strong>edge-triggered systems</strong>. In this example, a <strong>positive skew</strong> (<span class="math">\delta</span>) is assumed.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/skew-jitter-on-performance.png" alt=""><figcaption><p><strong>Figure 10.12 Sequential circuit</strong> to study the impact of <strong>skew</strong> and <strong>jitter</strong> on <strong>edge-triggered systems</strong>. In this example, a <strong>positive skew</strong> (<span class="math">\delta</span>) is assumed.</p></figcaption></figure>
 
 Assume that nominally ideal clocks are distributed to both registers (the **clock period** is identical every cycle and the **skew** is 0). In reality, there is static **skew** $$\delta$$ between the two **clock signals** (assume that $$\delta>0$$). Assume that **CLK**<sub>**1**</sub> has a **jitter** of **t**<sub>**jitter1**</sub> and **CLK**<sub>**2**</sub> has a **jitter** of **t**<sub>**jitter2**</sub>.&#x20;
 
@@ -255,7 +219,7 @@ The above relation indicates that the **acceptable skew** is reduced by the **ji
 
 Now consider the case when the **skew** is **negative** ($$\delta<0$$) as shown in **Figure 10.13**. For the timing shown, $$\left|\delta\right|>t_{\text{jitter2}}$$. It can be easily verified that the **worst case** timing is exactly the same as the previous analysis, with $$\delta$$ taking a **negative** value. That is, **negative skew** reduces **performance**.
 
-<figure><img src="../.gitbook/assets/skew-jitter-on-performance-negative.png" alt=""><figcaption><p><strong>Figure 10.13</strong> Consider a negative clock skew (<span class="math">\delta</span>) and the skew is assumed to be larger than the jitter.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/skew-jitter-on-performance-negative.png" alt=""><figcaption><p><strong>Figure 10.13</strong> Consider a negative clock skew (<span class="math">\delta</span>) and the skew is assumed to be larger than the jitter.</p></figcaption></figure>
 
 {% stepper %}
 {% step %}
@@ -273,7 +237,7 @@ In this case, hold time constraint violations become much easier to satisfy. Sin
 {% endstep %}
 {% endstepper %}
 
-#### Tips for memorization and calculation
+### Tips for memorization and calculation
 
 Up till this point, we have seen many equations and they vary with the consideration of the existence of clock skew and clock jitter. However, I have summarized the following rules to help you understand and then memorized those formulas easier.
 
@@ -323,9 +287,7 @@ Always assume the universe is working against us:
 #### The Variable Breakdown: Given vs. Calculated
 
 * **The Constants (Given)**: t<sub>su</sub>, t<sub>hold</sub> ,t<sub>c-q</sub>,t<sub>c-q, cd</sub>(Register specs) and usually t<sub>jitter</sub> (Clock spec).
-* **The Calculated (Analyze the Circuit)**: t<sub>logic</sub> (Max delay) and t<sub>logic, cd</sub> (Min delay). We must calculate these by tracing the Longest and Shortest paths in the diagram. (See the [example above](timing-issues-in-digital-circuits.md#example-propagation-and-contamination-delay-estimation))
+* **The Calculated (Analyze the Circuit)**: t<sub>logic</sub> (Max delay) and t<sub>logic, cd</sub> (Min delay). We must calculate these by tracing the Longest and Shortest paths in the diagram. (See the [example above](synchronous-design-an-in-depth-perspective.md#example-propagation-and-contamination-delay-estimation))
 * **The Unknowns (Solve for One)**: The final equation typically links Clock Period (T<sub>CLK</sub>) and Skew ($$\delta$$). Usually, we are given one and asked to find the limit of the other (e.g., "Find the max allowable skew").
 {% endstep %}
 {% endstepper %}
-
-[^1]: This is the **propagation delay**!

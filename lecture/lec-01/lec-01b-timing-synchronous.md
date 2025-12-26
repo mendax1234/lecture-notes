@@ -277,7 +277,7 @@ To start, let's first see an intuitive understanding of FF timing constraints.
 
 #### Terminology Mapping
 
-As the following parts are mostly covered in [DICADP](../../textbook-1-dicadp/timing-issues-in-digital-circuits.md#synchronous-design-an-in-depth-perspective), here is the table summarizing the difference between some terminologies used:
+As the following parts are mostly covered in [DICADP](../../textbook-1-dicadp/timing-issues-in-digital-circuits/#synchronous-design-an-in-depth-perspective), here is the table summarizing the difference between some terminologies used:
 
 | DICADP (Textbook1)      | EE4415                                                           | Description                                                                                           |
 | ----------------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |

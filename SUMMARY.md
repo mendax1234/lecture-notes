@@ -12,4 +12,6 @@
 
 * [Introduction](textbook-1-dicadp/introduction.md)
 * [Designing Sequential Logic Circuits](textbook-1-dicadp/designing-sequential-logic-circuits.md)
-* [Timing Issues in Digital Circuits](textbook-1-dicadp/timing-issues-in-digital-circuits.md)
+* [Timing Issues in Digital Circuits](textbook-1-dicadp/timing-issues-in-digital-circuits/README.md)
+  * [Classification of Digital Systems](textbook-1-dicadp/timing-issues-in-digital-circuits/classification-of-digital-systems.md)
+  * [Synchronous Design - An In-depth Perspective](textbook-1-dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective.md)
