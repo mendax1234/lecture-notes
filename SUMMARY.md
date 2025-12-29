@@ -7,6 +7,8 @@
 * [Lec 01](lecture/lec-01/README.md)
   * [Lec 01a - Intro](lecture/lec-01/lec-01a-intro.md)
   * [Lec 01b - Timing Synchronous](lecture/lec-01/lec-01b-timing-synchronous.md)
+* [Lec 02](lecture/lec-02/README.md)
+  * [Lec 02a - Pipelining](lecture/lec-02/lec-02a-pipelining.md)
 
 ## Textbook 1: DICADP
 
