@@ -186,7 +186,7 @@ This can **maximizes** [**yield**](#user-content-fn-6)[^6], so instead of throwi
 ### Throughput vs. Response Time
 
 * Response time (execution time) – the time between the  &#x20;start and the completion of a task.
-* Throughput – the total amount of work done in a given  &#x20;time.
+* Throughput – the **rate** at which a system completes its tasks. It is defined as the total amount of work accomplished divided by the time taken to complete that work. ($$\text{Throughput} = \frac{\text{Total Work Done}}{\text{Given Time Period}}$$)
 
 Will need different performance metrics as well as a different set of applications to benchmark personal mobile devices, embedded and desktop computers, which are more focused on response time, versus servers, which are more focused on throughput.
 
