@@ -606,6 +606,171 @@ The final schematic looks like below,
 
 <figure><img src="../.gitbook/assets/cg3207-lec02-schematic-drawing-example.png" alt="" width="375"><figcaption></figcaption></figure>
 
+### Finite State Machines
+
+{% hint style="info" %}
+FSMs are introduced in [DDCA](../textbook/sequential-logic-design/finite-state-machines.md) in pretty much detail, this part is from Prof's slides
+{% endhint %}
+
+A standard state machine architecture consists of three distinct components:
+
+1. combinational next-state logic,
+2. sequential state memory, and
+3. combinational output logic .
+
+For ASIC designs, a reset input is essential to initialize the state memory upon power-up; however, this is unnecessary in FPGA designs because dedicated Global Set/Reset (GSR) circuitry automatically initializes registers to their default values.
+
+<figure><img src="../.gitbook/assets/cg3207-lec02-basic-fsm.png" alt=""><figcaption><p>Basic FSM</p></figcaption></figure>
+
+To implement the above FSM, we can use the verilog template as follows:
+
+{% code lineNumbers="true" %}
+```verilog
+module SM(
+    input clk,
+    input Inp,
+    output reg Outp // no reg if assigned using assign
+);
+    // Only 1 bit required for state in this specific example
+    reg [0:0] state, n_state;
+    parameter S1 = 1'b0, S2 = 1'b1;
+    // Implementation follows...
+endmodule
+```
+{% endcode %}
+
+There are two types of FSMs:
+
+1. Moore Machines
+2. Mealy Machines
+
+The distinction between these models lies in their **output dependencies**.
+
+* In a Mealy Machine, the output is a function of both the current state and the current input. Conversely,
+* in a Moore Machine, the output depends exclusively on the current state.
+
+For example, the following are the next state and output example tables for the moore and mealy machines:
+
+<figure><img src="../.gitbook/assets/cg3207-lec02-moore-mealy-machine-example.png" alt=""><figcaption><p>Moore and Mealy machines example</p></figcaption></figure>
+
+{% hint style="danger" %}
+The two machines in the figure above are not functionally equivalent in terms of timing and transition behavior.
+{% endhint %}
+
+#### Moore Machine
+
+To implement a moore machine, we can use the following two approaches.
+
+{% stepper %}
+{% step %}
+#### Three-block approach
+
+This approach clearly modularizes the design into three separate blocks:
+
+1. a combinational block for next-state generation,
+2. a second combinational block for output generation, and
+3. a sequential block for the state memory.
+
+This separation ensures that the output logic remains independent of the input signals, strictly adhering to the Moore definition.
+
+<figure><img src="../.gitbook/assets/cg3207-lec02-moore-machine-verilog.png" alt=""><figcaption><p>Moore Machine in Verilog</p></figcaption></figure>
+
+{% code lineNumbers="true" %}
+```verilog
+// 1. Next State Logic
+always @ (*) begin
+    case(state)
+        S1: if(Inp == 1'b0) n_state = S1;
+            else            n_state = S2;
+        S2: if(Inp == 1'b0) n_state = S2;
+            else            n_state = S1;
+    endcase
+end
+
+// 2. Output Logic (Independent of Input)
+always @ (*) begin
+    case(state)
+        S1: Outp = 1'b1;
+        S2: Outp = 1'b0;
+    endcase
+end
+
+// 3. State Memory
+always @ (posedge clk) begin
+    state <= n_state;
+end
+```
+{% endcode %}
+{% endstep %}
+
+{% step %}
+#### Combined Combinational Logic
+
+Alternatively, the next-state generation and output generation can be merged into a **single** combinational block. This method can potentially lead to hardware savings if the synthesis tool optimizes the shared combinational logic between the two functions.
+
+<figure><img src="../.gitbook/assets/moore-machine-in-verilog-combined.png" alt="" width="524"><figcaption><p>Moore machine in Verilog (combined logic)</p></figcaption></figure>
+
+{% code lineNumbers="true" %}
+```verilog
+always @ (*) begin
+    case(state)
+        S1: begin
+            Outp = 1'b1; // Output defined by state
+            if(Inp == 1'b0) n_state = S1;
+            else            n_state = S2;
+        end
+        S2: begin
+            Outp = 1'b0;
+            if(Inp == 1'b0) n_state = S2;
+            else            n_state = S1;
+        end
+    endcase
+end
+```
+{% endcode %}
+{% endstep %}
+{% endstepper %}
+
+#### Mealy Machine
+
+For a Mealy machine, the output assignment must be placed inside the input conditional checks within the combinational block. Since the output is dependent on the input, any change in input signals will **immediately** propagate to the output asynchronously, **unlike the registered behavior of the state memory**.
+
+```verilog
+// --- Clock Block (Sequential Logic) ---
+always @(posedge clk) begin
+    state <= n_state;
+end
+
+// --- Combinational Block (Next State & Output Logic) ---
+always @(*) begin
+    case(state)
+        // Outp *is* dependent on Inp (Mealy Machine)
+        S1: if(Inp == 1'b0) begin
+            n_state = S1;
+            Outp = 1'b1;
+        end
+        else begin
+            n_state = S2;
+            Outp = 1'b0;
+        end
+
+        S2: if(Inp == 1'b0) begin
+            n_state = S2;
+            Outp = 1'b0;
+        end
+        else begin
+            n_state = S1;
+            Outp = 1'b0;
+        end
+        
+        default: begin
+            n_state = S1;
+            Outp = 1'b0;
+        end
+    endcase
+end
+```
+
 #### Worth to Read
 
 * [verilog-lifesaver.md](../lab/resources/verilog-lifesaver.md "mention")
