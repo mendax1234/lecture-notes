@@ -129,6 +129,16 @@ Figure 3.11 (a) shows how to construct a synchronously resettable flip-flop with
 
 <figure><img src="../../.gitbook/assets/resettable-flip-flop.png" alt="" width="266"><figcaption></figcaption></figure>
 
+Asynchronous resettable flip-flops require modifying the internal structure of the flip-flop. Both synchronously and asynchronously resettable flip-flops are frequently available to the designer as standard components.
+
+### Settable Flip-Flop
+
+As you might imagine, settable flip-flops are also occasionally used. They load a 1 into the flip-flop when SET is asserted and they, too, come in synchronous and asynchronous flavors. The symbols for settable flip-flops are just changing the "r" to "s" at the bottom of the rectangle.
+
+{% hint style="success" %}
+Resettable and settable flip-flops may also have an enable input and may be grouped into N-bit registers.
+{% endhint %}
+
 ## Register
 
 An N-bit register is a bank of N flip-flops (referring to D flip-flops) that share a common CLK input, so that all bits of the register are updated at the same time.
