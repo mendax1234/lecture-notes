@@ -11,7 +11,7 @@ Embedded systems have the following characteristics:
 
 * **Dedicated Task**: Usually performs a single function or a specific set of functions.
 * **Real-Time Response**: Must monitor the environment and react within a specified time frame (hard or soft real-time constraints).
-* **Continuous Operation**: Often requires $$ $24 \times 7$ $$24x7 operation with high reliability.
+* **Continuous Operation**: Often requires 24x7 operation with high reliability.
 * **Constraints**: heavily constrained by power (battery life), cost, size (form factor), and legacy support.
 * **HW/SW Integration**: Tight integration between Software (flexible, sequential) and Hardware (rigid, concurrent).
 
@@ -57,36 +57,99 @@ The goal is to find the optimal point on the Pareto Curve (trading off Resources
 ## FPGA
 
 {% hint style="info" %}
-**Note**: The working principles of FPGA is covered in [Harris & Harris DDCA](https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/jTJFBPtKk6NwweAooH53/)!
+**Note**: The working principles of FPGA is covered in [Harris & Harris DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/digital-building-blocks/logic-arrays#field-programmable-gate-array)!
 {% endhint %}
 
 ## Algorithms and Graphs
 
-In this course (EE4218), we focus on the algorithms _inside_ the CAD tools. Most CAD problems (like placement and routing) are **NP-hard**.
+An **algorithm** defines a procedure for solving a computational problem. For example, the quick sort, bubble sort, insertion sort, etc.
 
 ### Complexity
 
-We measure algorithms using [**Big-O notation**](https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/KipySCGxC8NC1UpA24DS/) ($$O(f(n))$$), which ignores constants and describes the trend as input size $$n$$ grows.
+**Complexity** is defined as the run time on deterministic, sequential machine. We measure algorithms using [**Big-O notation**](https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/KipySCGxC8NC1UpA24DS/) ($$O(f(n))$$), which ignores constants and describes the trend as input size $$n$$ grows.
 
 * **P (Polynomial)**: Solvable in polynomial time (Tractable).
 * **NP (Non-deterministic Polynomial)**: Exact solution requires exponential time. We usually settle for "heuristics" to find a "good enough" solution rather than the optimal one.
 
+{% hint style="warning" %}
+In this course (EE4218), we focus on the algorithms _inside_ the CAD tools. Most CAD problems (like placement and routing) are **NP-hard**.
+{% endhint %}
+
 ### Graphs
 
+{% hint style="info" %}
 CAD tools represent circuits as graphs.
+{% endhint %}
 
-Graph $$G=(V, E)$$: A set of vertices (nodes) $$V$$ and edges (links) $$E$$.
+Graph $$G=(V, E)$$ is composed of two parts:
+
+1. A set of vertices (nodes) denoted as $$V$$ and
+2. edges (links) denoted as $$E$$.
+
+Graphs can be directed or undirected
 
 * **Directed**: $$e_k = (v_i, v_j)$$ (Ordered pair).
 * **Undirected**: $$e_k = \{v_i, v_j\}$$ (Unordered pair).
-* **Hypergraph**: An edge can connect _more_ than two vertices (common in netlists where one output drives multiple inputs).
+
+<figure><img src="../.gitbook/assets/graph-example.png" alt=""><figcaption></figcaption></figure>
 
 #### Graph Representation
 
 We can use the following two methods to represent a graph:
 
-* **Adjacency Matrix**: A 2D array where $$A[i][j] = 1$$ if an edge exists. Good for dense graphs, but uses $$O(|V|^2)$$ memory.
-* **Adjacency List**: An array of linked lists. More memory efficient for sparse graphs (like circuits).
+{% stepper %}
+{% step %}
+#### Adjacency Matrix
+
+A 2D array where $$A[i][j] = 1$$ if an edge exists. Good for dense graphs, but uses $$O(|V|^2)$$ memory.
+
+<figure><img src="../.gitbook/assets/graph-adjacency-matrix.png" alt=""><figcaption></figcaption></figure>
+{% endstep %}
+
+{% step %}
+#### Adjacency List
+
+An array of linked lists. More memory efficient for sparse graphs (like circuits).
+
+<figure><img src="../.gitbook/assets/graph-adjacency-list.png" alt=""><figcaption></figcaption></figure>
+{% endstep %}
+{% endstepper %}
+
+#### Edge/Vertex Weights in Graphs
+
+Both edge and vertex can have **weights**
+
+{% stepper %}
+{% step %}
+#### Edge weight
+
+This usually represents the **cost** of an edge. For example, distance between two cities and width of a data bus.
+
+<figure><img src="../.gitbook/assets/graph-edge-weight.png" alt="" width="523"><figcaption></figcaption></figure>
+
+The corresponding changes needed in the graph representations are
+
+* **Adjacency matrix**: Instead of 0/1, keep the weight.
+* **Adjacency list**: Keep the weight in the linked list item.
+{% endstep %}
+
+{% step %}
+#### Node weight
+
+This is usually used to enforce some capacity constraint on the nodes. For example, the size of gates in a circuit and the delay of operations in a "data dependency graph".
+
+<figure><img src="../.gitbook/assets/graph-node-weight.png" alt="" width="359"><figcaption></figcaption></figure>
+{% endstep %}
+{% endstepper %}
+
+#### Hypergraphs
+
+Similar to the definition of normal graphs, in **hypergraphs**, an edge can connect _more_ than two vertices. A,k.a, edges not between **pairs** of vertices, but between a **set** of vertices.
+
+* Hypergraphs can be directed/undirected.
+* A node can be the source (or be connected to) multiple hyperedges.
+
+<figure><img src="../.gitbook/assets/hypergraph-example.png" alt=""><figcaption></figcaption></figure>
 
 #### Common Algorithms in EDA
 
