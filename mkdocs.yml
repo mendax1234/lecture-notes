@@ -12,21 +12,25 @@ edit_uri: edit/main/docs/ # Adds an "Edit this page" button to every page
 # ==============================================================================
 theme:
   name: material
-  custom_dir: overrides             # Essential for your Giscus comments
+  custom_dir: overrides # Essential for your Giscus comments
   # logo: assets/logo.png           # (Optional) Add your logo here later
   # favicon: assets/favicon.png     # (Optional) Add favicon here later
 
   # 2.1 Feature Flags (UI Elements)
   features:
-    - navigation.tabs               # Top-level tabs (Year 1, Year 2...)
-    - navigation.tabs.sticky        # Tabs stay visible when scrolling
-    - navigation.sections           # Sidebar grouping
-    - navigation.path               # Breadcrumbs (Home > Year 1 > Sem 1)
-    - navigation.indexes            # Clickable section headers
-    - navigation.top                # "Back to top" button
-    - navigation.footer             # "Next/Prev" buttons
-    - content.code.copy             # Copy button on code blocks
-    - content.action.edit           # Enable the edit button defined in repo_url
+    - navigation.tabs # Top-level tabs (Year 1, Year 2...)
+    - navigation.tabs.sticky # Tabs stay visible when scrolling
+    - navigation.sections # Sidebar grouping
+    - navigation.path # Breadcrumbs (Home > Year 1 > Sem 1)
+    - navigation.indexes # Clickable section headers
+    - navigation.top # "Back to top" button
+    - navigation.footer # "Next/Prev" buttons
+    - navigation.instant # Instant loading of pages
+    - navigation.instant.preview # Show preview while loading
+    - content.code.copy # Copy button on code blocks
+    - content.action.edit # Enable the edit button defined in repo_url
+    - content.tooltips # Tooltips for abbreviations
+    - content.tabs.link # Allow linking to specific tabs
 
   # 2.2 Color Palette (Light/Dark Toggle)
   palette:
@@ -59,55 +63,59 @@ plugins:
   - git-committers:
       repository: mendax1234/lecture-notes
       branch: main
-  - optimize:         # Compresses all images for faster loading
+  - optimize: # Compresses all images for faster loading
       enabled: true
-      cache: true     # Speeds up future builds by not re-doing unchanged images
+      cache: true # Speeds up future builds by not re-doing unchanged images
+  - typeset # Improves typography (quotes, dashes, ellipses)j
 
 # ==============================================================================
 # 4. MARKDOWN EXTENSIONS (Grouped by Function)
 # ==============================================================================
 markdown_extensions:
   # 4.1 Standard Formatting
-  - abbr                            # Tooltips for abbreviations
-  - admonition                      # Warnings/Notes blocks
-  - attr_list                       # Add classes/IDs to elements {: #id }
-  - md_in_html                      # Allow Markdown inside HTML tags
+  - abbr # Tooltips for abbreviations
+  - admonition # Warnings/Notes blocks
+  - attr_list # Add classes/IDs to elements {: #id }
+  - md_in_html # Allow Markdown inside HTML tags
+  - tables # Enhanced table support
   - toc:
       toc_depth: 3
-      permalink: true               # Adds link anchor to headers
+      permalink: true # Adds link anchor to headers
 
   # 4.2 Code & Syntax Highlighting
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
-  - pymdownx.inlinehilite           # Inline code highlighting
-  - pymdownx.snippets               # Embed code from other files
-  - pymdownx.superfences:           # Advanced code blocks (Mermaid, etc)
+  - pymdownx.inlinehilite # Inline code highlighting
+  - pymdownx.snippets # Embed code from other files
+  - pymdownx.superfences: # Advanced code blocks (Mermaid, etc)
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+          format:
+            !!python/name:pymdownx.superfences.fence_code_format # 4.3 Math & Science (Crucial for Engineering)
 
-  # 4.3 Math & Science (Crucial for Engineering)
+
   - pymdownx.arithmatex:
       generic: true
 
   # 4.4 Visuals & Layouts
-  - pymdownx.details                # Collapsible "details" blocks
+  - pymdownx.details # Collapsible "details" blocks
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+        # ==============================================================================
+        # 5. ASSETS (CSS & JS)
+        # ==============================================================================
 
-# ==============================================================================
-# 5. ASSETS (CSS & JS)
-# ==============================================================================
+
 extra_javascript:
   - javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
 # extra_css:
-  # - stylesheets/extra.css        # Uncomment when you start writing custom CSS
+# - stylesheets/extra.css        # Uncomment when you start writing custom CSS
 
 # ==============================================================================
 # 6. NAVIGATION STRUCTURE
@@ -115,29 +123,29 @@ extra_javascript:
 nav:
   - Home: index.md
   - Year 1:
-    - year-1/index.md
-    - Semester 1:
-      - year-1/sem-1/index.md
-      - CS1010 Programming Methodology: year-1/sem-1/CS1010.md
-      - CG1111A Engineering Principles and Practice I: year-1/sem-1/CG1111A.md
-      - MA1511 Engineering Calculus: year-1/sem-1/MA1511.md
-      - MA1512 Differential Equations for Engineering: year-1/sem-1/MA1512.md
-      - EG1311 Design and Make: year-1/sem-1/EG1311.md
-      - LAF1201 French I: year-1/sem-1/LAF1201.md
-    - Semester 2:
-      - year-1/sem-2/index.md
-      - CG2111A Engineering Principles and Practice II: year-1/sem-2/CG2111A.md
-      - CS2030S Programming Methodology II: year-1/sem-2/CS2030S.md
-      - DTK1234 Design Thinking: year-1/sem-2/DTK1234.md
-      - PF1101 Fundamentals of Project Management: year-1/sem-2/PF1101.md
-      - GEA1000 Quantitative Reasoning for Data: year-1/sem-2/GEA1000.md
-      - LAF2201 French 2: year-1/sem-2/LAF1202.md
+      - year-1/index.md
+      - Semester 1:
+          - year-1/sem-1/index.md
+          - CS1010 Programming Methodology: year-1/sem-1/CS1010.md
+          - CG1111A Engineering Principles and Practice I: year-1/sem-1/CG1111A.md
+          - MA1511 Engineering Calculus: year-1/sem-1/MA1511.md
+          - MA1512 Differential Equations for Engineering: year-1/sem-1/MA1512.md
+          - EG1311 Design and Make: year-1/sem-1/EG1311.md
+          - LAF1201 French I: year-1/sem-1/LAF1201.md
+      - Semester 2:
+          - year-1/sem-2/index.md
+          - CG2111A Engineering Principles and Practice II: year-1/sem-2/CG2111A.md
+          - CS2030S Programming Methodology II: year-1/sem-2/CS2030S.md
+          - DTK1234 Design Thinking: year-1/sem-2/DTK1234.md
+          - PF1101 Fundamentals of Project Management: year-1/sem-2/PF1101.md
+          - GEA1000 Quantitative Reasoning for Data: year-1/sem-2/GEA1000.md
+          - LAF2201 French 2: year-1/sem-2/LAF1202.md
   - Year 2:
-    - year-2/index.md
-    - Semester 1:
-      - year-2/sem-1/index.md
-      - CG3207 Computer Architecture: year-2/sem-1/CG3207.md
-      - CG2027 Transistor-Level Digital Circuits: year-2/sem-1/CG2027.md
-      - CS2113 Software Engineering and Object-Oriented Programming: year-2/sem-1/CS2113.md
-      - LAF3202 French 4: year-2/sem-1/LAF3202.md
-      - ES2631 Critical Thinking and Writing of Thinking and Design: year-2/sem-1/ES2631.md
+      - year-2/index.md
+      - Semester 1:
+          - year-2/sem-1/index.md
+          - CG3207 Computer Architecture: year-2/sem-1/CG3207.md
+          - CG2027 Transistor-Level Digital Circuits: year-2/sem-1/CG2027.md
+          - CS2113 Software Engineering and Object-Oriented Programming: year-2/sem-1/CS2113.md
+          - LAF3202 French 4: year-2/sem-1/LAF3202.md
+          - ES2631 Critical Thinking and Writing of Thinking and Design: year-2/sem-1/ES2631.md
