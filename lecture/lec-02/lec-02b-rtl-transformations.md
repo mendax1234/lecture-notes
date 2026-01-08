@@ -25,6 +25,9 @@ For example, in the following diagram, we can see three distinct elements. Each 
   * **Meaning**: This stands for Delay, but specifically Sequential Delay (Registers/Flip-Flops).
   * Weight ($$w(e)$$): The number of registers on a wire.
   * _Example:_ A box labeled "$$D$$" is 1 Register (1 clock cycle delay). A box labeled "$$2D$$" is 2 Registers in a series. A plain wire has $$0D$$.
+* **Connected and Disconnected Graphs**
+  * **Connected**: A graph is connected if there is at least one path between any pair of vertices.
+  * **Disconnected**: A graph where vertices are isolated into separate groups with no connecting paths.
 
 {% hint style="danger" %}
 #### Two Delays
@@ -36,6 +39,8 @@ We have seen two delays up to now and don't confuse with them!
 * **Edge Delay/Weight** ($$w$$): Time is "paused" here. The data stops and waits for the next clock tick. This is called the **sequential delay**.
   * _Analogy:_ The customer waiting in line.
 {% endhint %}
+
+
 
 #### DFG on Single Rate System
 
@@ -245,19 +250,129 @@ $$
 If you have **multiple registers** appearing in the loop, let's say n. Then you need to add $$n \times t_{OH}$$ in your $$t_{loop}$$ term.
 {% endhint %}
 
-## Retiming
+## Pipelining
 
-### Concepts and Properties
+We first met pipelining in [CG3207](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-05-the-pipelined-processor)! The primary goal of **pipelining** or **register insertion** is to add pipeline registers to a circuit to reduce the critical path (improving frequency) without altering the circuit's logical functionality.
 
-### Cut-Set Retiming
+{% hint style="danger" %}
+**Trade-offs** of pipelining: Adding registers increases latency (signals must cross more registers to reach the output) and area, but it is necessary for enabling transformations like retiming or folding.
+{% endhint %}
 
-### Algorithms for Minimization
+### Cutset
 
-## Throughput Optimization
+A **cutset** is a tool used to isolate a specific section of the circuit graph. It is the _**minimal**_**&#x20;set of edges** (wires) whose removal would disconnect the graph into two separate parts ($$G_1$$ and $$G_2$$).
 
-### Parallelism
+To find the **cut-set**, we can imagine drawing a closed "Gaussian surface" (a bubble) around a group of nodes. The edges that cross this boundary line form the cutset. Each edge must be crossed exactly once. For example, in the diagram below, the two <mark style="color:red;">red</mark> arrows form a cutset.
 
-### Pipelining
+<figure><img src="../../.gitbook/assets/cut-set-example.png" alt="" width="563"><figcaption></figcaption></figure>
+
+Once either of the above two red arrow is cut, no path exists between $$G_1$$ and $$G_2$$; they are completely mathematically independent.
+
+#### Feedforward Cutset
+
+Not all cutsets allow for safe register insertion. We must identify a **Feedforward** Cutset. A cutset is "feedforward" if **all** its edges point in the **same direction**. They must all be incoming to the bubble or all outgoing from it.
+
+<figure><img src="../../.gitbook/assets/feedforward-cutset-example.png" alt="" width="563"><figcaption></figcaption></figure>
+
+#### Feedforward Cutset Register Insertion
+
+The **feedforward cutset register insertion rule** indicates that we can insert $$k$$ cascaded registers into every single edge of a feedforward cutset without breaking the circuit's functionality. The result is that the logic remains valid, but the processing latency increases by $$k$$ clock cycles at that edge.
+
+{% hint style="danger" %}
+This rule never holds in a loop! It is only valid in a feedforward cutset!
+{% endhint %}
+
+<details>
+
+<summary>Proof of the feedforward cutset register insertion rule</summary>
+
+Functionality is preserved because the relative timing between signals inside $$G_1$$ and $$G_2$$ stays constant. Since _all_ signals crossing the boundary are delayed by the exact same amount ($$k$$), the sub-circuits just see the same data sequence shifted in time.
+
+This is generally impossible in loops because loops usually create bidirectional (non-feedforward) cutsets. As we have seen above in the "[recursive DFGs](https://wenbo-notes.gitbook.io/ee4415-icd-notes/lecture/lec-02/lec-02b-rtl-transformations#recursive-dfgs)", adding registers in a loop changes the recursion depth (e.g., changing $$x[i-1]$$ to $$x[i-3]$$), which alters the math.
+
+</details>
+
+From this rule, we have the following observations
+
+{% stepper %}
+{% step %}
+#### I/O Insertion
+
+Primary inputs and outputs are technically special cases of feedforward cutsets. Therefore, we can **always** safely insert pipeline registers at the very beginning or very end of a digital module.
+
+<figure><img src="../../.gitbook/assets/feedforward-cutset-rule-observation-1.png" alt=""><figcaption></figcaption></figure>
+{% endstep %}
+
+{% step %}
+#### Register Removal
+
+The rule works in reverse. If _every_ edge in a feedforward cutset already possesses at least $$k$$ registers, we can remove $$k$$ registers from all of them to reduce latency.
+{% endstep %}
+
+{% step %}
+#### Non-Cutset Exception
+
+In specific architectures like parallel/interleaved filters (e.g., 3-tap FIR filter), we can sometimes insert registers in **non-cutset patterns** (dashed paths) while still preserving functionality due to the parallel nature of the hardware.
+
+<figure><img src="../../.gitbook/assets/feedforward-cutset-rule-observation-3.png" alt="" width="507"><figcaption></figcaption></figure>
+{% endstep %}
+{% endstepper %}
+
+<details>
+
+<summary>Example of adding registers on non-feedforward cutset fails</summary>
+
+The counterexample has been introduced in the "[recursive DFGs](https://wenbo-notes.gitbook.io/ee4415-icd-notes/lecture/lec-02/lec-02b-rtl-transformations#recursive-dfgs)" already. Below is a diagram which makes it more intuitive
+
+<figure><img src="../../.gitbook/assets/non-feedforward-cutset-fail.png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+### N-Slowing and Time Interleaving
+
+{% stepper %}
+{% step %}
+#### N-Slowing
+
+**N-Slowing** is a global register insertion technique used to transform a circuit to handle multiple independent data streams simultaneously.
+
+* **Procedure**: Replace every single register in the original circuit with $$N$$ cascaded registers.
+* **Effect on Latency**: The input-to-output latency increases by a factor of $$N$$. The system effectively operates on a time scale dilated by $$N$$.
+* **Functionality**: The logical functionality is strictly preserved, but the output appears $$N$$ times later relative to the original timeline ($$x_{N-slow}(N \cdot i) = x(i)$$).
+{% endstep %}
+
+{% step %}
+#### Time Interleaving
+
+The primary motivation for N-Slowing is to enable **Time Interleaving**, which allows a single hardware block to process $$N$$ parallel data streams (channels).
+
+* **Periodicity**: In an N-slowed system, a signal at time $$t$$ depends only on signals from time $$t-N$$. The intermediate cycles ($$t-1, \dots, t-(N-1)$$) are mathematically independent.
+* **Utilization**: We can inject $$N$$ distinct input streams (e.g., Channel 1, Channel 2... Channel N) into these independent time slots.
+* **Hardware Efficiency**: A single physical circuit does the work of $$N$$ parallel circuits, saving area at the cost of running $$N$$ times faster.
+{% endstep %}
+{% endstepper %}
+
+One example of using N-slowing and time interleaving technique is on the MAC example. In the MAC, the recursion formula is $$Out(i) = (A \cdot B) + Out(i-1)$$.
+
+* If we process **one data stream,** it is always **invalid** to insert any number of registers in the loop.
+* If we process **n different independent data stream**, it is **valid** to insert **n regsiters** into the feedback loop. This is what we called N-slowing and Time interleaving.
+
+Suppose we are under the second situation, the dependency changes from $$i-1$$ to $$i-N$$. The MAC now adds the current product to the value calculated $$N$$ cycles ago. To see exactly how it works, let's imagine $$N=4$$ (4 registers in the loop) and 4 input channels (A, B, C, D).
+
+* **State Storage**: The 4 registers act as a rotating buffer. When Stream A is processed, its result is stored in the first register.
+* **The "Waiting Room"**: While the hardware processes Streams B, C, and D (cycles 2, 3, 4), Stream A's data shifts through the register chain, safe and isolated.
+* **Reconnection**: Exactly at Cycle 5, Stream A returns. Stream A's old data falls out of the $$N^{th}$$ register at that exact moment, allowing the adder to correctly compute $$New\_A + Old\_A$$.
+
+This will bring us the following benefits
+
+* **Throughput**: The system processes $$N$$ channels using only 1 physical MAC unit (area efficient).
+* **Frequency:** The $$N$$ registers inside the loop can be retimed (distributed) into the Multiplier/Adder logic to break critical paths, allowing the clock frequency to potentially increase by $$N$$ times.
+
+{% hint style="success" %}
+This technique is amazing and may be useful in my [Mach-V](https://github.com/mendax1234/Mach-V) project!
+{% endhint %}
+
+## Parallelism
 
 ## Efficiency and Utilization
 
