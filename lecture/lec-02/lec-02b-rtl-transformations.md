@@ -368,6 +368,55 @@ This will bring us the following benefits
 * **Throughput**: The system processes $$N$$ channels using only 1 physical MAC unit (area efficient).
 * **Frequency:** The $$N$$ registers inside the loop can be retimed (distributed) into the Multiplier/Adder logic to break critical paths, allowing the clock frequency to potentially increase by $$N$$ times.
 
+Thanks to these advantages, this technique is usually used for [SIMD](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-06-advanced-processor#single-instruction-stream-multiple-data-streams-simd) processors.
+
 {% hint style="success" %}
 This technique is amazing and may be useful in my [Mach-V](https://github.com/mendax1234/Mach-V) project!
 {% endhint %}
+
+## Parallelism
+
+**Parallelism** in digital integrated circuits is achieved by replicating a fundamental operator / processing unit $$n$$ times, where $$n$$ represents the _degree of parallelism_. By distributing sequential inputs across these $$n$$ replicas, the system maintains the external data rate ($$1/T_{CK}$$) while allowing each individual hardware unit to operate at a significantly reduced rate ($$1/(n \cdot T_{CK})$$). This relaxation in timing constraints allows the internal logic to complete computations over a duration of $$n$$ clock cycles rather than one, effectively trading silicon area for timing slack.
+
+<figure><img src="../../.gitbook/assets/parallelism-example.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+In the figure above, each "out" corresponds to a **separate processing unit.**
+{% endhint %}
+
+### Implementation
+
+In this course, we will introduce two implementations of parallelism.
+
+#### Shifted Clock Phase
+
+One method to distribute inputs is to use shifted clock phases. In this architecture, $$n$$ hardware replicas are driven by $$n$$ distinct clock signals, each phase-shifted by $$T_{CK}$$ relative to the previous one. This effectively samples the input stream in a round-robin fashion without introducing buffering latency; processing for the $$i$$-th sample begins immediately upon arrival.
+
+<figure><img src="../../.gitbook/assets/shifted-clock-phase.png" alt=""><figcaption></figcaption></figure>
+
+However, this approach requires complex clock generation circuitry, such as ring counters or glitch-free clock gating logic (using latches to synchronize enable signals), to ensure precise timing and prevent race conditions.
+
+#### SIPO/PISO Converters
+
+An alternative implementation utilizes Serial-In-Parallel-Out (SIPO) and Parallel-In-Serial-Out (PISO) converters.
+
+1. The SIPO block accumulates $$n$$ consecutive inputs over $$n$$ cycles before presenting them simultaneously to the hardware replicas as a parallel word.
+2. The results are then serialized by the PISO block.
+
+<figure><img src="../../.gitbook/assets/sipo-piso.png" alt=""><figcaption></figcaption></figure>
+
+While this simplifies the clocking scheme — avoiding the complexity of multiple clock phases — it introduces an inherent latency of $$n$$ cycles solely for data packing. Consequently, SIPO/PISO architectures differ from shifted-clock architectures primarily in their latency profile: the former imposes a block-processing delay, while the latter offers near-zero steering latency at the cost of clock tree complexity.
+
+#### Comparison
+
+| Feature                | Shifted Clock Phases                   | SIPO / PISO Converters                  |
+| ---------------------- | -------------------------------------- | --------------------------------------- |
+| Input Rate to Replicas | 1 / T<sub>CK</sub> (Sequential access) | 1 / (n · T<sub>CK</sub>) (Block access) |
+| Steering Latency       | 0 cycles (Immediate processing)        | n cycles (Buffering delay)              |
+| Clocking Complexity    | High (Requires n precise phases)       | Low (Single standard clock)             |
+| Synchronization        | Sensitive to skew / jitter             | Robust (Standard synchronous design)    |
+
+* In shifted clock phase: A single register in this path introduces a standard 1-cycle delay. Each replica grabs its specific data point ($$x(i)$$) directly from the fast stream without waiting for others.
+* In SIPO/PISO: A single register will introduce n-cycle delay.
+
+<figure><img src="../../.gitbook/assets/comparison-sipo-piso-shift-clock-phase.png" alt=""><figcaption></figcaption></figure>
