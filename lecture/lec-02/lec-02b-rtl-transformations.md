@@ -260,7 +260,7 @@ We first met pipelining in [CG3207](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH
 
 ### Cutset
 
-A **cutset** is a tool used to isolate a specific section of the circuit graph. It is the _**minimal**_**&#x20;set of edges** (wires) whose removal would disconnect the graph into two separate parts ($$G_1$$ and $$G_2$$).
+We cannot insert registers anywhere. That's why we need this tool called **cutset** to help us. A **cutset** is a tool used to isolate a specific section of the circuit graph. It is the _**minimal**_**&#x20;set of edges** (wires) whose removal would disconnect the graph into two separate parts ($$G_1$$ and $$G_2$$).
 
 To find the **cut-set**, we can imagine drawing a closed "Gaussian surface" (a bubble) around a group of nodes. The edges that cross this boundary line form the cutset. Each edge must be crossed exactly once. For example, in the diagram below, the two <mark style="color:red;">red</mark> arrows form a cutset.
 
@@ -371,11 +371,3 @@ This will bring us the following benefits
 {% hint style="success" %}
 This technique is amazing and may be useful in my [Mach-V](https://github.com/mendax1234/Mach-V) project!
 {% endhint %}
-
-## Parallelism
-
-## Efficiency and Utilization
-
-### Time Interleaving
-
-### Transformation Comparisons
