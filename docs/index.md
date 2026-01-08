@@ -13,7 +13,7 @@ The repository is segmented by execution stage:
 * **[Year 1]**: Foundations (CS1010, Calculus, Physics).
 * **[Year 2]**: Core Architecture (Digital Logic, Computer Org, OOP).
 * **[Year 3 & 4]**: Advanced Systems & Specializations.
-* **[Self-Study]**: Side-loaded kernels (Rust, Web Dev).
+* **[Self-Study]**: Side-loaded kernels (Self-Studied awesome courses provided by some prestigious universities).
 
 ## Architecture
 
