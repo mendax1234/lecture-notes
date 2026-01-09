@@ -81,6 +81,10 @@ markdown_extensions:
   - toc:
       toc_depth: 3
       permalink: true # Adds link anchor to headers
+  - pymdownx.blocks.caption # Figure captions
+  - def_list # Definition lists
+  - pymdownx.tasklist:
+      custom_checkbox: true
 
   # 4.2 Code & Syntax Highlighting
   - pymdownx.highlight:
@@ -101,15 +105,19 @@ markdown_extensions:
       generic: true
 
   # 4.4 Visuals & Layouts
+  - pymdownx.tabbed: # Tabbed content blocks
+      alternate_style: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
   - pymdownx.details # Collapsible "details" blocks
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
-        # ==============================================================================
-        # 5. ASSETS (CSS & JS)
-        # ==============================================================================
 
-
+# ==============================================================================
+# 5. ASSETS (CSS & JS)
+# ==============================================================================
 extra_javascript:
   - javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
@@ -139,7 +147,7 @@ nav:
           - DTK1234 Design Thinking: year-1/sem-2/DTK1234.md
           - PF1101 Fundamentals of Project Management: year-1/sem-2/PF1101.md
           - GEA1000 Quantitative Reasoning for Data: year-1/sem-2/GEA1000.md
-          - LAF2201 French 2: year-1/sem-2/LAF1202.md
+          - LAF2201 French 2: year-1/sem-2/LAF2201.md
   - Year 2:
       - year-2/index.md
       - Semester 1:
