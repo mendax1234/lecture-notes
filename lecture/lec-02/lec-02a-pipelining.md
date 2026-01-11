@@ -23,6 +23,8 @@ Treat $$\tau_{COMB}$$ as a constant.&#x20;
 
 ### Throughput
 
+> **Throughput** is defined as the number of computations completed per unit of time.
+
 The minimum clock cycle time ($$T_{pipe}$$) is determined by the delay of a single stage plus the timing overhead ($$t_{OH}$$), which includes setup time and clock-to-Q delay:
 
 $$
@@ -66,13 +68,15 @@ As a pipelined processor completes one instruction (or one "computation") every 
 
 <p align="center"><span class="math">\text{Throughput} = 1 \times \text{Frequency} = f</span></p>
 
-Therefore, when we say we are "improving throughput" in pipelining, we are doing so by increasing the clock frequency ($$ $f_{pipe}$ $$$$f_{pipe}$$). The faster the clock ticks, the more computations finish per second.
+Therefore, when we say we are "improving throughput" in pipelining, we are doing so by increasing the clock frequency ($$f_{pipe}$$). The faster the clock ticks, the more computations finish per second.
 
 </details>
 
 ### Latency
 
-Using the definition latency in lecture 1, if we divide our system into n stages, then one operation will take n stages to complete, thus,
+> **Latency** is the time required to complete a **single** computation from the moment inputs arrive until the final output is valid.
+
+If we divide our system into n stages, then one operation will take n stages to complete, thus,
 
 $$
 LAT_{pipe} = n \cdot T_{pipe} = \tau_{COMB} + n \cdot t_{OH}
@@ -86,12 +90,6 @@ $$
 \frac{LAT_{pipe}}{LAT} = \frac{n \cdot T_{pipe}}{T} = \frac{\tau_{COMB} + n \cdot t_{OH}}{\tau_{COMB} + t_{OH}}
 $$
 
-$$
-\frac{LAT_{pipe}}{LAT} &= \frac{1 + n \cdot \frac{t_{OH}}{\tau_{COMB}}}{1 + \frac{t_{OH}}{\tau_{COMB}}} \\
-&\approx \left( 1 + n \cdot \frac{t_{OH}}{\tau_{COMB}} \right) \cdot \left( 1 - \frac{t_{OH}}{\tau_{COMB}} \right)
-\end{aligned}$
-$$
-
 After simplifying it, we can get,
 
 $$
@@ -102,10 +100,10 @@ $$
 $$
 
 {% hint style="success" %}
-To do the simplification, we first divide both the nominator and the denominator with $$\tau_{COMB}$$. We then apply the geometric series approximation $$\frac{1}{1+x} \approx 1-x$$$$ $\frac{1}{1+x} \approx 1-x$ $$, which is valid when $$x \ll 1$$$$ $x \ll 1$ $$. In this context, we assume the timing overhead is small relative to the combinational delay ($$t_{OH} \ll \tau_{COMB}$$$$ $t_{OH} \ll \tau_{COMB}$ $$).
+To do the simplification, we first divide both the nominator and the denominator with $$\tau_{COMB}$$. We then apply the geometric series approximation $$\frac{1}{1+x} \approx 1-x$$, which is valid when $$x \ll 1$$. In this context, we assume the timing overhead is small relative to the combinational delay ($$t_{OH} \ll \tau_{COMB}$$).
 {% endhint %}
 
-Expanding the product yields $$1 + (n-1)\frac{t_{OH}}{\tau_{COMB}} - n(\frac{t_{OH}}{\tau_{COMB}})^2$$$$ $1 + (n-1)\frac{t_{OH}}{\tau_{COMB}} - n(\frac{t_{OH}}{\tau_{COMB}})^2$ $$. By neglecting the second-order term (the squared component), we arrive at the final linear approximation:
+Expanding the product yields $$1 + (n-1)\frac{t_{OH}}{\tau_{COMB}} - n(\frac{t_{OH}}{\tau_{COMB}})^2$$. By neglecting the second-order term (the squared component), we arrive at the final linear approximation:
 
 $$
 \frac{LAT_{pipe}}{LAT} \approx 1 + (n-1)\frac{t_{OH}}{\tau_{COMB}}
@@ -124,7 +122,7 @@ $$
 A=\sum_{i=1}^{n}A_{comb,i}+\sum_{i=1}^{n+1}A_{reg,i}
 $$
 
-We assume area is gate-dominated ($$ $A_{comb}$ $$$$ $A_{comb}$ $$$$\sum_{i=1}^{n}A_{comb,i}=A_{comb}$$) and the register area ($$ $A_{reg,i}$ $$$$A_{reg,i}$$) is small ( $$A_{reg,i} \ll A_{comb}$$$$ $A_{reg,i} \ll A_{comb}$ $$).
+We assume area is gate-dominated ($$\sum_{i=1}^{n}A_{comb,i}=A_{comb}$$) and the register area ($$A_{reg,i}$$) is small ( $$A_{reg,i} \ll A_{comb}$$).
 
 $$
 A_{pipe} = \sum A_{comb,i} + \sum_{i=1}^{n+1} A_{reg,i} = A_{comb} + (n+1)A_{reg,i}
@@ -158,7 +156,7 @@ $$
 
 #### Energy Improvement
 
-We assume the same switching activity/glitching ($$ $A_{comb}$ $$$$ $A_{comb}$ $$$$\sum_{i=1}^{n}E_{comb,i}=E_{comb}$$) and the $$E_{reg,i} \ll E_{comb}$$$$ $A_{reg,i} \ll A_{comb}$ $$). We can use the similar or almost the same steps from the [area analysis](lec-02a-pipelining.md#silicon-area) above to get the following formula:
+We assume the same switching activity/glitching ($$\sum_{i=1}^{n}E_{comb,i}=E_{comb}$$) and the $$E_{reg,i} \ll E_{comb}$$). We can use the similar or almost the same steps from the [area analysis](lec-02a-pipelining.md#silicon-area) above to get the following formula:
 
 $$
 \frac{E_{pipe}}{E} = \frac{E_{COMB} + (n+1)E_{reg,i}}{E_{COMB} + 2E_{reg,i}} \approx 1 + (n-1)\frac{E_{reg,i}}{E_{COMB}}
@@ -203,7 +201,7 @@ $$
 \Delta \tau_{COMB,i} = \tau_{COMB,i} - \frac{\tau_{COMB}}{n}
 $$
 
-The clock cycle (T<sub>CK</sub>$$ $T_{CK}$ $$) must be long enough to cover the delay of the slowest stage plus register overheads ($$\tau_{OH,REG} + \tau_{OH,clocking}$$$$ $\tau_{OH,REG} + \tau_{OH,clocking}$ $$).
+The clock cycle (T<sub>CK</sub>) must be long enough to cover the delay of the slowest stage plus register overheads ($$\tau_{OH,REG} + \tau_{OH,clocking}$$).
 
 $$
 T_{CK} \ge \max_{i}(\tau_{COMB,i}) + \tau_{OH,FF} + \tau_{OH,clocking}

@@ -594,3 +594,16 @@ E_{\text{parallel}}
    + \frac{E_{\text{MUX}} + E_{\text{REG,out}} + E_{\text{control}}}{n}
 \end{align*}
 $$
+
+### Pipelining vs. Parallelism
+
+Pipelining is equally effective at improving throughput but consumes **much less area** than parallelism. The core design rule is that:
+
+> Always use parallelism only after pipelining has been fully utilized.
+
+However, pipelining has its own limitations
+
+* **I/O Limits**: Off-chip communication speeds cannot exceed a few GHz.
+* **Clock Issues**: Extremely small clock cycles cause issues with yield, clock skew, and jitter, requiring high energy costs to fix.
+* **Hazards**: Stalls and hazards in deep pipelines can negate performance benefits (except in DSPs where data flow is continuous).
+* **Latency**: Deep pipelining can increase latency beyond target requirements.
