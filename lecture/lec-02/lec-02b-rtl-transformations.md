@@ -40,8 +40,6 @@ We have seen two delays up to now and don't confuse with them!
   * _Analogy:_ The customer waiting in line.
 {% endhint %}
 
-
-
 #### DFG on Single Rate System
 
 The systematic procedure to draw DFG on a single rate system is as follows:
@@ -573,7 +571,7 @@ In [SIPO/PISO architecture](lec-02b-rtl-transformations.md#sipo-piso-converters)
 
 #### Area Analysis
 
-The area increases by a facotr \~n
+The area increases by a factor \~n
 
 $$
 A_{parallel} \approx n (A_{comb} + A_{reg}) + A_{MUX}+A_{reg}\approx n(A_{comb}+A_{reg})
@@ -607,3 +605,61 @@ However, pipelining has its own limitations
 * **Clock Issues**: Extremely small clock cycles cause issues with yield, clock skew, and jitter, requiring high energy costs to fix.
 * **Hazards**: Stalls and hazards in deep pipelines can negate performance benefits (except in DSPs where data flow is continuous).
 * **Latency**: Deep pipelining can increase latency beyond target requirements.
+
+## Retiming
+
+Retiming is a structural transformation that involves moving registers around combinational logic to achieve more balanced logic paths. This technique is particularly useful early in the design phase when logic depths are difficult to balance manually.
+
+* **Preserves Latency**: Unlike pipelining (register insertion), retiming preserves the I/O cycle-based timing (e.g., the number of cycles from each input to each output is kept the same).
+* **Optimization Goals**:
+  * **Reduce Clock Cycle**: By balancing the delay ($$\tau_{COMB}$$) between registers.
+  * **Minimize Area**: By reducing the total count of registers required in the design.
+
+#### Assumptions
+
+To apply retiming algorithms formally, we model the circuit as a [Data Flow Graph (DFG)](lec-02b-rtl-transformations.md#data-flow-graphs) with specific constraints to handle Input/Output boundaries correctly.
+
+<figure><img src="../../.gitbook/assets/retiming-assumptions.png" alt=""><figcaption></figcaption></figure>
+
+{% stepper %}
+{% step %}
+#### Environmental Model
+
+* **No Sink/Source**: The DFG is assumed not to have any open sources or sinks.
+* **Lumped I/O Node**: All system inputs and outputs are theoretically connected to a single "host" node. This allows the graph to be closed, ensuring that if a register is pushed off an output, it "wraps around" and reappears at the input, thereby preserving total I/O latency.
+{% endstep %}
+
+{% step %}
+#### Register Moving
+
+When moving registers, combinational operators at vertices through retiming cannot be broken up. (e.g., a register can only be either at their input vertices or their output). If operators need to be pipielined, just preliminarily break them into sub-stage and follow the same rules.
+
+<figure><img src="../../.gitbook/assets/retiming-assumption-register-moving.png" alt="" width="563"><figcaption></figcaption></figure>
+{% endstep %}
+{% endstepper %}
+
+#### Fundamental Transformation
+
+The core operation of retiming allows registers to be moved forward or backward across the inputs and outputs of an operator without changing the circuit's steady-state[^1] functional behavior.
+
+<figure><img src="../../.gitbook/assets/retiming-fundamental-transformation.png" alt=""><figcaption></figcaption></figure>
+
+For example, in the diagram above
+
+* LHS: We store the input A and B for one cycle and then use the stored value to calculate the output. Thus, in the timing diagram, T<sub>CK-Q</sub> is for the stored inputs A and B to be fed into the adder.
+  * Analogy: Store A and B today. Tomorrow, take those stored values and add them.
+* RHS: We add A and B first and then store the result for one cycle. In the timing diagram, as the final result is calculated before the CLK rises, T<sub>CK-Q</sub> is to launch the _previous_ sum to the world.
+  * Analogy: Add A and B today immediately. Then store the result. Tomorrow, show me that stored result.
+
+This rule applies to path branching as well
+
+<figure><img src="../../.gitbook/assets/retiming-path-branching.png" alt=""><figcaption></figcaption></figure>
+
+[^1]: 
+
+    This means the same output at end of the cycle. For example,
+
+    * **Before Retiming**: Input A and B arrive -> Wait 1 cycle -> Add -> Output.
+    * **After Retiming**: Input A and B arrive -> Add immediately -> Wait 1 cycle -> Output.
+
+    Both approach will give us the same output.
