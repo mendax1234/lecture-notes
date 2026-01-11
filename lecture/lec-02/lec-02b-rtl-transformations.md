@@ -245,7 +245,7 @@ T_{\infty}=\text{loopbound}_{\text{loop}}=\frac{590+60+100+80+100+70+\textcolor{
 $$
 
 {% hint style="danger" %}
-If you have **multiple registers** appearing in the loop, let's say n. Then you need to add $$n \times t_{OH}$$ in your $$t_{loop}$$ term.
+If we have **multiple registers** appearing in the loop, let's say n. Then we need to add $$n \times t_{OH}$$ in our $$t_{loop}$$ term.
 {% endhint %}
 
 ## Pipelining
@@ -654,6 +654,184 @@ For example, in the diagram above
 This rule applies to path branching as well
 
 <figure><img src="../../.gitbook/assets/retiming-path-branching.png" alt=""><figcaption></figcaption></figure>
+
+### Fundamental Definition
+
+To algorithmically optimize a circuit, we define retiming mathematically using a **Data Flow Graph (DFG)** where vertices ($$V$$) represent logic gates and edges ($$E$$) represent the wires connecting them, which is same as we have learned at the [beginning](lec-02b-rtl-transformations.md#data-flow-graphs).
+
+{% stepper %}
+{% step %}
+#### The Retiming Vector $$r(V)$$
+
+The "Retiming Vector" is an **integer** value assigned to every vertex $$V$$ in the graph. It tracks how many registers are moved across that specific logic block.
+
+* **Definition:** $$r(V) = \# \text{ Registers moved backwards}$$.
+* **Directionality**:
+  * $$r(V) > 0$$: Registers are moved Backwards (from Output -> Input).
+  * $$r(V) < 0$$: Registers are moved Forward (from Input -> Output).
+  * $$r(V) = 0$$: No movement occurred for this node.
+
+<figure><img src="../../.gitbook/assets/retiming-vector.png" alt=""><figcaption></figcaption></figure>
+{% endstep %}
+
+{% step %}
+#### Calculating Edge Weights ($$w$$)
+
+The "weight" ($$w$$) of an edge is simply the number of registers (flip-flops) currently sitting on that wire. When we retime, we calculate the new weight of the wire connecting Node $$U$$ to Node $$V$$. The formula is
+
+$$
+w_{retimed}(U, V) = w_{original}(U, V) + r(V) - r(U)
+$$
+
+The Intuition is:
+
+* Moving registers backwards across the destination $$V$$ adds registers to the input wire ($$+r(V)$$).
+* Moving registers backwards across the source $$U$$ removes registers from the output wire ($$-r(U)$$).
+{% endstep %}
+
+{% step %}
+#### Feasibility Condition
+
+Retiming is only valid if the resulting circuit is physically realizable. We cannot have a wire with a "negative" number of registers.
+
+* **Condition**: The retimed weight must be non-negative.
+
+$$
+w_{retimed}(U, V) \ge 0
+$$
+
+* **Constraint Equation**: Rearranging the formula above gives us the checking condition:
+
+$$
+r(U) - r(V) \le w_{original}(U, V)
+$$
+
+If this inequality holds for all edges, the retiming is legal.
+{% endstep %}
+
+{% step %}
+#### Practical Application
+
+For example, let's do the retiming on the following DFG
+
+<figure><img src="../../.gitbook/assets/retiming-example-1.png" alt="" width="563"><figcaption></figcaption></figure>
+
+The retiming is to done on the operator 2 and we move the register from operator 2's output to two of its inputs.
+
+* $$\omega(4,2)=0+1-0=1$$
+* $$\omega(3,2)=0+1-0=1$$
+* $$\omega(2,1)=1+0-1=0$$
+
+All of the retimed edges on the operator 2 is bigger than or equal to 0, meaning that our retiming is valid!
+{% endstep %}
+{% endstepper %}
+
+#### Properties of Retimed Paths
+
+Before defining properties, we generalize edge concepts to entire paths ($$U \rightarrow V$$).
+
+* **Path Definition**: A sequence of consecutive edges from vertex $$U$$ to $$V$$.
+* **Path Weight** $$W(U \rightarrow V)$$: The total number of registers along the path.
+  * Calculated as the sum of all individual edge weights: $$\sum w(e)$$.
+* **Path Combinational Delay** $$D(U \rightarrow V)$$: The total I/O delay along the path, ignoring registers.
+  * Calculated as the sum of combinational delays of all vertices in the path: $$\sum t(e)$$.
+* **Cycle**: A closed path where the start and end vertices are the same ($$U \rightarrow U$$).
+
+Now, we introduce the four properties
+
+{% stepper %}
+{% step %}
+#### Path Weight Dependence
+
+The number of registers on a path changes based _only_ on the retiming of its start and end points, regardless of internal changes.
+
+$$
+w_{retimed}(V_1 \rightarrow V_N) = w_{original}(V_1 \rightarrow V_N) + r(V_N) - r(V_1)\tag{1}
+$$
+
+Internal node movements cancel out mathematically; only registers moved across the "head" ($$V_1$$) and "tail" ($$V_N$$) affect the total count.
+{% endstep %}
+
+{% step %}
+#### Invariance of Registers in Loops
+
+Retiming **never changes** the total number of registers in a closed loop (cycle). This is because the start and end vertex are the same ($$V_1 = V_N$$), the term $$r(V_N) - r(V_1)$$ becomes zero in Eq(1).
+{% endstep %}
+
+{% step %}
+#### Invariance of [Iteration Bound](lec-02b-rtl-transformations.md#iteration-bound-1)
+
+Because the number of registers in loops (Property 2) and the logic delays remains constant, the fundamental speed limit of the circuit (Iteration Bound) does not change.
+{% endstep %}
+
+{% step %}
+#### Invariance to Constant Addition
+
+Adding the same constant integer $$k$$ to the retiming vector $$r(V)$$ for _every_ node $$V$$ results in the exact same network. This is because the difference $$r(U) - r(V)$$ remains unchanged if both are shifted by the same amount.
+{% endstep %}
+{% endstepper %}
+
+### Retiming Techniques
+
+Popular retiming techniques are cutset retiming and repipelining. We will also introduce data interleaving through n-slowing method. These techniques can be used to practically move the register to a given microarchitecture (at iso-latency in terms of cycles (why?)), or even modifying the latency (by adding registers at the input or output and retime)
+
+#### Cutset Retiming
+
+Cutset retiming is a graphical technique used to rearrange registers across large sub-blocks of a circuit by visual inspection, rather than calculating individual node equations.
+
+{% stepper %}
+{% step %}
+#### Definition
+
+We have seen the definition of cutset from [above](lec-02b-rtl-transformations.md#cutset). To do the retiming, we apply a constant retiming shift ($$k$$) to the entire subgraph $$G2$$, while leaving $$G1$$ unchanged.
+
+* $$r(V) = k$$ for all vertices in $$G2$$.
+* $$r(V) = 0$$ for all vertices in $$G1$$.
+
+<figure><img src="../../.gitbook/assets/cutset-retiming-definition.png" alt="" width="540"><figcaption></figcaption></figure>
+
+This operation only affects the weights of the edges crossing the cutset (edges connecting $$G1$$ and $$G2$$). Internal edges within $$G1$$ or $$G2$$ are unchanged.
+{% endstep %}
+
+{% step %}
+#### The Transformation Rules
+
+* **Case A: Backwards Retiming** ($$k > 0$$)
+  * **Action:** "Pulling" registers from the outputs of $$G2$$ to its inputs.
+  * **Edge Changes**:
+    * Add $$k$$ registers to all edges going from $$G1$$ to $$G2$$ ($$w + k$$).
+    * Remove $$k$$ registers from all edges going from $$G2$$ to $$G1$$ ($$w - k$$).
+
+<figure><img src="../../.gitbook/assets/backward-retiming.png" alt=""><figcaption></figcaption></figure>
+
+* **Case B: Forward Retiming** ($$k < 0$$)
+  * **Action:** "Pushing" registers from the inputs of $$G2$$ to its outputs.
+  * **Edge Changes:**
+    * Remove $$|k|$$ registers from edges going from $$G1$$ to $$G2$$.
+    * Add $$|k|$$ registers to edges going from $$G2$$ to $$G1$$.
+
+<figure><img src="../../.gitbook/assets/forward-retiming.png" alt=""><figcaption></figcaption></figure>
+{% endstep %}
+
+{% step %}
+#### Feasibility Condition
+
+Retiming is only legal if we do not end up with a **negative number** of registers on any wire. Therefore, the number of registers we wish to move ($$k$$) is limited by the available registers on the edges we are removing from. The formula is
+
+$$
+-\min_{e \in G1 \rightarrow G2} w(e) \le k \le \min_{e \in G2 \rightarrow G1} w(e)
+$$
+
+* **Upper Bound** ($$k > 0$$): We cannot pull (remove) more registers from the outputs ($$G2 \rightarrow G1$$) than the minimum currently existing on any of those output edges.
+* **Lower Bound** ($$k < 0$$): We cannot push (remove) more registers from the inputs ($$G1 \rightarrow G2$$) than exist on the input edges.
+{% endstep %}
+
+{% step %}
+#### Practical Application
+
+This generalizes the [basic node retiming rule](lec-02b-rtl-transformations.md#fundamental-transformation) we have seen from above. Instead of moving a register across a single operator, we treat the entire subgraph $$G2$$ as a "super-node" and move registers across its boundary.
+{% endstep %}
+{% endstepper %}
 
 [^1]: 
 
