@@ -270,7 +270,7 @@ Once either of the above two red arrow is cut, no path exists between $$G_1$$ an
 
 #### Feedforward Cutset
 
-Not all cutsets allow for safe register insertion. We must identify a **Feedforward** Cutset. A cutset is "feedforward" if **all** its edges point in the **same direction**. They must all be incoming to the bubble or all outgoing from it.
+Not all cutsets allow for safe register insertion. We must identify a **Feedforward** Cutset. A cutset is "feedforward" if **all** its edges point in the **same direction** which means they must all be incoming to the bubble or all outgoing from it.
 
 <figure><img src="../../.gitbook/assets/feedforward-cutset-example.png" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -291,6 +291,8 @@ Functionality is preserved because the relative timing between signals inside $$
 This is generally impossible in loops because loops usually create bidirectional (non-feedforward) cutsets. As we have seen above in the "[recursive DFGs](https://wenbo-notes.gitbook.io/ee4415-icd-notes/lecture/lec-02/lec-02b-rtl-transformations#recursive-dfgs)", adding registers in a loop changes the recursion depth (e.g., changing $$x[i-1]$$ to $$x[i-3]$$), which alters the math.
 
 </details>
+
+> Add an example of using this rule!
 
 From this rule, we have the following observations
 
@@ -352,7 +354,7 @@ The primary motivation for N-Slowing is to enable **Time Interleaving**, which a
 {% endstep %}
 {% endstepper %}
 
-One example of using N-slowing and time interleaving technique is on the MAC example. In the MAC, the recursion formula is $$Out(i) = (A \cdot B) + Out(i-1)$$.
+One example of using N-slowing and time interleaving technique is the MAC example. In the MAC, the recursion formula is $$Out(i) = (A \cdot B) + Out(i-1)$$.
 
 * If we process **one data stream,** it is always **invalid** to insert any number of registers in the loop.
 * If we process **n different independent data stream**, it is **valid** to insert **n regsiters** into the feedback loop. This is what we called N-slowing and Time interleaving.
@@ -400,12 +402,64 @@ However, this approach requires complex clock generation circuitry, such as ring
 
 An alternative implementation utilizes Serial-In-Parallel-Out (SIPO) and Parallel-In-Serial-Out (PISO) converters.
 
-1. The SIPO block accumulates $$n$$ consecutive inputs over $$n$$ cycles before presenting them simultaneously to the hardware replicas as a parallel word.
-2. The results are then serialized by the PISO block.
-
 <figure><img src="../../.gitbook/assets/sipo-piso.png" alt=""><figcaption></figcaption></figure>
 
-While this simplifies the clocking scheme — avoiding the complexity of multiple clock phases — it introduces an inherent latency of $$n$$ cycles solely for data packing. Consequently, SIPO/PISO architectures differ from shifted-clock architectures primarily in their latency profile: the former imposes a block-processing delay, while the latter offers near-zero steering latency at the cost of clock tree complexity.
+{% stepper %}
+{% step %}
+#### SIPO Converter
+
+The SIPO converter accumulates $$n$$ consecutive inputs over $$n$$ cycles into a **block**. Essentially, the SIPO converter is a bank of n registers + control that collects n samples over n cycles and presents them as one parallel word.
+
+```scss
+x(k) → [REG0] → [REG1] → [REG2] → ... → [REG n−1]
+// So SIPO converts:
+x(0), x(1), x(2), x(3), x(4), ...
+// into
+[x(0),x(1),x(2),x(3)], then [x(4),x(5),x(6),x(7)], ...
+// That’s why it creates block boundaries.
+```
+{% endstep %}
+
+{% step %}
+#### MMIO Block
+
+This is n independent copies of the same combinational (or pipelined) hardware
+
+```scss
+// So if the original function is:
+y = f(x)
+// Then MMIO does
+[y0,y1,...,y(n−1)] = [ f(x0), f(x1), ..., f(x(n−1)) ]
+```
+{% endstep %}
+
+{% step %}
+#### PISO Converter
+
+Similar to the SPIO converter, the PISO takes in the block of output and uses n cycles to convert them into serial output.
+
+{% hint style="warning" %}
+SIPO/PISO converter operates in **block time**, not cycle time.
+{% endhint %}
+{% endstep %}
+{% endstepper %}
+
+In short, the structure of the SIPO/PISO is shown as follows
+
+```less
+fast stream
+   |
+   v
+[  SIPO  ]───(n parallel wires)───[  MIMO replicas  ]───(n wires)───[  PISO  ]
+   |                                   |                                |
+fast clock                          slow clock (n·TCK)              fast clock
+```
+
+Internally:
+
+* SIPO is clocked at **T**<sub>**CK**</sub>
+* MIMO is clocked at **n·T**<sub>**CK**</sub> (one block per n fast cycles)
+* PISO is clocked at **T**<sub>**CK**</sub>
 
 #### Comparison
 
@@ -413,10 +467,130 @@ While this simplifies the clocking scheme — avoiding the complexity of multipl
 | ---------------------- | -------------------------------------- | --------------------------------------- |
 | Input Rate to Replicas | 1 / T<sub>CK</sub> (Sequential access) | 1 / (n · T<sub>CK</sub>) (Block access) |
 | Steering Latency       | 0 cycles (Immediate processing)        | n cycles (Buffering delay)              |
-| Clocking Complexity    | High (Requires n precise phases)       | Low (Single standard clock)             |
-| Synchronization        | Sensitive to skew / jitter             | Robust (Standard synchronous design)    |
 
-* In shifted clock phase: A single register in this path introduces a standard 1-cycle delay. Each replica grabs its specific data point ($$x(i)$$) directly from the fast stream without waiting for others.
-* In SIPO/PISO: A single register will introduce n-cycle delay.
+If we insert register(s) **before** the replica or **after** the replica, we will get different effects for the two architectures introduced above:
 
 <figure><img src="../../.gitbook/assets/comparison-sipo-piso-shift-clock-phase.png" alt=""><figcaption></figcaption></figure>
+
+{% stepper %}
+{% step %}
+#### Shifted Clock Phase
+
+A single register in this path introduces a standard 1-cycle delay. Each replica grabs its specific data point ($$x(i)$$) directly from the fast stream without waiting for others.
+{% endstep %}
+
+{% step %}
+#### SIPO/PISO
+
+If we insert registers before or after the replicas, the structure is shown as follows
+
+```scss
+SIPO → REG → MIMO
+// or
+MIMO → REG → PISO
+```
+
+Physically, we are inserting,
+
+```scss
+[x0  x1  x2  ...] → [REG REG REG ... REG] → replicas
+// or
+replicas → [REG REG REG ... REG → [x0  x1  x2  ...]
+```
+
+That is **n flip-flops**, one per lane. But architecturally, this is **one vector register**, or one **block registe**. This block register is clocked at 1 / (n · T<sub>CK</sub>). So delaying one block means delaying n · T<sub>CK</sub>.
+
+{% hint style="warning" %}
+The block register cannot be clocked at T<sub>CK</sub> because it needs to latch the block output, which is only ready after n · T<sub>CK</sub>.
+{% endhint %}
+{% endstep %}
+{% endstepper %}
+
+### Timing Analysis
+
+As we have seen above, parallelism relaxes the timing constraint on combinational logic by allowing operations to span multiple clock cycles ($$n$$ cycles) across replicated hardware units. So, the minimum clock period $$T_{CK}$$ is determined by the logic delay divided by the parallelism factor $$n$$, plus overheads.
+
+$$
+T_{CK} \ge \frac{T_{CK-Q} + T_{COMB} + T_{MUX} + T_{SETUP}}{n}
+$$
+
+### Performance Analysis
+
+#### Performance
+
+The performance analysis can be divided into throughput and latency analysis
+
+{% stepper %}
+{% step %}
+#### Throughput ($$f_{parallel}$$)
+
+Assume 1 operation per cycle in replicas and the replicas are independent (no stalls)
+
+$$
+\frac{f_{\text{parallel}}}{f}
+=
+\frac{T_{\text{CK}}}{T_{\text{parallel}}}
+=
+n \frac{\tau_{\text{COMB}} + t_{\text{OH}}}{\tau_{\text{COMB}} + (t_{\text{OH}} + \tau_{\text{MUX}})}
+=
+n \frac{1}{1 + \dfrac{\tau_{\text{MUX}}}{\tau_{\text{COMB}} + t_{\text{OH}}}}
+\approx n
+$$
+
+* Improves by factor $$\approx n$$.
+  * _Limitation:_ Slightly less than ideal $$n$$ due to MUX delay ($$\tau_{MUX}$$) affecting the critical path.
+* $$\tau_{MUX}$$ usually scales logarithmically ($$\propto \log_2 n$$).
+{% endstep %}
+
+{% step %}
+#### Latency ($$LAT_{parallel}$$)
+
+The latency we are talking here is "How long does x(0) take to appear as y(0) at the output?"
+
+$$
+LAT_{\text{parallel}} = n T_{\text{parallel}} 
+= \tau_{\text{COMB}} + t_{\text{OH}} + \tau_{\text{MUX}}
+$$
+
+So, we have the improvement factor of **latency in time** to be as follows
+
+$$
+\frac{LAT_{\text{parallel}}}{LAT}
+= 1 + \frac{\tau_{\text{MUX}}}{\tau_{\text{COMB}} + t_{\text{OH}}}
+$$
+
+Notice that it is the **latency in time** that remains almost the same. But the latency in **clock cycles** are increased by n in parallelism (The [graph above](lec-02b-rtl-transformations.md#parallelism)) because
+
+$$
+\text{cycles}=LAT_{\text{parallel}}\div T_{\text{parallel}}
+$$
+
+{% hint style="danger" %}
+In [SIPO/PISO architecture](lec-02b-rtl-transformations.md#sipo-piso-converters), the **latency in clock cycles** is increased by 2n because both SIPO and PISO will introduce n clock cycles delay!
+{% endhint %}
+{% endstep %}
+{% endstepper %}
+
+#### Area Analysis
+
+The area increases by a facotr \~n
+
+$$
+A_{parallel} \approx n (A_{comb} + A_{reg}) + A_{MUX}+A_{reg}\approx n(A_{comb}+A_{reg})
+$$
+
+#### Energy Analysis
+
+The energy per computation **slightly increases**
+
+$$
+\begin{align*}
+E_{\text{parallel}}
+&= \frac{
+     n(E_{\text{COMB}} + E_{\text{REG}}) 
+     + E_{\text{MUX}} + E_{\text{REG,out}} + E_{\text{control}}
+   }{n} \\
+&= E_{\text{COMB}} + E_{\text{REG}} 
+   + \frac{E_{\text{MUX}} + E_{\text{REG,out}} + E_{\text{control}}}{n}
+\end{align*}
+$$
