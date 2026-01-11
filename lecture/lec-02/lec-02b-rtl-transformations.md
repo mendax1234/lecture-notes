@@ -833,6 +833,79 @@ This generalizes the [basic node retiming rule](lec-02b-rtl-transformations.md#f
 {% endstep %}
 {% endstepper %}
 
+#### Repipelining
+
+Repipelining is a technique used to increase the clock frequency (performance) of a design by adding new pipeline stages, rather than just rearranging existing ones. It is equivalent to register addition at I/O + retiming.
+
+* **Goal**: Reduce the minimum clock cycle ($$T_{CK}$$) by breaking up long combinational paths.
+* **Trade-off**: Unlike standard retiming (which is iso-latency), repipelining increases latency. The total time (in clock cycles) from Input to Output increases by $$k$$ cycles.
+
+{% stepper %}
+{% step %}
+#### Graph Theory View
+
+Repipelining is considered a **special case of cutset retiming** where the cutset is **strictly feedforward**.
+
+<figure><img src="../../.gitbook/assets/repipelining-definition.png" alt=""><figcaption></figcaption></figure>
+
+Edges exist from $$G1 \to G2$$, but no edges exist from $$G2 \to G1$$.
+
+{% hint style="warning" %}
+Feedback loops can exist _internally_ within $$G1$$ or $$G2$$, but the cutset boundary itself cannot cross a feedback path between the two groups.
+{% endhint %}
+{% endstep %}
+
+{% step %}
+#### The Transformation Procedure
+
+Since latency is not preserved, we cannot simply move existing registers. We must introduce new ones and then distribute them.
+
+* **Insertion**: Add $$k$$ registers at the boundary (e.g., at all inputs going from $$G1$$ to $$G2$$).
+* **Retiming ("Pushing")**: Use retiming to move these new registers from the boundary into the internal logic of $$G2$$ to balance delays.
+  * **Modeling:** To push registers forward (from Input -> Internal), we apply a negative retiming vector $$r(V) = -k$$ to the vertices in $$G2$$.
+  * _**Logic Check:**_ A negative $$r(V)$$ removes registers from the node's input (absorbing the ones we just added) and pushes them to the node's output.
+{% endstep %}
+
+{% step %}
+#### Constraints
+
+We model Inputs and Outputs as absolute boundaries (Source/Sink). We cannot "borrow" registers from the external environment, nor can we "push" our registers into it. So the procedure is
+
+* **Modify**: We deliberately break the latency preservation rule by adding $$k$$ new registers at the Input boundary.
+* **Optimize**: We then use retiming to push these new registers inward (using $$r(V)=-k$$) to balance the internal logic delays.
+{% endstep %}
+
+{% step %}
+#### Practical Application
+
+Let's practice the repipelining on the gaussian filter.
+
+<figure><img src="../../.gitbook/assets/gaussian-filter.png" alt=""><figcaption></figcaption></figure>
+
+In this gaussian filter, the clock cycle = 1 + 2 + 1 + 2 + 1 = 7 while the latency is 5 cycles because there are 5 registers in total for the inputs to get the complete correct output.
+
+1. **First optimization**: Reduce clock cycle by keeping only one operator per cycle, at the cost of increased latency in terms of clocked cycles.
+
+We start by adding 4 registers at each input because we notice there are 4 operators.
+
+<figure><img src="../../.gitbook/assets/gaussian-filter-first-optimization.gif" alt=""><figcaption></figcaption></figure>
+
+This is done by applying the [#cutset-retiming](lec-02b-rtl-transformations.md#cutset-retiming "mention") technique we have learned, our final clock cycle is 2 because the critical path would be the multiplier which takes two cycles while the latency is 4 + 5 = 9 cycles.
+
+2. **Second optimization**: As the critical path now is the multiplier, let's try further optimize the multiplier by adding two registers to break the multiplier into two stages.
+
+{% hint style="warning" %}
+Add two registers because we have two "groups" of multipliers.
+{% endhint %}
+
+<figure><img src="../../.gitbook/assets/gaussian-filter-second-optimization.gif" alt=""><figcaption></figcaption></figure>
+
+Now the clock cycle becomes 1, which is obvious and as we want. The latency becomes 9 + 2 = 11.
+
+3. **Third optimization**:&#x20;
+{% endstep %}
+{% endstepper %}
+
 [^1]: 
 
     This means the same output at end of the cycle. For example,
