@@ -890,7 +890,7 @@ We start by adding 4 registers at each input because we notice there are 4 opera
 
 <figure><img src="../../.gitbook/assets/gaussian-filter-first-optimization.gif" alt=""><figcaption></figcaption></figure>
 
-This is done by applying the [#cutset-retiming](lec-02b-rtl-transformations.md#cutset-retiming "mention") technique we have learned, our final clock cycle is 2 because the critical path would be the multiplier which takes two cycles while the latency is 4 + 5 = 9 cycles.
+This is done by applying the [#cutset-retiming](lec-02b-rtl-transformations.md#cutset-retiming "mention") technique we have learned, our final clock cycle is 2 because the critical path would be the multiplier which takes two cycles while the latency is 4+5=9 cycles.
 
 2. **Second optimization**: As the critical path now is the multiplier, let's try further optimize the multiplier by adding two registers to break the multiplier into two stages.
 
@@ -900,9 +900,21 @@ Add two registers because we have two "groups" of multipliers.
 
 <figure><img src="../../.gitbook/assets/gaussian-filter-second-optimization.gif" alt=""><figcaption></figcaption></figure>
 
-Now the clock cycle becomes 1, which is obvious and as we want. The latency becomes 9 + 2 = 11.
+Now the clock cycle becomes 1, which is obvious and as we want. The latency becomes 9+2=11.
 
-3. **Third optimization**:&#x20;
+3. **Third optimization**: Further reduce clock cycle to 0.5. To do so,
+   1. Adder (Both top and bottom) should be divided into 2 stages -> 1 register/adder (Add 1 register)
+   2. Multiplier should be divided into 4 stages -> 3 registers/multiplier (Add 2 registers)
+
+We first deal with the top adder and multiplier, as we have 2 "groups" of adder and multiplier at the top, we first add 2+2x2=6 registers.
+
+<figure><img src="../../.gitbook/assets/gaussian-filter-third-optimization-1.gif" alt=""><figcaption></figcaption></figure>
+
+Then we deal with the bottom four adders. We add 4 registers at the output and then push it back because it is much easier.
+
+<figure><img src="../../.gitbook/assets/gaussian-filter-third-optimization-2.gif" alt=""><figcaption></figcaption></figure>
+
+Lastly, we achieved the 0.5 clock cycle and as we have added 4+6=10 more registers, the latency becomes 11+10=21.
 {% endstep %}
 {% endstepper %}
 
