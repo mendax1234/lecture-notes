@@ -1,6 +1,8 @@
 # Lec 01b - Timing Synchronous
 
-## Synchronous VLSI Systems
+## Synchronous Sequencing Models
+
+### System Abstraction
 
 A digital system consists of communicating blocks shown as follows,
 
@@ -30,48 +32,37 @@ These two notations have appeared in [Harris and Harris's DDCA](https://wenbo-no
 2. $$\tau_{\text{comb},\text{max}}$$ is called the **propagation delay**.
 {% endhint %}
 
-### Synchronous vs. Asynchronous
+#### Synchronous vs. Asynchronous
 
 There are two approaches to ensure correct inputs:
 
-* Synchronous
-* Asynchronous
-
+{% stepper %}
+{% step %}
 #### Asynchronous
 
 In asynchronous mode, additional circuitry generates "completion signal" and this completion signal enables computation of next block when its output is valid.
 
 <figure><img src="../../.gitbook/assets/asynchronous-communication-mode.png" alt="" width="563"><figcaption></figcaption></figure>
+{% endstep %}
 
-#### Synchrnous
+{% step %}
+#### Synchronous
 
 In synchronous mode, all I/O signals are synchronized to clock clk. The clock periodically triggers next computation. All I/O signals are only allowed to be _used_ at **clock events**. And all the computation is done during the clock period.
 
-{% stepper %}
-{% step %}
-#### Clock Event
-
-At the clock event:
-
-* Registers sample their inputs
-* Registers update their outputs
-* The _next computation cycle begins_
+* **Clock Event**: At the clock event:
+  * Registers sample their inputs
+  * Registers update their outputs
+  * The _next computation cycle begins_
 
 {% hint style="info" %}
 Think of the above steps as: “Everyone stop, look at your inputs, remember them, then start computing again.”
 {% endhint %}
-{% endstep %}
 
-{% step %}
-#### Clock Period
-
-During the clock period:
-
-* Registers hold stable values at their outputs
-* Combinational logic computes new values
-* Results must be ready **before the next clock event**. If not, will cause timing violation!
-{% endstep %}
-{% endstepper %}
+* **Clock Period**: During the clock period:
+  * Registers hold stable values at their outputs
+  * Combinational logic computes new values
+  * Results must be ready **before the next clock event**. If not, will cause timing violation!
 
 In the timing diagram, the first time shift represents the **Setup Time** (t<sub>setup</sub>), which is the required window where input signal `x` must be stable before the clock edge to be sampled correctly. The second time shift represents the **Clock-to-Output Delay** (t<sub>co</sub>), which is the time it takes for the register to react to the clock edge and update the output signal `y` before it propagates to the subsequent combinational logic.
 
@@ -84,8 +75,12 @@ And if we draw a register diagram, it will be similar to the following
 {% hint style="danger" %}
 In both cases of synchronous and asynchronous design, energy/timing/area overhead is paid for.
 {% endhint %}
+{% endstep %}
+{% endstepper %}
 
-## Sequencing in Synchronous Systems
+### The Clock Discipline
+
+#### Sequencing in Synchronous Systems
 
 In digital logic, the order of data flow is critical. Usually, we want to achieve the **Deterministic Sequencing**. We require a strict First-In, First-Out (FIFO) behavior, where the n<sup>th</sup> input produces the n<sup>th</sup> output in the exact same sequence. Ideally: This is easy to achieve if the delay through a module is data independent (e.g., every calculation takes the exact same amount of time).
 
@@ -116,7 +111,9 @@ To prevent the "race conditions" described previously, we enforce a strict rule:
 
 The abstract "Box" shown in the sequencing diagrams is implemented using storage elements. As recalled from EE2026 and [_Harris & Harris DDCA_](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/latches-and-flip-flops)_**.**_
 
-## Clock Non Idealities
+## Clock Network Imperfections
+
+### Distribution Challenges
 
 Ideally, the clock signal is
 
@@ -219,7 +216,9 @@ $$
 t_{\text{jitter},i} = t_{\text{jitter,clock\_gen}} + \sum_{j=1}^{n} \left| \Delta \tau_{\text{PD,buffer},j} \right|
 $$
 
-## Timing Parameters of Edge-Triggered Flip Flops
+## Timing Analysis
+
+### Flip-Flop Timing Characteristics
 
 > This section has a lot of similarities with the [Timing of Sequential circuits](https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/jTJFBPtKk6NwweAooH53/) in Harris & Harris DDCA!
 
@@ -230,7 +229,7 @@ In positive-edge triggered (PET) flip flops, input is **sampled** at rising cloc
 
 <figure><img src="../../.gitbook/assets/timing-parameters-for-edge-triggered-ffs.png" alt="" width="563"><figcaption></figcaption></figure>
 
-### Asynchronous Resettable Filp Flops
+#### Asynchronous Resettable Filp Flops
 
 > This section is partly discussed in the [resettable flip flops](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/latches-and-flip-flops#resettable-flip-flop) in Harris & Harris DDCA!
 
@@ -251,7 +250,9 @@ For example, the following diagram shows an active-low asynchronous reset
 Even if this is an active-low asynchronous resettable FF, pressing the RESET button will reset the FF, meaning that pressing the RESET button is equivalent to set RESET signal to be 0.
 {% endhint %}
 
-## Timing Constraints in Synchronous Circuits
+### System Timing Constraints
+
+#### Timing Constraints in Synchronous Circuits
 
 > Again, this part is almost the same as [Timing of Sequential Circuits](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/timing-of-sequential-logic) covered in Harris & Harris DDCA. But with some more info added on the **timing overhead** caused by clock skew and clock jitter.
 
@@ -295,7 +296,7 @@ As the following parts are mostly covered in [DICADP](../../textbook-1-dicadp/ti
 In EE4415, the definition of clock jitter is a bit different from DICADP. So, we must follow EE4415's logic: **Jitter cancels out for Hold Time** because it is a "common mode" noise source in the same clock domain. However, in EE4415 we introduces Random Skew ($$|t_{skew,RAND}|$$) to account for the variation that _does_ differ between the two registers (like thermal noise in the wires), which the DICADP textbook might have just lumped into "jitter."
 {% endhint %}
 
-### Max-Delay Constraint
+#### Max-Delay Constraint
 
 {% tabs %}
 {% tab title="Textbook DICADP" %}
@@ -334,7 +335,7 @@ $$
 {% endtab %}
 {% endtabs %}
 
-### Min-Delay Constraint
+#### Min-Delay Constraint
 
 {% tabs %}
 {% tab title="Textbook DICADP" %}
@@ -364,7 +365,7 @@ $$
 {% endtab %}
 {% endtabs %}
 
-## Intentional Skew
+### Intentional Skew
 
 As we have seen in DICADP, positive skew will improve **performance** but decrease hold robustness while negative skew will decrease performance but improve hold robustness.
 
@@ -439,7 +440,7 @@ As we have talked about [#sequencing-in-synchronous-systems](lec-01b-timing-sync
 
 </details>
 
-## Performance in Synchronous VLSI Systems
+## Performance Metrics
 
 In Synchronous VLSI systems, **performance** is an application-dependent term.
 

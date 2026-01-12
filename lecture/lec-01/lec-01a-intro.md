@@ -38,7 +38,10 @@ A **Foundry** (often called a "Fab") is a factory dedicated to the physical manu
 {% step %}
 #### Lead Frame
 
-The **Lead Frame** is a metal structure inside the chip's final black plastic casing. It serves two purposes: it mechanically supports the tiny silicon die inside, and it acts as an electrical bridge, connecting the microscopic pads on the chip to the larger external legs (pins) that you solder onto a motherboard.
+The **Lead Frame** is a metal structure inside the chip's final black plastic casing. It serves two purposes:
+
+1. it mechanically supports the tiny silicon die inside, and
+2. it acts as an electrical bridge, connecting the microscopic pads on the chip to the larger external legs (pins) that we solder onto a motherboard.
 {% endstep %}
 {% endstepper %}
 
@@ -109,7 +112,7 @@ We are designing in a power limited regime.
 
 #### The Leakage Problem
 
-The follwoing chart tracks power consumption across different generations of chip technology (from old 0.25um to modern 45nm).
+The following chart tracks power consumption across different generations of chip technology (from old 0.25um to modern 45nm).
 
 <figure><img src="../../.gitbook/assets/lec01-leakage-problem.png" alt="" width="563"><figcaption></figcaption></figure>
 
