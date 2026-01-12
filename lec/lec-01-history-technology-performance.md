@@ -103,8 +103,14 @@ This is simple. Nowadays, we mainly have the following ISAs
 ### Digital Hardware Market Segments
 
 1. ASIC (application specific integrated circuit)
+   1. ASIC is more popular.
 2. ASSP (application specific standard product)
+   1. ASSP is less popular than ASIC and is sometimes categorized into ASIC also.
 3. FPGA (field programmable gate array)
+
+#### System on Chip (SoC)
+
+In the past, systems were built from many separate chips mounted on a single motherboard. Today, these functions are increasingly integrated into a single **System-on-Chip (SoC)**, which combines digital logic, memory, MEMS, analog, and radio-frequency and other components on one chip.
 
 ### Application Processor Market
 
@@ -157,6 +163,7 @@ To solve the power wall problem above, the modern trends are now as follows,
   * Application-specific instruction-set processors: NPU, TPU, Bitcoin mining, etc.
 * Reaching the limits of silicon:
   * Use compound semiconductors such as GaN, InP, etc.
+    * As of Jan 2026, leading-edge process technology is labeled "2nm," although this number is no longer a physical measurement — it simply denotes the technology node’s scale and generation.
 * The communication bottleneck — within and between chips: the data transfer speed between processor and memory
   * SoCs, multi-chip modules
   * 3D ICs/stacking (e.g., in HBM)
@@ -164,6 +171,10 @@ To solve the power wall problem above, the modern trends are now as follows,
   * In-memory computing
 * Leakage current & short channel effects
   * Multi-gate (3D) FETs — FinFET and gate-all-around (GAA) FETs.
+* Process variability & yield
+  * Better lithography
+  * Chiplets
+    * The definition from [Synopsys](https://www.synopsys.com/glossary/what-are-chiplets.html) is "Chiplets are small, modular integrated circuits that can be combined to create a more complex system-on-chip (SoC) or multi-die design. Unlike traditional monolithic chips, which integrate all functionalities into a single silicon die, chiplets break down these functionalities into smaller, specialized dies. These chiplets are then interconnected within a single package (used **advanced packaging**), allowing for greater flexibility, efficiency, and scalability in chip design."
 
 {% hint style="warning" %}
 The first level bullet points are the **problems**, the second level bullet points are the **modern trends solutions**.

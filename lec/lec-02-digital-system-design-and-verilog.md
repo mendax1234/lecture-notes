@@ -4,7 +4,7 @@
 
 ### Levels of Abstraction
 
-Different from the [abstraction](https://wenbo-notes.gitbook.io/ddca-notes/textbook/from-zero-to-one#abstraction) we have seen in Harris & Harris, here, we will talk about the abstraction in digital system design. And below is a simple illustration,
+Different from the [abstraction](https://wenbo-notes.gitbook.io/ddca-notes/textbook/from-zero-to-one#abstraction) we have seen in Harris & Harris, here, we will talk about the abstraction in digital system design. These five abstraction levels show us how different people (e.g., software engineers, digital design frontend engineer, etc) view the **Digital Circuit**.
 
 <figure><img src="../.gitbook/assets/ cg3207-lec02-levels-of-abstraction-digital.png" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -24,7 +24,12 @@ For example, describing `output = (A+B) + (C+D)` in a flowchart or C-like pseudo
 {% step %}
 #### **Register Transfer Level (RTL, Timed)**
 
-It is the macroscopic hardware view and is described in terms of **data transfers between registers** and **operations performed by functional units (ALUs, multiplexers, etc.)** under clock control. And this macroscopic hardware view is **implemented** using the RTL code. Thus, it is timed, cycle-accurate, but still abstract (macroscopic).
+It is the macroscopic hardware view and is described in terms of **data transfers between registers** and **operations performed by functional units (ALUs, multiplexers, etc.)** under clock control. In other words, data **is**
+
+* **stored in registers** and
+* **computed** in the **combinational blocks**
+
+This macroscopic hardware view is **implemented** using the RTL code. Thus, it is timed, cycle-accurate, but still abstract (macroscopic).
 
 For example, we have written the RTL Code in [CG3207 Lab01](https://wenbo-notes.gitbook.io/ddca-notes/lab/lab-01-get-prepared#rtl-design), and the following simple Verilog code is also an example of RTL Code
 
@@ -67,10 +72,18 @@ It is the physical representation of the circuit on silicon. Masks for fabricati
 
 ### Simplified FPGA/ASIC Design Flow
 
+The FPGA/ASIC design flow is highly complex. In an ideal world, a single click would transform a functional specification directly into an FPGA bitstream or a fabricated ASIC. While this vision is attractive, it is not yet practical. Instead, the design process is broken into smaller, manageable stages, as shown in the diagram below.
+
 <figure><img src="../.gitbook/assets/cg3207-lec02-simplified-fpga-asic-design-flow.png" alt=""><figcaption></figcaption></figure>
 
-{% hint style="info" %}
-The words at the right side of the arrow is the **output** of its upper step. For example, after "Logic Synthesis", the output is a **netlist**.
+Today, the steps from functional specification to architectural synthesis are still largely performed manually. In contrast, the stages from logic synthesis to FPGA programming or ASIC fabrication are highly automated by modern EDA tools.
+
+{% hint style="warning" %}
+#### Notes
+
+* The words at the right side of the arrow is the **output** of its upper step. For example, after "Logic Synthesis", the output is a **netlist**.
+* In EE4218, the "Architectural Synthesis" is changed to "**High-Level Synthesis (HLS)/Microarchitecture Design**".
+* This design flow follows a divide-and-conquer approach. However, this also means that the final system — assembled from many independently optimized components — is not guaranteed to be globally optimal.
 {% endhint %}
 
 #### Behavioral Modelling
