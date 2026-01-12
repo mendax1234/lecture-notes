@@ -4,16 +4,28 @@
 
 Unlike general-purpose computers (desktops/laptops), an **Embedded System** is a computer system embedded within a larger device, typically dedicated to a specific task.
 
+{% hint style="success" %}
+A better definition for **Embedded System** and also the one that is favored by Prof Rajesh is: "Any system where the user doesn't want to know that it includes a processor".
+{% endhint %}
+
 * **Ubiquity**: There are approximately 50+ devices per household (e.g., washing machines, routers), vastly outnumbering general-purpose computers.
 * **Examples**: Rocket engine controls, telecom switches, ABS in cars, set-top boxes, and smart devices .
+
+### Characteristics
 
 Embedded systems have the following characteristics:
 
 * **Dedicated Task**: Usually performs a single function or a specific set of functions.
 * **Real-Time Response**: Must monitor the environment and react within a specified time frame (hard or soft real-time constraints).
+  * **Predictability** is fundamental to real-time systems, meaning they must consistently meet strict timing requirements and deadlines, even under heavy loads, to ensure deterministic behavior and reliable outcomes.
+  * Being predictable <i class="fa-not-equal">:not-equal:</i> Being fast.
 * **Continuous Operation**: Often requires 24x7 operation with high reliability.
 * **Constraints**: heavily constrained by power (battery life), cost, size (form factor), and legacy support.
-* **HW/SW Integration**: Tight integration between Software (flexible, sequential) and Hardware (rigid, concurrent).
+* **HW/SW Integration**: Tight integration between Software and Hardware.
+  * Software is flexible and sequential, but the **performance suffers**.
+  * Hardware is rigid[^1] and concurrent, but the flexibility suffers.
+    * Typically, more **specialized hardware** indicates more **efficiency**.
+    * If someone says his system is both flexible and efficient, likely he is a liar :joy:.
 
 ### Architecture
 
@@ -21,11 +33,14 @@ An embedded system usually consists of a CPU, memory (SRAM/DRAM/Flash), timers, 
 
 <figure><img src="../.gitbook/assets/embed-system-architecture.png" alt=""><figcaption></figcaption></figure>
 
+* **Co-processor**: These are the processors that are used for some **specialized stuff**.
+* **Reset Control / Watchdog Timer:** The system must be able to automatically reset itself if it fails to respond or becomes unresponsive for a specified period.
+
 ## Design Considerations & Trends
 
 ### System Design Considerations
 
-When designing an embedded system (sensor -> processor -> actuator[^1]), we must balance conflicting requirements:
+When designing an embedded system (sensor -> processor -> actuator[^2]), we must balance conflicting requirements:
 
 * **Time-to-market**: How fast can we ship?
 * **Technology & Cost**: Availability of IP cores, CAD tools, and chip area.
@@ -158,4 +173,6 @@ Similar to the definition of normal graphs, in **hypergraphs**, an edge can conn
 * **Graph Coloring**: Used for Register Allocation.
 * **Min-Cut**: Used for Partitioning logic into different blocks.
 
-[^1]: A component that converts an electrical control signal into physical motion or force.
+[^1]: This means that hardware can do some things that the software cannot do.
+
+[^2]: A component that converts an electrical control signal into physical motion or force.
