@@ -35,7 +35,7 @@ always @(posedge clk)
 ```
 {% endcode %}
 
-**Focus:** This is where your **macroscopic blocks** appear — ALUs, adders, multiplexers, etc. And RTL code is the implementation of these macroscopic blocks.
+**Focus:** This is where our **macroscopic blocks** appear — ALUs, adders, multiplexers, etc. And RTL code is the implementation of these macroscopic blocks.
 {% endstep %}
 
 {% step %}
@@ -43,9 +43,9 @@ always @(posedge clk)
 
 It is the microscopic hardware view. The RTL code is **synthesized into** [**logic gates**](#user-content-fn-1)[^1] (AND, OR, NOT, flip-flops).
 
-For example,`(A+B)` becomes a [ripple-carry adder](https://wenbo-notes.gitbook.io/ddca-notes/textbook/digital-building-blocks/arithmetic-circuits#ripple-carry-adder) built out of AND/OR/XOR gates. It is boolean equations + gates, but no transistor-level details.
+For example, `(A+B)` becomes a [ripple-carry adder](https://wenbo-notes.gitbook.io/ddca-notes/textbook/digital-building-blocks/arithmetic-circuits#ripple-carry-adder) built out of AND/OR/XOR gates. It is boolean equations + gates, but no transistor-level details.
 
-**Focus:** This is your **microscopic implementation** of RTL macros.
+**Focus:** This is our **microscopic implementation** of RTL macros.
 {% endstep %}
 
 {% step %}
@@ -75,7 +75,7 @@ The words at the right side of the arrow is the **output** of its upper step. Fo
 
 #### Behavioral Modelling
 
-Behavioral modeling defines the "what" of your FPGA/ASIC design — its high-level logic and algorithms — without hardware details. It’s for verifying functionality early.
+Behavioral modeling defines the "what" of our FPGA/ASIC design — its high-level logic and algorithms — without hardware details. It’s for verifying functionality early.
 
 * **Purpose**: Ensures algorithmic correctness via simulations.
 * **Tools**:
@@ -197,8 +197,8 @@ As shown in the diagram below, the logic synthesis will take in three things (HD
 <figure><img src="../.gitbook/assets/cg3207-lec02-logic-synthesis.png" alt=""><figcaption></figcaption></figure>
 
 * **Technology Library:** The **cells / microscopic building blocks** we are allowed to use. Its purpose is to enable **logic synthesis tools** to map a design into the physical hardware efficiently while respecting the process technology constraints (timing, power, area).
-  * For ASICs, cells are usually **gates or gate combinations.** (e.g., flip-flops, latches and buffers, etc) They are    &#x20;custom designed and characterized carefully by the foundry while    &#x20;respecting the physical limitations of the specific process technology.
-  * For FPGAs, technology library is composed of higher-level **CLB functions** (like adders, multipliers, LUTs, etc.) but still considered basic elements for synthesis.
+  * For ASICs, cells are usually **gates or gate combinations** (e.g., flip-flops, latches and buffers, etc)**.** They are    &#x20;custom designed and characterized carefully by the foundry while    &#x20;respecting the physical limitations of the specific process technology.
+  * For FPGAs, technology library is composed of higher-level [**CLB**](#user-content-fn-2)[^2] **functions** (like adders, multipliers, LUTs, etc.) but still considered basic elements for synthesis.
 * **Mapped Schematic**
   * Optimized schematic realizing the HDL code, using **building    &#x20;blocks** from the technology library.
   * Usually a [**netlist**](https://wenbo-notes.gitbook.io/ddca-notes/textbook/hardware-description-languages#synthesis) that textually describes the interconnection    &#x20;between cells/building blocks
@@ -227,7 +227,7 @@ As shown in the diagram below, the logic synthesis will take in three things (HD
 * Registers are like **“brick walls”** — they hold state and define the boundaries of combinational logic.
 * Everything **between registers** is combinational logic (no memory, just logic operations).
 
-**RTL Synthesis/Logical synthesis tools:** Convert your RTL into **technology-mapped gates/cells** (ASIC) or LUTs/CLBs (FPGA).
+**RTL Synthesis/Logical synthesis tools:** Convert our RTL into technology-mapped gates/cells (ASIC) or LUTs/CLBs (FPGA).
 
 * **What gets optimized:**
   * Only the **combinational logic between registers**.
@@ -272,7 +272,7 @@ And IP is usually much higher-level than technology library — often **entire s
 **Analogy:**
 
 * Think of **technology libraries** as **bricks and mortar**.
-* **IP blocks** are like **pre-built rooms or furniture** made from those bricks. You can assemble your building (chip) faster if you have ready-made rooms rather than making everything brick by brick.
+* **IP blocks** are like **pre-built rooms or furniture** made from those bricks. We can assemble our building (chip) faster if we have ready-made rooms rather than making everything brick by brick.
 
 </details>
 
@@ -285,7 +285,7 @@ And IP is usually much higher-level than technology library — often **entire s
 It is deciding where to put each **cell** (gate, flip-flop, or higher-level module) on the **physical chip layout**.
 
 * **Goal**: Place **cells that communicate a lot closer together**. As shorter interconnects will deduce lower delay and lower power.
-* **Tradeoff**: If you bring two blocks closer, some other blocks must move farther. This is a **global optimization problem**.
+* **Tradeoff**: If we bring two blocks closer, some other blocks must move farther. This is a **global optimization problem**.
 
 Placement minimizes some function of a coarse approximation of wirelengths.
 
@@ -300,7 +300,7 @@ Because exact wirelength calculation requires routing every connection, which is
 It is mapping of logical connection between cells to physical interconnects, which is to physically **connect** all the cells with wires according to the netlist.
 
 * **Goal**: Make wires **as short as possible**. As this reduces delay, power, and congestion.
-* **Constraint**: You need **placement first** to know where to draw the wires.
+* **Constraint**: We need **placement first** to know where to draw the wires.
 
 {% hint style="success" %}
 For more on routing, please take [NUS EE4218](https://nusmods.com/courses/EE4218/embedded-hardware-system-design)!
@@ -331,7 +331,7 @@ And our solution in practice is to use **iterative approaches**:
 #### Some Notes
 
 1. Always Think Hardware — have the topology of the circuit in mind (the macroscopic model), and write RTL code which will imply/infer the topology from the code.
-2. [Simulation and synthesis](https://wenbo-notes.gitbook.io/ddca-notes/textbook/hardware-description-languages#simulation) tools work very differently (Add more notes in Harris & Harris)
+2. [Simulation and synthesis](https://wenbo-notes.gitbook.io/ddca-notes/textbook/hardware-description-languages#simulation) tools work very differently (From Harris & Harris DDCA)
    1. Simulation "**executes**" HDL code following the semantics of the HDL
    2. Synthesis "**infers the hardware structure**" described by HDL (RTL) code
 3. Read this awesome [note](http://www.sunburst-design.com/papers/CummingsSNUG2002SJ_FIFO2.pdf) from sunburst!
@@ -365,7 +365,7 @@ end
 ```
 {% endcode %}
 
-In RTL Verilog code, we insert **clock cycle delays** explicity by introducing a&#x20;**physical** [**register**](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/latches-and-flip-flops#register) (e.g., it is a part of your design). So, the following is the correct code for the above,
+In RTL Verilog code, we insert **clock cycle delays** explicity by introducing a&#x20;**physical** [**register**](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/latches-and-flip-flops#register) (e.g., it is a part of our design). So, the following is the correct code for the above,
 
 {% code lineNumbers="true" %}
 ```verilog
@@ -442,13 +442,13 @@ But its' ok to have a `reg` at the LHS of multiple statements within the **same*
 
 #### Initializations of reg are ignored by synthesis
 
-If you use either [`initial` block](https://wenbo-notes.gitbook.io/ddca-notes/lab/resources/verilog-lifesaver#initial-block) or `reg` declaration (e.g., `reg  = 1'b0`) to initialize a register, this initialization will be useful for registers and memories for FPGAs in **simulation**, but are **ignored** by the synthesis tools.
+If we use either [`initial` block](https://wenbo-notes.gitbook.io/ddca-notes/lab/resources/verilog-lifesaver#initial-block) or `reg` declaration (e.g., `reg  = 1'b0`) to initialize a register, this initialization will be useful for registers and memories for FPGAs in **simulation**, but are **ignored** by the synthesis tools.
 
 {% stepper %}
 {% step %}
 #### Wires cannot be initialized
 
-`wire`s cannot be meaningfully initialized as they don't store anything. (Go back review the [working principle of `wire`](https://wenbo-notes.gitbook.io/ddca-notes/lab/resources/verilog-lifesaver#wire) again if you forget)
+`wire`s cannot be meaningfully initialized as they don't store anything. (Go back review the [working principle of `wire`](https://wenbo-notes.gitbook.io/ddca-notes/lab/resources/verilog-lifesaver#wire) again if we forget)
 
 Initialization to 0 or 1 will connect the wire to a **constant** 0 or 1 respectively.&#x20;Further assignment using `assign` will cause it to have multiple drivers. This is **dangerous** and **not recommended!**
 {% endstep %}
@@ -506,8 +506,8 @@ These are the same as Harris & Harris, besides that, we also recommend that
     end
     </code></pre>
 2. Two cases with blocking and non-blocking statements in `always @(*)`
-   1. Blocking executes **immediately, in order**. So if a `reg` is used on both **left-hand side (LHS)** and **right-hand side (RHS)**, you should assign it **first** before you read it. (that `reg` should appear on LHS before RHS)
-   2.  Non-blocking executes **in parallel at the end of the clock edge**, so within the same block you’ll **never see the updated value** in the RHS. For example, in the following code snippet, `Z` in Line 5 will hold the old value of `Z`.
+   1. Blocking executes **immediately, in order**. So if a `reg` is used on both **left-hand side (LHS)** and **right-hand side (RHS)**, we should assign it **first** before we read it. (that `reg` should appear on LHS before RHS)
+   2.  Non-blocking executes **in parallel at the end of the clock edge**, so within the same block we’ll **never see the updated value** in the RHS. For example, in the following code snippet, `Z` in Line 5 will hold the old value of `Z`.
 
        <pre class="language-verilog" data-line-numbers><code class="lang-verilog">always @ (*)
        begin
@@ -528,10 +528,10 @@ Synchronous means that the output changes only on the rising or falling edge of 
 1. use `always @(posedge clk)`
 2. non-blocking assignments (`<=`) only
 
-By keeping the above two rules, you should be able to avoid 99% of problems. But the remaining 1%, will probably be in the paper exam. 😂
+By keeping the above two rules, we should be able to avoid 99% of problems. But the remaining 1%, will probably be in the paper exam. 😂
 
 1. Use **non-blocking** assignments for the outputs of the always block (signals),   &#x20;as well as for any internal physical registers. But the updated values are **not available** for use at the **same clock edge**. (See Step 1, rule 2(b) example)
-2.  If you insist on using blocking assignments for internal combinational parts (variables). In this case, the variable should appear on the LHS **before** RHS.
+2.  If we insist on using blocking assignments for internal combinational parts (variables). In this case, the variable should appear on the LHS **before** RHS.
 
     <pre class="language-verilog" data-line-numbers><code class="lang-verilog">always @ (posedge CLK)
     begin
@@ -564,7 +564,7 @@ In short, Prof. Rajesh recommends to **never** use resettable registers in this 
 In Verilog, `reg` doesn't mean it is a physical registers. The following rules summarize when are physiscal registers actually inferred
 
 1. non-blocking assignments of `reg`s in a synchronous `always` block
-2. In an `always @(posedge clk)`, if you use **blocking assignment** (`=`) to read a reg (RHS) before writing it (LHS), that `reg` is inferred as a **physical register**.
+2. In an `always @(posedge clk)`, if we use **blocking assignment** (`=`) to read a reg (RHS) before writing it (LHS), that `reg` is inferred as a **physical register**.
 
 {% hint style="danger" %}
 Inferring using the **second** way is **not recommended**!
@@ -776,3 +776,5 @@ end
 * [verilog-lifesaver.md](../lab/resources/verilog-lifesaver.md "mention")
 
 [^1]: In FPGA/ASIC design, the RTL code is synthesized into **a netlist** using the **cells/microscopic building blocks** from the technology library (as you will see [later](https://wenbo-notes.gitbook.io/ddca-notes/lec/lec-03-risc-v-isa-and-microarchitecture#risc-v-microarchitecture)).
+
+[^2]: Configurable Logic Blocks

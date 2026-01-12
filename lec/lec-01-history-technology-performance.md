@@ -65,7 +65,7 @@ So, think of ISA as the **language (**[**words**](#user-content-fn-1)[^1] **+** 
 {% endstep %}
 {% endstepper %}
 
-### Todos
+### FYI
 
 {% stepper %}
 {% step %}
@@ -116,7 +116,7 @@ In AY25/26 Sem 1, the questions appeared in the final indicate that nowadays, th
 
 ### Moore's Law
 
-In 1965, Intel’s Gordon Moore predicted that **the&#x20;number of transistors** that can be integrated on **single chip** would **double** about **every two years**.
+In 1965, Intel’s Gordon Moore predicted that **the number of transistors** that can be integrated on **single chip** would **double** about **every two years**.
 
 ## Technology
 
@@ -153,7 +153,7 @@ To solve the power wall problem above, the modern trends are now as follows,
 * Limited instruction level parallelsim (ILP), power issues
   * Cloud computing
   * Multi-core/processor systems, clusters
-  * [Heterogeneous systems](#user-content-fn-3)[^3], hardware    &#x20;accelerators, hardware/software codesign, [reconfigurable computing](#user-content-fn-4)[^4]
+  * [Heterogeneous systems](#user-content-fn-3)[^3], hardware accelerators, hardware/software codesign, [reconfigurable computing](#user-content-fn-4)[^4].
   * Application-specific instruction-set processors: NPU, TPU, Bitcoin mining, etc.
 * Reaching the limits of silicon:
   * Use compound semiconductors such as GaN, InP, etc.
@@ -165,11 +165,11 @@ To solve the power wall problem above, the modern trends are now as follows,
 * Leakage current & short channel effects
   * Multi-gate (3D) FETs — FinFET and gate-all-around (GAA) FETs.
 
-{% hint style="info" %}
+{% hint style="warning" %}
 The first level bullet points are the **problems**, the second level bullet points are the **modern trends solutions**.
 {% endhint %}
 
-### Todos
+### FYI
 
 {% stepper %}
 {% step %}
@@ -185,10 +185,10 @@ This can **maximizes** [**yield**](#user-content-fn-6)[^6], so instead of throwi
 
 ### Throughput vs. Response Time
 
-* Response time (execution time) – the time between the  &#x20;start and the completion of a task.
+* Response time (execution time) – the time between the start and the completion of a task.
 * Throughput – the **rate** at which a system completes its tasks. It is defined as the total amount of work accomplished divided by the time taken to complete that work. ($$\text{Throughput} = \frac{\text{Total Work Done}}{\text{Given Time Period}}$$)
 
-Will need different performance metrics as well as a different set of applications to benchmark personal mobile devices, embedded and desktop computers, which are more focused on response time, versus servers, which are more focused on throughput.
+We will need different performance metrics as well as a different set of applications to benchmark personal mobile devices, embedded and desktop computers, which are more focused on response time, versus servers, which are more focused on throughput.
 
 ### Relative Performance
 
