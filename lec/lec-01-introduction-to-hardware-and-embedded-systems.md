@@ -25,16 +25,16 @@ An embedded system usually consists of a CPU, memory (SRAM/DRAM/Flash), timers, 
 
 ### System Design Considerations
 
-When designing an embedded system (sensor -> processor -> actuator), we must balance conflicting requirements:
+When designing an embedded system (sensor -> processor -> actuator[^1]), we must balance conflicting requirements:
 
-* **Time-to-market**: How fast can we ship?.
-* **Technology & Cost**: Availability of IP cores, CAD tools, and chip area .
+* **Time-to-market**: How fast can we ship?
+* **Technology & Cost**: Availability of IP cores, CAD tools, and chip area.
 * **Performance vs. Power**: High performance usually dictates higher power, but embedded devices are often battery-operated.
 
 ### Current Trends
 
 {% hint style="info" %}
-**Note:** The history of hardware (Moore's Law, Power trends, and the move toward heterogeneous systems) is covered in detail in the [CG3207 Lec 01](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-01-history-technology-performance#history). (From [History](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-01-history-technology-performance#history) to [Todos](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-01-history-technology-performance#todos))&#x20;
+**Note:** The history of hardware (Moore's Law, Power trends, and the move towards heterogeneous systems) is covered in detail in the [CG3207 Lec 01](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-01-history-technology-performance#history). (From [History](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-01-history-technology-performance#history) to [FYI](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-01-history-technology-performance#todos))&#x20;
 {% endhint %}
 
 ## Hardware Design Flow
@@ -78,7 +78,7 @@ In this course (EE4218), we focus on the algorithms _inside_ the CAD tools. Most
 ### Graphs
 
 {% hint style="info" %}
-CAD tools represent circuits as graphs.
+CAD tools represent circuits as graphs. More on Data Flow Graph (DFG) is on [EE4415](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/lecture/lec-02/lec-02b-rtl-transformations#data-flow-graphs).
 {% endhint %}
 
 Graph $$G=(V, E)$$ is composed of two parts:
@@ -157,3 +157,5 @@ Similar to the definition of normal graphs, in **hypergraphs**, an edge can conn
 * **Dijkstra**: Shortest path (used in Routing).
 * **Graph Coloring**: Used for Register Allocation.
 * **Min-Cut**: Used for Partitioning logic into different blocks.
+
+[^1]: A component that converts an electrical control signal into physical motion or force.
