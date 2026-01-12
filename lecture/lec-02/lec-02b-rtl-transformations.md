@@ -328,13 +328,13 @@ The counterexample has been introduced in the "[recursive DFGs](https://wenbo-no
 
 </details>
 
-### N-Slowing and Time Interleaving
+### Time Interleaving
+
+> This is actually the third technique of retiming, which will be discussed in detail later. Thus, this section will just give you a taste of this technique.
 
 {% stepper %}
 {% step %}
-#### N-Slowing
-
-**N-Slowing** is a global register insertion technique used to transform a circuit to handle multiple independent data streams simultaneously.
+Before we talk about time interleaving, we need to know **N-Slowing**. **N-Slowing** is a global register insertion technique used to transform a circuit to handle multiple independent data streams simultaneously.
 
 * **Procedure**: Replace every single register in the original circuit with $$N$$ cascaded registers.
 * **Effect on Latency**: The input-to-output latency increases by a factor of $$N$$. The system effectively operates on a time scale dilated by $$N$$.
@@ -350,7 +350,9 @@ The primary motivation for N-Slowing is to enable **Time Interleaving**, which a
 * **Utilization**: We can inject $$N$$ distinct input streams (e.g., Channel 1, Channel 2... Channel N) into these independent time slots.
 * **Hardware Efficiency**: A single physical circuit does the work of $$N$$ parallel circuits, saving area at the cost of running $$N$$ times faster.
 {% endstep %}
-{% endstepper %}
+
+{% step %}
+#### Practical Example
 
 One example of using N-slowing and time interleaving technique is the MAC example. In the MAC, the recursion formula is $$Out(i) = (A \cdot B) + Out(i-1)$$.
 
@@ -368,11 +370,11 @@ This will bring us the following benefits
 * **Throughput**: The system processes $$N$$ channels using only 1 physical MAC unit (area efficient).
 * **Frequency:** The $$N$$ registers inside the loop can be retimed (distributed) into the Multiplier/Adder logic to break critical paths, allowing the clock frequency to potentially increase by $$N$$ times.
 
-Thanks to these advantages, this technique is usually used for [SIMD](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-06-advanced-processor#single-instruction-stream-multiple-data-streams-simd) processors.
-
 {% hint style="success" %}
-This technique is amazing and may be useful in my [Mach-V](https://github.com/mendax1234/Mach-V) project!
+For more on Timing Interleaving, you can refer to [below](lec-02b-rtl-transformations.md#time-interleaving-2).
 {% endhint %}
+{% endstep %}
+{% endstepper %}
 
 ## Parallelism
 
@@ -915,6 +917,72 @@ Then we deal with the bottom four adders. We add 4 registers at the output and t
 <figure><img src="../../.gitbook/assets/gaussian-filter-third-optimization-2.gif" alt=""><figcaption></figcaption></figure>
 
 Lastly, we achieved the 0.5 clock cycle and as we have added 4+6=10 more registers, the latency becomes 11+10=21.
+{% endstep %}
+{% endstepper %}
+
+#### Time Interleaving
+
+An equivalent way to repipeline a design is to first repace each register with N cascaded registers and then retime (creating a "N-slow version"). This is also called **Time Interleaving**.
+
+{% hint style="success" %}
+Time interleaving is a technique to process $$N$$ independent data streams on a single hardware block by utilizing pipeline "slots" created through register multiplication.
+{% endhint %}
+
+{% stepper %}
+{% step %}
+#### The Transformation Procedure
+
+1. **Step 1**: $$N$$**-Slowing**
+   * Replace every single register in the original design with $$N$$ **cascaded registers**.
+   * **Effect:** This creates an "$$N$$-slow" version of the circuit. The system now takes $$N$$ clock cycles to do what the original did in 1 cycle (time dilation).
+2. **Step 2: Retiming**
+   * Use the newly added registers to perform **Retiming**. Distribute these extra registers into the combinational logic to break critical paths.
+   * Result: The logic depth decreases, allowing the clock frequency to increase significantly.
+{% endstep %}
+
+{% step %}
+#### How It Works
+
+* **Independence of Slots**:
+  * In an $$N$$-slowed system, the computation at time $$t$$ only depends on data from $$t-N$$, $$t-2N$$, etc..
+  * This leaves the intermediate time slots ($$t-1$$, $$t-2$$...) completely independent of the current calculation.
+* **Utilization:**
+  * We can feed $$N$$ different data streams into the circuit in a round-robin fashion (Stream A at $$t=0$$, Stream B at $$t=1$$, etc.).
+  * The hardware effectively acts as $$N$$ independent virtual processors running in parallel on the same physical logic.
+{% endstep %}
+
+{% step %}
+#### Maths Notation
+
+* $$x(i)$$: Represents the signal in the **original circuit** at clock cycle $$i$$.
+* $$x_N(N \cdot i)$$: Represents the same signal in the $$N$$**-slowed system**.
+* **Interpretation:** The equality $$x_N(N \cdot i) = x(i)$$ defines Time Dilation.
+  * The original sequence of valid data ($$0, 1, 2...$$) is mapped to multiples of $$N$$ ($$0, N, 2N...$$) in the new system. In other words, the data that appeared at time 1, 2, 3 in the original circuit... now appears at time N, 2N, 3N in the new circuit.
+
+| Name                            | Original       | N-slowned                |
+| ------------------------------- | -------------- | ------------------------ |
+| **signal**                      | x(i)           | xₙ(N · i) = x(i)         |
+| **depends on other iterations** | i, i-1, i-2, … | N·i, (N−1)·i, (N−2)·i, … |
+{% endstep %}
+
+{% step %}
+#### Practical Example
+
+Let's optimize our MAC to be a unit that is "2-slowed" to process two datasets simultaneously (e.g., audio left/right channels).
+
+1. **Step 1:** The accumulator register is replaced by 2 registers.
+2. **Step 2:** One of these registers is retimed (moved) into the middle of the multiplier/adder logic.
+
+<figure><img src="../../.gitbook/assets/time-interleaving-example.png" alt=""><figcaption></figcaption></figure>
+
+After applying the time interleaving technique, we achieve:
+
+* The critical path is cut significantly (from $$t_{MULT} + t_{ADD}$$ to just $$t_{MULT}$$).
+* The system can now run at nearly double the frequency, processing two streams with the same hardware area footprint (plus a few flip-flops).
+
+{% hint style="success" %}
+Another application is that in microprocessor, time interleaving effectively implements the SIMD concept, as it performs the same operation on multiple independent data.
+{% endhint %}
 {% endstep %}
 {% endstepper %}
 
