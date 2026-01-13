@@ -91,6 +91,26 @@ The cell-based flow is a standard industry methodology for taking a design from 
 {% endstep %}
 {% endstepper %}
 
+### ASIC Design Flow
+
+## Physical Design
+
+### Physical Implementation
+
+### FPGA Architecture
+
+## Levels of Abstraction
+
+### The Abstraction Hierarchy
+
+### Logic Design Approaches
+
+### Simulation Levels
+
+## ASIC Synthesis
+
+## Design Guidelines
+
 ## References
 
 1. [Synopsys — What is ASIC Design?](https://www.synopsys.com/glossary/what-is-asic-design.html)
