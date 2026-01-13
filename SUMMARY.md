@@ -10,6 +10,8 @@
 * [Lec 02](lecture/lec-02/README.md)
   * [Lec 02a - Pipelining](lecture/lec-02/lec-02a-pipelining.md)
   * [Lec 02b - RTL Transformations](lecture/lec-02/lec-02b-rtl-transformations.md)
+* [Lec 03](lecture/lec-03/README.md)
+  * [Lec 03a - Digital Design Flow](lecture/lec-03/lec-03a-digital-design-flow.md)
 
 ## Textbook 1: DICADP
 
