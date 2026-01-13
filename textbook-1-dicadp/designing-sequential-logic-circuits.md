@@ -10,7 +10,7 @@ There are three important timing parameters associated with a register as illust
 
 1. The **set-up** time (t<sub>su</sub>) is the time that the data inputs (D input) must be valid before the clock transition (this is, the 0 to 1 transition for a positive edge-triggered register).
 2. The **hold time** (t<sub>hold</sub>) is the time the data input must remain valid after the clock edge.
-3. Assuming that the set-up and hold-times are met, the data at the D input is copied to the Q output after a worst-case propagation delay (with reference to the clock edge) denoted by **t**<sub>**c-q**</sub>.
+3. Assuming that the set-up and hold-times are met, the data at the D input is copied to the Q output after a worst-case propagation delay (with reference to the clock edge) denoted by t<sub>c-q</sub>.
 
 <figure><img src="../.gitbook/assets/register-setup-hold-c2q-time.png" alt=""><figcaption><p><strong>Figure 10.5</strong> Definition of set-up time, hold time and propagation delay of a synchronous register</p></figcaption></figure>
 

@@ -20,7 +20,7 @@ In short, in digital logic, **synchronization** turns "random arrival" into "sch
    1. The system ignores everything happening in the middle of the clock cycle (the messy part).
    2. R<sub>2</sub> is trained to only look at the data at the _very end_ of the cycle (the next clock edge).
    3. By that time, the "messy" calculation must be finished, and the data must be stable ("valid").
-3. So, when we say a signal is synchronized, we are effectively saying: "I guarantee that this signal will be stable and valid setup<sub>time</sub> before the next clock edge arrives." This also explains why the data can be sampled directly without any uncertainty if the timing constraint it met.
+3. So, when we say a signal is synchronized, we are effectively saying: "I guarantee that this signal will be stable and valid setup time before the next clock edge arrives." This also explains why the data can be sampled directly without any uncertainty if the timing constraint is met.
 
 <details>
 
@@ -28,8 +28,8 @@ In short, in digital logic, **synchronization** turns "random arrival" into "sch
 
 In the context of that definition, the "frequency of the signal" actually refers to the **frequency of the clock domain that generates/launches that signal.**
 
-For example, if you have a signal called `valid_flag`. And `valid_flag` is output by a register triggered by a 100 MHz clock. Then, for the purpose of synchronization and timing analysis, `valid_flag` is considered a 100 MHz signal.
+For example, if we have a signal called `valid_flag`. And `valid_flag` is output by a register triggered by a 100 MHz clock. Then, for the purpose of synchronization and timing analysis, `valid_flag` is considered a 100 MHz signal.
 
 </details>
 
-[^1]: This is the **propagation delay**!
+[^1]: This is the **propagation delay** of the combinational logic.

@@ -8,7 +8,7 @@ A digital system consists of communicating blocks shown as follows,
 
 <figure><img src="../../.gitbook/assets/communication-blocks.png" alt="" width="563"><figcaption></figcaption></figure>
 
-Each combinational module evaluates its output in
+We assume that each combinational module evaluates its output in
 
 $$
 \tau_{\text{comb}} \in [\tau_{\text{comb},\text{min}},\tau_{\text{comb},\text{max}}]\;(\text{input-dependent})
@@ -23,8 +23,10 @@ In module 1, the <mark style="color:green;">fast path</mark> gives earliest poss
 {% hint style="info" %}
 #### Some Notations
 
+Some notations used in timing diagrams:
+
 1. **Cross-hatched (zig-zag) region**: This means that the signal is **unstable**. So, in<sub>1</sub> is stable only after the first dashed line.
-2. **Flat solid line:** This means that the signal is **stable**.&#x20;
+2. **Flat solid line:** This means that the signal is **stable**, it can be high or low, but it doesn't matter that much.
 
 These two notations have appeared in [Harris and Harris's DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/combinational-logic-design/timing#propagation-and-contamination-delay)! Thus we can also say that
 
@@ -34,7 +36,7 @@ These two notations have appeared in [Harris and Harris's DDCA](https://wenbo-no
 
 #### Synchronous vs. Asynchronous
 
-There are two approaches to ensure correct inputs:
+As shown above, if changes in **out**<sub>**1**</sub> propagate immediately, the second module may observe incorrect or unstable inputs. To prevent this, we introduce two approaches that ensure the following module always receives stable and correct inputs.
 
 {% stepper %}
 {% step %}
@@ -43,14 +45,20 @@ There are two approaches to ensure correct inputs:
 In asynchronous mode, additional circuitry generates "completion signal" and this completion signal enables computation of next block when its output is valid.
 
 <figure><img src="../../.gitbook/assets/asynchronous-communication-mode.png" alt="" width="563"><figcaption></figcaption></figure>
+
+{% hint style="warning" %}
+This approached is **less favored** by the industry. The reason is **not** because this approach is less-efficient. In fact, the asynchronous approach is **more efficient** that the synchronous approach. The reason is that the automation tools don't support asynchronous systems well, but they support synchronous systems well.
+{% endhint %}
 {% endstep %}
 
 {% step %}
 #### Synchronous
 
-In synchronous mode, all I/O signals are synchronized to clock clk. The clock periodically triggers next computation. All I/O signals are only allowed to be _used_ at **clock events**. And all the computation is done during the clock period.
+In synchronous mode, all input and output signals are synchronized to the clock **clk**. The clock periodically triggers the next computation cycle and provides a global timing reference for all modules in the system.
 
-* **Clock Event**: At the clock event:
+All I/O signals are only allowed to be _used_ at **clock events**. And all the computation is done during the **clock period**.
+
+* **Clock Event**: At the clock event
   * Registers sample their inputs
   * Registers update their outputs
   * The _next computation cycle begins_
@@ -59,12 +67,16 @@ In synchronous mode, all I/O signals are synchronized to clock clk. The clock pe
 Think of the above steps as: “Everyone stop, look at your inputs, remember them, then start computing again.”
 {% endhint %}
 
-* **Clock Period**: During the clock period:
+* **Clock Period**: During the clock period
   * Registers hold stable values at their outputs
   * Combinational logic computes new values
   * Results must be ready **before the next clock event**. If not, will cause timing violation!
 
-In the timing diagram, the first time shift represents the **Setup Time** (t<sub>setup</sub>), which is the required window where input signal `x` must be stable before the clock edge to be sampled correctly. The second time shift represents the **Clock-to-Output Delay** (t<sub>co</sub>), which is the time it takes for the register to react to the clock edge and update the output signal `y` before it propagates to the subsequent combinational logic.
+{% hint style="success" %}
+To understand **sychronize** better, you can go to the [DICADP](../../textbook-1-dicadp/timing-issues-in-digital-circuits/classification-of-digital-systems.md#synchronous-interconnect). Basically, **synchronization** turns "random arrival" into "scheduled arrival" so that the data/input can be sampled directly without any uncertainty. This will create stable input for the following combinational logic to process it during the entire upcoming clock cycle. (We have seen this uncertainty from above)
+{% endhint %}
+
+In the following timing diagram, the first time shift represents the **Setup Time** (t<sub>setup</sub>), which is the required window where input signal `x` must be stable before the clock edge to be sampled correctly. The second time shift represents the **Clock-to-Output Delay** (t<sub>co</sub>), which is the time it takes for the register to react to the clock edge and update the output signal `y` before it propagates to the subsequent combinational logic.
 
 <figure><img src="../../.gitbook/assets/synchronous-communication-mode.png" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -82,7 +94,7 @@ In both cases of synchronous and asynchronous design, energy/timing/area overhea
 
 #### Sequencing in Synchronous Systems
 
-In digital logic, the order of data flow is critical. Usually, we want to achieve the **Deterministic Sequencing**. We require a strict First-In, First-Out (FIFO) behavior, where the n<sup>th</sup> input produces the n<sup>th</sup> output in the exact same sequence. Ideally: This is easy to achieve if the delay through a module is data independent (e.g., every calculation takes the exact same amount of time).
+In digital logic, the order of data flow is critical. Usually, we want to achieve the **Deterministic Sequencing**. We require a strict First-In, First-Out (FIFO) behavior, where the n<sup>th</sup> input produces the n<sup>th</sup> output in the exact same sequence. Ideally, this is easy to achieve if the delay through a module is data independent (e.g., every calculation takes the exact same amount of time).
 
 <figure><img src="../../.gitbook/assets/lec01-sequence-synchronous-data-independent.png" alt=""><figcaption></figcaption></figure>
 
@@ -109,7 +121,18 @@ To prevent the "race conditions" described previously, we enforce a strict rule:
 
 <figure><img src="../../.gitbook/assets/lec01-sequencing-with-register.png" alt=""><figcaption></figcaption></figure>
 
-The abstract "Box" shown in the sequencing diagrams is implemented using storage elements. As recalled from EE2026 and [_Harris & Harris DDCA_](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/latches-and-flip-flops)_**.**_
+In the diagram above, "**in**<sub>**1**</sub>**(i)**" denotes a signal using a common notation that will be used throughout this module.
+
+* **"in**<sub>**1**</sub>**"** is the signal name, indicating which signal is being referenced, while
+* **"(i)"** represents the value of that signal (High or Low) at clock cycle **i**. For example, **in**<sub>**1**</sub>**(i+1)** denotes the value of **in**<sub>**1**</sub> in the next clock cycle relative to **in**<sub>**1**</sub>**(i)**. So, on the L.H.S of in<sub>1</sub>(i) are the future inputs while on the R.H.S of in<sub>1</sub>(i) are the past inputs.
+
+So how do we implement the box labeled “?” so that it holds the output of the first module until the next clock cycle, allowing it to be processed by the second module in the next clock cycle?
+
+The solution is to use flip-flops or latches, which have alreday been introduced in EE2026 and [_Harris & Harris DDCA_](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/latches-and-flip-flops)_**.**_ For example, by using flip-flops to implement the box labeled “?”, at clock cycle **i**, it holds the value **in**<sub>**1**</sub>**(i)** constant for the entire cycle (that is, the flip-flop has already sampled **in**<sub>**1**</sub>**(i)** from **D** and is driving it on **Q**). This allows Module 1 to process a stable input. Meanwhile, the next value **in**<sub>**1**</sub>**(i+1)** may arrive at the input **D** at any time during cycle **i**, but it is not visible at **Q** and will only be captured and presented at the rising edge of clock cycle **i+1**.
+
+{% hint style="warning" %}
+In the industry, latches are **rarely** used because the **timing constraint** for latches is hard to analyze. In this course, we focus on **positive edge-triggered** FFs and we will use registers and FFs interchangeably in this course.
+{% endhint %}
 
 ## Clock Network Imperfections
 
@@ -123,7 +146,7 @@ Ideally, the clock signal is
 However, as clock is distributed throughout the chip with wires + repeaters:
 
 1. delays in clock distribution network maybe different
-2. different **arrival time t**<sub>**i**</sub> of clock signal clk<sub>i</sub> (same clcok signal but arrives at different FFs at different time)
+2. different **arrival time** t<sub>i</sub> of clock signal clk<sub>i</sub> (same clcok signal but arrives at different FFs at different time)
 
 <details>
 
@@ -180,6 +203,7 @@ Another example will be the timing diagram we have seen in [Harris & Harris DDCA
 The clock skew is relative. But we usually calculate the clock skew following the direction of the data path.
 
 * If data flows from register A to register B, we calculate skew as t<sub>B</sub>- t<sub>A</sub>. During the calculation, treat t<sub>B</sub> and t<sub>A</sub> as two **algebric values** and the result will be either negative or positive!
+* **Seen by** which register, use that register as the first term. For example, the clock skew seen by register R1 w.r.t. R2 is t<sub>1</sub>-t<sub>2</sub>.
 {% endhint %}
 
 #### Clock Skew Calculation
@@ -243,8 +267,8 @@ For example, the following diagram shows an active-low asynchronous reset
 
 <figure><img src="../../.gitbook/assets/active-low-asynchronous-reset-ffs.png" alt=""><figcaption></figcaption></figure>
 
-* If you want to enable the clock event, release the RESET button at least t<sub>RECOVERY</sub> before the rising clock edge.
-* If you want to ignore the clock event, press and hold the RESET and don't release until t<sub>REMOVAL</sub> after the rising clock edge.
+* If we want to enable the clock event, release the RESET button at least t<sub>RECOVERY</sub> before the rising clock edge.
+* If we want to ignore the clock event, press and hold the RESET and don't release until t<sub>REMOVAL</sub> after the rising clock edge.
 
 {% hint style="warning" %}
 Even if this is an active-low asynchronous resettable FF, pressing the RESET button will reset the FF, meaning that pressing the RESET button is equivalent to set RESET signal to be 0.
