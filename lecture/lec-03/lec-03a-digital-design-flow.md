@@ -61,7 +61,176 @@ This type of ASIC can be programmed at the hardware level after manufacturing. U
 
 ## The Design Flow Lifecycle
 
-### Cell-Based Design Flow
+### ASIC Design Flow
+
+The ASIC design flow describes the sequence of steps used to transform a high-level system idea into a manufacturable integrated circuit. Each step progressively adds more implementation detail, moving from abstract functionality to physical silicon.
+
+{% stepper %}
+{% step %}
+#### Design Entry
+
+> Describe what the chip should do.
+
+The designer enters the circuit into an ASIC design system. Historically, this was done using **schematics**, but modern designs use **Hardware Description Languages (HDLs)** such as Verilog or VHDL, or even higher-level models such as **SystemC**.
+
+This stage defines:
+
+* The functionality of the chip
+* The data paths and control logic
+* Clocking and reset behavior
+
+**Output:** RTL or high-level behavioral description of the system.
+{% endstep %}
+
+{% step %}
+#### System Partitioning
+
+> Break a large system into manageable blocks.
+
+A complex chip is divided into smaller **subsystems or modules**, arranged hierarchically. Each block is designed to be small enough to fit within the limits of current ASIC technology and tools.
+
+This step decides:
+
+* Which functions go into which block
+* How blocks communicate (interfaces, buses, clocks)
+* What is hardware vs software (if applicable)
+
+**Output:** Block-level architecture and interface definitions.
+{% endstep %}
+
+{% step %}
+#### Logic Synthesis
+
+> Convert abstract logic into real hardware.
+
+The HDL description is converted into a **gate-level netlist** using a logic synthesis tool.\
+This netlist contains:
+
+* Standard cells (AND, OR, flip-flops, multiplexers, etc.)
+* Their logical connections
+
+The synthesis tool optimizes the design for:
+
+* Performance/Speed (timing)
+* Power
+* Area
+
+**Output:** Technology-mapped gate-level netlist.
+{% endstep %}
+
+{% step %}
+#### Pre-layout simulation
+
+> Verify functional correctness before physical design.
+
+The synthesized netlist is simulated to ensure the design still behaves correctly after synthesis.\
+At this stage:
+
+* Only logic delays are considered
+* Wire delays are not yet included
+
+**Output:** Functionally verified gate-level design.
+
+{% hint style="success" %}
+This catches logic errors introduced during synthesis.
+{% endhint %}
+{% endstep %}
+
+{% step %}
+#### Floor Planning
+
+> Define the chip's physical organization.
+
+The overall layout of the chip is planned. This includes:
+
+* Placement of major blocks (CPU, memory, IO, etc.)
+* Location of I/O pads
+* Power and clock distribution
+* Global and local routing regions
+
+Good floorplanning is critical for:
+
+* Performance
+* Power distribution
+* Routing success
+
+**Output:** Chip-level physical blueprint.
+{% endstep %}
+
+{% step %}
+#### Placement
+
+> Decide where each cell goes.
+
+All standard cells from the netlist are assigned exact physical locations inside their blocks.\
+The placement tool tries to:
+
+* Minimize wire length
+* Reduce congestion
+* Improve timing
+
+**Output:** Physically placed cells, but not yet wired.
+{% endstep %}
+
+{% step %}
+#### Routing
+
+> Create all electrical connections.
+
+Metal wires are created to connect:
+
+* Cells inside blocks
+* Different blocks
+* Power and clock networks
+
+**Output:** Fully routed chip layout.
+
+{% hint style="success" %}
+This step produces the full **physical layout** of the chip.
+{% endhint %}
+{% endstep %}
+
+{% step %}
+#### Circuit Extraction
+
+> Find the real electrical behavior of wires.
+
+From the physical layout, tools calculate:
+
+* Resistance (R)
+* Capacitance (C)
+
+of every wire and interconnect. These parasitic values affect:
+
+* Delay
+* Power
+* Signal integrity
+
+**Output:** An extracted RC model of the chip.
+{% endstep %}
+
+{% step %}
+#### Post-layout Simulation
+
+> Verify that the real chip still works.
+
+The design is simulated again using:
+
+* Gate delays
+* Extracted wire delays and capacitances
+
+This checks whether:
+
+* Timing constraints are still met
+* The chip operates correctly at its target speed
+
+If problems are found, the design may need to go back to placement or routing for fixes.
+
+**Output:** A design that is ready for fabrication.
+{% endstep %}
+{% endstepper %}
+
+#### Cell-Based Design Flow
 
 The cell-based flow is a standard industry methodology for taking a design from concept to physical silicon.
 
@@ -91,25 +260,141 @@ The cell-based flow is a standard industry methodology for taking a design from 
 {% endstep %}
 {% endstepper %}
 
-### ASIC Design Flow
+{% hint style="warning" %}
+This is the industry version of the ASIC Design Flow we introduce below/later.
+{% endhint %}
 
-## Physical Design
+### Levels of Abstraction
 
-### Physical Implementation
+The levels of abstraction is ASIC Design Flow can be summarized as follows
 
-### FPGA Architecture
-
-## Levels of Abstraction
-
-### The Abstraction Hierarchy
+<figure><img src="../../.gitbook/assets/level-of-abstraction-asic-design-flow.png" alt=""><figcaption></figcaption></figure>
 
 ### Logic Design Approaches
 
+There are two primary ways to approach the creation and verification of digital logic:
+
+{% stepper %}
+{% step %}
+#### Capture-and-Simulation
+
+* **Method:** This involves manually drawing the schematic representation of gates and flip-flops.
+* **Verification:** The design is debugged and verified through simulation to ensure the logic gates behave as intended.
+* **Context:** This is a more traditional, visual approach to circuit design.
+{% endstep %}
+
+{% step %}
+#### Describe-and-Synthesis
+
+* **Method:** The designer writes the logic using high-level descriptions such as:
+  * Boolean equations
+  * Finite State Machines (FSM)
+  * Hardware Description Languages (HDL) like Verilog or VHDL
+* **Automation:** A software tool called a synthesizer performs the transformation and compilation.
+* **Outcome:** The synthesizer automatically converts the high-level description into a gate-level netlist.
+{% endstep %}
+{% endstepper %}
+
 ### Simulation Levels
 
-## ASIC Synthesis
+#### Behavioral Level Simulation
+
+The highest level of abstraction in the design process, focusing on what the system does rather than how it is physically built.
+
+* **Purposes:**
+  * **Functionality:** Verifying that the logic performs the intended task.
+  * **Algorithmic Correctness:** Ensuring the underlying mathematical or logical algorithms are sound before hardware details are added.
+* **Ways to implement:**
+  * **System Tools:** System Studio (Synopsys SystemC), MatLab, or SDL (Specification and Description Language).
+  * **High-Level Languages:** C, C++, or Java.
+  * **HDLs:** SystemVerilog, Verilog, or VHDL.
+* **Key Drawback:** No Cycle-Accuracy. It does not necessarily capture the exact clock cycle counts or precise hardware timing of the final product.
+
+#### RTL-Level Simulation
+
+**RTL (Register-Transfer Level)** is the most common level for synthesis, representing the design in terms of registers and the data moving between them.
+
+* **Purposes:**
+  * **Validation Model for Structural Code:** Acts as a bridge between high-level algorithms and gate-level implementation.
+  * **Full Functionality:** Provides a complete functional description of the hardware.
+* **Key Characteristics:**
+  * **Register Transfer Operations:** Specifically details how data is stored in and moved between registers (e.g., flip-flops).
+  * **Cycle Accurate:** Unlike behavioral simulation, RTL is synchronized with clock cycles, ensuring the design produces results at the correct time.
+  * **Synchronous Logic:** Highly dependent on clock signals to guide operations.
+
+#### Logic Synthesis
+
+Logic synthesis is the process that provides a link between a high-level HDL (Verilog or VHDL) and a gate-level netlist.
+
+* **Techniques used:** Two-level/multi-level logic minimization, FSM encoding, and various heuristics.
+* **Common Tools:** Design Compiler (Synopsys) and BuildGates (Cadence).
+
+{% stepper %}
+{% step %}
+#### The Synthesis Process
+
+Synthesis is defined by the formula: **Translation + Optimization + Mapping.**
+
+1. **Translate:** Converts the HDL source code into a "Generic Boolean" format (often called GTECH).
+2. **Optimize + Map:** Refines the logic and maps it to the specific gates available in the Target Technology library.
+
+<figure><img src="../../.gitbook/assets/synthesis-process.png" alt=""><figcaption></figcaption></figure>
+{% endstep %}
+
+{% step %}
+#### Benefits of Using Synthesis
+
+* **Efficiency**: Greatly improves **productivity** (handling millions of gates in months) and provides "**Design Tricks**" by automatically managing loads, fanouts, and library limits.
+* **Quality**: Higher **abstraction** allows designers to focus on high-level issues while the tool handles the "dirty work" of meeting constraints.
+* **Flexibility**: Promotes **reusability** (parameterized code) and **portability** across different tools and technology-independent designs.
+* **Reliability:** The design is more **verifiable** and less error-prone since it is validated and implemented in the same language.
+{% endstep %}
+{% endstepper %}
 
 ## Design Guidelines
+
+Logic synthesis is an **NP-Hard** problem, meaning that as a circuit gets larger, the time and complexity required to find the "perfect" solution grow exponentially.
+
+* **Heuristics:** Because it's too hard to find a perfect solution, tools use "heuristics" (educated guesses/rules of thumb) to find a "near-optimal" result.
+* **Optimization vs. Guarantee**: Modern synthesis algorithms do not guarantee the best possible circuit; they simply improve the starting circuit we provided.
+
+Two different pieces of code might do the exact same thing (functionally equivalent), but they will yield different synthesis results.
+
+* **Coding Style Matters:** If we write messy or inefficient code, the tool will have a "Poor Start Point" and likely produce a slower or larger chip.
+* **The "Fix-it" Myth**: We cannot rely solely on the synthesis tool to "fix" or optimize a poorly designed or poorly coded circuit.
+
+To get the best result, the designer must:
+
+* Deeply understand the circuit being described before writing the code.
+* Provide a "Best Start Point" by writing clean, efficient, and hardware-aware HDL to give the tool the best chance at a high-quality final result.
+
+<figure><img src="../../.gitbook/assets/asic-design-flow-starting-point.png" alt=""><figcaption></figcaption></figure>
+
+And below are the two guidelines recommended to follow when designing ASIC
+
+### Think Hardware
+
+Synthesis tools are designed to create physical circuits, so our HDL code must describe actual physical structures rather than abstract software behaviors.
+
+* **Write HDL Hardware Descriptions:**
+  * Always think of the **topolog**y (the physical arrangement of components) that our code implies.
+  * Our goal is to describe a network of registers, muxes, and gates.
+* **Do Not Write HDL Simulation Models:**
+  * Avoid using code intended only for software-style testing.
+  * **No Explicit Delays**: Commands like "after 20 ns" or "wait 20 ns" cannot be manufactured into hardware gates.
+  * **No File I/O**: Hardware cannot "read" or "write" text files the way a computer program does; keep these commands out of synthesizable code.
+
+### Think Synchronous
+
+The reliability and ease of manufacturing a chip depend heavily on how the timing is managed.
+
+* **Benefits of Synchronous Designs:**
+  * Synchronous designs (where everything is timed to a clock) run smoothly through the entire lifecycle: **synthesis, test, simulation, and layout.**
+  * These designs are easier for tools to analyze for timing errors.
+* **Challenges of Asynchronous Designs:**
+  * Asynchronous logic (logic not tied to a common clock) is much harder to verify and often requires **hand-instantiation**.
+  * They require extensive, complex simulations to ensure they work correctly.
+* **Design Strategy**: If we must use asynchronous logic, isolate it into separately compiled blocks to prevent it from complicating the rest of the synchronous system.
 
 ## References
 
