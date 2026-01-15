@@ -232,13 +232,35 @@ The two main reasons for clock jitter are:
 1. **clock generator**'s intrinsic jitter
 2. **clock distribution network**: due to time-varying delay of repeaters (supply noise)
 
-<figure><img src="../../.gitbook/assets/clock-jitter-cause.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/clock-jitter-cause.png" alt=""><figcaption><p>Clock Distribution Network</p></figcaption></figure>
 
 Based on the above diagram, we have the formula for calculating the t<sub>jitter,i</sub> to be
 
 $$
-t_{\text{jitter},i} = t_{\text{jitter,clock\_gen}} + \sum_{j=1}^{n} \left| \Delta \tau_{\text{PD,buffer},j} \right|
+t_{\text{jitter},i} = t_{\text{jitter,clock\_gen}} + \sum_{j=1}^{n} \left| \Delta \tau_{\text{PD,buffer},j} \right|\tag{5}
 $$
+
+<details>
+
+<summary>Clock Jitter Difference</summary>
+
+In a clock distribution network, the clock paths to two registers (FF<sub>i</sub> and FF<sub>j</sub>) share a **common path** and then split into **separate local branches**.
+
+{% hint style="warning" %}
+As we have seen in Eq.5, jitter is introduced by buffers, wires, and supply noise along these paths.
+{% endhint %}
+
+In EE4415, we assume that the **common path dominates**. This means that most of the jitter is added **before the clock splits**, so both FF<sub>i</sub> and FF<sub>j</sub> see **almost the same clock shift** in the same given clock cycle. In the waveform below, this is represented by the jitter occurring at the **green circle** for both clocks.
+
+<figure><img src="../../.gitbook/assets/clock-jitter-difference-dark.png" alt="" width="369"><figcaption></figcaption></figure>
+
+{% hint style="danger" %}
+In different clock cycles, the jitter can shift in either direction and does not have to be the same as in the previous cycle.
+{% endhint %}
+
+In reality, the local branches also add jitter because they have different buffers and power supply noise. This causes **small differences** between clk<sub>1</sub> and clk<sub>2</sub>, so jitter does not occur at exactly the same instant on both clocks and it can happen that jitter will appear at **differnet** direction.
+
+</details>
 
 ## Timing Analysis
 
@@ -266,7 +288,7 @@ For example, the following diagram shows an active-low asynchronous reset
 <figure><img src="../../.gitbook/assets/active-low-asynchronous-reset-ffs.png" alt=""><figcaption></figcaption></figure>
 
 * If we want to enable the clock event, release the RESET button at least t<sub>RECOVERY</sub> before the rising clock edge.
-* If we want to ignore the clock event, press and hold the RESET and don't release until t<sub>REMOVAL</sub> after the rising clock edge.
+* If we want to ignore the clock event, press and hold (small typo in the figure above) the RESET and don't release until t<sub>REMOVAL</sub> after the rising clock edge.
 
 {% hint style="warning" %}
 Even if this is an active-low asynchronous resettable FF, pressing the RESET button will reset the FF, meaning that pressing the RESET button is equivalent to set RESET signal to be 0.
@@ -298,6 +320,10 @@ To start, let's first see an intuitive understanding of FF timing constraints.
 * To meet the setup time constraint, we can think of it as "the computation should be completed before next edge in REG<sub>2</sub>" -> This gives us the **max-delay constraint** for the combinational logic
 * To meet the hold time constraint, we can think of it as "the computation must affect REG<sub>2</sub> only after a certain time" -> This gives us the **min-delay constraint** for the combinational logic
 
+{% hint style="info" %}
+In this part, as T<sub>CK</sub> is fixed in the specification, t<sub>setup</sub> and t<sub>ck-q</sub> are constant, we focus on t<sub>comb</sub>!
+{% endhint %}
+
 #### Terminology Mapping
 
 As the following parts are mostly covered in [DICADP](../../textbook-1-dicadp/timing-issues-in-digital-circuits/#synchronous-design-an-in-depth-perspective), here is the table summarizing the difference between some terminologies used:
@@ -313,9 +339,11 @@ As the following parts are mostly covered in [DICADP](../../textbook-1-dicadp/ti
 | $$t_{hold}$$            | $$t_{\text{HOLD},\text{REG2}}$$                                  | Hold time of the destination register                                                                 |
 | $$\delta$$ (Clock Skew) | $$t_{\text{skew,DET}} \pm \left|t_{\text{skew,RAND,21}}\right|$$ | Clock skew (deterministic ± random in EE4415 but only deterministic in DICADP)                        |
 | $$t_{\text{jitter}}$$   | $$t_{\text{jitter}}$$                                            | Clock jitter                                                                                          |
+| /                       | $$\tau_{\text{comb}}$$                                           | Timing of the combinational logic between registers                                                   |
+| /                       | $$\tau_{\text{comb,max/min}}$$                                   | Maximum and minimum allowed combinational delay                                                       |
 
 {% hint style="danger" %}
-In EE4415, the definition of clock jitter is a bit different from DICADP. So, we must follow EE4415's logic: **Jitter cancels out for Hold Time** because it is a "common mode" noise source in the same clock domain. However, in EE4415 we introduces Random Skew ($$|t_{skew,RAND}|$$) to account for the variation that _does_ differ between the two registers (like thermal noise in the wires), which the DICADP textbook might have just lumped into "jitter."
+In EE4415, the definition of clock jitter is a bit different from DICADP. So, we must follow EE4415's logic: **Jitter cancels out for Hold Time** because it is a "common mode" noise source in the same clock domain. However, in EE4415 we introduces Random Skew ($$|t_{skew,RAND}|$$) to account for the variation that _does_ differ between the two registers (like thermal noise in the wires), which the DICADP textbook might have just lumped into "jitter." This is further discussed in [#clock-jitter-difference](lec-01b-timing-synchronous.md#clock-jitter-difference "mention").
 {% endhint %}
 
 #### Max-Delay Constraint
@@ -338,22 +366,38 @@ The t<sub>jitter1</sub> and t<sub>jitter2</sub> can be treated as the same.
 Use the table above to map the formula into EE4415, we will get
 
 $$
-T_{\text{CK}} \ge \tau_{\text{COMB,max}} + t_{\text{SETUP, REG2}} + \tau_{\text{CK-Q, REG1}} - t_{\text{skew,DET}} + |t_{\text{skew,RAND,21}}| + 2|t_{\text{jitter}}| \\ 
+T_{\text{CK}} \ge \tau_{\text{COMB}} + t_{\text{SETUP, REG2}} + \tau_{\text{CK-Q, REG1}} - t_{\text{skew,DET}} + |t_{\text{skew,RAND,21}}| + 2|t_{\text{jitter}}| \\ 
 \text{or} \\ 
-\tau_{\text{COMB,max}} \le T_{\text{CK}} - t_{\text{SETUP, REG2}} - \tau_{\text{CK-Q, REG1}} + t_{\text{skew,DET}} - |t_{\text{skew,RAND,21}}| - 2|t_{\text{jitter}}| \tag{2}
+\tau_{\text{COMB}} \le T_{\text{CK}} - t_{\text{SETUP, REG2}} - \tau_{\text{CK-Q, REG1}} + t_{\text{skew,DET}} - |t_{\text{skew,RAND,21}}| - 2|t_{\text{jitter}}| \tag{2}
 $$
 
+<figure><img src="../../.gitbook/assets/max-delay-constraint.png" alt=""><figcaption></figcaption></figure>
+
 {% hint style="warning" %}
-As the spirit is to make R.H.S as big as possible (worst-case scenraio), we will map the clock skew $$\delta$$ to $$t_{\text{skew,DET}} - |t_{\text{skew,RAND}}|$$.
+As the spirit is to make R.H.S as big as possible (worst-case scenario), we will map the clock skew $$\delta$$ to $$t_{\text{skew,DET}} - |t_{\text{skew,RAND}}|$$.
 {% endhint %}
 
 To simplify it, we group some terms and get the following
 
 $$
-\tau_{COMB,max} \le T_{CK} - t_{OH} \\ \text{where} \\ t_{\text{OH}}= t_{\text{SETUP}} + \tau_{\text{CK-Q}} - t_{\text{skew,DET}} + |t_{\text{skew,RAND}}| + 2|t_{\text{jitter}}|
+\tau_{COMB} \le T_{CK} - t_{OH} \\ \text{where} \\ t_{\text{OH}}= t_{\text{SETUP, REG2}} + \tau_{\text{CK-Q, REG1}} - t_{\text{skew,DET,21}} + |t_{\text{skew,RAND,21}}| + 2|t_{\text{jitter}}|
 $$
 
-<figure><img src="../../.gitbook/assets/max-delay-constraint.png" alt=""><figcaption></figcaption></figure>
+{% hint style="info" %}
+The R.H.S (T<sub>CK</sub>-t<sub>OH</sub>) is denoted as $$\tau_{\text{COMB,max}}$$.
+{% endhint %}
+
+Within the t<sub>OH</sub>, we can further do the following grouping
+
+$$
+t_{OH}=t_{\text{OH, REG}}+t_{\text{OH, clocking}} \\ \text{where}\\t_{\text{OH,REG}} = t_{\text{SETUP,REG2}} + \tau_{\text{CK-Q,REG1}},\\t_{\text{OH,clocking}} = \left| t_{\text{skew,RAND,21}} \right|
+- t_{\text{skew,DET,21}} + 2 \left| t_{\text{jitter}} \right|
+$$
+
+From this grouping, we can see that
+
+* Register overhead tOH, REG always **reduces** available time for computation. Same for random skew and jitter.
+* But deterministic skew can **increase** the available time for computation.
 {% endtab %}
 {% endtabs %}
 
@@ -374,22 +418,40 @@ $$
 To map the formula into EE4415, we will get,
 
 $$
-\tau_{\text{COMB,min}} + \tau_{\text{CK-Q, REG1}} \ge t_{\text{HOLD,REG2,eq}} \\ \text{where} \\ t_{\text{HOLD,REG2,eq}} = t_{\text{HOLD, REG2}} + t_{\text{skew,DET}} + |t_{\text{skew,RAND,21}}| \tag{4}
+\tau_{\text{COMB,min}} + \tau_{\text{CK-Q, REG1}} \ge t_{\text{HOLD,REG2,eq}} \\ \text{where} \\ t_{\text{HOLD,REG2,eq}} = t_{\text{HOLD, REG2}} + t_{\text{skew,DET,21}} + |t_{\text{skew,RAND,21}}| \tag{4}
 $$
+
+{% hint style="warning" %}
+Ideally, we want a register to have **low** hold time (t<sub>hold</sub>). So, to map this to the Eq. 3, the worst-case scenario is when t<sub>HOLD, REG2, eq</sub> is **biggest**, thus we replace $$\delta$$ with $$t_{\text{skew,DET,21}} + |t_{\text{skew,RAND,21}}|$$.
+{% endhint %}
+
+<figure><img src="../../.gitbook/assets/min-delay-constraint.png" alt=""><figcaption></figcaption></figure>
 
 Rearrange it, we will get,
 
 $$
-\tau_{\text{COMB,min}} \ge t_{\text{HOLD,REG2,eq}} - \tau_{\text{CK-Q,REG1}}
+\tau_{\text{COMB}} \ge t_{\text{HOLD,REG2,eq}} - \tau_{\text{CK-Q,REG1}}
 $$
 
-<figure><img src="../../.gitbook/assets/min-delay-constraint.png" alt=""><figcaption></figcaption></figure>
+{% hint style="info" %}
+Again, the R.H.S is denoted as $$\tau_{\text{COMB,MIN}}$$. And we define the difference between the contamination delay of the combinational logic $$\tau_{\text{CD}}$$ and $$\tau_{\text{COMB,MIN}}$$ as the **robustness margin against hold violations**. ( $$\text{margin}=\tau_{\text{CD}}-\tau_{\text{COMB,MIN}}$$)
+{% endhint %}
+
+So, we know for sure that
+
+* larger $$t_{\text{HOLD,REG2,eq}}$$ will make $$\tau_{\text{COMB,MIN}}$$ larger, thus **decreasing** the robust margin **against** hold violations.
+* Random skew always **decreases** the robustness as well.
+* **Negative** deterministic skew can **improve** the robustness.
 {% endtab %}
 {% endtabs %}
 
 ### Intentional Skew
 
-As we have seen in DICADP, positive skew will improve **performance** but decrease hold robustness while negative skew will decrease performance but improve hold robustness.
+As we have seen in DICADP, positive skew will improve **performance** but decrease hold robustness while negative skew will decrease **performance** but improve hold robustness.
+
+{% hint style="success" %}
+The rule above always holds!
+{% endhint %}
 
 From the Eq. (2) in [#min-delay-constraint](lec-01b-timing-synchronous.md#min-delay-constraint "mention"), we can derive the maximum positive skew as follows,
 
@@ -437,14 +499,14 @@ The following compares the minimum clock period (T<sub>CK</sub>) we can achieve 
 | **FF overhead +**     | $$t_{\text{SETUP,REG2}} + \tau_{\text{CK-Q,REG1}}$$                            | $$t_{\text{SETUP,REG2}} + t_{\text{HOLD,REG2}}$$                                            |
 | **clocking overhead** | $$\left| t_{\text{skew,RAND,21}} \right| + 2\left| t_{\text{jitter}} \right|$$ | $$2\left(\left| t_{\text{skew,RAND,21}} \right| + \left| t_{\text{jitter}} \right|\right)$$ |
 
-From the table, we can see that if you intentionally design to use a positive skew to improve performance:
+From the table, we can see that if we intentionally design to use a **positive skew** to improve **performance:**
 
 * the impact of combinational delay drastically reduced
 * FF overhead increased a bit
 * doubled impact of random clock skew
 
 {% hint style="info" %}
-In the "zero" column, $$t_{\text{skew,DET}} = 0$$. In the "max" column, $$t_{\text{skew,DET}} = t_{\text{skew,DET,max}}$$.
+In the "zero" column, $$t_{\text{skew,DET}} = 0$$. In the "max" column, $$t_{\text{skew,DET}} = t_{\text{skew,DET,max}}$$. The sum of the "max" column is **always smaller** than the sum of the "zero" column.
 {% endhint %}
 
 <details>
@@ -461,6 +523,23 @@ As we have talked about [#sequencing-in-synchronous-systems](lec-01b-timing-sync
 | and **only one** stage each cycle | input of REG 1 does not affect output of REG2 at one event | [#min-delay-constraint](lec-01b-timing-synchronous.md#min-delay-constraint "mention") |
 
 </details>
+
+#### Add skew to clock
+
+In a clock distribution network, we can intentionally add **clock skew** between [**two**](#user-content-fn-2)[^2] registers to improve timing.
+
+{% hint style="warning" %}
+The skew can be **positive** or **negative**, depending on whether we want to relax setup or hold constraints.
+{% endhint %}
+
+In a real chip, there are many register pairs, and different parts of the clock tree can be tuned to introduce **different skews** in different regions. This is done by **adjusting the delay of clock buffers or repeaters**, for example by:
+
+* Using buffers of different sizes
+* Inserting extra delay cells
+* Adjusting the loading or wire length
+* In some designs, slightly tuning the buffer supply or body bias
+
+By increasing or decreasing the delay of a branch of the clock tree, the clock edge is shifted in time, which creates the desired **intentional skew** between registers.
 
 ## Performance Metrics
 
@@ -752,3 +831,5 @@ To feed the compute units for 30fps, we need high bandwidth:
 {% endstepper %}
 
 [^1]: The FF timing constraints imply the system timing constraints.
+
+[^2]: Our focus is always **two** registsers.

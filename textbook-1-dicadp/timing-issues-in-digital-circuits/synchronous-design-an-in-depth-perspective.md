@@ -118,15 +118,13 @@ On the other hand, **positive skew** increases the [**throughput**](#user-conten
 
 When the clock is routed in the **opposite direction of the data** (Figure 10.8b), the **skew** is **negative** and condition (10.4) is unconditionally met.
 
-The circuit operates correctly independent of the **skew**. The **skew** reduces the time available for actual computation so that the **clock period** has to be increased by $$\left|\delta\right|$$. In summary, routing the clock in the **opposite direction** of the data avoids disasters but hampers the circuit **performance**.
-{% endstep %}
-{% endstepper %}
+The circuit operates correctly independent of the **skew**. The **skew** reduces the time available for actual computation so that the **clock period** has to be increased by $$\left|\delta\right|$$. In summary, routing the clock in the **opposite direction** of the data avoids disasters / redcues race but hampers the circuit **performance**.
 
 Unfortunately, since a general **logic circuit** can have data flowing in **both directions** (for example, circuits with **feedback**), this solution to eliminate **races** will not always work (**Figure 10.9**).
 
 <figure><img src="../../.gitbook/assets/datapath-structure-with-feedback.png" alt=""><figcaption><p><strong>Figure 10.9</strong> Datapath structure with feedback</p></figcaption></figure>
-
-> TODO: This should be put under the "negative skew" section?
+{% endstep %}
+{% endstepper %}
 
 The **skew** can assume both **positive** and **negative** values depending on the direction of the **data transfer**. Under these circumstances, the designer has to account for the **worst-case skew** condition. In general, routing the **clock** so that only **negative skew** occurs is not feasible. Therefore, the design of a **low-skew clock network** is essential.
 
