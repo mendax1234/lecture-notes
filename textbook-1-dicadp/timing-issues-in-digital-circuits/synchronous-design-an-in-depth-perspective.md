@@ -32,8 +32,10 @@ The above analysis is simplistic since the **clock** is never ideal. As a result
 The **spatial variation** in arrival time of a **clock transition** on an integrated circuit is commonly referred to as **clock skew**. The **clock skew** between two points i and j on an IC is given by $$\delta(i, j)=t_i-t_j$$, where t<sub>i</sub> and t<sub>j</sub> are the position of the rising edge of the clock **with respect to a reference**.
 
 {% hint style="warning" %}
-$$\delta$$, t<sub>i</sub> and t<sub>j</sub> are all scalars! Treat them just as a signed number!
+$$\delta$$, t<sub>i</sub> and t<sub>j</sub> are all **scalars**! Treat them just as a **signed number**!
 {% endhint %}
+
+> TODO: Missing Figure 10.5 here.
 
 Consider the transfer of data between registers R1 and R2 in **Figure 10.5**. The **clock skew** can be **positive or negative** depending upon the routing direction and position of the **clock source**. The **timing diagram** for the case with **positive skew** is shown in **Figure 10.6**. As the figure illustrates, the **rising clock edge** is delayed by a positive $$\delta$$ at the second register.
 
@@ -48,7 +50,7 @@ It is important to note that **clock skew** does not result in **clock period** 
 **Skew** has strong implications on **performance** and **functionality** of a **sequential system**. In the following part, we will see how **positive** and **negative skew** will affect the **performance** and **functionality** of a sequential system.
 
 {% hint style="warning" %}
-Performance depends on the **setup time constraint** and functionality depends on the **hold time constraint**.
+**Performance** depends on the **setup time constraint** and **functionality** depends on the **hold time constraint**.
 {% endhint %}
 
 {% stepper %}
@@ -63,7 +65,7 @@ $$
 
 The above equation suggests that **clock skew** actually has the potential to improve the **performance** of the circuit. That is, the **minimum clock period** required to operate the circuit reliably reduces with increasing **clock skew**! This is indeed correct, but unfortunately, increasing **skew** makes the circuit more susceptible to **race conditions** and may harm the correct operation (functionality) of **sequential systems**.
 
-As above, assume that input **In** is sampled on the **rising edge** of **CLK**<sub>**1**</sub> at edge <i class="fa-circle-1">:circle-1:</i> into R<sub>1</sub>. The new values at the output of R<sub>1</sub> propagates through the **combinational logic** and should be valid before edge <i class="fa-circle-2">:circle-2:</i> at CLK<sub>2</sub>. However, if the **minimum delay** of the **combinational logic** block is small, the inputs to R<sub>2</sub> may change before the **clock edge**, resulting in incorrect evaluation. To avoid **races**, we must ensure that the **minimum propagation delay** through the **register** and **logic** must be long enough such that the inputs to R<sub>2</sub> are valid for a **hold time** after edge <i class="fa-circle-2">:circle-2:</i>. Thus, our **effective hold range** will be (t<sub>hold</sub> + $$\delta$$)The constraint can be formally stated as
+As above, assume that input **In** is sampled on the **rising edge** of **CLK**<sub>**1**</sub> at edge <i class="fa-circle-1">:circle-1:</i> into R<sub>1</sub>. The new values at the output of R<sub>1</sub> propagates through the **combinational logic** and should be valid before edge <i class="fa-circle-2">:circle-2:</i> at CLK<sub>2</sub>. However, if the **minimum delay** of the **combinational logic** block is small, the inputs to R<sub>2</sub> may change before the **clock edge**, resulting in incorrect evaluation. To avoid **races**, we must ensure that the **minimum propagation delay** through the **register** and **logic** must be long enough such that the "old"/previous inputs to R<sub>2</sub> are valid for a **hold time** after edge <i class="fa-circle-2">:circle-2:</i>. Thus, our **effective hold range** will be (t<sub>hold</sub> + $$\delta$$). The constraint can be formally stated as
 
 $$
 \begin{gathered}
@@ -82,7 +84,7 @@ Figure 10.7 shows the timing diagram for the case when $$\delta<0$$.
 
 <figure><img src="../../.gitbook/assets/timing-diagram-with-negative-clock-skew.png" alt=""><figcaption><p><strong>Figure 10.7</strong> Timing diagram to study the impact of clock skew on performance and functionality. In this sample timing diagram, <span class="math">\delta&#x3C;0</span></p></figcaption></figure>
 
-For its impact on performance, the **rising edge** of CLK<sub>2</sub> happens before the **rising edge** of **CLK1**. On the **rising edge** of CLK<sub>1</sub>, a new input is sampled by R<sub>1</sub>. The new sampled data propagates through the **combinational logic** and is sampled by R<sub>2</sub> on the **rising edge** of CLK<sub>2</sub>, which corresponds to edge <i class="fa-circle-2">:circle-2:</i>. As can be seen from **Figure 10.7** and Eq. (10.3), a **negative skew** directly impacts the **performance** of **sequential system**, making the **minimum clock period** for the system to be larger.
+For its impact on performance, the **rising edge** of CLK<sub>2</sub> happens before the **rising edge** of **CLK**<sub>**1**</sub>. On the **rising edge** of CLK<sub>1</sub>, a new input is sampled by R<sub>1</sub>. The new sampled data propagates through the **combinational logic** and is sampled by R<sub>2</sub> on the **rising edge** of CLK<sub>2</sub>, which corresponds to edge <i class="fa-circle-2">:circle-2:</i>. As can be seen from **Figure 10.7** and Eq. (10.3), a **negative skew** directly impacts the **performance** of **sequential system**, making the **minimum clock period** for the system to be larger.
 
 However, a **negative skew** implies that the system never fails, since edge <i class="fa-circle-2">:circle-2:</i> happens before edge <i class="fa-circle-1">:circle-1:</i>! This can also be seen from Eq. (10.4), which is always satisfied since $$\delta<0$$. This is because in an ideal clock situation, we have Eq. (10.2), which is
 
@@ -108,7 +110,7 @@ Example scenarios for positive and negative clock skew are shown in Figure 10.8.
 
 This corresponds to a clock routed in the **same direction** **as the flow of the data** through the pipeline (Figure 10.8a). In this case, the **skew** has to be strictly controlled and satisfy Eq. (10.4). If this constraint is not met, the circuit does malfunction independent of the **clock period**.Reducing the **clock frequency** of an **edge-triggered circuit** does not help get around **skew** problems!
 
-On the other hand, **positive skew** increases the **throughput** of the circuit as expressed by Eq. (10.3), because the **clock period** can be shortened by $$\delta$$. The extent of this improvement is limited as large values of $$\delta$$ soon provoke violations of Eq. (10.4).
+On the other hand, **positive skew** increases the [**throughput**](#user-content-fn-1)[^1] of the circuit as expressed by Eq. (10.3), because the **clock period** can be shortened by $$\delta$$. The extent of this improvement is limited as large values of $$\delta$$ soon provoke violations of Eq. (10.4).
 {% endstep %}
 
 {% step %}
@@ -120,9 +122,11 @@ The circuit operates correctly independent of the **skew**. The **skew** reduces
 {% endstep %}
 {% endstepper %}
 
-Unfortunately, since a general **logic circuit** can have data flowing in **both direction**s (for example, circuits with **feedback**), this solution to eliminate **races** will not always work (**Figure 10.9**).
+Unfortunately, since a general **logic circuit** can have data flowing in **both directions** (for example, circuits with **feedback**), this solution to eliminate **races** will not always work (**Figure 10.9**).
 
 <figure><img src="../../.gitbook/assets/datapath-structure-with-feedback.png" alt=""><figcaption><p><strong>Figure 10.9</strong> Datapath structure with feedback</p></figcaption></figure>
+
+> TODO: This should be put under the "negative skew" section?
 
 The **skew** can assume both **positive** and **negative** values depending on the direction of the **data transfer**. Under these circumstances, the designer has to account for the **worst-case skew** condition. In general, routing the **clock** so that only **negative skew** occurs is not feasible. Therefore, the design of a **low-skew clock network** is essential.
 
@@ -163,8 +167,9 @@ The computation of the **worst-case propagation delay** for **combinational logi
 
 **Clock jitter** refers to the **temporal variation** of the **clock period** at a given point —  that is, the **clock period** can reduce or expand on a **cycle-by-cycle** basis. It is strictly a **temporal uncertainty** measure and is often specified at a given point on the chip. **Jitter** can be measured and cited in one of many ways.
 
-* **Absolute jitter** (t<sub>jitter</sub>) refers to the worst-case variation (absolute value) of a clock edge at a given location relative to the edge of an ideal periodic reference clock.
+* **Absolute jitter** (t<sub>jitter</sub>) refers to the worst-case variation (absolute value) of **a clock edge** at a given location relative to the edge of an ideal periodic reference clock.
 * **Cycle-to-cycle jitter** (T<sub>jitter</sub>) refers to time varying deviation of a single **clock period** and for a given spatial location i is given as $$T^i_{\text{jitter}}(n)=t^i_{\text{clk, n+1}}-t^i_{\text{clk, n}}-T_{\text{CLK}}$$, where $$t^i_{\text{clk, n+1}}$$ is the **clock period** for period (n+1), $$t^i_{\text{clk, n}}$$ is **clock period** for period n, and T<sub>CLK</sub> is the **nominal clock period**.
+* > TODO: The equation above doesn't make sense cuz minus 2 times of TCLK?
 
 In the worst-case scenario, the value of **cycle-to-cycle jitter** is equal to twice the **absolute jitter** (2t<sub>jitter</sub>).
 
@@ -291,3 +296,5 @@ Always assume the universe is working against us:
 * **The Unknowns (Solve for One)**: The final equation typically links Clock Period (T<sub>CLK</sub>) and Skew ($$\delta$$). Usually, we are given one and asked to find the limit of the other (e.g., "Find the max allowable skew").
 {% endstep %}
 {% endstepper %}
+
+[^1]: Here we assume that we already know that the increase of **frequency** will increase the **throughput**.

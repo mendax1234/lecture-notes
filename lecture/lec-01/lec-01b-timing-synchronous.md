@@ -185,7 +185,7 @@ In synchronous circuit design, while we originate from a **single global clock s
 * The variable t<sub>i</sub> denotes the specific time instant when the clock edge actually arrives at FF<sub>i</sub>.
 {% endhint %}
 
-When distributing clk in the **same direction** as data flow, the skew t<sub>skew, ij</sub> is positive. If **opposite direction**, the skew is **nagative**. For example, the following diagram shows a **positive clock skew** by assuming that the data and clock distribution flows from register R1 to register R2.
+When distributing clk in the **same direction** as data flow, the skew t<sub>skew, ij</sub> is positive. If **opposite direction**, the skew is **negative**. For example, the following diagram shows a **positive clock skew** by assuming that the data and clock distribution flows from register R1 to register R2.
 
 <figure><img src="../../.gitbook/assets/clock-skew-sign-example.png" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -248,7 +248,7 @@ $$
 
 In positive-edge triggered (PET) flip flops, input is **sampled** at rising clock edge. And the **timing parameters** for D Flip Flops are:
 
-1. input must be kept stable from **t**<sub>**SETUP**</sub>**&#x20;before** the active edge to **t**<sub>**HOLD**</sub>**&#x20;after** this edge. Otherwise, we will have **metastability**.
+1. input (usually the old input, will see why it's "old" in [DICADP](../../textbook-1-dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective.md#synchronous-timing-basic)) must be kept stable from **t**<sub>**SETUP**</sub>**&#x20;before** the active edge to **t**<sub>**HOLD**</sub>**&#x20;after** this edge. Otherwise, we will have **metastability**.
 2. CK-Q delay: output is updated at t<sub>CK-Q</sub> after clock edge.
 
 <figure><img src="../../.gitbook/assets/timing-parameters-for-edge-triggered-ffs.png" alt="" width="563"><figcaption></figcaption></figure>
@@ -257,9 +257,7 @@ In positive-edge triggered (PET) flip flops, input is **sampled** at rising cloc
 
 > This section is partly discussed in the [resettable flip flops](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/latches-and-flip-flops#resettable-flip-flop) in Harris & Harris DDCA!
 
-In asynchronous resettable flip flops, the RESET signal has **higher** priority than the CLK signal. So sometimes the RESET can be used to "mask" (hide or block) the CLK signal causing the fact that the Flip-Flop didn't "see" the clock rise because the RESET was blinding it.
-
-Simiarly, its timing parameters are:
+In asynchronous resettable flip flops, the RESET signal has **higher** priority than the CLK signal. So sometimes the RESET can be used to "mask" (hide or block) the CLK signal causing the fact that the Flip-Flop didn't "see" the clock rise because the RESET was blinding it. Simiarly, its timing parameters are:
 
 1. For normal clock event, reset must be kept stable from **t**<sub>**RECOVERY**</sub>**&#x20;before** clock edge to **t**<sub>**REMOVAL**</sub>**&#x20;after** this edge.
 
@@ -285,7 +283,7 @@ The FF timing constraints imply the system timing constraints. The FF timing con
 * Setup Time Constraint
 * Hold Time Constraint
 
-While the system timing constraint is more about the global CLK signal speed. So, what the first sentence says is that the FF timing constraint will affect the speed of the system clock, which is an indispensible part of the system timing constraint. So, when designing a system, we should prevent setup/hold violations.
+While the system timing constraint is more about the global CLK signal speed. So, what [the first sentence](#user-content-fn-1)[^1] says is that the FF timing constraint will affect the speed of the system clock, which is an indispensible part of the system timing constraint. So, when designing a system, we should prevent setup/hold violations.
 
 System timing constraints are affected by
 
@@ -752,3 +750,5 @@ To feed the compute units for 30fps, we need high bandwidth:
 <figure><img src="../../.gitbook/assets/memory-bandwidth.png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
+
+[^1]: The FF timing constraints imply the system timing constraints.
