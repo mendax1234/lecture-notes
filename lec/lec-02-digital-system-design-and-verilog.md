@@ -72,18 +72,20 @@ It is the physical representation of the circuit on silicon. Masks for fabricati
 
 ### Simplified FPGA/ASIC Design Flow
 
-The FPGA/ASIC design flow is highly complex. In an ideal world, a single click would transform a functional specification directly into an FPGA bitstream or a fabricated ASIC. While this vision is attractive, it is not yet practical. Instead, the design process is broken into smaller, manageable stages, as shown in the diagram below.
+The FPGA/ASIC design flow is highly complex. In an ideal world, a single click would transform a **functional specification** directly into an FPGA bitstream or a fabricated ASIC. While this vision is attractive, it is not yet practical. Instead, the design process is broken into smaller, manageable stages, as shown in the diagram below.
 
 <figure><img src="../.gitbook/assets/cg3207-lec02-simplified-fpga-asic-design-flow.png" alt=""><figcaption></figcaption></figure>
 
-Today, the steps from functional specification to architectural synthesis are still largely performed manually. In contrast, the stages from logic synthesis to FPGA programming or ASIC fabrication are highly automated by modern EDA tools.
+Today, the steps from **functional specification** to **architectural synthesis** are still largely performed manually. In contrast, the stages from logic synthesis to FPGA programming or ASIC fabrication are highly automated by modern EDA tools.
 
 {% hint style="warning" %}
 #### Notes
 
 * The words at the right side of the arrow is the **output** of its upper step. For example, after "Logic Synthesis", the output is a **netlist**.
 * In EE4218, the "Architectural Synthesis" is changed to "**High-Level Synthesis (HLS)/Microarchitecture Design**".
+  * Usually calls HLS when it is **automated**, microarchitecture design when it is **manual**.
 * This design flow follows a divide-and-conquer approach. However, this also means that the final system — assembled from many independently optimized components — is not guaranteed to be globally optimal.
+* Generally, EE4218 focuses on from **Functoinal Specification** to **Architectural Synthesis**, while EE4415 focuses on from **Logic Synthesis** to **ASIC Fabrication**.
 {% endhint %}
 
 #### Behavioral Modelling
@@ -210,11 +212,11 @@ As shown in the diagram below, the logic synthesis will take in three things (HD
 <figure><img src="../.gitbook/assets/cg3207-lec02-logic-synthesis.png" alt=""><figcaption></figcaption></figure>
 
 * **Technology Library:** The **cells / microscopic building blocks** we are allowed to use. Its purpose is to enable **logic synthesis tools** to map a design into the physical hardware efficiently while respecting the process technology constraints (timing, power, area).
-  * For ASICs, cells are usually **gates or gate combinations** (e.g., flip-flops, latches and buffers, etc)**.** They are    &#x20;custom designed and characterized carefully by the foundry while    &#x20;respecting the physical limitations of the specific process technology.
+  * For ASICs, cells are usually **gates** or **gate combinations** (e.g., flip-flops, latches and buffers, etc). They are custom designed and characterized carefully by the **foundry** while respecting the physical limitations of the specific process technology.
   * For FPGAs, technology library is composed of higher-level [**CLB**](#user-content-fn-2)[^2] **functions** (like adders, multipliers, LUTs, etc.) but still considered basic elements for synthesis.
 * **Mapped Schematic**
-  * Optimized schematic realizing the HDL code, using **building    &#x20;blocks** from the technology library.
-  * Usually a [**netlist**](https://wenbo-notes.gitbook.io/ddca-notes/textbook/hardware-description-languages#synthesis) that textually describes the interconnection    &#x20;between cells/building blocks
+  * Optimized schematic realizing the HDL code, using building blocks from the technology library.
+  * Usually a [**netlist**](https://wenbo-notes.gitbook.io/ddca-notes/textbook/hardware-description-languages#synthesis) that textually describes the interconnection between cells/building blocks.
 * **Constraints**
   * Location: Logical port to physical pin mapping etc. (See from [CS2100DE Lab 01](https://wenbo-notes.gitbook.io/ddca-notes/lab/preparation-from-cs2100de/lab-01#constraints))
   * Timing specifications (optimization goals): Different schematics can be obtained from the same HDL code.
@@ -262,6 +264,14 @@ From Step 3 above, we see that between registers, there is only combinational lo
 <figure><img src="../.gitbook/assets/cg3207-lec02-critical-path-max-clock.png" alt=""><figcaption></figcaption></figure>
 
 If the clock is too fast and the longest "road" (critical path) hasn’t been traversed yet, the **data won’t arrive in time**, causing **incorrect data at the next register**. So, the **maximum clock frequency** is limited by the **critical path delay**.
+
+{% hint style="info" %}
+"Engineering is about trade offs. So, most of the time the answer to a certain question is 'it depends'."
+
+<p align="right">— Prof. Rajesh</p>
+
+So, the two design shown in the image above doesn't have one better and one worse, they both have their own use case.
+{% endhint %}
 {% endstep %}
 {% endstepper %}
 
