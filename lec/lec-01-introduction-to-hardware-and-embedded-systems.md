@@ -60,9 +60,13 @@ When designing an embedded system (sensor -> processor -> actuator[^2]), we must
 
 ### HW/SW Co-design
 
+> HW/SW Co-design is about designing the hardware specifically for a type of software to make it efficient.
+
 The goal is to find the optimal point on the Pareto Curve (trading off Resources vs. Performance)
 
 <figure><img src="../.gitbook/assets/hw-sw-codesign-pareto-curve.png" alt="" width="331"><figcaption></figcaption></figure>
+
+In this Pareto Curve, the y-axis is "resouces", higher means using more resources while the x-axis is "performance<sup>-1</sup>", and closer to the origin point means tha the performance is higher. Thus, it is obvious that the <mark style="color:$warning;">orange</mark> point is the **worst design** among the four designs as it uses more resources then the middle <mark style="color:$success;">green</mark> point but brings even less performance than it.
 
 * **Partitioning**: Deciding which parts of the system run on software (CPU) and which run on hardware (ASIC/FPGA).
 * **Co-simulation**: Verifying both HW and SW together.
