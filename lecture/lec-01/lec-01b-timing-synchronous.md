@@ -18,7 +18,7 @@ For example, the module 2 needs to "know" when in<sub>2</sub> / out<sub>1</sub> 
 
 <figure><img src="../../.gitbook/assets/communication-between-digital-modules.png" alt="" width="563"><figcaption></figcaption></figure>
 
-In module 1, the <mark style="color:green;">fast path</mark> gives earliest possible correct output ($$\tau_{\text{comb},\text{min}}$$), while the <mark style="color:red;">slow path</mark> gives the latest settling output ($$\tau_{\text{comb},\text{max}}$$). The correct out<sub>1</sub> settles between $$\tau_{\text{comb},\text{min}}$$ and $$\tau_{\text{comb},\text{max}}$$. So, to ensure out<sub>1</sub> is correct, we wait until after $$\tau_{\text{comb},\text{max}}$$. The again highlight the importance of [**critical path**](https://wenbo-notes.gitbook.io/ddca-notes/textbook/combinational-logic-design/timing#critical-path)!
+In module 1, the <mark style="color:green;">fast path</mark> gives earliest possible correct output ($$\tau_{\text{comb},\text{min}}$$), while the <mark style="color:red;">slow path</mark> gives the latest settling output ($$\tau_{\text{comb},\text{max}}$$). The correct out<sub>1</sub> settles between $$\tau_{\text{comb},\text{min}}$$ and $$\tau_{\text{comb},\text{max}}$$. So, to ensure out<sub>1</sub> is correct, we wait until after $$\tau_{\text{comb},\text{max}}$$. This again highlights the importance of [**critical path**](https://wenbo-notes.gitbook.io/ddca-notes/textbook/combinational-logic-design/timing#critical-path)!
 
 {% hint style="info" %}
 #### Some Notations
@@ -28,7 +28,7 @@ Some notations used in timing diagrams:
 1. **Cross-hatched (zig-zag) region**: This means that the signal is **unstable**. So, in<sub>1</sub> is stable only after the first dashed line.
 2. **Flat solid line:** This means that the signal is **stable**, it can be high or low, but it doesn't matter that much.
 
-These two notations have appeared in [Harris and Harris's DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/combinational-logic-design/timing#propagation-and-contamination-delay)! Thus we can also say that
+These two notations ($$\tau_{\text{comb},\text{min}}$$ and $$\tau_{\text{comb},\text{max}}$$) have appeared in [Harris and Harris's DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/combinational-logic-design/timing#propagation-and-contamination-delay)! Thus we can also say that
 
 1. $$\tau_{\text{comb},\text{min}}$$ is called the **contamination delay**.
 2. $$\tau_{\text{comb},\text{max}}$$ is called the **propagation delay**.
@@ -36,18 +36,18 @@ These two notations have appeared in [Harris and Harris's DDCA](https://wenbo-no
 
 #### Synchronous vs. Asynchronous
 
-As shown above, if changes in **out**<sub>**1**</sub> propagate immediately, the second module may observe incorrect or unstable inputs. To prevent this, we introduce two approaches that ensure the following module always receives stable and correct inputs.
+As shown above, if changes in **out**<sub>**1**</sub> propagate immediately, the second module may observe incorrect or unstable inputs. To prevent this, we introduce two approaches that ensure the second module always receives stable and correct inputs from the first module.
 
 {% stepper %}
 {% step %}
 #### Asynchronous
 
-In asynchronous mode, additional circuitry generates "completion signal" and this completion signal enables computation of next block when its output is valid.
+In asynchronous mode, additional circuitry generates "completion signal" and this completion signal enables the computation of next block when its output is valid.
 
 <figure><img src="../../.gitbook/assets/asynchronous-communication-mode.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
-This approached is **less favored** by the industry. The reason is **not** because this approach is less-efficient. In fact, the asynchronous approach is **more efficient** that the synchronous approach. The reason is that the automation tools don't support asynchronous systems well, but they support synchronous systems well.
+This approached is **less favored** by the industry. The reason is **not** because this approach is less-efficient. In fact, the asynchronous approach is **more efficient** then the synchronous approach. The reason is that the automation tools don't support asynchronous systems well, but they support synchronous systems well.
 {% endhint %}
 {% endstep %}
 
@@ -59,7 +59,7 @@ In synchronous mode, all input and output signals are synchronized to the clock 
 All I/O signals are only allowed to be _used_ at **clock events**. And all the computation is done during the **clock period**.
 
 * **Clock Event**: At the clock event
-  * Registers sample their inputs
+  * Registers sample their inputs, and then
   * Registers update their outputs
   * The _next computation cycle begins_
 
@@ -73,10 +73,10 @@ Think of the above steps as: “Everyone stop, look at your inputs, remember the
   * Results must be ready **before the next clock event**. If not, will cause timing violation!
 
 {% hint style="success" %}
-To understand **sychronize** better, you can go to the [DICADP](../../textbook-1-dicadp/timing-issues-in-digital-circuits/classification-of-digital-systems.md#synchronous-interconnect). Basically, **synchronization** turns "random arrival" into "scheduled arrival" so that the data/input can be sampled directly without any uncertainty. This will create stable input for the following combinational logic to process it during the entire upcoming clock cycle. (We have seen this uncertainty from above)
+To understand **sychronize** better, you can go to the [DICADP](../../textbook-1-dicadp/timing-issues-in-digital-circuits/classification-of-digital-systems.md#synchronous-interconnect). Basically, **synchronization** turns "random arrival" into "scheduled arrival" so that the data/input can be sampled directly without any uncertainty. This will create stable input for the following combinational logic to process it during the entire upcoming clock cycle (We have seen this uncertainty from [above](lec-01b-timing-synchronous.md#system-abstraction)).
 {% endhint %}
 
-In the following timing diagram, the first time shift represents the **Setup Time** (t<sub>setup</sub>), which is the required window where input signal `x` must be stable before the clock edge to be sampled correctly. The second time shift represents the **Clock-to-Output Delay** (t<sub>co</sub>), which is the time it takes for the register to react to the clock edge and update the output signal `y` before it propagates to the subsequent combinational logic.
+In the following timing diagram, the first time shift represents the **Setup Time** (t<sub>setup</sub>), which is the required window where input signal `x` must be stable before the clock edge to be sampled correctly. The second time shift represents the **Clock-to-Output Delay** (t<sub>CK-Q</sub>), which is the time it takes for the register to react to the clock edge and update the output signal `y` before it propagates to the subsequent combinational logic.
 
 <figure><img src="../../.gitbook/assets/synchronous-communication-mode.png" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -94,29 +94,33 @@ In both cases of synchronous and asynchronous design, energy/timing/area overhea
 
 #### Sequencing in Synchronous Systems
 
-In digital logic, the order of data flow is critical. Usually, we want to achieve the **Deterministic Sequencing**. We require a strict First-In, First-Out (FIFO) behavior, where the n<sup>th</sup> input produces the n<sup>th</sup> output in the exact same sequence. Ideally, this is easy to achieve if the delay through a module is data independent (e.g., every calculation takes the exact same amount of time).
+In digital logic, the order of data flow is critical. Usually, we want to achieve the **Deterministic Sequencing**. Thus we require a strict First-In, First-Out (FIFO) behavior, where the n<sup>th</sup> input produces the n<sup>th</sup> output in the exact same sequence. Ideally, this is easy to achieve if the delay through a module is data independent (e.g., every calculation takes the exact same amount of time).
 
 <figure><img src="../../.gitbook/assets/lec01-sequence-synchronous-data-independent.png" alt=""><figcaption></figcaption></figure>
 
-However, in reality, the time it takes for a signal to propagate through a combinational block depends on the specific input values. As we have seen in [Harris & Harris DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/combinational-logic-design/timing#propagation-and-contamination-delay):
+However, in reality, the time it takes for a signal to propagate through a combinational block depends on the specific input values. As we have seen [above](lec-01b-timing-synchronous.md#system-abstraction) or in [Harris & Harris DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/combinational-logic-design/timing#propagation-and-contamination-delay):
 
 * Propagation Delay (t<sub>pd</sub>): The time taken by the _slowest_ path (critical path).
 * Contamination Delay (t<sub>cd</sub>): The time taken by the _fastest_ path (short path).
 
 <figure><img src="../../.gitbook/assets/lec01-sequence-synchronous-data-dependent.png" alt=""><figcaption></figcaption></figure>
 
-If we connect modules directly without synchronization (asynchronous design), "Fast" data can overtake "Slow" data. For example,
+If we connect modules directly without synchronization (asynchronous design without handshaking mechanism), "Fast" data can overtake "Slow" data. For example,
 
 1. **Input A (Complex):** We send a Division instruction (Slow Path). It begins processing.
 2. **Input B (Simple)**: Immediately after, we send an Add instruction (Fast Path).
 
 Because the Adder logic is much faster (shorter contamination delay) than the Divider logic, the result of the **Add** races through the circuit and appears at the output _before_ the Division is finished. So, the system reads the wrong result order (`Result B` -> `Result A`). This is a **Race Condition**, leading to data corruption and system failure.
 
-To prevent the "race conditions" described previously, we enforce a strict rule: Data must move by exactly one stage per clock cycle. This is also called the **lockedstep movement**.
+To prevent the "race conditions" described previously, we enforce a strict rule:
+
+> Data must move by exactly one stage per clock cycle.
+
+This is also called the **lockedstep movement**.
 
 * This movement is controlled by a global **Clock Event** (usually the rising or falling edge of a signal).
 * In a synchronous system, we ignore the transient "noise" or glitches that happen between clock edges.
-  * We define the signal's value at the i-th cycle as the _single_ stable value present right before the sampling edge.
+  * We define the signal's value at the i-th cycle as the _single_ stable value present right[^1] before the sampling edge.
   * Any changes happening _between_ cycle i and i+1 are considered "work in progress" and are ignored until the next clock edge arrives.
 
 <figure><img src="../../.gitbook/assets/lec01-sequencing-with-register.png" alt=""><figcaption></figcaption></figure>
@@ -128,10 +132,16 @@ In the diagram above, "**in**<sub>**1**</sub>**(i)**" denotes a signal using a c
 
 So how do we implement the box labeled “?” so that it holds the output of the first module until the next clock cycle, allowing it to be processed by the second module in the next clock cycle?
 
-The solution is to use flip-flops or latches, which have alreday been introduced in EE2026 and [_Harris & Harris DDCA_](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/latches-and-flip-flops)_**.**_ For example, by using flip-flops to implement the box labeled “?”, at clock cycle **i**, it holds the value **in**<sub>**1**</sub>**(i)** constant for the entire cycle (that is, the flip-flop has already sampled **in**<sub>**1**</sub>**(i)** from **D** and is driving it on **Q**). This allows Module 1 to process a stable input. Meanwhile, the next value **in**<sub>**1**</sub>**(i+1)** may arrive at the input **D** at any time during cycle **i**, but it is not visible at **Q** and will only be captured and presented at the rising edge of clock cycle **i+1**.
+The solution is to use flip-flops or latches, which have alreday been introduced in EE2026 and [_Harris & Harris DDCA_](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/latches-and-flip-flops)_**.**_
+
+> A D flip-flop **copies D to Q on the rising edge of the clock, and remembers its state at all other times until the next rising edge comes, then it will update its state**.
+>
+> <p align="right">— Harris &#x26; Harris DDCA</p>
+
+For example, by using flip-flops to implement the box labeled “?”, at clock cycle **i**, it holds the value **in**<sub>**1**</sub>**(i)** constant for the entire cycle (that is, the flip-flop has already sampled **in**<sub>**1**</sub>**(i)** from **D** and is driving it on **Q**). This allows Module 1 to process a stable input. Meanwhile, the next value **in**<sub>**1**</sub>**(i+1)** may arrive at the input **D** at any time during cycle **i**, but it is not visible at **Q** and will only be captured and presented at the rising edge of clock cycle **i+1**.
 
 {% hint style="warning" %}
-In the industry, latches are **rarely** used because the **timing constraint** for latches is hard to analyze. In this course, we focus on **positive edge-triggered** FFs and we will use registers and FFs interchangeably in this course.
+In the industry, latches are **rarely** used because the **timing constraint** for latches is hard to analyze. In this course, we focus on **positive edge-triggered** FFs and we will use registers and FFs interchangeably.
 {% endhint %}
 
 ## Clock Network Imperfections
@@ -178,7 +188,7 @@ $$
 t_{\text{skew, ij}}=t_i-t_j
 $$
 
-{% hint style="info" %}
+{% hint style="success" %}
 In synchronous circuit design, while we originate from a **single global clock source** (CLK),
 
 * clk<sub>i</sub> refers to the local clock signal branch connected to FF<sub>i</sub>.&#x20;
@@ -189,26 +199,26 @@ When distributing clk in the **same direction** as data flow, the skew t<sub>ske
 
 <figure><img src="../../.gitbook/assets/clock-skew-sign-example.png" alt="" width="563"><figcaption></figcaption></figure>
 
-{% hint style="info" %}
+{% hint style="success" %}
 An analogy is to think of the clock skew as a **vector** and the two points are t<sub>i</sub> and t<sub>j</sub>. Thus,
 
 <p align="center"><span class="math">t_{\text{skew, ij}}=t_i-t_j=-t_{\text{skew, ji}}</span></p>
 {% endhint %}
 
-Another example will be the timing diagram we have seen in [Harris & Harris DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/timing-of-sequential-logic#clock-skew), the following diagram will indicate a **negative skew** seen by R1 (t<sub>1</sub> - t<sub>2</sub> < 0, assuming the data flows from R1 to R2).
+Another example will be the timing diagram we have seen in [Harris & Harris DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/timing-of-sequential-logic#clock-skew). The following diagram will indicate a **negative skew** seen by R1 (t<sub>1</sub> - t<sub>2</sub> < 0, assuming the data flows from R1 to R2).
 
 <figure><img src="../../.gitbook/assets/clock-skew-example-ddca.png" alt="" width="563"><figcaption></figcaption></figure>
 
-{% hint style="info" %}
-The clock skew is relative. But we usually calculate the clock skew following the direction of the data path.
+{% hint style="warning" %}
+The clock skew is relative. But we usually calculate the clock skew **following the direction of the data path**.
 
-* If data flows from register A to register B, we calculate skew as t<sub>B</sub>- t<sub>A</sub>. During the calculation, treat t<sub>B</sub> and t<sub>A</sub> as two **algebric values** and the result will be either negative or positive!
+* If data flows from register 1 to register 2, we calculate skew as t<sub>2</sub>- t<sub>1</sub>. During the calculation, treat t<sub>2</sub> and t<sub>1</sub> as two **algebric values** and the result will be either negative or positive!
 * **Seen by** which register, use that register as the first term. For example, the clock skew seen by register R1 w.r.t. R2 is t<sub>1</sub>-t<sub>2</sub>.
 {% endhint %}
 
 #### Clock Skew Calculation
 
-The clock skew can randomly vary due to delay variations, but it can be calculated using the following formula,
+The clock skew can randomly vary due to delay variations, but it can be calculated using the following formula (in EE4415),
 
 $$
 t_{\text{skew}} = t_{\text{skew,DET}} \pm \left| t_{\text{skew,RAND}} \right|
@@ -216,7 +226,7 @@ $$
 
 From this formula, we can see that the clock skew has two components
 
-1. **Deterministic skew**: Predictable delay caused by the fixed physical layout of wires and repeaters. Since its sign and magnitude are known, it can be intentionally engineered to optimize timing paths (useful skew).
+1. **Deterministic skew**: Predictable delay caused by the fixed physical layout of wires and repeaters. Since its sign and magnitude are known, it can be intentionally engineered to optimize timing paths (useful skew). This value can be either **positive** or **negative**.
 2. **Random skew**: Unpredictable variation arising from manufacturing mismatches or environmental factors like temperature. It creates a bounded uncertainty range ($$\pm$$) with an unknown sign that designers must account for as noise.
 
 ### Clock Jitter
@@ -258,7 +268,7 @@ In EE4415, we assume that the **common path dominates**. This means that most of
 In different clock cycles, the jitter can shift in either direction and does not have to be the same as in the previous cycle.
 {% endhint %}
 
-In reality, the local branches also add jitter because they have different buffers and power supply noise. This causes **small differences** between clk<sub>1</sub> and clk<sub>2</sub>, so jitter does not occur at exactly the same instant on both clocks and it can happen that jitter will appear at **differnet** direction.
+In reality (but not considered in EE4415), the local branches also add jitter because they have different buffers and power supply noise. This causes **small differences** between clk<sub>1</sub> and clk<sub>2</sub>, so jitter does not occur at exactly the same instant on both clocks and it can happen that jitter will appear at **differnet** direction.
 
 </details>
 
@@ -305,7 +315,7 @@ The FF timing constraints imply the system timing constraints. The FF timing con
 * Setup Time Constraint
 * Hold Time Constraint
 
-While the system timing constraint is more about the global CLK signal speed. So, what [the first sentence](#user-content-fn-1)[^1] says is that the FF timing constraint will affect the speed of the system clock, which is an indispensible part of the system timing constraint. So, when designing a system, we should prevent setup/hold violations.
+While the system timing constraint is more about the global CLK signal speed. So, what [the first sentence](#user-content-fn-2)[^2] says is that the FF timing constraint will affect the speed of the system clock, which is an indispensible part of the system timing constraint. So, when designing a system, we should prevent setup/hold violations.
 
 System timing constraints are affected by
 
@@ -320,7 +330,7 @@ To start, let's first see an intuitive understanding of FF timing constraints.
 * To meet the setup time constraint, we can think of it as "the computation should be completed before next edge in REG<sub>2</sub>" -> This gives us the **max-delay constraint** for the combinational logic
 * To meet the hold time constraint, we can think of it as "the computation must affect REG<sub>2</sub> only after a certain time" -> This gives us the **min-delay constraint** for the combinational logic
 
-{% hint style="info" %}
+{% hint style="danger" %}
 In this part, as T<sub>CK</sub> is fixed in the specification, t<sub>setup</sub> and t<sub>ck-q</sub> are constant, we focus on t<sub>comb</sub>!
 {% endhint %}
 
@@ -328,19 +338,19 @@ In this part, as T<sub>CK</sub> is fixed in the specification, t<sub>setup</sub>
 
 As the following parts are mostly covered in [DICADP](../../textbook-1-dicadp/timing-issues-in-digital-circuits/#synchronous-design-an-in-depth-perspective), here is the table summarizing the difference between some terminologies used:
 
-| DICADP (Textbook1)      | EE4415                                                           | Description                                                                                           |
-| ----------------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| $$T_{CLK}$$ or $$T$$    | $$T_{CK}$$                                                       | Nominal clock period                                                                                  |
-| $$t_{logic}$$           | $$\tau_{\text{COMB,max}}$$                                       | Maximum propagation delay through combinational logic                                                 |
-| $$t_{logic,cd}$$        | $$\tau_{\text{COMB,min}}$$                                       | Minimum contamination delay through combinational logic                                               |
-| $$t_{c-q}$$             | $$\tau_{\text{CK-Q},\text{REG1}}$$                               | Register clock-to-Q propagation delay                                                                 |
-| $$t_{c-q, cd}$$         | $$\tau_{\text{CK-Q},\text{REG1}}$$                               | Register clock-to-Q contamination delay (Don't know why EE4415 uses the same notation for both :joy:) |
-| $$t_{su}$$              | $$t_{\text{SETUP},\text{REG2}}$$                                 | Setup time of the destination register                                                                |
-| $$t_{hold}$$            | $$t_{\text{HOLD},\text{REG2}}$$                                  | Hold time of the destination register                                                                 |
-| $$\delta$$ (Clock Skew) | $$t_{\text{skew,DET}} \pm \left|t_{\text{skew,RAND,21}}\right|$$ | Clock skew (deterministic ± random in EE4415 but only deterministic in DICADP)                        |
-| $$t_{\text{jitter}}$$   | $$t_{\text{jitter}}$$                                            | Clock jitter                                                                                          |
-| /                       | $$\tau_{\text{comb}}$$                                           | Timing of the combinational logic between registers                                                   |
-| /                       | $$\tau_{\text{comb,max/min}}$$                                   | Maximum and minimum allowed combinational delay                                                       |
+| DICADP (Textbook1)      | EE4415                                                           | Description                                                                                                                                             |
+| ----------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| $$T_{CLK}$$ or $$T$$    | $$T_{CK}$$                                                       | Nominal clock period                                                                                                                                    |
+| $$t_{logic}$$           | $$\tau_{\text{COMB,max}}$$                                       | Maximum propagation delay through combinational logic                                                                                                   |
+| $$t_{logic,cd}$$        | $$\tau_{\text{COMB,min}}$$                                       | Minimum contamination delay through combinational logic                                                                                                 |
+| $$t_{c-q}$$             | $$\tau_{\text{CK-Q},\text{REG1}}$$                               | Register clock-to-Q propagation delay                                                                                                                   |
+| $$t_{c-q, cd}$$         | $$\tau_{\text{CK-Q},\text{REG1}}$$                               | Register clock-to-Q contamination delay (Prof. Massimo says that for registers, the contamination delay and the propagation delay are almost the same.) |
+| $$t_{su}$$              | $$t_{\text{SETUP},\text{REG2}}$$                                 | Setup time of the destination register                                                                                                                  |
+| $$t_{hold}$$            | $$t_{\text{HOLD},\text{REG2}}$$                                  | Hold time of the destination register                                                                                                                   |
+| $$\delta$$ (Clock Skew) | $$t_{\text{skew,DET}} \pm \left|t_{\text{skew,RAND,21}}\right|$$ | Clock skew (deterministic ± random in EE4415 but only deterministic in DICADP)                                                                          |
+| $$t_{\text{jitter}}$$   | $$t_{\text{jitter}}$$                                            | Clock jitter                                                                                                                                            |
+| /                       | $$\tau_{\text{comb}}$$                                           | Timing of the combinational logic between registers                                                                                                     |
+| /                       | $$\tau_{\text{comb,max/min}}$$                                   | Maximum and minimum allowed combinational delay                                                                                                         |
 
 {% hint style="danger" %}
 In EE4415, the definition of clock jitter is a bit different from DICADP. So, we must follow EE4415's logic: **Jitter cancels out for Hold Time** because it is a "common mode" noise source in the same clock domain. However, in EE4415 we introduces Random Skew ($$|t_{skew,RAND}|$$) to account for the variation that _does_ differ between the two registers (like thermal noise in the wires), which the DICADP textbook might have just lumped into "jitter." This is further discussed in [#clock-jitter-difference](lec-01b-timing-synchronous.md#clock-jitter-difference "mention").
@@ -366,9 +376,9 @@ The t<sub>jitter1</sub> and t<sub>jitter2</sub> can be treated as the same.
 Use the table above to map the formula into EE4415, we will get
 
 $$
-T_{\text{CK}} \ge \tau_{\text{COMB}} + t_{\text{SETUP, REG2}} + \tau_{\text{CK-Q, REG1}} - t_{\text{skew,DET}} + |t_{\text{skew,RAND,21}}| + 2|t_{\text{jitter}}| \\ 
+T_{\text{CK}} \ge \tau_{\text{COMB,pd}} + t_{\text{SETUP, REG2}} + \tau_{\text{CK-Q, REG1}} - t_{\text{skew,DET}} + |t_{\text{skew,RAND,21}}| + 2|t_{\text{jitter}}| \\ 
 \text{or} \\ 
-\tau_{\text{COMB}} \le T_{\text{CK}} - t_{\text{SETUP, REG2}} - \tau_{\text{CK-Q, REG1}} + t_{\text{skew,DET}} - |t_{\text{skew,RAND,21}}| - 2|t_{\text{jitter}}| \tag{2}
+\tau_{\text{COMB,pd}} \le T_{\text{CK}} - t_{\text{SETUP, REG2}} - \tau_{\text{CK-Q, REG1}} + t_{\text{skew,DET}} - |t_{\text{skew,RAND,21}}| - 2|t_{\text{jitter}}| \tag{2}
 $$
 
 <figure><img src="../../.gitbook/assets/max-delay-constraint.png" alt=""><figcaption></figcaption></figure>
@@ -380,7 +390,7 @@ As the spirit is to make R.H.S as big as possible (worst-case scenario), we will
 To simplify it, we group some terms and get the following
 
 $$
-\tau_{COMB} \le T_{CK} - t_{OH} \\ \text{where} \\ t_{\text{OH}}= t_{\text{SETUP, REG2}} + \tau_{\text{CK-Q, REG1}} - t_{\text{skew,DET,21}} + |t_{\text{skew,RAND,21}}| + 2|t_{\text{jitter}}|
+\tau_{COMB,pd} \le T_{CK} - t_{OH} \\ \text{where} \\ t_{\text{OH}}= t_{\text{SETUP, REG2}} + \tau_{\text{CK-Q, REG1}} - t_{\text{skew,DET,21}} + |t_{\text{skew,RAND,21}}| + 2|t_{\text{jitter}}|
 $$
 
 {% hint style="info" %}
@@ -418,7 +428,7 @@ $$
 To map the formula into EE4415, we will get,
 
 $$
-\tau_{\text{COMB,min}} + \tau_{\text{CK-Q, REG1}} \ge t_{\text{HOLD,REG2,eq}} \\ \text{where} \\ t_{\text{HOLD,REG2,eq}} = t_{\text{HOLD, REG2}} + t_{\text{skew,DET,21}} + |t_{\text{skew,RAND,21}}| \tag{4}
+\tau_{\text{COMB,cd}} + \tau_{\text{CK-Q, REG1}} \ge t_{\text{HOLD,REG2,eq}} \\ \text{where} \\ t_{\text{HOLD,REG2,eq}} = t_{\text{HOLD, REG2}} + t_{\text{skew,DET,21}} + |t_{\text{skew,RAND,21}}| \tag{4}
 $$
 
 {% hint style="warning" %}
@@ -430,16 +440,16 @@ Ideally, we want a register to have **low** hold time (t<sub>hold</sub>). So, to
 Rearrange it, we will get,
 
 $$
-\tau_{\text{COMB}} \ge t_{\text{HOLD,REG2,eq}} - \tau_{\text{CK-Q,REG1}}
+\tau_{\text{COMB,cd}} \ge t_{\text{HOLD,REG2,eq}} - \tau_{\text{CK-Q,REG1}}
 $$
 
 {% hint style="info" %}
-Again, the R.H.S is denoted as $$\tau_{\text{COMB,MIN}}$$. And we define the difference between the contamination delay of the combinational logic $$\tau_{\text{CD}}$$ and $$\tau_{\text{COMB,MIN}}$$ as the **robustness margin against hold violations**. ( $$\text{margin}=\tau_{\text{CD}}-\tau_{\text{COMB,MIN}}$$)
+Again, the R.H.S is denoted as $$\tau_{\text{COMB,min}}$$. And we define the difference between the contamination delay of the combinational logic $$\tau_{\text{COMB,cd}}$$ and $$\tau_{\text{COMB,MIN}}$$ as the **robustness margin against hold violations**. ( $$\text{margin}=\tau_{\text{COMB,cd}}-\tau_{\text{COMB,min}}$$)
 {% endhint %}
 
 So, we know for sure that
 
-* larger $$t_{\text{HOLD,REG2,eq}}$$ will make $$\tau_{\text{COMB,MIN}}$$ larger, thus **decreasing** the robust margin **against** hold violations.
+* larger $$t_{\text{HOLD,REG2,eq}}$$ will make $$\tau_{\text{COMB,min}}$$ larger, thus **decreasing** the robust margin **against** hold violations.
 * Random skew always **decreases** the robustness as well.
 * **Negative** deterministic skew can **improve** the robustness.
 {% endtab %}
@@ -453,12 +463,12 @@ As we have seen in DICADP, positive skew will improve **performance** but decrea
 The rule above always holds!
 {% endhint %}
 
-From the Eq. (2) in [#min-delay-constraint](lec-01b-timing-synchronous.md#min-delay-constraint "mention"), we can derive the maximum positive skew as follows,
+As positive skew can improve performance, but it might violate the hold time constraint of R2. So, we will find the **maximum positive skew** we can have for a **designed combinational logic** (meaning that $$\tau_{\text{COMB,cd}}$$ and $$\tau_{\text{COMB,pd}}$$ are fixed). From the Eq. (2) in [#min-delay-constraint](lec-01b-timing-synchronous.md#min-delay-constraint "mention"), we can derive the maximum positive skew as follows,
 
 $$
 t_{\text{skew,DET,max}}
 =
-\tau_{\text{COMB,min}}
+\tau_{\text{COMB,cd}}
 +
 \tau_{\text{CK-Q,REG1}}
 -
@@ -473,9 +483,9 @@ $$
 T_{\text{CK}}
 =
 \left(
-\tau_{\text{COMB,max}}
+\tau_{\text{COMB,pd}}
 -
-\tau_{\text{COMB,min}}
+\tau_{\text{COMB,cd}}
 \right)
 +
 \left(
@@ -495,7 +505,7 @@ The following compares the minimum clock period (T<sub>CK</sub>) we can achieve 
 
 | TCK=                  | zero (intentional skew)                                                        | max (intentional skew)                                                                      |
 | --------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
-| **combinational +**   | $$\tau_{\text{COMB,max}}$$                                                     | $$\tau_{\text{COMB,max}} - \tau_{\text{COMB,min}}$$                                         |
+| **combinational +**   | $$\tau_{\text{COMB,pd}}$$                                                      | $$\tau_{\text{COMB,pd}} - \tau_{\text{COMB,cd}}$$                                           |
 | **FF overhead +**     | $$t_{\text{SETUP,REG2}} + \tau_{\text{CK-Q,REG1}}$$                            | $$t_{\text{SETUP,REG2}} + t_{\text{HOLD,REG2}}$$                                            |
 | **clocking overhead** | $$\left| t_{\text{skew,RAND,21}} \right| + 2\left| t_{\text{jitter}} \right|$$ | $$2\left(\left| t_{\text{skew,RAND,21}} \right| + \left| t_{\text{jitter}} \right|\right)$$ |
 
@@ -526,7 +536,7 @@ As we have talked about [#sequencing-in-synchronous-systems](lec-01b-timing-sync
 
 #### Add skew to clock
 
-In a clock distribution network, we can intentionally add **clock skew** between [**two**](#user-content-fn-2)[^2] registers to improve timing.
+In a clock distribution network, we can intentionally add **clock skew** between [**two**](#user-content-fn-3)[^3] registers to improve timing.
 
 {% hint style="warning" %}
 The skew can be **positive** or **negative**, depending on whether we want to relax setup or hold constraints.
@@ -830,6 +840,8 @@ To feed the compute units for 30fps, we need high bandwidth:
 {% endstep %}
 {% endstepper %}
 
-[^1]: The FF timing constraints imply the system timing constraints.
+[^1]: means "immediately" here, not mean left or right
 
-[^2]: Our focus is always **two** registsers.
+[^2]: The FF timing constraints imply the system timing constraints.
+
+[^3]: Our focus is always **two** registsers.
