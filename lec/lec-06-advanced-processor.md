@@ -88,6 +88,45 @@ $$
 The accuracy of 80% doesn't apply to all cases! It is the accuracy only when the loop repeats 10 times!
 {% endhint %}
 
+<details>
+
+<summary>Implement a 1-bit branch predictor</summary>
+
+{% hint style="info" %}
+In [Mach-V](https://mendax1234.github.io/Mach-V/), I am currently working on the branch prediction feature. This section only explains the method provided by the prof.
+{% endhint %}
+
+<figure><img src="../.gitbook/assets/1-bit-branch-predictor.png" alt=""><figcaption></figcaption></figure>
+
+This design acts as a hybrid [**Branch History Table**](#user-content-fn-1)[^1] (BHT) and **Branch Target Buffer** (BTB). It uses a "cache-like" structure to remember the outcome and target of the most recent branch at a specific PC index.
+
+**1. Prediction (Fetch Stage)**
+
+* Indexing: The predictor uses the Lower Significant Bits (LSB) of the current `PCF` (e.g., bits `[4:2]`) to index the table.
+* Lookup: It reads the entry at that index to retrieve:
+  * `PrPCSrcF` (Predicted Direction): Should we branch? (1 = Taken, 0 = Not Taken).
+  * `PrBTAF` (Predicted Target): Where do we jump?
+* Action: If `PrPCSrcF == 1`, the PC Mux immediately updates `PC` to `PrBTAF` (predicting "Taken"), saving cycles by not waiting for the Decode stage.
+
+**2. Validation (Resolution Stage)**
+
+* Comparison: The processor waits until the branch resolves (in the Execute or Memory stage) to check two things:
+  1. Direction Check: Did we guess Taken/Not Taken correctly? (`Actual_PCSrc` XOR `Predicted_PCSrc`).
+  2. Target Check: Did we jump to the correct address? (`Actual_BTA` != `Predicted_BTA`).
+* Misprediction Signal: If either check fails, the `Branch Mispredicted` signal goes high.
+
+**3. Recovery & Update (Writeback)**
+
+* Flush: If mispredicted, the pipeline flushes instructions fetched from the wrong path (`FlushD`, `FlushE`).
+* Correction: The PC is reset to the correct address (`BTAE` if taken, `PC+4` if not).
+* Training: The BHT is updated (Written) with the _correct_ information (`PCSrc`, `BTA`) for that PC index so the prediction is accurate next time.
+
+{% hint style="danger" %}
+This implementaion targets the [first version](https://wenbo-notes.gitbook.io/ddca-notes/lec/lec-03-risc-v-isa-and-microarchitecture#single-cycle-processor-with-control) of the RISC-V microarchitecture introduced in Lec 03. For the one that is applicable for the latest microarchitecture, please wait for Mach-V!
+{% endhint %}
+
+</details>
+
 #### Two-bit Dynamic Branch Predictor
 
 A **two-bit dynamic branch predictor** can decrease the number of misprediction by having four states: Strongly Taken, Weakly Taken, Weakly Not Taken, and Strongly Not Taken.
@@ -149,7 +188,7 @@ Speculative execution must have (hardware/software) mechanisms for
 
 > As we have seen from Lec 01, to increase performance, we would like to **speed up the clock** and/or **reduce the CPI**. For the CPI, we know that **stalling** and **flushing** will both increase the CPI.
 
-As we have seen the technique of pipelining in Lec 05, it can reduce the clock cycle time and thus increase the clock speed. In real world, aside from the [advances in manufacturing](#user-content-fn-1)[^1], the easiest way to speed up the clock is to **chop the pipelines into more stages**. Each stage contains less logic, so it can run faster. Nowadays, 8-20 stages are commonly used.
+As we have seen the technique of pipelining in Lec 05, it can reduce the clock cycle time and thus increase the clock speed. In real world, aside from the [advances in manufacturing](#user-content-fn-2)[^2], the easiest way to speed up the clock is to **chop the pipelines into more stages**. Each stage contains less logic, so it can run faster. Nowadays, 8-20 stages are commonly used.
 
 However, the maximum number of pipeline stages is limited by the pipeline hazards, sequencing overhead, and cost.
 
@@ -258,7 +297,7 @@ Recall that parallelism comes in temporal and spatial forms.
 
 ### Out-of-Order Processor
 
-To cope with the problem of dependencies, an **Out-of-Order (OoO) processor** looks ahead across many instructions to issue **independent instructions** as rapidly as possible. The instructions can issue in a **different order** than that written by the programmer as long as dependencies[^2] are honored so that the program produces the intended result. This will increase the **Instruction Level Parallelism (ILP)** and thus increasing the **IPC** also.
+To cope with the problem of dependencies, an **Out-of-Order (OoO) processor** looks ahead across many instructions to issue **independent instructions** as rapidly as possible. The instructions can issue in a **different order** than that written by the programmer as long as dependencies[^3] are honored so that the program produces the intended result. This will increase the **Instruction Level Parallelism (ILP)** and thus increasing the **IPC** also.
 
 Consider running the same program [above](lec-06-advanced-processor.md#real-case) on a two-way superscalar out-of-order processor. The processor can issue up to two instructions per cycle from anywhere in the program, as long as dependencies are observed. The following figure shows the data dependencies and the operation of the processor.
 
@@ -832,9 +871,11 @@ The heart of the TPU is the Matrix Multiply Unit, a massive $$256 \times 256$$ s
 
 <figure><img src="../.gitbook/assets/cg3207-lec06-google-tpu.png" alt=""><figcaption></figcaption></figure>
 
-[^1]: this is mainly to reduce the propagation delay within the logic gates, so the same logic gate that built with the advanced manufacturing technology will have a **smaller** propagation delay.
+[^1]: Sometimes, BHT is called **branch prediction buffer**.
 
-[^2]: In short, there are three dependencies here:
+[^2]: this is mainly to reduce the propagation delay within the logic gates, so the same logic gate that built with the advanced manufacturing technology will have a **smaller** propagation delay.
+
+[^3]: In short, there are three dependencies here:
 
     1. Read after Write (RAW)
     2. Write after Read (WAR)
