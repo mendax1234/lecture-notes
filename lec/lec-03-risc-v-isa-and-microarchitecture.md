@@ -584,7 +584,7 @@ The Control Unit in the CISC processor uses **state machine** while the one in t
 
 ### Implement a single-cycle microarchitecture
 
-**I**n this lecture, we will implement a single-cycle microarchitecture first. So basically, a single-cycle microarchitecture will fetch, decode, execute all in **one clock cycle**. And in this lecture, we have covered four single-cycle microarchitecture, each is built upon the previous one,
+In this lecture, we will implement a single-cycle microarchitecture first. So basically, a single-cycle microarchitecture will fetch, decode, execute all in **one clock cycle**. And in this lecture, we have covered four single-cycle microarchitectures, each is built upon the previous one,
 
 {% stepper %}
 {% step %}
@@ -600,7 +600,7 @@ As you can save from the schematic above, the ALU will also output a 3-bit ALUFl
 
 <figure><img src="../.gitbook/assets/cg3207-lec03-pc-logic.png" alt="" width="467"><figcaption></figcaption></figure>
 
-Inside the PC logic, we should be clear that it has two **inputs** (`PCS`, `ALUFlags[2:0]`) and one **output** (`PCSrc`)
+Inside the PC logic, we should be aware that it has two **inputs** (`PCS`, `ALUFlags[2:0]`) and one **output** (`PCSrc`)
 
 * `PCS`: determines the **instruction category** for PC updates.
 * `ALUFlags[2:0]`: Bits that describe the outcome of the ALU operation. The three bits are `{eq, lt, ltu}`.
@@ -614,7 +614,7 @@ For now, our PC only supports the `beq`, it will support more in the following i
 {% step %}
 #### PC Logic with all conditions
 
-The schematic is the same as the above. But, the PC logic is complete, we will look at `func3` field in the instruction to decide which branch instruction is being chosen.
+The schematic is the same as the above. But, the PC logic is complete, we will look at `funct3` field in the instruction to decide which branch instruction is being chosen.
 
 <figure><img src="../.gitbook/assets/cg3207-lec03-pc-logic-complete-branch.png" alt="" width="563"><figcaption></figcaption></figure>
 {% endstep %}

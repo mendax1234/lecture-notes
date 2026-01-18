@@ -162,6 +162,12 @@ This is because in the fetch stage, the PC will continue increasing by 4 without
 {% endstep %}
 {% endstepper %}
 
+{% hint style="warning" %}
+#### WB stage is not the same as the Fetch Stage
+
+As you might be confused that WB and Fetch are the same due to the visual feedback loop, note that WB feeds data strictly to the Register File (for the Decode stage), while Fetch receives address inputs independently from the PC logic, keeping the two stages functionally separate.
+{% endhint %}
+
 ### Pipeline Hazards
 
 Pipelining is not perfect, sometimes it can get into troubles. These troubles are called **pipeline hazards**. And normally, we have the following three hazards
