@@ -7,3 +7,12 @@
 * [Lec 01 - Introduction to Hardware and Embedded Systems](lec/lec-01-introduction-to-hardware-and-embedded-systems.md)
 * [Lec 02 - Verilog for Synthesis](lec/lec-02-verilog-for-synthesis.md)
 * [Lec 03 - Sequential Logic Optimization](lec/lec-03-sequential-logic-optimization.md)
+
+## Textbook: Micheli
+
+* [Introduction](textbook-micheli/introduction/README.md)
+  * [Microelectronics](textbook-micheli/introduction/microelectronics.md)
+  * [Semiconductor Technologies and Circuit Taxonomy](textbook-micheli/introduction/semiconductor-technologies-and-circuit-taxonomy.md)
+  * [Microelectronic Design Styles](textbook-micheli/introduction/microelectronic-design-styles.md)
+  * [Design of Microelectronic Circuits](textbook-micheli/introduction/design-of-microelectronic-circuits.md)
+  * [Computer-aided Synthesis and Optimization](textbook-micheli/introduction/computer-aided-synthesis-and-optimization.md)
