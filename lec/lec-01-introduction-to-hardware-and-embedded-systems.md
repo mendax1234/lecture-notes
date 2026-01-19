@@ -62,16 +62,22 @@ When designing an embedded system (sensor -> processor -> actuator[^2]), we must
 
 > HW/SW Co-design is about designing the hardware specifically for a type of software to make it efficient.
 
-The goal is to find the optimal point on the Pareto Curve (trading off Resources vs. Performance)
+The goal is to find the optimal point (a.k.a, [Pareto Point](../textbook-micheli/introduction/computer-aided-synthesis-and-optimization.md#pareto-point)) on the Pareto Curve (trading off Resources vs. Performance)
 
 <figure><img src="../.gitbook/assets/hw-sw-codesign-pareto-curve.png" alt="" width="331"><figcaption></figcaption></figure>
 
 In this Pareto Curve, the y-axis is "resouces", higher means using more resources while the x-axis is "performance<sup>-1</sup>", and closer to the origin point means tha the performance is higher. Thus, it is obvious that the <mark style="color:$warning;">orange</mark> point is the **worst design** among the four designs as it uses more resources then the middle <mark style="color:$success;">green</mark> point but brings even less performance than it.
 
-* **Partitioning**: Deciding which parts of the system run on software (CPU) and which run on hardware (ASIC/FPGA).
-* **Co-simulation**: Verifying both HW and SW together.
+* **Partitioning**: Deciding which parts of the system is better to be implemented software and which part is better to be implemented on hardware (ASIC/FPGA).
+  * The if/else structure like "if some button is pressed, then do something" is better to be implemented in **software**.
+  * Some certain computation-needed operations, like "Multiply and Accumulate", are better to be implemented in **hardware** for better efficiency.
+* **Co-simulation**: Verifying both HW and SW together. (Tools that are doing this are quite advanced nowadays)
 
 <figure><img src="../.gitbook/assets/hw-sw-codesign-steps.png" alt="" width="375"><figcaption></figcaption></figure>
+
+{% hint style="success" %}
+The spirit of EE4218 is to **create custom hardware** for some **specific software**!
+{% endhint %}
 
 ## FPGA
 
@@ -82,6 +88,26 @@ In this Pareto Curve, the y-axis is "resouces", higher means using more resource
 ## Algorithms and Graphs
 
 An **algorithm** defines a procedure for solving a computational problem. For example, the quick sort, bubble sort, insertion sort, etc.
+
+### Combinatorial Optimization
+
+In **classical optimization**, we aim to find the minimum (or maximum) of a function $$f(x)$$ where $$x$$ is **continuous**. Since $$f(x)$$ is differentiable, we can use **gradients** and **second-derivative tests**. The key idea is to make **small local changes** and see whether the objective improves.
+
+In many **real-world problems**, however, variables are **discrete**, so derivatives do not exist and classical optimization methods no longer apply. This leads to **combinatorial optimization**, where the solution space is finite or countable.
+
+A canonical example is the **0-1 Knapsack Problem**: we want to maximize the value
+
+$$
+\max_{x_1, \dots, x_n} \sum_{i=1}^{n} v_i x_i
+$$
+
+subject to the size constraint
+
+$$
+\sum_{i=1}^{n} w_i x_i \leq W, \quad x_i \in \{0, 1\}
+$$
+
+Here, each decision is binary, making the problem inherently discrete. The knapsack problem is **NP-hard** (decision version NP-complete), meaning that **no polynomial-time exact algorithm is known**. As a result, solutions often rely on **dynamic programming, approximations, or heuristics** rather than calculus-based methods.
 
 ### Complexity
 
@@ -158,6 +184,10 @@ The corresponding changes needed in the graph representations are
 This is usually used to enforce some capacity constraint on the nodes. For example, the size of gates in a circuit and the delay of operations in a "data dependency graph".
 
 <figure><img src="../.gitbook/assets/graph-node-weight.png" alt="" width="359"><figcaption></figcaption></figure>
+
+{% hint style="warning" %}
+Node weight can be put inside **adjacency list** easily, but cannot be put inside the **adjacency matrix**.
+{% endhint %}
 {% endstep %}
 {% endstepper %}
 

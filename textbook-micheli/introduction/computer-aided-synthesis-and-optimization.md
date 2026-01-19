@@ -384,6 +384,10 @@ Consider next **architectural-level models** of **synchronous circuits**. **Pare
 * **Minimize the circuit area** under **latency constraints**.
 * **Minimize the circuit latency** under **area constraints**.
 
+{% hint style="warning" %}
+In a **pipelined** system, we are more interested in the **throughput** rather the **latency** of the system.
+{% endhint %}
+
 These two **problems** are often referred to as **scheduling problems**. Unfortunately, the **scheduling problems** are **hard to solve exactly** in most cases, and only **approximations** can be obtained. When considering **pipelined circuits**, **Pareto points** can be **computed** (or **approximated**) by considering different values of **cycle-time** and **throughput**, and by solving the corresponding **scheduling problems**.
 {% endstep %}
 {% endstepper %}
