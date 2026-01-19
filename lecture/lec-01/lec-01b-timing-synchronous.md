@@ -582,16 +582,16 @@ When analyzing a specific hardware block (e.g., an accelerator), we assume:
 * **Ideal Flow**: Inputs are applied "just in time" (no stalling).
 * **Functionality Factor** ($$X$$): Each input value generates $$X$$ sequential output values.
 
-This leads to the relationship between Input Data Rate ($$DR_{in}$$) and Output Data Rate ($$DR_{out}$$):
+This leads to the relationship between Input Data Rate ($$\text{DR}_{in}$$) and Output Data Rate ($$\text{DR}_{out}$$):
 
 $$
-DR_{out} = X \cdot DR_{in}
+\text{DR}_{\text{out}} = X \cdot \text{DR}_{\text{in}}
 $$
 
 Where $$X$$ is the **Data Rate Gain** set by the function of the block
 
 $$
-X = \frac{DR_{out}}{DR_{in}} = \frac{\# \text{words}_{out}}{\# \text{words}_{in}}
+X = \frac{\text{DR}_{\text{out}}}{\text{DR}_{\text{in}}} = \frac{\# \text{words}_{\text{out}}}{\# \text{words}_{\text{in}}}
 $$
 
 <details>
@@ -613,18 +613,18 @@ The value of $$X$$ tells us if the block is **compressing or expanding** data.
 
 Real systems consist of multiple blocks chained together. To find the maximum performance of the entire chain, we must find the "bottleneck" (the **slowest block**).
 
-However, because the data rate changes (expands or compresses) at each stage, we cannot simply compare the raw speeds of Block 1 and Block 2. We must normalize everything to the **Output-Referred Data Rate**, which basically means asking
+However, because the data rate changes (expands or compresses) at each stage, we cannot simply compare the raw speeds of Block 1 and Block 2. We must normalize everything to the **Output-Referred Data Rate**, which basically means asking:
 
-> If this specific block runs at its maximum speed, how much final output does that equal?
+> If this specific block runs at its maximum speed, how much final output at the last block does that equal?
 
 {% stepper %}
 {% step %}
 #### Single Block Limit
 
-The output of a single block is limited by either the incoming data or its own maximum internal speed ($$maxDR_{out}$$):
+The output of a single block is limited by either the incoming data or its own maximum internal speed ($$\max\text{DR}_{\text{out}}$$):
 
 $$
-\text{DR}_{out} = \min(X \cdot \text{DR}_{in}, \ max\text{DR}_{out})
+\text{DR}_{\text{out}} = \min(X \cdot \text{DR}_{\text{in}}, \max\text{DR}_{\text{out}})
 $$
 {% endstep %}
 
@@ -634,14 +634,14 @@ $$
 For a chain of blocks ($$1 \to 2 \to \dots \to N$$), the maximum system throughput is the minimum of all blocks' capacities, **scaled to the output**:
 
 $$
-maxDR_{out} = \min \left( \underbrace{X_2 \cdot \dots \cdot X_N \cdot maxDR_{out,1}}_{\text{Block 1 limit reflected at output}}, \ \dots \ , \underbrace{maxDR_{out,N}}_{\text{Block N limit}} \right)
+\max \text{DR}_{\text{out}} = \min \left( \underbrace{X_2 \cdot \dots \cdot X_N \cdot maxDR_{out,1}}_{\text{Block 1 limit reflected at output}}, \ \dots \ , \underbrace{\max\text{DR}_{\text{out,N}}}_{\text{Block N limit}} \right)
 $$
 
 1. **For the First Block 1**:
-   1. Take its raw max speed ($$maxDR_{out,1}$$).
+   1. Take its raw max speed ($$\max\text{DR}_{\text{out,1}}$$).
    2. Multiply it by the gain of Block 2 ($$X_2$$), then Block 3 ($$X_3$$), all the way to Block N.
    3. This result tells us: _"If Block 1 runs at 100%, how much final output is produced?"_
-2. **For the Last Block N**: Its limit is just its own max speed ($$maxDR_{out,N}$$).
+2. **For the Last Block N**: Its limit is just its own max speed ($$\max\text{DR}_{\text{out,N}}$$).
 {% endstep %}
 {% endstepper %}
 
@@ -660,7 +660,7 @@ Every term inside the min() function should be equal.
 Ideally, the max speed of any specific block i ($$maxDR_{out,i}$$) should be exactly:
 
 $$
-maxDR_{out,i} = \frac{\text{Target System Throughput}}{\prod_{j=i+1}^{N} X_j}
+\max\text{DR}_{\text{out,i}} = \frac{\text{Target System Throughput}}{\prod_{j=i+1}^{N} X_j}
 $$
 
 This basically means that a block's designed speed should equal the target final speed divided by all the gains that come after it.
@@ -672,14 +672,14 @@ This basically means that a block's designed speed should equal the target final
 
 In real-world chips (like the Roofline Model), the bottleneck usually shifts between three areas:
 
-* Compute-Bound: The arithmetic logic (ALU) is too slow.
-* Memory-Bound: We cannot read/write data to RAM fast enough.
-* Communication-Bound: We cannot move data between cores fast enough.
+* **Compute-Bound**: The arithmetic logic (ALU) is too slow.
+* **Memory-Bound**: We cannot read/write data to RAM fast enough.
+* **Communication-Bound**: We cannot move data between cores fast enough.
 {% endhint %}
 
 ### Latency
 
-> While throughput measures the "volume" of work (how many?), Latency measures the "speed" of a single task (how fast?).
+> While throughput measures the "volume" of work (how many?), **Latency** measures the "speed" of a **single task** (how fast?).
 
 **Latency** is the time required to complete a **single** computation from the moment inputs arrive until the final output is valid.
 
@@ -687,10 +687,14 @@ In real-world chips (like the Roofline Model), the bottleneck usually shifts bet
 
 Latency is measured as:
 
-* Absolute Time: Nanoseconds (ns), milliseconds (ms).
-* Clock Cycles: How many "ticks" it takes.
+* **Absolute Time**: Nanoseconds (ns), milliseconds (ms), or
+* **Clock Cycles**: How many "ticks" it takes.
 
 It is critical for real-time systems where a delay is unacceptable, such as autonomous vehicles braking or network packet switching.
+
+{% hint style="success" %}
+Latency is the same as the CPI (Clock cycles Per Instruction) we have learned in CG3207!
+{% endhint %}
 
 #### Throughput vs. Latency Relationship
 
@@ -705,6 +709,10 @@ If the system can only accept a new request _after_ the previous one is complete
 $$
 \text{Throughput} = \frac{1}{\text{Latency}}
 $$
+
+{% hint style="warning" %}
+Here, we use **absolute time** to measure **latency**. If **clock cycles** are used to measure the latency, then we should replace "latency" with "latency x cycle-time". Same for below.
+{% endhint %}
 {% endstep %}
 
 {% step %}
@@ -724,11 +732,11 @@ Unlike throughput (which is limited by the _slowest_ block), latency is additive
 
 {% stepper %}
 {% step %}
-#### Block-Level Latency ($$LAT_i$$)
+#### Block-Level Latency ($$\text{LAT}_i$$)
 
 This is the time taken by a single block to finish its job.
 
-**The Worst-Case Rule**: If the latency is **data-dependent** (e.g., a multiplier takes longer for large numbers than small ones), we must use the Upper Bound ($$\max(LAT_i)$$) to guarantee timing correctness.
+**The Worst-Case Rule**: If the latency is **data-dependent** (e.g., a multiplier takes longer for large numbers than small ones), we must use the Upper Bound ($$\max(\text{LAT}_i)$$) to guarantee timing correctness.
 {% endstep %}
 
 {% step %}
@@ -739,11 +747,11 @@ For a system with N blocks, the total latency is not just the simple sum. We mus
 <figure><img src="../../.gitbook/assets/system-level-latency.png" alt=""><figcaption></figcaption></figure>
 
 $$
-\text{Total Latency} \le \sum_{i=1}^{N} (\#execution_i \cdot \max(LAT_i))
+\text{Total Latency} \le \sum_{i=1}^{N} (\text{\#execution}_i \cdot \max(\text{LAT}_i))
 $$
 
-* $$\#execution_i$$: The number of times Block i is executed to complete _one_ full system computation.
-* $$\max(LAT_i)$$: The worst-case latency of Block i.
+* $$\text{\#execution}_i$$: The number of times Block i is executed to complete _one_ full system computation.
+* $$\max(\text{LAT}_i)$$: The worst-case latency of Block i.
 {% endstep %}
 {% endstepper %}
 
@@ -758,7 +766,7 @@ AlexNet is a classic CNN used for image classification (mapping a raw image to 1
 * **CONV (Convolutional Layers)**: The "Trainable" feature extractors. They use kernels ($$k \times k$$) to filter input images.
   * **Dominant Operation**: Multiply-Accumulate (MAC).
   * **Data Flow**: Input Frame ($$227 \times 227$$ RGB) -> Convolved Features.
-* **ReLU (Rectified Linear Unit)**: Non-linear activation function ($$output = \max(0, input)$$). Simple and fast.
+* **ReLU (Rectified Linear Unit)**: Non-linear activation function ($$\text{output} = \max(0, \text{input})$$). Simple and fast.
 * **POOL (Max Pooling)**: Down-sampling layer. Reduces data size by taking the maximum value in a patch.
 * **FC (Fully Connected Layers)**: The final classification stage. Every input neuron connects to every output neuron (matrix-vector multiplication).
 
@@ -770,7 +778,7 @@ AlexNet is a classic CNN used for image classification (mapping a raw image to 1
 {% step %}
 #### Data Volume vs. Operations
 
-&#x20;($$words_{out}$$): The number of data words _decreases_ as we move deeper into the network.
+&#x20;($$\text{words}_{\text{out}}$$): The number of data words _decreases_ as we move deeper into the network.
 
 * _Early Layers (Conv1-Conv2):_ High data volume (hundreds of thousands of words) due to large spatial maps.
 * _Later Layers (FC6-FC8):_ Low data volume (thousands of words).
@@ -789,7 +797,7 @@ AlexNet is a classic CNN used for image classification (mapping a raw image to 1
 To sustain a real-time performance of 30 frames per second (fps), each layer must meet a specific throughput target. This target depends on the layer's "Gain" ($$X$$):
 
 $$
-\text{Throughput(Layer } i) = \frac{\#ops}{\#words_{out}} \cdot \frac{DR_{out, final}}{\prod_{j=i+1}^{N} X_j}
+\text{Throughput(Layer } i) = \frac{\text{\#ops}}{\text{\#words}_{\text{out}}} \cdot \frac{\text{DR}_{\text{out, final}}}{\prod_{j=i+1}^{N} X_j}
 $$
 
 * Expansion ($$X > 1$$): Layers like Conv1 ($$X=1.89$$) and Conv2 ($$X=2.67$$) expand data, increasing the throughput burden on subsequent blocks.
