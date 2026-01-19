@@ -8,7 +8,7 @@ There are **four stages** in the creation of an **integrated circuit**: **design
 
 <figure><img src="../../.gitbook/assets/four-phases-in-creating-microelec-chip.png" alt="" width="563"><figcaption><p>Figure 1.7 The four phases in creating a microelectronic chip</p></figcaption></figure>
 
-## Modelling
+## Modeling
 
 > Modelling consists of **casting an idea into a model**, which captures the **function** that the **circuit** will perform.&#x20;
 
@@ -56,7 +56,7 @@ The **yield** is the **percentage of manufactured chips** that **operate correct
 Third, **circuit quality** relates to **testability**, i.e., the **ease of testing** the **chip** after **manufacturing**. For some applications, the **fault coverage** is an important **quality measure**, which indicates the **percentage of faults** of a given type that can be **detected** by a set of **test vectors**. It is obvious that **testable chips** are **desirable**, because **earlier detection** of **malfunctions** in **electronic systems** relates to **lower overall cost**.
 
 {% hint style="success" %}
-More details on synthesis & Optimization are provided later in the next [section](computer-aided-synthesis-and-optimization.md).
+More details on synthesis & optimization are provided later in the next [section](computer-aided-synthesis-and-optimization.md).
 {% endhint %}
 
 ## Validation

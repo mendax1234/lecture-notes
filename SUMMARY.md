@@ -16,3 +16,4 @@
   * [Microelectronic Design Styles](textbook-micheli/introduction/microelectronic-design-styles.md)
   * [Design of Microelectronic Circuits](textbook-micheli/introduction/design-of-microelectronic-circuits.md)
   * [Computer-aided Synthesis and Optimization](textbook-micheli/introduction/computer-aided-synthesis-and-optimization.md)
+  * [Organization of the Book](textbook-micheli/introduction/organization-of-the-book.md)
