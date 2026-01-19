@@ -33,13 +33,21 @@ A _field programmable gate array (FPGA)_ is an array of reconfigurable gates. FP
 
 The LEs are surrounded by _input/output elements (IOEs)_ for interfacing with the outside world. The IOEs connected LE inputs and outputs to pins on the chip package. LEs can connect to other LEs and IOEs through programmable routing channels.
 
-Two of the leading FPGA manufacturers are Intel (formerly Altera Corp.) and Xilinx, Inc.. **Figure 5.60** shows a single **LE** from Intel’s Cyclone IV FPGA, introduced in 2009. The key elements of the **LE** are a **4-input lookup table** (**LUT**) and a **1-bit register**. The **LE** also contains **configurable multiplexers** to route signals through the **LE**. The **FPGA** is configured by specifying the contents of the **LUTs** and the **select signals** for the **multiplexers**.
+Two of the leading FPGA manufacturers are Intel (formerly Altera Corp.) and Xilinx, Inc. **Figure 5.60** shows a single **LE** from Intel’s Cyclone IV FPGA, introduced in 2009. The key elements of the **LE** are a **4-input lookup table** (**LUT**) and a **1-bit register**. The **LE** also contains **configurable multiplexers** to route signals through the **LE**. The **FPGA** is configured by specifying the contents of the **LUTs** and the **select signals** for the **multiplexers**.
 
-<figure><img src="../../.gitbook/assets/cyclone-iv-logic-element.png" alt=""><figcaption><p><strong>Figure 5.6</strong> Cyclone IV Logic Element (LE)</p></figcaption></figure>
+{% hint style="warning" %}
+The underlying "technique" behind LUT is nothing but a multiplexer. The part has been illustrated in the [memory](memory-arrays.md#logic-using-memory-arrays) part in DDCA as well.
+{% endhint %}
+
+<figure><img src="../../.gitbook/assets/cyclone-iv-logic-element.png" alt=""><figcaption><p><strong>Figure 5.60</strong> Cyclone IV Logic Element (LE)</p></figcaption></figure>
 
 Each **Cyclone IV LE** has one **4-input LUT** and one **flip-flop**. By loading the appropriate values into the **LUT**, it can be configured to perform any function of up to four variables. Configuring the **FPGA** also involves choosing the **select signals** that determine how the **multiplexers** route data through the **LE** and to neighboring **LEs** and **IOEs**. **Altera** groups 16 **LEs** together to create a **logic array block** (**LAB**) and provides **local connections** between **LEs** within the **LAB**.
 
 In summary, each **Cyclone IV LE** can perform one **combinational** and/or **registered function**, which can involve up to four variables. Other brands of **FPGAs** are organized somewhat differently, but the same general principles apply. For example, **Xilinx**’s **7-series FPGAs** use **6-input LUTs** instead of **4-input LUTs**.
+
+{% hint style="danger" %}
+For example, for a Cyclone IV LE, which has 4 inputs and 1 to select the mux for using the flip-flop or not, the total number of configurations available is $$2^4+1=16+1=17$$. (The flip-flop mux select bit is **separate** from the 4 input bits)
+{% endhint %}
 
 The designer configures an FPGA by first creating a schematic or HDL description of the design. The design is then synthesized onto the FPGA. The synthesis tool determines how the LUTs, multiplexers, and routing channels should be configured to perform the specified functions. This configuration information is then downloaded to the FPGA.
 
@@ -103,3 +111,47 @@ Alyssa P. Hacker is building a finite state machine that must run at 200MHz. She
 Thus, **t**<sub>**pd**</sub>**&#x20;= 5 ns − (0.199 ns + 0.076 ns)**, so **t**<sub>**pd**</sub> <i class="fa-less-than-equal">:less-than-equal:</i> **4.725 ns**. The delay of each **LE** plus **wiring delay** between **LEs**, **t**<sub>**LE+wire**</sub>, is **381 ps + 246 ps = 627 ps**. The **maximum number** of **LEs**, **N**, is **N t**<sub>**LE+wire**</sub>**&#x20;≤ 4.725 ns**. Thus, **N = 7**.
 
 </details>
+
+### The Big Picture
+
+We have learned the [digital design flow](../../lec/lec-02-digital-system-design-and-verilog.md#simplified-fpga-asic-design-flow) in both CG3207 and EE4218, now we can try to apply that on FPGA but with more details!
+
+This flow transforms human-readable HDL code into the binary configuration that physically arranges the FPGA's Logic Elements (LEs) and routing.
+
+{% stepper %}
+{% step %}
+#### Logic Synthesis
+
+* **Input**: HDL Code (Verilog/SystemVerilog/VHDL).
+* **Action**: Compiles code into a **Gate-Level Netlist**.
+* **Output**: A generic circuit representation using ideal boolean gates (AND, OR, NOT) and registers. It is _technology independent_ (does not yet know about LUTs or CLBs).
+
+After that, **technology mapping** is done (in the convention of CG3207 and EE4218, technology mapping is part of **Logic Synthesis**)
+
+* **Action**: Translates generic gates into the specific resources available on the target FPGA (e.g., Xilinx Artix-7 or Intel Cyclone IV).
+* **Details:**
+  * **LUT Packing**: Groups combinational logic (e.g., $$A \cdot B + C$$) into a single N-input LUT.
+  * **Register Packing**: Pairs logic with Flip-Flops inside the same LE/CLB where possible.
+* **Output**: A **Mapped Netlist** made of LEs, DSP slices, and RAM blocks, not generic gates.
+{% endstep %}
+
+{% step %}
+#### Physical Design
+
+1. **Placement**
+   * Action: Determines the physical location of each logic block on the FPGA die.
+   * Goal: Assigns specific `(Row, Column)` coordinates to every LE from the mapped netlist.
+   * Optimization: Places connected LEs close together to minimize signal delay and meet timing constraints.
+2. **Routing**
+   * **Action**: Configures the programmable interconnects (wires) to connect the placed LEs.
+   * **Mechanism**: Selects paths through Switch Matrices (programmable intersections) to create electrical connections between inputs and outputs.
+   * **Output**: A fully routed design. This is often the most time-consuming step due to congestion management.
+{% endstep %}
+
+{% step %}
+#### Bitstream Generation
+
+* **Action**: Converts the final placement and routing configuration into a binary stream.
+* **Output**: A `.bit` or `.sof` file. This file is loaded into the FPGA's SRAM configuration memory at startup, physically setting the LUT values and routing switch states.
+{% endstep %}
+{% endstepper %}
