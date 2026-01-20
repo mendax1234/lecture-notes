@@ -582,7 +582,7 @@ When analyzing a specific hardware block (e.g., an accelerator), we assume:
 * **Ideal Flow**: Inputs are applied "just in time" (no stalling).
 * **Functionality Factor** ($$X$$): Each input value generates $$X$$ sequential output values.
 
-This leads to the relationship between Input Data Rate ($$\text{DR}_{in}$$) and Output Data Rate ($$\text{DR}_{out}$$):
+This leads to the relationship between Input Data Rate ($$\text{DR}_{\text{in}}$$) and Output Data Rate ($$\text{DR}_{\text{out}}$$):
 
 $$
 \text{DR}_{\text{out}} = X \cdot \text{DR}_{\text{in}}
@@ -613,25 +613,29 @@ The value of $$X$$ tells us if the block is **compressing or expanding** data.
 
 Real systems consist of multiple blocks chained together. To find the maximum performance of the entire chain, we must find the "bottleneck" (the **slowest block**).
 
-However, because the data rate changes (expands or compresses) at each stage, we cannot simply compare the raw speeds of Block 1 and Block 2. We must normalize everything to the **Output-Referred Data Rate**, which basically means asking:
+However, the data rate may expand or compress at each stage, so we cannot directly compare the raw speeds of Block 1 and Block 2. Instead, we must normalize all blocks to a common metric: the **output-referred data rate**. That is, for each block, we ask:
 
-> If this specific block runs at its maximum speed, how much final output at the last block does that equal?
+> if this block operates at its maximum speed, what data rate would that correspond to at the final output of the chain?
 
 {% stepper %}
 {% step %}
 #### Single Block Limit
 
-The output of a single block is limited by either the incoming data or its own maximum internal speed ($$\max\text{DR}_{\text{out}}$$):
+The output of a single block is limited by either the **incoming data** or its own maximum internal speed ($$\max\text{DR}_{\text{out}}$$):
 
 $$
 \text{DR}_{\text{out}} = \min(X \cdot \text{DR}_{\text{in}}, \max\text{DR}_{\text{out}})
 $$
+
+{% hint style="warning" %}
+This is true because if a block’s input data rate is low, its output data rate cannot reach the maximum.
+{% endhint %}
 {% endstep %}
 
 {% step %}
 #### Chain Limit (The Bottleneck Formula)
 
-For a chain of blocks ($$1 \to 2 \to \dots \to N$$), the maximum system throughput is the minimum of all blocks' capacities, **scaled to the output**:
+For a chain of blocks ($$1 \to 2 \to \dots \to N$$), the maximum system throughput is the [**minimum**](#user-content-fn-4)[^4] of all blocks' capacities[^5], **scaled to the output**:
 
 $$
 \max \text{DR}_{\text{out}} = \min \left( \underbrace{X_2 \cdot \dots \cdot X_N \cdot maxDR_{out,1}}_{\text{Block 1 limit reflected at output}}, \ \dots \ , \underbrace{\max\text{DR}_{\text{out,N}}}_{\text{Block N limit}} \right)
@@ -657,7 +661,7 @@ Every term inside the min() function should be equal.
 {% step %}
 #### The Math
 
-Ideally, the max speed of any specific block i ($$maxDR_{out,i}$$) should be exactly:
+Ideally, the max speed of any specific block i ($$\max\text{DR}_{\text{out,i}}$$) should be exactly:
 
 $$
 \max\text{DR}_{\text{out,i}} = \frac{\text{Target System Throughput}}{\prod_{j=i+1}^{N} X_j}
@@ -723,6 +727,10 @@ In most modern VLSI systems, we use **pipelining** (as we did in NUS CG3207!). W
 $$
 \text{Throughput} \gg \frac{1}{\text{Latency}}
 $$
+
+{% hint style="danger" %}
+According to [De Micheli](https://wenbo-notes.gitbook.io/ee4218-hsd-notes/textbook-micheli/introduction/computer-aided-synthesis-and-optimization#throughput), the **maximum** throughput of a pipelined system is $$\frac{1}{\text{cycle-time}}$$, which holds under the assumption of a single-issue pipeline (CPI <i class="fa-greater-than-equal">:greater-than-equal:</i> 1). In some microarchitectures such as superscalar processors, where the effective CPI can be less than 1, the maximum throughput may be higher.
+{% endhint %}
 {% endstep %}
 {% endstepper %}
 
@@ -756,6 +764,10 @@ $$
 {% endstepper %}
 
 ### Case Study: AlexNet CNN
+
+{% hint style="danger" %}
+Based on my seniors saying, this part won't appear in midterms or finals. It's just a FYI thing. Will see if this still holds in AY25/26 Sem2's EE4415 🤣.
+{% endhint %}
 
 To understand how throughput and latency principles apply to real-world hardware, we analyze the **AlexNet Convolutional Neural Network (CNN)**. This example demonstrates how data expansion/compression ($$X$$) and computational intensity vary dramatically across different stages of a system.
 
@@ -853,3 +865,7 @@ To feed the compute units for 30fps, we need high bandwidth:
 [^2]: The FF timing constraints imply the system timing constraints.
 
 [^3]: Our focus is always **two** registsers.
+
+[^4]: This minimum identifies the **bottleneck**, i.e., the block that limits the overall throughput of the system.
+
+[^5]: "If this block operates at its maximum speed, what data rate would that correspond to at the final output of the chain?"

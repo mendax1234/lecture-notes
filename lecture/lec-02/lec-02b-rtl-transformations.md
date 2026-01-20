@@ -24,7 +24,7 @@ For example, in the following diagram, we can see three distinct elements. Each 
 * **The "D" (or "2D", "3D")**:
   * **Meaning**: This stands for Delay, but specifically Sequential Delay (Registers/Flip-Flops).
   * Weight ($$w(e)$$): The number of registers on a wire.
-  * _Example:_ A box labeled "$$D$$" is 1 Register (1 clock cycle delay). A box labeled "$$2D$$" is 2 Registers in a series. A plain wire has $$0D$$.
+  * _Example:_ A box labeled "$$D$$" is 1 Register (1 clock cycle delay). A box labeled "$$2D$$" is 2 Registers in a series. A plain wire has $$0D$$. So, for example, D at edge from A -> C means that the signal coming out from vertice A will be seen by vertice C in the **next cycle**.
 * **Connected and Disconnected Graphs**
   * **Connected**: A graph is connected if there is at least one path between any pair of vertices.
   * **Disconnected**: A graph where vertices are isolated into separate groups with no connecting paths.
@@ -55,7 +55,7 @@ For example,
 
 #### DFG on Multi-Rate System
 
-In a multi-rate system, different signals are synchronized to clocks with different frequency. For example, in the following multi-rate system,
+In a [multi-rate system](#user-content-fn-1)[^1], different signals are synchronized to clocks with different frequency. For example, in the following multi-rate system,
 
 <figure><img src="../../.gitbook/assets/multi-rate-system-example.png" alt=""><figcaption></figcaption></figure>
 
@@ -638,7 +638,7 @@ When moving registers, combinational operators at vertices through retiming cann
 
 #### Fundamental Transformation
 
-The core operation of retiming allows registers to be moved forward or backward across the inputs and outputs of an operator without changing the circuit's steady-state[^1] functional behavior.
+The core operation of retiming allows registers to be moved forward or backward across the inputs and outputs of an operator without changing the circuit's steady-state[^2] functional behavior.
 
 <figure><img src="../../.gitbook/assets/retiming-fundamental-transformation.png" alt=""><figcaption></figcaption></figure>
 
@@ -1193,7 +1193,9 @@ Assumptions we have made:
 * Perfectly balanced logic (no stalls).
 * $$A_{REG}$$ and $$E_{REG}$$ are consistent across all registers (zero latch growth).
 
-[^1]: 
+[^1]: We can think of a **multi-rate system** as one that operates with **more than one clock**, with different parts of the system running at different rates.
+
+[^2]: 
 
     This means the same output at end of the cycle. For example,
 

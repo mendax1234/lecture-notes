@@ -20,7 +20,7 @@ The core idea of pipelining is that:
 We assume a perfectly balanced logic design where the total combinational delay is split evenly among stages, such that $$\tau_{COMB,i} = \frac{\tau_{COMB}}{n}$$.
 
 {% hint style="warning" %}
-Treat $$\tau_{COMB}$$ as a constant.&#x20;
+Treat $$\tau_{COMB}$$ as a constant and n is sometimes called the **pipeline depth**. We will prove at the [end](lec-02a-pipelining.md#logic-imbalance) of this section that the assumption we made above on the balanced combinational logic **doesn't matter** to our analysis!
 {% endhint %}
 
 ### Throughput
@@ -36,7 +36,7 @@ $$
 $$n$$ is the pipeline depth. $$t_{OH}$$ is the overhead (setup time, clock-to-q skew).
 
 {% hint style="info" %}
-The $$T_{pipe}$$ here is equal to $$T_{CK}$$ and we assume that we have the **same overhead**.
+The $$T_{pipe}$$ here is equal to $$T_{CK}$$ and we assume that we have the **same pipeline register overhead**, which means that same type of register is used and we are not adding any skew to the clock of the register.
 {% endhint %}
 
 #### Throughput Improvement
@@ -52,6 +52,10 @@ $$
 * Case 1 ($$n \ll \frac{\tau_{COMB}}{t_{OH}}$$): Improvement is linear (factor of $$n$$). To verify, can neglect $$n\cdot t_{OH}$$.
 * Case 2 ($$n > \frac{\tau_{COMB}}{t_{OH}}$$): Improvement saturates to a maximum of $$1 + \frac{\tau_{COMB}}{t_{OH}}$$. To verify, can neglect the term $$\tau_{COMB}$$ in the denominator. So as $$n\to +\infty$$, the ratio $$\to 1+\frac{\tau_{COMB}}{t_{OH}}$$.
 
+The intuition behind this formula is that beyond a certain point, increasing the number of pipeline stages (n) — e.g., making the pipeline too deep — yields diminishing returns. In other words, the throughput improvement eventually **saturates** rather than continuing to scale.
+
+This also foreshadows ideas in later chapters: **retiming** mainly works by adding or relocating registers, but adding registers indiscriminately does not always improve performance. There is a fundamental limit, which we will understand more clearly later.
+
 <details>
 
 <summary>How Throughput relates to Frequency here?</summary>
@@ -66,7 +70,11 @@ Rewrite the equation,
 
 <p align="center"><span class="math">\text{Throughput} = \frac{\text{Computations}}{\text{Second}} = \frac{\text{Computations}}{\text{Cycle}} \times \frac{\text{Cycles}}{\text{Second}}</span></p>
 
-As a pipelined processor completes one instruction (or one "computation") every single clock cycle. This is equivalent of saying "the **latency** of a pipelined processor is 1"
+As a pipelined processor completes one instruction (or one "computation") every single clock cycle. This is equivalent of saying "the **latency** of a pipelined processor is 1". Also the definition of clock frequency is
+
+> Clock frequency is the **speed** at which a computer's processor executes internal operations, measured in **Hertz** (Hz), usually gigahertz (GHz) for modern CPUs, representing billions of "ticks" or **cycles per second.**
+
+Thus, we can write the throughput formula as follows:
 
 <p align="center"><span class="math">\text{Throughput} = 1 \times \text{Frequency} = f</span></p>
 
@@ -114,9 +122,9 @@ $$
 * In terms of time, latency increases slightly due to overhead.
 * In terms of clock cycles, latency increases significantly by $$(n-1)$$.
 
-## Physical Costs: Area & Energy
+## Power & Area
 
-### Silicon Area
+### Area
 
 The total silicon area is calculated as follow:
 
@@ -148,7 +156,9 @@ The same techinique used in the [#latency-improvement](lec-02a-pipelining.md#lat
 
 Area overhead grows linearly as we increase the number of stages ($$n$$).
 
-### Energy
+### Power
+
+> Power is can be also replaced with **energy**.
 
 The total energy in a system is calculated as follow:
 
@@ -195,9 +205,17 @@ $$
 
 Stalls effectively increase the CPI (in the [NUS CG3207 terminology](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-01-history-technology-performance#instruction-count-ic-and-cpi)), reducing throughput.
 
+{% hint style="success" %}
+This $$\delta$$ also explains why, in an ideal pipeline design, **throughput equals frequency**. In this case, the stall $$\delta$$ is zero, so the throughput is
+
+<p align="center"><span class="math">\text{Throughput} = \frac{1}{T_{\text{pipe}}} = \text{frequency}</span></p>
+{% endhint %}
+
 ## Logic Imbalance
 
-In practical designs, it is rarely possible to split logic into perfectly equal stages. The pipeline speed is always limited by the bottleneck (the slowest stage). We define the imbalance of a stage $$i$$ as the difference between its actual delay and the ideal average delay:
+In practical designs, it is rarely possible to partition logic into perfectly balanced pipeline stages. This is because delays are inherently **discrete**, not continuous. Although retiming (will see later) allows us to redistribute combinational delay across stages, the discrete nature of logic elements makes it difficult to achieve equal delay in every part of the system.
+
+As the pipeline speed is always limited by the bottleneck (the slowest stage), we define the imbalance of a stage $$i$$ as the difference between its actual delay and the ideal average delay:
 
 $$
 \Delta \tau_{COMB,i} = \tau_{COMB,i} - \frac{\tau_{COMB}}{n}
@@ -227,4 +245,8 @@ $$
 T_{CK} = \frac{\tau_{COMB}}{n} + t_{OH}
 $$
 
-In conclusion, maximum imbalance behaves mathematically identical to hardware overhead. It acts as a constant penalty that prevents the pipeline from achieving the ideal linear speedup.
+In conclusion, maximum imbalance behaves mathematically identical to hardware **overhead**. It acts as a constant penalty that prevents the pipeline from achieving the ideal linear speedup.
+
+{% hint style="warning" %}
+Practice thisi in the upcoming labs!
+{% endhint %}
