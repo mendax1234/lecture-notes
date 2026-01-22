@@ -87,7 +87,11 @@ For any RTL transformation to be valid, it must preserve **Functionality**, but 
 
 * **Functionality (Must Keep)**: For any input sequence, the output sequence values and order must remain exactly the same.
 * **Latency (Can Change)**: The number of clock cycles it takes to produce the first valid output can increase.
-  * _Example:_ Adding pipeline registers increases latency (results arrive later) but improves frequency (clock runs faster). This is a legal transformation.
+  * _Example:_ Adding pipeline registers increases "latency" (results arrive later) but improves frequency (clock runs faster). This is a legal transformation.
+
+<figure><img src="../../.gitbook/assets/functionality-vs-latency.png" alt=""><figcaption></figcaption></figure>
+
+The image above entails all the 5 RTL transformations we are going to learn in this section. Some of them preserver the latency while the rest didn't. However, all of them preserve the functionality.
 {% endstep %}
 
 {% step %}
@@ -96,6 +100,7 @@ For any RTL transformation to be valid, it must preserve **Functionality**, but 
 To perform mathematical optimization on the Data Flow Graph (DFG), we simplify the timing analysis:
 
 * **Cycle-Based Timing**: We ignore sub-cycle analog behaviors. We only care that the signal is stable at the end of the clock cycle.
+  * For example, we use OUT(i) to illustrate that the output is just a function of clock cycle i.
 * **The Period Equation:** $$T_{CK} \approx \tau_{COMB,max}$$
   * We approximate the clock period as simply the **Maximum Combinational Delay** in the circuit, often ignoring small overheads like clock skew ($$t_{skew}$$) or setup time ($$t_{setup}$$) during the initial algorithmic steps.
 {% endstep %}
@@ -103,25 +108,22 @@ To perform mathematical optimization on the Data Flow Graph (DFG), we simplify t
 {% step %}
 #### The "Ideal Hardware" Assumptions
 
-All transformation algorithms (Retiming, Folding, Unfolding) rely on these four simplifications:
+All transformation algorithms (Retiming, parallelism, repipelining, unfolding, and folding) rely on these four simplifications:
 
 1. **Load Independence**: The delay of a logic gate (node) is constant, regardless of what it is connected to.
+   1. In other words, the number beside each **node** is **constant**
 2. **Wire Delay is Negligible**: Rearranging the graph does not change the delay of the wires (edges).
 3. **Input Independence**: A computation node takes the same amount of time regardless of the input values (e.g., adding $$0+0$$ takes the same time as $$123+456$$).
 4. **No Stalls**: The pipeline flows continuously; we ignore complex control hazards or memory waits.
+   1. This _no-stall_ assumption is achievable in AI accelerators. Unlike general-purpose microprocessors, AI accelerators operate on highly structured and predictable workloads, allowing data inputs and memory accesses to be carefully aligned at design time. As a result, pipeline hazards can be largely eliminated, avoiding the need for dynamic stalling.
 {% endstep %}
 
 {% step %}
 #### Summary of Trade-offs
 
-We apply the following transformations to shift the design point on the **Area-Speed-Power** triangle:
+The trade-offs between PPA analysis of the **5 RTL transformations** we are going to learn in this section are shown as follows:
 
-| Transformation | Area               | Throughput (Speed) | Latency           |
-| -------------- | ------------------ | ------------------ | ----------------- |
-| Parallelism    | ⬆️ Increase        | ⬆️ Increase        | ➖ Same            |
-| Pipelining     | ↗️ Slight Increase | ⬆️ Increase        | ⬆️ Increase       |
-| Folding        | ⬇️ Decrease        | ⬇️ Decrease        | ➖ Same            |
-| Retiming       | ➖ Same (≈)         | ⬆️ Increase        | ➖ Same / Variable |
+<figure><img src="../../.gitbook/assets/area-speed-power-analysis.png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 
@@ -152,6 +154,10 @@ Some data skips registers
 Some data goes back to previous register.
 
 <figure><img src="../../.gitbook/assets/feedback-path.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="warning" %}
+According to [DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/latches-and-flip-flops#register), a N-bit register is a bank of N flip-flops. Thus, the pipeline register here can have several inputs.
+{% endhint %}
 {% endstep %}
 {% endstepper %}
 
@@ -190,6 +196,10 @@ y[n] = y[n−2] + x[n]
 ```
 
 This is a **different algorithm**! In a nuthell, the result is that there is a fundamental "Speed Limit" (minimum cycle time) determined by the loops themselves. This speed limit is called **loop bound.**
+
+{% hint style="success" %}
+The intuition behind “cannot add registers in a loop” is that inputs coming into the loop may arrive at different clock cycles, leading to timing misalignment.
+{% endhint %}
 {% endstep %}
 {% endstepper %}
 
@@ -203,15 +213,20 @@ $$
 
 * $$t_{loop}$$: The sum of all combinational logic delays in that specific loop (computation time).
 * $$w_{loop}$$: The number of delay elements (registers) in that specific loop.
+* The unit of loop bound is **seconds per pipeline stage**.
+
+{% hint style="success" %}
+The intuition behind the loop bound is that it [**highly likely**](#user-content-fn-2)[^2] indicates the critical path of the design, and therefore determines the maximum achievable clock frequency. In other words, in a design, the **loop part** will **highly likely** be the **bottleneck**.
+{% endhint %}
 
 For example, in the following recursive DFG, we can calculate the loop bounds for two existing loops.
 
 <figure><img src="../../.gitbook/assets/loop-bound-calculation-example.png" alt="" width="563"><figcaption></figcaption></figure>
 
-1. Loop 1 is the inner loop at the right side, containing 6 nodes and a total combinational delay of 12.
-   1. Its loop bound is $$12\div(6-2)=3$$
-2. Loop 2 is the big outer loop, containing 4 nodes and a total combinational delay of 4.
-   1. Its loop bound is $$4\div(4-2)=2$$
+1. Loop 1 is the inner loop at the right side, containing 4 registers (4 "D" in loop 1\_ and a total combinational delay of 12.
+   1. Its loop bound is $$12\div4=3$$
+2. Loop 2 is the big outer loop, containing 2 registers and a total combinational delay of 4.
+   1. Its loop bound is $$4\div2=2$$
 
 After talking about the **loop bound**, we can see what the **iteration bound** is.
 
@@ -227,6 +242,18 @@ $$
 * If our target clock period $$T_{clk} < T_{\infty}$$, the design is impossible to implement without changing the algorithm itself.
 * Formula for Minimum Cycle Time ($$T_{CK}$$): $$T_{CK} = \tau_{COMB, max} + t_{OH} \approx \frac{t_{loop}}{w_{loop}}$$
   * Assuming $$t_{OH}$$ is **negligible**
+
+<details>
+
+<summary>How do we solve the loop bound bottleneck?</summary>
+
+Indeed, we can use the **loop unrolling** technique, which is techically a compiler technique which we have have a glimpse of in [CG3207](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-06-advanced-processor#loop-unrolling). This technique has also been practiced in the multiplier design in [Mach-V](https://mendax1234.github.io/Mach-V/uarch/mul-div-unit/#multiply-unit).
+
+{% hint style="success" %}
+Prof. Massimo used the example of loop unrolling — originally a compiler optimization technique — to emphasize a broader lesson about research. Meaningful research rarely belongs to a single discipline; instead, it draws strength from the ability to connect ideas across fields. Techniques we consider novel today may have existed in other domains decades earlier. This is why, as emphasized in the very first lecture, we must keep learning continuously — not only to advance our research, but also to remain intellectually adaptable and avoid being outperformed by AI.
+{% endhint %}
+
+</details>
 
 #### A Microprocessor Example
 
@@ -247,6 +274,23 @@ $$
 {% hint style="danger" %}
 If we have **multiple registers** appearing in the loop, let's say n. Then we need to add $$n \times t_{OH}$$ in our $$t_{loop}$$ term.
 {% endhint %}
+
+<details>
+
+<summary>Can we use skew/jitter to improve the performace of the loop above?</summary>
+
+The loop existing in the Intel Intanium processor can be simpilifed to as follows:
+
+<figure><img src="../../.gitbook/assets/lec02-skew-jitter-analysis-on-intel.svg" alt=""><figcaption></figcaption></figure>
+
+In this case, we can clearly see that
+
+1. **clock skew** provides no improvement for either setup or hold timing, since the same clock signal drives the same register.
+   1. The launching and capturing register are the same.
+2. However, clock jitter does affect performance — particularly setup timing — because jitter on clock edges in different cycles is not correlated and therefore need not be the same.
+   1. More specifically, in the worst case, the T<sub>CK</sub> will be affected by 2t<sub>jitter</sub>.
+
+</details>
 
 ## Pipelining
 
@@ -634,7 +678,7 @@ When moving registers, combinational operators at vertices through retiming cann
 
 #### Fundamental Transformation
 
-The core operation of retiming allows registers to be moved forward or backward across the inputs and outputs of an operator without changing the circuit's steady-state[^2] functional behavior.
+The core operation of retiming allows registers to be moved forward or backward across the inputs and outputs of an operator without changing the circuit's steady-state[^3] functional behavior.
 
 <figure><img src="../../.gitbook/assets/retiming-fundamental-transformation.png" alt=""><figcaption></figcaption></figure>
 
@@ -1191,7 +1235,9 @@ Assumptions we have made:
 
 [^1]: We can think of a **multi-rate system** as one that operates with **more than one clock**, with different parts of the system running at different rates.
 
-[^2]: 
+[^2]: This is based on the assumption that we have already squeezed out the performance of the design by well balancing the non-loop components of the system.
+
+[^3]: 
 
     This means the same output at end of the cycle. For example,
 
