@@ -70,7 +70,7 @@ We can derive the relationship between f<sub>A</sub>, f<sub>B</sub> and f<sub>C<
 
 We can represent a multi-rate system as single-rate by using the following two techniques
 
-1. Apply **unfolding** to each node of multi-rate system (See later)
+1. Apply **unfolding** to each node of multi-rate system (Will see later)
 2. Start from output and go backwards until inputs are reached.
 
 <figure><img src="../../.gitbook/assets/multi-rate-system-dfg-example.png" alt=""><figcaption></figcaption></figure>
@@ -97,7 +97,7 @@ To perform mathematical optimization on the Data Flow Graph (DFG), we simplify t
 
 * **Cycle-Based Timing**: We ignore sub-cycle analog behaviors. We only care that the signal is stable at the end of the clock cycle.
 * **The Period Equation:** $$T_{CK} \approx \tau_{COMB,max}$$
-  * We approximate the clock period as simply the **Maximum Combinational Delay** in the circuit, often ignoring small overheads like clock skew ($$t_{skew}$$) or setup time ($$ $_{setup} $$) during the initial algorithmic steps.
+  * We approximate the clock period as simply the **Maximum Combinational Delay** in the circuit, often ignoring small overheads like clock skew ($$t_{skew}$$) or setup time ($$t_{setup}$$) during the initial algorithmic steps.
 {% endstep %}
 
 {% step %}
@@ -127,7 +127,7 @@ We apply the following transformations to shift the design point on the **Area-S
 
 #### Types of Synchronous Paths
 
-A **Path** ($$p$$) is a sequence of connected nodes and edges starting from node $$ $u$ $$ and ending at node $$v$$. It can be denoted as $$u \to \dots \to v$$. We have the following three types of paths
+A **Path** ($$p$$) is a sequence of connected nodes and edges starting from node $$u$$ and ending at node $$v$$. It can be denoted as $$u \to \dots \to v$$. We have the following three types of paths
 
 {% stepper %}
 {% step %}
@@ -253,7 +253,7 @@ If we have **multiple registers** appearing in the loop, let's say n. Then we ne
 We first met pipelining in [CG3207](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-05-the-pipelined-processor)! The primary goal of **pipelining** or **register insertion** is to add pipeline registers to a circuit to reduce the critical path (improving frequency) without altering the circuit's logical functionality.
 
 {% hint style="danger" %}
-**Trade-offs** of pipelining: Adding registers increases latency (signals must cross more registers to reach the output) and area, but it is necessary for enabling transformations like retiming or folding.
+**Trade-offs** of pipelining: In a **non-pipelined** design, adding registers increases latency (signals must cross more registers to reach the output) and area, but it is necessary for enabling transformations like retiming or folding.
 {% endhint %}
 
 ### Cutset
@@ -333,10 +333,6 @@ The counterexample has been introduced in the "[recursive DFGs](https://wenbo-no
 > This is actually the third technique of retiming, which will be discussed in detail later. Thus, this section will just give you a taste of this technique.
 
 {% stepper %}
-{% step %}
-N-Slowing
-{% endstep %}
-
 {% step %}
 #### Time Interleaving
 
