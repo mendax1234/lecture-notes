@@ -372,6 +372,11 @@ We have learned quite a lot about [FPGA in Harris & Harris](https://wenbo-notes.
 Note that the verilog and the rules we are talking here are for writing the **RTL code**, not for the **testbench/simulation**.
 {% endhint %}
 
+### HDL Coding Tips
+
+1. For best results, use templates from the synthesis manual of the EDA tool you are using, but has the risk that the code may not work well with another tool.
+   1. For example, the synthesis manual for Vivado is [here](https://docs.amd.com/r/en-US/ug901-vivado-synthesis). (Very useful)
+
 ### General Rules for Synthesizability
 
 > In this section, `reg` means the **variable** type is `reg` only. It doesn't mean that signal is a **register**. If a `reg` signal is inferred as a physical register, we will mention it explicitly.
@@ -400,14 +405,17 @@ always @(posedge clk) begin
 end
 
 assign data_out = data_d2;
-
 ```
 {% endcode %}
+
+{% hint style="warning" %}
+Using one such always block as above gives us a way to insert any number of registers between two combinational blocks.
+{% endhint %}
 
 So, the key takeaway is
 
 * `#delay` is for [**testbenches**](https://wenbo-notes.gitbook.io/ddca-notes/textbook/hardware-description-languages/testbench) **only**.
-* In real FPGA/ASIC design, delays are achieved via **registers (clock cycles)** and **timing constraints (.xdc)**.
+* In real FPGA/ASIC design, delays are achieved via **registers (clock cycles)** and **timing constraints (combinational delay)**.
 
 #### Use one clock for the entire design
 
