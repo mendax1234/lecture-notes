@@ -176,7 +176,7 @@ The **binary encoding** uses two bits of state. Using this encoding, the state t
 
 The next state and output equations are:
 
-<p align="center"><span class="math">S_1'=\bar{S_1}S_0\\S_0'=\bar{S_1}\bar{S_0}\\Y=\bar{S_1}\bar{S_0}</span><span class="math">\begin{align*} S_1' &#x26;= \bar{S_1} S_0 \\ S_0' &#x26;= \bar{S_1} \bar{S_0} \\ Y &#x26;= \bar{S_1} \bar{S_0} \end{align*}</span></p>
+<p align="center"><span class="math">S_1'=\bar{S_1}S_0\\S_0'=\bar{S_1}\bar{S_0}\\Y=\bar{S_1}\bar{S_0}</span></p>
 
 The **one-hot encoding** uses three bits of state. The state transition table and output table (combined) for this encoding is shown as follows
 
@@ -184,7 +184,7 @@ The **one-hot encoding** uses three bits of state. The state transition table an
 
 The next state and output equations are as follows:
 
-<p align="center"><span class="math">S_2'=S_1\\S_1'=S_0\\S_0'=S_2\\Y=S_0</span><span class="math">\begin{align*} S_2' &#x26;= S_1 \\ S_1' &#x26;= S_0 \\ S_0' &#x26;= S_2 \\ Y &#x26;= S_0 \end{align*}</span><span class="math">\begin{align*} S_1' &#x26;= \bar{S_1} S_0 \\ S_0' &#x26;= \bar{S_1} \bar{S_0} \\ Y &#x26;= \bar{S_1} \bar{S_0} \end{align*}</span></p>
+<p align="center"><span class="math">S_2'=S_1\\S_1'=S_0\\S_0'=S_2\\Y=S_0</span></p>
 
 Figure 3.29 shows schematics for each of these designs.
 
