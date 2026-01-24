@@ -17,3 +17,6 @@
   * [Design of Microelectronic Circuits](textbook-micheli/introduction/design-of-microelectronic-circuits.md)
   * [Computer-aided Synthesis and Optimization](textbook-micheli/introduction/computer-aided-synthesis-and-optimization.md)
   * [Organization of the Book](textbook-micheli/introduction/organization-of-the-book.md)
+* [Sequential Logic Optimization](textbook-micheli/sequential-logic-optimization/README.md)
+  * [Introduction](textbook-micheli/sequential-logic-optimization/introduction.md)
+  * [Synchronous Circuit Optimization using State-Based Models](textbook-micheli/sequential-logic-optimization/synchronous-circuit-optimization-using-state-based-models.md)
