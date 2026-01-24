@@ -84,7 +84,7 @@ From this table, we can either observe straight-forwardly or use the Karnaugh Ma
 
 $$
 \begin{align*}
-S'_{1}&=S_1\oplus S_2 \\
+S'_{1}&=S_1\oplus S_0 \\
 S'_{0}&=\bar S_1\bar S_0\bar T_A+S_1\bar S_0\bar T_B
 \end{align*}
 $$
@@ -106,7 +106,7 @@ Knowing these two points, and taking care of the don't cares carefully, we can b
 From the K-map table, we can easily get the boolean equation for $$S'_{0}$$. For $$S'_{1}$$, it will be similar.
 
 {% hint style="info" %}
-In this case, we can just read from the state transition table to get the boolean equations for $$S'_{0}$$ and $$S'_{0}$$ while in normal situations, this is not that easy and we might need to use the Karnough map.
+In this case, we can just read from the state transition table to get the boolean equations for $$S'_{0}$$ and $$S'_{1}$$. While in normal situations, this is not that easy and we might need to use the Karnough map.
 {% endhint %}
 {% endstep %}
 
@@ -176,7 +176,7 @@ The **binary encoding** uses two bits of state. Using this encoding, the state t
 
 The next state and output equations are:
 
-<p align="center"><span class="math">S_1'=\bar{S_1}S_0\\S_0'=\bar{S_1}\bar{S_0}\\Y=\bar{S_1}\bar{S_0}</span><span class="math">\begin{align*} S_1' &#x26;= \bar{S_1} S_0 \\ S_0' &#x26;= \bar{S_1} \bar{S_0} \\ Y &#x26;= \bar{S_1} \bar{S_0} \end{align*}</span><span class="math">\begin{align*} S_2' &#x26;= S_1 \\ S_1' &#x26;= S_0 \\ S_0' &#x26;= S_2 \\ Y    &#x26;= S_0 \end{align*}</span></p>
+<p align="center"><span class="math">S_1'=\bar{S_1}S_0\\S_0'=\bar{S_1}\bar{S_0}\\Y=\bar{S_1}\bar{S_0}</span><span class="math">\begin{align*} S_1' &#x26;= \bar{S_1} S_0 \\ S_0' &#x26;= \bar{S_1} \bar{S_0} \\ Y &#x26;= \bar{S_1} \bar{S_0} \end{align*}</span></p>
 
 The **one-hot encoding** uses three bits of state. The state transition table and output table (combined) for this encoding is shown as follows
 
