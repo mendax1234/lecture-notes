@@ -501,6 +501,10 @@ t_{\text{HOLD,REG2}}
 \right)
 $$
 
+{% hint style="danger" %}
+We can apply two worst case scenario analysis here to get the maximum t<sub>skew, DET</sub> and T<sub>CK</sub>. So, it's not necessary to change the $$\tau_{\text{COMB}}$$ to $$\tau_{\text{COMB,cd}}$$ in the **min-delay constraint** and $$\tau_{\text{COMB,pd}}$$ in the **max-delay constraint**.
+{% endhint %}
+
 The following compares the minimum clock period (T<sub>CK</sub>) we can achieve in two different design scenarios, which is either to use skew or not use it at all
 
 | TCK=                  | zero (intentional skew)                                                        | max (intentional skew)                                                                      |
