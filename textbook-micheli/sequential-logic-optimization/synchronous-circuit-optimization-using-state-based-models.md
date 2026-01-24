@@ -15,6 +15,8 @@ We consider in this section algorithms for sequential optimization using **state
 
 The **state minimization problem** aims at reducing the number of **machine states**. This leads to a reduction in the size of the **state transition graph**. **State reduction** may correlate to a reduction of the number of **storage elements**. (When states are **encoded** with a **minimum number of bits**, the number of **registers** is the **ceiling** of the logarithm of the number of states.) The reduction in **states** correlates to a reduction in **transitions**, and hence to a reduction of **logic gates**.
 
+> TODO: State minimization doesn't necessarily mean less area if we consider the combinational logic? See the one-hot encoding example in [DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/finite-state-machines#example-fsm-state-encoding).
+
 **State minimization** can be defined informally as deriving a **finite-state machine** with **similar behavior** and a **minimum number of states**. A more precise definition relies on choosing to consider **completely** (or **incompletely**) specified **finite-state machines**. This decision affects the **formalism**, the **problem complexity**, and the **algorithms**. Hence, **state minimization** is described separately for both cases in the following sections.
 
 ### Optimization for Completely Specified FSM
@@ -27,7 +29,7 @@ Now, we will introduce two methods to do the state optimization.
 
 #### Normal Method
 
-> TODO: Missing formal notation because the lack of the following maths from Discrete Maths
+> ODO: Missing formal notation because the lack of the following maths from Discrete Maths
 >
 > 1. Symmetic, reflexive, transitive
 > 2. Equivalence classes.
@@ -87,3 +89,65 @@ No further splits are possible and $$\Pi_2$$ defines our foru classes of equival
 {% hint style="warning" %}
 The complexity of this algorithm is $$O(n_s\log n_s)$$.
 {% endhint %}
+
+### Optimization for Incompletely Specified FSM
+
+In the case of **incompletely specified finite-state machines**, the **transition function** $$\delta$$ and the **output function** $$\lambda$$ are not specified for some (input, state) pairs. Equivalently, don’t care conditions denote the unspecified transitions and outputs.They model the **knowledge** that some **input patterns** cannot occur in some **states**, or that some **outputs** are not observed in some **states** under certain **input conditions**.
+
+An **input sequence** is said to be **applicable** if it does not lead to any **unspecified transition**. Two **states** are **compatible** if the **output sequences** of the **finite-state machine**, initialized in the two states, **coincide** whenever both **outputs** are specified and for any **applicable input sequence**. The following **theorem** applies to **incompletely specified finite-state machines**.
+
+> **Theorem 9.2.2.** Two **states** of a **finite-state machine** are **compatible** if and only if, for any **input**, the corresponding **output functions** **match** when both are specified, and the corresponding **next states** are **compatible** when both are specified.
+
+{% hint style="success" %}
+In other words, the **compatibility rule** can be summarized as follows:
+
+1. **Output Rule (Immediate Check)**
+
+* **Rule:** The **outputs** produced by $$S_1$$ and $$S_2$$​ for the same **input** must not **contradict** each other. (The first number is the output of $$S_1$$ and the second number is the output of $$S_2$$)
+  * **✅ Compatible:**
+    * 1 vs 1 -> outputs **match**.
+    * 1 vs x -> outputs **match** (Don't Care).
+  * **❌ Incompatible:**
+    * 0 vs 1 -> outputs **conflict**.
+
+2. **Next State Rule (Future Check)**
+
+* **Rule:** The **next states** $$N_1$$​ and $$N_2$$ that $$S_1$$​ and $$S_2$$​ transition to must form a **compatible pair**.
+  * **✅ Compatible:**
+    * Both go to the **same state** (e.g., $$S_1 \to S_5$$​ and $$S_2 \to S_5$$).
+    * One goes to a **Don't Care state** (e.g., $$S_1 \to S_5$$ and $$S_2 \to x(\text{Don't Care})$$ or vice versa).
+    * They go to **different states**, but the **next states themselves are compatible** (e.g., $$S_1 \to S_3$$​, $$S_2 \to S_4$$​, provided $$S_3$$ and $$S_4$$​ are compatible).
+  * **❌ Incompatible:**
+    * They go to **different states** that are **incompatible**.
+{% endhint %}
+
+> TODO: Lack of maths knowledge to include the formal definition here. And how to find all compatible pairs?
+
+<details>
+
+<summary>Example to minimize the states in an incompletely specified FSM</summary>
+
+<figure><img src="../../.gitbook/assets/incomplete-fsm.png" alt=""><figcaption><p>Figure 9.5 (a) State diagram</p></figcaption></figure>
+
+Consider the **finite-state machine** of **Figure 9.5 (a)**, described by the following **table**, where only the **output function** $$\lambda$$ is **incompletely specified** for the sake of simplicity.
+
+<figure><img src="../../.gitbook/assets/incomplete-specified-state-table.png" alt="" width="563"><figcaption></figcaption></figure>
+
+Note first that replacing the **don’t care entries** by 1s would lead to the **table** of [Example above](synchronous-circuit-optimization-using-state-based-models.md#example-of-using-the-normal-method-to-minimize-the-states), which can be **minimized** to **four states**. Other choices of the **don’t care entries** would lead to other **completely specified finite-state machines**. Unfortunately, there is an **exponential number** of completely specified finite-state machines corresponding to the choice of the **don’t care values**.
+
+Let us consider **pairwise compatibility**:
+
+* The **pair** $$\{s_1, s_2\}$$ is **compatible**.
+* The **pair** $$\{s_2, s_3\}$$ is **compatible**, subject to the **compatibility** of $$\{s_1, s_5\}$$.
+* The **pair** $$\{s_1, s_3\}$$ is **not compatible**.
+
+This shows the **lack of transitivity** of the **compatibility relation**. The following **table** lists the **compatible** and **incompatible pairs**:
+
+<figure><img src="../../.gitbook/assets/compatible-in-pair.png" alt="" width="563"><figcaption></figcaption></figure>
+
+Maximal compatibility classes are the following:
+
+<figure><img src="../../.gitbook/assets/max-compability-class.png" alt="" width="476"><figcaption></figcaption></figure>
+
+</details>
+
