@@ -15,7 +15,9 @@ We consider in this section algorithms for sequential optimization using **state
 
 The **state minimization problem** aims at reducing the number of **machine states**. This leads to a reduction in the size of the **state transition graph**. **State reduction** may correlate to a reduction of the number of **storage elements**. (When states are **encoded** with a **minimum number of bits**, the number of **registers** is the **ceiling** of the logarithm of the number of states.) The reduction in **states** correlates to a reduction in **transitions**, and hence to a reduction of **logic gates**.
 
-> TODO: State minimization doesn't necessarily mean less area if we consider the combinational logic? See the one-hot encoding example in [DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/finite-state-machines#example-fsm-state-encoding).
+{% hint style="warning" %}
+In Harris and Harris [DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/finite-state-machines#example-fsm-state-encoding), we have seen that using one-hot encoding can reduce the logic gates used. Here, both the normal binary encoding and one-hot encoding has the **same number of** states. So, the last sentence "the reduction in states ..." still holds. We will discuss about state encoding later in this section.
+{% endhint %}
 
 **State minimization** can be defined informally as deriving a **finite-state machine** with **similar behavior** and a **minimum number of states**. A more precise definition relies on choosing to consider **completely** (or **incompletely**) specified **finite-state machines**. This decision affects the **formalism**, the **problem complexity**, and the **algorithms**. Hence, **state minimization** is described separately for both cases in the following sections.
 
@@ -151,3 +153,56 @@ Maximal compatibility classes are the following:
 
 </details>
 
+## State Encoding
+
+The **state encoding (or assignment) problem** consists of determining the **binary representation of the states** of a **finite-state machine**.
+
+{% hint style="warning" %}
+In the most general case, the state encoding problem is complicated by the **choice of register type** used for storage (e.g., **D, T, JK**). We consider here only **D-type registers**, because they are the **most commonly used**.
+{% endhint %}
+
+**State encoding** affects **circuit area** and **performance**. Most known techniques for state encoding target the reduction of **circuit complexity measures** that correlate well with **circuit area** but only weakly with **circuit performance**. **Circuit complexity** is related to the number of **storage bits** $$n_b$$​ used for the **state representation** (i.e., **encoding length**) and to the size of the **combinational component**. A measure of the latter differs significantly when considering **two-level** versus **multiple-level circuit implementations**.
+
+For this reason, **state encoding techniques** for **two-level logic** and **multiple-level logic** have been developed **independently**. We shall **survey methods** for **both cases** next.
+
+### State Encoding for Two-Level Circuits
+
+The **two-level circuits** are usually represented in the [**sum-of-product**](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/combinational-logic-design/boolean-equations#sum-of-products-form) form, e.g., $$F = (A \cdot B) + (C \cdot D)$$. In Harris and Harris [DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/digital-building-blocks/logic-arrays#programmable-logic-array), we have seen that
+
+> _Programmble logic arrays (PLAs)_ implement two-level combinational logic in sum-of-products (SOP) form. PLAs are built from and AND array followed by an OR array
+
+**Two-level circuits** have been the object of investigation for **several decades**. The **circuit complexity** of a **sum-of-products representation** is related to the number of **inputs**, **outputs**, and **product terms**. For **PLA-based implementations**, these quantities can be used to compute readily the **circuit area** and the **physical length of the longest path**, which correlates with the **critical path delay**.
+
+> **Rule 1**: The number of **inputs and outputs** of the **combinational component** is equal to **twice the state encoding length** plus the number of **primary inputs and outputs**.
+
+As we have seen in DDCA, an FSM contains two parts:
+
+1. Memory (Implemented using registers)
+2. Combinational Logic (Implemented using PLA as we suppose above)
+
+The _quote_ above focuses on the **combinational component**, so let's consider the inputs and outputs to / from the combinational part only.
+
+1. The **Inputs** to the Combinational Block:
+   * **Primary Inputs**: The actual external signals coming into the system (e.g., a sensor or button).
+   * **Present State**: Feedback from the memory registers telling the logic "where we are now."
+2. The **Outputs** from the Combinational Block:
+   * **Primary Outputs**: The actual signals going out to the world (e.g., an LED or motor).
+   * **Next State**: Signals sent back to the registers to tell them "where to go next clock cycle."
+
+From here, we can clearly see that the **total number of I/O** in the combinational logic is two the number of $$n_b$$ plus the primary inputs and outputs.
+
+> **Rule 2**: The number of **product terms** to be considered is the size of a **minimum (or minimal) sum-of-products representation**.
+
+In other words, this rule is saying that: "we shouldn't just count all the possible combinations in the SOP. Instead, the actual size of the circuit is determined by the smallest possible number of terms we can reduce the equation to." Also, from [DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/digital-building-blocks/logic-arrays#programmable-logic-array), we can clearly see that **the number of products terms** indicates **the numebr of rows** in the PLA.
+
+> TODO: Add how many choices of encoding we have as an example. This is pure math I believe.
+
+#### 1-hot Encoding
+
+The **simplest encoding** is **1-hot state encoding**, where each **state** is encoded by a corresponding **code bit** set to **1**, with all others being **0**. Thus, $$n_b = n_s$$​. **1-hot encoding** requires an **excessive number of inputs/outputs**, and it was shown **not to minimize** the size of the **sum-of-products representation** of the corresponding **combinational component**.
+
+#### The use of Minimum-Length Codes
+
+**Early work on state encoding** focused on the use of **minimum-length codes**, i.e., using $$n_b = \lceil \log_2 n_s \rceil$$ **bits** to represent the set of states $$S$$. Most **classical heuristic methods** for **state encoding** are based on a **reduced dependency criterion**. The **rationale** is to encode the states so that the **state variables** have the **least dependencies** on those representing the **previous states**. **Reduced dependencies** correlate **weakly** with the **minimality** of a **sum-of-products representation**.
+
+> TODO: Add symbolic minimization example here.
