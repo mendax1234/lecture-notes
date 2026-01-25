@@ -206,3 +206,16 @@ The **simplest encoding** is **1-hot state encoding**, where each **state** is e
 **Early work on state encoding** focused on the use of **minimum-length codes**, i.e., using $$n_b = \lceil \log_2 n_s \rceil$$ **bits** to represent the set of states $$S$$. Most **classical heuristic methods** for **state encoding** are based on a **reduced dependency criterion**. The **rationale** is to encode the states so that the **state variables** have the **least dependencies** on those representing the **previous states**. **Reduced dependencies** correlate **weakly** with the **minimality** of a **sum-of-products representation**.
 
 > TODO: Add symbolic minimization example here.
+
+### State Encoding for Multiple-Level Circuits
+
+**State encoding techniques for multiple-level circuits** use the **logic network model** for the **combinational component** of the **finite-state machine**. The **overall area measure** is related to
+
+1. the number of **encoding bits** (i.e., **registers**) and
+2. to the number of [**literals**](#user-content-fn-1)[^1] in the **logic network**.
+
+The **delay** corresponds to the **critical path length** in the network. To date, only **heuristic methods** have been developed for computing **state encodings** that optimize the **area estimate**.
+
+> TODO: Some "state-of-art" techniques are left as FYI part and they are on the book.
+
+[^1]: A **literal** is simply an instance of a variable or its complement (inverse) appearing in a boolean equation.

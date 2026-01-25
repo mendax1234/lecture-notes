@@ -20,3 +20,4 @@
 * [Sequential Logic Optimization](textbook-micheli/sequential-logic-optimization/README.md)
   * [Introduction](textbook-micheli/sequential-logic-optimization/introduction.md)
   * [Synchronous Circuit Optimization using State-Based Models](textbook-micheli/sequential-logic-optimization/synchronous-circuit-optimization-using-state-based-models.md)
+  * [Sequential Circuit Optimization using Network Models](textbook-micheli/sequential-logic-optimization/sequential-circuit-optimization-using-network-models.md)
