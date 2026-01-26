@@ -238,7 +238,7 @@ $$
 * A **positive value** corresponds to shifting **registers** from the **outputs** to the **inputs**,
 * a **negative value** corresponds to shifting them in the **opposite direction**.
 
-For example, consider the **circuit fragment** shown in **Figure 9.9(a)**, whose **network** is shown in **Figure 9.9(b)**. A **retiming** of **vertex** $$v_i$$**​** by **1** leads to the **circuit fragment** of **Figure 9.9(c)**, whose **network** is shown in **Figure 9.9(d)**.
+For example, consider the **circuit fragment** shown in **Figure 9.9(a)**, whose **network** is shown in **Figure 9.9(b)**. A **retiming** of **vertex** $$v_c$$**​** by **1** leads to the **circuit fragment** of **Figure 9.9(c)**, whose **network** is shown in **Figure 9.9(d)**.
 
 <figure><img src="../../.gitbook/assets/retiming-a-vertex.png" alt=""><figcaption><p>Figure 9.9 Retiming a vertex</p></figcaption></figure>
 {% endstep %}
@@ -251,6 +251,14 @@ The **retiming of a network** is represented by a **vector** $$r$$, whose elemen
 > A **retiming** of a **network** $$G_{sn}(V, E, W)$$ is an [**integer-valued vertex labeling**](#user-content-fn-1)[^1] $$r: V \to \mathbb{Z}$$ that **transforms** $$G_{sn}(V, E, W)$$ into $$\tilde{G}_{sn}(V, E, \tilde{W})$$, where for each **edge** $$(v_i,v_j)\in E$$, the **weight after retiming** $$\tilde{w_{ij}}$$ is equal to $$\tilde{w_{ij}}=w_{ij}+r_j-r_i$$.
 
 Consider the **network fragment** shown in **Figures 9.9(b) and (d)**. The **weight** $$w_{cx}=1$$ **before retiming**. Since $$r_c=1$$ and $$r_x=0$$, the **weight after retiming** is $$\tilde{w_{cx}}=1+0-1=0$$.
+
+{% hint style="danger" %}
+#### Notes
+
+* The number of **elements** in the retiming vector depends on the **number of vertices** in the network.
+* We only need to write the $$r$$ vector **after** we do the retiming (See more from [#example-of-a-legal-retiming-of-a-network](sequential-circuit-optimization-using-network-models.md#example-of-a-legal-retiming-of-a-network "mention")).
+* The use of writing out a **retiming vector** is to help us calculate the **new edge weight** of the retimed network.
+{% endhint %}
 {% endstep %}
 
 {% step %}
@@ -278,12 +286,20 @@ Consider the **network of Figure 9.8**. An **equivalent network** is shown in **
 
 <p align="center"><span class="math">r=-[11222100]^T</span></p>
 
-where the **entries** are associated with the **vertices** in **lexicographic order**.
+where the **entries** are associated with the **vertices** in [**lexicographic**](#user-content-fn-3)[^3] **order,** which means $$r_a=-1,r_b=-1,\dots$$
 
 <figure><img src="../../.gitbook/assets/retimned-network.png" alt=""><figcaption><p>Figure 9.10 Retimed network</p></figcaption></figure>
 
+To verify this retiming by hand, let's take edge $$v_a\to v_b$$ for example,
+
+<p align="center"><span class="math">\tilde{w_{ab}}=w_{ab}+r_b-r_a=1+(-1)-(-1)=1</span></p>
+
 </details>
+
+> TODO: but how do we come up with such retiming?
 
 [^1]: Can think of it as a transformation which transforms a vertex into an integer.
 
 [^2]: **Extremal vertices** are the **first and last vertices** of a path in a network.
+
+[^3]: alphabetical
