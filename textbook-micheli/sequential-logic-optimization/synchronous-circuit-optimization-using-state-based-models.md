@@ -16,14 +16,33 @@ We consider in this section algorithms for sequential optimization using **state
 The **state minimization problem** aims at reducing the number of **machine states**. This leads to a reduction in the size of the **state transition graph**. **State reduction** may correlate to a reduction of the number of **storage elements**. (When states are **encoded** with a **minimum number of bits**, the number of **registers** is the **ceiling** of the logarithm of the number of states.) The reduction in **states** correlates to a reduction in **transitions**, and hence to a reduction of **logic gates**.
 
 {% hint style="warning" %}
-In Harris and Harris [DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/finite-state-machines#example-fsm-state-encoding), we have seen that using one-hot encoding can reduce the logic gates used. Here, both the normal binary encoding and one-hot encoding has the **same number of** states. So, the last sentence "the reduction in states ..." still holds. We will discuss about state encoding later in this section.
+In Harris and Harris [DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/finite-state-machines#example-fsm-state-encoding), we have seen that using one-hot encoding can reduce the logic gates used. Here, both the normal binary encoding and one-hot encoding has the **same number of** states. So, the last sentence "the reduction in states ..." still holds. We will discuss about [state encoding](synchronous-circuit-optimization-using-state-based-models.md#state-encoding) later in this section.
 {% endhint %}
 
 **State minimization** can be defined informally as deriving a **finite-state machine** with **similar behavior** and a **minimum number of states**. A more precise definition relies on choosing to consider **completely** (or **incompletely**) specified **finite-state machines**. This decision affects the **formalism**, the **problem complexity**, and the **algorithms**. Hence, **state minimization** is described separately for both cases in the following sections.
 
+* In a **Completely Specified FSM:**
+  * No Don't care conditions
+  * Polynomial-time solutions
+* In an **Incomplete Specified FSM:**
+  * Unspecified transitions and/or outputs
+  * Intractable problem
+
+<details>
+
+<summary>Food for thought on solving incomplete specified FSM using polynomial-time solutions</summary>
+
+Each **don’t-care** entry can take one of two values, 0 or 1. In principle, we could expand every don’t care into both possibilities, thereby transforming an **incompletely specified FSM** into a **completely specified FSM**. Once fully specified, existing **polynomial-time algorithms** could be applied.
+
+However, if there are $$n$$ don’t-care entries, exhaustive expansion produces $$2^n$$ additional cases. Applying a polynomial-time algorithm to this expanded FSM does not yield a polynomial-time solution overall, because the exponential blow-up occurs _before_ the polynomial step. In effect, the complexity is dominated by the expansion rather than the solving phase.
+
+This raises a natural question: **does a meaningful trade-off exist?** Specifically, is there a threshold on $$n$$ below which full expansion remains tractable, allowing us to obtain an **exact solution** rather than relying on **heuristic methods**? Or, equivalently, can we characterize a regime where limited expansion preserves practical polynomial behavior while avoiding exponential explosion?
+
+</details>
+
 ### Optimization for Completely Specified FSM
 
-When considering **completely specified finite-state machines**, the **transition function** δ\deltaδ and the **output function** λ\lambdaλ are specified for each pair $$(\text{input}, \text{state}) \in X \times S$$. Two **states** are **equivalent** if the **output sequences** of the finite-state machine, initialized in the two states, **coincide for any input sequence**. Equivalency is checked by using the result of the following **theorem**.
+When considering **completely specified finite-state machines**, the **transition function** $$\delta$$ and the **output function** $$\lambda$$ are specified for each pair $$(\text{input}, \text{state}) \in X \times S$$. Two **states** are **equivalent** if the **output sequences** of the finite-state machine, initialized in the two states, **coincide for any input sequence**. Equivalency is checked by using the result of the following **theorem**.
 
 > **Theorem 9.2.1.** Two **states** of a **finite-state machine** are **equivalent** if and only if, for any **input**, they have **identical outputs** and the corresponding **next states** are **equivalent**.
 
@@ -31,7 +50,7 @@ Now, we will introduce two methods to do the state optimization.
 
 #### Normal Method
 
-> ODO: Missing formal notation because the lack of the following maths from Discrete Maths
+> TODO: Missing formal notation because the lack of the following maths from Discrete Maths
 >
 > 1. Symmetic, reflexive, transitive
 > 2. Equivalence classes.
