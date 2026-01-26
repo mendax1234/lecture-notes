@@ -508,6 +508,16 @@ Not all `reg`s will be inferred as physical registers.
 
 {% step %}
 #### **Do not** assume registers and memory have 0s as initial value
+
+In ASIC, below is a simplified circuitry to initialize register content to 0.
+
+<figure><img src="../.gitbook/assets/circuit-init-reg.png" alt=""><figcaption></figcaption></figure>
+
+In FPGA, the similar functionality is built and asserted when programming a bitstream. However, if we don't write the **explicit** reset code, FPGA will either initialize it to 0 or 1 and it cannot be decided.
+
+{% hint style="warning" %}
+This problem will appear when we want to design a kind of memory and more can be found in my [Mach-V](https://mendax1234.github.io/Mach-V/) project's branch history table and branch target buffer part as both of them need me to code a RAM.
+{% endhint %}
 {% endstep %}
 {% endstepper %}
 
@@ -526,7 +536,7 @@ To write RTL for **more complex combinational circuit**, use
 
 These are the same as Harris & Harris, besides that, we also recommend that
 
-1.  Every `reg` must be assigned a meaningful value (not something like `Z <= Z;`) for    &#x20;every possible combination of inputs (e.g., all branches of `if/case` statements). Otherwise, that `reg` will become **physical register** and it is no longer a combinational circuit anymore. For example, the following is correct
+1.  Every `reg` must be assigned a meaningful value (not something like `Z <= Z;`) for    &#x20;every **possible combination** of inputs (e.g., all branches of `if/case` statements). Otherwise, that `reg` will become **physical register** and it is no longer a combinational circuit anymore (This is very dangerous!). For example, the following code is **correct**<br>
 
     <pre class="language-verilog" data-line-numbers><code class="lang-verilog">always @(*)
     begin
@@ -536,9 +546,12 @@ These are the same as Harris & Harris, besides that, we also recommend that
             Z = Y;
     end
     </code></pre>
+
+
+
 2. Two cases with blocking and non-blocking statements in `always @(*)`
    1. Blocking executes **immediately, in order**. So if a `reg` is used on both **left-hand side (LHS)** and **right-hand side (RHS)**, we should assign it **first** before we read it. (that `reg` should appear on LHS before RHS)
-   2.  Non-blocking executes **in parallel at the end of the clock edge**, so within the same block we’ll **never see the updated value** in the RHS. For example, in the following code snippet, `Z` in Line 5 will hold the old value of `Z`.
+   2.  Non-blocking executes **in parallel at the end of the clock edge**/**at the end of the always block**, so within the same block we’ll **never see the updated value** in the RHS. For example, in the following code snippet, `Z` in Line 5 will hold the old value of `Z`.<br>
 
        <pre class="language-verilog" data-line-numbers><code class="lang-verilog">always @ (*)
        begin
@@ -548,7 +561,25 @@ These are the same as Harris & Harris, besides that, we also recommend that
        end
        </code></pre>
 
-In short, rule 1 and rule 2(a) are important! For the rule 2(b), just never use **non-blocking** statement in `always @(*)`.
+
+3.  Use **blocking assignment** (`=`) for **internal calculations** (e.g., variables used only internally in the always block) and **non-blocking assignment** (`<=`) for the **outputs** of the always block (e.g., signals used as inputs to RHS in other blocks and **not within** the same block) works.<br>
+
+    <pre class="language-verilog" data-line-numbers><code class="lang-verilog">always @(*)
+    begin
+        notX = ~X;
+        Z &#x3C;= notX &#x26; Y;
+    end
+    </code></pre>
+
+    The code above will be synthesized into the <br>
+
+    <figure><img src="../.gitbook/assets/vhdl-like-verilog.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="warning" %}
+Rule 3 will make your code more VHDL-like but lint tools may complain.
+{% endhint %}
+
+In short, rule 1 and rule 2(a) are important! For the rule 2(b) and rule 3, just never use **non-blocking** statement in `always @(*)`.
 {% endstep %}
 
 {% step %}
@@ -561,8 +592,8 @@ Synchronous means that the output changes only on the rising or falling edge of 
 
 By keeping the above two rules, we should be able to avoid 99% of problems. But the remaining 1%, will probably be in the paper exam. 😂
 
-1. Use **non-blocking** assignments for the outputs of the always block (signals),   &#x20;as well as for any internal physical registers. But the updated values are **not available** for use at the **same clock edge**. (See Step 1, rule 2(b) example)
-2.  If we insist on using blocking assignments for internal combinational parts (variables). In this case, the variable should appear on the LHS **before** RHS.
+1. Use **non-blocking** assignments (`<=`) for the **outputs of the always block** (signals),   &#x20;as well as for any **internal physical registers**. But the updated values are **not available** for use at the **same clock edge**. (See Step 1, rule 2(b) example)
+2.  If we insist on using **blocking assignments** (`=`) for internal combinational parts (variables). In this case, the variable should appear on the LHS **before** RHS.<br>
 
     <pre class="language-verilog" data-line-numbers><code class="lang-verilog">always @ (posedge CLK)
     begin
@@ -572,7 +603,7 @@ By keeping the above two rules, we should be able to avoid 99% of problems. But 
     end
     </code></pre>
 
-    1. However, it is **recommended** to move combinational parts into a separate `always` block or `assign` statement so that the original block just becomes a register.
+    1. However, it is **recommended** to move combinational parts into a separate `always` block or `assign` statement so that the original block just becomes a **register**.
 {% endstep %}
 
 {% step %}
@@ -595,7 +626,21 @@ In short, Prof. Rajesh recommends to **never** use resettable registers in this 
 In Verilog, `reg` doesn't mean it is a physical registers. The following rules summarize when are physiscal registers actually inferred
 
 1. non-blocking assignments of `reg`s in a synchronous `always` block
-2. In an `always @(posedge clk)`, if we use **blocking assignment** (`=`) to read a reg (RHS) before writing it (LHS), that `reg` is inferred as a **physical register**.
+2. In an `always @(posedge clk)`,
+   1. if we use **blocking assignment** (`=`) to read a reg (RHS) before writing it (LHS), that `reg` is inferred as a **physical register**.
+   2.  If the output is assigned to a `reg` using **blocking assigment** (`=`) and this output is used at the RHS in some other always block (can be `@(*)` or `@(posedge CLK)`)<br>
+
+       <pre class="language-verilog" data-line-numbers><code class="lang-verilog">always @(posedge CLK)
+       begin
+           tmp = X | Y;
+           Z = tmp;
+       end
+
+       always @(posedge CLK)
+       begin
+           A &#x3C;= Z;
+       end
+       </code></pre>
 
 {% hint style="danger" %}
 Inferring using the **second** way is **not recommended**!
