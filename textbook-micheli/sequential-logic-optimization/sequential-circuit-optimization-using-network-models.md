@@ -170,3 +170,120 @@ We present **retiming** first. Then we survey **recent results** on **synchronou
 {% hint style="warning" %}
 The combination of **retiming** and **network transformation** is combined into one thing call "[RTL Transformation](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/lecture/lec-02/lec-02b-rtl-transformations)" which is introduced in NUS EE4415.
 {% endhint %}
+
+## Retiming
+
+**Retiming algorithms** address the problem of minimizing the **cycle-time** or the **area** of **synchronous circuits** by changing the **position of the registers**. Recall that the **cycle-time** is bounded from below by the **critical path delay** in the **combinational component** of a synchronous circuit, i.e., by the **longest path between a pair of registers**. Hence, **retiming** aims at placing the **registers** in appropriate positions so that the **critical paths** they embrace are as **short as possible**.
+
+Moving the registers may **increase or decrease** the **number of registers**. Thus, **area minimization by retiming** corresponds to minimizing the **overall number of registers**, because the **combinational component** of the circuit is **not affected**.
+
+### Modeling and Assumptions for Retiming
+
+We describe first the original **retiming algorithms** of **Leiserson and Saxe**, using a **graph model** that abstracts the **computation performed at each vertex**. Indeed, **retiming** can be applied to **networks** that are more general than **synchronous logic networks**, where **any type of computation** is performed at the **vertices** (e.g., **arithmetic operations**).
+
+#### Modeling
+
+When modeling circuits for **retiming**, it is convenient to represent the **environment** around a **logic circuit** within the **network model**. Hence, we assume that **one or more vertices** perform **combined input/output operations**.
+
+{% hint style="warning" %}
+With this model, **no vertex** is a **source** or **sink** in the **graph**.
+{% endhint %}
+
+Because of the **generality of the model**, we shall refer to it as a **synchronous network** and denote it by $$G_{sn}(V, E, W)$$. We shall **defer to a later section** a discussion of **specific issues** related to **modeling the environment**, such as representing **distinguished primary input and output ports** (e.g., **Figure 9.7**).
+
+<details>
+
+<summary>Example of a modeling of a synchronous network</summary>
+
+A **synchronous network** is shown in **Figure 9.8**. The **numbers above the vertices** represent the **propagation delays**.
+
+<figure><img src="../../.gitbook/assets/example-synchronous-network.png" alt=""><figcaption><p>Figure 9.8 Example of synchronous network</p></figcaption></figure>
+
+</details>
+
+{% hint style="danger" %}
+The **retiming algorithms** proposed by **Leiserson and Saxe** assume that **vertices** have **fixed propagation delays**. Unfortunately, this is a **limitation** that may lead to **inaccurate results**. When **registers** have **input loads** different from other **gates**, shifting the **registers** in the circuit may indeed **affect the propagation delays**.
+{% endhint %}
+
+#### Math Notations
+
+By using the retiming algorithms proposed by Leiserson and Saxe, we need to know the following notations first
+
+{% stepper %}
+{% step %}
+#### The Path Delay
+
+We consider **topological critical paths** only. Hence, the **path delay** between two **registers** (identified by **non-zero weights** on some edges) is the **sum of the propagation delays** of the **vertices** along that path, **including the extremal vertices**. For a given **path** $$(v_i, \ldots, v_j)$$, we define the **path delay** as:
+
+$$
+d(v_i, \dots, v_j) = \sum_{\substack{k \\ v_k \in (v_i, \dots, v_j)}} d_k
+$$
+{% endstep %}
+
+{% step %}
+#### The Path Weight
+
+Note that the **path delay** is defined **independently** of the presence of **registers** along that path. The **path delay** must not be confused with the **path weight**, which relates to the **register count** along that path. For a given **path** $$(u_i, \ldots, u_j)$$, we define the **path weight** as:
+
+$$
+w(v_i, \dots, v_j) = \sum_{\substack{k,l \\ (v_k, v_l) \in (v_i, \dots, v_j)}} w_{kl}
+$$
+{% endstep %}
+
+{% step %}
+#### The Retiming of a Vertex
+
+**Retiming a vertex** means moving **registers** from its **outputs** to its **inputs**, or vice versa. When this is possible, the **retiming** of a **vertex** is an **integer** that measures the amount of **synchronous delays** that have been moved.
+
+* A **positive value** corresponds to shifting **registers** from the **outputs** to the **inputs**,
+* a **negative value** corresponds to shifting them in the **opposite direction**.
+
+For example, consider the **circuit fragment** shown in **Figure 9.9(a)**, whose **network** is shown in **Figure 9.9(b)**. A **retiming** of **vertex** $$v_i$$**​** by **1** leads to the **circuit fragment** of **Figure 9.9(c)**, whose **network** is shown in **Figure 9.9(d)**.
+
+<figure><img src="../../.gitbook/assets/retiming-a-vertex.png" alt=""><figcaption><p>Figure 9.9 Retiming a vertex</p></figcaption></figure>
+{% endstep %}
+
+{% step %}
+#### The Retiming of a Network
+
+The **retiming of a network** is represented by a **vector** $$r$$, whose elements are the **retiming values** for the corresponding **vertices**. **Retiming** can be formally defined as follows.
+
+> A **retiming** of a **network** $$G_{sn}(V, E, W)$$ is an [**integer-valued vertex labeling**](#user-content-fn-1)[^1] $$r: V \to \mathbb{Z}$$ that **transforms** $$G_{sn}(V, E, W)$$ into $$\tilde{G}_{sn}(V, E, \tilde{W})$$, where for each **edge** $$(v_i,v_j)\in E$$, the **weight after retiming** $$\tilde{w_{ij}}$$ is equal to $$\tilde{w_{ij}}=w_{ij}+r_j-r_i$$.
+
+Consider the **network fragment** shown in **Figures 9.9(b) and (d)**. The **weight** $$w_{cx}=1$$ **before retiming**. Since $$r_c=1$$ and $$r_x=0$$, the **weight after retiming** is $$\tilde{w_{cx}}=1+0-1=0$$.
+{% endstep %}
+
+{% step %}
+#### The property of path weight
+
+It is simple to show that the **weight on a path** depends only on the **retiming of its** [**extremal vertices**](#user-content-fn-2)[^2], because the **retiming of the internal vertices** moves **registers within the path itself**. Namely, for a given **path** $$(v_i,\dots,v_j)$$:
+
+$$
+\tilde{w}(v_i,\dots,v_j)=w(v_i,\dots,v_j)+r_j-r_i
+$$
+
+As a consequence, **weights on cycles** are **invariant under retiming**. Note that the **path delay** is **invariant with respect to retiming** by definition.
+{% endstep %}
+{% endstepper %}
+
+#### The Legality of Retiming
+
+A **retiming** is said to be **legal** if the **retimed network** has **no negative weights**. **Leiserson and Saxe** proved formally that **networks obtained by legal retiming** are **equivalent** to the **original ones**. Moreover, they also showed that **retiming** is the **most general method** for **changing the register count and position** without knowing the **functions performed at the vertices**. Hence, the **family of networks equivalent** to the **original ones** can be **characterized** by the **set of legal retiming vectors**.
+
+<details>
+
+<summary>Example of a legal retiming of a network</summary>
+
+Consider the **network of Figure 9.8**. An **equivalent network** is shown in **Figure 9.10**, corresponding to the **retiming vector**
+
+<p align="center"><span class="math">r=-[11222100]^T</span></p>
+
+where the **entries** are associated with the **vertices** in **lexicographic order**.
+
+<figure><img src="../../.gitbook/assets/retimned-network.png" alt=""><figcaption><p>Figure 9.10 Retimed network</p></figcaption></figure>
+
+</details>
+
+[^1]: Can think of it as a transformation which transforms a vertex into an integer.
+
+[^2]: **Extremal vertices** are the **first and last vertices** of a path in a network.
