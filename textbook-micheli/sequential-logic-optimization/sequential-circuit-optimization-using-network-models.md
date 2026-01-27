@@ -296,10 +296,61 @@ To verify this retiming by hand, let's take edge $$v_a\to v_b$$ for example,
 
 </details>
 
-> TODO: but how do we come up with such retiming?
+### Cycle-Time Minimization
+
+**Retiming** a circuit affects its **topological critical paths**. The goal of this section is to show how an **optimum retiming vector** can be determined that **minimizes the length of the topological critical path** in the network.
+
+<details>
+
+<summary>Example of the topological critical path</summary>
+
+Consider the network of [Figure 9.8](sequential-circuit-optimization-using-network-models.md#example-of-a-modeling-of-a-synchronous-network). The **topological critical path** is $$v_d, v_e, v_f, v_g, v_h)$$, whose **delay** is **24 units**. Consider instead the network of [Figure 9.10](sequential-circuit-optimization-using-network-models.md#example-of-a-legal-retiming-of-a-network). The **topological critical path** is $$(v_b, v_c, v_e)$$, whose **delay** is **13 units**.
+
+</details>
+
+#### Math Notations
+
+Before we move on, let's define some math notations that will be used in the following section
+
+{% stepper %}
+{% step %}
+#### Path Weight and Delay
+
+We have see the difference between path weight and path delay from [above](sequential-circuit-optimization-using-network-models.md#definition-of-the-synchronous-logic-network), now let's give them a formal definition.
+
+* **Path Weight (**$$W(v_{i}, v_{j})$$) :For each ordered vertex pair $$v_{i}, v_{j} \in V$$, we define $$W(v_{i}, v_{j}) = \min w(v_{i}, \dots, v_{j})$$ over all paths from $$v_{i}$$ to $$v_{j}$$.
+* **Path Delay** ($$D(v_i,v_j)$$): Similarly, we define $$D(v_{i}, v_{j}) = \max d(v_{i}, \dots, v_{j})$$ over all paths from $$v_{i}$$ to $$v_{j}$$ with weight $$W(v_{i}, v_{j})$$.
+
+{% hint style="danger" %}
+The quantity $$D(v_{i}, v_{j})$$ is the **maximum delay** on a path with **minimum** register count between two vertices.
+{% endhint %}
+{% endstep %}
+
+{% step %}
+#### Time Feasibility for a Network
+
+For a given cycle-time $$\phi$$, we say that the network is **timing feasible** if it can operate correctly with a cycle-time $$\phi$$, i.e., its **topological critical path** has delay $$\phi$$ or less.
+
+* This condition can be restated by saying that the circuit operates correctly if any path whose delay is larger than $$\phi$$ is "broken" by **at least one register**, or equivalently its weight is larger than or equal to 1.
+* This[^4] can be shown to be equivalent to saying that the circuit operates correctly if and only if $$W(v_{i}, v_{j}) \geq 1$$ for all pairs $$v_{i}, v_{j} \in V$$ such that $$D(v_{i}, v_{j}) > \phi$$.
+
+The usefulness of relating the retiming theory to the quantities $$W(v_{i}, v_{j})$$ and $$D(v_{i}, v_{j})$$ is that
+
+* they are **unique** for **each vertex pair** and capture the most stringent timing requirement between them.
+* In addition, $$\tilde{W}(v_{i}, v_{j}) = W(v_{i}, v_{j}) + r_{j} - r_{i}$$ and $$\tilde{D}(v_{i}, v_{j}) = D(v_{i}, v_{j})$$. These quantities can be computed by using an all-pair shortest/longest path algorithm, such as Warshall-Floyd.
+
+We denote by $$W$$ and $$D$$ the **square matrices** of size $$|V|$$ containing these elements. This means we have 2 VxV square matrices which are used to store the path weight and delay of every "possible" edge in the network.
+
+{% hint style="warning" %}
+We say that a **retiming vector** is feasible if it is **legal** and the **retimed network** is **timing feasible** for a given cycle-time $$\phi$$.
+{% endhint %}
+{% endstep %}
+{% endstepper %}
 
 [^1]: Can think of it as a transformation which transforms a vertex into an integer.
 
 [^2]: **Extremal vertices** are the **first and last vertices** of a path in a network.
 
 [^3]: alphabetical
+
+[^4]: The first bullet point.
