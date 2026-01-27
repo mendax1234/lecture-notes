@@ -292,33 +292,58 @@ In this case, we can clearly see that
 
 </details>
 
-## Pipelining
+## Register Insertion
 
-We first met pipelining in [CG3207](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-05-the-pipelined-processor)! The primary goal of **pipelining** or **register insertion** is to add pipeline registers to a circuit to reduce the critical path (improving frequency) without altering the circuit's logical functionality.
+> This is the part that is not covered in any textbook! It will be useful when we introduce **repipelining** ,which is basically **retiming + registration insertion**.
+
+The primary goal of **register insertion** is to add registers to a circuit to reduce the critical path (improving frequency) without altering the circuit's logical functionality.
 
 {% hint style="danger" %}
-**Trade-offs** of pipelining: In a **non-pipelined** design, adding registers increases latency (signals must cross more registers to reach the output) and area, but it is necessary for enabling transformations like retiming or folding.
+**Trade-offs** of register insertion: In a **non-pipelined** design, adding registers increases latency (signals must cross more registers to reach the output) and area, but it is necessary for enabling transformations like retiming.
 {% endhint %}
 
-### Cutset
+### Cutset Insertion
 
 We cannot insert registers anywhere. That's why we need this tool called **cutset** to help us. A **cutset** is a tool used to isolate a specific section of the circuit graph. It is the _**minimal**_**&#x20;set of edges** (wires) whose removal would disconnect the graph into two separate parts ($$G_1$$ and $$G_2$$).
+
+{% hint style="danger" %}
+We must either remove **all** edges in the cutset or leave them all intact.
+{% endhint %}
 
 To find the **cut-set**, we can imagine drawing a closed "Gaussian surface" (a bubble) around a group of nodes. The edges that cross this boundary line form the cutset. Each edge must be crossed exactly once. For example, in the diagram below, the two <mark style="color:red;">red</mark> arrows form a cutset.
 
 <figure><img src="../../.gitbook/assets/cut-set-example.png" alt="" width="563"><figcaption></figcaption></figure>
 
-Once either of the above two red arrow is cut, no path exists between $$G_1$$ and $$G_2$$; they are completely mathematically independent.
+Once **both of** the two red arrow is cut, no path exists between $$G_1$$ and $$G_2$$; they are completely mathematically independent.
+
+<details>
+
+<summary>How to find the gaussian surface?</summary>
+
+Using the term _Gaussian surface_ may be confusing here, since it originates from electrostatics (the focus of FDP2021). But the underlying idea is simply **partition -> enclose -> identify boundary edges**.
+
+1. **Step 1 Choose a partition:** Select the set of nodes you want to isolate (the “inside” set).
+   1. Example: To separate the left cluster from the right, choose `{A, B, C}`.
+   2. Example: To isolate a single node, choose `{D}`.
+2. **Step 2 Enclose the partition:** Draw a continuous dashed line around the chosen nodes. This line is just a visual boundary.
+3. **Step 3 Identify the cut-set:** Examine the edges:
+   1. Edges with both endpoints inside the boundary -> ignore.
+   2. Edges with both endpoints outside the boundary -> ignore.
+   3. Edges crossing the boundary (one endpoint inside, one outside) -> **cut-set edges**.
+
+</details>
 
 #### Feedforward Cutset
 
-Not all cutsets allow for safe register insertion. We must identify a **Feedforward** Cutset. A cutset is "feedforward" if **all** its edges point in the **same direction** which means they must all be incoming to the bubble or all outgoing from it.
+Not all cutsets allow for safe register insertion. We must identify a **Feedforward** Cutset. A cutset is "feedforward" if **all** its edges point in the **same direction**. In other words, the edges in the cutset must all be incoming to the bubble or all outgoing from it.
 
 <figure><img src="../../.gitbook/assets/feedforward-cutset-example.png" alt="" width="563"><figcaption></figcaption></figure>
 
 #### Feedforward Cutset Register Insertion
 
-The **feedforward cutset register insertion rule** indicates that we can insert $$k$$ cascaded registers into every single edge of a feedforward cutset without breaking the circuit's functionality. The result is that the logic remains valid, but the processing latency increases by $$k$$ clock cycles at that edge.
+> The intuition behind this rule is that, once understood, it can be applied visually to any situation — no math and no calculations required.
+
+The **feedforward cutset register insertion rule** indicates that we can insert $$k$$ cascaded registers into **every single edge** of a feedforward **cutset** without breaking the circuit's functionality. The result is that the logic remains valid, but the processing latency increases by $$k$$ clock cycles at that edge.
 
 {% hint style="danger" %}
 This rule never holds in a loop! It is only valid in a feedforward cutset!
@@ -328,13 +353,19 @@ This rule never holds in a loop! It is only valid in a feedforward cutset!
 
 <summary>Proof of the feedforward cutset register insertion rule</summary>
 
-Functionality is preserved because the relative timing between signals inside $$G_1$$ and $$G_2$$ stays constant. Since _all_ signals crossing the boundary are delayed by the exact same amount ($$k$$), the sub-circuits just see the same data sequence shifted in time.
+Functionality is preserved because the **relative timing** between signals inside $$G_1$$ and $$G_2$$ stays constant. Since _all_ signals crossing the boundary are delayed by the exact same amount ($$k$$), the sub-circuits just see the same data sequence shifted in time.
+
+<figure><img src="../../.gitbook/assets/feedforward-cutset.png" alt="" width="491"><figcaption><p>Feedforward cutset</p></figcaption></figure>
+
+{% hint style="success" %}
+In the figure above, this is a **feedforward cutset** and we can see clearly that as $$G_2$$ doesn't send any signal back to $$G_1$$, it is valid to add any number of registers to the **inputs** of $$G_2$$.
+{% endhint %}
 
 This is generally impossible in loops because loops usually create bidirectional (non-feedforward) cutsets. As we have seen above in the "[recursive DFGs](https://wenbo-notes.gitbook.io/ee4415-icd-notes/lecture/lec-02/lec-02b-rtl-transformations#recursive-dfgs)", adding registers in a loop changes the recursion depth (e.g., changing $$x[i-1]$$ to $$x[i-3]$$), which alters the math.
 
-</details>
+<figure><img src="../../.gitbook/assets/non-feedforward-cutset.png" alt="" width="489"><figcaption><p>Non-feedforward cutset</p></figcaption></figure>
 
-> Add an example of using this rule!
+</details>
 
 From this rule, we have the following observations
 
@@ -342,9 +373,11 @@ From this rule, we have the following observations
 {% step %}
 #### I/O Insertion
 
-Primary inputs and outputs are technically special cases of feedforward cutsets. Therefore, we can **always** safely insert pipeline registers at the very beginning or very end of a digital module.
+Primary inputs and outputs are technically special cases of feedforward cutsets. Therefore, we can **always** safely insert registers at **all** inputs/outputs of a system without affecting its functionality.
 
 <figure><img src="../../.gitbook/assets/feedforward-cutset-rule-observation-1.png" alt=""><figcaption></figcaption></figure>
+
+> TODO: The reason for the validaty of doing so is that we can easily partition the whole system into one group and all the outside as another group, so all the inputs and outputs form a non-feedforward cutset? So do we treat all the primary inputs and outputs as two separate partitions/groups?
 {% endstep %}
 
 {% step %}
@@ -366,28 +399,52 @@ In specific architectures like parallel/interleaved filters (e.g., 3-tap FIR fil
 
 <summary>Example of adding registers on non-feedforward cutset fails</summary>
 
-The counterexample has been introduced in the "[recursive DFGs](https://wenbo-notes.gitbook.io/ee4415-icd-notes/lecture/lec-02/lec-02b-rtl-transformations#recursive-dfgs)" already. Below is a diagram which makes it more intuitive
+The counterexample has been introduced in the "[recursive DFGs](https://wenbo-notes.gitbook.io/ee4415-icd-notes/lecture/lec-02/lec-02b-rtl-transformations#recursive-dfgs)" already. Below is a diagram which makes it (The MAC, which is the core of most modern NPUs) more intuitive
 
 <figure><img src="../../.gitbook/assets/non-feedforward-cutset-fail.png" alt=""><figcaption></figcaption></figure>
 
+{% hint style="danger" %}
+As this cutset is not a feedforward cutset, it is **not valid** to add registers at all the edges in this cutset!
+{% endhint %}
+
 </details>
 
-### Time Interleaving
+### N-Slowing Insertion
+
+As discussed above, **register insertion is only valid across a feedforward cutset**. In other words, **registers cannot be inserted directly into a loop**, since doing so would alter the circuit’s behavior.
+
+To address this limitation, we use the **N-slowing technique**. The idea is to replace **every register in the entire system** with **N cascaded registers**.
+
+<figure><img src="../../.gitbook/assets/n-slowing.png" alt=""><figcaption></figcaption></figure>
+
+This transformation is equivalent to replacing each original register with a **single register that has an N-cycle delay**. As a result:
+
+* The **I/O latency increases by a factor of N**, since signals must now pass through N additional registers.
+* The **functional behavior is preserved**, but observed at different clock cycles.
+* Equivalently, the system’s **time scale is dilated by a factor of N** ( $$x_{\text{N-slow}}(N\cdot i) = x(i)$$).
+
+So, now the signal dependency and periodicity can be summarized as follows,
+
+<figure><img src="../../.gitbook/assets/signal-dependency-analysis.png" alt=""><figcaption></figcaption></figure>
+
+From this table, we observe that the **step width for processing a single data stream increases from 1 cycle to N cycles**. This means that the system’s functionality no longer depends on the intermediate cycles within each N-cycle window.
+
+As a result, these intermediate cycles can be used to process **additional independent data streams**. In other words, the system can interleave **N independent data streams**, processing one stream per cycle over the N cycles. This is the **time interleaving** technique we will see later.
+
+{% hint style="success" %}
+Note that the second row mean "The system's functionality only depends on the **current** and **past** inputs".
+{% endhint %}
+
+#### Time Interleaving
 
 > This is actually the third technique of retiming, which will be discussed in detail later. Thus, this section will just give you a taste of this technique.
-
-{% stepper %}
-{% step %}
-#### Time Interleaving
 
 The primary motivation for N-Slowing is to enable **Time Interleaving**, which allows a single hardware block to process $$N$$ parallel data streams (channels).
 
 * **Periodicity**: In an N-slowed system, a signal at time $$t$$ depends only on signals from time $$t-N$$. The intermediate cycles ($$t-1, \dots, t-(N-1)$$) are mathematically independent.
 * **Utilization**: We can inject $$N$$ distinct input streams (e.g., Channel 1, Channel 2... Channel N) into these independent time slots.
 * **Hardware Efficiency**: A single physical circuit does the work of $$N$$ parallel circuits, saving area at the cost of running $$N$$ times faster.
-{% endstep %}
 
-{% step %}
 #### Practical Example
 
 One example of using N-slowing and time interleaving technique is the MAC example. In the MAC, the recursion formula is $$Out(i) = (A \cdot B) + Out(i-1)$$.
@@ -401,6 +458,8 @@ Suppose we are under the second situation, the dependency changes from $$i-1$$ t
 * **The "Waiting Room"**: While the hardware processes Streams B, C, and D (cycles 2, 3, 4), Stream A's data shifts through the register chain, safe and isolated.
 * **Reconnection**: Exactly at Cycle 5, Stream A returns. Stream A's old data falls out of the $$N^{th}$$ register at that exact moment, allowing the adder to correctly compute $$New\_A + Old\_A$$.
 
+<figure><img src="../../.gitbook/assets/n-slowed-mac.png" alt=""><figcaption></figcaption></figure>
+
 This will bring us the following benefits
 
 * **Throughput**: The system processes $$N$$ channels using only 1 physical MAC unit (area efficient).
@@ -409,12 +468,12 @@ This will bring us the following benefits
 {% hint style="success" %}
 For more on Timing Interleaving, you can refer to [below](lec-02b-rtl-transformations.md#time-interleaving-2).
 {% endhint %}
-{% endstep %}
-{% endstepper %}
 
 ## Parallelism
 
-**Parallelism** in digital integrated circuits is achieved by replicating a fundamental operator / processing unit $$n$$ times, where $$n$$ represents the _degree of parallelism_. By distributing sequential inputs across these $$n$$ replicas, the system maintains the external data rate ($$1/T_{CK}$$) while allowing each individual hardware unit to operate at a significantly reduced rate ($$1/(n \cdot T_{CK})$$). This relaxation in timing constraints allows the internal logic to complete computations over a duration of $$n$$ clock cycles rather than one, effectively trading silicon area for timing slack.
+> As we have seen above, **N-slowing insertion** is one technique to allow SIMD (Single Instruction  Multiple Data stream) processing. Besides that, we can also use **parallelism** to achieve SIMD.
+
+**Parallelism** in digital integrated circuits is achieved by replicating a fundamental operator / processing unit $$n$$ times, where $$n$$ represents the _degree of parallelism_. By distributing sequential inputs across these $$n$$ replicas, the system maintains the external data rate ($$1/T_{CK}$$) while allowing each individual hardware unit to operate at a significantly reduced rate ($$1/(n \cdot T_{CK})$$). This relaxation in timing constraints allows the internal logic to complete computations over a duration of $$n$$ clock cycles rather than one, effectively trading **silicon area** for **timing**.
 
 <figure><img src="../../.gitbook/assets/parallelism-example.png" alt=""><figcaption></figcaption></figure>
 
@@ -433,6 +492,36 @@ One method to distribute inputs is to use shifted clock phases. In this architec
 <figure><img src="../../.gitbook/assets/shifted-clock-phase.png" alt=""><figcaption></figcaption></figure>
 
 However, this approach requires complex clock generation circuitry, such as ring counters or glitch-free clock gating logic (using latches to synchronize enable signals), to ensure precise timing and prevent race conditions.
+
+{% stepper %}
+{% step %}
+#### Ring Counter
+
+<figure><img src="../../.gitbook/assets/ring-counter.png" alt="" width="563"><figcaption></figcaption></figure>
+
+{% hint style="warning" %}
+This is usually hard to implement because the synthesis tool will always give out warnings on this kind of design.
+{% endhint %}
+{% endstep %}
+
+{% step %}
+#### Clock Gating
+
+This technique is highly **not recommended** in both CG3207 and EE4218. However, Prof Massimo introduces an elegant way to deal with the **glitch** that may occur during the clock gating.
+
+<figure><img src="../../.gitbook/assets/clock-gating.png" alt=""><figcaption></figcaption></figure>
+
+In this system, **glitches mainly originate from the comparator**, which compares the counter value with the target value $$i$$ to generate a slower, gated clock. Since the comparator is a **combinational circuit**, it can output can momentarily glitch.
+
+To prevent these glitches from propagating to the gated clock, a **level-sensitive latch** is inserted after the comparator. The latch is **transparent only when** `clk = 0`, allowing the enable signal (`EN`) to update safely during the low phase of the clock. When `clk = 1`, the latch closes and **holds `EN` constant**, even if the comparator output glitches.
+
+As a result, the slowered clk `clki` ticks high **once** every N ticks of the main clock `clk`.
+
+{% hint style="danger" %}
+**Clock gating can generate an N-slowed clock, but it is not a 50% duty cycle.** To obtain an N-slowed clock with a precise 50% duty cycle, a **clock divider** must be used instead.
+{% endhint %}
+{% endstep %}
+{% endstepper %}
 
 #### SIPO/PISO Converters
 
