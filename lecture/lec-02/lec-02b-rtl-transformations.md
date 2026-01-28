@@ -427,12 +427,12 @@ So, now the signal dependency and periodicity can be summarized as follows,
 
 <figure><img src="../../.gitbook/assets/signal-dependency-analysis.png" alt=""><figcaption></figcaption></figure>
 
-From this table, we observe that the **step width for processing a single data stream increases from 1 cycle to N cycles**. This means that the system’s functionality no longer depends on the intermediate cycles within each N-cycle window.
+From this table, we observe that the "**step width" for processing a single data stream increases from 1 cycle to N cycles**. This means that the system’s functionality no longer depends on the intermediate cycles within each N-cycle window.
 
 As a result, these intermediate cycles can be used to process **additional independent data streams**. In other words, the system can interleave **N independent data streams**, processing one stream per cycle over the N cycles. This is the **time interleaving** technique we will see later.
 
 {% hint style="success" %}
-Note that the second row mean "The system's functionality only depends on the **current** and **past** inputs".
+Note that the second row means that "The system's functionality only depends on the **current** and **past** inputs".
 {% endhint %}
 
 #### Time Interleaving
@@ -641,6 +641,8 @@ $$
 
 ### Performance Analysis
 
+Here, we are doing the PPA analysis on **parallelism** vs. a **reference sequential** (non-pipelined) **design**.
+
 #### Performance
 
 The performance analysis can be divided into throughput and latency analysis
@@ -663,12 +665,14 @@ n \frac{1}{1 + \dfrac{\tau_{\text{MUX}}}{\tau_{\text{COMB}} + t_{\text{OH}}}}
 $$
 
 * Improves by factor $$\approx n$$.
-  * _Limitation:_ Slightly less than ideal $$n$$ due to MUX delay ($$\tau_{MUX}$$) affecting the critical path.
-* $$\tau_{MUX}$$ usually scales logarithmically ($$\propto \log_2 n$$).
+  * _Limitation:_ Slightly less than ideal $$n$$ due to MUX delay ($$\tau_{\text{MUX}}$$) affecting the critical path.
+* $$\tau_{\text{MUX}}$$ usually scales logarithmically ($$\propto \log_2 n$$). This is because a n-to-1 multiplexer is implemented using a bunch of 2-to-1 multiplexer in a tree manner shown as follows. And the delay is the height of the tree, which is $$\approx\log_2n$$.
+
+<figure><img src="../../.gitbook/assets/image.png" alt="" width="406"><figcaption><p>8-to-1 multiplexer implemented using 7 2-to-1 multiplexer, the tree height is 3</p></figcaption></figure>
 {% endstep %}
 
 {% step %}
-#### Latency ($$LAT_{parallel}$$)
+#### Latency ($$LAT_{\text{parallel}}$$)
 
 The latency we are talking here is "How long does x(0) take to appear as y(0) at the output?"
 
@@ -696,17 +700,9 @@ In [SIPO/PISO architecture](lec-02b-rtl-transformations.md#sipo-piso-converters)
 {% endstep %}
 {% endstepper %}
 
-#### Area Analysis
+#### Power Analysis
 
-The area increases by a factor \~n
-
-$$
-A_{parallel} \approx n (A_{comb} + A_{reg}) + A_{MUX}+A_{reg}\approx n(A_{comb}+A_{reg})
-$$
-
-#### Energy Analysis
-
-The energy per computation **slightly increases**
+The **energy per computation** slightly increases
 
 $$
 \begin{align*}
@@ -720,9 +716,36 @@ E_{\text{parallel}}
 \end{align*}
 $$
 
+#### Area Analysis
+
+The area increases by a factor \~n
+
+$$
+A_{parallel} \approx n (A_{comb} + A_{reg}) + A_{MUX}+A_{reg}\approx n(A_{comb}+A_{reg})
+$$
+
+#### PPA Analysis Summary
+
+| Metric                   | Sequential (baseline) | n-way Parallel Design |
+| ------------------------ | --------------------- | --------------------- |
+| **Throughput**           | 1                     | **n**                 |
+| **Absolute Latency**     | 1                     | **≈ n**               |
+| **Clock Frequency**      | f                     | **≈ f / n**           |
+| **Area**                 | 1                     | **≈ n**               |
+| **Energy per Operation** | 1                     | **≈ 1**               |
+
 ### Pipelining vs. Parallelism
 
-Pipelining is equally effective at improving throughput but consumes **much less area** than parallelism. The core design rule is that:
+| Metric                  | Sequential (baseline) | n-stage Pipelined Design              | n-way Parallel Design                                |
+| ----------------------- | --------------------- | ------------------------------------- | ---------------------------------------------------- |
+| Throughput              | 1                     | ≈ n                                   | ≈ n                                                  |
+| Absolute Latency (Time) | 1                     | > 1 (slight increase due to overhead) | >> 1 (degrades due to MUX + longer cycle time)       |
+| Latency (Cycles)        | 1                     | n                                     | n                                                    |
+| Clock Frequency         | f                     | ≈ n · f                               | ≈ f / n                                              |
+| Area                    | 1                     | > 1 (linear growth due to registers)  | ≈ n (replicated datapath + MUX overhead)             |
+| Energy per Operation    | 1                     | > 1 (linear growth due to registers)  | ≈ 1 (slightly increases due to MUX/control overhead) |
+
+From the table above, we can see that pipelining is equally effective at improving throughput but consumes **much less area** than parallelism. The core design rule is that:
 
 > Always use parallelism only after pipelining has been fully utilized.
 

@@ -176,9 +176,16 @@ $$
 
 Similar to the [area](lec-02a-pipelining.md#silicon-area), the energy grows **linearly** with the number of stage ($$n$$).
 
-***
+#### PPA Analysis Summary
 
-Pipelining improves throughput by roughly $$n$$, but at the cost of degraded latency and a linear increase in Area and Energy.
+| Metric                  | Sequential (baseline) | n-stage Pipelined Design              |
+| ----------------------- | --------------------- | ------------------------------------- |
+| Throughput              | 1                     | ≈ n                                   |
+| Absolute Latency (Time) | 1                     | > 1 (slight increase due to overhead) |
+| Latency (Cycles)        | 1                     | n                                     |
+| Clock Frequency         | f                     | ≈ n · f                               |
+| Area                    | 1                     | > 1 (linear growth due to registers)  |
+| Energy per Operation    | 1                     | > 1 (linear growth due to registers)  |
 
 ## Pipeline Operations & Stalls
 
