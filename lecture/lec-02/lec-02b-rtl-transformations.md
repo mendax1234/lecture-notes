@@ -330,6 +330,7 @@ Using the term _Gaussian surface_ may be confusing here, since it originates fro
    1. Edges with both endpoints inside the boundary -> ignore.
    2. Edges with both endpoints outside the boundary -> ignore.
    3. Edges crossing the boundary (one endpoint inside, one outside) -> **cut-set edges**.
+   4. The registers on the cut-set edges **shouldn't** be included in any one of the partition.
 
 </details>
 
@@ -764,6 +765,15 @@ Retiming is a structural transformation that involves moving registers around co
 * **Optimization Goals**:
   * **Reduce Clock Cycle**: By balancing the delay ($$\tau_{COMB}$$) between registers.
   * **Minimize Area**: By reducing the total count of registers required in the design.
+    * This can be done by brining the registers from the outputs of a vertice to its input.
+
+Popular **retiming techniques** are
+
+1. cutset retiming and
+2. repipelining.
+3. We will also introduce data interleaving through n-slowing method.
+
+These techniques can be used to practically move the register to a given microarchitecture (at iso-latency in terms of cycles (why?)), or even modifying the latency (by adding registers at the input or output and retime). Before that, let's see the assumptions and some math notations first
 
 #### Assumptions
 
@@ -796,16 +806,18 @@ The core operation of retiming allows registers to be moved forward or backward 
 
 For example, in the diagram above
 
-* LHS: We store the input A and B for one cycle and then use the stored value to calculate the output. Thus, in the timing diagram, T<sub>CK-Q</sub> is for the stored inputs A and B to be fed into the adder.
+* LHS: We store the input A and B for one cycle and then use the stored value to calculate the output. Thus, in the timing diagram, T<sub>CK-Q,REG1</sub> is for the stored inputs A and B to be fed into the adder.
   * Analogy: Store A and B today. Tomorrow, take those stored values and add them.
-* RHS: We add A and B first and then store the result for one cycle. In the timing diagram, as the final result is calculated before the CLK rises, T<sub>CK-Q</sub> is to launch the _previous_ sum to the world.
+* RHS: We add A and B first and then store the result for one cycle. In the timing diagram, as the final result is calculated before the CLK rises, T<sub>CK-Q,REG1</sub> is to launch the _previous_ sum to the world.
   * Analogy: Add A and B today immediately. Then store the result. Tomorrow, show me that stored result.
 
-This rule applies to path branching as well
+This rule applies to path branching as well, which can be seen from below
 
 <figure><img src="../../.gitbook/assets/retiming-path-branching.png" alt=""><figcaption></figcaption></figure>
 
 ### Fundamental Definition
+
+> This part has appeared in Micheli's book and EE4218 as well. Can refer to the notes [there](https://wenbo-notes.gitbook.io/ee4218-hsd-notes/textbook-micheli/sequential-logic-optimization/sequential-circuit-optimization-using-network-models#cycle-time-minimization).
 
 To algorithmically optimize a circuit, we define retiming mathematically using a **Data Flow Graph (DFG)** where vertices ($$V$$) represent logic gates and edges ($$E$$) represent the wires connecting them, which is same as we have learned at the [beginning](lec-02b-rtl-transformations.md#data-flow-graphs).
 
@@ -817,8 +829,8 @@ The "Retiming Vector" is an **integer** value assigned to every vertex $$V$$ in 
 
 * **Definition:** $$r(V) = \# \text{ Registers moved backwards}$$.
 * **Directionality**:
-  * $$r(V) > 0$$: Registers are moved Backwards (from Output -> Input).
-  * $$r(V) < 0$$: Registers are moved Forward (from Input -> Output).
+  * $$r(V) > 0$$: Registers are moved **Backwards** (from Output -> Input).
+  * $$r(V) < 0$$: Registers are moved **Forward** (from Input -> Output).
   * $$r(V) = 0$$: No movement occurred for this node.
 
 <figure><img src="../../.gitbook/assets/retiming-vector.png" alt=""><figcaption></figcaption></figure>
@@ -921,16 +933,10 @@ Adding the same constant integer $$k$$ to the retiming vector $$r(V)$$ for _ever
 {% endstep %}
 {% endstepper %}
 
-### Retiming Techniques
-
-Popular retiming techniques are cutset retiming and repipelining. We will also introduce data interleaving through n-slowing method. These techniques can be used to practically move the register to a given microarchitecture (at iso-latency in terms of cycles (why?)), or even modifying the latency (by adding registers at the input or output and retime)
-
-#### Cutset Retiming
+### Cutset Retiming
 
 Cutset retiming is a graphical technique used to rearrange registers across large sub-blocks of a circuit by visual inspection, rather than calculating individual node equations.
 
-{% stepper %}
-{% step %}
 #### Definition
 
 We have seen the definition of cutset from [above](lec-02b-rtl-transformations.md#cutset). To do the retiming, we apply a constant retiming shift ($$k$$) to the entire subgraph $$G2$$, while leaving $$G1$$ unchanged.
@@ -941,29 +947,51 @@ We have seen the definition of cutset from [above](lec-02b-rtl-transformations.m
 <figure><img src="../../.gitbook/assets/cutset-retiming-definition.png" alt="" width="540"><figcaption></figcaption></figure>
 
 This operation only affects the weights of the edges crossing the cutset (edges connecting $$G1$$ and $$G2$$). Internal edges within $$G1$$ or $$G2$$ are unchanged.
-{% endstep %}
 
-{% step %}
+{% hint style="warning" %}
+Cutset retiming doesn't need the cutset to be **feedforward** because we are not doing **register insertion** here.
+{% endhint %}
+
 #### The Transformation Rules
 
-* **Case A: Backwards Retiming** ($$k > 0$$)
-  * **Action:** "Pulling" registers from the outputs of $$G2$$ to its inputs.
-  * **Edge Changes**:
-    * Add $$k$$ registers to all edges going from $$G1$$ to $$G2$$ ($$w + k$$).
-    * Remove $$k$$ registers from all edges going from $$G2$$ to $$G1$$ ($$w - k$$).
+Since we apply $$r(V)=k,\forall~V\in G_2$$, we can divide into three cases based on the **positivity** of $$k$$.
 
-<figure><img src="../../.gitbook/assets/backward-retiming.png" alt=""><figcaption></figcaption></figure>
+{% stepper %}
+{% step %}
+#### **Case A: Backwards Retiming** ($$k > 0$$)
 
-* **Case B: Forward Retiming** ($$k < 0$$)
-  * **Action:** "Pushing" registers from the inputs of $$G2$$ to its outputs.
-  * **Edge Changes:**
-    * Remove $$|k|$$ registers from edges going from $$G1$$ to $$G2$$.
-    * Add $$|k|$$ registers to edges going from $$G2$$ to $$G1$$.
+To illustrate it clearly, we can see the following graph.
 
-<figure><img src="../../.gitbook/assets/forward-retiming.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/cutset-retiming-big-0.svg" alt=""><figcaption></figcaption></figure>
+
+So, when k > 0, we can see that it is either we
+
+1. Move the cutset register D from the edge V3 -> V6 to edge V2 -> V3, or
+2. Move the <mark style="color:green;">green register D</mark> from the edge V1 -> V2 to edge V4 -> V1 and V5 -> V1.
+
+This rule gives us a very powerful technique, which is that
+
+> We can pull delays/registers from G2's output to input without affecting the functionality.
 {% endstep %}
 
 {% step %}
+**Case B: Forward Retiming (**$$k<0$$**)**
+
+This will be just the reverse process of case A.
+
+<figure><img src="../../.gitbook/assets/cutset-retiming-small-0.svg" alt=""><figcaption></figcaption></figure>
+
+So, when k < 0, we can see that it is either we&#x20;
+
+1. Move the two cutset registers on V4 -> V1 and V5 -> V1 to V1 -> V2
+2. Move the <mark style="color:green;">green register</mark> on V2 -> V3 to V3 -> V6.
+
+This rule again gives us a very powerful technique, which is
+
+> We can pull delays/registers from G2's input to output without affecting the functionality.
+{% endstep %}
+{% endstepper %}
+
 #### Feasibility Condition
 
 Retiming is only legal if we do not end up with a **negative number** of registers on any wire. Therefore, the number of registers we wish to move ($$k$$) is limited by the available registers on the edges we are removing from. The formula is
@@ -974,24 +1002,18 @@ $$
 
 * **Upper Bound** ($$k > 0$$): We cannot pull (remove) more registers from the outputs ($$G2 \rightarrow G1$$) than the minimum currently existing on any of those output edges.
 * **Lower Bound** ($$k < 0$$): We cannot push (remove) more registers from the inputs ($$G1 \rightarrow G2$$) than exist on the input edges.
-{% endstep %}
 
-{% step %}
 #### Practical Application
 
 This generalizes the [basic node retiming rule](lec-02b-rtl-transformations.md#fundamental-transformation) we have seen from above. Instead of moving a register across a single operator, we treat the entire subgraph $$G2$$ as a "super-node" and move registers across its boundary.
-{% endstep %}
-{% endstepper %}
 
-#### Repipelining
+### Repipelining
 
 Repipelining is a technique used to increase the clock frequency (performance) of a design by adding new pipeline stages, rather than just rearranging existing ones. It is equivalent to register addition at I/O + retiming.
 
 * **Goal**: Reduce the minimum clock cycle ($$T_{CK}$$) by breaking up long combinational paths.
 * **Trade-off**: Unlike standard retiming (which is iso-latency), repipelining increases latency. The total time (in clock cycles) from Input to Output increases by $$k$$ cycles.
 
-{% stepper %}
-{% step %}
 #### Graph Theory View
 
 Repipelining is considered a **special case of cutset retiming** where the cutset is **strictly feedforward**.
@@ -1003,9 +1025,7 @@ Edges exist from $$G1 \to G2$$, but no edges exist from $$G2 \to G1$$.
 {% hint style="warning" %}
 Feedback loops can exist _internally_ within $$G1$$ or $$G2$$, but the cutset boundary itself cannot cross a feedback path between the two groups.
 {% endhint %}
-{% endstep %}
 
-{% step %}
 #### The Transformation Procedure
 
 Since latency is not preserved, we cannot simply move existing registers. We must introduce new ones and then distribute them.
@@ -1014,18 +1034,14 @@ Since latency is not preserved, we cannot simply move existing registers. We mus
 * **Retiming ("Pushing")**: Use retiming to move these new registers from the boundary into the internal logic of $$G2$$ to balance delays.
   * **Modeling:** To push registers forward (from Input -> Internal), we apply a negative retiming vector $$r(V) = -k$$ to the vertices in $$G2$$.
   * _**Logic Check:**_ A negative $$r(V)$$ removes registers from the node's input (absorbing the ones we just added) and pushes them to the node's output.
-{% endstep %}
 
-{% step %}
 #### Constraints
 
 We model Inputs and Outputs as absolute boundaries (Source/Sink). We cannot "borrow" registers from the external environment, nor can we "push" our registers into it. So the procedure is
 
 * **Modify**: We deliberately break the latency preservation rule by adding $$k$$ new registers at the Input boundary.
 * **Optimize**: We then use retiming to push these new registers inward (using $$r(V)=-k$$) to balance the internal logic delays.
-{% endstep %}
 
-{% step %}
 #### Practical Application
 
 Let's practice the repipelining on the gaussian filter.
@@ -1065,10 +1081,8 @@ Then we deal with the bottom four adders. We add 4 registers at the output and t
 <figure><img src="../../.gitbook/assets/gaussian-filter-third-optimization-2.gif" alt=""><figcaption></figcaption></figure>
 
 Lastly, we achieved the 0.5 clock cycle and as we have added 4+6=10 more registers, the latency becomes 11+10=21.
-{% endstep %}
-{% endstepper %}
 
-#### Time Interleaving
+### Time Interleaving
 
 An equivalent way to repipeline a design is to first repace each register with N cascaded registers and then retime (creating a "N-slow version"). This is also called **Time Interleaving**.
 
@@ -1076,8 +1090,6 @@ An equivalent way to repipeline a design is to first repace each register with N
 Time interleaving is a technique to process $$N$$ independent data streams on a single hardware block by utilizing pipeline "slots" created through register multiplication.
 {% endhint %}
 
-{% stepper %}
-{% step %}
 #### The Transformation Procedure
 
 1. **Step 1**: $$N$$**-Slowing**
@@ -1086,9 +1098,7 @@ Time interleaving is a technique to process $$N$$ independent data streams on a 
 2. **Step 2: Retiming**
    * Use the newly added registers to perform **Retiming**. Distribute these extra registers into the combinational logic to break critical paths.
    * Result: The logic depth decreases, allowing the clock frequency to increase significantly.
-{% endstep %}
 
-{% step %}
 #### How It Works
 
 * **Independence of Slots**:
@@ -1097,9 +1107,7 @@ Time interleaving is a technique to process $$N$$ independent data streams on a 
 * **Utilization:**
   * We can feed $$N$$ different data streams into the circuit in a round-robin fashion (Stream A at $$t=0$$, Stream B at $$t=1$$, etc.).
   * The hardware effectively acts as $$N$$ independent virtual processors running in parallel on the same physical logic.
-{% endstep %}
 
-{% step %}
 #### Maths Notation
 
 * $$x(i)$$: Represents the signal in the **original circuit** at clock cycle $$i$$.
@@ -1111,9 +1119,7 @@ Time interleaving is a technique to process $$N$$ independent data streams on a 
 | ------------------------------- | -------------- | ------------------------ |
 | **signal**                      | x(i)           | xₙ(N · i) = x(i)         |
 | **depends on other iterations** | i, i-1, i-2, … | N·i, (N−1)·i, (N−2)·i, … |
-{% endstep %}
 
-{% step %}
 #### Practical Example
 
 Let's optimize our MAC to be a unit that is "2-slowed" to process two datasets simultaneously (e.g., audio left/right channels).
@@ -1131,8 +1137,8 @@ After applying the time interleaving technique, we achieve:
 {% hint style="success" %}
 Another application is that in microprocessor, time interleaving effectively implements the SIMD concept, as it performs the same operation on multiple independent data.
 {% endhint %}
-{% endstep %}
-{% endstepper %}
+
+#### PPA Analysis
 
 After knowing what is time interleaving and how it works, we can now analyze its impact.
 
@@ -1194,6 +1200,8 @@ $$
 * The penalty depends on the **clocking power as a % of total power**. If the registers consume very little power compared to the math logic (e.g., complex multipliers), this technique is very energy efficient.
 {% endstep %}
 {% endstepper %}
+
+#### Time Interleaving vs. Parallelism
 
 Now we compare time interleaving with parallelism. This comparison evaluates whether it is better to speed up a system by "stretching" time (Interleaving) or by simply copying the hardware (Parallelism).
 
