@@ -369,7 +369,7 @@ The goal of Leriserson and Saxe Algorithm is to find the minimum possible clock 
 Since we cannot solve for minimum $$\phi$$ directly, we use **Binary Search** over all possible **path delays** in the circuit. For each candidate $$\phi$$, we check if a valid retiming exists.
 {% endhint %}
 
-The **steps** for this algorithm is
+The **steps** for this algorithm are
 
 * **Map Delays (Matrix D)**: Calculate the delay between every pair of nodes in the circuit. These are the only possible values for the critical path. This is stored in the Matrix D.
 * **Sort & Search**: Sort these delays. Pick the middle value as our "Target Cycle Time" ($$\phi$$).
@@ -386,6 +386,31 @@ The **complexity** of this algorithm is $$O(|V|^3 \log |V|)$$.
 
 * The $$|V|^3$$ comes from Bellman-Ford (or all-pairs calculation), and
 * the $$\log |V|$$ comes from the binary search.
+
+#### Relaxation-Based Retiming (FEAS)
+
+Even though the Leriserson and Saxe method has polynomial-time compiexity, its run time may he high. Computing matrices W and D may require large storage for graphs with many vertices. Most large networks are **sparse**, i.e., the number of edges is much smaller than the vertex pairs. Some retiming algorithms exploit the sparsity of the network and are more efficient for large networks. We review here a **relaxation method** that can be used to check the existence of a feasible retiming for a given cycle-time $$\phi$$. It is called **FEAS** and it can replace the Bellman-Ford algorithm.
+
+The **goal** of FEAS is to check if a specific clock period ($$\phi$$) is feasible without building the large constraint matrices required by Bellman-Ford. It is more memory-efficient for sparse networks. The FEAS algorithm uses the notion of the **data-ready time**, $$t_i$$.
+
+* $$t_i$$ represents the arrival time of the signal at vertex $$v_i$$, measured from the nearest preceding register.
+* If $$ti > \phi$$, the setup time is violated.
+
+The steps for this algorithm are:
+
+* **Initialize:** Start with $$r_v = 0$$ for all nodes.
+* **Compute Timing:** Calculate $$t_i$$ (Data Ready Time) for **all vertices** based on the current register positions.
+* **Check for Violations:**
+  * Identify all vertices where $$t_i > \phi$$ (the signal is too slow).
+* **Relax (Fix)**:
+  * For every "slow" vertex $$v_i$$, increment its retiming value: $$r_v \leftarrow r_v + 1$$.
+  * _Physical meaning:_ This moves registers from the output of $$v_i$$ to the inputs of $$v_i$$, effectively cutting the long path that caused the delay.
+* **Iterate:**
+  * Repeat the computation and check steps.
+  * Success: If no vertices have $$t_i > \phi$$, the retiming is valid. Return TRUE.
+  * Failure: If the loop runs $$|V|$$ times (number of gates) and violations still exist, the target $$\phi$$ is impossible. Return FALSE.
+
+> TODO: Pay attention to the example here.
 
 [^1]: Can think of it as a transformation which transforms a vertex into an integer.
 

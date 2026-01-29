@@ -13,6 +13,8 @@ We consider in this section algorithms for sequential optimization using **state
 
 ## State Minimization
 
+> TODO: Prof Rajesh's m states, n state bits avaiable, how many encoding possibilities, $$n\ge\log_2m$$.
+
 The **state minimization problem** aims at reducing the number of **machine states**. This leads to a reduction in the size of the **state transition graph**. **State reduction** may correlate to a reduction of the number of **storage elements**. (When states are **encoded** with a **minimum number of bits**, the number of **registers** is the **ceiling** of the logarithm of the number of states.) The reduction in **states** correlates to a reduction in **transitions**, and hence to a reduction of **logic gates**.
 
 {% hint style="warning" %}
