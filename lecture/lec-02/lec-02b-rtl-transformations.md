@@ -378,7 +378,7 @@ Primary inputs and outputs are technically special cases of feedforward cutsets.
 
 <figure><img src="../../.gitbook/assets/feedforward-cutset-rule-observation-1.png" alt=""><figcaption></figcaption></figure>
 
-> TODO: The reason for the validaty of doing so is that we can easily partition the whole system into one group and all the outside as another group, so all the inputs and outputs form a non-feedforward cutset? So do we treat all the primary inputs and outputs as two separate partitions/groups?
+The reason for the validaty of doing so is that we can easily partition the whole system into one group and the inputs and outputs as two separate groups. Through this partitioning can we achieve two feedforward cutset so that we can do the insertion.
 {% endstep %}
 
 {% step %}
@@ -786,7 +786,7 @@ To apply retiming algorithms formally, we model the circuit as a [Data Flow Grap
 #### Environmental Model
 
 * **No Sink/Source**: The DFG is assumed not to have any open sources or sinks.
-* **Lumped I/O Node**: All system inputs and outputs are theoretically connected to a single "host" node. This allows the graph to be closed, ensuring that if a register is pushed off an output, it "wraps around" and reappears at the input, thereby preserving total I/O latency.
+* **Lumped I/O Node**: All system inputs and outputs are theoretically connected to a single "host" node. This allows the graph to be closed, ensuring that if a register is pushed off an output, it "wraps around" and reappears at the input, thereby **preserving total I/O latency**.
 {% endstep %}
 
 {% step %}
@@ -1007,9 +1007,25 @@ $$
 
 This generalizes the [basic node retiming rule](lec-02b-rtl-transformations.md#fundamental-transformation) we have seen from above. Instead of moving a register across a single operator, we treat the entire subgraph $$G2$$ as a "super-node" and move registers across its boundary.
 
+<figure><img src="../../.gitbook/assets/retiming-practical-usage.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="danger" %}
+This is the **most important** application that we should take away from this whole section about **retiming**! It will be pretty useful in the RTL transformations we are going to talk about later.
+{% endhint %}
+
+## RTL Transformation
+
+Up till now, we are equipped with several skills
+
+1. Feedforward Cutset Insertion
+2. Retiming (The most important one is the [practical application](lec-02b-rtl-transformations.md#practical-application-1) above)
+3. N-Slowing insertion
+
+We will now use these skills to start getting our hands "dirty"!
+
 ### Repipelining
 
-Repipelining is a technique used to increase the clock frequency (performance) of a design by adding new pipeline stages, rather than just rearranging existing ones. It is equivalent to register addition at I/O + retiming.
+The first RTL Transformation technique we learn is **repipelining**. Repipelining is a technique used to increase the clock frequency (performance) of a design by adding new pipeline stages, rather than just rearranging existing ones. It is equivalent to [**register insertion** at I/O + **retiming**](#user-content-fn-4)[^4].
 
 * **Goal**: Reduce the minimum clock cycle ($$T_{CK}$$) by breaking up long combinational paths.
 * **Trade-off**: Unlike standard retiming (which is iso-latency), repipelining increases latency. The total time (in clock cycles) from Input to Output increases by $$k$$ cycles.
@@ -1023,7 +1039,7 @@ Repipelining is considered a **special case of cutset retiming** where the cutse
 Edges exist from $$G1 \to G2$$, but no edges exist from $$G2 \to G1$$.
 
 {% hint style="warning" %}
-Feedback loops can exist _internally_ within $$G1$$ or $$G2$$, but the cutset boundary itself cannot cross a feedback path between the two groups.
+Feedback loops can exist _internally_ within $$G1$$ or $$G2$$, but the cutset boundary itself cannot cross a feedback path. The existence of the feedback loop also **limits** the maximum clock frequency we can achieve (see more from the [#loop-bound](lec-02b-rtl-transformations.md#loop-bound "mention"))
 {% endhint %}
 
 #### The Transformation Procedure
@@ -1058,7 +1074,7 @@ We start by adding 4 registers at each input because we notice there are 4 opera
 
 This is done by applying the [#cutset-retiming](lec-02b-rtl-transformations.md#cutset-retiming "mention") technique we have learned, our final clock cycle is 2 because the critical path would be the multiplier which takes two cycles while the latency is 4+5=9 cycles.
 
-2. **Second optimization**: As the critical path now is the multiplier, let's try further optimize the multiplier by adding two registers to break the multiplier into two stages.
+2. **Second optimization**: As the critical path now is the multiplier, we have seen an obvious **imbalance** in the pipeline. Let's try further optimize the multiplier by adding two registers to break the multiplier into two stages. (The goal here is to balance the pipeline design)
 
 {% hint style="warning" %}
 Add two registers because we have two "groups" of multipliers.
@@ -1081,6 +1097,8 @@ Then we deal with the bottom four adders. We add 4 registers at the output and t
 <figure><img src="../../.gitbook/assets/gaussian-filter-third-optimization-2.gif" alt=""><figcaption></figcaption></figure>
 
 Lastly, we achieved the 0.5 clock cycle and as we have added 4+6=10 more registers, the latency becomes 11+10=21.
+
+> TODO: Add the DFG version to understand deeper on how to form the partition and find the cutset.
 
 ### Time Interleaving
 
@@ -1365,3 +1383,5 @@ Assumptions we have made:
     * **After Retiming**: Input A and B arrive -> Add immediately -> Wait 1 cycle -> Output.
 
     Both approach will give us the same output.
+
+[^4]: You can do this even faster by just doing the feedforward cutset insertion. The only problem might be finding the correct cutset.
