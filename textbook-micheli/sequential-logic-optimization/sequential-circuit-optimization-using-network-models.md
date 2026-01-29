@@ -304,7 +304,7 @@ To verify this retiming by hand, let's take edge $$v_a\to v_b$$ for example,
 
 <summary>Example of the topological critical path</summary>
 
-Consider the network of [Figure 9.8](sequential-circuit-optimization-using-network-models.md#example-of-a-modeling-of-a-synchronous-network). The **topological critical path** is $$v_d, v_e, v_f, v_g, v_h)$$, whose **delay** is **24 units**. Consider instead the network of [Figure 9.10](sequential-circuit-optimization-using-network-models.md#example-of-a-legal-retiming-of-a-network). The **topological critical path** is $$(v_b, v_c, v_e)$$, whose **delay** is **13 units**.
+Consider the network of [Figure 9.8](sequential-circuit-optimization-using-network-models.md#example-of-a-modeling-of-a-synchronous-network). The **topological critical path** is $$(v_d, v_e, v_f, v_g, v_h)$$, whose **delay** is **24 units**. Consider instead the network of [Figure 9.10](sequential-circuit-optimization-using-network-models.md#example-of-a-legal-retiming-of-a-network). The **topological critical path** is $$(v_b, v_c, v_e)$$, whose **delay** is **13 units**.
 
 </details>
 
@@ -318,7 +318,7 @@ Before we move on, let's define some math notations that will be used in the fol
 
 We have see the difference between path weight and path delay from [above](sequential-circuit-optimization-using-network-models.md#definition-of-the-synchronous-logic-network), now let's give them a formal definition.
 
-* **Path Weight (**$$W(v_{i}, v_{j})$$) :For each ordered vertex pair $$v_{i}, v_{j} \in V$$, we define $$W(v_{i}, v_{j}) = \min w(v_{i}, \dots, v_{j})$$ over all paths from $$v_{i}$$ to $$v_{j}$$.
+* **Path Weight** ($$W(v_{i}, v_{j})$$) :For each ordered vertex pair $$v_{i}, v_{j} \in V$$, we define $$W(v_{i}, v_{j}) = \min w(v_{i}, \dots, v_{j})$$ over all paths from $$v_{i}$$ to $$v_{j}$$.
 * **Path Delay** ($$D(v_i,v_j)$$): Similarly, we define $$D(v_{i}, v_{j}) = \max d(v_{i}, \dots, v_{j})$$ over all paths from $$v_{i}$$ to $$v_{j}$$ with weight $$W(v_{i}, v_{j})$$.
 
 {% hint style="danger" %}
@@ -339,13 +339,53 @@ The usefulness of relating the retiming theory to the quantities $$W(v_{i}, v_{j
 * they are **unique** for **each vertex pair** and capture the most stringent timing requirement between them.
 * In addition, $$\tilde{W}(v_{i}, v_{j}) = W(v_{i}, v_{j}) + r_{j} - r_{i}$$ and $$\tilde{D}(v_{i}, v_{j}) = D(v_{i}, v_{j})$$. These quantities can be computed by using an all-pair shortest/longest path algorithm, such as Warshall-Floyd.
 
-We denote by $$W$$ and $$D$$ the **square matrices** of size $$|V|$$ containing these elements. This means we have 2 VxV square matrices which are used to store the path weight and delay of every "possible" edge in the network.
+We denote by $$W$$ and $$D$$ the **square matrices** of size $$|V|$$ containing these elements. This means that we have 2 VxV square matrices which are used to store the path weight and delay of every "possible" edge in the network.
 
 {% hint style="warning" %}
 We say that a **retiming vector** is feasible if it is **legal** and the **retimed network** is **timing feasible** for a given cycle-time $$\phi$$.
 {% endhint %}
 {% endstep %}
 {% endstepper %}
+
+#### Leriserson and Saxe Algorithm
+
+Before we look at the algorithm, let's first look at the Lerserson an Saxe Theorem
+
+> **Theorem 9.3.1.** Given a network $$G_{sn}(V, E, W)$$ and a cycle-time $$\phi$$, $$r$$ is a feasible retiming if and only if:
+>
+> <p align="center"><span class="math">\begin{align} r_i - r_j &#x26;\leq w_{ij}    &#x26;\quad \forall (v_i, v_j) \in E \tag{9.4} \\ r_i - r_j &#x26;\leq W(v_i, v_j) - 1    &#x26;\quad \forall v_i, v_j : D(v_i, v_j) > \phi \tag{9.5} \end{align}</span></p>
+
+<details>
+
+<summary>Proof of the Lerserson and Saxe Algorithm</summary>
+
+A retiming is legal if and only if $$\tilde{w}_{i,j} = w_{i,j} + r_j - r_i \ge 0$$, which can be recast as inequality (9.4). Given a legal retiming, the topological critical path delay is less than $$\phi$$ if and only if the path weight after retiming is larger than or equal to 1 for all those paths with extremal vertices $$v_i, v_j$$ where $$d(v_i, \dots, v_j) > \phi$$. This is equivalent to saying that $$\tilde{W}(v_i, v_j) \ge 1$$ for all vertex pairs $$v_i, v_j \in V$$ such that $$\tilde{D}(v_i, v_j) > \phi$$ and eventually to stating inequality (9.5), because $$\tilde{W}(u_i, u_j) = W(v_i, v_j) + r_j - r_i$$ and $$\tilde{D}(v_i, v_j) = D(v_i, v_j)~\forall v_i, v_j \in V$$.
+
+</details>
+
+The goal of Leriserson and Saxe Algorithm is to find the minimum possible clock period ($$\phi$$) for a circuit and the retiming configuration vector ($$r$$) to achieve it.
+
+{% hint style="warning" %}
+Since we cannot solve for minimum $$\phi$$ directly, we use **Binary Search** over all possible **path delays** in the circuit. For each candidate $$\phi$$, we check if a valid retiming exists.
+{% endhint %}
+
+The **steps** for this algorithm is
+
+* **Map Delays (Matrix D)**: Calculate the delay between every pair of nodes in the circuit. These are the only possible values for the critical path. This is stored in the Matrix D.
+* **Sort & Search**: Sort these delays. Pick the middle value as our "Target Cycle Time" ($$\phi$$).
+* **Feasibility Check (The Constraint Graph)**: Construct a graph where edges represent inequalities:
+  * **Legality Constraints (Solid Edges)**: $$r_i - r_j \le w_{ij}$$. Ensures no wire ends up with negative registers.
+  * **Timing Constraints (Dotted Edges)**: If the combinational delay between $$i$$ and $$j$$ is greater than Target $$\phi$$, add a constraint $$r_i - r_j \le W_{ij} - 1$$. This forces a register onto this long path.
+* **Solve (Bellman-Ford)**: Run Bellman-Ford on the constraint graph.
+  * **No Positive Cycles**: The Target $$\phi$$ is feasible. Try a smaller $$\phi$$.
+  * **Positive Cycle Detected:** The Target $$\phi$$ is impossible (constraints contradict). Try a larger $$\phi$$.
+
+> TODO: Learn some graph theory and then go back check this.
+
+The **complexity** of this algorithm is $$O(|V|^3 \log |V|)$$.
+
+* The $$|V|^3$$ comes from Bellman-Ford (or all-pairs calculation), and
+* the $$\log |V|$$ comes from the binary search.
 
 [^1]: Can think of it as a transformation which transforms a vertex into an integer.
 
