@@ -11,6 +11,10 @@ We consider in this section algorithms for sequential optimization using **state
 > * An **output function**, $$\lambda: X \times S \to Y$$ for **Mealy models** or $$\lambda: S \to Y$$ for **Moore models**.
 > * An **initial state**​.
 
+{% hint style="warning" %}
+The state minimization skill that we learned here **cannot be done** by the EDA tool! This must be done manually!
+{% endhint %}
+
 ## State Minimization
 
 > TODO: Prof Rajesh's m states, n state bits avaiable, how many encoding possibilities, $$n\ge\log_2m$$.
@@ -48,7 +52,7 @@ When considering **completely specified finite-state machines**, the **transitio
 
 > **Theorem 9.2.1.** Two **states** of a **finite-state machine** are **equivalent** if and only if, for any **input**, they have **identical outputs** and the corresponding **next states** are **equivalent**.
 
-Now, we will introduce two methods to do the state optimization.
+Now, we will introduce three methods to do the state optimization. The goal is to find the final partition set.
 
 #### Normal Method
 
@@ -56,6 +60,12 @@ Now, we will introduce two methods to do the state optimization.
 >
 > 1. Symmetic, reflexive, transitive
 > 2. Equivalence classes.
+
+The normal method has the following three steps:
+
+1. **Initial partition (**$$\Pi_1$$**):** States are placed in the same block if they produce identical **outputs** for every input.
+2. **Refinement step (**$$\Pi_k\to\Pi_{k+1}$$**):** States remain in the same block if they were in the same block in  $$\Pi_k$$ **and** their next states fall in the same block of $$\Pi_k$$ for all inputs.
+3. **Convergence:** The refinement process terminates when $$\Pi_{k+1}=\Pi_{k}$$.
 
 <details>
 
@@ -113,6 +123,38 @@ No further splits are possible and $$\Pi_2$$ defines our foru classes of equival
 The complexity of this algorithm is $$O(n_s\log n_s)$$.
 {% endhint %}
 
+#### Implication Chart Method
+
+This method includes the following steps:
+
+* **Initialization:** Construct the implication (pair) chart and cross out all state pairs that are **I/O incompatible**, i.e., they produce different **outputs** for the same input.
+* **Implication generation:** For each remaining state pair, write the **equivalence conditions** implied by their next states under each input.
+  * These equivalence conditions are called **implications**
+  * Example, S<sub>3</sub> and S<sub>4</sub> are equivalent only if S<sub>2</sub>-[^1]S<sub>4</sub> are equivalent and S<sub>1</sub>-S<sub>5</sub> are equivalent.
+* **Implication checking:** Cross out a state pair if **any** of its implied state pairs is already crossed out.
+* **Iteration:** Repeat the implication checking step until no new cells can be crossed out.
+* **Result:** State pairs corresponding to **uncrossed cells** in the chart are equivalent and can be merged.
+
+<details>
+
+<summary>Example of using the Implication Chart Method to minimize the states</summary>
+
+Suppose that we have the following state table:
+
+<figure><img src="../../.gitbook/assets/implication-chart-example.png" alt="" width="505"><figcaption></figcaption></figure>
+
+We can first draw an **lower-triangular** matrix like below:
+
+<figure><img src="../../.gitbook/assets/implication-chart-method-2.png" alt="" width="563"><figcaption></figcaption></figure>
+
+1. We tick (<i class="fa-check">:check:</i>) the cell (S1, S2) because they are obviously equivalent.
+2. Based on the **outputs**, we cross (<i class="fa-x">:x:</i>) the cell (S1, S3), (S1, S4), (S1, S5), (S2, S3), (S2, S4), (S2, S5), (S3, S5), (S4, S5). And we left with the cell (S3, S4).
+3. If S3 and S4 are equivalent, S2 and S4 must be equivalent and S1 and S5 are equivalent. So, we write S2-S4 and S1-S5 in the cell first.
+4. Now, we check the cell, (S1, S5) and (S2, S4). As they are crossed out already, means that there is no chance that S3 and S4 are equivalent.
+5. At the end, only S1 and S2 can be merged.
+
+</details>
+
 ### Optimization for Incompletely Specified FSM
 
 In the case of **incompletely specified finite-state machines**, the **transition function** $$\delta$$ and the **output function** $$\lambda$$ are not specified for some (input, state) pairs. Equivalently, don’t care conditions denote the unspecified transitions and outputs.They model the **knowledge** that some **input patterns** cannot occur in some **states**, or that some **outputs** are not observed in some **states** under certain **input conditions**.
@@ -146,6 +188,19 @@ In other words, the **compatibility rule** can be summarized as follows:
 
 > TODO: Lack of maths knowledge to include the formal definition here. And how to find all compatible pairs?
 
+Compability is **not transitive**. For example, if S1 has an output 10, S2 has an output 1\*, and S3 has an output 11. S1 is compatible with S2 if their next states are compatible. S2 and S3 are compatible if their next states are compatible. **But**, S1 and S3 is **incompatible** irrespective of their next states!
+
+#### Normal Method
+
+The normal method includes the following steps
+
+1. **Replace the don't cares** with 0s or 1s, make the FSM **completely specified**.
+2. **Write out** all the **compatible pairs** and **incompatible pairs**.
+3. **Initial partition (**$$\Pi_1$$**):** States are placed in the same block if they produce identical **outputs** for every input.
+4. **Compatibility Check**: Find a **minimum** number of partition blocks such that
+   1. All states are covered.
+   2. All implications are satisfied (closure property)
+
 <details>
 
 <summary>Example to minimize the states in an incompletely specified FSM</summary>
@@ -172,6 +227,10 @@ Maximal compatibility classes are the following:
 
 <figure><img src="../../.gitbook/assets/max-compability-class.png" alt="" width="476"><figcaption></figcaption></figure>
 
+{% hint style="danger" %}
+In this case, we might find out that the partition $$\Pi=\{\{S_1,S_5\},\{S_2,S_3,S_4\}\}$$ is the **minimal partition** because only two states are needed. Any partition that is better than this can only has **1 state**, which is impossible in this case.
+{% endhint %}
+
 </details>
 
 ## State Encoding
@@ -185,6 +244,27 @@ In the most general case, the state encoding problem is complicated by the **cho
 **State encoding** affects **circuit area** and **performance**. Most known techniques for state encoding target the reduction of **circuit complexity measures** that correlate well with **circuit area** but only weakly with **circuit performance**. **Circuit complexity** is related to the number of **storage bits** $$n_b$$​ used for the **state representation** (i.e., **encoding length**) and to the size of the **combinational component**. A measure of the latter differs significantly when considering **two-level** versus **multiple-level circuit implementations**.
 
 For this reason, **state encoding techniques** for **two-level logic** and **multiple-level logic** have been developed **independently**. We shall **survey methods** for **both cases** next.
+
+<details>
+
+<summary>Appreciate the complexity of state encoding</summary>
+
+Suppose we have $$m$$ states and $$n$$ available bits to encode these states. The constratin is given as follows,
+
+<p align="center"><span class="math">\log_2m\le n\le m</span></p>
+
+How many possible encoding we can have?
+
+***
+
+**Ans**: This is a classic combinatoric problem.
+
+1. Firstly, $$n$$ bits means that we have $$2^n$$ possible encoding numbers available.
+2. Secondly, the problem becomes selecting any $$m$$ different encoding numbers and use them to encode the $$m$$ states. Thus, the possible combinations will be $$2^n ~P~m=\frac{2^n!}{(2^n-m)!}$$
+
+This huge number implies that the **state encoding** problem are NP-hard and **heuristics** are necessary for practical solutions.
+
+</details>
 
 ### State Encoding for Two-Level Circuits
 
@@ -222,6 +302,14 @@ In other words, this rule is saying that: "we shouldn't just count all the possi
 
 The **simplest encoding** is **1-hot state encoding**, where each **state** is encoded by a corresponding **code bit** set to **1**, with all others being **0**. Thus, $$n_b = n_s$$​. **1-hot encoding** requires an **excessive number of inputs/outputs**, and it was shown **not to minimize** the size of the **sum-of-products representation** of the corresponding **combinational component**.
 
+<details>
+
+<summary>Short Cut to calculate the number of FFs needed in a FSM</summary>
+
+This number is dependent **purely** on the number of **state bits** we use to encode our state. For example, if we have 3 states and 2 bits available, then we need **2 FFs**.
+
+</details>
+
 #### The use of Minimum-Length Codes
 
 **Early work on state encoding** focused on the use of **minimum-length codes**, i.e., using $$n_b = \lceil \log_2 n_s \rceil$$ **bits** to represent the set of states $$S$$. Most **classical heuristic methods** for **state encoding** are based on a **reduced dependency criterion**. The **rationale** is to encode the states so that the **state variables** have the **least dependencies** on those representing the **previous states**. **Reduced dependencies** correlate **weakly** with the **minimality** of a **sum-of-products representation**.
@@ -233,10 +321,12 @@ The **simplest encoding** is **1-hot state encoding**, where each **state** is e
 **State encoding techniques for multiple-level circuits** use the **logic network model** for the **combinational component** of the **finite-state machine**. The **overall area measure** is related to
 
 1. the number of **encoding bits** (i.e., **registers**) and
-2. to the number of [**literals**](#user-content-fn-1)[^1] in the **logic network**.
+2. to the number of [**literals**](#user-content-fn-2)[^2] in the **logic network**.
 
 The **delay** corresponds to the **critical path length** in the network. To date, only **heuristic methods** have been developed for computing **state encodings** that optimize the **area estimate**.
 
 > TODO: Some "state-of-art" techniques are left as FYI part and they are on the book.
 
-[^1]: A **literal** is simply an instance of a variable or its complement (inverse) appearing in a boolean equation.
+[^1]: Here, it is literally just the **minus** sign.
+
+[^2]: A **literal** is simply an instance of a variable or its complement (inverse) appearing in a boolean equation.
