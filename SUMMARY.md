@@ -8,6 +8,10 @@
 * [Lec 02 - Verilog for Synthesis](lec/lec-02-verilog-for-synthesis.md)
 * [Lec 03 - Sequential Logic Optimization](lec/lec-03-sequential-logic-optimization.md)
 
+## Lab
+
+* [Lab 01 - Introduction to Hardware Design](lab/lab-01-introduction-to-hardware-design.md)
+
 ## Textbook: Micheli
 
 * [Introduction](textbook-micheli/introduction/README.md)
