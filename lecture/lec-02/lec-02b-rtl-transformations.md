@@ -89,9 +89,13 @@ For any RTL transformation to be valid, it must preserve **Functionality**, but 
 * **Latency (Can Change)**: The number of clock cycles it takes to produce the first valid output can increase.
   * _Example:_ Adding pipeline registers increases "latency" (results arrive later) but improves frequency (clock runs faster). This is a legal transformation.
 
+{% hint style="warning" %}
+If we use the other definition of latency, which is **clock cycles** <i class="fa-xmark">:xmark:</i> **cycle-time**, we can find out that  the result will actually be smaller.
+{% endhint %}
+
 <figure><img src="../../.gitbook/assets/functionality-vs-latency.png" alt=""><figcaption></figcaption></figure>
 
-The image above entails all the 5 RTL transformations we are going to learn in this section. Some of them preserver the latency while the rest didn't. However, all of them preserve the functionality.
+The image above entails all the 5 RTL transformations we are going to learn in this section. Some of them preserve the latency while the rest didn't. However, all of them preserve the functionality.
 {% endstep %}
 
 {% step %}
@@ -163,7 +167,7 @@ According to [DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequ
 
 ### Iteration Bound
 
-There is a fundamental difference in how we optimize timing for recursive vs. non-recursive graphs (DFGs).
+There is a fundamental difference in how we optimize timing for **recursive** vs. **non-recursive** graphs (DFGs).
 
 {% stepper %}
 {% step %}
@@ -198,14 +202,14 @@ y[n] = y[n−2] + x[n]
 This is a **different algorithm**! In a nuthell, the result is that there is a fundamental "Speed Limit" (minimum cycle time) determined by the loops themselves. This speed limit is called **loop bound.**
 
 {% hint style="success" %}
-The intuition behind “cannot add registers in a loop” is that inputs coming into the loop may arrive at different clock cycles, leading to timing misalignment.
+The intuition behind “cannot add registers in a loop” is that inputs **coming into** the loop may arrive at different clock cycles, leading to timing misalignment.
 {% endhint %}
 {% endstep %}
 {% endstepper %}
 
 #### Loop Bound
 
-The **Loop Bound** represents the minimum cycle time imposed by a single, specific loop. It assumes the total logic delay in the loop is evenly distributed across the available registers. It can be calculated using the following formula:
+The **Loop Bound** represents the minimum cycle time imposed by a single, specific loop. It assumes that the total logic delay in the loop is evenly distributed across the available registers. It can be calculated using the following formula:
 
 $$
 \text{LoopBound} = \frac{t_{loop}}{w_{loop}}
@@ -247,7 +251,7 @@ $$
 
 <summary>How do we solve the loop bound bottleneck?</summary>
 
-Indeed, we can use the **loop unrolling** technique, which is techically a compiler technique which we have have a glimpse of in [CG3207](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-06-advanced-processor#loop-unrolling). This technique has also been practiced in the multiplier design in [Mach-V](https://mendax1234.github.io/Mach-V/uarch/mul-div-unit/#multiply-unit).
+Indeed, we can use the **loop unrolling** technique, which is techically a compiler technique which we have had a glimpse of in [CG3207](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-06-advanced-processor#loop-unrolling). This technique has also been practiced in the multiplier design in [Mach-V](https://mendax1234.github.io/Mach-V/uarch/mul-div-unit/#multiply-unit).
 
 {% hint style="success" %}
 Prof. Massimo used the example of loop unrolling — originally a compiler optimization technique — to emphasize a broader lesson about research. Meaningful research rarely belongs to a single discipline; instead, it draws strength from the ability to connect ideas across fields. Techniques we consider novel today may have existed in other domains decades earlier. This is why, as emphasized in the very first lecture, we must keep learning continuously — not only to advance our research, but also to remain intellectually adaptable and avoid being outperformed by AI.
@@ -287,7 +291,7 @@ In this case, we can clearly see that
 
 1. **clock skew** provides no improvement for either setup or hold timing, since the same clock signal drives the same register.
    1. The launching and capturing register are the same.
-2. However, clock jitter does affect performance — particularly setup timing — because jitter on clock edges in different cycles is not correlated and therefore need not be the same.
+2. However, **clock jitter** does affect performance — particularly setup timing — because jitter on clock edges in different cycles is not correlated and therefore need not be the same.
    1. More specifically, in the worst case, the T<sub>CK</sub> will be affected by 2t<sub>jitter</sub>.
 
 </details>
@@ -299,7 +303,7 @@ In this case, we can clearly see that
 The primary goal of **register insertion** is to add registers to a circuit to reduce the critical path (improving frequency) without altering the circuit's logical functionality.
 
 {% hint style="danger" %}
-**Trade-offs** of register insertion: In a **non-pipelined** design, adding registers increases latency (signals must cross more registers to reach the output) and area, but it is necessary for enabling transformations like retiming.
+**Trade-offs** of register insertion: In a **non-pipelined** design, adding registers increases latency (signals must cross more registers to reach the output) and area, but it is useful for RTL transformations like retiming.
 {% endhint %}
 
 ### Cutset Insertion
@@ -310,7 +314,7 @@ We cannot insert registers anywhere. That's why we need this tool called **cutse
 We must either remove **all** edges in the cutset or leave them all intact.
 {% endhint %}
 
-To find the **cut-set**, we can imagine drawing a closed "Gaussian surface" (a bubble) around a group of nodes. The edges that cross this boundary line form the cutset. Each edge must be crossed exactly once. For example, in the diagram below, the two <mark style="color:red;">red</mark> arrows form a cutset.
+To find the **cutset**, we can imagine drawing a closed "Gaussian surface" (a bubble) around a group of nodes. The edges that cross this boundary line form the cutset. Each edge must be crossed exactly once. For example, in the diagram below, the two <mark style="color:red;">red</mark> arrows form a cutset.
 
 <figure><img src="../../.gitbook/assets/cut-set-example.png" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -322,15 +326,24 @@ Once **both of** the two red arrow is cut, no path exists between $$G_1$$ and $$
 
 Using the term _Gaussian surface_ may be confusing here, since it originates from electrostatics (the focus of FDP2021). But the underlying idea is simply **partition -> enclose -> identify boundary edges**.
 
-1. **Step 1 Choose a partition:** Select the set of nodes you want to isolate (the “inside” set).
+1. **Choose a partition:** Select the set of nodes we want to isolate (the “inside” set).
    1. Example: To separate the left cluster from the right, choose `{A, B, C}`.
    2. Example: To isolate a single node, choose `{D}`.
-2. **Step 2 Enclose the partition:** Draw a continuous dashed line around the chosen nodes. This line is just a visual boundary.
-3. **Step 3 Identify the cut-set:** Examine the edges:
+2. **Enclose the partition:** Draw a continuous dashed line around the chosen nodes. This line is just a visual boundary.
+3. **Identify the cutset:**
    1. Edges with both endpoints inside the boundary -> ignore.
    2. Edges with both endpoints outside the boundary -> ignore.
-   3. Edges crossing the boundary (one endpoint inside, one outside) -> **cut-set edges**.
-   4. The registers on the cut-set edges **shouldn't** be included in any one of the partition.
+   3. Edges crossing the boundary (one endpoint inside, one outside) -> **cutset edges**.
+   4. [The registers on the cutset edges](#user-content-fn-3)[^3] **shouldn't** be included in any one of the partition.
+4. **Check loops crossing**:
+   1. In **register insertion,** the gaussian surface **cannot** cross the loop.
+   2. In **retiming,** the gaussian surface **can** cross the loop.
+
+{% hint style="warning" %}
+#### The principle of Min-cut
+
+When selecting a partition (drawing a "Gaussian Surface"), aim to cross as **few edges as possible** because in pipelining and retiming, every edge crossing the cutset represents a potential location for a register. Minimizing cutset size directly minimizes the total number of registers required (Flip-Flop Area) and reduces interconnect complexity.
+{% endhint %}
 
 </details>
 
@@ -378,7 +391,7 @@ Primary inputs and outputs are technically special cases of feedforward cutsets.
 
 <figure><img src="../../.gitbook/assets/feedforward-cutset-rule-observation-1.png" alt=""><figcaption></figcaption></figure>
 
-The reason for the validaty of doing so is that we can easily partition the whole system into one group and the inputs and outputs as two separate groups. Through this partitioning can we achieve two feedforward cutset so that we can do the insertion.
+The reason for the validaty of doing so is that we can easily partition the [whole system](#user-content-fn-4)[^4] into **one group** and the inputs and outputs as **two separate groups**. Through this partitioning can we achieve two feedforward cutset so that we can do the insertion.
 {% endstep %}
 
 {% step %}
@@ -451,7 +464,7 @@ The primary motivation for N-Slowing is to enable **Time Interleaving**, which a
 One example of using N-slowing and time interleaving technique is the MAC example. In the MAC, the recursion formula is $$Out(i) = (A \cdot B) + Out(i-1)$$.
 
 * If we process **one data stream,** it is always **invalid** to insert any number of registers in the loop.
-* If we process **n different independent data stream**, it is **valid** to insert **n regsiters** into the feedback loop. This is what we called N-slowing and Time interleaving.
+* If we process **n different independent data stream**, we can use the N-slowing and Time interleaving technique.
 
 Suppose we are under the second situation, the dependency changes from $$i-1$$ to $$i-N$$. The MAC now adds the current product to the value calculated $$N$$ cycles ago. To see exactly how it works, let's imagine $$N=4$$ (4 registers in the loop) and 4 input channels (A, B, C, D).
 
@@ -764,16 +777,15 @@ Retiming is a structural transformation that involves moving registers around co
 * **Preserves Latency**: Unlike pipelining (register insertion), retiming preserves the I/O cycle-based timing (e.g., the number of cycles from each input to each output is kept the same).
 * **Optimization Goals**:
   * **Reduce Clock Cycle**: By balancing the delay ($$\tau_{COMB}$$) between registers.
-  * **Minimize Area**: By reducing the total count of registers required in the design.
-    * This can be done by brining the registers from the outputs of a vertice to its input.
+  * **Minimize Area**: By reducing the total count of registers required in the design. This can be done by brining the registers from the outputs of a vertice to its input or vice versa.
 
 Popular **retiming techniques** are
 
 1. cutset retiming and
 2. repipelining.
-3. We will also introduce data interleaving through n-slowing method.
+3. We will also introduce time/data interleaving through n-slowing method.
 
-These techniques can be used to practically move the register to a given microarchitecture (at iso-latency in terms of cycles (why?)), or even modifying the latency (by adding registers at the input or output and retime). Before that, let's see the assumptions and some math notations first
+These techniques can be used to practically move the register to a given microarchitecture (at iso-latency[^5] in terms of cycles), or even modifying the latency (by adding registers at the input or output and retime). Before that, let's see the assumptions and some math notations first.
 
 #### Assumptions
 
@@ -800,7 +812,7 @@ When moving registers, combinational operators at vertices through retiming cann
 
 #### Fundamental Transformation
 
-The core operation of retiming allows registers to be moved forward or backward across the inputs and outputs of an operator without changing the circuit's steady-state[^3] functional behavior.
+The core operation of retiming allows registers to be moved forward or backward across the inputs and outputs of an operator without changing the circuit's steady-state[^6] functional behavior.
 
 <figure><img src="../../.gitbook/assets/retiming-fundamental-transformation.png" alt=""><figcaption></figcaption></figure>
 
@@ -849,6 +861,8 @@ The Intuition is:
 
 * Moving registers backwards across the destination $$V$$ adds registers to the input wire ($$+r(V)$$).
 * Moving registers backwards across the source $$U$$ removes registers from the output wire ($$-r(U)$$).
+
+So, the term $$r(V)-r(U)$$ denotes the number of **registers change** on the edge[^7] from $$U$$ to $$V$$
 {% endstep %}
 
 {% step %}
@@ -865,10 +879,14 @@ $$
 * **Constraint Equation**: Rearranging the formula above gives us the checking condition:
 
 $$
-r(U) - r(V) \le w_{original}(U, V)
+w_{original}(U, V) \ge r(U)-r(V)
 $$
 
 If this inequality holds for all edges, the retiming is legal.
+
+{% hint style="success" %}
+The intuition is that the [**decrease** ](#user-content-fn-8)[^8]of the number of **registers change** ($$r(V)-r(U)$$) cannot be larger the number of registers in the original edge.
+{% endhint %}
 {% endstep %}
 
 {% step %}
@@ -905,7 +923,7 @@ Now, we introduce the four properties
 {% step %}
 #### Path Weight Dependence
 
-The number of registers on a path changes based _only_ on the retiming of its start and end points, regardless of internal changes.
+The number of registers on a **path** changes based _only_ on the retiming of its **start** and **end** points, regardless of internal changes.
 
 $$
 w_{retimed}(V_1 \rightarrow V_N) = w_{original}(V_1 \rightarrow V_N) + r(V_N) - r(V_1)\tag{1}
@@ -923,13 +941,13 @@ Retiming **never changes** the total number of registers in a closed loop (cycle
 {% step %}
 #### Invariance of [Iteration Bound](lec-02b-rtl-transformations.md#iteration-bound-1)
 
-Because the number of registers in loops (Property 2) and the logic delays remains constant, the fundamental speed limit of the circuit (Iteration Bound) does not change.
+Because the number of **registers in loops** (Property 2) and the **logic delays** remains constant, the fundamental speed limit of the circuit (Iteration Bound) **does not change**.
 {% endstep %}
 
 {% step %}
 #### Invariance to Constant Addition
 
-Adding the same constant integer $$k$$ to the retiming vector $$r(V)$$ for _every_ node $$V$$ results in the exact same network. This is because the difference $$r(U) - r(V)$$ remains unchanged if both are shifted by the same amount.
+Adding the same constant integer $$k$$ to the retiming vector $$r(V)$$ for _every_ node $$V$$ results in the exact same network. This is because the difference $$r(V) - r(U)$$ remains unchanged if both are shifted by the same amount.
 {% endstep %}
 {% endstepper %}
 
@@ -946,7 +964,7 @@ We have seen the definition of cutset from [above](lec-02b-rtl-transformations.m
 
 <figure><img src="../../.gitbook/assets/cutset-retiming-definition.png" alt="" width="540"><figcaption></figcaption></figure>
 
-This operation only affects the weights of the edges crossing the cutset (edges connecting $$G1$$ and $$G2$$). Internal edges within $$G1$$ or $$G2$$ are unchanged.
+This operation only affects the weights of the **cutset edges** (edges connecting $$G1$$ and $$G2$$). Internal edges within $$G1$$ or $$G2$$ are unchanged.
 
 {% hint style="warning" %}
 Cutset retiming doesn't need the cutset to be **feedforward** because we are not doing **register insertion** here.
@@ -954,7 +972,7 @@ Cutset retiming doesn't need the cutset to be **feedforward** because we are not
 
 #### The Transformation Rules
 
-Since we apply $$r(V)=k,\forall~V\in G_2$$, we can divide into three cases based on the **positivity** of $$k$$.
+Since we apply $$r(V)=k,\forall~V\in G_2$$, we can divide into the following two cases based on the **positivity** of $$k$$.
 
 {% stepper %}
 {% step %}
@@ -966,16 +984,16 @@ To illustrate it clearly, we can see the following graph.
 
 So, when k > 0, we can see that it is either we
 
-1. Move the cutset register D from the edge V3 -> V6 to edge V2 -> V3, or
-2. Move the <mark style="color:green;">green register D</mark> from the edge V1 -> V2 to edge V4 -> V1 and V5 -> V1.
+1. Move the cutset register D from the cutset edge V3 -> V6 to the normal edge V2 -> V3, or
+2. Move the <mark style="color:green;">green register D</mark> from the normal edge V1 -> V2 to the cutset edges V4 -> V1 and V5 -> V1.
 
 This rule gives us a very powerful technique, which is that
 
-> We can pull delays/registers from G2's output to input without affecting the functionality.
+> We can pull delays/registers from **G2**'s **output** to **input** without affecting the functionality.
 {% endstep %}
 
 {% step %}
-**Case B: Forward Retiming (**$$k<0$$**)**
+#### **Case B: Forward Retiming (**$$k<0$$**)**
 
 This will be just the reverse process of case A.
 
@@ -983,12 +1001,12 @@ This will be just the reverse process of case A.
 
 So, when k < 0, we can see that it is either we&#x20;
 
-1. Move the two cutset registers on V4 -> V1 and V5 -> V1 to V1 -> V2
-2. Move the <mark style="color:green;">green register</mark> on V2 -> V3 to V3 -> V6.
+1. Move the two registers on the cutset edges V4 -> V1 and V5 -> V1 to normal edge V1 -> V2
+2. Move the <mark style="color:green;">green register</mark> on normal edge V2 -> V3 to the cutset edge V3 -> V6.
 
 This rule again gives us a very powerful technique, which is
 
-> We can pull delays/registers from G2's input to output without affecting the functionality.
+> We can pull delays/registers from **G2**'s **input** to **output** without affecting the functionality.
 {% endstep %}
 {% endstepper %}
 
@@ -1000,8 +1018,10 @@ $$
 -\min_{e \in G1 \rightarrow G2} w(e) \le k \le \min_{e \in G2 \rightarrow G1} w(e)
 $$
 
-* **Upper Bound** ($$k > 0$$): We cannot pull (remove) more registers from the outputs ($$G2 \rightarrow G1$$) than the minimum currently existing on any of those output edges.
-* **Lower Bound** ($$k < 0$$): We cannot push (remove) more registers from the inputs ($$G1 \rightarrow G2$$) than exist on the input edges.
+The **intuition** is that:
+
+* **Upper Bound** ($$k > 0$$): We cannot pull (remove) more registers from the outputs ($$G2 \rightarrow G1$$) than the minimum currently existing on any of those **output cutset** edges.
+* **Lower Bound** ($$k < 0$$): We cannot push (remove) more registers from the inputs ($$G1 \rightarrow G2$$) than exist on the **input cutset** edges.
 
 #### Practical Application
 
@@ -1010,7 +1030,7 @@ This generalizes the [basic node retiming rule](lec-02b-rtl-transformations.md#f
 <figure><img src="../../.gitbook/assets/retiming-practical-usage.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
-This is the **most important** application that we should take away from this whole section about **retiming**! It will be pretty useful in the RTL transformations we are going to talk about later.
+This is the **most important** application that we should take away from this whole section about **cutset** **retiming**! It will be pretty useful in the RTL transformations we are going to talk about later.
 {% endhint %}
 
 ## RTL Transformation
@@ -1018,14 +1038,14 @@ This is the **most important** application that we should take away from this wh
 Up till now, we are equipped with several skills
 
 1. Feedforward Cutset Insertion
-2. Retiming (The most important one is the [practical application](lec-02b-rtl-transformations.md#practical-application-1) above)
+2. Cutset Retiming (The most important one is the [practical application](lec-02b-rtl-transformations.md#practical-application-1) above)
 3. N-Slowing insertion
 
 We will now use these skills to start getting our hands "dirty"!
 
 ### Repipelining
 
-The first RTL Transformation technique we learn is **repipelining**. Repipelining is a technique used to increase the clock frequency (performance) of a design by adding new pipeline stages, rather than just rearranging existing ones. It is equivalent to [**register insertion** at I/O + **retiming**](#user-content-fn-4)[^4].
+The first RTL Transformation technique that we will learn is **repipelining**. Repipelining is a technique to increase the clock frequency (performance) of a design by adding new pipeline stages, rather than just rearranging existing ones. It is equivalent to [**register insertion** at I/O + **retiming**](#user-content-fn-9)[^9].
 
 * **Goal**: Reduce the minimum clock cycle ($$T_{CK}$$) by breaking up long combinational paths.
 * **Trade-off**: Unlike standard retiming (which is iso-latency), repipelining increases latency. The total time (in clock cycles) from Input to Output increases by $$k$$ cycles.
@@ -1039,12 +1059,12 @@ Repipelining is considered a **special case of cutset retiming** where the cutse
 Edges exist from $$G1 \to G2$$, but no edges exist from $$G2 \to G1$$.
 
 {% hint style="warning" %}
-Feedback loops can exist _internally_ within $$G1$$ or $$G2$$, but the cutset boundary itself cannot cross a feedback path. The existence of the feedback loop also **limits** the maximum clock frequency we can achieve (see more from the [#loop-bound](lec-02b-rtl-transformations.md#loop-bound "mention"))
+Loops can exist _internally_ within $$G1$$ or $$G2$$, but the gaussian surface itself **cannot** cross a loop because we are doing **register insertion** here. The existence of the  loop also **limits** the maximum clock frequency we can achieve (see more from the [#loop-bound](lec-02b-rtl-transformations.md#loop-bound "mention"))
 {% endhint %}
 
 #### The Transformation Procedure
 
-Since latency is not preserved, we cannot simply move existing registers. We must introduce new ones and then distribute them.
+Since latency is **not preserved**, we cannot **simply move** existing registers. We must **introduce new ones** and then distribute them.
 
 * **Insertion**: Add $$k$$ registers at the boundary (e.g., at all inputs going from $$G1$$ to $$G2$$).
 * **Retiming ("Pushing")**: Use retiming to move these new registers from the boundary into the internal logic of $$G2$$ to balance delays.
@@ -1097,6 +1117,13 @@ Then we deal with the bottom four adders. We add 4 registers at the output and t
 <figure><img src="../../.gitbook/assets/gaussian-filter-third-optimization-2.gif" alt=""><figcaption></figcaption></figure>
 
 Lastly, we achieved the 0.5 clock cycle and as we have added 4+6=10 more registers, the latency becomes 11+10=21.
+
+{% hint style="warning" %}
+When drawing the **gaussian surface** here, notice that the **gaussian surface**
+
+1. can **cross** the **operator**
+2. should **cross** as **few** edges **as possible** according to the **min-cut rule** mentioned above.
+{% endhint %}
 
 > TODO: Add the DFG version to understand deeper on how to form the partition and find the cutset.
 
@@ -1375,13 +1402,23 @@ Assumptions we have made:
 
 [^2]: This is based on the assumption that we have already squeezed out the performance of the design by well balancing the non-loop components of the system.
 
-[^3]: 
+[^3]: This is the **weight** of the cutset edge.
 
-    This means the same output at end of the cycle. For example,
+[^4]: the digital module in the figure above
+
+[^5]: This is because of the first property of retiming we mentioned above, which is to preserve the **I/O cycle-based** timing.
+
+[^6]: 
+
+    This means the same output at the end of the cycle. For example,
 
     * **Before Retiming**: Input A and B arrive -> Wait 1 cycle -> Add -> Output.
     * **After Retiming**: Input A and B arrive -> Add immediately -> Wait 1 cycle -> Output.
 
     Both approach will give us the same output.
 
-[^4]: You can do this even faster by just doing the feedforward cutset insertion. The only problem might be finding the correct cutset.
+[^7]: Later we will generalize **edge** to **path**.
+
+[^8]: It means that $$r(V)-r(U)$$ is **negative**, and $$r(U)-r(V)$$ is positive.
+
+[^9]: You can do this even faster by just doing the feedforward cutset insertion. The only problem might be finding the correct cutset.
