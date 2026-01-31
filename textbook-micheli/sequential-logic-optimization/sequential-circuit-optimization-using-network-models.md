@@ -394,7 +394,7 @@ Even though the Leriserson and Saxe method has polynomial-time compiexity, its r
 The **goal** of FEAS is to check if a specific clock period ($$\phi$$) is feasible without building the large constraint matrices required by Bellman-Ford. It is more memory-efficient for sparse networks. The FEAS algorithm uses the notion of the **data-ready time**, $$t_i$$.
 
 * $$t_i$$ represents the arrival time of the signal at vertex $$v_i$$, measured from the nearest preceding register.
-* If $$ti > \phi$$, the setup time is violated.
+* If $$t_i > \phi$$, the setup time is violated.
 
 The steps for this algorithm are:
 
@@ -411,6 +411,18 @@ The steps for this algorithm are:
   * Failure: If the loop runs $$|V|$$ times (number of gates) and violations still exist, the target $$\phi$$ is impossible. Return FALSE.
 
 > TODO: Pay attention to the example here.
+
+### Area Minimization
+
+Retiming may affect the **circuit area**, because it may **increase or decrease the number of registers** in the circuit. Since retiming does **not affect the functions associated with the vertices of the network**, the variation of the **number of registers** is the **only relevant factor** as far as **area optimization by retiming** is concerned.
+
+#### Register Sharing
+
+Before explaining the method, let us recall that the **synchronous network model** splits **multi-terminal nets** into **two-terminal** ones. As a result, **synchronous delays** are modeled by **weights on each edge**. Consider a **vertex** with **two (or more) fanout stems**. From an **implementation standpoint**, there is **no reason** for having **independent registers** on **multiple fanout paths**. **Registers can be shared**, as shown in **Figure 9.13 (c)**.
+
+<figure><img src="../../.gitbook/assets/register-sharing.png" alt="" width="563"><figcaption><p>Figure 9.13 (a) Circuit and network fragment (b) Retiming without register sharing. (c) Retiming with register sharing</p></figcaption></figure>
+
+> TODO: For the maths part on the method to do area minimization, it is not discussed in EE4218. SO, FYI, can read the textbook.
 
 [^1]: Can think of it as a transformation which transforms a vertex into an integer.
 
