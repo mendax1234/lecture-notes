@@ -115,6 +115,18 @@ In the coprocessor, we have the following modules
 In Lab 01, we are going to implement the coprocessor and try to optimize its performance.
 {% endhint %}
 
+## Assignment 1
+
+The whole assignment can be divided into three parts of work
+
+1. The FSM design
+2. The matrix multiplication unit design
+3. Testbench and test cases design
+
+### Finite-State Machine
+
+> One useful document on [FSM with Datapath](https://www2.imm.dtu.dk/courses/02139/07_fsmd.pdf) design.
+
 [^1]: The peripherals do not have their own special CPU instructions. Instead, they are mapped to specific physical addresses in the system memory map (hardwired by Xilinx).
 
 [^2]: The **Address Phase** is the "phone call" before the conversation. It is the specific moment when the Master sends the location (address) and control information to the Slave, and they perform a handshake (using `VALID` and `READY`).
