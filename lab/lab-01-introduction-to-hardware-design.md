@@ -169,7 +169,7 @@ The signals and their usage can be categorized into the following groups:
 
 The fundamental rule for the using AXIS to transfer data is that
 
-> The master/slave should capture the data at the very next active clock edge if their corresponding `TVALID` and `TREADY` are both true (actually these two signals might be true before the very next positive clock edge).
+> The slave[^6] should capture the data at the very next active clock edge if its corresponding [`TVALID` and `TREADY`](#user-content-fn-7)[^7] are both true (actually these two signals might be true before the very next positive clock edge).
 
 The Handshake process can be divided into the following two phases
 
@@ -210,3 +210,7 @@ In this phase, the **IP acts as the Master** (sending results) and the **Testben
 [^4]: The processing system.
 
 [^5]: The processing system, same as the master mentioned above.
+
+[^6]: Based on the phase, the **slave** here can be either the **testbench** or the **IP**.
+
+[^7]: More specifically speaking, they can be `S_AXIS_Txxxx` or `M_AXIS_Txxxx` depending on which component (IP or Testbench) is the slave.
