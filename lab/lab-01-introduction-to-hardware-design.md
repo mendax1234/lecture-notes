@@ -125,7 +125,78 @@ The whole assignment can be divided into three parts of work
 
 ### Finite-State Machine
 
-> One useful document on [FSM with Datapath](https://www2.imm.dtu.dk/courses/02139/07_fsmd.pdf) design.
+> One useful document on the [FSM with Datapath](https://www2.imm.dtu.dk/courses/02139/07_fsmd.pdf) design.
+
+I use the FSM with Datapath which has occured in the [Mach-V mul & div unit](https://mendax1234.github.io/Mach-V/hw/uarch/mul-div-unit/) design. The core idea for FSM with Datapath design is that
+
+1. The FSM acts as the master (controller) of the datapath
+2. The datapath contains **computing elements** (The matrix multiply unit in this case) and **storage elements** (ARAM, BRAM, and Result RAM).
+
+The FSM with Datapath design used in this assignment is shown as follows:
+
+<figure><img src="../.gitbook/assets/fsm-structure.svg" alt=""><figcaption></figcaption></figure>
+
+The signals and their usage can be categorized into the following groups:
+
+1. **System Inputs -> FSM**
+   1. `ACLK`: The system clock
+   2. `ARESETN`: Active low synchronous reset.
+   3. `S_AXIS_TVALID`: Tells the FSM that **valid** input data is arriving (triggers transition from `Idle` to `Read_Inputs`).
+   4. `M_AXIS_TREADY`: Tells the FSM that the [downstream slave](#user-content-fn-3)[^3] is ready to receive results (controls flow in `Write_Outputs`).
+2. **FSM -> System Outputs**
+   1. `S_AXIS_TREADY`: Signals to the master[^4] that this module is ready to accept input.
+   2. `M_AXIS_TVALID`: Signals to the slave[^5] that the output data is valid.
+   3. `M_AXIS_TLAST`: Signals that the current output data is the last word in the packet.
+3. **System Inputs** -> **Datapath**
+   1. `S_AXIS_TDATA[31:0]:` The input data words (matrix elements).
+4. **Datapath** -> **System Outputs**
+   1. `M_AXIS_TDATA[31:0]`: The result data coming out of the `RES_RAM`.
+5. **FSM -> Datapath (Control Signals)**
+   1. `Start`: Triggers the `matrix_multiply_0` module to begin calculation.
+   2. `A_write_en`: Enables writing data into the A RAM.
+   3. `B_write_en`: Enables writing data into the B RAM.
+   4. `RES_read_en`: Enables reading results from the Result RAM.
+6. **Datapath** -> **FSM**
+   1. `Done`: Comes from `matrix_multiply_0`; tells the FSM that computation is finished (triggers transition `Compute` -> `Write_Outputs`).
+   2. `read_counter`: The current count of input words read.
+      * _Usage:_ FSM checks this to decide whether to write to A or B, and when to stop reading.
+   3. `write_counter`: The current count of output words sent.
+      * _Usage:_ FSM checks this to assert `M_AXIS_TLAST` and to decide when to return to `Idle`.
+   4. `res_ram_data_valid`: A flag indicating if the RAM output is stable/valid.
+      * _Usage:_ Used by the FSM to drive `M_AXIS_TVALID`.
+
+#### AXIS Handshake Workflow
+
+The fundamental rule for the using AXIS to transfer data is that
+
+> The master/slave should capture the data at the very next active clock edge if their corresponding `TVALID` and `TREADY` are both true (actually these two signals might be true before the very next positive clock edge).
+
+The Handshake process can be divided into the following two phases
+
+{% stepper %}
+{% step %}
+#### Input Handshake (Testbench -> IP)
+
+In this phase, the **Testbench acts as the Master** (sending data) and the **IP acts as the Slave** (receiving data).
+
+1. **Master Initiates (TVALID)**: The Testbench asserts `S_AXIS_TVALID = 1` to indicate it has valid data available on the `S_AXIS_TDATA` line.
+2. **Slave Responds (TREADY)**: The IP (inside the `Read_Inputs` state) asserts `S_AXIS_TREADY = 1` to indicate it is free to accept new data.
+3. **The Transfer (Handshake)**: The Testbench checks `if(S_AXIS_TREADY)`. Since `TVALID` is already 1, if `TREADY` is also 1, the handshake is complete.
+4. **Update**: The Testbench assumes the data was successfully captured by the IP. It then updates `S_AXIS_TDATA` with the _next_ data word for the next cycle and increments its word counter.
+5. **Termination**: On the final word, the Testbench sets `S_AXIS_TLAST = 1`. After the loop finishes, it de-asserts `S_AXIS_TVALID = 0`.
+{% endstep %}
+
+{% step %}
+#### Output Handshare (IP -> Testbench)
+
+In this phase, the **IP acts as the Master** (sending results) and the **Testbench acts as the Slave** (receiving results).
+
+* **Slave Initiates (TREADY)**: The Testbench asserts `M_AXIS_TREADY = 1` first. This tells the IP, "I am listening and ready to record your output whenever you are ready."
+* **Master Responds (TVALID)**: When the IP finishes its computation (entering `Write_Outputs` state), it asserts `M_AXIS_TVALID = 1` and places the result on `M_AXIS_TDATA`.
+* **The Transfer (Handshake)**: The Testbench waits in a loop. When it sees `M_AXIS_TVALID` go high (while its own `TREADY` is high), it records the value from `M_AXIS_TDATA` into its `result_memory`.
+* **Termination**: The Testbench continues this loop until it detects the `M_AXIS_TLAST` signal (indicating the packet is done) or its falling edge , at which point it de-asserts `M_AXIS_TREADY = 0`.
+{% endstep %}
+{% endstepper %}
 
 [^1]: The peripherals do not have their own special CPU instructions. Instead, they are mapped to specific physical addresses in the system memory map (hardwired by Xilinx).
 
@@ -133,3 +204,9 @@ The whole assignment can be divided into three parts of work
 
     * **Without Address Phase**: The Slave doesn't know _where_ to put the data.
     * **With Address Phase**: The Slave knows exactly which register or memory cell to target.
+
+[^3]: In our case it is the processor system.
+
+[^4]: The processing system.
+
+[^5]: The processing system, same as the master mentioned above.
