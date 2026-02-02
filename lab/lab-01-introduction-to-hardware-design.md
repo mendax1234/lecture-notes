@@ -184,6 +184,22 @@ In this phase, the **Testbench acts as the Master** (sending data) and the **IP 
 3. **The Transfer (Handshake)**: The Testbench checks `if(S_AXIS_TREADY)`. Since `TVALID` is already 1, if `TREADY` is also 1, the handshake is complete.
 4. **Update**: The Testbench assumes the data was successfully captured by the IP. It then updates `S_AXIS_TDATA` with the _next_ data word for the next cycle and increments its word counter.
 5. **Termination**: On the final word, the Testbench sets `S_AXIS_TLAST = 1`. After the loop finishes, it de-asserts `S_AXIS_TVALID = 0`.
+
+In the real timing diagram, we can see from the figure below
+
+<figure><img src="../.gitbook/assets/input-handshake-timing-diagram-1.png" alt=""><figcaption></figcaption></figure>
+
+1. At 125ns, `ARESETN` is released, the testbench **immediately** asserts the `S_AXIS_TVALID` to HIGH and the FSM captures this input change and immediately sets the `n_state=0100` (Read Input). Meanwhile, in the testbench, as `S_AXIS_TREADY` is still 0, the `#100ns` delay is triggered, causing the `S_AXIS_TDATA` to be available only at 225ns.
+2. At 150ns, the positive clock edge happens, `state` changes to `0100` (Read Input). During this clock cycle (150ns - 250ns), nothing is written to `A_RAM` as the first `S_AXIS_TDATA` is available at 225ns only.
+3. At 250ns, since the `S_AXIS_TDATA` is available 25ns before the clock edge, the **write** to `A_RAM` is done **immediately**, providing that the address is just the value of the `read_counter`.
+4. This process continues until the following happens
+
+<figure><img src="../.gitbook/assets/input-handshake-timing-diagram-2.png" alt=""><figcaption></figcaption></figure>
+
+1. At 1250ns, the `read_counter=11` (`NUMBER_OF_INPUT_WORDS - 1`), the FSM **immediately** captures this and update `n_state` to `0010` (Compute).&#x20;
+2. At 1350ns, the `S_AXIS_TVALID` is kept HIGH for another 100ns for the last data to be written into `B_RAM`. In the meantime, the `START` of the matrix multiply unit is asserted HIGH.
+3. At 1425ns, immediately after `S_AXIS_TVALID` goes down, `M_AXIS_TREADY` goes up.
+4. The matrix multiply unit starts computing.
 {% endstep %}
 
 {% step %}
@@ -195,6 +211,15 @@ In this phase, the **IP acts as the Master** (sending results) and the **Testben
 * **Master Responds (TVALID)**: When the IP finishes its computation (entering `Write_Outputs` state), it asserts `M_AXIS_TVALID = 1` and places the result on `M_AXIS_TDATA`.
 * **The Transfer (Handshake)**: The Testbench waits in a loop. When it sees `M_AXIS_TVALID` go high (while its own `TREADY` is high), it records the value from `M_AXIS_TDATA` into its `result_memory`.
 * **Termination**: The Testbench continues this loop until it detects the `M_AXIS_TLAST` signal (indicating the packet is done) or its falling edge , at which point it de-asserts `M_AXIS_TREADY = 0`.
+
+After the matrix multiply unit finishes computing,
+
+<figure><img src="../.gitbook/assets/output-handshake-diagram-1.png" alt=""><figcaption></figcaption></figure>
+
+1. At 4150ns, the matrix multiply unit finishes computing, and it sets `Done` immediately to HIGH. The FSM captures this change immediately and updates `n_state` to `0001` (Write Outputs) immediately.
+2. At 4250ns, the `RES_RAM` read signal is asserted to HIGH, the reading process starts, but the data read (`M_AXIS_TDATA`) is available at the **next clock edge** only (at 4350ns). To deal with this situation, another signal called `res_ram_data_valid` is created and it is only asserted high **one cycle** after the `RES_RAM` read signal is asserted to HIGH, indicating the time when the `M_AXIS_TDATA` is ready to be read by the testbench.
+   1. To note, `M_AXIS_TVALID=res_ram_data_valid` so that the testbench can read the correct value.
+3. At 4550ns, the next state transition logic to transit to `1000` is detected because `write_coutner==NUMBER_OF_OUTPUT_WORDS-1`. And a new round starts at the next clock cycle.
 {% endstep %}
 {% endstepper %}
 
