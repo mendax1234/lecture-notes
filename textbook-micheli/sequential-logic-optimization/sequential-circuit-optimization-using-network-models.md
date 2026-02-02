@@ -173,9 +173,15 @@ The combination of **retiming** and **network transformation** is combined into 
 
 ## Retiming
 
+> In EE4415, we introduce **cutset-based retiming**. However, here (in EE4218), we will introduce **relaxation-based retiming**.
+
 **Retiming algorithms** address the problem of minimizing the **cycle-time** or the **area** of **synchronous circuits** by changing the **position of the registers**. Recall that the **cycle-time** is bounded from below by the **critical path delay** in the **combinational component** of a synchronous circuit, i.e., by the **longest path between a pair of registers**. Hence, **retiming** aims at placing the **registers** in appropriate positions so that the **critical paths** they embrace are as **short as possible**.
 
 Moving the registers may **increase or decrease** the **number of registers**. Thus, **area minimization by retiming** corresponds to minimizing the **overall number of registers**, because the **combinational component** of the circuit is **not affected**.
+
+{% hint style="warning" %}
+The goal of **retiming** is to try to balance the "pipeline". Or in other words, try to balance the combinational delay between any pair of the registers.
+{% endhint %}
 
 ### Modeling and Assumptions for Retiming
 
@@ -347,6 +353,12 @@ We say that a **retiming vector** is feasible if it is **legal** and the **retim
 {% endstep %}
 {% endstepper %}
 
+#### Relaxation-Based Retiming
+
+We will introduce two techniques here. However, both of them have **polynomial-time complexity**.
+
+{% stepper %}
+{% step %}
 #### Leriserson and Saxe Algorithm
 
 Before we look at the algorithm, let's first look at the Lerserson an Saxe Theorem
@@ -386,8 +398,10 @@ The **complexity** of this algorithm is $$O(|V|^3 \log |V|)$$.
 
 * The $$|V|^3$$ comes from Bellman-Ford (or all-pairs calculation), and
 * the $$\log |V|$$ comes from the binary search.
+{% endstep %}
 
-#### Relaxation-Based Retiming (FEAS)
+{% step %}
+#### FEAS
 
 Even though the Leriserson and Saxe method has polynomial-time compiexity, its run time may he high. Computing matrices W and D may require large storage for graphs with many vertices. Most large networks are **sparse**, i.e., the number of edges is much smaller than the vertex pairs. Some retiming algorithms exploit the sparsity of the network and are more efficient for large networks. We review here a **relaxation method** that can be used to check the existence of a feasible retiming for a given cycle-time $$\phi$$. It is called **FEAS** and it can replace the Bellman-Ford algorithm.
 
@@ -410,7 +424,26 @@ The steps for this algorithm are:
   * Success: If no vertices have $$t_i > \phi$$, the retiming is valid. Return TRUE.
   * Failure: If the loop runs $$|V|$$ times (number of gates) and violations still exist, the target $$\phi$$ is impossible. Return FALSE.
 
-> TODO: Pay attention to the example here.
+For example, in the following synchronous logic network where the critical path length is 3+7+7+7=24. We set our **first target** to 13.
+
+<figure><img src="../../.gitbook/assets/feas-example-1.png" alt="" width="563"><figcaption></figcaption></figure>
+
+We can omit the edge with weight 0 in the graph,
+
+<figure><img src="../../.gitbook/assets/feas-example-2.png" alt="" width="563"><figcaption></figcaption></figure>
+
+We start from the V<sub>d</sub> and writing the **data arrival time** for each vertice that V<sub>d</sub> can reach.
+
+1. For V<sub>e</sub>, we write 3+7=10.
+2. For V<sub>f</sub>, we write 10+7=17.
+
+As 17>13, we must **add a register** between V<sub>e</sub> and V<sub>f</sub>. To do so, let's use the [cutset retiming](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/lecture/lec-02/lec-02b-rtl-transformations#cutset-retiming) we have learned in EE4415! So, we draw a **gaussian surface** around the V<sub>e</sub>, V<sub>d</sub>, and V<sub>c</sub>, then we move the register on the edge from V<sub>b</sub> -> V<sub>c</sub> to the edge from V<sub>e</sub> -> V<sub>f</sub>. Done!
+
+After that, we start from V<sub>f</sub> and found out that the data arrival time at V<sub>g</sub> is 14 > 13, we need to add another register here. In this case, in order not to make the other paths violate our target, we apply the **cutset retiming again** and bring the register from V<sub>h</sub> -> V<sub>a</sub> to V<sub>f</sub> -> V<sub>g</sub>. Now we are done, the critical path now is 13.
+
+> HW: Argue that 13 is the optimal solution in this case.
+{% endstep %}
+{% endstepper %}
 
 ### Area Minimization
 

@@ -25,3 +25,4 @@
   * [Introduction](textbook-micheli/sequential-logic-optimization/introduction.md)
   * [Synchronous Circuit Optimization using State-Based Models](textbook-micheli/sequential-logic-optimization/synchronous-circuit-optimization-using-state-based-models.md)
   * [Sequential Circuit Optimization using Network Models](textbook-micheli/sequential-logic-optimization/sequential-circuit-optimization-using-network-models.md)
+  * [Implicit FSM Traversal Methods](textbook-micheli/sequential-logic-optimization/implicit-fsm-traversal-methods.md)

@@ -312,7 +312,23 @@ This number is dependent **purely** on the number of **state bits** we use to en
 
 #### The use of Minimum-Length Codes
 
-**Early work on state encoding** focused on the use of **minimum-length codes**, i.e., using $$n_b = \lceil \log_2 n_s \rceil$$ **bits** to represent the set of states $$S$$. Most **classical heuristic methods** for **state encoding** are based on a **reduced dependency criterion**. The **rationale** is to encode the states so that the **state variables** have the **least dependencies** on those representing the **previous states**. **Reduced dependencies** correlate **weakly** with the **minimality** of a **sum-of-products representation**.
+**Early work on state encoding** focused on the use of **minimum-length codes**, i.e., using $$n_b = \lceil \log_2 n_s \rceil$$ **bits** to represent the set of states $$S$$.
+
+#### Heuristics
+
+Most **classical heuristic methods** for **state encoding** are based on a **reduced dependency criterion**. The **rationale** is to encode the states so that the **state variables** have the **least dependencies** on those representing the **previous states**. **Reduced dependencies** correlate **weakly** with the **minimality** of a **sum-of-products representation**.
+
+For example, [adjacent code](#user-content-fn-2)[^2] should be used to states that share/have
+
+1. a **common next-state**
+2. a **common predecessor (ancestor) state**
+3. a **common output behavior**.
+
+However, the first and second are preferred over the third because the **next-state combinational logic** usually are more complex than the **output combinational logic.** Optimizing around the next-state logic therefore yields greater benefits in terms of timing and overall circuit reliability.
+
+{% hint style="info" %}
+Some examples of this encoding is: [**Gray Code**](https://electronics.stackexchange.com/questions/690113/is-the-gray-code-unique) and **Johnson Code**.
+{% endhint %}
 
 > TODO: Add symbolic minimization example here.
 
@@ -321,7 +337,7 @@ This number is dependent **purely** on the number of **state bits** we use to en
 **State encoding techniques for multiple-level circuits** use the **logic network model** for the **combinational component** of the **finite-state machine**. The **overall area measure** is related to
 
 1. the number of **encoding bits** (i.e., **registers**) and
-2. to the number of [**literals**](#user-content-fn-2)[^2] in the **logic network**.
+2. to the number of [**literals**](#user-content-fn-3)[^3] in the **logic network**.
 
 The **delay** corresponds to the **critical path length** in the network. To date, only **heuristic methods** have been developed for computing **state encodings** that optimize the **area estimate**.
 
@@ -329,4 +345,6 @@ The **delay** corresponds to the **critical path length** in the network. To dat
 
 [^1]: Here, it is literally just the **minus** sign.
 
-[^2]: A **literal** is simply an instance of a variable or its complement (inverse) appearing in a boolean equation.
+[^2]: This means, the difference between two codes should be only 1 bit. Example, {001, 011} are considered as adjacent codes, while {001, 010} are **not adjacent.**
+
+[^3]: A **literal** is simply an instance of a variable or its complement (inverse) appearing in a boolean equation.
