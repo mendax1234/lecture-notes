@@ -653,11 +653,11 @@ $$
 T_{CK} \ge \frac{T_{CK-Q} + T_{COMB} + T_{MUX} + T_{SETUP}}{n}
 $$
 
-### Performance Analysis
+### PPA Analysis
 
 Here, we are doing the PPA analysis on **parallelism** vs. a **reference sequential** (non-pipelined) **design**.
 
-#### Performance
+#### Performance Analysis
 
 The performance analysis can be divided into throughput and latency analysis
 
@@ -1133,41 +1133,27 @@ When drawing the **gaussian surface** here, notice that the **gaussian surface**
 
 ### Time Interleaving
 
-An equivalent way to repipeline a design is to first repace each register with N cascaded registers and then retime (creating a "N-slow version"). This is also called **Time Interleaving**.
+Another RTL transformation skill is called **time interleaving**, which utilizes the [N-slowing](lec-02b-rtl-transformations.md#n-slowing-insertion) technique we have covered above to first replace each register with N cascaded registers and then retime it.
 
 {% hint style="success" %}
-Time interleaving is a technique to process $$N$$ independent data streams on a single hardware block by utilizing pipeline "slots" created through register multiplication.
+Time interleaving is a technique to process $$N$$ independent data streams on a single hardware block by utilizing pipeline "slots" created through register replacement.
 {% endhint %}
 
 #### The Transformation Procedure
 
-1. **Step 1**: $$N$$**-Slowing**
-   * Replace every single register in the original design with $$N$$ **cascaded registers**.
-   * **Effect:** This creates an "$$N$$-slow" version of the circuit. The system now takes $$N$$ clock cycles to do what the original did in 1 cycle (time dilation).
-2. **Step 2: Retiming**
-   * Use the newly added registers to perform **Retiming**. Distribute these extra registers into the combinational logic to break critical paths.
-   * Result: The logic depth decreases, allowing the clock frequency to increase significantly.
+**Step 1**: $$N$$**-Slowing**
 
-#### How It Works
+* Replace every single register in the original design with $$N$$ **cascaded registers**.
+* **Effect:** This creates an "$$N$$-slow" version of the circuit. The system now takes $$N$$ clock cycles to do what the original did in 1 cycle (time dilation).
 
-* **Independence of Slots**:
-  * In an $$N$$-slowed system, the computation at time $$t$$ only depends on data from $$t-N$$, $$t-2N$$, etc..
-  * This leaves the intermediate time slots ($$t-1$$, $$t-2$$...) completely independent of the current calculation.
-* **Utilization:**
-  * We can feed $$N$$ different data streams into the circuit in a round-robin fashion (Stream A at $$t=0$$, Stream B at $$t=1$$, etc.).
-  * The hardware effectively acts as $$N$$ independent virtual processors running in parallel on the same physical logic.
+**Step 2: Retiming**
 
-#### Maths Notation
+* Use the newly added registers to perform **Retiming**. Distribute these extra registers into the combinational logic to break critical paths.
+* Result: Optimally, after inserting N registers and well-balance the logic, we will have a $$N$$ times faster clock frequency.
 
-* $$x(i)$$: Represents the signal in the **original circuit** at clock cycle $$i$$.
-* $$x_N(N \cdot i)$$: Represents the same signal in the $$N$$**-slowed system**.
-* **Interpretation:** The equality $$x_N(N \cdot i) = x(i)$$ defines Time Dilation.
-  * The original sequence of valid data ($$0, 1, 2...$$) is mapped to multiples of $$N$$ ($$0, N, 2N...$$) in the new system. In other words, the data that appeared at time 1, 2, 3 in the original circuit... now appears at time N, 2N, 3N in the new circuit.
-
-| Name                            | Original       | N-slowned                |
-| ------------------------------- | -------------- | ------------------------ |
-| **signal**                      | x(i)           | xₙ(N · i) = x(i)         |
-| **depends on other iterations** | i, i-1, i-2, … | N·i, (N−1)·i, (N−2)·i, … |
+{% hint style="info" %}
+In the second step, we assume that the pipelined stages are **well-balanced**, which is not practical in real world though.
+{% endhint %}
 
 #### Practical Example
 
@@ -1184,12 +1170,12 @@ After applying the time interleaving technique, we achieve:
 * The system can now run at nearly double the frequency, processing two streams with the same hardware area footprint (plus a few flip-flops).
 
 {% hint style="success" %}
-Another application is that in microprocessor, time interleaving effectively implements the SIMD concept, as it performs the same operation on multiple independent data.
+Another application is that in microprocessor, time interleaving effectively implements the SIMD concept, as it performs the same operation on multiple independent data. The **commercial term** using for time interleaving on processor is called **hyper-threading**.
 {% endhint %}
 
 #### PPA Analysis
 
-After knowing what is time interleaving and how it works, we can now analyze its impact.
+After knowing what is **time interleaving** and how it works, we can now analyze its impact.
 
 {% stepper %}
 {% step %}
@@ -1201,14 +1187,18 @@ $$
 \frac{\text{Throughput}_{\text{interleaved}}}{\text{Throughput}_{\text{original}}} = \frac{\text{OPC}_{\text{interleaved}} \cdot f_{\text{CK, interleaved}}}{\text{OPC}_{\text{original}} \cdot f_{\text{CK, original}}} = \frac{1/N \cdot (N \cdot f)}{1 \cdot f} = 1
 $$
 
-, where OPC is Operations Per Cycle.
+, where OPC is **O**perations **P**er **C**ycle.
+
+{% hint style="warning" %}
+We are utilize the definition of throughput (opeartions per second) to get
+
+<p align="center"><span class="math">\text{throughput}=\text{ops/s}=\text{ops/cycle}\times\text{cycle/s}=\text{OPC}\times\text{frequency}=\text{OPC}\div T_{CK}</span></p>
+{% endhint %}
 
 * **Throughput per Channel**: Remains unchanged.
   * The clock is $$N$$ times faster, but we wait $$N$$ cycles for each turn. These factors cancel out.
 * **Overall System Throughput:** Increases by Factor $$N$$.
-  * Since we are processing $$N$$ channels simultaneously, the _aggregate_ capacity of the hardware is multiplied by $$N$$.
-
-**2. Latency (Input-to-Output Delay)**
+  * To make this concrete, consider a system without time interleaving, where a single channel is processed by the processor at a clock rate of 100 MHz. After applying time interleaving with a factor N=4, the effective clock rate increases to 400 MHz. As a result, within the same time, the processor can sequentially handle data from four different channels, effectively achieving four-channel throughput.
 {% endstep %}
 
 {% step %}
@@ -1229,11 +1219,11 @@ $$
 Unlike full parallelism (which copies the huge combinational logic blocks), Time Interleaving only copies the **Registers**. Therefore, the area penalty depends on how "register-heavy" the original design was.
 
 $$
-\frac{A_{\text{interleaved}}}{A_{\text{original}}} = 1 + (N-1) \cdot \frac{\sum A_{\text{REG},i}}{A_{\text{COMB}} + \sum A_{\text{REG},i}}
+\frac{A_{\text{interleaved}}}{A_{\text{original}}} = \frac{A_{\text{COMB}}+N\cdot\sum A_{\text{REG,i}}}{A_{\text{COMB}}+\sum A_{\text{REG,i}}} =1 + (N-1) \cdot \frac{\sum A_{\text{REG},i}}{A_{\text{COMB}} + \sum A_{\text{REG},i}}
 $$
 
 * **Impact:** Area increases, but usually by much less than $$N$$ (since combinational logic $$A_{COMB}$$ dominates).
-* The term on the right represents the percentage of total area used by registers. If registers take up small space, the area cost of $$N$$-slowing is negligible.
+* The term on the right represents the **percentage** of total area used by registers. If registers take up small space, the area cost of $$N$$-slowing is negligible.
 {% endstep %}
 
 {% step %}
@@ -1242,7 +1232,7 @@ $$
 Similarly, the combinational logic energy is unchanged (shared across streams), but we burn extra power clocking the additional registers.
 
 $$
-\frac{E_{\text{interleaved}}}{E_{\text{original}}} = 1 + (N-1) \cdot \frac{\sum E_{\text{REG},i}}{E_{\text{COMB}} + \sum E_{\text{REG},i}}
+\frac{E_{\text{interleaved}}}{E_{\text{original}}} = \frac{E_{\text{COMB}}+N\cdot\sum E_{\text{REG,i}}}{E_{\text{COMB}}+\sum E_{\text{REG,i}}}= 1 + (N-1) \cdot \frac{\sum E_{\text{REG},i}}{E_{\text{COMB}} + \sum E_{\text{REG},i}}
 $$
 
 * **Impact:** Energy per operation increases slightly due to the extra registers.
@@ -1277,7 +1267,7 @@ $$
 #### Important Distinction
 
 * **Interleaving:** We _must_ have $$N$$ independent channels to fill the slots. The throughput _per channel_ is the same as the original single unit.
-* **Parallelism:** We  have the flexibility to use the hardware to process one channel faster (splitting data) or $$N$$ channels at normal speed. This part notes that "throughput/channel is increased by $$N$$ only in parallel" (assuming resources are dedicated to it).
+* **Parallelism:** We have the flexibility to use the hardware to process one channel faster (splitting data) or $$N$$ channels at normal speed. This part notes that "throughput/channel is increased by $$N$$ only in parallel" (assuming resources are dedicated to it).
 {% endhint %}
 {% endstep %}
 
@@ -1316,17 +1306,21 @@ $$
 \end{align*}
 $$
 
+{% hint style="warning" %}
+From the first line to the second line, we use the property that: If $$x\ll1$$
 
+<p align="center"><span class="math">\frac{1}{1+x}\approx1-x</span></p>
+{% endhint %}
 
 * **Parallelism Cost**: We copy the entire circuit $$N$$ times (Logic + Registers). Area scales by $$N$$.
 * **Interleaving Cost**: We only copy the Registers $$N$$ times. We share the single block of Combinational Logic ($$A_{COMB}$$).
-* **Result:** The ratio is roughly $$1/N$$. If the combinational logic is large (e.g., a complex multiplier), Interleaving saves a massive amount of silicon area compared to parallelism.
+* **Result:** The ratio is roughly $$1/N$$. If the combinational logic is large (e.g., a complex multiplier). Interleaving saves a massive amount of silicon area compared to parallelism.
 {% endstep %}
 
 {% step %}
 #### Energy
 
-Parallelism is slightly better for energy. Interleaving has an overhead due to the extra registers.
+Again, here we are considering **energy per operation**. **Parallelism** is **slightly better** for energy. **Interleaving** has an overhead due to the extra registers.
 
 $$
 \frac{E_{\text{interleaved}}}{E_{\text{parallel}}}
@@ -1337,7 +1331,7 @@ $$
 $$
 
 * **Parallel:** Energy per operation is constant. We do $$N$$ ops on $$N$$ units, consuming $$N$$ energy, but per-op energy is unchanged.
-* **Interleaved:** We still do the math ($$E_{COMB}$$), but you must power $$N$$ times more registers. The term $$(N-1)$$ represents the energy penalty from clocking those extra registers.
+* **Interleaved:** We still do the math ($$E_{COMB}$$), but we must power $$N$$ times more registers. The term $$(N-1)$$ represents the energy penalty from clocking those extra registers.
 {% endstep %}
 {% endstepper %}
 
@@ -1351,9 +1345,12 @@ One real-world example is the Intel Atom. This real-world example demonstrates *
   * Technique: 2-slowing with Register File replication ($$N=2$$) while sharing execution units.
   * Baseline: In a single core, registers consume only \~10% area and \~20% energy.
 * **Results (Trade-offs):**
-  * Performance: +49% (limited by structural hazards rather than perfect 100%).
-  * Area: +8% (Minimal cost since only the register file is replicated).
-  * Energy: +17-19% (At iso-throughput).
+  * **Performance**: +49% (limited by [**structural hazards**](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-05-the-pipelined-processor#structural-hazards) rather than perfect 100%).
+    * The ideal case of performance improvement is 100% as the factor N=2 in this case.
+  * **Area**: +8% (Minimal cost since only the register file is replicated).
+    * The ideal case of area usage increase is $$1+0.1=1.1\times$$, so around 10% more usage.
+  * **Energy**: +17-19% (At iso-throughput).
+    * The ideal case of energy usage is $$1+0.2=1.2\times$$, so around 20% more usage.
 * Key Insight: $$N$$-slowing provides significant speedup (\~1.5x) with very low area cost (<10%) when registers are a small fraction of the total design.
 
 ## General Procedure for RTL Rearrangement
@@ -1365,14 +1362,14 @@ This procedure outlines the systematic approach to optimizing an existing RTL de
 #### Define Modification Goals
 
 * Determine exactly where registers need to be added, removed, or moved, or how many hardware replicas are required.
-* These decisions are driven by the specific target improvements (or acceptable penalties) in **Area, Throughput, Latency, and Energy** relative to the original RTL.
+* These decisions are driven by the **specific target improvements** (or acceptable penalties) in **Performance (Throughput and latency), Power (Energy), Area** relative to the original RTL.
 {% endstep %}
 
 {% step %}
 #### Select RTL Transformation
 
 * Identify the correct transformation(s) to achieve the goal set in Step 1.
-* Available techniques include Register Insertion, Parallelism, and Interleaving.
+* Available techniques include **repipelining**, **retiming**, **parallelism**, and **time-interleaving**.
 
 {% hint style="warning" %}
 These techniques can also be applied in inverse (e.g., Register Removal, reducing the degree of Parallelism or Interleaving) to reduce area or power consumption.
