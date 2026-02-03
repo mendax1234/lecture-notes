@@ -1266,8 +1266,8 @@ $$
 {% hint style="danger" %}
 #### Important Distinction
 
-* **Interleaving:** We _must_ have $$N$$ independent channels to fill the slots. The throughput _per channel_ is the same as the original single unit.
-* **Parallelism:** We have the flexibility to use the hardware to process one channel faster (splitting data) or $$N$$ channels at normal speed. This part notes that "throughput/channel is increased by $$N$$ only in parallel" (assuming resources are dedicated to it).
+* **Interleaving:** We _must_ have $$N$$ **independent channels** to fill the slots. The throughput _per channel_ is the same as the original single unit.
+* **Parallelism:** We have the flexibility to use the hardware to process one channel faster (splitting data) or $$N$$ channels at normal speed. This part notes that "throughput/channel is increased by $$N$$ only when we use all the N parallel processing units to process that single channel" (assuming resources are dedicated to it).
 {% endhint %}
 {% endstep %}
 
