@@ -1,11 +1,11 @@
 # Computer-aided Synthesis and Optimization
 
-**Computer-aided tools** provide an **effective means** for designing **microelectronic circuits** that are **economically viable products**.
+**Computer-aided tools** provide an effective means for designing microelectronic circuits that are economically viable products.
 
-* **Synthesis** techniques **speed up the design cycle** and **reduce human effort**.
-* **Optimization** techniques **enhance the design quality**.
+* **Synthesis** techniques speed up the design cycle and reduce human effort.
+* **Optimization** techniques enhance the design quality.
 
-At present, **synthesis** and **optimization techniques** are used for **most digital circuit designs**. Nevertheless, their **power** is **not yet exploited in full**. It is one of the purposes of the **book** to **foster the use** of **synthesis** and **optimization techniques**, because they can be **instrumental** in the **progress of electronic design**.
+At present, **synthesis** and **optimization techniques** are used for most digital circuit designs. Nevertheless, their power is not yet exploited in full. It is one of the purposes of the book to f**oster the use of synthesis and optimization techniques**, because they can be instrumental in the progress of electronic design.
 
 ## Circuit Models
 
@@ -18,7 +18,7 @@ A **model of a circuit** is an **abstraction**, i.e., a **representation** that 
 At the **architectural level**, a **circuit** performs a set of **operations**, such as **data computation** or **transfer**.
 
 {% hint style="success" %}
-Examples of representations for architectural models: HDL models, flow diagrams
+Examples of representations for architectural models: **HDL models**, **flow diagrams**
 {% endhint %}
 
 #### Logical
@@ -26,7 +26,7 @@ Examples of representations for architectural models: HDL models, flow diagrams
 At the **logic level**, a **digital circuit** evaluates a set of **logic functions**.
 
 {% hint style="success" %}
-Examples of representations for logic models are state transition diagrams, schematics
+Examples of representations for logic models are **state transition diagrams**, **schematics**
 {% endhint %}
 
 #### Geometric
@@ -34,12 +34,12 @@ Examples of representations for logic models are state transition diagrams, sche
 At the **geometrical level**, a **circuit** is a set of **geometrical entities**.
 
 {% hint style="success" %}
-Examples of representations for geometric models are floor plans, layouts.
+Examples of representations for geometric models are **floor plans**, **layouts**.
 {% endhint %}
 
 ***
 
-A simple example of the different **modeling levels** is shown in **Figure 1.8**.
+A simple example of the different **modeling levels** of a simple processor is shown in **Figure 1.8**.
 
 <figure><img src="../../.gitbook/assets/circuit-model-abstraction.png" alt="" width="282"><figcaption><p>Figure 1.8 Three abstraction levels of a circuit representation</p></figcaption></figure>
 
@@ -47,27 +47,27 @@ A simple example of the different **modeling levels** is shown in **Figure 1.8**
 * A **schematic** captures the **logic-level specification**.
 * A **two-dimensional geometric picture** represents the **mask layout**.
 
-**Design** consists of **refining** the **abstract specification** of the **architectural model** into the **detailed geometrical-level model**, that has enough **information** for the **manufacturing** of the **circuit**.
+Design consists of **refining** the abstract specification of the **architectural model** into the **detailed geometrical-level model**, that has enough information for the manufacturing of the **circuit**.
 
 ### View
 
-We consider now the **views** of a **model**. They are classified as: **behavioral**, **structural**, and **physical**.
+We consider now the **views** of a model. They are classified as: **behavioral**, **structural**, and **physical**.
 
 * **Behavioral views** describe the **function** of the **circuit** regardless of its **implementation**.
 * **Structural views** describe a **model** as an **interconnection of components**.
 * **Physical views** relate to the **physical objects** (e.g., **transistors**) of a **design**.
 
-**Models** at different **levels** can be seen under different **views**. For example, at the **architectural level**,
+Models at different levels can be seen under different **views**. For example, at the **architectural level**,
 
 * a **behavioral view** of a **circuit** is a set of **operations** and their **dependencies**.
 * a **structural view** is an **interconnection** of the major **building blocks**.
 
-As another example, consider the **logic-level model** of a **synchronous circuit**.
+As another example, consider the **logic-level model** of a synchronous circuit.
 
 * A **behavioral view** of the **circuit** may be given by a **state transition diagram**, while
 * its **structural view** is an **interconnection of logic gates**.
 
-**Levels of abstractions** and **views** are **synthetically represented** by **Figure 1.9**, where **views** are shown as the **segments of the letter "Y"**.
+**Levels of abstractions** and **views** are **synthetically represented** by Figure 1.9, where **views** are shown as the **segments of the letter "Y"**.
 
 <figure><img src="../../.gitbook/assets/circuit-model-view.png" alt="" width="563"><figcaption><p>Figure 1.9 Circuit views and levels of abstractions</p></figcaption></figure>
 
@@ -77,21 +77,26 @@ Consider again the **circuit** of example shown in Figure 1.8 above. Figure 1.10
 
 ## Synthesis
 
-The **model classification** relates to a **taxonomy** of the **synthesis tasks**. **Synthesis** can be seen as a set of **transformations** between two **axial views**. In particular, we can distinguish the **synthesis subtasks** at the different **modeling levels** as follows:
+The model classification relates to a taxonomy of the synthesis tasks. **Synthesis** can be seen as a set of **transformations** between two **axial views**. In particular, we can distinguish the **synthesis subtasks** at the different **modeling levels** as follows:
 
-* **Architectural-level synthesis** consists of **generating a structural view** of an **architectural-level model**. This corresponds to determining an **assignment of the circuit functions** to **operators** (called **resources**), as well as their **interconnection** and the **timing** of their **execution**. It has also been called **high-level synthesis** or **structural synthesis**, because it determines the **macroscopic (block-level) structure** of the **circuit**. To avoid ambiguity, and for uniformity, we shall call it **architectural synthesis**.
-* **Logic-level synthesis** is the task of **generating a structural view** of a **logic-level model**. **Logic synthesis** is the **manipulation of logic specifications** to create **logic models** as an **interconnection of logic primitives**. Thus, **logic synthesis** determines the **microscopic (gate-level) structure** of a **circuit**. The task of transforming a **logic model** into an **interconnection of instances of library cells —** i.e., the **back end of logic synthesis —** is often referred to as **library binding** or **technology mapping**.
-* **Geometrical-level synthesis** consists of **creating a physical view** at the **geometric level**. It entails the **specification of all geometric patterns** defining the **physical layout** of the **chip**, as well as their **position**. It is often called **physical design**, and we shall call it so in the sequel.
+*   **Architectural-level synthesis** consists of generating a **structural** view of an architectural-level model. This corresponds to
+
+    * determining an assignment of the circuit functions to operators (called **resources**), as well as
+    * their **interconnection** and the **timing** of their **execution**.
+
+    It has also been called **high-level synthesis** or **structural synthesis**, because it determines the macroscopic (block-level) structure of the **circuit**. To avoid ambiguity, and for uniformity, we shall call it architectural synthesis.
+* **Logic-level synthesis** is the task of **generating a structural view** of a **logic-level model**. **Logic synthesis** is the manipulation of logic specifications to create logic models as an interconnection of logic primitives. Thus, **logic synthesis** determines the **microscopic (gate-level) structure** of a circuit. The task of transforming a logic model into an interconnection of instances of library cells **—** i.e., the back end of logic synthesis **—** is often referred to as library binding or technology mapping.
+* **Geometrical-level synthesis** consists of **creating a physical view** at the **geometric level**. It entails the **specification of all geometric patterns** defining the **physical layout** of the **chip**, as well as their **position**. It is often called **physical design**, and we shall call it so in the rest of this section.
 
 The **synthesis tasks** are **synthetically depicted** in Figure 1.11.
 
 <figure><img src="../../.gitbook/assets/synthesis-tasks.png" alt="" width="563"><figcaption><p>Figure 1.11 Levels of abstractions, views and synthesis tasks</p></figcaption></figure>
 
-We now describe these **tasks** in more detail, considering them in the **order corresponding to their use** in a **top-down synthesis system**. This sequence is the **converse** of that corresponding to their **historical development** and **level of maturity**.
+We now describe these tasks in more detail, considering them in the order corresponding to their use in a top-down synthesis system. This sequence is the **converse** of that corresponding to their historical development and level of maturity.
 
 ### Architectural Synthesis
 
-A **behavioral architectural-level model** can be **abstracted** as a set of **operations** and **dependencies**. **Architectural synthesis** entails
+A **behavioral architectural-level model** can be abstracted as a set of **operations** and **dependencies**. Architectural synthesis entails
 
 1. identifying the **hardware resources** that can **implement the operations**,
 2. **scheduling** the **execution time** of the operations, and
@@ -100,16 +105,16 @@ A **behavioral architectural-level model** can be **abstracted** as a set of **o
 In other words, **synthesis** defines a **structural model** of a **data path** as an **interconnection of resources**, and a **logic-level model** of a **control unit**, that issues the **control signals** to the **data path** according to the **schedule**.
 
 {% hint style="danger" %}
-The **macroscopic figures of merit** of the **implementation**, such as **circuit area** and **performance**, depend **heavily** on this step. (This is one of the NUS CG3207 Final questions in AY25/26 Sem 1)
+The macroscopic figures of merit of the implementation, such as **circuit area** and **performance**, depend **heavily** on this step. (This is one of the NUS CG3207 Final questions in AY25/26 Sem 1)
 {% endhint %}
 
-Indeed, **architectural synthesis** determines the **degree of parallelism** of the **operations**. **Optimization** at this level is very important, as mentioned later in this section. **Architectural synthesis** is described in detail later in other section.
+Indeed, **architectural synthesis** determines the degree of parallelism of the operations. **Optimization** at this level is very important, as mentioned later in this section. **Architectural synthesis** is described in detail later in other section.
 
 <details>
 
 <summary>Example of Architectural Synthesis</summary>
 
-We consider here first an example of a **behavioral view** of an **architectural model**. The example has been adapted from one proposed by **Paulin and Knight \[61]**. It models a **circuit** designed to **solve numerically** (by means of the **forward Euler method**) the following **differential equation**:
+We consider here first an example of a **behavioral view** of an **architectural model**. The example has been adapted from one proposed by Paulin and Knight. It models a circuit designed to solve numerically (by means of the forward Euler method) the following differential equation:
 
 <p align="center"><span class="math">y'' + 3xy' + 3y = 0</span></p>
 
@@ -117,7 +122,7 @@ in the interval $$[0, a]$$ with step-size dx and initial values $$x(0) = x_0, y(
 
 ***
 
-The **circuit** can be represented by the following **HDL model**:
+The circuit can be represented by the following **HDL model**:
 
 {% code lineNumbers="true" %}
 ```nginx
@@ -136,10 +141,10 @@ diffeq {
 ```
 {% endcode %}
 
-For the **architectural synthesis task**, let us assume for simplicity that the **data path** of the **circuit** contains **two resources**: a **multiplier** and an **ALU** (which can perform **addition/subtraction** and **comparison**). The **circuit** also contains **registers**, **steering logic**, and a **control unit**.
+For the architectural synthesis task, let us assume for simplicity that the data path of the circuit contains **two resources**: a **multiplier** and an ALU (which can perform **addition/subtraction** and **comparison**). The **circuit** also contains **registers**, **steering logic**, and a **control unit**.
 
 {% hint style="success" %}
-A **structural view** of the **circuit** at the **architectural level** shows the **macroscopic structure** of the **implementation**. This view can be described by a **block diagram**, as in **Figure 1.12**, or equivalently by means of a **structural HDL**.
+A **structural view** of the **circuit** at the **architectural level** shows the **macroscopic structure** of the **implementation**. This view can be described by a **block diagram**, as in Figure 1.12, or equivalently by means of a structural HDL.
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/architectural-synthesis-example.png" alt=""><figcaption><p>Figure 1.12 Example of structural view at the architectural level</p></figcaption></figure>
@@ -148,11 +153,11 @@ A **structural view** of the **circuit** at the **architectural level** shows th
 
 ### Logic Synthesis
 
-A **logic-level model** of a **circuit** can be provided by a **state transition diagram** of a **finite-state machine**, by a **circuit schematic**, or equivalently by an **HDL model**. It may be **specified by a designer** or **synthesized** from an **architectural-level model**.
+A **logic-level model** of a circuit can be provided by a **state transition diagram** of a **finite-state machine**, by a circuit schematic, or equivalently by an HDL model. It may be **specified by a designer** or synthesized from an architectural-level model.
 
-The **logic synthesis tasks** may vary according to the **nature of the circuit** (e.g., **sequential** or **combinational**) and the **starting representation** (e.g., **state diagram** or **schematic**). The **possible configurations** of a **circuit** are many. **Optimization** plays a **major role**, in connection with **synthesis**, in determining the **microscopic figures of merit** of the **implementation**, as mentioned in later in this section.
+The logic synthesis tasks may vary according to the nature of the circuit (e.g., sequential or combinational) and the starting representation (e.g., state diagram or schematic). The **p**ossible configurations of a **circuit** are many. **Optimization** plays a **major role**, in connection with **synthesis**, in determining the **microscopic figures of merit** of the **implementation**, as mentioned in later in this section.
 
-The **final outcome** of **logic synthesis** is a fully **structural representation**, such as a **gate-level netlist**. **Logic synthesis** is described in detail later in other section.
+The final outcome of logic synthesis is a fully **structural representation**, such as a **gate-level netlist**. Logic synthesis is described in detail later in other section.
 
 <details>
 

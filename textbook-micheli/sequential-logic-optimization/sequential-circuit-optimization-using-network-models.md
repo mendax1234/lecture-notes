@@ -1,6 +1,6 @@
 # Sequential Circuit Optimization using Network Models
 
-We already mentioned in the [**introduction**](introduction.md) **to this chapter** that the **behavior of sequential circuits** can be described by **traces**, i.e., by **sequences of inputs and outputs**.
+We already mentioned in the [**introduction**](/broken/pages/va8ty9egNJnyz60xrHZ2) **to this chapter** that the **behavior of sequential circuits** can be described by **traces**, i.e., by **sequences of inputs and outputs**.
 
 * These sequences correspond to those that the related **finite-state machine models** can **accept and generate**.
 

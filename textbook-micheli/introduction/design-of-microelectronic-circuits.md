@@ -31,7 +31,7 @@ As **synthesis** proceeds in **refining the model**, more **information** is nee
 
 ### Optimization
 
-> An **objective of design** is to **maximize** some **figures of merit** of the **circuit** that relate to its **quality**.
+> An **objective of design** is to **maximize** some [**figures of merit**](#user-content-fn-1)[^1] of the **circuit** that relate to its **quality**.
 
 The role of **optimization** is to **enhance the overall quality** of the **circuit**. We explain now in more detail what **quality** means.
 
@@ -48,7 +48,7 @@ Second, **circuit quality** relates to the **overall area**. An objective of **c
 * **Large chips** are more **expensive to package**.
 
 {% hint style="warning" %}
-The **yield** is the **percentage of manufactured chips** that **operate correctly**. In general, when **fabrication faults** relate to **spots**, the [**defect**](#user-content-fn-1)[^1] **density per unit area** is **constant** and **typical** of a **manufacturing plant** and **process**. Therefore, the **probability** that one **spot** makes the **circuit function incorrectly** **increases with the chip area**.
+The **yield** is the **percentage of manufactured chips** that operate correctly. In general, when fabrication faults relate to spots, the defect[^2] density per unit area is **constant** and typical of a manufacturing plant and process. Therefore, the probability that one spot makes the circuit function incorrectly increases with the chip area.
 {% endhint %}
 
 #### Testability
@@ -65,4 +65,6 @@ More details on synthesis & optimization are provided later in the next [section
 
 **Circuit validation** consists of acquiring a **reasonable certainty** that a **circuit** will **function correctly**, under the assumption that **no manufacturing fault** is present. It can be performed by **simulation** and by **verification methods**.
 
-[^1]: Think of it as bad or not-working.
+[^1]: A **figure of merit** (FoM) is a numerical value or formula used to evaluate and compare the performance, efficiency, or quality of devices, systems, or methods against alternatives.
+
+[^2]: Think of it as bad or not-working.
