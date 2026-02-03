@@ -14,6 +14,10 @@ For example, if our initial state is `001` and we have 2 inputs, meaning that we
 
 * Let's say after trying all 4 input combinations on the initial state `001`, we find out that the next state can be `010` or `100`. Thus, we add these two states to our set of reachable states from `001`. The set is now, `{001, 010, 100}`.
 * Now, we apply all 4 input combinations on `010` and `100` **respectively** and see what are the states that we can achieve.
-* We repeat this until we have traversed all the states in the set of reachable states.&#x20;
+* We repeat this until we have traversed all the states in the set of reachable states.
+
+{% hint style="success" %}
+Up until now, [retiming](sequential-circuit-optimization-using-network-models.md#retiming-1), [state encoding](synchronous-circuit-optimization-using-state-based-models.md#state-encoding), and [state extraction](implicit-fsm-traversal-methods.md#state-extraction) can all be done by the **modern synthesis tool**. However, the [**state minimization**](synchronous-circuit-optimization-using-state-based-models.md#state-minimization) and the [repipelining](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/lecture/lec-02/lec-02b-rtl-transformations#repipelining) we learned in EE4415 is done **manually**.
+{% endhint %}
 
 [^1]: No new reachable states added to the subset.
