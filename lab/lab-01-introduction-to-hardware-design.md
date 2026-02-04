@@ -162,8 +162,6 @@ The signals and their usage can be categorized into the following groups:
       * _Usage:_ FSM checks this to decide whether to write to A or B, and when to stop reading.
    3. `write_counter`: The current count of output words sent.
       * _Usage:_ FSM checks this to assert `M_AXIS_TLAST` and to decide when to return to `Idle`.
-   4. `res_ram_data_valid`: A flag indicating if the RAM output is stable/valid.
-      * _Usage:_ Used by the FSM to drive `M_AXIS_TVALID`.
 
 #### AXIS Handshake Workflow
 
