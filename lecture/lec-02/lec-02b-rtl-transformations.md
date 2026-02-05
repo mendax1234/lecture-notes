@@ -1385,9 +1385,13 @@ Execute the chosen transformation on the original RTL structure.
 
 ### Combining RTL Transformations
 
-**Normalization:** All metrics (Area, Throughput, Energy) are normalized to the **Original RTL** ($$=1$$).
+**Normalization:** All metrics (Area, Throughput, Energy) are normalized to the [**Original RTL**](#user-content-fn-10)[^10] ($$=1$$).
 
 <figure><img src="../../.gitbook/assets/combining-rtl-transformations.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="warning" %}
+Repipelining **includes** pipelining and if the original RTL is pipelined, the N<sub>original</sub> is number of pipeline stages. If it is non-pipelined, the N<sub>original</sub> is just 1.
+{% endhint %}
 
 * $$N > 0$$: Standard application (Insertion, Parallelism, Interleaving).
 * $$N < 0$$ (for Repipelining): Represents the removal of $$|N|$$ registers.
@@ -1423,3 +1427,5 @@ Assumptions we have made:
 [^8]: It means that $$r(V)-r(U)$$ is **negative**, and $$r(U)-r(V)$$ is positive.
 
 [^9]: You can do this even faster by just doing the feedforward cutset insertion. The only problem might be finding the correct cutset.
+
+[^10]: Here, the original RTL can be any type, pipelined or non-pipelined. It doesn't matter.
