@@ -189,7 +189,7 @@ In the real timing diagram, we can see from the figure below
 
 1. At 125ns, `ARESETN` is released, the testbench **immediately** asserts the `S_AXIS_TVALID` to HIGH and the FSM captures this input change and immediately sets the `n_state=0100` (Read Input). Meanwhile, in the testbench, as `S_AXIS_TREADY` is still 0, the `#100ns` delay is triggered, causing the `S_AXIS_TDATA` to be available only at 225ns.
 2. At 150ns, the positive clock edge happens, `state` changes to `0100` (Read Input). During this clock cycle (150ns - 250ns), nothing is written to `A_RAM` as the first `S_AXIS_TDATA` is available at 225ns only.
-3. At 250ns, since the `S_AXIS_TDATA` is available 25ns before the clock edge, the **write** to `A_RAM` is done **immediately**, providing that the address is just the value of the `read_counter`.
+3. At 250ns, since the `S_AXIS_TDATA` is available 25ns before the clock edge and the first address (0) indicated by the `read_counter` is also available before 250ns, the **write to** `A_RAM` is "done" at the exact clock edge happened at 250ns.
 4. This process continues until the following happens
 
 <figure><img src="../.gitbook/assets/input-handshake-timing-diagram-2.png" alt=""><figcaption></figcaption></figure>
@@ -198,6 +198,15 @@ In the real timing diagram, we can see from the figure below
 2. At 1350ns, the `S_AXIS_TVALID` is kept HIGH for another 100ns for the last data to be written into `B_RAM`. In the meantime, the `START` of the matrix multiply unit is asserted HIGH.
 3. At 1425ns, immediately after `S_AXIS_TVALID` goes down, `M_AXIS_TREADY` goes up.
 4. The matrix multiply unit starts computing.
+
+{% hint style="warning" %}
+The write process to RAM is done
+
+1. the data arrives before the clock edge
+2. the address arrives before the clock edge
+
+At the clock edge, the data will be broadcasted to the next module. This is kind of similar to writing to a FF.
+{% endhint %}
 {% endstep %}
 
 {% step %}
