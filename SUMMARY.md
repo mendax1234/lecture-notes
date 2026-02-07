@@ -24,6 +24,7 @@
   * [Organization of the Book](textbook-micheli/introduction/organization-of-the-book.md)
 * [Hardware Modeling](textbook-micheli/hardware-modeling/README.md)
   * [Abstract Models](textbook-micheli/hardware-modeling/abstract-models.md)
+  * [Compilation and Behavioral Optimization](textbook-micheli/hardware-modeling/compilation-and-behavioral-optimization.md)
 * [Sequential Logic Optimization](textbook-micheli/sequential-logic-optimization/README.md)
   * [Synchronous Circuit Optimization using State-Based Models](textbook-micheli/sequential-logic-optimization/synchronous-circuit-optimization-using-state-based-models.md)
   * [Sequential Circuit Optimization using Network Models](textbook-micheli/sequential-logic-optimization/sequential-circuit-optimization-using-network-models.md)
