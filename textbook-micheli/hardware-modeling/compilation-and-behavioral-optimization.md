@@ -195,3 +195,216 @@ which has a **tree height of 3** and **one additional operation**. This **transf
 </details>
 {% endstep %}
 {% endstepper %}
+
+#### Constant and Variable Propagation
+
+{% stepper %}
+{% step %}
+#### Constant Propagation
+
+**Constant propagation**, also called **constant folding**, consists of detecting **constant operands** and **pre-computing** the value of the operation involving those operands. Since the result may itself be a **constant**, it can be **propagated** to subsequent **operations** that use it as an **input**.
+
+<details>
+
+<summary>Example of Constant Propagation</summary>
+
+Consider the following **code fragment**:
+
+```
+a = 0;
+b = a + 1;
+c = 2 * b;
+```
+
+It can be replaced by:
+
+```
+a = 0;
+b = 1;
+c = 2;
+```
+
+through **constant propagation**, where **constant values** are **pre-computed** and **propagated** to subsequent **operations**.
+
+</details>
+{% endstep %}
+
+{% step %}
+#### Variable Propagation
+
+**Variable propagation**, also called **copy propagation**, consists of detecting **copies of variables**, i.e., assignments such as:
+
+```
+x = y;
+```
+
+and using the **right-hand side variable** in subsequent **references**, replacing the **left-hand side variable**.
+
+<details>
+
+<summary>Example of Variable Propagation</summary>
+
+Consider the following **code fragment**:
+
+```
+a = x;
+b = a + 1;
+c = 2 * a;
+```
+
+It can be replaced by:
+
+```
+a = x;
+b = x + 1;
+c = 2 * x;
+```
+
+through **variable propagation**, where the **copied variable** is replaced by its **original source**. The statement:
+
+```
+a = x;
+```
+
+may then be removed by **dead code elimination**, if there are no further **references** to **a**.
+
+{% hint style="success" %}
+The vairable propagation is better because instead of waiting for `a = x` to finish, now all the three statements can be executed **concurrently**.
+{% endhint %}
+
+</details>
+
+{% hint style="danger" %}
+The **propagation** of **y** cannot be performed after a different **reassignment** to **x.** For example,
+
+```
+1.  x = 5;
+2.  y = x;      // Copy statement: We establish that y is a copy of x.
+3.  x = 10;     // Reassignment: x is modified here ("killed").
+4.  z = y + 2;  // Usage: We use y here.
+```
+
+If a compiler replaces the `y` in Line 4 with `x`, then there will be a problem!
+{% endhint %}
+{% endstep %}
+{% endstepper %}
+
+#### Constant Subexpression Elimination
+
+The search for **common arithmetic subexpressions** relies on finding [**isomorphic patterns**](#user-content-fn-1)[^1] in the **parse trees**. This step is simplified when **arithmetic expressions** are reduced to **two-input expressions**. The transformation consists of selecting a **target arithmetic operation** and searching for a preceding operation of the same **type** with the same **operands**. **Operator commutativity** can be exploited during this process. When a matching expression is found, the **target expression** is replaced by a **copy of the variable** that stores the **result** of the preceding expression.
+
+<details>
+
+<summary>Example of Constant Subexpression Elimination</summary>
+
+Consider the following **code fragment**:
+
+```
+a = x + y;
+b = a + 1;
+c = x + y;
+```
+
+It can be replaced by:
+
+```
+a = x + y;
+b = a + 1;
+c = a;
+```
+
+through **common subexpression elimination**, where the repeated **arithmetic expression** is replaced by a **copy** of the previously computed **result**. The introduced **variable copy** can then be further optimized using **variable propagation** in the subsequent **code**.
+
+</details>
+
+#### Dead Code Elimination
+
+**Dead code** consists of operations that cannot be **reached** or whose **results** are never **referenced** elsewhere. Such operations are detected by **data-flow analysis** and **removed**.
+
+* Obvious cases include statements following a **procedure return statement**.
+* Less obvious cases involve operations that precede a **return statement** but whose **results** are neither **procedure parameters** nor affect any of its **parameters**.
+
+<details>
+
+<summary>Exampld of Dead Code Elimination</summary>
+
+Consider the following **code fragment**:
+
+```
+a = x;
+b = x + 1;
+c = 2 * x;
+```
+
+If the **variable a** is not **referenced** in the subsequent **code**, the assignment:
+
+```
+a = x;
+```
+
+can be removed by **dead code elimination**.
+
+</details>
+
+#### Operator Strength Reduction
+
+**Operator strength reduction** consists of reducing the **implementation cost** of an **operator** by replacing it with a **simpler operator**. Although some knowledge of the **hardware implementation** may be required, general principles often apply. For example, a **multiplication by 2** (or by a **power of 2**) can be replaced by a **shift operation**. **Shifters** are typically **faster** and **smaller** than **multipliers** in many **hardware implementations**.
+
+{% hint style="warning" %}
+In this course, we assume that the order of complexity of operators are:
+
+```
+Exponent > Divide > Multiply > Add/Subtract > Shift > Logical
+```
+{% endhint %}
+
+<details>
+
+<summary>Example of Operator Strength Reduction</summary>
+
+Consider the following **code fragment**:
+
+```
+a = x * 2;
+b = 3 * x;
+```
+
+It can be replaced by:
+
+```
+a = x + x;
+b = x + x + x;
+```
+
+through **operator strength reduction**, where **multiplications** are replaced by **simpler addition operations** to reduce **hardware cost**.
+
+</details>
+
+#### Code Motion
+
+**Code motion** often applies to **loop invariants**, i.e., quantities computed inside a **loop** whose **values** do not change from **iteration to iteration**. The goal is to **avoid repetitive evaluation** of the same **expression**.
+
+<details>
+
+<summary>Example of Code Motion</summary>
+
+Consider the following **iteration construct**:
+
+```
+for (i = 1; i <= 5; i++)
+    a * b
+```
+
+where the variables **a** and **b** are **not updated** inside the loop. It can be transformed using **code motion** into:
+
+```
+t = a * b;
+for (i = 1; i <= 5; i++)
+    t
+```
+
+so that the **loop-invariant computation** `a * b` is evaluated **once** before the loop, avoiding **repetitive computation**.
+
+</details>
+
+[^1]: This means "same shape".
