@@ -210,7 +210,7 @@ At the clock edge, the data will be broadcasted to the next module. This is kind
 {% endstep %}
 
 {% step %}
-#### Output Handshare (IP -> Testbench)
+#### Output Handshake (IP -> Testbench)
 
 In this phase, the **IP acts as the Master** (sending results) and the **Testbench acts as the Slave** (receiving results).
 
@@ -218,17 +218,50 @@ In this phase, the **IP acts as the Master** (sending results) and the **Testben
 * **Master Responds (TVALID)**: When the IP finishes its computation (entering `Write_Outputs` state), it asserts `M_AXIS_TVALID = 1` and places the result on `M_AXIS_TDATA`.
 * **The Transfer (Handshake)**: The Testbench waits in a loop. When it sees `M_AXIS_TVALID` go high (while its own `TREADY` is high), it records the value from `M_AXIS_TDATA` into its `result_memory`.
 * **Termination**: The Testbench continues this loop until it detects the `M_AXIS_TLAST` signal (indicating the packet is done) or its falling edge , at which point it de-asserts `M_AXIS_TREADY = 0`.
-
-After the matrix multiply unit finishes computing,
-
-<figure><img src="../.gitbook/assets/output-handshake-diagram-1.png" alt=""><figcaption></figcaption></figure>
-
-1. At 4150ns, the matrix multiply unit finishes computing, and it sets `Done` immediately to HIGH. The FSM captures this change immediately and updates `n_state` to `0001` (Write Outputs) immediately.
-2. At 4250ns, the `RES_RAM` read signal is asserted to HIGH, the reading process starts, but the data read (`M_AXIS_TDATA`) is available at the **next clock edge** only (at 4350ns). To deal with this situation, another signal called `res_ram_data_valid` is created and it is only asserted high **one cycle** after the `RES_RAM` read signal is asserted to HIGH, indicating the time when the `M_AXIS_TDATA` is ready to be read by the testbench.
-   1. To note, `M_AXIS_TVALID=res_ram_data_valid` so that the testbench can read the correct value.
-3. At 4550ns, the next state transition logic to transit to `1000` is detected because `write_coutner==NUMBER_OF_OUTPUT_WORDS-1`. And a new round starts at the next clock cycle.
 {% endstep %}
 {% endstepper %}
+
+#### Cycles taken for each state
+
+1. `IDLE` state: 1 cycle.
+2. `Read_Inputs`: 12 cycles.
+3. `Compute`: 17-1=16 cycles. (As we move the `Start` signal to be asserted one cycle earlier)
+4. `Write_Outputs`:  2 cycles.
+
+### Matrix Multiply Unit
+
+In Lab 01, we also use the FSM to implement our matrix multiply unit. The meaning of some important variables are shown as follows:
+
+| row    | Result Row Index  | $$0$$ to $$M-1$$ | Tracks which row of the output matrix is currently being calculated .          |
+| ------ | ----------------- | ---------------- | ------------------------------------------------------------------------------ |
+| k      | Dot Product Index | $$0$$ to $$N-1$$ | Iterates through the inner dimension (columns of A, rows of B) for the sum .   |
+| prod16 | Current Product   | 16-bit           | Stores the result of the multiplication: `A_read_data_out * B_read_data_out` . |
+| acc    | Running Total     | 16-bit           | Accumulates the sum of products: `acc + prod16` for the current row .          |
+
+So, basically we are implementing the maths formula shown as follows:
+
+$$
+\text{RES}[\text{row}] = \sum_{k=0}^{3} (\text{A}[\text{row}][k] \times \text{B}[k])
+$$
+
+{% hint style="warning" %}
+We are doing 2x4 times 4x1 matrix in this lab.
+{% endhint %}
+
+In the multily and accumulate stage, we also have three pipelines
+
+| 1. ISSUE | Address Generation | Calculates addresses for RAM A and B based on `row_issue` and `k_issue` .       | Requests data from memory and passes tags (`row`, `k`) to the DATA stage buffer .               |
+| -------- | ------------------ | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| 2. DATA  | Multiplication     | Multiplies the retrieved data: `n_prod16 = A_read_data_out * B_read_data_out` . | Receives data 1 cycle after ISSUE, calculates product, and passes it to the MAC stage .         |
+| 3. MAC   | Accumulation       | Adds product to running total: `n_acc = acc + prod16` .                         | Accumulates results until the row is finished (`k_mac == N-1`), then triggers the write state . |
+
+The cycle-time diagram can be shown as follows:
+
+<figure><img src="../.gitbook/assets/matrix-multiply-cycle-time-diagram.png" alt=""><figcaption></figcaption></figure>
+
+#### Arithmetic
+
+In Lab 01, we use 8 bits to represent each element in the matrix. More specifically, we use the [fixed-point notation](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/digital-building-blocks/arithmetic-circuits#fixed-point-number-systems) (unsigned 0.8 format). These means that we have a scale factor or 256 for each element. Thus, when we multiply two elements, the scale factors get multiplied too so we need to divide the result by 256 (shift right by 8 bits) to get the correct scale factor of 256 again.
 
 [^1]: The peripherals do not have their own special CPU instructions. Instead, they are mapped to specific physical addresses in the system memory map (hardwired by Xilinx).
 
