@@ -407,4 +407,118 @@ so that the **loop-invariant computation** `a * b` is evaluated **once** before 
 
 </details>
 
+### Control-Flow-Based Transformations
+
+The following **transformations** are typical of **hardware compilers**. In some cases, these transformations are **automated**, while in others they are **user-driven**.
+
+#### Model Expansion
+
+**Model expansion** consists of **flattening** the **model call hierarchy** locally. Therefore, the **called model** disappears, being **absorbed** into the **calling model**.
+
+<details>
+
+<summary>Example of Model Expansion</summary>
+
+Consider the following **code fragment**:
+
+```
+x = a + b;
+y = a * b;
+z = foo(x, y);
+```
+
+where:
+
+```
+foo(p, q) {
+    t = q - p;
+    return(t);
+}
+```
+
+By **model expansion**, the function call is **flattened**, and we obtain:
+
+```
+x = a + b;
+y = a * b;
+z = y - x;
+```
+
+so that the **called model** is **absorbed** into the **calling model**, eliminating the **function call hierarchy**.
+
+</details>
+
+#### Conditional Expansion
+
+A **conditional construct** can always be transformed into a **parallel construct** with a **test** performed at the **end**.
+
+<details>
+
+<summary>Exampld of Conditional Expansion</summary>
+
+Consider the following **code fragment**:
+
+```
+y = a * b;
+if (a) {
+    x = b + d;
+} else {
+    x = b * d;
+}
+```
+
+The **conditional statement** can be **flattened** into a **parallel expression**:
+
+```
+x = a * (b + d) + a' * (b * d);
+```
+
+and, through **logic manipulation**, the fragment can be rewritten as:
+
+```
+y = a * b;
+x = y + d * (a + b);
+```
+
+thus eliminating the **conditional construct** by transforming it into an equivalent **parallel form**.
+
+</details>
+
+#### Loop Expansion
+
+**Loop expansion**, or [**loop unrolling**](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-06-advanced-processor#loop-unrolling), applies to an **iterative construct** with **data-independent exit conditions**. The **loop** is replaced by multiple instances of its **body**, equal to the number of **iterations**. The main benefit is expanding the **scope** for further **optimizations** and **transformations**. However, when the number of **iterations** is large, **loop unrolling** may significantly increase the **code size**.
+
+<details>
+
+<summary>Example of Loop Expansion</summary>
+
+Consider the following **code fragment**:
+
+```
+x = 0;
+for (i = 1; i <= 3; i++)
+    x = x + a[i];
+```
+
+The **loop** can be **flattened** through **loop unrolling** into:
+
+```
+x = 0;
+x = x + a[1];
+x = x + a[2];
+x = x + a[3];
+```
+
+and then further transformed by **propagation** into:
+
+```
+x = a[1] + a[2] + a[3];
+```
+
+thus eliminating the **iterative construct** and exposing opportunities for additional **optimization**.
+
+</details>
+
+
+
 [^1]: This means "same shape".
