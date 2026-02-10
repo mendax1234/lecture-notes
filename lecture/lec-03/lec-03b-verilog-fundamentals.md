@@ -312,3 +312,170 @@ endmodule
 The synthesis of the above block of code will be:
 
 <figure><img src="../../.gitbook/assets/non-blocking-assignment-synthesis.png" alt="" width="487"><figcaption></figcaption></figure>
+
+### Continuous Assignment
+
+**Continuous assignment** assigns a value to a `wire` in a similar way that a real logic gate drives a real wire. Its main use is to **model combinational logic**.
+
+### Control Statements
+
+There are two types of programming statements:
+
+1. Conditional (`if/else`, `case`)
+2. Looping (`while/for`)
+
+{% hint style="warning" %}
+The programming statements should **only** be used in procedural blocks.
+{% endhint %}
+
+#### Conditional
+
+In EE4218, we have a glimpse of how the [**conditional expansion**](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/textbook-micheli/hardware-modeling/compilation-and-behavioral-optimization#conditional-expansion) is done. This helps us a lot in knowing what is getting **synthesized** in an verilog `if/else`  or `case` statement.
+
+{% stepper %}
+{% step %}
+#### If/Else Statements
+
+{% code overflow="wrap" lineNumbers="true" %}
+```verilog
+// Before synthesis
+if (cond1)          signal_name<=value1;
+else if (cond2)     signal_name<=value2;
+else                signal_name<=defaultvalue;
+
+// After synthesis
+signal_name <= cond1*value1 + not(cond1)*cond2*value2 + not(cond1)*not(cond2)*...*defaultvalue
+```
+{% endcode %}
+
+If we use the `if/else` statement, we are saying that the first-appeared **conditions** have **higher priority** than the later-appeared **conditions**.
+
+{% hint style="warning" %}
+Let's say if `cond1`  and `cond2` are **mutually exclusive**, then we will have a **redundant** term `not(cond1)*cond2*value2`. This gives us a warning that we should carefully decide our conditions.
+{% endhint %}
+{% endstep %}
+
+{% step %}
+#### Case Statements
+
+{% code lineNumbers="true" %}
+```verilog
+// Before Synthesis
+case (a[n-1]...a[0])
+    item1: value1;
+    item2: value2;
+    ...
+    itemn: valuen;
+endcase
+
+// After Synthesis
+signal_name <= cond1*value1 + cond2*value2 + ... condn*valuen
+```
+{% endcode %}
+
+Unlike the `if/else` statements, we don't have any prioriy in the `case` statements.
+{% endstep %}
+{% endstepper %}
+
+<details>
+
+<summary>Inferred Latches in Synthesis</summary>
+
+> We have seen the danger of inferred latches in EE4218. Now, let's study it in detail.
+
+Suppose we write the following code but we intend to write a multiplexier instead of a latch.
+
+{% code lineNumbers="true" %}
+```verilog
+always @(sel or a or b) begin
+    if (sel) begin
+        out = a;
+    end
+end
+```
+{% endcode %}
+
+The synthesis tool will give us a **transparent high** latch shown as follows:
+
+<figure><img src="../../.gitbook/assets/inferred-latches-example.png" alt="" width="456"><figcaption></figcaption></figure>
+
+The latch is **transparent high** is because `out` will update only when `sel` is high. Otherwise, it will remember its state.
+
+To avoid this issue, we should also write a default value for the `out`.
+
+{% code lineNumbers="true" %}
+```verilog
+always @(sel or a or b) begin
+    out = 1'b1;
+    if (sel) begin
+        out = a;
+    end
+end
+```
+{% endcode %}
+
+And this will give us the correct multiplexer we want:
+
+<figure><img src="../../.gitbook/assets/inferred-latches-example-2.png" alt="" width="437"><figcaption></figcaption></figure>
+
+</details>
+
+#### Looping
+
+Similarly, we have seen the power of loop unrolling in both [CG3207](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-06-advanced-processor#loop-unrolling) and [EE4218](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/textbook-micheli/hardware-modeling/compilation-and-behavioral-optimization#loop-expansion). In Verilog, although the loop statements like `for/while` is supported, there is **no timing** information involved in these statements. This means that the hardware compiler will **expand all the loops** and if the unrolled statements are **independent**, they are all executed **in parallel**.
+
+For example, in real-world applications (like [Mach-V](https://mendax1234.github.io/Mach-V/)), we prefer to use an `initial` block with a `for` loop to initialize the memory and it may look like below
+
+{% code lineNumbers="true" %}
+```verilog
+initial begin
+    for (i = 0; i < ENTRIES; i = i + 1) begin
+        btb[i] <= 32'd0; // btb is the branch target buffer which is essentially a memory
+    end
+end
+```
+{% endcode %}
+
+In practice, this loop is unrolled, and all elements of the memory array are initialized to 0 in parallel.
+
+## Simulation
+
+There are two types of verilog event based simulators:
+
+1. Interpreted: like Verilog-XL
+2. Compiled: like Verilog Compiled Simulator (VCS)
+
+We will use the VCS is EE4415's lab experience.
+
+### Event Driven Simulation
+
+Most [logical simulations](#user-content-fn-1)[^1] are **event-driven**, meaning that the simulator remains idle and performs computations only when specific changes occur.
+
+One example is used to compare the blocking statements and non-blocking statements.
+
+{% code lineNumbers="true" %}
+```verilog
+module block_nonblock();
+reg a, b, c, d , e, f ;
+
+// Blocking assignments
+initial begin
+  a = #10 1'b1; // The simulator assigns 1 to a at time 10
+  b = #20 1'b0; // The simulator assigns 0 to b at time 30
+  c = #40 1'b1; // The simulator assigns 1 to c at time 70
+end
+
+// Nonblocking assignments
+initial begin
+  d <= #10 1'b1; // The simulator assigns 1 to d at time 10
+  e <= #20 1'b0; // The simulator assigns 0 to e at time 20
+  f  <= #40 1'b1; // The simulator assigns 1 to f at time 40
+end
+  
+endmodule
+```
+{% endcode %}
+
+> TODO: Do the exercises from Slide 55-63 in Lec 03b for Midterm review!
+
+[^1]: Logic simulation is the process of verifying the functional behavior and timing of a digital design (written in HDL like Verilog or VHDL) before it is manufactured. Unlike analog simulations (like SPICE) that calculate continuous voltages and currents, logic simulation abstracts signals into discrete values (0, 1, Z, X) to maximize speed and handle complex systems.
