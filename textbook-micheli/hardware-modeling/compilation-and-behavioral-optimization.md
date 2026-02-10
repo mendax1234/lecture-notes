@@ -482,11 +482,21 @@ x = y + d * (a + b);
 
 thus eliminating the **conditional construct** by transforming it into an equivalent **parallel form**.
 
+{% hint style="warning" %}
+Here, we use the extension of the absorption law in **discrete maths**, which is
+
+<p align="center"><span class="math">A+A'B=A+B</span></p>
+{% endhint %}
+
 </details>
 
 #### Loop Expansion
 
 **Loop expansion**, or [**loop unrolling**](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-06-advanced-processor#loop-unrolling), applies to an **iterative construct** with **data-independent exit conditions**. The **loop** is replaced by multiple instances of its **body**, equal to the number of **iterations**. The main benefit is expanding the **scope** for further **optimizations** and **transformations**. However, when the number of **iterations** is large, **loop unrolling** may significantly increase the **code size**.
+
+{% hint style="danger" %}
+Shorter code doesn't mean **faster**!
+{% endhint %}
 
 <details>
 
@@ -519,6 +529,8 @@ thus eliminating the **iterative construct** and exposing opportunities for addi
 
 </details>
 
-
+{% hint style="warning" %}
+After loop unrolling, if the unrolled statements are independent of each other, the unrolled statements will execute in **parallel**.
+{% endhint %}
 
 [^1]: This means "same shape".
