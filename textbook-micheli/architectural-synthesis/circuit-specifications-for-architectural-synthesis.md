@@ -8,9 +8,17 @@ Specifications for architectural synthesis include
 
 Behavioral models are represented using [**sequencing graphs**](../hardware-modeling/abstract-models.md#sequencing-graphs), as described earlier. Here, we focus on resources and constraints in greater detail.
 
+{% hint style="success" %}
+The behavioral models can be thought of as the **function** we want to achieve using our circuit.
+{% endhint %}
+
 ## Resources
 
 Resources implement different hardware functions and can be broadly classified into three categories.
+
+{% hint style="warning" %}
+This part can also be called as **building blocks**, which are a set of resources fully characterized in terms of area and execution delay. Basically, we want to know how to connect the **building blocks** we have to achieve the outcome we want.
+{% endhint %}
 
 ### Functional Resources
 
@@ -42,6 +50,10 @@ Requirement for storage resources are **implicit** in the **sequencing graph its
 ### Interface Resources
 
 **Interface resources** support data transfer within the system. These include buses, which serve as major communication channels inside a data path.
+
+### Steering Logics
+
+As we have seen [earlier](./), **steering logics** are multiplexers and buses that route data to the correct destination at the appropriate time.
 
 <details>
 
@@ -84,3 +96,22 @@ A different kind of **implementation constraint** is a **resource binding constr
 Sometimes **resource usage constraints** are used in the **synthesis** and **optimization** of **circuits** that are not **resource dominated**.
 
 The example of this constraint is **the number of various building blocks available** (e.g., only 1 adder and 2 multipliers are available).
+
+## Circuit Type
+
+We will see two circuit types in this section, they are
+
+* Resource-dominated circuits
+* Non resource-dominated circuits
+
+### Resource-dominated Circuits
+
+In **resource-dominated circuits**, area and performance depend on few, well-characterized functional resources. For example, the adders and multipliers take up most of the available time.
+
+One example of resource-dominated circuits is the DSP circuits.
+
+### Non Resource-dominated Circuits
+
+In **non resource-dominated circuits**, the area and performance are strongly influenced by **sparse logic**, **control** and **wiring**.
+
+Examples are the microprocessors and some ASIC circuits.

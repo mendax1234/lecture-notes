@@ -28,6 +28,7 @@
   * [Perspectives](textbook-micheli/hardware-modeling/perspectives.md)
 * [Architectural Synthesis](textbook-micheli/architectural-synthesis/README.md)
   * [Circuit Specifications for Architectural Synthesis](textbook-micheli/architectural-synthesis/circuit-specifications-for-architectural-synthesis.md)
+  * [The Fundamental Architectural Synthesis Problems](textbook-micheli/architectural-synthesis/the-fundamental-architectural-synthesis-problems.md)
 * [Sequential Logic Optimization](textbook-micheli/sequential-logic-optimization/README.md)
   * [Synchronous Circuit Optimization using State-Based Models](textbook-micheli/sequential-logic-optimization/synchronous-circuit-optimization-using-state-based-models.md)
   * [Sequential Circuit Optimization using Network Models](textbook-micheli/sequential-logic-optimization/sequential-circuit-optimization-using-network-models.md)

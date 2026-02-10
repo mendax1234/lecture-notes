@@ -10,11 +10,36 @@ This part focuses on the synthesis and optimization of circuits at the architect
 * a structural description of the circuit, particularly its **data path**
 * and a logic-level specification of its **control unit**.
 
+{% hint style="success" %}
+We've seen this structure in the RISC-V processor design in [CG3207](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-03-risc-v-isa-and-microarchitecture#risc-v-microarchitecture)!
+{% endhint %}
+
+{% stepper %}
+{% step %}
+#### Datapath
+
 The data path consists of
 
 1. **interconnected resources** that implement arithmetic or logic functions,
 2. **steering logic** such as multiplexers and buses that route data to the correct destination at the appropriate time, and
 3. **registers** or **memory arrays** for data storage.
+{% endstep %}
+
+{% step %}
+#### Control Unit
+
+The control unit includes
+
+1. Mux selects
+2. Functional unit activation/enable signals and operation selection signals (e.g., to specify whether ALU should do addition/subtraction, etc)
+3. Register write enables, memory control signals
+
+The control unit is usually a **FSM** of some sort. And the control unit has two types depending on how it is implemented:
+
+* **Hardwired**: Implemented as an usual state machine.
+* **Microprogrammed**: Implemented as a counter + ROM.
+{% endstep %}
+{% endstepper %}
 
 An example of such a macroscopic structure is the differential equation integrator shown in Figure 4.1.
 
@@ -42,3 +67,7 @@ The [**design space**](../introduction/computer-aided-synthesis-and-optimization
 **Architectural exploration** involves traversing this design space to identify a range of feasible, non-inferior solutions, from which the designer can select the preferred implementation. This exploration requires solving constrained optimization problems. **Architectural synthesis tools** assist by selecting an appropriate design point based on user-specified criteria and constructing the corresponding **data path** and **control unit**.
 
 In this section, we first examine circuit modeling in greater detail, followed by architectural optimization for non-pipelined circuits, including **scheduling** and **resource sharing** techniques.
+
+{% hint style="warning" %}
+In this part, we will see how the [**back-end**](../hardware-modeling/compilation-and-behavioral-optimization.md) works!
+{% endhint %}
