@@ -59,7 +59,7 @@ The source ($$v_0$$) always starts at **cycle 1** while the sink ($$v_n$$) alway
 
 #### Example of Contrained Scheduling
 
-If we use **dedicated binding**, which is to constrain to use 1 function unit per type (e.g., 1 adder and 1 multiplier). Our scheduling will look like as follows:
+If we are constrained to use 1 [function unit](#user-content-fn-1)[^1] per type (e.g., 1 adder and 1 multiplier). Our scheduling will look like as follows:
 
 <figure><picture><source srcset="../../.gitbook/assets/constrained-scheduling-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/constrained-scheduling-light.png" alt=""></picture><figcaption><p>Figure 4.4 Constrained scheduling sequenc graph</p></figcaption></figure>
 
@@ -78,3 +78,64 @@ Let's assume our multiplication takes 35ns and others take 25ns and our cycle ti
 <figure><picture><source srcset="../../.gitbook/assets/schedule-chain-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/schedule-chain-light.png" alt=""></picture><figcaption><p>Schedule with chaining sequence graph</p></figcaption></figure>
 
 In this case, we reduce our latency to 3 as now $$\lambda=t_n-t_0=4-1=3$$.
+
+## The Spatial Domain: Binding
+
+**Binding** specifies which **resource** implements an **operation**.
+
+1. We define the type of **operation** as the type of computation it performs. e.g., addition, multiplication, etc.
+2. A **resource type** can implement **more than one operation type**. e.g., the resource type ALU may cover operation {addition, subtraction, comparison}.
+
+Now, we can define the **resource types** mathematically:
+
+> We call a **resource-type set** the set of **resource types**. For the sake of **simplicity**, we identify the **resource-type set** with its **enumeration**. Thus, assuming that there are **n resource types**, we denote the **resource-type set** by $$(1,2,\dots,n_{\text{res}})$$. The **function** $$\Tau:V\to\{1,2,\dots,n_{\text{res}}\}$$ denotes the **resource type** that can implement an **operation**.
+
+{% hint style="warning" %}
+It is interesting to note that there may be more than one **operation** of the same **type**. In this case, **resource sharing** may be applied, as described later in this **section**. Conversely, the **binding problem** can be extended to a **resource selection** (or **module selection**) problem by assuming that there may be more than one **resource** applicable to an **operation** (e.g., a **ripple-carry** and a **carry-look-ahead adder** for an **addition**). In this case, $$\Tau$$ is a **one-to-many mapping**.
+{% endhint %}
+
+Now, we can look at the formal mathematical definition of **binding**
+
+> A **resource binding** is a **mapping** $$\beta : V \to R \times \mathbb{Z}^+$$, where $$\beta(v_i) = (t, r)$$ denotes that the **operation** corresponding to $$v_i \in V$$, with **type** $$\Tau(v_i) = t$$, is implemented by the $$r$$-th **instance** of **resource type** $$t \in R$$, for each $$i = 1, 2, …, n_{\text{ops}}$$.
+
+### Dedicated Binding
+
+A simple case of **binding** is a **dedicated resource**. Each **operation** is bound to one **resource**, and the **resource binding** $$\beta$$ is a **one-to-one function**.
+
+One example of dedicated resource binding, is shown in Figure 4.3 above.
+
+### Resource-Sharing Binding
+
+A **resource binding** may associate one **instance** of a **resource type** to more than one **operation**. In this case, that particular **resource** is **shared**, and the **binding** is a **many-to-one function**.
+
+{% hint style="warning" %}
+A necessary condition for a **resource binding** to produce a **valid circuit implementation** is that the **operations** corresponding to a **shared resource** do not **execute concurrently**.
+{% endhint %}
+
+<details>
+
+<summary>Example of Resource-Sharing Binding</summary>
+
+It is obvious that the **resource usage** of Figure 4.3 is not **efficient**. Indeed, only **four multipliers** and **two ALUs** are required by the **scheduled sequencing graph** of **Figure 4.3**. This is shown in **Figure 4.5**.
+
+<figure><picture><source srcset="../../.gitbook/assets/resource-binding-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/resource-binding-example-light.png" alt="" width="563"></picture><figcaption><p>Figure 4.5 Scheduled sequencing graph with resource binding</p></figcaption></figure>
+
+The **tabulation** of the **binding** is as follows:
+
+|     Expression    |   Value   |
+| :---------------: | :-------: |
+|   $$\beta(v_1)$$  | $$(1,1)$$ |
+|   $$\beta(v_2)$$  | $$(1,2)$$ |
+|   $$\beta(v_3)$$  | $$(1,2)$$ |
+|   $$\beta(v_4)$$  | $$(2,1)$$ |
+|   $$\beta(v_5)$$  | $$(2,1)$$ |
+|   $$\beta(v_6)$$  | $$(1,3)$$ |
+|   $$\beta(v_7)$$  | $$(1,3)$$ |
+|   $$\beta(v_8)$$  | $$(1,4)$$ |
+|   $$\beta(v_9)$$  | $$(2,1)$$ |
+| $$\beta(v_{10})$$ | $$(2,2)$$ |
+| $$\beta(v_{11})$$ | $$(2,2)$$ |
+
+</details>
+
+[^1]: We will see later this is called **resource type**.
