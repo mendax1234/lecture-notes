@@ -98,6 +98,8 @@ Now, we can look at the formal mathematical definition of **binding**
 
 > A **resource binding** is a **mapping** $$\beta : V \to R \times \mathbb{Z}^+$$, where $$\beta(v_i) = (t, r)$$ denotes that the **operation** corresponding to $$v_i \in V$$, with **type** $$\Tau(v_i) = t$$, is implemented by the $$r$$-th **instance** of **resource type** $$t \in R$$, for each $$i = 1, 2, …, n_{\text{ops}}$$.
 
+Common **constraints** on **binding** are upper bounds on the **resource usage** of each **type**, denoted by $$\{a_k; k = 1,2, \dots, n\}$$. These **bounds** represent the **allocation** of **instances** for each **resource type**. A **resource binding** satisfies **resource bounds** $$\{a_k; k = 1,2, \dots, n\}$$ when $$\beta(u_i) = (t, r) \text{ with } r \le a_t$$ for each **operation** $$u_i, i = 1, 2, \dots, n$$.
+
 ### Dedicated Binding
 
 A simple case of **binding** is a **dedicated resource**. Each **operation** is bound to one **resource**, and the **resource binding** $$\beta$$ is a **one-to-one function**.
@@ -136,6 +138,30 @@ The **tabulation** of the **binding** is as follows:
 | $$\beta(v_{10})$$ | $$(2,2)$$ |
 | $$\beta(v_{11})$$ | $$(2,2)$$ |
 
+{% hint style="warning" %}
+Remember the meaning of $$\beta(v_i) = (t, r)$$ we mentioned above. For example, $$\beta(v_2)=(1,2)$$ indicates that the operation 2 will be implemented by tje 2-nd instance of resource type 1 (multiplier).
+{% endhint %}
+
 </details>
+
+### Partial Binding
+
+> We have seen partial binding in the [earlier section](https://wenbo-notes.gitbook.io/ee4218-hsd-notes/textbook-micheli/architectural-synthesis/circuit-specifications-for-architectural-synthesis#partial-binding).
+
+When **binding constraints** are specified, a **resource binding** must be **compatible** with them. In particular, a **partial binding** may be part of the **original specification**, as described in the earlier section. This corresponds to specifying a **binding** for a **subset** of the **operations** $$U \subseteq V$$.
+
+<details>
+
+<summary>Example of Partial Binding</summary>
+
+Consider again the **sequencing graph** we've used throughout this section. A hypothetical **partial binding** requires that **operations** $$v_6$$​ and $$v_8$$​ be **performed** by the same **multiplier**. Then, the **operations** $$v_6$$​ and $$v_8$$ cannot **execute concurrently**, and the corresponding **schedule** differs from that shown in **Figure 4.5**. The **partial binding** and the corresponding **schedule** are shown in **Figure 4.6**.
+
+<figure><picture><source srcset="../../.gitbook/assets/partial-binding-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/partial-binding-light.png" alt="" width="563"></picture><figcaption><p>Figure 4.6 Example of partial binding of operations v6 and v8 to a single resource</p></figcaption></figure>
+
+</details>
+
+{% hint style="danger" %}
+In general, **scheduling** and **binding** are **interrelated problems**, and **constraints** may complicate the **search for a solution**.
+{% endhint %}
 
 [^1]: We will see later this is called **resource type**.
