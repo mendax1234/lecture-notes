@@ -95,13 +95,13 @@ If we use the other definition of latency, which is **clock cycles** <i class="f
 
 <figure><img src="../../.gitbook/assets/functionality-vs-latency.png" alt=""><figcaption></figcaption></figure>
 
-The image above entails all the 5 RTL transformations we are going to learn in this section. Some of them preserve the latency while the rest didn't. However, all of them preserve the functionality.
+The image above entails 5 RTL transformations, we are going to learn 3 of them in this section. Some of them preserve the latency while the rest didn't. However, all of them preserve the functionality.
 {% endstep %}
 
 {% step %}
 #### Timing Model Simplifications
 
-To perform mathematical optimization on the Data Flow Graph (DFG), we simplify the timing analysis:
+To perform mathematical optimization on the Data Flow Graph (DFG), we simplify the timing analysis as:
 
 * **Cycle-Based Timing**: We ignore sub-cycle analog behaviors. We only care that the signal is stable at the end of the clock cycle.
   * For example, we use OUT(i) to illustrate that the output is just a function of clock cycle i.
@@ -115,11 +115,15 @@ To perform mathematical optimization on the Data Flow Graph (DFG), we simplify t
 All transformation algorithms (Retiming, parallelism, repipelining, unfolding, and folding) rely on these four simplifications:
 
 1. **Load Independence**: The delay of a logic gate (node) is constant, regardless of what it is connected to.
-   1. In other words, the number beside each **node** is **constant**
+   1. In other words, the number beside each **node** is **constant.**
 2. **Wire Delay is Negligible**: Rearranging the graph does not change the delay of the wires (edges).
 3. **Input Independence**: A computation node takes the same amount of time regardless of the input values (e.g., adding $$0+0$$ takes the same time as $$123+456$$).
 4. **No Stalls**: The pipeline flows continuously; we ignore complex control hazards or memory waits.
    1. This _no-stall_ assumption is achievable in AI accelerators. Unlike general-purpose microprocessors, AI accelerators operate on highly structured and predictable workloads, allowing data inputs and memory accesses to be carefully aligned at design time. As a result, pipeline hazards can be largely eliminated, avoiding the need for dynamic stalling.
+
+{% hint style="warning" %}
+Another explanation would be, in microcroprocessor, we consider more about **instructions** while in AI accelerators, we consider more about **data**.
+{% endhint %}
 {% endstep %}
 
 {% step %}
@@ -128,6 +132,10 @@ All transformation algorithms (Retiming, parallelism, repipelining, unfolding, a
 The trade-offs between PPA analysis of the **5 RTL transformations** we are going to learn in this section are shown as follows:
 
 <figure><img src="../../.gitbook/assets/area-speed-power-analysis.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="success" %}
+We will see a **much more detailed** version at the end of this section!
+{% endhint %}
 {% endstep %}
 {% endstepper %}
 
@@ -147,7 +155,7 @@ Data flows from one stage to the immediately next one.
 {% step %}
 #### Feedforward Path
 
-Some data skips registers
+Some data skips registers.
 
 <figure><img src="../../.gitbook/assets/feedforward-path.png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
@@ -167,21 +175,25 @@ According to [DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequ
 
 ### Iteration Bound
 
-There is a fundamental difference in how we optimize timing for **recursive** vs. **non-recursive** graphs (DFGs).
+There is a fundamental difference between how we optimize timing for **recursive** vs. **non-recursive** graphs (DFGs).
 
 {% stepper %}
 {% step %}
 #### Non-recursive DFGs
 
-In non-recursive DFGs, the data flows in one direction only, so we can achieve _any_ desired clock cycle time by inserting more pipeline registers (pipelining) and redistributing them (retiming).
+In non-recursive DFGs, the data flows in one direction only, so we can achieve **any** desired clock cycle time by inserting more pipeline registers (pipelining) and redistributing them (retiming).
 
-The result is that speed is limited only by technology constraints (setup/hold times), not by the logic structure itself.
+{% hint style="success" %}
+The method above is called [**repipelining**](lec-02b-rtl-transformations.md#repipelining).
+{% endhint %}
+
+The result is that the speed is limited only by technology constraints (setup/hold times), not by the logic structure itself.
 {% endstep %}
 
 {% step %}
 #### Recursive DFGs
 
-Recursive DFGs contain feedback paths where outputs affect future inputs. For example, consider the following recurrence
+Recursive DFGs contain feedback paths where outputs affect future inputs. For example, consider the following recurrence:
 
 ```
 y[n] = y[n−1] + x[n]
@@ -236,7 +248,7 @@ After talking about the **loop bound**, we can see what the **iteration bound** 
 
 #### Iteration Bound
 
-The Iteration Bound is the **critical path** of recursive systems. It defines the absolute minimum clock period achievable for the entire system, assuming ideal retiming (perfectly balanced stages). It is defined as:
+The Iteration Bound is the **critical path** of recursive systems. It defines the [**absolute minimum clock period**](#user-content-fn-3)[^3] achievable for the entire system, assuming ideal retiming (perfectly balanced stages). It is defined as:
 
 $$
 T_{\infty} = \max_{\text{all loops}} \left( \frac{t_{loop}}{w_{loop}} \right)
@@ -300,7 +312,7 @@ In this case, we can clearly see that
 
 > This is the part that is not covered in any textbook! It will be useful when we introduce **repipelining** ,which is basically **retiming + registration insertion**.
 
-The primary goal of **register insertion** is to add registers to a circuit to reduce the critical path (improving frequency) without altering the circuit's logical functionality.
+The primary goal of **register insertion** is to add registers to a circuit to reduce the critical path (improve frequency) without altering the circuit's logical functionality.
 
 {% hint style="danger" %}
 **Trade-offs** of register insertion: In a **non-pipelined** design, adding registers increases latency (signals must cross more registers to reach the output) and area, but it is useful for RTL transformations like retiming.
@@ -324,7 +336,7 @@ Once **both of** the two red arrow is cut, no path exists between $$G_1$$ and $$
 
 <summary>How to find the gaussian surface?</summary>
 
-Using the term _Gaussian surface_ may be confusing here, since it originates from electrostatics (the focus of FDP2021). But the underlying idea is simply **partition -> enclose -> identify boundary edges**.
+The use of term _Gaussian surface_ may be confusing here, since it originates from electrostatics (the focus of FDP2021). But the underlying idea is simply **partition -> enclose -> identify boundary edges**.
 
 1. **Choose a partition:** Select the set of nodes we want to isolate (the “inside” set).
    1. Example: To separate the left cluster from the right, choose `{A, B, C}`.
@@ -334,7 +346,7 @@ Using the term _Gaussian surface_ may be confusing here, since it originates fro
    1. Edges with both endpoints inside the boundary -> ignore.
    2. Edges with both endpoints outside the boundary -> ignore.
    3. Edges crossing the boundary (one endpoint inside, one outside) -> **cutset edges**.
-   4. [The registers on the cutset edges](#user-content-fn-3)[^3] **shouldn't** be included in any one of the partition.
+   4. [The registers on the cutset edges](#user-content-fn-4)[^4] **shouldn't** be included in any one of the partition.
 4. **Check loops crossing**:
    1. In **register insertion,** the gaussian surface **cannot** cross the loop.
    2. In **retiming,** the gaussian surface **can** cross the loop.
@@ -355,7 +367,7 @@ Not all cutsets allow for safe register insertion. We must identify a **Feedforw
 
 #### Feedforward Cutset Register Insertion
 
-> The intuition behind this rule is that, once understood, it can be applied visually to any situation — no math and no calculations required.
+> The intuition behind this rule is that, once understood, it can be applied visually to any situation — no math and no calculatio is required.
 
 The **feedforward cutset register insertion rule** indicates that we can insert $$k$$ cascaded registers into **every single edge** of a feedforward **cutset** without breaking the circuit's functionality. The result is that the logic remains valid, but the processing latency increases by $$k$$ clock cycles at that edge.
 
@@ -391,7 +403,7 @@ Primary inputs and outputs are technically special cases of feedforward cutsets.
 
 <figure><img src="../../.gitbook/assets/feedforward-cutset-rule-observation-1.png" alt=""><figcaption></figcaption></figure>
 
-The reason for the validaty of doing so is that we can easily partition the [whole system](#user-content-fn-4)[^4] into **one group** and the inputs and outputs as **two separate groups**. Through this partitioning can we achieve two feedforward cutset so that we can do the insertion.
+The reason for the validaty of doing so is that we can easily partition the [whole system](#user-content-fn-5)[^5] into **one group** and the inputs and outputs as **two separate groups**. Through this partitioning can we achieve two feedforward cutset so that we can do the insertion.
 {% endstep %}
 
 {% step %}
@@ -443,7 +455,7 @@ So, now the signal dependency and periodicity can be summarized as follows,
 
 From this table, we observe that the "**step width" for processing a single data stream increases from 1 cycle to N cycles**. This means that the system’s functionality no longer depends on the intermediate cycles within each N-cycle window.
 
-As a result, these intermediate cycles can be used to process **additional independent data streams**. In other words, the system can interleave **N independent data streams**, processing one stream per cycle over the N cycles. This is the **time interleaving** technique we will see later.
+As a result, these intermediate cycles can be used to process **additional independent data streams**. In other words, the system can interleave **N independent data streams**, processing one stream per cycle over the N cycles. This forms the basics of the **time interleaving** technique we will see later.
 
 {% hint style="success" %}
 Note that the second row means that "The system's functionality only depends on the **current** and **past** inputs".
@@ -487,12 +499,18 @@ For more on Timing Interleaving, you can refer to [below](lec-02b-rtl-transforma
 
 > As we have seen above, **N-slowing insertion** is one technique to allow SIMD (Single Instruction  Multiple Data stream) processing. Besides that, we can also use **parallelism** to achieve SIMD.
 
-**Parallelism** in digital integrated circuits is achieved by replicating a fundamental operator / processing unit $$n$$ times, where $$n$$ represents the _degree of parallelism_. By distributing sequential inputs across these $$n$$ replicas, the system maintains the external data rate ($$1/T_{CK}$$) while allowing each individual hardware unit to operate at a significantly reduced rate ($$1/(n \cdot T_{CK})$$). This relaxation in timing constraints allows the internal logic to complete computations over a duration of $$n$$ clock cycles rather than one, effectively trading **silicon area** for **timing**.
+**Parallelism** in digital integrated circuits is achieved by replicating a fundamental operator / processing unit $$n$$ times, where $$n$$ represents the _degree of parallelism_.
+
+{% hint style="warning" %}
+#### Iso-performance (Low-Power) Strategy
+
+This means we want the **throughput** to have **no improvement** from the original design. So, by distributing sequential inputs across these $$n$$ replicas, the system maintains the external data rate ($$1/T_{CK}$$) while allowing each individual hardware unit to operate at a significantly reduced rate ($$1/(n \cdot T_{CK})$$). This relaxation in timing constraints allows the internal logic to complete computations over a duration of $$n$$ clock cycles rather than one, effectively trading **silicon area** for **power**.
+{% endhint %}
 
 <figure><img src="../../.gitbook/assets/parallelism-example.png" alt=""><figcaption></figcaption></figure>
 
-{% hint style="info" %}
-In the figure above, each "out" corresponds to a **separate processing unit.**
+{% hint style="danger" %}
+In the figure above, each "out" on the vertical column corresponds to a **separate processing unit.**
 {% endhint %}
 
 ### Implementation
@@ -525,7 +543,7 @@ This technique is highly **not recommended** in both CG3207 and EE4218. However,
 
 <figure><img src="../../.gitbook/assets/clock-gating.png" alt=""><figcaption></figcaption></figure>
 
-In this system, **glitches mainly originate from the comparator**, which compares the counter value with the target value $$i$$ to generate a slower, gated clock. Since the comparator is a **combinational circuit**, it can output can momentarily glitch.
+In this system, **glitches mainly originate from the comparator**, which compares the counter value with the target value $$i$$ to generate a slower, gated clock. Since the comparator is a **combinational circuit**, it can output a momentarily glitch.
 
 To prevent these glitches from propagating to the gated clock, a **level-sensitive latch** is inserted after the comparator. The latch is **transparent only when** `clk = 0`, allowing the enable signal (`EN`) to update safely during the low phase of the clock. When `clk = 1`, the latch closes and **holds `EN` constant**, even if the comparator output glitches.
 
@@ -740,13 +758,13 @@ $$
 
 #### PPA Analysis Summary
 
-| Metric                   | Sequential (baseline) | n-way Parallel Design |
-| ------------------------ | --------------------- | --------------------- |
-| **Throughput**           | 1                     | **n**                 |
-| **Absolute Latency**     | 1                     | **≈ n**               |
-| **Clock Frequency**      | f                     | **≈ f / n**           |
-| **Area**                 | 1                     | **≈ n**               |
-| **Energy per Operation** | 1                     | **≈ 1**               |
+| Metric                   | Sequential (baseline) | n-way Parallel Design                 |
+| ------------------------ | --------------------- | ------------------------------------- |
+| **Throughput**           | 1                     | **n**                                 |
+| **Absolute Latency**     | 1                     | **≈ n**                               |
+| **Clock Frequency**      | f                     | [**≈ f / n**](#user-content-fn-6)[^6] |
+| **Area**                 | 1                     | **≈ n**                               |
+| **Energy per Operation** | 1                     | **≈ 1**                               |
 
 ### Pipelining vs. Parallelism
 
@@ -772,24 +790,24 @@ However, pipelining has its own limitations
 
 ## Retiming
 
-Retiming is a structural transformation that involves moving registers around combinational logic to achieve more balanced logic paths. This technique is particularly useful early in the design phase when logic depths are difficult to balance manually.
+Retiming is a structural transformation that involves moving registers around combinational logic to achieve more **balanced** logic paths. This technique is particularly useful early in the design phase when logic depths are difficult to balance manually.
 
 * **Preserves Latency**: Unlike pipelining (register insertion), retiming preserves the I/O cycle-based timing (e.g., the number of cycles from each input to each output is kept the same).
 * **Optimization Goals**:
   * **Reduce Clock Cycle**: By balancing the delay ($$\tau_{COMB}$$) between registers.
   * **Minimize Area**: By reducing the total count of registers required in the design. This can be done by brining the registers from the outputs of a vertice to its input or vice versa.
 
-Popular **retiming techniques** are
+In this course, we will mainly introduce **cutset retiming**, while in EE4218, we will see another technique which is **more maths-heavy**.
 
-1. cutset retiming and
-2. repipelining.
-3. We will also introduce time/data interleaving through n-slowing method.
+{% hint style="warning" %}
+Just a personal tip, **cutset retiming** is more powerful!
+{% endhint %}
 
-These techniques can be used to practically move the register to a given microarchitecture (at iso-latency[^5] in terms of cycles), or even modifying the latency (by adding registers at the input or output and retime). Before that, let's see the assumptions and some math notations first.
+With the help of **cutset retiming**, we will see how they can be combined with other tools to perform the [**RTL Transformations**](lec-02b-rtl-transformations.md#rtl-transformation). These transformations can be used to practically move the register to a given microarchitecture (at iso-latency[^7] in terms of cycles), or even modifying the latency (by adding registers at the input or output and retime). Before that, let's see the assumptions and some math notations first.
 
 #### Assumptions
 
-To apply retiming algorithms formally, we model the circuit as a [Data Flow Graph (DFG)](lec-02b-rtl-transformations.md#data-flow-graphs) with specific constraints to handle Input/Output boundaries correctly.
+To apply retiming algorithms formally, let's model the circuit as a [Data Flow Graph (DFG)](lec-02b-rtl-transformations.md#data-flow-graphs) with specific constraints to handle Input/Output boundaries correctly.
 
 <figure><img src="../../.gitbook/assets/retiming-assumptions.png" alt=""><figcaption></figcaption></figure>
 
@@ -812,7 +830,7 @@ When moving registers, combinational operators at vertices through retiming cann
 
 #### Fundamental Transformation
 
-The core operation of retiming allows registers to be moved forward or backward across the inputs and outputs of an operator without changing the circuit's steady-state[^6] functional behavior.
+The core operation of retiming allows registers to be moved forward or backward across the inputs and outputs of an operator without changing the circuit's steady-state[^8] functional behavior.
 
 <figure><img src="../../.gitbook/assets/retiming-fundamental-transformation.png" alt=""><figcaption></figcaption></figure>
 
@@ -831,13 +849,13 @@ This rule applies to path branching as well, which can be seen from below
 
 > This part has appeared in Micheli's book and EE4218 as well. Can refer to the notes [there](https://wenbo-notes.gitbook.io/ee4218-hsd-notes/textbook-micheli/sequential-logic-optimization/sequential-circuit-optimization-using-network-models#cycle-time-minimization).
 
-To algorithmically optimize a circuit, we define retiming mathematically using a **Data Flow Graph (DFG)** where vertices ($$V$$) represent logic gates and edges ($$E$$) represent the wires connecting them, which is same as we have learned at the [beginning](lec-02b-rtl-transformations.md#data-flow-graphs).
+To algorithmically optimize a circuit, we define retiming mathematically using a **Data Flow Graph (DFG)** where vertices ($$V$$) represent logic gates and edges ($$E$$) represent the wires connecting them, which is same as we have learned at the [beginning](lec-02b-rtl-transformations.md#data-flow-graphs) of this note.
 
 {% stepper %}
 {% step %}
 #### The Retiming Vector $$r(V)$$
 
-The "Retiming Vector" is an **integer** value assigned to every vertex $$V$$ in the graph. It tracks how many registers are moved across that specific logic block.
+The "Retiming Vector" is an **integer** value assigned to every vertex $$V$$ in the graph. It tracks how many registers are moved across that vertex[^9].
 
 * **Definition:** $$r(V) = \# \text{ Registers moved backwards}$$.
 * **Directionality**:
@@ -862,7 +880,7 @@ The Intuition is:
 * Moving registers backwards across the destination $$V$$ adds registers to the input wire ($$+r(V)$$).
 * Moving registers backwards across the source $$U$$ removes registers from the output wire ($$-r(U)$$).
 
-So, the term $$r(V)-r(U)$$ denotes the number of **registers change** on the edge[^7] from $$U$$ to $$V$$
+So, the term $$r(V)-r(U)$$ denotes the number of **registers change** on the edge[^10] from $$U$$ to $$V$$
 {% endstep %}
 
 {% step %}
@@ -885,7 +903,7 @@ $$
 If this inequality holds for all edges, the retiming is legal.
 
 {% hint style="success" %}
-The intuition is that the [**decrease** ](#user-content-fn-8)[^8]of the number of **registers change** ($$r(V)-r(U)$$) cannot be larger the number of registers in the original edge.
+The intuition is that the [**decrease** ](#user-content-fn-11)[^11]of the number of **registers change** ($$r(V)-r(U)$$) cannot be larger the number of registers in the original edge.
 {% endhint %}
 {% endstep %}
 
@@ -1045,7 +1063,7 @@ We will now use these skills to start getting our hands "dirty"!
 
 ### Repipelining
 
-The first RTL Transformation technique that we will learn is **repipelining**. Repipelining is a technique to increase the clock frequency (performance) of a design by adding new pipeline stages, rather than just rearranging existing ones. It is equivalent to [**register insertion** at I/O + **retiming**](#user-content-fn-9)[^9].
+The first RTL Transformation technique that we will learn is **repipelining**. Repipelining is a technique to increase the clock frequency (performance) of a design by adding new pipeline stages, rather than just rearranging existing ones. It is equivalent to [**register insertion** at I/O + **retiming**](#user-content-fn-12)[^12].
 
 * **Goal**: Reduce the minimum clock cycle ($$T_{CK}$$) by breaking up long combinational paths.
 * **Trade-off**: Unlike standard retiming (which is iso-latency), repipelining increases latency. The total time (in clock cycles) from Input to Output increases by $$k$$ cycles.
@@ -1064,7 +1082,7 @@ Loops can exist _internally_ within $$G1$$ or $$G2$$, but the gaussian surface i
 
 #### The Transformation Procedure
 
-Since latency is **not preserved**, we cannot **simply move** existing registers. We must **introduce new ones** and then distribute them.
+In repipelining, we cannot **simply move** existing registers. We must **introduce new ones** and then distribute them.
 
 * **Insertion**: Add $$k$$ registers at the boundary (e.g., at all inputs going from $$G1$$ to $$G2$$).
 * **Retiming ("Pushing")**: Use retiming to move these new registers from the boundary into the internal logic of $$G2$$ to balance delays.
@@ -1092,7 +1110,7 @@ We start by adding 4 registers at each input because we notice there are 4 opera
 
 <figure><img src="../../.gitbook/assets/gaussian-filter-first-optimization.gif" alt=""><figcaption></figcaption></figure>
 
-This is done by applying the [#cutset-retiming](lec-02b-rtl-transformations.md#cutset-retiming "mention")or simply the [#feedforward-cutset-register-insertion](lec-02b-rtl-transformations.md#feedforward-cutset-register-insertion "mention") technique we have learned, our final clock cycle is 2 because the critical path would be the multiplier which takes two cycles while the latency is 4+5=9 cycles.
+This is done by applying the [#cutset-retiming](lec-02b-rtl-transformations.md#cutset-retiming "mention") or simply the [#feedforward-cutset-register-insertion](lec-02b-rtl-transformations.md#feedforward-cutset-register-insertion "mention") technique we have learned, our final clock cycle is 2 because the critical path would be the multiplier which takes two cycles while the latency is 4+5=9 cycles.
 
 {% hint style="danger" %}
 The reason for only **one register** added above the second level of multipliers instead of 3 is because of [**register sharing**](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/textbook-micheli/sequential-logic-optimization/sequential-circuit-optimization-using-network-models#register-sharing) we have learned in EE4218.
@@ -1136,7 +1154,7 @@ When drawing the **gaussian surface** here, notice that the **gaussian surface**
 Another RTL transformation skill is called **time interleaving**, which utilizes the [N-slowing](lec-02b-rtl-transformations.md#n-slowing-insertion) technique we have covered above to first replace each register with N cascaded registers and then retime it.
 
 {% hint style="success" %}
-Time interleaving is a technique to process $$N$$ independent data streams on a single hardware block by utilizing pipeline "slots" created through register replacement.
+Time interleaving is a technique to process $$N$$ independent data streams on a single hardware block at a N-time faster clock frequency (in ideal case) by utilizing pipeline "slots" created through register replacement.
 {% endhint %}
 
 #### The Transformation Procedure
@@ -1151,7 +1169,7 @@ Time interleaving is a technique to process $$N$$ independent data streams on a 
 * Use the newly added registers to perform **Retiming**. Distribute these extra registers into the combinational logic to break critical paths.
 * Result: Optimally, after inserting N registers and well-balance the logic, we will have a $$N$$ times faster clock frequency.
 
-{% hint style="info" %}
+{% hint style="danger" %}
 In the second step, we assume that the pipelined stages are **well-balanced**, which is not practical in real world though.
 {% endhint %}
 
@@ -1287,7 +1305,7 @@ $$
 {% step %}
 #### Area
 
-This is the main reason to use Time Interleaving. It is **much smaller** than Parallelism.
+This is one reason to use Time Interleaving. It is **much smaller** than Parallelism.
 
 $$
 \begin{align*}
@@ -1385,7 +1403,7 @@ Execute the chosen transformation on the original RTL structure.
 
 ### Combining RTL Transformations
 
-**Normalization:** All metrics (Area, Throughput, Energy) are normalized to the [**Original RTL**](#user-content-fn-10)[^10] ($$=1$$).
+**Normalization:** All metrics (Area, Throughput, Energy) are normalized to the [**Original RTL**](#user-content-fn-13)[^13] ($$=1$$).
 
 <figure><img src="../../.gitbook/assets/combining-rtl-transformations.png" alt=""><figcaption></figcaption></figure>
 
@@ -1407,13 +1425,17 @@ Assumptions we have made:
 
 [^2]: This is based on the assumption that we have already squeezed out the performance of the design by well balancing the non-loop components of the system.
 
-[^3]: This is the **weight** of the cutset edge.
+[^3]: or equivalently speaking, the **maximum clock frequency**.
 
-[^4]: the digital module in the figure above
+[^4]: This is the **weight** of the cutset edge.
 
-[^5]: This is because of the first property of retiming we mentioned above, which is to preserve the **I/O cycle-based** timing.
+[^5]: the digital module in the figure above
 
-[^6]: 
+[^6]: Can do this to save power, but won't have improvement in throughput
+
+[^7]: This is because of the first property of retiming we mentioned above, which is to preserve the **I/O cycle-based** timing.
+
+[^8]: 
 
     This means the same output at the end of the cycle. For example,
 
@@ -1422,10 +1444,12 @@ Assumptions we have made:
 
     Both approach will give us the same output.
 
-[^7]: Later we will generalize **edge** to **path**.
+[^9]: same as saying that specific logic block.
 
-[^8]: It means that $$r(V)-r(U)$$ is **negative**, and $$r(U)-r(V)$$ is positive.
+[^10]: Later we will generalize **edge** to **path**.
 
-[^9]: You can do this even faster by just doing the feedforward cutset insertion. The only problem might be finding the correct cutset.
+[^11]: It means that $$r(V)-r(U)$$ is **negative**, and $$r(U)-r(V)$$ is positive.
 
-[^10]: Here, the original RTL can be any type, pipelined or non-pipelined. It doesn't matter.
+[^12]: You can do this even faster by just doing the feedforward cutset insertion. The only problem might be finding the correct cutset.
+
+[^13]: Here, the original RTL can be any type, pipelined or non-pipelined. It doesn't matter.
