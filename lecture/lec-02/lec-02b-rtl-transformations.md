@@ -1421,6 +1421,34 @@ Assumptions we have made:
 * Perfectly balanced logic (no stalls).
 * $$A_{REG}$$ and $$E_{REG}$$ are consistent across all registers (zero latch growth).
 
+### Tips for RTL Transformations
+
+These tips are based on the tutorial questions done during the last lecture of EE4415
+
+#### Input/Output modeling
+
+In a DFG given in this course (EE4218 might have a different version of DFG), we assume that there is always **one** register at the **input and output**.
+
+<figure><img src="../../.gitbook/assets/rtl-transformation-tip-1.png" alt=""><figcaption></figcaption></figure>
+
+For exampl, in the DFG above, when looking at this problem, our first thing is to draw <mark style="color:blue;">**two registers**</mark> at the input and output.
+
+{% hint style="danger" %}
+#### Input and Output registers in N-slowing
+
+In N-slowing, the registers at the input and output should **each** be replaced by **N-cascaded** registers. Don't forget this!
+{% endhint %}
+
+#### Steps to do RTL Transformation
+
+When we do every RTL transformation problems, it is recommended to follow the three steps as follows,
+
+1. Check the **iteration bound** to see if it is possible to reach the specification set in the problem.
+2. **Know** where to put extra registers to achieve that specification
+   1. If these extra registers are put **in a loop**, we know for sure that **only retiming** can be done in the loop.
+   2. This step is also known as **transforming** our **critical path** and it will give us some hint on what registers to move during the RTL transformations.
+3. Do the RTL Transformation
+
 [^1]: We can think of a **multi-rate system** as one that operates with **more than one clock**, with different parts of the system running at different rates.
 
 [^2]: This is based on the assumption that we have already squeezed out the performance of the design by well balancing the non-loop components of the system.

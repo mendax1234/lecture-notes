@@ -13,6 +13,7 @@
 * [Lec 03](lecture/lec-03/README.md)
   * [Lec 03a - Digital Design Flow](lecture/lec-03/lec-03a-digital-design-flow.md)
   * [Lec 03b - Verilog Fundamentals](lecture/lec-03/lec-03b-verilog-fundamentals.md)
+* [Lec 04 - Automated Synthesis](lecture/lec-04-automated-synthesis.md)
 
 ## Textbook 1: DICADP
 
