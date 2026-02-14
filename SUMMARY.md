@@ -12,6 +12,7 @@
 ## Lab
 
 * [Lab 01 - Introduction to Hardware Design](lab/lab-01-introduction-to-hardware-design.md)
+* [Lab 02 - Introduction to Hardware/Software Co-Design](lab/lab-02-introduction-to-hardware-software-co-design.md)
 
 ## Textbook: Micheli
 
