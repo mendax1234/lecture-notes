@@ -282,9 +282,11 @@ In the multiply and accumulate stage, we have three pipelines
 | 2. DATA  | Multiplication     | Multiplies the retrieved data: `n_prod16 = A_read_data_out * B_read_data_out` . | Receives data 1 cycle after ISSUE, calculates product, and passes it to the MAC stage .         |
 | 3. MAC   | Accumulation       | Adds product to running total: `n_acc = acc + prod16` .                         | Accumulates results until the row is finished (`k_mac == N-1`), then triggers the write state . |
 
-The cycle-time diagram can be shown as follows:
+The cycle-time diagram after the optimization of the `Start` signal can be shown as follows:
 
 <figure><img src="../.gitbook/assets/matrix-multiply-cycle-time-diagram.png" alt=""><figcaption></figcaption></figure>
+
+Basically, the one cycle `IDLE` stage in the matrix multiply unit happens **concurrently** with the last one cycle `Read_Inputs` stage in the top level FSMD, so in the diagram above, it is not shown.
 
 #### Arithmetic
 
