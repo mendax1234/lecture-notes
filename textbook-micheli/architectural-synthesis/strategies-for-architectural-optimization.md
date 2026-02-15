@@ -26,3 +26,25 @@ It is obvious that any **circuit model** described in terms of a **scheduled** a
    1. Example is **chaining**
 3. searching for the **(area, cycle time) trade-off** for a given **schedule** (fixed latency).
    1. Example is **retiming**
+
+{% hint style="danger" %}
+Unfortunately, the **(cycle time, latency) trade-off** for some values of **area**, as well as the **(area, cycle time) trade-off** for some values of **latency**, are complex problems to solve, because several **bindings** may correspond to a given **area**, and several **schedules** may correspond to a given **latency value**. So, in EE4218, we will mainly focus on the Area/Latency Optimization.
+{% endhint %}
+
+## Area/Latency Optimization
+
+Let us consider **resource-dominated circuits** first. Given the **cycle time**, the **execution delays** can be determined. Since the **area** depends on the **resource usage** (and not on any particular **binding**), **scheduling problems** provide the framework for determining the **(area, latency) trade-off points**.
+
+Indeed, solutions to the **minimum-latency scheduling problem** and the **minimum-resource scheduling problem** provide the **extreme points** of the **design space**. **Intermediate solutions** can be found by solving:
+
+* **Resource-constrained minimum-latency scheduling problems**, or
+* **Latency-constrained minimum-resource scheduling problems**,
+
+for different values of the **constraints**. For example, the following figure shows a design space exploration with area/latency optimization.
+
+<figure><picture><source srcset="../../.gitbook/assets/area-latency-opt-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/area-latency-opt-light.png" alt=""></picture><figcaption></figcaption></figure>
+
+{% hint style="warning" %}
+Not that the coordinates of the **pareto points** are (number of resource type 1, number of resource type 2) instead of the area or latency in this case!
+{% endhint %}
+

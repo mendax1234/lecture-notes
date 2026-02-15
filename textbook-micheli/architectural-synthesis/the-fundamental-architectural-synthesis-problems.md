@@ -14,7 +14,10 @@ We now consider the fundamental **problems** in **architectural synthesis** and 
 We now show that the first **stage** is equivalent to **annotating** the **sequencing graph** with additional **information** about the scheduling and binding.
 
 {% hint style="warning" %}
-Usually, **scheduling** is done first and then is **binding**.
+Usually, **scheduling** is done first and then is **binding**. More specifically,
+
+* In **resource-dominated circuits**, **scheduling** is performed before **binding**.
+* In **non-resource-dominated circuits**, **binding** is performed before **scheduling**.
 {% endhint %}
 
 ## The Temporal Domain: Scheduling
