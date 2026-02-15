@@ -11,7 +11,7 @@ We now consider the fundamental **problems** in **architectural synthesis** and 
 1. First, **placing the operations in time and space**, i.e., determining the **time interval** for their **execution** and their **binding to resources**.
 2. Second, determining the detailed **interconnections** of the **data path** and the **logic-level specifications** of the **control unit**.
 
-We now show that the first **stage** is equivalent to **annotating** the **sequencing graph** with additional **information**.
+We now show that the first **stage** is equivalent to **annotating** the **sequencing graph** with additional **information** about the scheduling and binding.
 
 {% hint style="warning" %}
 Usually, **scheduling** is done first and then is **binding**.
