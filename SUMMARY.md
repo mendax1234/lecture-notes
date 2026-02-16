@@ -8,6 +8,7 @@
 * [Lec 02 - Verilog for Synthesis](lec/lec-02-verilog-for-synthesis.md)
 * [Lec 03 - Sequential Logic Optimization](lec/lec-03-sequential-logic-optimization.md)
 * [Lec 04 - Abstarct Models and Behavioural Optimisations](lec/lec-04-abstarct-models-and-behavioural-optimisations.md)
+* [Lec 05 - Microarchitecture Design](lec/lec-05-microarchitecture-design.md)
 
 ## Lab
 
@@ -33,6 +34,7 @@
   * [Area and Performance Estimation](textbook-micheli/architectural-synthesis/area-and-performance-estimation.md)
   * [Strategies for Architectural Optimization](textbook-micheli/architectural-synthesis/strategies-for-architectural-optimization.md)
   * [Data-Path Synthesis](textbook-micheli/architectural-synthesis/data-path-synthesis.md)
+  * [Control-Unit Synthesis](textbook-micheli/architectural-synthesis/control-unit-synthesis.md)
 * [Sequential Logic Optimization](textbook-micheli/sequential-logic-optimization/README.md)
   * [Synchronous Circuit Optimization using State-Based Models](textbook-micheli/sequential-logic-optimization/synchronous-circuit-optimization-using-state-based-models.md)
   * [Sequential Circuit Optimization using Network Models](textbook-micheli/sequential-logic-optimization/sequential-circuit-optimization-using-network-models.md)

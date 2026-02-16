@@ -66,6 +66,10 @@ As shown in the diagram, the AXI-Stream FIFO contains two FIFO memories:
 
 Make sure the memory-mapped interface used is **AXI4**, not AXI4-Lite, and set the data width to **32 bits**, since all data transfers are 32-bit.
 
+{% hint style="warning" %}
+In the block diagram of the AXI-Stream FIFO, the AXI-Lite port **cannot** be omitted.
+{% endhint %}
+
 For the FIFO depth, consider the data required for the matrix multiplication. A ($$64 \times 8$$) matrix and an ($$8 \times 1$$) matrix contain ($$64 \times 8 + 8 \times 1 = 520$$) elements in total. Since 520 exceeds 512, a FIFO depth of 512 is insufficient. Therefore, the FIFO size should be set to **1024** to allow all data to be sent in a single transfer.
 
 <figure><img src="../.gitbook/assets/axi-stream-fifo-config.png" alt=""><figcaption></figcaption></figure>
@@ -74,27 +78,31 @@ As in the lab, we are basically looping back, so we should connect `AXI_STR_TXD`
 
 <figure><img src="../.gitbook/assets/axi-stream-fifo-loopback.png" alt="" width="563"><figcaption></figcaption></figure>
 
-> TODO: Ask about is it necessary for us to send twice and use 512 to save space in Lab 02?
+{% hint style="warning" %}
+In Lab 02, we don't really need to optimize the hardware usage by changing 1024 back to 512 and make some corresponding changes at the software.
+{% endhint %}
 
 #### AXI SmartConnect
 
-After clicking **Run Block Automation**, a new block called **AXI SmartConnect** will be created. This block acts as an interconnect **hub**, allowing the AXI bus from the PS to connect to multiple AXI interfaces in the PL.
+After clicking **Run Block Automation**, a new block called **AXI SmartConnect** will be created. This block acts as an interconnect **hub**, allowing the AXI bus from the PS to connect to **multiple** AXI interfaces in the PL.
 
 For example, it connects the PS AXI bus to:
 
 * the **AXI4-Full** port on the AXI-Stream FIFO (for data transfer),
 * the **AXI4-Lite** port on the AXI-Stream FIFO (for configuration and control), and
-* the **AXI** port on the AXI Timer (will see later).
+* the **AXI-Lite** port on the AXI Timer (will see later).
 
 In this way, AXI SmartConnect enables one master interface from the PS to communicate with multiple slave modules in the PL.
 
 <figure><img src="../.gitbook/assets/axi-smartconnect.png" alt=""><figcaption></figcaption></figure>
 
-> TODO: Ask about why the AXI\_Lite is needed here? And the hub is to enable the master can be connected to several slave interfaces?
-
 ### AXI-Timer
 
 The AXI-timer will be used to **measure the performance**.
+
+{% hint style="warning" %}
+The AXI intreface used in the AXI-timer is **AXI-Lite**.
+{% endhint %}
 
 ### MMIO Address
 
@@ -124,7 +132,14 @@ Assigning large address blocks (64KB in this case) to small peripherals serves t
 
 </details>
 
-> TODO: have a glimpse of this when writing the actual C program. Why only got three base addresses?
+{% hint style="warning" %}
+In this lab, we only have 3 addresses because we have one AXI-Stream FIFO, which has
+
+* AXI-Lite, and
+* AXI-Full
+
+and an AXI-Timer, which has only AXI-Lite. Thus, for each one of these three AXI interfaces, we have a dedicated address for it.
+{% endhint %}
 
 ## Software Development using Vitis
 
