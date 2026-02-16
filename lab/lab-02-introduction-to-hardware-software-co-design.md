@@ -132,3 +132,61 @@ After we create the hardware platform on Vivado, we should be very aware that
 
 1. PS is **not configured** by using **bitstream**, but by **writing to registers**
 2. PL is **configured** by using **bistream**
+
+The hierarchy of this Vitis project can be summarized into three parts
+
+1. The Workspace
+2. The BSP configuration inside the platform settings
+3. The software applications written in C
+
+### Setup Workspace
+
+What essentially happens here is that the Vitis will read the hardware configuration from the `.xsa` file and creates a workspace which contains the everything, like
+
+1. The platform
+2. The applications
+
+### Board Support Package
+
+The **Board Support Package (BSP)** is located in the "Settings" of the platform within a Vitis workspace. The BSP acts as the abstraction layer ("translator") between high-level application software and the physical hardware.
+
+* **Software Layer**: Application code (e.g., `printf`, `main()`).
+* **BSP Layer**: Low-level drivers, initialization code, memory maps, and vector tables.
+* **Hardware Layer**: Physical silicon (IPs likeAXI-FIFOs, AXI-Timers).
+
+The BSP does not create hardware; it configures the **software interface** for hardware defined in Vivado (`.xsa`).
+
+* **Driver Matching**: Automatically assigns software drivers (e.g., `uartps`) to hardware IPs (e.g., `psu_uart_1`).
+* **I/O Configuration**: Defines which peripherals handle standard input/output (stdin/stdout).
+* **Common Setup**: Both `stdin` and `stdout` directed to `psu_uart_1` for serial console communication.
+* **Library Management**: Used to import middleware libraries (e.g., `lwIP` for networking, `xilffs` for file systems).
+
+{% hint style="success" %}
+**One Platform/BSP**: We configure the board (Hardware + Drivers) once. This acts as the foundation.
+{% endhint %}
+
+### Create Software Applications
+
+These are the programs we write. We can create multiple independent applications in our workspace that use this **same Platform**. Usually, there are **two** ways to create applications:
+
+{% hint style="danger" %}
+While we can keep many applications in our project folder, the processor can usually only run one application at a time. We choose which one to "Run" or "Debug."
+{% endhint %}
+
+#### Import from the Examples
+
+Under the `driver` tab in the BSP, there are a lot of examples for different IP instances provided by AMD. Thus, one easier way to create create applications on the board is by importing these examples.
+
+{% hint style="warning" %}
+In Lab 02, we will just study how the example works and copy & paste the useful code snippets into our own application.
+{% endhint %}
+
+#### Create your own Application
+
+This can be done easily by just clicking the "+" button in the navigator.
+
+<figure><img src="../.gitbook/assets/create-own-application-in-vitis.png" alt="" width="370"><figcaption></figcaption></figure>
+
+{% hint style="danger" %}
+While we can keep many applications in our project folder, the processor can usually only run one application at a time. We choose which one to "Run" or "Debug."
+{% endhint %}
