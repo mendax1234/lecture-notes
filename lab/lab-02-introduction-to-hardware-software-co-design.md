@@ -205,3 +205,62 @@ This can be done easily by just clicking the "+" button in the navigator.
 {% hint style="danger" %}
 While we can keep many applications in our project folder, the processor can usually only run one application at a time. We choose which one to "Run" or "Debug."
 {% endhint %}
+
+### UART Example Code
+
+This program initializes the UART driver using the device's configuration, sets the baud rate to 115200, and transmits the string "Hello World" from the processor to the laptop (RealTerm) via the UART TX line.
+
+#### The Core Method
+
+The following code is the heart of the program. It sends the string one byte at a time inside a `while` loop.
+
+{% code lineNumbers="true" %}
+```c
+SentCount += XUartPs_Send(&Uart_Ps, &HelloWorld[SentCount], 1);
+```
+{% endcode %}
+
+The meaning of the three parameters in this method are:
+
+* `&Uart_Ps` (Instance Pointer): This is the "Handle" to your specific UART hardware. The Kria board has two UARTs (UART0 and UART1). This pointer tells the function _which_ one to use.
+* `&HelloWorld[SentCount]` (Data Pointer): This is the memory address of the specific character we want to send right now.
+* `1` (Number of Bytes): This is the size of the chunk we are sending. In this specific example, AMD chose to send 1 byte at a time.
+
+{% hint style="danger" %}
+The value in the address that the pointer `Uart_Ps` points to is **known** after the initialize function:
+
+```c
+XUartPs_CfgInitialize(&Uart_Ps, Config, Config->BaseAddress);
+```
+{% endhint %}
+
+#### Preprocessor Directives
+
+These are instructions for the compiler to follow **before** it actually compiles our code. They control which parts of the code get included in the final program based on certain conditions.
+
+{% code lineNumbers="true" %}
+```c
+#ifdef SYMBOL_NAME
+    // 1. This code runs if "SYMBOL_NAME" IS defined.
+    // Use this for: "If feature X is enabled, do this."
+
+#else
+    // 2. This code runs if "SYMBOL_NAME" is NOT defined.
+    // Use this for: "Otherwise, do the default thing."
+
+#endif
+```
+{% endcode %}
+
+There are some common variations:
+
+* `#ifndef` (If Not Defined): The opposite of `#ifdef`.
+  * _Example:_ "If `SDT` is NOT defined (meaning we are on the old version), use `DeviceID`."
+* `#elif` (Else If): Adds another condition.
+  * _Example:_ `#elif defined(OTHER_SYMBOL)`
+
+{% hint style="danger" %}
+#### The MMIO Address of UART
+
+In the our board, hard-wired PS peripherals like UART reside at fixed addresses (e.g., `0xFF...`) while custom PL peripherals like AXI FIFO rely on flexible addresses assigned by Vivado (e.g., `0xA0...`), explaining the distinct memory ranges.
+{% endhint %}
