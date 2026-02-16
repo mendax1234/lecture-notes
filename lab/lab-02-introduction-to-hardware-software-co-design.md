@@ -258,9 +258,112 @@ There are some common variations:
   * _Example:_ "If `SDT` is NOT defined (meaning we are on the old version), use `DeviceID`."
 * `#elif` (Else If): Adds another condition.
   * _Example:_ `#elif defined(OTHER_SYMBOL)`
+* `#undef` (Un Define): Removes a previously defined macro so that it is no longer considered defined by the preprocessor.
+  * _Example_: `#undef DEBUG`
 
 {% hint style="danger" %}
 #### The MMIO Address of UART
 
 In the our board, hard-wired PS peripherals like UART reside at fixed addresses (e.g., `0xFF...`) while custom PL peripherals like AXI FIFO rely on flexible addresses assigned by Vivado (e.g., `0xA0...`), explaining the distinct memory ranges.
 {% endhint %}
+
+### AXI-Stream FIFO Example
+
+This example program implements the loopback which is required in Lab 02. The overal workflow is that
+
+1. **Data generation:** The CPU generates the data via declaring arrays and stores it in a memory in the PS.
+2. **Data transmission:** The CPU writes the data into the AXI-Stream FIFO transmit buffer first. Once the transmission length is set, the FIFO hardware sends the buffered data to the coprocessor via the AXI-Stream interface.
+3. **Data reception:** The data from the coprocessor is first received and stored in the AXI-Stream FIFO receive buffer. The CPU then reads the data from the FIFO and writes it into the destination array in the PS memory.
+
+{% stepper %}
+{% step %}
+#### PS Creates the data to be transferred and received
+
+The PS will define two arrays for the data to be transferred to the FIFO and received from the FIFO and they will be in the PS's memory.
+
+{% code lineNumbers="true" %}
+```c
+u32 SourceBuffer[MAX_DATA_BUFFER_SIZE * WORD_SIZE];
+u32 DestinationBuffer[MAX_DATA_BUFFER_SIZE * WORD_SIZE];
+```
+{% endcode %}
+
+{% hint style="warning" %}
+Currently, the size for these two arrays are 256 x 4 = 1024. In Lab 02, we might need to change it to 1024 \* 4 as our buffer size is 1024.
+{% endhint %}
+{% endstep %}
+
+{% step %}
+#### Configure and Setup
+
+Before the actual transmit starts, several configuration and setup methods are executed.
+{% endstep %}
+
+{% step %}
+#### Transmit
+
+The main transmit feature is encapsulated in a simple `TxSend()` method where the `InstancePtr` points to the AXI-Stream FIFO IP in the PL.
+
+{% code lineNumbers="true" %}
+```c
+/* Transmit the Data Stream */
+Status = TxSend(InstancePtr, SourceBuffer);
+if (Status != XST_SUCCESS) {
+  xil_printf("Transmission of Data failed\n\r");
+  return XST_FAILURE;
+}
+```
+{% endcode %}
+
+Inside `TxSend`, the function prepares and transmits data from the processor to the coprocessor through the AXI-Stream FIFO.
+
+1. First, the transmit buffer (`SourceAddr`) is initialized with an incremental test pattern. Then, the data is written word-by-word into the FIFO transmit buffer using `XLlFifo_TxPutWord()`, while checking available space with `XLlFifo_iTxVacancy()`. At this point, the data is only stored in the FIFO and has not yet been transmitted.
+2. After all data is written, `XLlFifo_iTxSetLen()` sets the transmission length in the Transmit Length Register, which triggers the FIFO hardware to send the data to the coprocessor via AXI-Stream. Finally, the function polls `XLlFifo_IsTxDone()` until the transmission is complete, ensuring all data has been successfully transferred.
+{% endstep %}
+
+{% step %}
+#### Receive
+
+In the receive feature, the similar thing is done. This time, we read the data from the read buffer in the AXI-Stream FIFO and writes them into our predefined `DestinationBuffer`.
+
+{% code lineNumbers="true" %}
+```c
+/* Receive the Data Stream */
+Status = RxReceive(InstancePtr, DestinationBuffer);
+if (Status != XST_SUCCESS) {
+  xil_printf("Receiving data failed");
+  return XST_FAILURE;
+}
+```
+{% endcode %}
+
+Inside `RxReceive`, the function receives data from the coprocessor through the AXI-Stream FIFO into the processor memory.
+
+1. First, it checks whether data is available in the FIFO using `XLlFifo_iRxOccupancy()`. If data is present, it reads the received packet length using `XLlFifo_iRxGetLen()`, which tells how many words were transmitted.
+2. Then, the function reads each word from the FIFO receive buffer using `XLlFifo_RxGetWord()` and stores it into the destination buffer (`DestinationAddr`). This transfers the data from the FIFO into processor memory.
+3. Finally, the function checks `XLlFifo_IsRxDone()` to ensure the receive operation is complete before returning success.
+{% endstep %}
+
+{% step %}
+#### Validate
+
+This final step is to check whether the data we received and sent is coherent.
+
+{% code lineNumbers="true" %}
+```c
+/* Compare the data send with the data received */
+xil_printf(" Comparing data ...\n\r");
+for (i = 0; i < MAX_DATA_BUFFER_SIZE; i++) {
+  if (*(SourceBuffer + i) != *(DestinationBuffer + i)) {
+    Error = 1;
+    break;
+  }
+}
+
+if (Error != 0) {
+  return XST_FAILURE;
+}
+```
+{% endcode %}
+{% endstep %}
+{% endstepper %}
