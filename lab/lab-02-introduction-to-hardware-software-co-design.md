@@ -419,3 +419,7 @@ for (i = 0; i < RES_SIZE; i++) {
 This is because the `stdin` and `stdout` are directed to the console (RealTerm). This can be seen from our BSP:
 
 <figure><img src="../.gitbook/assets/stdin-stdout-direct.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="warning" %}
+To capture the data sent to RealTerm into a CSV, we can go to the "Capture" tab. Before we run our C program, we should click "start overwriting" so that we can always capture the correct result.
+{% endhint %}
