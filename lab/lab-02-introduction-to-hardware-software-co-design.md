@@ -206,9 +206,13 @@ This can be done easily by just clicking the "+" button in the navigator.
 While we can keep many applications in our project folder, the processor can usually only run one application at a time. We choose which one to "Run" or "Debug."
 {% endhint %}
 
-### UART Example Code
+### UART Example
 
 This program initializes the UART driver using the device's configuration, sets the baud rate to 115200, and transmits the string "Hello World" from the processor to the laptop (RealTerm) via the UART TX line.
+
+{% hint style="warning" %}
+This example will be useful to implement the [low-level](https://nus-ee4218.github.io/labs/Lab_2/6_Tips_Suggestions/) part of sending and receiving the matrices in Lab 02.
+{% endhint %}
 
 #### The Core Method
 
@@ -268,6 +272,10 @@ In the our board, hard-wired PS peripherals like UART reside at fixed addresses 
 {% endhint %}
 
 ### AXI-Stream FIFO Example
+
+{% hint style="warning" %}
+This example can serve as a **start point** for the main application in Lab 02.
+{% endhint %}
 
 This example program implements the loopback which is required in Lab 02. The overal workflow is that
 
@@ -367,3 +375,47 @@ if (Error != 0) {
 {% endcode %}
 {% endstep %}
 {% endstepper %}
+
+## The Main Application
+
+In Lab 02, our main job is to create an application that is able to receive the Matrix A and B sent from the RealTerm and then send them back (direct loopback). After that, the PS will handle the matrix muliplication and then send the result back to the RealTerm. In summary, the flow is:
+
+1. **PS receives matrices A and B** sent from the RealTerm into a local array/arrays (either a single array for A and B together or separate arrays);
+2. PS passes it through the AXI Stream FIFO on the PL configured in **loopback** mode - no processing done in hardware/PL, for now;
+3. **PS computes** the result matrix, **RES** = **A**\***B**/**256**;
+4. **PS sends RES back** from the board to the RealTerm and the realterm will capture the result into a `csv` file.
+
+The steps above are the backbone, and another part is to **measure the performance**.
+
+{% hint style="warning" %}
+To make your life easier, I strongly recommend to use the [#axi-stream-fifo-example](lab-02-introduction-to-hardware-software-co-design.md#axi-stream-fifo-example "mention") as a starting point.
+{% endhint %}
+
+### UART Receive and Send
+
+As the workflow is already described very clearly in above, I won't repeat the code in detail again. Instead, there are some points worth noting.
+
+#### The use of stdin/stdout
+
+In this application, the `scanf()` and `xil_printf()` can be used to read the data sent from the Realterm and sent the data back to the RealTerm. This can be seen from the example below:
+
+{% code lineNumbers="true" %}
+```c
+// Receive Matrix A
+xil_printf("Waiting for Matrix A (%d elements)...\r\n", ARRAY_A_SIZE);
+for (i = 0; i < ARRAY_A_SIZE; i++) {
+  scanf("%u%c", &SourceBuffer[i], &dummy);
+}
+xil_printf("Matrix A Received.\r\n");
+
+/* Send Result to UART (CSV Format) */
+xil_printf("Sending RES.csv...\n\r");
+for (i = 0; i < RES_SIZE; i++) {
+  xil_printf("%lu\r\n", (unsigned long)ResArray[i]);
+}
+```
+{% endcode %}
+
+This is because the `stdin` and `stdout` are directed to the console (RealTerm). This can be seen from our BSP:
+
+<figure><img src="../.gitbook/assets/stdin-stdout-direct.png" alt=""><figcaption></figcaption></figure>
