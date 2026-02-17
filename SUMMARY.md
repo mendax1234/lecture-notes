@@ -9,6 +9,7 @@
 * [Lec 03 - Sequential Logic Optimization](lec/lec-03-sequential-logic-optimization.md)
 * [Lec 04 - Abstarct Models and Behavioural Optimisations](lec/lec-04-abstarct-models-and-behavioural-optimisations.md)
 * [Lec 05 - Microarchitecture Design](lec/lec-05-microarchitecture-design.md)
+* [Lec 06 - High-Level Synthesis](lec/lec-06-high-level-synthesis.md)
 
 ## Lab
 
