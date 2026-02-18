@@ -1,14 +1,14 @@
 # Lec 02a - Pipelining
 
-Pipelining involves inserting registers into a combinational block to divide it into n stages. This allows different gate levels to operate on different data in parallel ([parallelism in **temporal form**](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-06-advanced-processor#parallelism-in-temporal-and-spatial-form)), significantly improving **throughput**.
+Pipelining involves inserting registers into a combinational block to divide it into $$n$$ stages. This allows different combinational parts to operate on different data in parallel ([parallelism in **temporal form**](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-06-advanced-processor#parallelism-in-temporal-and-spatial-form)), significantly improving **throughput**.
 
 {% hint style="success" %}
 We have seen pipelining in [NUS CG3207](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-05-the-pipelined-processor)!
 {% endhint %}
 
-The core idea of pipelining is that:
+The core idea of pipelining is:
 
-> to reduce the clock cycle time ($$T_{CK}$$), we reduce the combinational delay between registers by splitting the logic.
+> to reduce the clock cycle time ($$T_{CK}$$), we reduce the combinational delay between registers by splitting the logic, which is equivalent to reducing the **critical path.**
 
 * **Throughput**: Increases because multiple stages process data simultaneously (parallelism).
 * **Latency**: Worsens (increases) due to the added delay of the inserted registers.
@@ -17,31 +17,31 @@ The core idea of pipelining is that:
 
 ## Performance Analysis
 
-We assume a perfectly balanced logic design where the total combinational delay is split evenly among stages, such that $$\tau_{COMB,i} = \frac{\tau_{COMB}}{n}$$.
+We assume a perfectly balanced logic design where the total combinational delay is split evenly among stages, such that $$\tau_{\text{COMB,i}} = \frac{\tau_{\text{COMB}}}{n}$$.
 
 {% hint style="warning" %}
-Treat $$\tau_{COMB}$$ as a constant and n is sometimes called the **pipeline depth**. We will prove at the [end](lec-02a-pipelining.md#logic-imbalance) of this section that the assumption we made above on the balanced combinational logic **doesn't matter** to our analysis!
+Treat $$\tau_{\text{COMB}}$$ as a constant and $$n$$ is sometimes called the **pipeline depth**. We will prove at the [end](lec-02a-pipelining.md#logic-imbalance) of this section that the assumption we made above on the balanced combinational logic **doesn't matter** to our analysis!
 {% endhint %}
 
 ### Throughput
 
 > **Throughput** is defined as the number of computations completed per unit of time.
 
-The minimum clock cycle time ($$T_{pipe}$$) is determined by the delay of a single stage plus the timing overhead ($$t_{OH}$$), which includes setup time and clock-to-Q delay:
+The minimum clock cycle time ($$T_{\text{pipe}}$$) is determined by the delay of a single stage plus the timing overhead ($$t_{\text{OH}}$$), which includes setup time and clock-to-Q delay:
 
 $$
-T_{\text{pipe}} = \max_{i}(\tau_{COMB,i} + t_{OH,i}) = \frac{\tau_{COMB}}{n} + t_{OH}
+T_{\text{pipe}} = \max_{i}(\tau_{\text{COMB,i}} + t_{\text{OH,i}}) = \frac{\tau_{\text{COMB}}}{n} + t_{\text{OH}}
 $$
 
-$$n$$ is the pipeline depth. $$t_{OH}$$ is the overhead (setup time, clock-to-q skew).
+$$n$$ is the pipeline depth. $$t_{\text{OH}}$$ is the overhead (setup time, clock-to-Q delay).
 
-{% hint style="info" %}
-The $$T_{pipe}$$ here is equal to $$T_{CK}$$ and we assume that we have the **same pipeline register overhead**, which means that same type of register is used and we are not adding any skew to the clock of the register.
+{% hint style="warning" %}
+The $$T_{\text{pipe}}$$ here is equal to $$T_{\text{CK}}$$ and we assume that we have the **same pipeline register overhead**, which means that **same type** of register is used and we are not adding any [skew](../lec-01/lec-01b-timing-synchronous.md#clock-skew) to the clock of the register.
 {% endhint %}
 
 #### Throughput Improvement
 
-The ratio of the new frequency ($$f_{pipe}$$) to the original frequency ($$f$$) is:
+The ratio of the new frequency ($$f_{\text{pipe}}$$) to the original frequency ($$f$$) is:
 
 $$
 \frac{f_{\text{pipe}}}{f} = n \frac{\tau_{COMB} + t_{OH}}{\tau_{COMB} + n \cdot t_{OH}}
@@ -49,10 +49,10 @@ $$
 
 <figure><img src="../../.gitbook/assets/pipeline-throughput-frequency-improvement.png" alt="" width="563"><figcaption></figcaption></figure>
 
-* Case 1 ($$n \ll \frac{\tau_{COMB}}{t_{OH}}$$): Improvement is linear (factor of $$n$$). To verify, can neglect $$n\cdot t_{OH}$$.
-* Case 2 ($$n > \frac{\tau_{COMB}}{t_{OH}}$$): Improvement saturates to a maximum of $$1 + \frac{\tau_{COMB}}{t_{OH}}$$. To verify, can neglect the term $$\tau_{COMB}$$ in the denominator. So as $$n\to +\infty$$, the ratio $$\to 1+\frac{\tau_{COMB}}{t_{OH}}$$.
+* Case 1 ($$n \ll \frac{\tau_{\text{COMB}}}{t_{\text{OH}}}$$): Improvement is linear (factor of $$n$$). To verify, can neglect $$n\cdot t_{\text{OH}}$$.
+* Case 2 ($$n > \frac{\tau_{\text{COMB}}}{t_{\text{OH}}}$$): Improvement saturates to a maximum of $$1 + \frac{\tau_{\text{COMB}}}{t_{\text{OH}}}$$. To verify, can neglect the term $$\tau_{\text{COMB}}$$ in the denominator. So as $$n\to +\infty$$, the ratio $$\to 1+\frac{\tau_{\text{COMB}}}{t_{\text{OH}}}$$.
 
-The intuition behind this formula is that beyond a certain point, increasing the number of pipeline stages (n) — e.g., making the pipeline too deep — yields diminishing returns. In other words, the throughput improvement eventually **saturates** rather than continuing to scale.
+The intuition behind this formula is that beyond a certain point, increasing the number of pipeline stages ($$n$$) — e.g., making the pipeline too deep — yields diminishing returns. In other words, the throughput improvement eventually **saturates** rather than continuing to scale.
 
 This also foreshadows ideas in later chapters: **retiming** mainly works by adding or relocating registers, but adding registers indiscriminately does not always improve performance. There is a fundamental limit, which we will understand more clearly later.
 
@@ -70,7 +70,7 @@ Rewrite the equation,
 
 <p align="center"><span class="math">\text{Throughput} = \frac{\text{Computations}}{\text{Second}} = \frac{\text{Computations}}{\text{Cycle}} \times \frac{\text{Cycles}}{\text{Second}}</span></p>
 
-As a pipelined processor completes one instruction (or one "computation") every single clock cycle. This is equivalent of saying "the **latency** of a pipelined processor is 1". Also the definition of clock frequency is
+As a pipelined processor completes one instruction (or one "computation") every single clock cycle after the pipeline overhead. Also the definition of clock frequency is
 
 > Clock frequency is the **speed** at which a computer's processor executes internal operations, measured in **Hertz** (Hz), usually gigahertz (GHz) for modern CPUs, representing billions of "ticks" or **cycles per second.**
 
@@ -78,15 +78,15 @@ Thus, we can write the throughput formula as follows:
 
 <p align="center"><span class="math">\text{Throughput} = 1 \times \text{Frequency} = f</span></p>
 
-Therefore, when we say we are "improving throughput" in pipelining, we are doing so by increasing the clock frequency ($$f_{pipe}$$). The faster the clock ticks, the more computations finish per second.
+Therefore, when we say we are "improving throughput" in pipelining, we are doing so by increasing the clock frequency ($$f_{\text{pipe}}$$). The faster the clock ticks, the more computations finish per second.
 
 </details>
 
 ### Latency
 
-> **Latency** is the time required to complete a **single** computation from the moment inputs arrive until the final output is valid.
+> **Latency** is the _time/clock cycles_ required to complete a **single** computation from the moment inputs arrive until the final output is valid.
 
-If we divide our system into n stages, then one operation will take n stages to complete, thus,
+If we divide our system into n stages, then one operation will take $$n$$ stages to complete, thus,
 
 $$
 \text{LAT}_{\text{pipe}} = n \cdot T_{\text{pipe}} = \tau_{COMB} + n \cdot t_{OH}
@@ -97,30 +97,34 @@ $$
 The ratio of the new latency($$\text{LAT}_{\text{pipe}}$$) to the original latency($$\text{LAT}=\tau_{COMB}+t_{OH}$$) is:
 
 $$
-\frac{\text{LAT}_{\text{pipe}}}{\text{LAT}} = \frac{n \cdot T_{\text{pipe}}}{T} = \frac{\tau_{COMB} + n \cdot t_{OH}}{\tau_{COMB} + t_{OH}}
+\frac{\text{LAT}_{\text{pipe}}}{\text{LAT}} = \frac{n \cdot T_{\text{pipe}}}{T} = \frac{\tau_{\text{COMB}} + n \cdot t_{\text{OH}}}{\tau_{\text{COMB}} + t_{\text{OH}}}
 $$
 
 After simplifying it, we can get,
 
 $$
 \begin{aligned}
-\frac{\text{LAT}_{\text{pipe}}}{\text{LAT}} &= \frac{1 + n \cdot \frac{t_{OH}}{\tau_{COMB}}}{1 + \frac{t_{OH}}{\tau_{COMB}}} \\
-&\approx \left( 1 + n \cdot \frac{t_{OH}}{\tau_{COMB}} \right) \cdot \left( 1 - \frac{t_{OH}}{\tau_{COMB}} \right)
+\frac{\text{LAT}_{\text{pipe}}}{\text{LAT}} &= \frac{1 + n \cdot \frac{t_{\text{OH}}}{\tau_{\text{COMB}}}}{1 + \frac{t_{\text{OH}}}{\tau_{\text{COMB}}}} \\
+&\approx \left( 1 + n \cdot \frac{t_{\text{OH}}}{\tau_{\text{COMB}}} \right) \cdot \left( 1 - \frac{t_{\text{OH}}}{\tau_{\text{COMB}}} \right)
 \end{aligned}
 $$
 
 {% hint style="success" %}
-To do the simplification, we first divide both the nominator and the denominator with $$\tau_{COMB}$$. We then apply the geometric series approximation $$\frac{1}{1+x} \approx 1-x$$, which is valid when $$x \ll 1$$. In this context, we assume the timing overhead is small relative to the combinational delay ($$t_{OH} \ll \tau_{COMB}$$).
+To do the simplification, we first divide both the nominator and the denominator with $$\tau_{\text{COMB}}$$. We then apply the geometric series approximation $$\frac{1}{1+x} \approx 1-x$$, which is valid when $$x \ll 1$$. In this context, we assume the timing overhead is small relative to the combinational delay ($$t_{\text{OH}} \ll \tau_{\text{COMB}}$$).
 {% endhint %}
 
-Expanding the product yields $$1 + (n-1)\frac{t_{OH}}{\tau_{COMB}} - n(\frac{t_{OH}}{\tau_{COMB}})^2$$. By neglecting the second-order term (the squared component), we arrive at the final linear approximation:
+Expanding the product yields $$1 + (n-1)\frac{t_{\text{OH}}}{\tau_{\text{COMB}}} - n(\frac{t_{\text{OH}}}{\tau_{\text{COMB}}})^2$$. By neglecting the second-order term (the squared component), we arrive at the final linear approximation:
 
 $$
-\frac{\text{LAT}_{\text{pipe}}}{\text{LAT}} \approx 1 + (n-1)\frac{t_{OH}}{\tau_{COMB}}
+\frac{\text{LAT}_{\text{pipe}}}{\text{LAT}} \approx 1 + (n-1)\frac{t_{\text{OH}}}{\tau_{\text{COMB}}}
 $$
 
-* In terms of time, latency increases slightly due to overhead.
-* In terms of clock cycles, latency increases significantly by $$(n-1)$$.
+* In terms of **time**, latency increases slightly due to overhead.
+* In terms of **clock cycles**, latency increases significantly by $$(n-1)$$.
+
+{% hint style="danger" %}
+Pay attention to the latency improvement in both **time** and **clock cycle** here!
+{% endhint %}
 
 ## Power & Area
 
@@ -129,17 +133,17 @@ $$
 The total silicon area is calculated as follow:
 
 $$
-A=\sum_{i=1}^{n}A_{comb,i}+\sum_{i=1}^{n+1}A_{reg,i}
+A=\sum_{i=1}^{n}A_{\text{COMB,i}}+\sum_{i=1}^{n+1}A_{\text{reg,i}}
 $$
 
-We assume area is gate-dominated ($$\sum_{i=1}^{n}A_{comb,i}=A_{comb}$$) and the register area ($$A_{reg,i}$$) is small ( $$A_{reg,i} \ll A_{comb}$$).
+We assume area is gate-dominated ($$\sum_{i=1}^{n}A_{\text{COMB,i}}=A_{\text{COMB}}$$) and the register area ($$A_{\text{reg,i}}$$) is small ( $$A_{\text{reg,i}} \ll A_{\text{COMB}}$$).
 
 $$
-A_{pipe} = \sum A_{comb,i} + \sum_{i=1}^{n+1} A_{reg,i} = A_{comb} + (n+1)A_{reg,i}
+A_{\text{pipe}} = \sum A_{\text{COMB,i}} + \sum_{i=1}^{n+1} A_{\text{reg,i}} = A_{\text{COMB}} + (n+1)A_{\text{reg,i}}
 $$
 
 {% hint style="success" %}
-Assume that the area for all registers used is the same and it is $$A_{reg,i}$$.
+Assume that the area for all registers used is the same and it is $$A_{\text{reg,i}}$$.
 {% endhint %}
 
 #### Area Improvement
@@ -147,45 +151,45 @@ Assume that the area for all registers used is the same and it is $$A_{reg,i}$$.
 After that, the ratio of the pipelined version's area over the normal version's area will be as follow:
 
 $$
-\frac{A_{pipe}}{A} = \frac{A_{COMB} + (n+1)A_{reg,i}}{A_{COMB} + 2A_{reg,i}} \approx 1 + (n-1)\frac{A_{reg,i}}{A_{COMB}}
+\frac{A_{\text{pipe}}}{A} = \frac{A_{\text{COMB}} + (n+1)A_{\text{reg,i}}}{A_{\text{COMB}} + 2A_{\text{reg,i}}} \approx 1 + (n-1)\frac{A_{\text{reg,i}}}{A_{\text{COMB}}}
 $$
 
 {% hint style="success" %}
-The same techinique used in the [#latency-improvement](lec-02a-pipelining.md#latency-improvement "mention"), which is to divide both the nominators and denominators with $$A_{COMB}$$ and then use the geometric series approximation. $$\frac{1}{1+x} \approx 1-x$$ is used here to get the final approximation.
+The same techinique used in the [#latency-improvement](lec-02a-pipelining.md#latency-improvement "mention"), which is to divide both the nominators and denominators with $$A_{\text{COMB}}$$ and then use the geometric series approximation. $$\frac{1}{1+x} \approx 1-x$$ is used here to get the final approximation.
 {% endhint %}
 
-Area overhead grows linearly as we increase the number of stages ($$n$$).
+Area overhead grows **linearly** as we increase the number of stages ($$n$$).
 
 ### Power
 
-> Power is can be also replaced with **energy**.
+> Power can be also replaced with **energy**.
 
 The total energy in a system is calculated as follow:
 
 $$
-E=\sum_{i=1}^{n}E_{comb,i}+\sum_{i=1}^{n+1}E_{reg,i}
+E=\sum_{i=1}^{n}E_{\text{COMB,i}}+\sum_{i=1}^{n+1}E_{\text{reg,i}}
 $$
 
 #### Energy Improvement
 
-We assume the same switching activity/glitching ($$\sum_{i=1}^{n}E_{comb,i}=E_{comb}$$) and the $$E_{reg,i} \ll E_{comb}$$). We can use the similar or almost the same steps from the [area analysis](lec-02a-pipelining.md#silicon-area) above to get the following formula:
+We assume the same switching activity/glitching ($$\sum_{i=1}^{n}E_{\text{COMB,i}}=E_{\text{COMB}}$$) and the $$E_{\text{reg,i}} \ll E_{\text{COMB}}$$). We can use the similar or almost the same steps from the [area analysis](lec-02a-pipelining.md#silicon-area) above to get the following formula:
 
 $$
-\frac{E_{pipe}}{E} = \frac{E_{COMB} + (n+1)E_{reg,i}}{E_{COMB} + 2E_{reg,i}} \approx 1 + (n-1)\frac{E_{reg,i}}{E_{COMB}}
+\frac{E_{\text{pipe}}}{E} = \frac{E_{\text{COMB}} + (n+1)E_{\text{reg,i}}}{E_{\text{COMB}} + 2E_{\text{reg,i}}} \approx 1 + (n-1)\frac{E_{\text{reg,i}}}{E_{\text{COMB}}}
 $$
 
 Similar to the [area](lec-02a-pipelining.md#silicon-area), the energy grows **linearly** with the number of stage ($$n$$).
 
 #### PPA Analysis Summary
 
-| Metric                  | Sequential (baseline) | n-stage Pipelined Design              |
-| ----------------------- | --------------------- | ------------------------------------- |
-| Throughput              | 1                     | ≈ n                                   |
-| Absolute Latency (Time) | 1                     | > 1 (slight increase due to overhead) |
-| Latency (Cycles)        | 1                     | n                                     |
-| Clock Frequency         | f                     | ≈ n · f                               |
-| Area                    | 1                     | > 1 (linear growth due to registers)  |
-| Energy per Operation    | 1                     | > 1 (linear growth due to registers)  |
+| Metric               | Sequential (baseline) | n-stage Pipelined Design              |
+| -------------------- | --------------------- | ------------------------------------- |
+| Throughput           | 1                     | ≈ n                                   |
+| Latency (Time)       | 1                     | > 1 (slight increase due to overhead) |
+| Latency (Cycles)     | 1                     | n                                     |
+| Clock Frequency      | f                     | ≈ n · f                               |
+| Area                 | 1                     | > 1 (linear growth due to registers)  |
+| Energy per Operation | 1                     | > 1 (linear growth due to registers)  |
 
 ## Pipeline Operations & Stalls
 
@@ -204,13 +208,13 @@ If the pipeline is not always filled, performance drops. A "stall" means a stage
 
 #### Throughput with Stalls
 
-We assume that for each operation, there are $$\delta$$ stalled cycles on average. So, a computer is performed every $$T_{\text{pipe}}(1+\delta)$$ instead of $$T_{\text{pipe}}$$. Thus the throughput will result to,
+We assume that for each operation, there are $$\delta$$ stalled cycles on average. So, one computation is performed every $$T_{\text{pipe}}(1+\delta)$$ instead of $$T_{\text{pipe}}$$. Thus the throughput will result to,
 
 $$
 \text{Throughput} = \frac{1}{T_{\text{pipe}}(1+\delta)}
 $$
 
-Stalls effectively increase the CPI (in the [NUS CG3207 terminology](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-01-history-technology-performance#instruction-count-ic-and-cpi)), reducing throughput.
+Stalls effectively increase the CPI (in the [NUS CG3207 terminology](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-01-history-technology-performance#instruction-count-ic-and-cpi)), thus reducing throughput.
 
 {% hint style="success" %}
 This $$\delta$$ also explains why, in an ideal pipeline design, **throughput equals frequency**. In this case, the stall $$\delta$$ is zero, so the throughput is
@@ -225,35 +229,35 @@ In practical designs, it is rarely possible to partition logic into perfectly ba
 As the pipeline speed is always limited by the bottleneck (the slowest stage), we define the imbalance of a stage $$i$$ as the difference between its actual delay and the ideal average delay:
 
 $$
-\Delta \tau_{COMB,i} = \tau_{COMB,i} - \frac{\tau_{COMB}}{n}
+\Delta \tau_{\text{COMB,i}} = \tau_{\text{COMB,i}} - \frac{\tau_{\text{COMB}}}{n}
 $$
 
-The clock cycle (T<sub>CK</sub>) must be long enough to cover the delay of the slowest stage plus register overheads ($$\tau_{OH,REG} + \tau_{OH,clocking}$$).
+The clock cycle ($$T_{\text{CK}}$$) must be long enough to cover the delay of the slowest stage plus register overheads ($$\tau_{\text{OH,REG}} + \tau_{\text{OH,clocking}}$$).
 
 $$
-T_{CK} \ge \max_{i}(\tau_{COMB,i}) + \tau_{OH,FF} + \tau_{OH,clocking}
+T_{CK} \ge \max_{i}(\tau_{\text{COMB,i}}) + \tau_{\text{OH,REG}} + \tau_{\text{OH,clocking}}
 $$
 
-By substituting the definition of imbalance ($$\tau_{COMB,i} = \frac{\tau_{COMB}}{n} + \Delta \tau_{COMB,i}$$), we can rewrite the equation:
+By substituting the definition of imbalance ($$\tau_{\text{COMB,i}} = \frac{\tau_{\text{COMB}}}{n} + \Delta \tau_{\text{COMB,i}}$$), we can rewrite the equation:
 
 $$
-T_{CK} \ge \left( \frac{\tau_{COMB}}{n} + \max_{i}(\Delta \tau_{COMB,i}) \right) + \tau_{OH,FF} + \tau_{OH,clocking}
+T_{\text{CK}} \ge \left( \frac{\tau_{\text{COMB}}}{n} + \max_{i}(\Delta \tau_{\text{COMB,i}}) \right) + \tau_{\text{OH,REG}} + \tau_{\text{OH,clocking}}
 $$
 
-We can group the imbalance term with the hardware overheads to define a new effective overhead ($$t_{OH}$$):
+We can group the **imbalance term** with the hardware overheads to define a new effective overhead ($$t_{\text{OH}}$$):
 
 $$
-t_{OH} = \underbrace{\max_{i}(\Delta \tau_{COMB,i})}_{\text{Imbalance}} + \underbrace{\tau_{OH,FF} + \tau_{OH,clocking}}_{\text{Hardware Costs}}
+t_{\text{OH}} = \underbrace{\max_{i}(\Delta \tau_{\text{COMB,i}})}_{\text{Imbalance}} + \underbrace{\tau_{\text{OH,REG}} + \tau_{\text{OH,clocking}}}_{\text{Hardware Costs}}
 $$
 
 Resulting in the simplified pipeline equation:
 
 $$
-T_{CK} = \frac{\tau_{COMB}}{n} + t_{OH}
+T_{CK} = \frac{\tau_{\text{COMB}}}{n} + t_{\text{OH}}
 $$
 
-In conclusion, maximum imbalance behaves mathematically identical to hardware **overhead**. It acts as a constant penalty that prevents the pipeline from achieving the ideal linear speedup.
+In conclusion, maximum imbalance behaves mathematically identical to hardware **overhead**. It acts as a constant penalty that prevents the pipeline from achieving the **ideal linear speedup**.
 
 {% hint style="warning" %}
-Practice thisi in the upcoming labs!
+Practice this in the upcoming labs!
 {% endhint %}
