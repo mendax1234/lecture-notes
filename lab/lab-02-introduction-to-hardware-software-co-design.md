@@ -423,3 +423,22 @@ This is because the `stdin` and `stdout` are directed to the console (RealTerm).
 {% hint style="warning" %}
 To capture the data sent to RealTerm into a CSV, we can go to the "Capture" tab. Before we run our C program, we should click "start overwriting" so that we can always capture the correct result.
 {% endhint %}
+
+### Performance Measurement
+
+In the performance measurement section, we will use two approaches, each serving a different purpose:
+
+* **AXI Timer** is used to measure the total execution time of the application.
+* **TCF Profiling** is used to identify which methods consume the majority of the application’s runtime.
+
+Together, these two methods provide both a high-level view of the overall execution time and a detailed breakdown of where the time is spent within the application.
+
+#### AXI-Timer
+
+#### TCF Profiling
+
+The main goal of profiling is to identify which methods take the longest time to execute — in other words, the bottlenecks in the program. Once these bottlenecks are identified, we can focus on optimizing those specific methods to improve overall performance. Below is a TCF Profiling running on the `main_stdio.c`.
+
+<figure><img src="../.gitbook/assets/profile-example.png" alt=""><figcaption><p>TCF Profiling running on the <code>main_stdio.c</code></p></figcaption></figure>
+
+> TODO: double check from prof how to read this table.
