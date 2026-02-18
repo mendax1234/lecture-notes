@@ -445,4 +445,4 @@ The main goal of profiling is to identify which methods take the longest time to
 To run the TCF profiling on Vitis 2025.2, AMD has provided a very detailed instruction in their [Vitis document](https://docs.amd.com/r/en-US/ug1400-vitis-embedded/TCF-Profiling)!
 {% endhint %}
 
-> TODO: double check from prof how to read this table.
+> TODO: double check from prof how to read this table. Ask about in performance measurement, should I comment out the sending the result back to laptop? A.k.a, the uart time should be counted in profiling?
