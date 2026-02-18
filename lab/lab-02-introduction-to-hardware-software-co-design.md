@@ -29,6 +29,8 @@ However, assigning a dedicated pin to every interface signal of every I/O module
 
 With multiplexing, each physical pin can be connected to different internal I/O modules, but only one function is active at a time. The selection of which module is connected to a given pin is controlled by specific **configuration registers**, often called **I/O multiplexing registers** or **pin control registers**. By writing to these registers in software, the processor can dynamically select which I/O module (e.g., UART, SPI, or I²C) is routed to the pins.
 
+A short example will be when our laptop is sending data to the UART, the data goes from a certain **pin** -> the multiplexer routed it to the RXD on the UART -> UART stores the data in its small FIFO -> the data is waited to be collected by the PS by using `scanf()` or equivalent.
+
 {% hint style="warning" %}
 In this lab, we configure the our `UART1` to use pin number 36 and 37 on the board.
 {% endhint %}
@@ -230,6 +232,8 @@ The meaning of the three parameters in this method are:
 * `&HelloWorld[SentCount]` (Data Pointer): This is the memory address of the specific character we want to send right now.
 * `1` (Number of Bytes): This is the size of the chunk we are sending. In this specific example, AMD chose to send 1 byte at a time.
 
+The return value of `XUartPs_Send` is the **number of bytes** sent.
+
 {% hint style="danger" %}
 The value in the address that the pointer `Uart_Ps` points to is **known** after the initialize function:
 
@@ -237,6 +241,16 @@ The value in the address that the pointer `Uart_Ps` points to is **known** after
 XUartPs_CfgInitialize(&Uart_Ps, Config, Config->BaseAddress);
 ```
 {% endhint %}
+
+A similar variation is `XUartPs_Recv`. In this method, we create a **software buffer** to store the bytes received from the UART peripheral. The UART peripheral contains a small internal FIFO, and the PS reads data from the UART peripheral address using the `lw` instruction. So the flow is like:
+
+A bunch of bytes of data ready in the UART FIFO -> `XUartPs_Recv()` receives byte by byte and put the received bytes into the **software buffer**.
+
+{% hint style="warning" %}
+The total number of bytes received may not exactly match the size of the software buffer. Therefore, the buffer may be only partially filled, depending on how many bytes are available in the UART FIFO at the time of reception.
+{% endhint %}
+
+> TODO: Confirm about this low-level flow.
 
 #### Preprocessor Directives
 
@@ -391,6 +405,14 @@ The steps above are the backbone, and another part is to **measure the performan
 To make your life easier, I strongly recommend to use the [#axi-stream-fifo-example](lab-02-introduction-to-hardware-software-co-design.md#axi-stream-fifo-example "mention") as a starting point.
 {% endhint %}
 
+<details>
+
+<summary>Behind the hood from Realterm to the UART</summary>
+
+The UART base address is **not** a storage location for the entire dataset, but rather a small, temporary hardware buffer (FIFO) that receives data as a stream. Our software loop continuously polls this address to "grab" incoming bytes before the buffer overflows, converting and moving them into the larger `SourceBuffer` in system RAM.
+
+</details>
+
 ### UART Receive and Send
 
 As the workflow is already described very clearly in above, I won't repeat the code in detail again. Instead, there are some points worth noting.
@@ -424,6 +446,8 @@ This is because the `stdin` and `stdout` are directed to the console (RealTerm).
 To capture the data sent to RealTerm into a CSV, we can go to the "Capture" tab. Before we run our C program, we should click "start overwriting" so that we can always capture the correct result.
 {% endhint %}
 
+> TODO: Ask do we need to create binary file to receive if we won't measure the performance of the uart send part. And the uart driver send and receives in the unit of 4 bytes, but our data is one byte, so are we wasting the other 3 bytes?
+
 ### Performance Measurement
 
 In the performance measurement section, we will use two approaches, each serving a different purpose:
@@ -434,6 +458,8 @@ In the performance measurement section, we will use two approaches, each serving
 Together, these two methods provide both a high-level view of the overall execution time and a detailed breakdown of where the time is spent within the application.
 
 #### AXI-Timer
+
+> TODO: Ask about do we need to time the send files to uart block in PS and send the result back to Realterm.
 
 #### TCF Profiling
 
@@ -446,3 +472,5 @@ To run the TCF profiling on Vitis 2025.2, AMD has provided a very detailed instr
 {% endhint %}
 
 > TODO: double check from prof how to read this table. Ask about in performance measurement, should I comment out the sending the result back to laptop? A.k.a, the uart time should be counted in profiling?
+
+> TODO: ask about the lab 03 improvement. do we need to manually improve the RTL code written?
