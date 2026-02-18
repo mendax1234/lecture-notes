@@ -441,4 +441,8 @@ The main goal of profiling is to identify which methods take the longest time to
 
 <figure><img src="../.gitbook/assets/profile-example.png" alt=""><figcaption><p>TCF Profiling running on the <code>main_stdio.c</code></p></figcaption></figure>
 
+{% hint style="warning" %}
+To run the TCF profiling on Vitis 2025.2, AMD has provided a very detailed instruction in their [Vitis document](https://docs.amd.com/r/en-US/ug1400-vitis-embedded/TCF-Profiling)!
+{% endhint %}
+
 > TODO: double check from prof how to read this table.
