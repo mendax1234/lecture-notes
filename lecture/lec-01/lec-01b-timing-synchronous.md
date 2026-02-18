@@ -689,7 +689,7 @@ In real-world chips (like the Roofline Model), the bottleneck usually shifts bet
 
 > While throughput measures the "volume" of work (how many?), **Latency** measures the "speed" of a **single task** (how fast?).
 
-**Latency** is the time required to complete a **single** computation from the moment inputs arrive until the final output is valid.
+**Latency** is the time/clock cycles required to complete a **single** computation from the moment inputs arrive until the final output is valid.
 
 <figure><img src="../../.gitbook/assets/latency.png" alt=""><figcaption></figcaption></figure>
 
@@ -701,8 +701,13 @@ Latency is measured as:
 It is critical for real-time systems where a delay is unacceptable, such as autonomous vehicles braking or network packet switching.
 
 {% hint style="success" %}
-Latency is the same as the CPI (Clock cycles Per Instruction) we have learned in CG3207!
+Latency is the similar to the CPI (Clock cycles Per Instruction) we have learned in CG3207!
 {% endhint %}
+
+In Lec 02, when performing PPA analysis, we will encounter latency analysis again. Since latency can be expressed in two forms — clock cycles and absolute time — there are two corresponding methods to analyze it:
+
+1. For latency measured in clock cycles, we simply count how many registers have been added, since each register introduces an additional pipeline stage and increases the latency by one clock cycle.
+2. For latency measured in absolute time, we need to use mathematical formulas to derive the relationship between the number of registers added and the resulting change in latency. This analysis takes into account both the clock period and the number of pipeline stages to determine the overall time delay.
 
 #### Throughput vs. Latency Relationship
 

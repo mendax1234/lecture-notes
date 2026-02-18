@@ -94,7 +94,7 @@ $$
 
 #### Latency Improvement
 
-The ratio of the new latency($$\text{LAT}_{\text{pipe}}$$) to the original latency($$\text{LAT}=\tau_{COMB}+t_{OH}$$) is:
+The ratio of the new latency measured in **absolute time** ($$\text{LAT}_{\text{pipe}}$$) to the original latency($$\text{LAT}=\tau_{COMB}+t_{OH}$$) is:
 
 $$
 \frac{\text{LAT}_{\text{pipe}}}{\text{LAT}} = \frac{n \cdot T_{\text{pipe}}}{T} = \frac{\tau_{\text{COMB}} + n \cdot t_{\text{OH}}}{\tau_{\text{COMB}} + t_{\text{OH}}}
@@ -119,12 +119,9 @@ $$
 \frac{\text{LAT}_{\text{pipe}}}{\text{LAT}} \approx 1 + (n-1)\frac{t_{\text{OH}}}{\tau_{\text{COMB}}}
 $$
 
-* In terms of **time**, latency increases slightly due to overhead.
-* In terms of **clock cycles**, latency increases significantly by $$(n-1)$$.
+From this equation, we can only tell that In terms of **time**, latency increases linearly with the pipeline stages $$n$$.
 
-{% hint style="danger" %}
-Pay attention to the latency improvement in both **time** and **clock cycle** here!
-{% endhint %}
+Using the method we've seen in Lec 01b, in terms of **clock cycles**, latency increases by $$(n-1)$$ because we add $$n-1$$ registers to our design.
 
 ## Power & Area
 
