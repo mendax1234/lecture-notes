@@ -22,3 +22,8 @@
 * [Timing Issues in Digital Circuits](textbook-1-dicadp/timing-issues-in-digital-circuits/README.md)
   * [Classification of Digital Systems](textbook-1-dicadp/timing-issues-in-digital-circuits/classification-of-digital-systems.md)
   * [Synchronous Design - An In-depth Perspective](textbook-1-dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective.md)
+
+## Textbook 2: AACS
+
+* [ASIC Design Methodology](textbook-2-aacs/asic-design-methodology/README.md)
+  * [Traditional Design Flow](textbook-2-aacs/asic-design-methodology/traditional-design-flow.md)
