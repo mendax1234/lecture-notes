@@ -513,9 +513,36 @@ This means we want the **throughput** to have **no improvement** from the origin
 In the figure above, each "out" on the vertical column corresponds to a **separate processing unit.**
 {% endhint %}
 
+In parallelism, we have two forms:
+
+{% stepper %}
+{% step %}
+#### Iso-performance parallelism
+
+This approach is applied to a **sequential data stream**.
+
+* The overall system **throughput** remains unchanged, but
+* the hardware **area** increases due to resource duplication.
+* Because the workload is distributed across parallel units, the **clock frequency** can be reduced.
+* However, the **latency** increases by a factor of **n** (or **2n**, depending on whether a shifted clock-cycle approach or SIPO/PISO implementation is used).
+* A key advantage of this method is reduced **power** consumption due to the lower operating frequency.
+{% endstep %}
+
+{% step %}
+#### High-performance parallelism
+
+This approach is applied to a **parallel data stream**.
+
+* The system **throughput** increases proportionally to the level of parallelism (e.g., by a factor of n).
+* The **clock frequency** remains unchanged, and
+* the **latency** per data item also remains the same.
+* However, because more hardware resources operate simultaneously, **power** consumption increases.
+{% endstep %}
+{% endstepper %}
+
 ### Implementation
 
-In this course, we will introduce two implementations of parallelism.
+In this course, we will introduce two methods to implement the **iso-performance** parallelism.
 
 #### Shifted Clock Phase
 
@@ -614,9 +641,9 @@ fast clock                          slow clock (n·TCK)              fast clock
 
 Internally:
 
-* SIPO is clocked at **T**<sub>**CK**</sub>
-* MIMO is clocked at **n·T**<sub>**CK**</sub> (one block per n fast cycles)
-* PISO is clocked at **T**<sub>**CK**</sub>
+* SIPO is clocked at $$T_{\text{CK}}$$
+* MIMO is clocked at $$n\cdot T_{\text{CK}}$$ (one block per $$n$$ fast cycles)
+* PISO is clocked at $$T_{\text{CK}}$$
 
 #### Comparison
 
@@ -655,7 +682,7 @@ Physically, we are inserting,
 replicas → [REG REG REG ... REG → [x0  x1  x2  ...]
 ```
 
-That is **n flip-flops**, one per lane. But architecturally, this is **one vector register**, or one **block registe**. This block register is clocked at 1 / (n · T<sub>CK</sub>). So delaying one block means delaying n · T<sub>CK</sub>.
+That is **n flip-flops**, one per lane. But architecturally, this is **one vector register**, or one **block register**. This block register is clocked at 1 / (n · T<sub>CK</sub>). So delaying one block means delaying n · T<sub>CK</sub>.
 
 {% hint style="warning" %}
 The block register cannot be clocked at T<sub>CK</sub> because it needs to latch the block output, which is only ready after n · T<sub>CK</sub>.
@@ -665,11 +692,15 @@ The block register cannot be clocked at T<sub>CK</sub> because it needs to latch
 
 ### Timing Analysis
 
-As we have seen above, parallelism relaxes the timing constraint on combinational logic by allowing operations to span multiple clock cycles ($$n$$ cycles) across replicated hardware units. So, the minimum clock period $$T_{CK}$$ is determined by the logic delay divided by the parallelism factor $$n$$, plus overheads.
+As we have seen above, parallelism relaxes the timing constraint on combinational logic by allowing operations to span multiple clock cycles ($$n$$ cycles) across replicated hardware units. So, the minimum clock period $$T_{CK}$$ is determined by the logic delay divided by the parallelism factor $$n$$, plus overheads. (We are using the **shifted clock phases** design here)
 
 $$
 T_{CK} \ge \frac{T_{CK-Q} + T_{COMB} + T_{MUX} + T_{SETUP}}{n}
 $$
+
+{% hint style="warning" %}
+In EE4415, we consider only the **high-performance n-way** parallelism.
+{% endhint %}
 
 ### PPA Analysis
 
@@ -681,7 +712,7 @@ The performance analysis can be divided into throughput and latency analysis
 
 {% stepper %}
 {% step %}
-#### Throughput ($$f_{parallel}$$)
+#### Throughput ($$f_{\text{parallel}}$$)
 
 Assume 1 operation per cycle in replicas and the replicas are independent (no stalls)
 
@@ -709,7 +740,7 @@ $$
 The latency we are talking here is "How long does x(0) take to appear as y(0) at the output?"
 
 $$
-LAT_{\text{parallel}} = n T_{\text{parallel}} 
+LAT_{\text{parallel}} = n \cdot T_{\text{parallel}} 
 = \tau_{\text{COMB}} + t_{\text{OH}} + \tau_{\text{MUX}}
 $$
 
@@ -758,24 +789,29 @@ $$
 
 #### PPA Analysis Summary
 
-| Metric                   | Sequential (baseline) | n-way Parallel Design                 |
-| ------------------------ | --------------------- | ------------------------------------- |
-| **Throughput**           | 1                     | **n**                                 |
-| **Absolute Latency**     | 1                     | **≈ n**                               |
-| **Clock Frequency**      | f                     | [**≈ f / n**](#user-content-fn-6)[^6] |
-| **Area**                 | 1                     | **≈ n**                               |
-| **Energy per Operation** | 1                     | **≈ 1**                               |
+{% hint style="warning" %}
+In EE4415, we are considering the **high-performance n-way** parallelism.
+{% endhint %}
+
+| Metric                   | Sequential (baseline) | High-Performance n-way Parallel                       | Iso-Performance n-way Parallel                          |
+| ------------------------ | --------------------- | ----------------------------------------------------- | ------------------------------------------------------- |
+| **Throughput**           | 1                     | $$\approx n$$                                         | $$1$$                                                   |
+| **Latency (Time)**       | 1                     | $$> 1$$ (slight increase due to MUX overhead)         | $$\approx n$$ (takes $$n$$ times longer per operation)  |
+| **Latency (Cycles)**     | 1                     | $$1$$                                                 | $$1$$                                                   |
+| **Clock Frequency**      | $$f$$                 | $$\approx f$$                                         | $$f / n$$                                               |
+| **Area**                 | 1                     | $$\approx n$$ (replicated datapath + MUX overhead)    | $$\approx n$$ (replicated datapath + MUX overhead)      |
+| **Energy per Operation** | 1                     | $$\approx 1$$ (slightly increases due to MUX/control) | $$<< 1$$ (significant reduction via $$V_{dd}$$ scaling) |
 
 ### Pipelining vs. Parallelism
 
-| Metric                  | Sequential (baseline) | n-stage Pipelined Design              | n-way Parallel Design                                |
-| ----------------------- | --------------------- | ------------------------------------- | ---------------------------------------------------- |
-| Throughput              | 1                     | ≈ n                                   | ≈ n                                                  |
-| Absolute Latency (Time) | 1                     | > 1 (slight increase due to overhead) | >> 1 (degrades due to MUX + longer cycle time)       |
-| Latency (Cycles)        | 1                     | n                                     | n                                                    |
-| Clock Frequency         | f                     | ≈ n · f                               | ≈ f / n                                              |
-| Area                    | 1                     | > 1 (linear growth due to registers)  | ≈ n (replicated datapath + MUX overhead)             |
-| Energy per Operation    | 1                     | > 1 (linear growth due to registers)  | ≈ 1 (slightly increases due to MUX/control overhead) |
+| Metric                   | Sequential (baseline) | n-stage Pipelined Design                  | High-Performance n-way Parallel                       | Iso-Performance n-way Parallel                          |
+| ------------------------ | --------------------- | ----------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------- |
+| **Throughput**           | 1                     | $$\approx n$$                             | $$\approx n$$                                         | $$1$$                                                   |
+| **Latency (Time)**       | 1                     | $$> 1$$ (slight increase due to overhead) | $$> 1$$ (slight increase due to MUX overhead)         | $$\approx n$$ (takes $$n$$ times longer per operation)  |
+| **Latency (Cycles)**     | 1                     | $$n$$                                     | $$1$$                                                 | $$1$$                                                   |
+| **Clock Frequency**      | $$f$$                 | $$\approx n \cdot f$$                     | $$\approx f$$                                         | $$f / n$$                                               |
+| **Area**                 | 1                     | $$> 1$$ (linear growth due to registers)  | $$\approx n$$ (replicated datapath + MUX overhead)    | $$\approx n$$ (replicated datapath + MUX overhead)      |
+| **Energy per Operation** | 1                     | $$> 1$$ (linear growth due to registers)  | $$\approx 1$$ (slightly increases due to MUX/control) | $$<< 1$$ (significant reduction via $$V_{dd}$$ scaling) |
 
 From the table above, we can see that pipelining is equally effective at improving throughput but consumes **much less area** than parallelism. The core design rule is that:
 
@@ -803,7 +839,7 @@ In this course, we will mainly introduce **cutset retiming**, while in EE4218, w
 Just a personal tip, **cutset retiming** is more powerful!
 {% endhint %}
 
-With the help of **cutset retiming**, we will see how they can be combined with other tools to perform the [**RTL Transformations**](lec-02b-rtl-transformations.md#rtl-transformation). These transformations can be used to practically move the register to a given microarchitecture (at iso-latency[^7] in terms of cycles), or even modifying the latency (by adding registers at the input or output and retime). Before that, let's see the assumptions and some math notations first.
+With the help of **cutset retiming**, we will see how they can be combined with other tools to perform the [**RTL Transformations**](lec-02b-rtl-transformations.md#rtl-transformation). These transformations can be used to practically move the register to a given microarchitecture (at iso-latency[^6] in terms of cycles), or even modifying the latency (by adding registers at the input or output and retime). Before that, let's see the assumptions and some math notations first.
 
 #### Assumptions
 
@@ -830,7 +866,7 @@ When moving registers, combinational operators at vertices through retiming cann
 
 #### Fundamental Transformation
 
-The core operation of retiming allows registers to be moved forward or backward across the inputs and outputs of an operator without changing the circuit's steady-state[^8] functional behavior.
+The core operation of retiming allows registers to be moved forward or backward across the inputs and outputs of an operator without changing the circuit's steady-state[^7] functional behavior.
 
 <figure><img src="../../.gitbook/assets/retiming-fundamental-transformation.png" alt=""><figcaption></figcaption></figure>
 
@@ -855,7 +891,7 @@ To algorithmically optimize a circuit, we define retiming mathematically using a
 {% step %}
 #### The Retiming Vector $$r(V)$$
 
-The "Retiming Vector" is an **integer** value assigned to every vertex $$V$$ in the graph. It tracks how many registers are moved across that vertex[^9].
+The "Retiming Vector" is an **integer** value assigned to every vertex $$V$$ in the graph. It tracks how many registers are moved across that vertex[^8].
 
 * **Definition:** $$r(V) = \# \text{ Registers moved backwards}$$.
 * **Directionality**:
@@ -880,7 +916,7 @@ The Intuition is:
 * Moving registers backwards across the destination $$V$$ adds registers to the input wire ($$+r(V)$$).
 * Moving registers backwards across the source $$U$$ removes registers from the output wire ($$-r(U)$$).
 
-So, the term $$r(V)-r(U)$$ denotes the number of **registers change** on the edge[^10] from $$U$$ to $$V$$
+So, the term $$r(V)-r(U)$$ denotes the number of **registers change** on the edge[^9] from $$U$$ to $$V$$
 {% endstep %}
 
 {% step %}
@@ -903,7 +939,7 @@ $$
 If this inequality holds for all edges, the retiming is legal.
 
 {% hint style="success" %}
-The intuition is that the [**decrease** ](#user-content-fn-11)[^11]of the number of **registers change** ($$r(V)-r(U)$$) cannot be larger the number of registers in the original edge.
+The intuition is that the [**decrease** ](#user-content-fn-10)[^10]of the number of **registers change** ($$r(V)-r(U)$$) cannot be larger the number of registers in the original edge.
 {% endhint %}
 {% endstep %}
 
@@ -1063,7 +1099,7 @@ We will now use these skills to start getting our hands "dirty"!
 
 ### Repipelining
 
-The first RTL Transformation technique that we will learn is **repipelining**. Repipelining is a technique to increase the clock frequency (performance) of a design by adding new pipeline stages, rather than just rearranging existing ones. It is equivalent to [**register insertion** at I/O + **retiming**](#user-content-fn-12)[^12].
+The first RTL Transformation technique that we will learn is **repipelining**. Repipelining is a technique to increase the clock frequency (performance) of a design by adding new pipeline stages, rather than just rearranging existing ones. It is equivalent to [**register insertion** at I/O + **retiming**](#user-content-fn-11)[^11].
 
 * **Goal**: Reduce the minimum clock cycle ($$T_{CK}$$) by breaking up long combinational paths.
 * **Trade-off**: Unlike standard retiming (which is iso-latency), repipelining increases latency. The total time (in clock cycles) from Input to Output increases by $$k$$ cycles.
@@ -1403,7 +1439,7 @@ Execute the chosen transformation on the original RTL structure.
 
 ### Combining RTL Transformations
 
-**Normalization:** All metrics (Area, Throughput, Energy) are normalized to the [**Original RTL**](#user-content-fn-13)[^13] ($$=1$$).
+**Normalization:** All metrics (Area, Throughput, Energy) are normalized to the [**Original RTL**](#user-content-fn-12)[^12] ($$=1$$).
 
 <figure><img src="../../.gitbook/assets/combining-rtl-transformations.png" alt=""><figcaption></figcaption></figure>
 
@@ -1447,7 +1483,7 @@ When we do every RTL transformation problems, it is recommended to follow the th
 2. **Know** where to put extra registers to achieve that specification
    1. If these extra registers are put **in a loop**, we know for sure that **only retiming** can be done in the loop.
    2. This step is also known as **transforming** our **critical path** and it will give us some hint on what registers to move during the RTL transformations.
-3. Do the RTL Transformation
+3. Do the RTL Transformation.
 
 [^1]: We can think of a **multi-rate system** as one that operates with **more than one clock**, with different parts of the system running at different rates.
 
@@ -1459,11 +1495,9 @@ When we do every RTL transformation problems, it is recommended to follow the th
 
 [^5]: the digital module in the figure above
 
-[^6]: Can do this to save power, but won't have improvement in throughput
+[^6]: This is because of the first property of retiming we mentioned above, which is to preserve the **I/O cycle-based** timing.
 
-[^7]: This is because of the first property of retiming we mentioned above, which is to preserve the **I/O cycle-based** timing.
-
-[^8]: 
+[^7]: 
 
     This means the same output at the end of the cycle. For example,
 
@@ -1472,12 +1506,12 @@ When we do every RTL transformation problems, it is recommended to follow the th
 
     Both approach will give us the same output.
 
-[^9]: same as saying that specific logic block.
+[^8]: same as saying that specific logic block.
 
-[^10]: Later we will generalize **edge** to **path**.
+[^9]: Later we will generalize **edge** to **path**.
 
-[^11]: It means that $$r(V)-r(U)$$ is **negative**, and $$r(U)-r(V)$$ is positive.
+[^10]: It means that $$r(V)-r(U)$$ is **negative**, and $$r(U)-r(V)$$ is positive.
 
-[^12]: You can do this even faster by just doing the feedforward cutset insertion. The only problem might be finding the correct cutset.
+[^11]: You can do this even faster by just doing the feedforward cutset insertion. The only problem might be finding the correct cutset.
 
-[^13]: Here, the original RTL can be any type, pipelined or non-pipelined. It doesn't matter.
+[^12]: Here, the original RTL can be any type, pipelined or non-pipelined. It doesn't matter.
