@@ -394,10 +394,15 @@ if (Error != 0) {
 
 In Lab 02, our main job is to create an application that is able to receive the Matrix A and B sent from the RealTerm and then send them back (direct loopback). After that, the PS will handle the matrix muliplication and then send the result back to the RealTerm. In summary, the flow is:
 
-1. **PS receives matrices A and B** sent from the RealTerm into a local array/arrays (either a single array for A and B together or separate arrays);
-2. PS passes it through the AXI Stream FIFO on the PL configured in **loopback** mode - no processing done in hardware/PL, for now;
-3. **PS computes** the result matrix, **RES** = **A**\***B**/**256**;
-4. **PS sends RES back** from the board to the RealTerm and the realterm will capture the result into a `csv` file.
+Regarding the data flow from **RealTerm** to the UART:
+
+1. The CSV data sent from RealTerm is transmitted as high and low electrical signals through the USB-to-Serial connection to the FPGA.
+2. The corresponding FPGA pin is configured to route this signal to the **RXD** line of the UART peripheral in the Processing System (PS).
+3. The received data is first stored in the UART peripheral’s internal FIFO buffer.
+4. PS reads the data (matrices A and B) from the UART FIFO using `scanf()` and stores them into a local array/arrays
+5. PS passes the array through the AXI Stream FIFO on the PL configured in **loopback** mode — no processing done in hardware/PL, for now;
+6. **PS computes** the result matrix, **RES** = **A**\***B**/**256**;
+7. **PS sends RES back** from the board to the RealTerm and the realterm will capture the result into a `csv` file.
 
 The steps above are the backbone, and another part is to **measure the performance**.
 
@@ -459,7 +464,7 @@ Together, these two methods provide both a high-level view of the overall execut
 
 #### AXI-Timer
 
-> TODO: Ask about do we need to time the send files to uart block in PS and send the result back to Realterm.
+> TODO: Ask about do we need to time the send files to uart block in PS and send the result back to Realterm. In profiling and timer, don't printf anything. An exception is in timer, only print the timer result.
 
 #### TCF Profiling
 
