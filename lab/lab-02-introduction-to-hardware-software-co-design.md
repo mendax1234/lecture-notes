@@ -242,15 +242,13 @@ XUartPs_CfgInitialize(&Uart_Ps, Config, Config->BaseAddress);
 ```
 {% endhint %}
 
-A similar variation is `XUartPs_Recv`. In this method, we create a **software buffer** to store the bytes received from the UART peripheral. The UART peripheral contains a small internal FIFO, and the PS reads data from the UART peripheral address using the `lw` instruction. So the flow is like:
+A similar variation is `XUartPs_Recv`. In this method, we create a **software buffer** to store the bytes received from the UART peripheral. The UART peripheral contains a small internal FIFO, and the PS reads data from the UART peripheral address using the `lw` instruction.
 
-A bunch of bytes of data ready in the UART FIFO -> `XUartPs_Recv()` receives byte by byte and put the received bytes into the **software buffer**.
+So the flow is like: A bunch of bytes of data ready in the UART FIFO -> `XUartPs_Recv()` receives byte by byte and put the received bytes into the **software buffer**.
 
 {% hint style="warning" %}
 The total number of bytes received may not exactly match the size of the software buffer. Therefore, the buffer may be only partially filled, depending on how many bytes are available in the UART FIFO at the time of reception.
 {% endhint %}
-
-> TODO: Confirm about this low-level flow.
 
 #### Preprocessor Directives
 
@@ -407,7 +405,7 @@ Regarding the data flow from **RealTerm** to the UART:
 The steps above are the backbone, and another part is to **measure the performance**.
 
 {% hint style="warning" %}
-To make your life easier, I strongly recommend to use the [#axi-stream-fifo-example](lab-02-introduction-to-hardware-software-co-design.md#axi-stream-fifo-example "mention") as a starting point.
+To make your life easier, I strongly recommend to use the [#axi-stream-fifo-example](lab-02-introduction-to-hardware-software-co-design.md#axi-stream-fifo-example "mention") as a starting point. Besides, regarding the full picture of the flow, it will be presented in Lab 03.
 {% endhint %}
 
 <details>
@@ -451,7 +449,9 @@ This is because the `stdin` and `stdout` are directed to the console (RealTerm).
 To capture the data sent to RealTerm into a CSV, we can go to the "Capture" tab. Before we run our C program, we should click "start overwriting" so that we can always capture the correct result.
 {% endhint %}
 
-> TODO: Ask do we need to create binary file to receive if we won't measure the performance of the uart send part. And the uart driver send and receives in the unit of 4 bytes, but our data is one byte, so are we wasting the other 3 bytes?
+{% hint style="danger" %}
+The spirit of Lab 02 is to get things to work, so we don't need to **compare** the implementation of sending or receiving data via uart implemented either in baremetal uart or stdio.
+{% endhint %}
 
 ### Performance Measurement
 
@@ -464,18 +464,32 @@ Together, these two methods provide both a high-level view of the overall execut
 
 #### AXI-Timer
 
-> TODO: Ask about do we need to time the send files to uart block in PS and send the result back to Realterm. In profiling and timer, don't printf anything. An exception is in timer, only print the timer result.
+In Lab 02, we should only time three things
+
+1. the time taken for the PS to send the data to the AXI-Stream FIFO
+2. the time taken for the PS to receive the data from the AXI-Stream FIFO
+3. the time taken for the PS to do the **matrix multiplication**.
+
+{% hint style="success" %}
+Actually, we can combine the timer value of the first two into one. It's not a big deal here.
+{% endhint %}
+
+In our application, we use the preprocessor `PERFORMANCE_MEASUREMENT` for the AXI-Timer mode. Under this mode, we can have `xil_printf()` and `scanf()`, but we just shouldn't let them exist in between the `XTmrCtr_GetValue()` function!
 
 #### TCF Profiling
 
-The main goal of profiling is to identify which methods take the longest time to execute — in other words, the bottlenecks in the program. Once these bottlenecks are identified, we can focus on optimizing those specific methods to improve overall performance. Below is a TCF Profiling running on the `main_stdio.c`.
+The main goal of profiling is to identify which **methods** take the majority time to execute in the whole application execution. In other words, the bottlenecks in the program. Once these bottlenecks are identified, we can focus on optimizing those specific methods to improve overall performance.
+
+{% hint style="warning" %}
+When we are doing the profiling, we should "comment out" all the `xil_printf()` and `scanf()` in our application. So, our data will be **hardcoded** instead of received from the RealTerm.
+{% endhint %}
+
+Below is a TCF Profiling running on the `main_stdio.c`.
 
 <figure><img src="../.gitbook/assets/profile-example.png" alt=""><figcaption><p>TCF Profiling running on the <code>main_stdio.c</code></p></figcaption></figure>
+
+From the table, we can see that the method `TxSend()` and `RxReceive()` takes 65 + 30 = 95% of time during the application execution. These two methods are sending the data from the PS to the AXI-Stream FIFO and receive the data back from the AXI-Stream FIFO. Thus, we can see that the real matrix multiply only takes less than 5% of time running!
 
 {% hint style="warning" %}
 To run the TCF profiling on Vitis 2025.2, AMD has provided a very detailed instruction in their [Vitis document](https://docs.amd.com/r/en-US/ug1400-vitis-embedded/TCF-Profiling)!
 {% endhint %}
-
-> TODO: double check from prof how to read this table. Ask about in performance measurement, should I comment out the sending the result back to laptop? A.k.a, the uart time should be counted in profiling?
-
-> TODO: ask about the lab 03 improvement. do we need to manually improve the RTL code written?
