@@ -153,12 +153,93 @@ Now, we can play around with the pipelined design, which is default in the newer
 
 <figure><img src="../.gitbook/assets/pipeline-hls.png" alt=""><figcaption></figcaption></figure>
 
-In this pipelined design, we will have:
+Compared to the [#multi-cycle](lec-06-high-level-synthesis.md#multi-cycle "mention") design, this pipelined design **does not need to wait** for the previous input to complete execution before starting the next computation. Instead, the next input can begin processing while the previous one is still being executed.Thus, in this pipelined design, we will have:
 
-1. [**Initial Inverval**](#user-content-fn-1)[^1] (II) to be 1.
+1. [**Initial Interval**](#user-content-fn-1)[^1] (II) to be 1.
 2. **Binding**: no sharing (2 adders, 2 multipliers)
 3. **Timing**: period = 10ns, latency = 2, Trip count = 16
 4. **Total latency**: 17 \[170ns] (II \* Trip Count + 1 cycle overhead to "fill" the pipeline)
+
+This also gives us an important insight: in a pipelined design, **latency** — the time required for a single input to complete its execution — is not that important, because we do not need to wait for that input to finish before issuing the next one.
+
+{% hint style="success" %}
+#### Tips to calculate the Total Latency and Overhead quickly
+
+Given that we already know the Initial Interval, the latency and the trip count, the **total latency** can be calculated as
+
+<p align="center">Total Latency = Initial Interval * Trip Count + Overhead.</p>
+
+Where, the overhead can be calculated as
+
+<p align="center">Overhead = Initial Interval - Latency</p>
+{% endhint %}
+
+#### Pipelined (II=2)
+
+As we have noticed in the first pipelined design, the bottleneck is the **multiplier**. What if we want an even faster clock frequency? That is to say, we want to use **2 clock cycles** to finish the multiplying operation, and this can be done in the following two ways.
+
+{% stepper %}
+{% step %}
+#### Multicycle Path
+
+In this method, instead of clocking the capturing register at the very next clock edge, we want to clock it at the second next clock edge. To achieve that without dividing the clock, we can add an **EN** signal shown as follows:
+
+<figure><img src="../.gitbook/assets/muti-cycle-path-example.svg" alt=""><figcaption></figcaption></figure>
+
+The **EN** signal is asserted once every two cycles of the original clock signal. By doing so, we are actually **giving** the COMB logic (which is the multiplication logic) in between 2 clock cycles to finish. This method is called **multi-cycle path**.
+{% endstep %}
+
+{% step %}
+#### Pipelined the multiplier
+
+The second approach is to **redesign** the multiplier to let it finish in **2 cycles** instead of one. Thus, a combinational multiplier will become a **sequential multiplier** in a sense now.
+{% endstep %}
+{% endstepper %}
+
+By using either one of the method mentioned above, we can get the design as follows:
+
+<figure><img src="../.gitbook/assets/pipelined-ii-2.png" alt=""><figcaption></figcaption></figure>
+
+In this design, we will have:
+
+1. II = 2
+2. **Binding**: no sharing (2 adders, 2 multipliers)
+3. **Timing**: period = 5ns, latency = 3, Trip count = 16
+4. **Total latency**: 33 \[165ns] (2 \* 16 + (3-2) = 33)
+
+### Unrolled & Partitioned
+
+Suppose now we might have more budget, how can we further squeeze the performance? A typical idea would be using **parallelism**. Indeed, and this is what we called **unrolling** in HLS.
+
+However, to get the true performance of **parallelism**, we must provided the **independent** data **simultaneously**. How can we achieve that if we only have **two-ported memory** (meaning that we can only read one data at a time)? The answer will be not hard to think of, which is to
+
+1. use **multiple memories** so that we can read multiple data at one time.
+2. still use **one memory** but one read operation will give us **multiple data**.
+
+The first method will need us to **partition our array** wisely into the separate memories and it is called **partitioning** in HLS. Now, suppose we use **unrolling by a factor of 2** + **partitioning** on our [#pipelined-ii-2](lec-06-high-level-synthesis.md#pipelined-ii-2 "mention") design, we will get the following design:
+
+<figure><img src="../.gitbook/assets/unroll-partition.png" alt=""><figcaption></figcaption></figure>
+
+In this design, we will have
+
+1. II = 2
+2. **Binding**: no sharing (4 adders, 4 multipliers)
+3. **Timing**: period = 5ns, latency = 3, Trip count = 8
+4. **Total latency**: 17 \[85ns] (2 \* 8 + (3-2) = 17)
+5. **Extra memory needed**: In this case, we need to store `a[i]` and `a[i+1]` into **two different memories**. Although they are from the same array in the C code, by storing them into different memories, we can read two values at a time. This is called **cyclical array partitioning**.
+
+And it is **much faster** than the first design, which is [#single-cycle](lec-06-high-level-synthesis.md#single-cycle "mention").
+
+<details>
+
+<summary>More on partitioning</summary>
+
+Besides the **cyclical array partitioning** we have mentioned above, we also have the following two **array partitioning** techniques:
+
+1. **Block partitioning**: Suppose our function is to calculate `b[i] = a[i] + a[i+N]`. Now, it will be beneficial if we put `a[i]` and `a[i+N]` into separate memories. Similarly, `a[i+1]` should be put into the same memory as `a[i]` and `a[i+1+N]` should be put in the same memory as `a[i+N]`, thus each of the two memories will have a block size of $$N$$.
+2. **Complete partitioning**: Suppose now our function becomes `d[i] = b[0]*a[i] + b[1]*c[i]`, assuming the array `b[]` is small, it would be **advantegeous** to put **each element** of the array b into a dedicated register so that we can read any number of the elements in the array b as we like. This is called **complete partitioning** and it is actually quite popular in the AI and ML field.
+
+</details>
 
 ## References
 
