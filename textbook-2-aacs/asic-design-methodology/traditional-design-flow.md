@@ -141,3 +141,7 @@ After **placement**, the design is globally routed to determine the quality of p
 **Detailed routing** is the final step that is performed by the layout tool. After detailed route is complete, the real timing delays of the chip are extracted, and plugged into PrimeTime for analysis.
 
 > TODO: Add step number in Step 1 for reference.
+
+## Engineering Change Order
+
+**Engineering Change Order** (ECO) refers to the change required in the **netlist** at the very last stage of the ASIC design flow. For instance, ECO is performed when there is a hardware bug encountered in the design at the very last stage (say, after tape-out), and it is necessary to perform a metal mask change by re-routing a small portion of the design.

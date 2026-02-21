@@ -27,3 +27,8 @@
 
 * [ASIC Design Methodology](textbook-2-aacs/asic-design-methodology/README.md)
   * [Traditional Design Flow](textbook-2-aacs/asic-design-methodology/traditional-design-flow.md)
+  * [Physical Compiler Flow](textbook-2-aacs/asic-design-methodology/physical-compiler-flow.md)
+  * [Chapter Summary](textbook-2-aacs/asic-design-methodology/chapter-summary.md)
+* [Basic Concepts](textbook-2-aacs/basic-concepts/README.md)
+  * [Synopsys Products](textbook-2-aacs/basic-concepts/synopsys-products.md)
+  * [Synthesis Environment](textbook-2-aacs/basic-concepts/synthesis-environment.md)
