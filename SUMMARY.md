@@ -32,3 +32,5 @@
 * [Basic Concepts](textbook-2-aacs/basic-concepts/README.md)
   * [Synopsys Products](textbook-2-aacs/basic-concepts/synopsys-products.md)
   * [Synthesis Environment](textbook-2-aacs/basic-concepts/synthesis-environment.md)
+  * [Synopsys Design Fundamentals](textbook-2-aacs/basic-concepts/synopsys-design-fundamentals.md)
+  * [Compiler Directives](textbook-2-aacs/basic-concepts/compiler-directives.md)

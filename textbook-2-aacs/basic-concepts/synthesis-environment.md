@@ -84,6 +84,13 @@ In the setup files, we have seen a lot of libraries, it's time to explain what e
 
 The `target_library` specifies the name of the technology library that corresponds to the library whose cells the designers want DC to infer and finally map to.
 
+{% hint style="success" %}
+It will be good to review the [logic synthesis](../../lecture/lec-03/lec-03a-digital-design-flow.md#logic-synthesis-1) process from EE4415 Lec 03a! The logic synthesis includes:
+
+1. Translating the HDL code into **generic boolean** format (called GTECH)
+2. This GTECH is then optimized and mapped to the specific gates in the **technology library**.
+{% endhint %}
+
 ### Link Library
 
 The `link_library` defines the name of the library that refers to the library of cells used solely for reference, i.e., cells in the `link_library` are not inferred by DC.
@@ -94,7 +101,7 @@ The `link_library` defines the name of the library that refers to the library of
 
 For example, you may specify a **standard cell technology** library as the `target_library`, while specifying the **pad technology library** name and **all other macros** (RAMs, ROMs etc.) in the `link_library` list. This means that the user would synthesize the design that targets the cells present in the standard cell library, while **linking** to the pads and macros that are instantiated in the design.
 
-{% hint style="undefined" %}
+{% hint style="info" %}
 If the pad library is included in the `target_library` list, then DC may use the pads to synthesize the core logic.
 {% endhint %}
 
