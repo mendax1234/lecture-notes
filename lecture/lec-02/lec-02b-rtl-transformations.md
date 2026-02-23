@@ -1109,7 +1109,7 @@ We will now use these skills to start getting our hands "dirty"!
 The first RTL Transformation technique that we will learn is **repipelining**. Repipelining is a technique to increase the clock frequency (performance) of a design by adding new pipeline stages, rather than just rearranging existing ones. It is equivalent to [**register insertion** at I/O + **retiming**](#user-content-fn-12)[^12].
 
 * **Goal**: Reduce the minimum clock cycle ($$T_{CK}$$) by breaking up long combinational paths.
-* **Trade-off**: Unlike standard retiming (which is iso-latency), repipelining increases latency. The total time (in clock cycles) from Input to Output increases by $$k$$ cycles.
+* **Trade-off**: Unlike standard retiming (which is iso-latency), repipelining increases the latency in clock cycles. The total time (in clock cycles) from Input to Output increases by $$k$$ cycles.
 
 #### Graph Theory View
 
@@ -1451,7 +1451,7 @@ Execute the chosen transformation on the original RTL structure.
 <figure><img src="../../.gitbook/assets/combining-rtl-transformations.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
-Repipelining **includes** pipelining and if the original RTL is pipelined, the N<sub>original</sub> is number of pipeline stages. If it is non-pipelined, the N<sub>original</sub> is just 1.
+Repipelining **includes** pipelining and if the original RTL is pipelined, the N<sub>original</sub> is number of pipeline stages. If it is non-pipelined, the N<sub>original</sub> is just 1. And the PPA analysis for repipelining is the **same as** the [PPA analysis of pipelining](lec-02a-pipelining.md#performance-analysis).
 {% endhint %}
 
 * $$N > 0$$: Standard application (Insertion, Parallelism, Interleaving).
