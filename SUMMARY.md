@@ -34,3 +34,7 @@
   * [Synthesis Environment](textbook-2-aacs/basic-concepts/synthesis-environment.md)
   * [Synopsys Design Fundamentals](textbook-2-aacs/basic-concepts/synopsys-design-fundamentals.md)
   * [Compiler Directives](textbook-2-aacs/basic-concepts/compiler-directives.md)
+* [Synopsys Technology Library](textbook-2-aacs/synopsys-technology-library/README.md)
+  * [Technology Libraries](textbook-2-aacs/synopsys-technology-library/technology-libraries.md)
+  * [Logic Library Basics](textbook-2-aacs/synopsys-technology-library/logic-library-basics.md)
+  * [Delay Calculation](textbook-2-aacs/synopsys-technology-library/delay-calculation.md)
