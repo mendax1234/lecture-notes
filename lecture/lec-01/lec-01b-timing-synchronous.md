@@ -280,7 +280,9 @@ In reality (but not considered in EE4415), the local branches also add jitter be
 
 In positive-edge triggered (PET) flip flops, input is **sampled** at rising clock edge. And the **timing parameters** for D Flip Flops are:
 
-1. input (usually the old input, will see why it's "old" in [DICADP](../../textbook-1-dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective.md#synchronous-timing-basic)) must be kept stable from **t**<sub>**SETUP**</sub>**&#x20;before** the active edge to **t**<sub>**HOLD**</sub>**&#x20;after** this edge. Otherwise, we will have **metastability**.
+1. input (usually the old input, will see [why it's "old"](#user-content-fn-2)[^2] in [DICADP Figure 10.12](../../textbook-1-dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective.md#impact-of-skew-and-jitter-on-performance)) must be kept stable from **t**<sub>**SETUP**</sub>**&#x20;before** the active edge to **t**<sub>**HOLD**</sub>**&#x20;after** this edge. Otherwise, we will have **metastability**. The affect/[constraint ](#user-content-fn-3)[^3]imposed on the new input will thus be that:
+   1. &#x20;The **latest** new input **must arrive** before the t<sub>SETUP</sub>
+   2. The **earilest** new input **must not arrive** before t<sub>HOLD</sub> so that the previous "old" input won't be affected!
 2. CK-Q delay: output is updated at t<sub>CK-Q</sub> after clock edge.
 
 <figure><img src="../../.gitbook/assets/timing-parameters-for-edge-triggered-ffs.png" alt="" width="563"><figcaption></figcaption></figure>
@@ -315,7 +317,7 @@ The FF timing constraints imply the system timing constraints. The FF timing con
 * Setup Time Constraint
 * Hold Time Constraint
 
-While the system timing constraint is more about the global CLK signal speed. So, what [the first sentence](#user-content-fn-2)[^2] says is that the FF timing constraint will affect the speed of the system clock, which is an indispensible part of the system timing constraint. So, when designing a system, we should prevent setup/hold violations.
+While the system timing constraint is more about the global CLK signal speed. So, what [the first sentence](#user-content-fn-4)[^4] says is that the FF timing constraint will affect the speed of the system clock, which is an indispensible part of the system timing constraint. So, when designing a system, we should prevent setup/hold violations.
 
 System timing constraints are affected by
 
@@ -328,7 +330,7 @@ To start, let's first see an intuitive understanding of FF timing constraints.
 <figure><img src="../../.gitbook/assets/intuitive-understand-ff-timing-constraint.png" alt="" width="563"><figcaption></figcaption></figure>
 
 * To meet the setup time constraint, we can think of it as "the computation should be completed before next edge in REG<sub>2</sub>" -> This gives us the **max-delay constraint** for the combinational logic
-* To meet the hold time constraint, we can think of it as "the computation must affect REG<sub>2</sub> only after a certain time" -> This gives us the **min-delay constraint** for the combinational logic
+* To meet the hold time constraint, we can think of it as "the computation can only affect REG<sub>2</sub> after a certain time, which is the hold time or REG<sub>2</sub>" -> This gives us the **min-delay constraint** for the combinational logic
 
 {% hint style="danger" %}
 In this part, as T<sub>CK</sub> is fixed in the specification, t<sub>setup</sub> and t<sub>ck-q</sub> are constant, we focus on t<sub>comb</sub>!
@@ -542,7 +544,7 @@ As we have talked about [#sequencing-in-synchronous-systems](lec-01b-timing-sync
 
 #### Add skew to clock
 
-In a clock distribution network, we can intentionally add **clock skew** between [**two**](#user-content-fn-3)[^3] registers to improve timing.
+In a clock distribution network, we can intentionally add **clock skew** between [**two**](#user-content-fn-5)[^5] registers to improve timing.
 
 {% hint style="warning" %}
 The skew can be **positive** or **negative**, depending on whether we want to relax setup or hold constraints.
@@ -641,7 +643,7 @@ This is true because if a block’s input data rate is low, its output data rate
 {% step %}
 #### Chain Limit (The Bottleneck Formula)
 
-For a chain of blocks ($$1 \to 2 \to \dots \to N$$), the maximum system throughput is the [**minimum**](#user-content-fn-4)[^4] of all blocks' capacities[^5], **scaled to the output**:
+For a chain of blocks ($$1 \to 2 \to \dots \to N$$), the maximum system throughput is the [**minimum**](#user-content-fn-6)[^6] of all blocks' capacities[^7], **scaled to the output**:
 
 $$
 \max \text{DR}_{\text{out}} = \min \left( \underbrace{X_2 \cdot \dots \cdot X_N \cdot maxDR_{out,1}}_{\text{Block 1 limit reflected at output}}, \ \dots \ , \underbrace{\max\text{DR}_{\text{out,N}}}_{\text{Block N limit}} \right)
@@ -873,10 +875,14 @@ To feed the compute units for 30fps, we need high bandwidth:
 
 [^1]: means "immediately" here, not mean left or right
 
-[^2]: The FF timing constraints imply the system timing constraints.
+[^2]: This mainly applies to the **hold time** explanation here. As R2 is also the launching register of the next pipeline stage, at the **same clock edge** when R1 samples the data, this new data sampled must not arrive at R2 before its hold time ends!&#x20;
 
-[^3]: Our focus is always **two** registsers.
+[^3]: This basically forms our simple setup time constraint and hold time constraint.
 
-[^4]: This minimum identifies the **bottleneck**, i.e., the block that limits the overall throughput of the system.
+[^4]: The FF timing constraints imply the system timing constraints.
 
-[^5]: "If this block operates at its maximum speed, what data rate would that correspond to at the final output of the chain?"
+[^5]: Our focus is always **two** registsers.
+
+[^6]: This minimum identifies the **bottleneck**, i.e., the block that limits the overall throughput of the system.
+
+[^7]: "If this block operates at its maximum speed, what data rate would that correspond to at the final output of the chain?"
