@@ -2,7 +2,7 @@
 
 ## System Architecture
 
-With the help of Lab 01 and Lab 02, our understanding of the system architecture become more and more mature. At this point of time, we are going to see the complete system architecture of the system we are designing in EE4218! In this lab, we are going to see two architectures
+With the help of Lab 01 and Lab 02, our understanding of the system architecture becomes more and more mature. At this point of time, we are going to see the complete system architecture of the system we are designing in EE4218! In this lab, we are going to see two architectures
 
 * FIFO implementation
 * DAM implementation
@@ -23,7 +23,7 @@ The laptop sending data process can be illustrated as follows:
 The detailed steps are as follows:
 
 1. Laptop/Terminal program sends the data (in our case it's in `.csv` form) through the USB2Serial cable (a.k.a, via UART) to the UART peripheral on the PS.
-2. The UART peripheral will put the data received in a smaller **buffer** first.
+2. The UART peripheral will put the data received in a small **buffer** first.
 3. The processor (ARM A53) will fetch the data from the UART peripheral's buffer and then store it into an array (in our case, it's called `SourceBuffer`) on the DDR memory.
 4. Then, the processor will fetch the data from the DDR memory (the `SourceBuffer`) and send it to the TX Buffer on the AXI-Stream FIFO.
 5. The AXI-Stream FIFO will then send the data in the TX Buffer to the Coprocessor.
@@ -34,20 +34,20 @@ In this process, we have cleared some very important confusions from Lab 01 and 
 {% step %}
 #### Confusion 1: What on earth is AXI Bus used for?
 
-In our system, the peripherals like UART, DDR Controller, AXI-Stream FIFO and AXI-Timer are all **MMIO** peripherals. **AXI Bus** can be just thought of as a special connection to read and write to a **"memory" block**. Thus, we may notice that in Lab 02, each of the **MMIO peripheral** has its own **address**. Thus, only the MMIO peripherals connected via the AXI bus can be seen and accessed by the A53 processer directly by using `lw`/`sw` instruction (or `LDR`/`SDR` in ARM convention).
+In our system, the peripherals like UART, DDR Controller, AXI-Stream FIFO and AXI-Timer are all **MMIO** peripherals. **AXI Bus** can be just thought of as a special connection to read and write to a **"memory" block**. Thus, we may notice that in Lab 02, each of the **MMIO peripheral** has its own **address**. Thus, only the MMIO peripherals connected via the AXI bus can be seen and accessed by the A53 processer directly by using `lw`/`sw` instruction (or `LDR`/`SDR` in ARM Assembly).
 {% endstep %}
 
 {% step %}
 #### Confusion 2: How to quickly decide the direction of `M_AXIS_xx` and `S_AXIS_xx`?
 
-In Lab 01, the direction of the `M_AXIS_XXX` and `S_AXI_XXXX` always makes us confused and this is also one question being asked during the lab demonstration. Today, at this point of time, hopefully we can understand it thoroughly by reading the following explanation! First, the AXIS interface always has two ends, namely:
+In Lab 01, the direction of the `M_AXIS_XXX` and `S_AXIS_XXXX` always makes us confused and this is also one question being asked during the lab demonstration. Today, at this point of time, hopefully we can understand it thoroughly by reading the following explanation! First, the AXIS interface always has two ends, namely:
 
 1. Master
 2. Slave
 
 From the perspective of the coprocessor, `S_AXIS_xxx` is used to indicate the **status** of the coprocessor when data is being **transmitted** to it. Usually, `S_AXIS_xxx` is used for **data to come in**, except for the `S_AXIS_TREADY`, which is used to indicate that the slave device, which is the coprocessor, is **ready** to receive the data now.
 
-Similarly, from the same perspective of the coprocessor, the `M_AXIS_xxx` is used to indicate status of the coprocessor when data is being **sent** out from it. Usually, the `M_AXIS_xxx` is used for **data to come out**, except for the `M_AXIS_TREADY`, which is used to indicate that the master device, which is the coprocessor, is **ready** to send the data now.
+Similarly, from the same perspective of the coprocessor, the `M_AXIS_xxx` is used to indicate status of the coprocessor when data is being **sent** out from it. Usually, the `M_AXIS_xxx` is used for **data to come out**, except for the `M_AXIS_TREADY`, which is used to indicate that the slave device, which is the testbench, is **ready** to receive the data now.
 
 In short, the input/output information of these signals can be seen from below:
 
@@ -79,7 +79,7 @@ The detailed steps are as follows:
 
 1. The coprocessor sends the results via AXIS to the AXI-Stream FIFO.
 2. The data is stored in the RX buffer on the AXI-Stream FIFO first.
-3. The processor fetches the data from the RX buffer on the AXI-Stream FIFO and store it into an array on the DDR memory (in our case, it's called `DestinationBuffer`).
+3. The processor fetches the data from the RX buffer on the AXI-Stream FIFO and stores it into an array on the DDR memory (in our case, it's called `DestinationBuffer`).
 4. Then the processor will fetch the data in the array and send it to the UART peripheral.
 5. The data is stored in the buffer in the UART peripheral for a short while and then it is sent to the Laptop.
 
@@ -129,13 +129,13 @@ The steps in detail are:
 
 #### Issues
 
-In the [AXI-Stream FIFO architecture](lab-03-integrating-the-coprocessor.md#axi-stream-fifo), it's not hard to find out that all the data that goes into or taken out from the DDR memory will pass through the **cache**. So, there is no issue with the data consistency. However, the case becomes a bit trickier when we move to the [AXI DMA design](lab-03-integrating-the-coprocessor.md#axi-dma) and this will happen in both send and receive data stage.
+In the [AXI-Stream FIFO architecture](lab-03-integrating-the-coprocessor.md#axi-stream-fifo), it's not hard to find out that all the data that goes into or taken out from the DDR memory will pass through the **cache**. So, there is no issue with the data consistency. However, the case becomes a bit trickier when we move to the [AXI DMA design](lab-03-integrating-the-coprocessor.md#axi-dma) and this will cause some issues in both send and receive data stage.
 
 {% stepper %}
 {% step %}
 #### Send Data
 
-In our system, the **data cache** is **write-back**, meaning that the update initially happens at the cache and these updates won't be reflected to the DDR memory until either the cache is full or depending on the replacement policy used in the cache. This will create the **problem** that:
+In our system, the **data cache** uses the **write-back** mechanism, meaning that the update initially happens at the cache and these updates won't be reflected to the DDR memory until either the cache is full or depending on the replacement policy used in the cache. This will create the **problem** that:
 
 > when the AXI DMA moves data from `SourceBuffer` to the coprocessor, the data in the `SourceBuffer` address in the DDR memory **might not be** the most updated data!
 
@@ -145,7 +145,7 @@ To fix this issue, we will use **cache flush**, which is to force to flush the c
 {% step %}
 #### Receive Data
 
-The issues doesn't stop here. In the [receive data stage](lab-03-integrating-the-coprocessor.md#receive-data-1), remember that the last step is the processor moving data from the `DestinationBuffer` to the UART peripheral. In this step, the **problem** is that
+The issues don't stop here. In the [receive data stage](lab-03-integrating-the-coprocessor.md#receive-data-1), remember that the last step is the processor moving data from the `DestinationBuffer` to the UART peripheral. In this step, the **problem** is that
 
 > the address of the `DestinationBuffer` might already be **cached** in the data cache, causing the fact that the processor won't send the most updated data at the `DestinationBuffer` in the DDR memory to the UART peripheral. Instead, the stale and out-dated cached data will be sent! This is troublesome.
 
@@ -153,7 +153,7 @@ To solve this issue, we must use **cache invalidate**, which is to invalidate th
 
 > The **cache block** that is **invalidated** might not contain only the data in the `DestinationBuffer`, it may contain some other variables which might not be **reflected** to the DDR memory yet. Invalidating these variables means that we are losing their value!
 
-To solve this issue, during the send data cache flush, we must also **flush** the cache block containing the `DestinationBuffer` address range so that the changes to other variables can be **reflected** to the DDR memory.
+To solve this issue, during the [send data cache flush](https://wenbo-notes.gitbook.io/ee4218-hsd-notes/lab/lab-03-integrating-the-coprocessor#send-data-2), we must also **flush** the cache block containing the `DestinationBuffer` address range so that the changes to other variables can be **reflected** to the DDR memory.
 {% endstep %}
 {% endstepper %}
 
