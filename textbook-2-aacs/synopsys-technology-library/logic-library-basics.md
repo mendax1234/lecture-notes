@@ -190,7 +190,7 @@ The **capacitance**, **resistance** and **area** factors represent the wire **re
 
 {% code overflow="wrap" lineNumbers="true" %}
 ```verilog
-fanout_length(<num_of_fanout>, <length>
+fanout_length(<num_of_fanout>, <length>)
 ```
 {% endcode %}
 

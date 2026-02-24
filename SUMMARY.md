@@ -38,3 +38,7 @@
   * [Technology Libraries](textbook-2-aacs/synopsys-technology-library/technology-libraries.md)
   * [Logic Library Basics](textbook-2-aacs/synopsys-technology-library/logic-library-basics.md)
   * [Delay Calculation](textbook-2-aacs/synopsys-technology-library/delay-calculation.md)
+* [Partitioning and Coding Styles](textbook-2-aacs/partitioning-and-coding-styles/README.md)
+  * [Partitioning for Synthesis](textbook-2-aacs/partitioning-and-coding-styles/partitioning-for-synthesis.md)
+* [Constraining Designs](textbook-2-aacs/constraining-designs/README.md)
+  * [Environment and Constraints](textbook-2-aacs/constraining-designs/environment-and-constraints.md)
