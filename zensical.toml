@@ -1,0 +1,146 @@
+# ==============================================================================
+# 1. SITE METADATA
+# ==============================================================================
+[project]
+site_name = "NUS CEG Lecture Notes"
+site_description = "A survival guide for NUS Computer Engineering students, aiming to provide comprehensive resources for each course."
+site_author = "Wenbo Daniel Zhu"
+copyright = "Copyright &copy; 2026 Wenbo Daniel Zhu"
+
+# ---- Navigation Structure ----
+nav = [
+    { "Home" = "index.md" },
+    { "Year 1" = [
+        "year-1/index.md",
+        { "Semester 1" = [
+            "year-1/sem-1/index.md",
+            { "CS1010 Programming Methodology" = "year-1/sem-1/CS1010.md" },
+            { "CG1111A Engineering Principles and Practice I" = "year-1/sem-1/CG1111A.md" },
+            { "MA1511 Engineering Calculus" = "year-1/sem-1/MA1511.md" },
+            { "MA1512 Differential Equations for Engineering" = "year-1/sem-1/MA1512.md" },
+            { "EG1311 Design and Make" = "year-1/sem-1/EG1311.md" },
+            { "LAF1201 French I" = "year-1/sem-1/LAF1201.md" },
+        ] },
+        { "Semester 2" = [
+            "year-1/sem-2/index.md",
+            { "CG2111A Engineering Principles and Practice II" = "year-1/sem-2/CG2111A.md" },
+            { "CS2030S Programming Methodology II" = "year-1/sem-2/CS2030S.md" },
+            { "DTK1234 Design Thinking" = "year-1/sem-2/DTK1234.md" },
+            { "PF1101 Fundamentals of Project Management" = "year-1/sem-2/PF1101.md" },
+            { "GEA1000 Quantitative Reasoning for Data" = "year-1/sem-2/GEA1000.md" },
+            { "LAF2201 French 2" = "year-1/sem-2/LAF2201.md" },
+        ] },
+    ] },
+    { "Year 2" = [
+        "year-2/index.md",
+        { "Semester 1" = [
+            "year-2/sem-1/index.md",
+            { "CG3207 Computer Architecture" = "year-2/sem-1/CG3207.md" },
+            { "CG2027 Transistor-Level Digital Circuits" = "year-2/sem-1/CG2027.md" },
+            { "CS2113 Software Engineering and Object-Oriented Programming" = "year-2/sem-1/CS2113.md" },
+            { "LAF3202 French 4" = "year-2/sem-1/LAF3202.md" },
+            { "ES2631 Critical Thinking and Writing of Thinking and Design" = "year-2/sem-1/ES2631.md" },
+        ] },
+    ] },
+]
+
+# site_url = "https://..."
+# repo_name = "mendax1234/lecture-notes"
+# repo_url = "https://github.com/..."
+
+# ==============================================================================
+# 2. THEME & UI CONFIGURATION
+# ==============================================================================
+[project.theme]
+language = "en"
+custom_dir = "overrides"
+# favicon = "assets/favicon.png"
+# logo = "assets/logo.png"
+
+# --- Feature Flags ---
+features = [
+    "announce.dismiss",
+    "content.code.annotate",
+    "content.code.copy",
+    "content.code.select",
+    "content.footnote.tooltips",
+    "content.tabs.link",
+    "content.tooltips",
+    "navigation.tabs",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.instant",
+    "navigation.instant.preview",
+    "navigation.path",
+    "navigation.sections",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+]
+
+# ==============================================================================
+# 3. COLOR PALETTE (System / Light / Dark)
+# ==============================================================================
+# System Preference
+[[project.theme.palette]]
+media = "(prefers-color-scheme)"
+toggle.icon = "lucide/sun-moon"
+toggle.name = "Switch to light mode"
+
+# Light Mode
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+# Dark Mode
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to system preference"
+
+# ==============================================================================
+# 4. PLUGINS, EXTENSIONS, & ASSETS
+# ==============================================================================
+# extra_css = []
+
+# ---- Extra JavaScript ----
+extra_javascript = [
+    "javascripts/mathjax.js",
+    "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"
+]
+
+# plugins = []
+# ---- Markdown Extensions ----
+[project.markdown_extensions.abbr]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.def_list]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.toc]
+permalink = true
+toc_depth = 3
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+[project.markdown_extensions.pymdownx.betterem]
+smart_enable = "all"
+[project.markdown_extensions.pymdownx.caret]
+[project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.emoji]
+emoji_generator = "zensical.extensions.emoji.to_svg"
+emoji_index = "zensical.extensions.emoji.twemoji"
+[project.markdown_extensions.pymdownx.highlight]
+[project.markdown_extensions.pymdownx.inlinehilite]
+[project.markdown_extensions.pymdownx.keys]
+[project.markdown_extensions.pymdownx.mark]
+[project.markdown_extensions.pymdownx.smartsymbols]
+[project.markdown_extensions.pymdownx.superfences]
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+[project.markdown_extensions.pymdownx.tilde]
+[project.markdown_extensions.pymdownx.snippets]

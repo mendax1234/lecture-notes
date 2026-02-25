@@ -1,4 +1,4 @@
-# 0x00: The Core Dump
+# NUS CEG Lecture Notes
 
 !!! abstract "System Context"
     **Status:** `RUNNING`  
