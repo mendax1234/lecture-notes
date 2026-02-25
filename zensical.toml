@@ -66,6 +66,7 @@ features = [
     "content.footnote.tooltips",
     "content.tabs.link",
     "content.tooltips",
+    "content.action.edit",
     "navigation.tabs",
     "navigation.footer",
     "navigation.indexes",
