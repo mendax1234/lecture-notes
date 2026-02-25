@@ -6,6 +6,10 @@ site_name = "NUS CEG Lecture Notes"
 site_description = "A survival guide for NUS Computer Engineering students, aiming to provide comprehensive resources for each course."
 site_author = "Wenbo Daniel Zhu"
 copyright = "Copyright &copy; 2026 Wenbo Daniel Zhu"
+site_url = "https://mendax1234.github.io/lecture-notes/"
+repo_name = "mendax1234/lecture-notes"
+repo_url = "https://github.com/mendax1234/lecture-notes"
+edit_uri = "edit/main/docs/"
 
 # ---- Navigation Structure ----
 nav = [
@@ -43,10 +47,6 @@ nav = [
         ] },
     ] },
 ]
-
-# site_url = "https://..."
-# repo_name = "mendax1234/lecture-notes"
-# repo_url = "https://github.com/..."
 
 # ==============================================================================
 # 2. THEME & UI CONFIGURATION
