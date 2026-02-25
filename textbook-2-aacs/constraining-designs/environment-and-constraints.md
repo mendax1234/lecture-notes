@@ -312,3 +312,28 @@ For instance, by using the above command, you can filter out the flip-flops in y
 set_dont_use [list mylib/SDFF* mylib/RSFF*]
 ```
 {% endcode %}
+
+### `set_input_delay`
+
+This command specifies the **input arrival time** of a signal in relation to the clock. It is used at the **input ports**, to specify the time it takes for the data to be stable after the clock edge. The timing specification of the design usually contains this information, as the setup/hold time requirements for input signals.
+
+{% hint style="warning" %}
+Given the top-level timing specification of the design, this information may also be extracted for the sub-blocks of the design, by utilizing the top-down characterize compile method or the design budgeting method, explained in the next chapter.
+{% endhint %}
+
+For example,
+
+{% code lineNumbers="true" %}
+```tcl
+set_input_delay -max 23.0 -clock CLK {datain}
+set_input_delay -min 0.0 -clock CLK {datain}
+```
+{% endcode %}
+
+In Figure 6-3, the maximum input delay constraint of 23ns and the minimum input delay constraint of 0ns is specified for the signal datain with respect to the clock signal `CLK`, with a 50% duty cycle and a period of 30ns. In other words the **setup-time requirement** for the input signal datain is 7ns, while the **hold-time requirement** is 0ns.
+
+<figure><img src="../../.gitbook/assets/input-delay-example.png" alt=""><figcaption><p>Figure 6-3. Specification of Input Delay</p></figcaption></figure>
+
+{% hint style="warning" %}
+If both `-min` and `-max` options are omitted, the **same** value is used for both the maximum and minimum input delay specifications.
+{% endhint %}
