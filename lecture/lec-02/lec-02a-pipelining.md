@@ -8,10 +8,14 @@ We have seen pipelining in [NUS CG3207](https://app.gitbook.com/s/jTJFBPtKk6Nwwe
 
 The core idea of pipelining is:
 
-> to reduce the clock cycle time ($$T_{CK}$$), we reduce the combinational delay between registers by splitting the logic, which is equivalent to reducing the **critical path.**
+> to reduce the clock cycle time ($$T_{\text{CK}}$$), we reduce the combinational delay between registers by splitting the logic, which is equivalent to reducing the **critical path.**
 
 * **Throughput**: Increases because multiple stages process data simultaneously (parallelism).
-* **Latency**: Worsens (increases) due to the added delay of the inserted registers.
+* **Latency (clock cycles)**: Worsens (increases) due to the added delay of the inserted registers.
+
+{% hint style="warning" %}
+You will see a more detailed version of the throughput and latency change in the [#performance-analysis](lec-02a-pipelining.md#performance-analysis "mention").
+{% endhint %}
 
 <figure><img src="../../.gitbook/assets/pipeline-example.png" alt=""><figcaption></figcaption></figure>
 
@@ -86,7 +90,7 @@ Therefore, when we say we are "improving throughput" in pipelining, we are doing
 
 > **Latency** is the _time/clock cycles_ required to complete a **single** computation from the moment inputs arrive until the final output is valid.
 
-If we divide our system into n stages, then one operation will take $$n$$ stages to complete, thus,
+If we divide our system into $$n$$ stages, then one operation will take $$n$$ stages to complete, thus,
 
 $$
 \text{LAT}_{\text{pipe}} = n \cdot T_{\text{pipe}} = \tau_{COMB} + n \cdot t_{OH}
@@ -119,7 +123,7 @@ $$
 \frac{\text{LAT}_{\text{pipe}}}{\text{LAT}} \approx 1 + (n-1)\frac{t_{\text{OH}}}{\tau_{\text{COMB}}}
 $$
 
-From this equation, we can only tell that In terms of **time**, latency increases linearly with the pipeline stages $$n$$.
+From this equation, we can only tell that in terms of **time**, latency increases linearly with the pipeline stages $$n$$.
 
 Using the method we've seen in Lec 01b, in terms of **clock cycles**, latency increases by $$(n-1)$$ because we add $$n-1$$ registers to our design.
 

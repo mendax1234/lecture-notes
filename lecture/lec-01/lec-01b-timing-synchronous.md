@@ -415,6 +415,10 @@ From this grouping, we can see that
 {% endtab %}
 {% endtabs %}
 
+{% hint style="success" %}
+The setup time constraint / max-delay constraint **can** be fixed by increasing $$T_{\text{CK}}$$.
+{% endhint %}
+
 #### Min-Delay Constraint
 
 {% tabs %}
@@ -458,6 +462,10 @@ So, we know for sure that
 * **Negative** deterministic skew can **improve** the robustness.
 {% endtab %}
 {% endtabs %}
+
+{% hint style="warning" %}
+The hold time constraint / min-delay constraint **cannot** be fixed by increasing $$T_{\text{CK}}$$.
+{% endhint %}
 
 ### Intentional Skew
 
@@ -535,10 +543,10 @@ As we have talked about [#sequencing-in-synchronous-systems](lec-01b-timing-sync
 
 > timing constraints <-> conditions for correct sequencing
 
-| Sequencing                        | Meaning                                                    | Timing Constraint                                                                     |
-| --------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| data moves by **one**             | COMB must complete computation within one cycle            | [#max-delay-constraint](lec-01b-timing-synchronous.md#max-delay-constraint "mention") |
-| and **only one** stage each cycle | input of REG 1 does not affect output of REG2 at one event | [#min-delay-constraint](lec-01b-timing-synchronous.md#min-delay-constraint "mention") |
+| Sequencing                        | Meaning                                                            | Timing Constraint                                                                     |
+| --------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------- |
+| data moves by **one**             | The combinational logic must complete computation within one cycle | [#max-delay-constraint](lec-01b-timing-synchronous.md#max-delay-constraint "mention") |
+| and **only one** stage each cycle | The input of REG1 does not affect the output of REG2 at one event  | [#min-delay-constraint](lec-01b-timing-synchronous.md#min-delay-constraint "mention") |
 
 </details>
 
@@ -623,7 +631,7 @@ Real systems consist of multiple blocks chained together. To find the maximum pe
 
 However, the data rate may expand or compress at each stage, so we cannot directly compare the raw speeds of Block 1 and Block 2. Instead, we must normalize all blocks to a common metric: the **output-referred data rate**. That is, for each block, we ask:
 
-> if this block operates at its maximum speed, what data rate would that correspond to at the final output of the chain?
+> if this block operates at its maximum speed, what data rate would that correspond to at the **final output** of the chain?
 
 {% stepper %}
 {% step %}
@@ -663,13 +671,13 @@ In a perfect design, no block should be faster than necessary. If Block 2 is 10x
 {% step %}
 #### The Goal
 
-Every term inside the min() function should be equal.
+Every term inside the $$\min()$$ function should be equal.
 {% endstep %}
 
 {% step %}
 #### The Math
 
-Ideally, the max speed of any specific block i ($$\max\text{DR}_{\text{out,i}}$$) should be exactly:
+Ideally, the max speed of any specific block $$i$$ ($$\max\text{DR}_{\text{out,i}}$$) should be exactly:
 
 $$
 \max\text{DR}_{\text{out,i}} = \frac{\text{Target System Throughput}}{\prod_{j=i+1}^{N} X_j}
@@ -708,10 +716,10 @@ It is critical for real-time systems where a delay is unacceptable, such as auto
 Latency is the similar to the CPI (Clock cycles Per Instruction) we have learned in CG3207!
 {% endhint %}
 
-In Lec 02, when performing PPA analysis, we will encounter latency analysis again. Since latency can be expressed in two forms — clock cycles and absolute time — there are two corresponding methods to analyze it:
+In Lec 02, when performing PPA analysis, we will encounter latency analysis again. Since latency can be expressed in two forms — **clock cycles** and **absolute time** — there are two corresponding methods to analyze it:
 
-1. For latency measured in clock cycles, we simply count how many registers have been added, since each register introduces an additional pipeline stage and increases the latency by one clock cycle.
-2. For latency measured in absolute time, we need to use mathematical formulas to derive the relationship between the number of registers added and the resulting change in latency. This analysis takes into account both the clock period and the number of pipeline stages to determine the overall time delay.
+1. For latency measured in **clock cycles**, we simply count how many registers have been added, since each register introduces an additional pipeline stage and increases the latency by one clock cycle.
+2. For latency measured in **absolute time**, we need to use mathematical formulas to derive the relationship between the number of registers added and the resulting change in latency. This analysis takes into account both the clock period and the number of pipeline stages to determine the overall time delay.
 
 #### Throughput vs. Latency Relationship
 
@@ -749,7 +757,7 @@ According to [De Micheli](https://wenbo-notes.gitbook.io/ee4218-hsd-notes/textbo
 
 #### Calculating System Latency
 
-Unlike throughput (which is limited by the _slowest_ block), latency is additive. We must sum up the time spent in every block along the path.
+Unlike throughput (which is limited by the _slowest_ block), latency is **additive**. We must sum up the time spent in every block along the path.
 
 {% stepper %}
 {% step %}
@@ -757,7 +765,7 @@ Unlike throughput (which is limited by the _slowest_ block), latency is additive
 
 This is the time taken by a single block to finish its job.
 
-**The Worst-Case Rule**: If the latency is **data-dependent** (e.g., a multiplier takes longer for large numbers than small ones), we must use the Upper Bound ($$\max(\text{LAT}_i)$$) to guarantee timing correctness.
+**The Worst-Case Rule**: If the latency is **data-dependent** (e.g., a multiplier takes longer for large numbers than small ones), we must use the **Upper Bound** ($$\max(\text{LAT}_i)$$) to guarantee timing correctness.
 {% endstep %}
 
 {% step %}
@@ -771,15 +779,15 @@ $$
 \text{Total Latency} \le \sum_{i=1}^{N} (\text{\#execution}_i \cdot \max(\text{LAT}_i))
 $$
 
-* $$\text{\#execution}_i$$: The number of times Block i is executed to complete _one_ full system computation.
-* $$\max(\text{LAT}_i)$$: The worst-case latency of Block i.
+* $$\text{\#execution}_i$$: The number of times Block $$i$$ is executed to complete _one_ full system computation.
+* $$\max(\text{LAT}_i)$$: The worst-case latency of Block $$i$$.
 {% endstep %}
 {% endstepper %}
 
 ### Case Study: AlexNet CNN
 
 {% hint style="danger" %}
-Based on my seniors saying, this part won't appear in midterms or finals. It's just a FYI thing. Will see if this still holds in AY25/26 Sem2's EE4415 🤣.
+Based on my senior's saying, this part won't appear in midterms. It's just a FYI thing. Will see if this still holds in AY25/26 Sem2's EE4415 midterm 🤣.
 {% endhint %}
 
 To understand how throughput and latency principles apply to real-world hardware, we analyze the **AlexNet Convolutional Neural Network (CNN)**. This example demonstrates how data expansion/compression ($$X$$) and computational intensity vary dramatically across different stages of a system.
