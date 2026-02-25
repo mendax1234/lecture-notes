@@ -1,6 +1,6 @@
 # Lecture Notes (Source)
 
-[![Build Status](https://github.com/mendax1234/lecture-notes/actions/workflows/ci.yml/badge.svg)](https://github.com/mendax1234/lecture-notes/actions)
+[![Build Status](https://github.com/mendax1234/lecture-notes/actions/workflows/docs.yml/badge.svg)](https://github.com/mendax1234/lecture-notes/actions)
 [![Live Site](https://img.shields.io/badge/Status-Online-success)](https://mendax1234.github.io/lecture-notes/)
 
 > **Looking for the notes?** > Access the rendered site here: **[The Core Dump](https://mendax1234.github.io/lecture-notes/)**
