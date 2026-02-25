@@ -21,7 +21,7 @@ The next step is to describe the **design environment**. This procedure entails 
 The command allows users to simultaneously specify the **worst-case** and the **best-case** libraries. This may be useful during initial compiles, preventing DC from violating the setup-time violations while fixing the hold-time violations.
 
 {% code lineNumbers="true" %}
-```bash
+```tcl
 set_min_library <max library filename> –min_version <min library filename>
 ```
 {% endcode %}
@@ -29,7 +29,7 @@ set_min_library <max library filename> –min_version <min library filename>
 For example,
 
 {% code lineNumbers="true" %}
-```bash
+```tcl
 set_min_library "ex25_worst.db" –min_version "ex25_best.db"
 ```
 {% endcode %}
@@ -55,7 +55,7 @@ By changing the value of the operating condition command, full ranges of process
 * The TYPICAL case is mostly ignored, since analysis at WORST and BEST case also covers the TYPICAL case.
 
 {% code lineNumbers="true" %}
-```bash
+```tcl
 set_operating_conditions <name of operating conditions>
 ```
 {% endcode %}
@@ -63,7 +63,7 @@ set_operating_conditions <name of operating conditions>
 For example,
 
 {% code lineNumbers="true" %}
-```bash
+```tcl
 set_operating_conditions WORST
 ```
 {% endcode %}
@@ -74,7 +74,7 @@ set_operating_conditions WORST
 It is possible to optimize the design both with the WORST and the BEST case, simultaneously. The optimization is achieved by using the `-min` and `-max` options in the above command, as illustrated below. This is very useful for fixing the design for possible hold-time violations.
 
 {% code lineNumbers="true" %}
-```bash
+```tcl
 set_operating_conditions -min BEST -max WORST
 ```
 {% endcode %}
@@ -89,7 +89,7 @@ Generally, a number of wire-load models are present in the Synopsys technology l
 {% endhint %}
 
 {% code lineNumbers="true" %}
-```bash
+```tcl
 set_wire_load_model -name <wire-load model>
 ```
 {% endcode %}
@@ -97,7 +97,7 @@ set_wire_load_model -name <wire-load model>
 For example,
 
 {% code lineNumbers="true" %}
-```bash
+```tcl
  set_wire_load_model -name MEDIUM
 ```
 {% endcode %}
@@ -106,12 +106,12 @@ For example,
 
 This command defines the three modes associated for modeling wire loads. These are top, enclosed, and segmented.
 
-{% hint style="undefined" %}
+{% hint style="info" %}
 Generally, only the first two modes are in common use. The segmented wire load mode is not prevalent, since it relies on the wire-load models that are specific to the net segments.
 {% endhint %}
 
 {% code lineNumbers="true" %}
-```bash
+```tcl
 set_wire_load_mode < top | enclosed | segmented >
 ```
 {% endcode %}
@@ -119,7 +119,7 @@ set_wire_load_mode < top | enclosed | segmented >
 For example,
 
 {% code lineNumbers="true" %}
-```bash
+```tcl
 set_wire_load_mode top
 ```
 {% endcode %}
@@ -157,7 +157,7 @@ The value of 0 signifies highest drive strength and is commonly utilized for **c
 {% endhint %}
 
 {% code lineNumbers="true" %}
-```bash
+```tcl
 set_drive <value> <object list>
 ```
 {% endcode %}
@@ -165,7 +165,7 @@ set_drive <value> <object list>
 For example,
 
 {% code lineNumbers="true" %}
-```bash
+```tcl
 set_drive 0 {CLK RST}
 ```
 {% endcode %}
@@ -175,7 +175,7 @@ set_drive 0 {CLK RST}
 Conversely, `set_driving_cell` is used to model the **drive resistance** of the driving cell to the **input** ports. This command takes the name of the driving cell as its argument and applies all design rule constraints of the driving cell to the input ports of the block.
 
 {% code lineNumbers="true" %}
-```bash
+```tcl
 set_driving_cell -cell <cell name> -pin <pin name> <object list>
 ```
 {% endcode %}
@@ -183,7 +183,7 @@ set_driving_cell -cell <cell name> -pin <pin name> <object list>
 For example,
 
 {% code lineNumbers="true" %}
-```bash
+```tcl
 set_driving_cell -cell BUFF1 -pin X [all_inputs]
 ```
 {% endcode %}
@@ -193,7 +193,7 @@ set_driving_cell -cell BUFF1 -pin X [all_inputs]
 This command sets the **capacitive load** in the units defined in the technology library (usually pico farads, or pf), to the specified nets or ports of the design. It typically sets capacitive loading on **output** ports of the blocks during pre-layout synthesis, and on nets, for back-annotating the extracted post-layout capacitive information.
 
 {% code lineNumbers="true" %}
-```bash
+```tcl
 set_load <value> <object list>
 ```
 {% endcode %}
@@ -201,7 +201,7 @@ set_load <value> <object list>
 For example
 
 {% code lineNumbers="true" %}
-```bash
+```tcl
 set_load 1.5 [all_outputs]
 set_load 0.3 [get_nets blockA/n1234]
 ```
@@ -214,7 +214,7 @@ set_load 0.3 [get_nets blockA/n1234]
 The DRC commands can be applied to **input** ports, **output** ports or on the `current_design`. Furthermore, if the value set in the technology library is not adequate or is too optimistic, then these commands may also be used at the command line, to control the buffering in the design.
 
 {% code lineNumbers="true" %}
-```bash
+```tcl
 set_max_transition <value> <object list>
 set_max_capacitance <value> <object list>
 set_max_fanout <value> <object list>
@@ -224,9 +224,91 @@ set_max_fanout <value> <object list>
 For example,
 
 {% code lineNumbers="true" %}
-```bash
+```tcl
 set_max_transition 0.3 current_design
 set_max_capacitance 1.5 [get_ports out1]
 set_max_fanout 3.0 [all_outputs]
+```
+{% endcode %}
+
+## Design Constraints
+
+**Design constraints** describe the **goals** for the design. They may consist of **timing** or **area** constraints. Depending on how the design is constrained, DC tries to meet the set objectives. The basic commands to constrain a design are shown in Figure 6-2.
+
+<figure><img src="../../.gitbook/assets/design-constraint-for-synthesis.png" alt="" width="563"><figcaption><p>Figure 6-2. Design Constraints for Synthesis</p></figcaption></figure>
+
+### `creat_clock`
+
+The `create-clock` command is used to define a clock object with a **particular period** and **waveform**.
+
+* The `-period` option defines the **clock period**, while
+* the `-waveform` option controls the **duty cycle** and the starting edge of the clock.
+
+This command is applied to a pin or port, object types. For example,
+
+{% code lineNumbers="true" %}
+```tcl
+create_clock–period 40 –waveform [list 0 20] CLK
+```
+{% endcode %}
+
+The example above specifies that the port named `CLK` is of type "clock" that has a period of 40ns, with 50% duty cycle. The positive edge of the clock starts at time, 0 ns, with the falling edge occurring at 20 ns. By changing the falling edge value, the duty cycle of the clock may be altered.
+
+### `create_generated_clock`
+
+The `create_generated_clock` is used to describe **frequency divided/multiplied** clocks as a function of the **primary clock**.
+
+{% code lineNumbers="true" %}
+```tcl
+create_generated_clock -name <clock_name> \
+                       -source <clock_source> \
+                       -divide_by <factor> | -multiply_by <factor>
+                       ...
+```
+{% endcode %}
+
+### `set_dont_touch_network`
+
+This command is used to set a `dout_touch` property on a port, or on the net.
+
+{% hint style="warning" %}
+Note setting this property will also prevent DC from buffering the net, in order to meet DRCs.
+{% endhint %}
+
+For example,
+
+{% code lineNumbers="true" %}
+```tcl
+set_dont_touch_network {CLK, RST}
+```
+{% endcode %}
+
+### `set_dont_touch`
+
+This command is used to set a `dont_touch` property on the `current_design`, cells, references or nets. It can also be used for preventing DC from inferring certain types of cells present in the technology library.
+
+{% code lineNumbers="true" %}
+```tcl
+set_dont_touch current_design
+set_dont_touch [get_cells sub1]
+set_dont_touch [get_nets gated_rst]
+```
+{% endcode %}
+
+{% hint style="success" %}
+#### Helpful Ideas
+
+For example, this command may be used on the block containing spare gates. The command will then instruct DC not to disturb (or optimize) the instantiation of the spare gates block.
+{% endhint %}
+
+### `set_dont_use`
+
+This command is generally set in the `.synopsys_dc.setup` environment file. The command is instrumental in **eliminating certain types of cells** from the **technology library** that the user would not want DC to infer.
+
+For instance, by using the above command, you can filter out the flip-flops in your technology library whose name start with "SDFF" or "RSFF" as illustrated below.
+
+{% code lineNumbers="true" %}
+```tcl
+set_dont_use [list mylib/SDFF* mylib/RSFF*]
 ```
 {% endcode %}
