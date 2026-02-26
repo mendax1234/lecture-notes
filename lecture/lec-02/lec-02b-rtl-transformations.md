@@ -90,7 +90,7 @@ For any RTL transformation to be valid, it must preserve **Functionality**, but 
   * _Example:_ Adding pipeline registers increases "latency" (results arrive later) but improves frequency (clock runs faster). This is a legal transformation.
 
 {% hint style="warning" %}
-If we use the other definition of latency, which is **clock cycles** <i class="fa-xmark">:xmark:</i> **cycle-time**, we can find out that  the result will actually be smaller.
+If we use the other definition of latency, which is **clock cycles** <i class="fa-xmark">:xmark:</i> **cycle-time**, we can find out that the latency will actually be similar or smaller.
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/functionality-vs-latency.png" alt=""><figcaption></figcaption></figure>
@@ -122,7 +122,7 @@ All transformation algorithms (Retiming, parallelism, repipelining, unfolding, a
    1. This _no-stall_ assumption is achievable in AI accelerators. Unlike general-purpose microprocessors, AI accelerators operate on highly structured and predictable workloads, allowing data inputs and memory accesses to be carefully aligned at design time. As a result, pipeline hazards can be largely eliminated, avoiding the need for dynamic stalling.
 
 {% hint style="warning" %}
-Another explanation would be, in microcroprocessor, we consider more about **instructions** while in AI accelerators, we consider more about **data**.
+Another explanation would be that, in microcroprocessor, we consider more about **instructions** while in AI accelerators, we consider more about **data**.
 {% endhint %}
 {% endstep %}
 
@@ -168,7 +168,7 @@ Some data goes back to previous register.
 <figure><img src="../../.gitbook/assets/feedback-path.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
-According to [DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/latches-and-flip-flops#register), a N-bit register is a bank of N flip-flops. Thus, the pipeline register here can have several inputs.
+According to [DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/latches-and-flip-flops#register), an N-bit register is a bank of N flip-flops. Thus, the pipeline register here can have several inputs.
 {% endhint %}
 {% endstep %}
 {% endstepper %}
@@ -227,9 +227,9 @@ $$
 \text{LoopBound} = \frac{t_{loop}}{w_{loop}}
 $$
 
-* $$t_{loop}$$: The sum of all combinational logic delays in that specific loop (computation time).
-* $$w_{loop}$$: The number of delay elements (registers) in that specific loop.
-* The unit of loop bound is **seconds per pipeline stage**.
+* $$t_{loop}$$: The sum of all **combinational logic delays** in that specific loop (computation time).
+* $$w_{loop}$$: The number of **registers** in that specific loop.
+* The unit of loop bound is **"seconds per pipeline stage"**.
 
 {% hint style="success" %}
 The intuition behind the loop bound is that it [**highly likely**](#user-content-fn-2)[^2] indicates the critical path of the design, and therefore determines the maximum achievable clock frequency. In other words, in a design, the **loop part** will **highly likely** be the **bottleneck**.
@@ -255,7 +255,7 @@ T_{\infty} = \max_{\text{all loops}} \left( \frac{t_{loop}}{w_{loop}} \right)
 $$
 
 * It is the **maximum** of all loop bounds in the DFG.
-* If our target clock period $$T_{clk} < T_{\infty}$$, the design is impossible to implement without changing the algorithm itself.
+* If our target clock period $$T_{clk} < T_{\infty}$$, the design is **impossible** to implement without changing the algorithm itself.
 * Formula for Minimum Cycle Time ($$T_{CK}$$): $$T_{CK} = \tau_{COMB, max} + t_{OH} \approx \frac{t_{loop}}{w_{loop}}$$
   * Assuming $$t_{OH}$$ is **negligible**
 
@@ -266,7 +266,7 @@ $$
 Indeed, we can use the **loop unrolling** technique, which is techically a compiler technique which we have had a glimpse of in [CG3207](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-06-advanced-processor#loop-unrolling). This technique has also been practiced in the multiplier design in [Mach-V](https://mendax1234.github.io/Mach-V/uarch/mul-div-unit/#multiply-unit).
 
 {% hint style="success" %}
-Prof. Massimo used the example of loop unrolling — originally a compiler optimization technique — to emphasize a broader lesson about research. Meaningful research rarely belongs to a single discipline; instead, it draws strength from the ability to connect ideas across fields. Techniques we consider novel today may have existed in other domains decades earlier. This is why, as emphasized in the very first lecture, we must keep learning continuously — not only to advance our research, but also to remain intellectually adaptable and avoid being outperformed by AI.
+Prof. Massimo used the example of loop unrolling — originally a compiler optimization technique — to emphasize a broader lesson about research. Meaningful research rarely belongs to a single discipline; instead, it draws inspirations from the ability to connect ideas across fields. Techniques we consider novel today may have existed in other domains decades earlier. This is why, as emphasized in the very first lecture, we must keep learning continuously — not only to advance our research, but also to remain intellectually adaptable and avoid being outperformed by AI.
 {% endhint %}
 
 </details>
@@ -277,7 +277,7 @@ In Intel Itanium processor, the six loops limit the microprocessor's clock frequ
 
 <figure><img src="../../.gitbook/assets/iteration-bound-example.png" alt="" width="563"><figcaption></figcaption></figure>
 
-In each ALU, we can see there is a loop with one register. To calculate the iteration bound, we can use the extra information on the combinational delay give below:
+In each ALU, we can see that there is a loop with one register. To calculate the iteration bound, we can use the extra information on the combinational delay give below:
 
 <figure><img src="../../.gitbook/assets/iteration-bound-example-extra-info.png" alt=""><figcaption></figcaption></figure>
 
@@ -288,7 +288,7 @@ T_{\infty}=\text{loopbound}_{\text{loop}}=\frac{590+60+100+80+100+70+\textcolor{
 $$
 
 {% hint style="danger" %}
-If we have **multiple registers** appearing in the loop, let's say n. Then we need to add $$n \times t_{OH}$$ in our $$t_{loop}$$ term.
+If we have **multiple registers** appearing in the loop, let's say $$n$$. Then we need to add $$n \times t_{OH}$$ in our $$t_{loop}$$ term.
 {% endhint %}
 
 <details>
@@ -315,7 +315,7 @@ In this case, we can clearly see that
 The primary goal of **register insertion** is to add registers to a circuit to reduce the critical path (improve frequency) without altering the circuit's logical functionality.
 
 {% hint style="danger" %}
-**Trade-offs** of register insertion: In a **non-pipelined** design, adding registers increases latency (signals must cross more registers to reach the output) and area, but it is useful for RTL transformations like retiming.
+**Trade-offs** of register insertion: In a **non-pipelined** design, adding registers increases [latency in clock cycles](#user-content-fn-4)[^4] (signals must cross more registers to reach the output) and area, but it is useful for RTL transformations like retiming.
 {% endhint %}
 
 ### Cutset Insertion
@@ -330,7 +330,7 @@ To find the **cutset**, we can imagine drawing a closed "Gaussian surface" (a bu
 
 <figure><img src="../../.gitbook/assets/cut-set-example.png" alt="" width="563"><figcaption></figcaption></figure>
 
-Once **both of** the two red arrow is cut, no path exists between $$G_1$$ and $$G_2$$; they are completely mathematically independent.
+Once **both of** the two red arrow are cut, no path exists between $$G_1$$ and $$G_2$$; they are completely mathematically independent.
 
 <details>
 
@@ -346,7 +346,7 @@ The use of term _Gaussian surface_ may be confusing here, since it originates fr
    1. Edges with both endpoints inside the boundary -> ignore.
    2. Edges with both endpoints outside the boundary -> ignore.
    3. Edges crossing the boundary (one endpoint inside, one outside) -> **cutset edges**.
-   4. [The registers on the cutset edges](#user-content-fn-4)[^4] **shouldn't** be included in any one of the partition.
+   4. [The registers on the cutset edges](#user-content-fn-5)[^5] **shouldn't** be included in any one of the partition.
 4. **Check loops crossing**:
    1. In **register insertion,** the gaussian surface **cannot** cross the loop.
    2. In **retiming,** the gaussian surface **can** cross the loop.
@@ -367,12 +367,12 @@ Not all cutsets allow for safe register insertion. We must identify a **Feedforw
 
 #### Feedforward Cutset Register Insertion
 
-> The intuition behind this rule is that, once understood, it can be applied visually to any situation — no math and no calculatio is required.
+> The intuition behind this rule is that, once understood, it can be applied visually to any situation — no math and no calculation is required.
 
-The **feedforward cutset register insertion rule** indicates that we can insert $$k$$ cascaded registers into **every single edge** of a feedforward **cutset** without breaking the circuit's functionality. The result is that the logic remains valid, but the processing latency increases by $$k$$ clock cycles at that edge.
+The **feedforward cutset register insertion rule** indicates that we can insert $$k$$ cascaded registers into **every single edge** of a feedforward **cutset** without breaking the circuit's functionality. The result is that the logic remains valid, but the processing latency in clock cycles increases by $$k$$ clock cycles at that edge.
 
 {% hint style="danger" %}
-This rule never holds in a loop! It is only valid in a feedforward cutset!
+This rule never holds in a **loop**! It is only valid in a feedforward cutset!
 {% endhint %}
 
 <details>
@@ -403,7 +403,7 @@ Primary inputs and outputs are technically special cases of feedforward cutsets.
 
 <figure><img src="../../.gitbook/assets/feedforward-cutset-rule-observation-1.png" alt=""><figcaption></figcaption></figure>
 
-The reason for the validaty of doing so is that we can easily partition the [whole system](#user-content-fn-5)[^5] into **one group** and the inputs and outputs as **two separate groups**. Through this partitioning can we achieve two feedforward cutset so that we can do the insertion.
+The reason for the validaty of doing so is that we can easily partition the [whole system](#user-content-fn-6)[^6] into **one group** and the inputs and outputs as **two separate groups**. Through this partitioning can we achieve two feedforward cutset so that we can do the insertion.
 {% endstep %}
 
 {% step %}
@@ -439,13 +439,13 @@ As this cutset is not a feedforward cutset, it is **not valid** to add registers
 
 As discussed above, **register insertion is only valid across a feedforward cutset**. In other words, **registers cannot be inserted directly into a loop**, since doing so would alter the circuit’s behavior.
 
-To address this limitation, we use the **N-slowing technique**. The idea is to replace **every register in the entire system** with **N cascaded registers**.
+To address this limitation, we use the **N-slowing technique**. The idea is to replace **every register in the entire system** (including the registers in the loop) with **N cascaded registers**.
 
 <figure><img src="../../.gitbook/assets/n-slowing.png" alt=""><figcaption></figcaption></figure>
 
 This transformation is equivalent to replacing each original register with a **single register that has an N-cycle delay**. As a result:
 
-* The **I/O latency increases by a factor of N**, since signals must now pass through N additional registers.
+* The **I/O latency in clock cycle increases by a factor of N**, since signals must now pass through N additional registers.
 * The **functional behavior is preserved**, but observed at different clock cycles.
 * Equivalently, the system’s **time scale is dilated by a factor of N** ( $$x_{\text{N-slow}}(N\cdot i) = x(i)$$).
 
@@ -659,7 +659,7 @@ This is to convert the $$n$$ data outputs which are ready simultaneously into a 
 | Feature                                    | Shifted Clock Phases                     | SIPO / PISO Converters                                        |
 | ------------------------------------------ | ---------------------------------------- | ------------------------------------------------------------- |
 | Input Rate to **Replicas**                 | $$\frac{1}{T_{CK}}$$ (Sequential access) | $$\frac{1}{n\cdot T_{CK}}$$ (Block access)                    |
-| [Steering Latency](#user-content-fn-6)[^6] | 0 cycles (Immediate processing)          | $$n$$ cycles (Convert from serial to parallel and vice versa) |
+| [Steering Latency](#user-content-fn-7)[^7] | 0 cycles (Immediate processing)          | $$n$$ cycles (Convert from serial to parallel and vice versa) |
 
 {% hint style="warning" %}
 In shifted clock phase design, the **replicas** are the combinational part after each capturing regsiter. In the SIPO/PISO design, the **replica** is the MIMO block.
@@ -846,7 +846,7 @@ In this course, we will mainly introduce **cutset retiming**, while in EE4218, w
 Just a personal tip, **cutset retiming** is more powerful!
 {% endhint %}
 
-With the help of **cutset retiming**, we will see how they can be combined with other tools to perform the [**RTL Transformations**](lec-02b-rtl-transformations.md#rtl-transformation). These transformations can be used to practically move the register to a given microarchitecture (at iso-latency[^7] in terms of cycles), or even modifying the latency (by adding registers at the input or output and retime). Before that, let's see the assumptions and some math notations first.
+With the help of **cutset retiming**, we will see how they can be combined with other tools to perform the [**RTL Transformations**](lec-02b-rtl-transformations.md#rtl-transformation). These transformations can be used to practically move the register to a given microarchitecture (at iso-latency[^8] in terms of cycles), or even modifying the latency (by adding registers at the input or output and retime). Before that, let's see the assumptions and some math notations first.
 
 #### Assumptions
 
@@ -873,7 +873,7 @@ When moving registers, combinational operators at vertices through retiming cann
 
 #### Fundamental Transformation
 
-The core operation of retiming allows registers to be moved forward or backward across the inputs and outputs of an operator without changing the circuit's steady-state[^8] functional behavior.
+The core operation of retiming allows registers to be moved forward or backward across the inputs and outputs of an operator without changing the circuit's steady-state[^9] functional behavior.
 
 <figure><img src="../../.gitbook/assets/retiming-fundamental-transformation.png" alt=""><figcaption></figcaption></figure>
 
@@ -898,7 +898,7 @@ To algorithmically optimize a circuit, we define retiming mathematically using a
 {% step %}
 #### The Retiming Vector $$r(V)$$
 
-The "Retiming Vector" is an **integer** value assigned to every vertex $$V$$ in the graph. It tracks how many registers are moved across that vertex[^9].
+The "Retiming Vector" is an **integer** value assigned to every vertex $$V$$ in the graph. It tracks how many registers are moved across that vertex[^10].
 
 * **Definition:** $$r(V) = \# \text{ Registers moved backwards}$$.
 * **Directionality**:
@@ -923,7 +923,7 @@ The Intuition is:
 * Moving registers backwards across the destination $$V$$ adds registers to the input wire ($$+r(V)$$).
 * Moving registers backwards across the source $$U$$ removes registers from the output wire ($$-r(U)$$).
 
-So, the term $$r(V)-r(U)$$ denotes the number of **registers change** on the edge[^10] from $$U$$ to $$V$$
+So, the term $$r(V)-r(U)$$ denotes the number of **registers change** on the edge[^11] from $$U$$ to $$V$$
 {% endstep %}
 
 {% step %}
@@ -946,7 +946,7 @@ $$
 If this inequality holds for all edges, the retiming is legal.
 
 {% hint style="success" %}
-The intuition is that the [**decrease** ](#user-content-fn-11)[^11]of the number of **registers change** ($$r(V)-r(U)$$) cannot be larger the number of registers in the original edge.
+The intuition is that the [**decrease** ](#user-content-fn-12)[^12]of the number of **registers change** ($$r(V)-r(U)$$) cannot be larger the number of registers in the original edge.
 {% endhint %}
 {% endstep %}
 
@@ -1106,7 +1106,7 @@ We will now use these skills to start getting our hands "dirty"!
 
 ### Repipelining
 
-The first RTL Transformation technique that we will learn is **repipelining**. Repipelining is a technique to increase the clock frequency (performance) of a design by adding new pipeline stages, rather than just rearranging existing ones. It is equivalent to [**register insertion** at I/O + **retiming**](#user-content-fn-12)[^12].
+The first RTL Transformation technique that we will learn is **repipelining**. Repipelining is a technique to increase the clock frequency (performance) of a design by adding new pipeline stages, rather than just rearranging existing ones. It is equivalent to [**register insertion** at I/O + **retiming**](#user-content-fn-13)[^13].
 
 * **Goal**: Reduce the minimum clock cycle ($$T_{CK}$$) by breaking up long combinational paths.
 * **Trade-off**: Unlike standard retiming (which is iso-latency), repipelining increases the latency in clock cycles. The total time (in clock cycles) from Input to Output increases by $$k$$ cycles.
@@ -1446,7 +1446,7 @@ Execute the chosen transformation on the original RTL structure.
 
 ### Combining RTL Transformations
 
-**Normalization:** All metrics (Area, Throughput, Energy) are normalized to the [**Original RTL**](#user-content-fn-13)[^13] ($$=1$$).
+**Normalization:** All metrics (Area, Throughput, Energy) are normalized to the [**Original RTL**](#user-content-fn-14)[^14] ($$=1$$).
 
 <figure><img src="../../.gitbook/assets/combining-rtl-transformations.png" alt=""><figcaption></figcaption></figure>
 
@@ -1494,19 +1494,21 @@ When we do every RTL transformation problems, it is recommended to follow the th
 
 [^1]: We can think of a **multi-rate system** as one that operates with **more than one clock**, with different parts of the system running at different rates.
 
-[^2]: This is based on the assumption that we have already squeezed out the performance of the design by well balancing the non-loop components of the system.
+[^2]: This is based on the assumption that we have already squeezed out the performance of the design by **well balancing** the non-loop components of the system.
 
 [^3]: or equivalently speaking, the **maximum clock frequency**.
 
-[^4]: This is the **weight** of the cutset edge.
+[^4]: But for the actual latency, which is measured in **time**, adding registers and then well-balance the circuit usually will give similar or smaller latency.
 
-[^5]: the digital module in the figure above
+[^5]: This is the **weight** of the cutset edge.
 
-[^6]: This is the latency introduced to steer inputs to replicas.
+[^6]: the digital module in the figure above
 
-[^7]: This is because of the first property of retiming we mentioned above, which is to preserve the **I/O cycle-based** timing.
+[^7]: This is the latency introduced to steer inputs to replicas.
 
-[^8]: 
+[^8]: This is because of the first property of retiming we mentioned above, which is to preserve the **I/O cycle-based** timing.
+
+[^9]: 
 
     This means the same output at the end of the cycle. For example,
 
@@ -1515,12 +1517,12 @@ When we do every RTL transformation problems, it is recommended to follow the th
 
     Both approach will give us the same output.
 
-[^9]: same as saying that specific logic block.
+[^10]: same as saying that specific logic block.
 
-[^10]: Later we will generalize **edge** to **path**.
+[^11]: Later we will generalize **edge** to **path**.
 
-[^11]: It means that $$r(V)-r(U)$$ is **negative**, and $$r(U)-r(V)$$ is positive.
+[^12]: It means that $$r(V)-r(U)$$ is **negative**, and $$r(U)-r(V)$$ is positive.
 
-[^12]: You can do this even faster by just doing the feedforward cutset insertion. The only problem might be finding the correct cutset.
+[^13]: You can do this even faster by just doing the feedforward cutset insertion. The only problem might be finding the correct cutset.
 
-[^13]: Here, the original RTL can be any type, pipelined or non-pipelined. It doesn't matter.
+[^14]: Here, the original RTL can be any type, pipelined or non-pipelined. It doesn't matter.
