@@ -698,7 +698,7 @@ replicas → [REG REG REG ... REG] → [x0  x1  x2  ...]
 That is **n flip-flops**, one per lane. But architecturally, this is **one vector register**, or one **block register**. This block register is clocked at $$\frac{1}{n\cdot T_{CK}}$$. So delaying one block means delaying $$n\cdot T_{CK}$$.
 
 {% hint style="warning" %}
-The block register **cannot** be clocked at $$T_{CK}$$ because it needs to latch the block output, which is only ready after $$n\cdot T_{CK}$$. Being ready can be thought of as either
+The block register **cannot** be clocked at $$T_{CK}$$ because it needs to latch the block output, which is only ready after $$n\cdot T_{CK}$$. Being "ready" can be thought of as either
 
 * The input to the MIMO is only ready after $$n\cdot T_{CK}$$.
 * The output of the MIMO is only ready after $$n\cdot T_{CK}$$.
@@ -820,24 +820,24 @@ The PPA analysis summary of the **high-performance parallelism** using the **shi
 
 <table><thead><tr><th>Metric</th><th>Sequential (baseline)</th><th>n-stage Pipelined Design</th><th>High-Performance Parallel implemented by shifted clock phase</th><th data-hidden>Iso-Performance n-way Parallel</th></tr></thead><tbody><tr><td><strong>Throughput</strong></td><td>1</td><td><span class="math">\approx n</span></td><td><span class="math">\approx n</span></td><td><span class="math">1</span></td></tr><tr><td><strong>Latency (Time)</strong></td><td>1</td><td><span class="math">> 1</span> (slight increase due to overhead)</td><td><span class="math">> 1</span> (slight increase due to MUX overhead)</td><td><span class="math">\approx n</span> (takes <span class="math">n</span> times longer per operation)</td></tr><tr><td><strong>Latency (Cycles)</strong></td><td>1</td><td><span class="math">n</span></td><td><span class="math">n</span></td><td><span class="math">1</span></td></tr><tr><td><strong>Clock Frequency</strong></td><td><span class="math">f</span></td><td><span class="math">\approx n \cdot f</span></td><td><span class="math">\approx n\cdot f</span></td><td><span class="math">f / n</span></td></tr><tr><td><strong>Area</strong></td><td>1</td><td><span class="math">> 1</span> (linear growth due to registers)</td><td><span class="math">\approx n</span> (replicated datapath + MUX overhead)</td><td><span class="math">\approx n</span> (replicated datapath + MUX overhead)</td></tr><tr><td><strong>Energy per Operation</strong></td><td>1</td><td><span class="math">> 1</span> (linear growth due to registers)</td><td><span class="math">\approx 1</span> (slightly increases due to MUX/control)</td><td><span class="math">&#x3C;&#x3C; 1</span> (significant reduction via <span class="math">V_{dd}</span> scaling)</td></tr></tbody></table>
 
-From the table above, we can see that pipelining is equally effective at improving throughput but consumes **much less area** than parallelism. The core design rule is that:
+From the table above, we can see that pipelining is equally effective at improving throughput but consumes **much less area** than parallelism. So, the core design rule is that:
 
-> Always use parallelism only after pipelining has been fully utilized.
+> Always use **parallelism** only after **pipelining** has been fully utilized.
 
-However, pipelining has its own limitations
+However, **pipelining** has its own limitations
 
 * **I/O Limits**: Off-chip communication speeds cannot exceed a few GHz.
 * **Clock Issues**: Extremely small clock cycles cause issues with yield, clock skew, and jitter, requiring high energy costs to fix.
 * **Hazards**: Stalls and hazards in deep pipelines can negate performance benefits (except in DSPs where data flow is continuous).
-* **Latency**: Deep pipelining can increase latency beyond target requirements.
+* **Latency**: Deep pipelining can increase latency in clock cycles beyond target requirements.
 
 ## Retiming
 
 Retiming is a structural transformation that involves moving registers around combinational logic to achieve more **balanced** logic paths. This technique is particularly useful early in the design phase when logic depths are difficult to balance manually.
 
-* **Preserves Latency**: Unlike pipelining (register insertion), retiming preserves the I/O cycle-based timing (e.g., the number of cycles from each input to each output is kept the same).
+* **Preserves Latency**: Unlike pipelining (register insertion), retiming preserves the **I/O latency in clock cycles** (e.g., the number of cycles from each input to each output is kept the same).
 * **Optimization Goals**:
-  * **Reduce Clock Cycle**: By balancing the delay ($$\tau_{COMB}$$) between registers.
+  * **Reduce Clock Cycle**: By balancing the delay ($$\tau_{\text{COMB}}$$) between registers.
   * **Minimize Area**: By reducing the total count of registers required in the design. This can be done by brining the registers from the outputs of a vertice to its input or vice versa.
 
 In this course, we will mainly introduce **cutset retiming**, while in EE4218, we will see another technique which is **more maths-heavy**.
@@ -946,7 +946,7 @@ $$
 If this inequality holds for all edges, the retiming is legal.
 
 {% hint style="success" %}
-The intuition is that the [**decrease** ](#user-content-fn-12)[^12]of the number of **registers change** ($$r(V)-r(U)$$) cannot be larger the number of registers in the original edge.
+The intuition is that the [**decrease** ](#user-content-fn-12)[^12]of the number of **registers change** ($$r(V)-r(U)$$) cannot be larger than the number of registers in the original edge.
 {% endhint %}
 {% endstep %}
 
@@ -1033,7 +1033,7 @@ Cutset retiming doesn't need the cutset to be **feedforward** because we are not
 
 #### The Transformation Rules
 
-Since we apply $$r(V)=k,\forall~V\in G_2$$, we can divide into the following two cases based on the **positivity** of $$k$$.
+Since we apply $$r(V)=k,\forall~V\in G_2$$, we can get the following two cases based on the **positivity** of $$k$$.
 
 {% stepper %}
 {% step %}
@@ -1109,7 +1109,7 @@ We will now use these skills to start getting our hands "dirty"!
 The first RTL Transformation technique that we will learn is **repipelining**. Repipelining is a technique to increase the clock frequency (performance) of a design by adding new pipeline stages, rather than just rearranging existing ones. It is equivalent to [**register insertion** at I/O + **retiming**](#user-content-fn-13)[^13].
 
 * **Goal**: Reduce the minimum clock cycle ($$T_{CK}$$) by breaking up long combinational paths.
-* **Trade-off**: Unlike standard retiming (which is iso-latency), repipelining increases the latency in clock cycles. The total time (in clock cycles) from Input to Output increases by $$k$$ cycles.
+* **Trade-off**: Unlike standard retiming (which is iso-latency), repipelining increases the latency in clock cycles. The total latency (in clock cycles) from Input to Output increases by $$k$$ cycles.
 
 #### Graph Theory View
 
@@ -1205,7 +1205,7 @@ Time interleaving is a technique to process $$N$$ independent data streams on a 
 **Step 1**: $$N$$**-Slowing**
 
 * Replace every single register in the original design with $$N$$ **cascaded registers**.
-* Result: This creates an "$$N$$-slow" version of the circuit. The system now takes $$N$$ clock cycles to do what the original did in 1 cycle (time dilation).
+* Result: This creates an "$$N$$-slow" version of the circuit. The system now takes $$N$$ clock cycles to do what the original system did in 1 cycle (time dilation).
 
 **Step 2: Retiming**
 
@@ -1466,7 +1466,7 @@ Assumptions we have made:
 
 ### Tips for RTL Transformations
 
-These tips are based on the tutorial questions done during the last lecture of EE4415
+These tips are based on the tutorial questions done during the last lecture of EE4415.
 
 #### Input/Output modeling
 
@@ -1474,7 +1474,7 @@ In a DFG given in this course (EE4218 might have a different version of DFG), we
 
 <figure><img src="../../.gitbook/assets/rtl-transformation-tip-1.png" alt=""><figcaption></figcaption></figure>
 
-For exampl, in the DFG above, when looking at this problem, our first thing is to draw <mark style="color:blue;">**two registers**</mark> at the input and output.
+For example, in the DFG above, when looking at this problem, our first thing is to draw <mark style="color:blue;">**two registers**</mark> at the input and output.
 
 {% hint style="danger" %}
 #### Input and Output registers in N-slowing
@@ -1487,7 +1487,7 @@ In N-slowing, the registers at the input and output should **each** be replaced 
 When we do every RTL transformation problems, it is recommended to follow the three steps as follows,
 
 1. Check the **iteration bound** to see if it is possible to reach the specification set in the problem.
-2. **Know** where to put extra registers to achieve that specification
+2. **Know** where to put extra registers on our critical path to achieve that specification
    1. If these extra registers are put **in a loop**, we know for sure that **only retiming** can be done in the loop.
    2. This step is also known as **transforming** our **critical path** and it will give us some hint on what registers to move during the RTL transformations.
 3. Do the RTL Transformation.
