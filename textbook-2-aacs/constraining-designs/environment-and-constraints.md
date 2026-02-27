@@ -330,10 +330,166 @@ set_input_delay -min 0.0 -clock CLK {datain}
 ```
 {% endcode %}
 
-In Figure 6-3, the maximum input delay constraint of 23ns and the minimum input delay constraint of 0ns is specified for the signal datain with respect to the clock signal `CLK`, with a 50% duty cycle and a period of 30ns. In other words the **setup-time requirement** for the input signal datain is 7ns, while the **hold-time requirement** is 0ns.
+In Figure 6-3, the maximum input delay constraint of 23ns and the minimum input delay constraint of 0ns is specified for the signal `datain` with respect to the clock signal `CLK`, with a 50% duty cycle and a period of 30ns.
 
 <figure><img src="../../.gitbook/assets/input-delay-example.png" alt=""><figcaption><p>Figure 6-3. Specification of Input Delay</p></figcaption></figure>
 
 {% hint style="warning" %}
 If both `-min` and `-max` options are omitted, the **same** value is used for both the maximum and minimum input delay specifications.
+{% endhint %}
+
+#### Setup Timing Report
+
+Below is a **setup timing report** generated using Synopsys's PT.
+
+{% code lineNumbers="true" %}
+```
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : PRGRM_CNT
+Version: P-2019.03-SP4
+Date   : Mon Feb 23 13:54:35 2026
+****************************************
+
+Operating Conditions: tt1p05v125c   Library: saed32rvt_tt1p05v125c
+Wire Load Model Mode: enclosed
+
+  Startpoint: Reset (input port clocked by Clk)
+  Endpoint: PC_reg[0] (rising edge-triggered flip-flop clocked by Clk)
+  Path Group: Clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  PRGRM_CNT          ForQA                 saed32rvt_tt1p05v125c
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock Clk (rise edge)                    0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  input external delay                     1.00       1.00 f
+  Reset (in)                               0.01       1.01 f
+  U33/Y (INVX1_RVT)                        0.04       1.04 r
+  U27/Y (NAND4X0_RVT)                      0.07       1.11 f
+  U29/Y (INVX1_RVT)                        0.07       1.18 r
+  U24/Y (AO22X1_RVT)                       0.06       1.25 r
+  U23/Y (AO221X1_RVT)                      0.06       1.31 r
+  PC_reg[0]/D (DFFX1_RVT)                  0.01       1.32 r
+  data arrival time                                   1.32
+
+  clock Clk (rise edge)                    1.50       1.50
+  clock network delay (ideal)              0.00       1.50
+  clock uncertainty                       -0.10       1.40
+  PC_reg[0]/CLK (DFFX1_RVT)                0.00       1.40 r
+  library setup time                      -0.03       1.37
+  data required time                                  1.37
+  -----------------------------------------------------------
+  data required time                                  1.37
+  data arrival time                                  -1.32
+  -----------------------------------------------------------
+  slack (MET)                                         0.05
+```
+{% endcode %}
+
+To generate this file, we have the following command in our `constraints.tcl`, where `$all_in_ex_clk` is just a symbol used to represent all the signals except the `Clk`.
+
+{% code lineNumbers="true" %}
+```tcl
+set_input_delay -max 1 -clock Clk $all_in_ex_clk
+```
+{% endcode %}
+
+Now we can look at this report from two perspectives:
+
+{% stepper %}
+{% step %}
+#### Data Arrival Time
+
+As its name suggested, this it the **actual** time that the data arrives. It is calculated starting from the "input external delay" row as we have said that our input will arrive **maximumly** 1ns after the clocking edge. Then we add all the **combinational delay** and get the final data required time, which is 1.32ns.
+{% endstep %}
+
+{% step %}
+#### Data Required Time
+
+This is the time **required** for the data to arrive. In other words, the **data arrival time cannot be later than the data required time**, otherwise, we say that a timing violation happens! This value is started from the clock period and then minus the **clock uncertainty** value, and then minus the **library setup time**, which is the **real setup time** of a register/flip-flop.
+{% endstep %}
+{% endstepper %}
+
+{% hint style="success" %}
+In the **setup timing report**, the botton line is that **data arrival time** must be **smaller** than the data required time.
+{% endhint %}
+
+#### Hold Timing Report
+
+Similarly, below is a **hold timing report** generated using Synopsys's PT.
+
+{% code lineNumbers="true" %}
+```
+****************************************
+Report : timing
+        -path full
+        -delay min
+        -max_paths 1
+Design : PRGRM_CNT
+Version: P-2019.03-SP4
+Date   : Wed Feb 25 11:18:40 2026
+****************************************
+
+Operating Conditions: tt1p05v125c   Library: saed32rvt_tt1p05v125c
+Wire Load Model Mode: enclosed
+
+  Startpoint: PC_reg[1] (rising edge-triggered flip-flop clocked by Clk)
+  Endpoint: PC_reg[1] (rising edge-triggered flip-flop clocked by Clk)
+  Path Group: Clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  PRGRM_CNT          ForQA                 saed32rvt_tt1p05v125c
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock Clk (rise edge)                    0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  PC_reg[1]/CLK (DFFX1_RVT)                0.00       0.00 r
+  PC_reg[1]/Q (DFFX1_RVT)                  0.11       0.11 r
+  U21/Y (AO221X1_RVT)                      0.07       0.17 r
+  PC_reg[1]/D (DFFX1_RVT)                  0.01       0.19 r
+  data arrival time                                   0.19
+
+  clock Clk (rise edge)                    0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  clock uncertainty                        0.10       0.10
+  PC_reg[1]/CLK (DFFX1_RVT)                0.00       0.10 r
+  library hold time                       -0.01       0.09
+  data required time                                  0.09
+  -----------------------------------------------------------
+  data required time                                  0.09
+  data arrival time                                  -0.19
+  -----------------------------------------------------------
+  slack (MET)                                         0.10
+```
+{% endcode %}
+
+This timing report can also be seen from two perspectives:
+
+{% stepper %}
+{% step %}
+#### Data Arrival Time
+
+As we didn't set the `-min` input delay, so it's 0 here. To get this data arrival time, we start from the **contamination delay** of the combinational logic, and in this case, it is 0.19ns. So, our data arrival time is 0.19ns.
+{% endstep %}
+
+{% step %}
+#### Data Required Time
+
+To get the data required time, we start with the clock uncertainty, and the **worst-case** scenario is that this clock uncertainty will **add up to** our equivalent hold time. So, we add 0.10ns first. Then we add the **library hold time**, which represents the register's **hold time** information. In this case, it is -0.01ns, meaning that the hold time for our register is negative! So, at the end, our data arrival time is 0.09ns.
+{% endstep %}
+{% endstepper %}
+
+{% hint style="success" %}
+In the **setup timing report**, the bottom line is that the **data arrival time** must be **greater** than the **data required time**.
 {% endhint %}
