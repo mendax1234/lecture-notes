@@ -487,6 +487,10 @@ As we didn't set the `-min` input delay, so it's 0 here. To get this data arriva
 #### Data Required Time
 
 To get the data required time, we start with the clock uncertainty, and the **worst-case** scenario is that this clock uncertainty will **add up to** our equivalent hold time. So, we add 0.10ns first. Then we add the **library hold time**, which represents the register's **hold time** information. In this case, it is -0.01ns, meaning that the hold time for our register is negative! So, at the end, our data arrival time is 0.09ns.
+
+{% hint style="warning" %}
+The register's **hold time** can be **negative**, meaning that the input data can safely change **before** the active clock edge.
+{% endhint %}
 {% endstep %}
 {% endstepper %}
 
