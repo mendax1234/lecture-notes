@@ -15,6 +15,10 @@
   * [Lec 03b - Verilog Fundamentals](lecture/lec-03/lec-03b-verilog-fundamentals.md)
 * [Lec 04 - Automated Synthesis](lecture/lec-04-automated-synthesis.md)
 
+## Exam
+
+* [Midterm Review](exam/midterm-review.md)
+
 ## Textbook 1: DICADP
 
 * [Introduction](textbook-1-dicadp/introduction.md)
