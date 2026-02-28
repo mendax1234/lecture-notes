@@ -22,4 +22,7 @@ In this part, I will cover some problems in the problem sets provide by Prof. Ma
 2. For register insertion, we can only do **feedforward cutset register insertion**.
 3. When the questions says **pipelining**, we can use **feedforward cutset register insertion**. When it says **retiming**, we can use **retiming**!
 
-> TODO: Pipelining can we use time interleaving? The registers at input/output can move during the retiming?
+> TODO:
+>
+> 1. Pipelining can we use time interleaving? The registers at input/output can move during the retiming?
+> 2. Do the [DICADP question](../textbook-1-dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective.md#example-propagation-and-contamination-delay-estimation) on the false path and the skew! Very classic one.

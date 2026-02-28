@@ -259,6 +259,10 @@ The rule is:
 $$
 \text{Time}_{\text{Available}} \geq \text{Time}_{\text{Required}}
 $$
+
+{% hint style="success" %}
+In the Synopsys's [setup timing report](../../textbook-2-aacs/constraining-designs/environment-and-constraints.md#setup-timing-report), you will find out that this is equivalent to the **data required time** and **data arrival time**.
+{% endhint %}
 {% endstep %}
 
 {% step %}
@@ -275,6 +279,10 @@ The rule is:
 $$
 \text{Window}_{\text{Danger}} < \text{Time}_{\text{Safety}}
 $$
+
+{% hint style="success" %}
+In the Synopsys's [hold timing report](../../textbook-2-aacs/constraining-designs/environment-and-constraints.md#setup-timing-report), you will find out that this is equivalent to the **data required time** and **data arrival time**.
+{% endhint %}
 {% endstep %}
 
 {% step %}

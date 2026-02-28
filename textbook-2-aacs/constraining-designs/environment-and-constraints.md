@@ -332,10 +332,14 @@ set_input_delay -min 0.0 -clock CLK {datain}
 
 In Figure 6-3, the maximum input delay constraint of 23ns and the minimum input delay constraint of 0ns is specified for the signal `datain` with respect to the clock signal `CLK`, with a 50% duty cycle and a period of 30ns.
 
-<figure><img src="../../.gitbook/assets/input-delay-example.png" alt=""><figcaption><p>Figure 6-3. Specification of Input Delay</p></figcaption></figure>
-
 {% hint style="warning" %}
 If both `-min` and `-max` options are omitted, the **same** value is used for both the maximum and minimum input delay specifications.
+{% endhint %}
+
+<figure><img src="../../.gitbook/assets/input-delay-example.png" alt=""><figcaption><p>Figure 6-3. Specification of Input Delay</p></figcaption></figure>
+
+{% hint style="danger" %}
+The `set_input_delay` affects our **data arrival time.**
 {% endhint %}
 
 #### Setup Timing Report
@@ -496,4 +500,196 @@ The register's **hold time** can be **negative**, meaning that the input data ca
 
 {% hint style="success" %}
 In the **setup timing report**, the bottom line is that the **data arrival time** must be **greater** than the **data required time**.
+{% endhint %}
+
+### `set_output_delay`
+
+THis command is used at the **output** port, to define the time it takes for the data to be available **before** the clock edge.
+
+{% code lineNumbers="true" %}
+```tcl
+set_output_delay -max 19.0 -clock CLK {dataout}
+```
+{% endcode %}
+
+In Figure 6-4, the output delay constraint of 19ns is specified for the signal `dataout` with respect to the clock signal `CLK`, with a 50% duty cycle and a period of 30ns. This means that the data is valid for 11ns after the clock edge.
+
+<figure><img src="../../.gitbook/assets/set-output-delay.png" alt=""><figcaption><p>FIgure 6-4 Specification of Output Delay</p></figcaption></figure>
+
+{% hint style="danger" %}
+The `set_output_delay` affects our **data required time**.
+{% endhint %}
+
+#### Setup Timing Report
+
+To see an example of how the **output external delay**, which is set by the command `set_output_delay`, affects the **data required time**, we can see the following timing report.
+
+{% code lineNumbers="true" %}
+```
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : PRGRM_CNT
+Version: P-2019.03-SP4
+Date   : Sat Feb 28 17:16:01 2026
+****************************************
+
+Operating Conditions: tt1p05v125c   Library: saed32rvt_tt1p05v125c
+Wire Load Model Mode: enclosed
+
+Startpoint: PC_reg[0] (rising edge-triggered flip-flop clocked by Clk)
+Endpoint: PC[0] (output port clocked by Clk)
+Path Group: Clk
+Path Type: max
+
+Des/Clust/Port     Wire Load Model       Library
+------------------------------------------------
+PRGRM_CNT          ForQA                 saed32rvt_tt1p05v125c
+
+Point                                    Incr       Path
+-----------------------------------------------------------
+clock Clk (rise edge)                    0.00       0.00
+clock network delay (ideal)              0.00       0.00
+PC_reg[0]/CLK (DFFX1_RVT)                0.00       0.00 r
+PC_reg[0]/Q (DFFX1_RVT)                  0.12       0.12 f
+PC[0] (out)                              0.12       0.25 f
+data arrival time                                   0.25
+
+clock Clk (rise edge)                    1.50       1.50
+clock network delay (ideal)              0.00       1.50
+clock uncertainty                       -0.10       1.40
+output external delay                   -1.00       0.40
+data required time                                  0.40
+-----------------------------------------------------------
+data required time                                  0.40
+data arrival time                                  -0.25
+-----------------------------------------------------------
+slack (MET)                                         0.15
+```
+{% endcode %}
+
+In this timing report, the **output external delay** is subtracted from the clock period because the output needs to be available at least 1ns before the clock edge.
+
+{% hint style="warning" %}
+Here, we don't have the **library setup time** because this path is from **register/flip-flop** to **output port**!
+{% endhint %}
+
+### `set_clock_latency`
+
+This command is used to define the **estimated clock insertion delay** during synthesis.
+
+{% code lineNumbers="true" %}
+```tcl
+set_clock_latency 3.0 [get_clocks CLK]
+```
+{% endcode %}
+
+### `set_clock_uncertainty`
+
+This command lets the user define the **clock skew** information. Basically this is used to add a certain amount of margin to the clock, both for **setup** and **hold** times.
+
+{% hint style="warning" %}
+During the pre-layout phase one can add more margin as compared to the post-layout phase.
+{% endhint %}
+
+{% code lineNumbers="true" %}
+```tcl
+set_clock_uncertainty -setup 0.5 -hold 0.25 [get_clocks CLK]
+```
+{% endcode %}
+
+{% hint style="success" %}
+#### Helpful Ideas
+
+It is strongly recommended that users specify a certain amount of margin both for **pre-layout** and the **post layout** phased. The main reason for doing this is to make the chip less susceptible to the process variations that may occur during manufacturing.
+{% endhint %}
+
+## Advanced Constraints
+
+This section describes additional design constraints that go beyond the general constraints covered in the section above. These constraints consist of specifying **false paths, muticycle paths, max and min delays etc**.
+
+{% hint style="danger" %}
+The use of too many **timing exceptions**, such as false paths and multicycle paths causes significant impact on the run times.
+{% endhint %}
+
+### `set_false_path`
+
+This command is used to instruct DC to **ignore a particular path** for timing or optimization.
+
+{% hint style="warning" %}
+Identification of false paths in a design is critical. Failure to do so, compels DC to optimize all paths in order to reduce total negative slack.
+{% endhint %}
+
+The valid **startpoint** and **endpoint** to be used for this command are the **input ports** or the **clock pins** of the **sequential elements**, and the **output ports** or the **data pins** of the **sequential cells**. In addition, one can further target a particular path using the `-through` switch.
+
+{% code lineNumbers="true" %}
+```tcl
+set_false_path -from in1 -through U1/Z -to out1
+```
+{% endcode %}
+
+{% hint style="success" %}
+#### Helpful Ideas
+
+Use this command when the timing critical logic is failing the static timing analysis because of the **false paths**.
+{% endhint %}
+
+### `set_multicycle_path`
+
+This command is used to inform DC regarding **the number of clock cycles** a particular path requires in order to reach its endpoint.
+
+{% hint style="warning" %}
+DC automatically assumes that all paths are single cycle paths and will unnecessarily try to optimize the multicycle segment in order to achieve the timing. This may have a direct impact on adjacent paths as well as the area.
+{% endhint %}
+
+Also, the command provides the `-through` option that facilitates isolating the multicycle segment in a design.
+
+{% code lineNumbers="true" %}
+```tcl
+set_multicycle_path 2 -from U1/Z -through U2/A -to out1
+```
+{% endcode %}
+
+### `set_max_delay`
+
+This command defines the **maximum delay** required in terms of time units for a particular **path**. In general, it is used for the blocks that contain combinational logic only.
+
+{% hint style="danger" %}
+This command has the precedence over [**DC derived timing requirements**](https://wenbo-notes.gitbook.io/ee4415-icd-notes/textbook-2-aacs/constraining-designs/environment-and-constraints#data-required-time)!
+{% endhint %}
+
+For blocks only containing combinational logic, one may use the following command to constrain the total delay from all inputs to all outputs, as shown below:
+
+{% code lineNumbers="true" %}
+```tcl
+set_max_delay 5 -from [all_inputs] -to [all_outputs]
+```
+{% endcode %}
+
+### `set_min_delay`
+
+This command is the **opposite** of the [#set\_max\_delay](environment-and-constraints.md#set_max_delay "mention") command, and is used to define the **minimum delay** required in terms of time units for a particular **path**.
+
+{% hint style="danger" %}
+This command also has the precedence over [**DC derived timing requirements**](https://wenbo-notes.gitbook.io/ee4415-icd-notes/textbook-2-aacs/constraining-designs/environment-and-constraints#hold-timing-report)!
+{% endhint %}
+
+### `group_path`
+
+This command is used to **bundle** together timing critical paths in a design, for cost function calculations.
+
+{% hint style="warning" %}
+DC prioritizes the **grouped paths** over other paths in the design.
+{% endhint %}
+
+{% code lineNumbers="true" %}
+```tcl
+group_path -to [list out1 out2] -name grp1
+```
+{% endcode %}
+
+{% hint style="danger" %}
+`group_path` is **not the same as** [`group`](../partitioning-and-coding-styles/partitioning-for-synthesis.md#group-command) and [`ungroup`](../partitioning-and-coding-styles/partitioning-for-synthesis.md#ungroup-command)!
 {% endhint %}
