@@ -26,3 +26,7 @@ In this part, I will cover some problems in the problem sets provide by Prof. Ma
 >
 > 1. Pipelining can we use time interleaving? The registers at input/output can move during the retiming?
 > 2. Do the [DICADP question](../textbook-1-dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective.md#example-propagation-and-contamination-delay-estimation) on the false path and the skew! Very classic one.
+> 3. How to draw the parallel DFG elegantly? (RTL Transformation PS 1 (d).
+> 4. For the throughput analysis in parallelism, do I need to write exact precise number (RTL Transformation PS 1 (d)?
+> 5. Retiming is a technique that we can always do even if the problem not specify (RTL Transformation PS 2(b)?
+> 6. The overhead in any path just need to be added once (RTL Transformation PS 2(c))?
