@@ -11,6 +11,10 @@
 * [Lec 05 - Microarchitecture Design](lec/lec-05-microarchitecture-design.md)
 * [Lec 06 - High-Level Synthesis](lec/lec-06-high-level-synthesis.md)
 
+## Tutorial
+
+* [Problem Set 1](tutorial/problem-set-1.md)
+
 ## Lab
 
 * [Lab 01 - Introduction to Hardware Design](lab/lab-01-introduction-to-hardware-design.md)

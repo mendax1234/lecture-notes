@@ -241,8 +241,70 @@ Besides the **cyclical array partitioning** we have mentioned above, we also hav
 
 </details>
 
+### Dataflow
+
+> This is the **fourth** HLS technique that we are introducing in this HLS tutorial. The rest three are: Multicycle, Pipeline, and Unrolling & Partition.
+
+**Dataflow** is nothing but a **macroscopic** pipelining. Now, instead of thinking about how to accelerate a data stream, we are thinking about how to accelerate a **block stream** where a block contains bunches of data. An example will be the coprocessor that we designed in EE4218 [Lab 01](../lab/lab-01-introduction-to-hardware-design.md).
+
+<figure><img src="../.gitbook/assets/data-flow-example.png" alt="" width="377"><figcaption></figcaption></figure>
+
+In our coprocessor, we can identify three big stages:
+
+1. **Receive**: The coprocessor receives the matrix A and B from either the AXI DMA or AXI-Stream FIFO. These matrices are stored in the RAM in the PL.
+2. **Compute**: The coprocessor computes the multiplication of the matrix A and B.
+3. **Transmit**: The coprocessor transmits the result matrix residing in the RAM in the PL to the AXI-DMA or AXI-Stream FIFO.
+
+Normally, for one block of data (which is 64x8+8x1=520 in receive stage, and 64x1=64 in transmit stage), our **software** (the C program) does it **sequentially**, meaning that there is **no overlap** between any of the receive/compute/transmit stage. This might be a waste of time, especially after we have already learned/mastered the idea of **pipelining**. To solve it, one natural idea would be to **overlap** these three stages, just like how we overlap the computation in [pipelining](lec-06-high-level-synthesis.md#pipelined). Indeed, this intuition is correct and this **function-level pipelining** is called **dataflow**.
+
+#### Assumption
+
+Before we talk more about the implementation in detail, let's make an assumption on the clcok cycles used for each "big" stage:
+
+1. **Receive stage**: $$y$$ clock cycles.
+2. **Compute stage**: $$x$$ clock cycles.
+3. **Transmit stage**: $$z$$ clock cycles.
+
+As for now, we are issuing a **block** of data, the **Initiation Interval** for the coprocessor will be the $$\max(x,y,z)$$.
+
+{% hint style="danger" %}
+The microscopic pipelining implemented in the **Compute unit** (FSM), or maybe the receive and transmit unit may have **different Initiation Intervals**.
+{% endhint %}
+
+#### Implementation
+
+To implement the dataflow technique in the coprocessor, we are going to use the **ping-pong buffers**.
+
+{% hint style="warning" %}
+As opposed to the **registers** used in the **microscopic pipelining**.
+{% endhint %}
+
+To implement the ping-pong buffer,
+
+1. We first duplicate each **In Buffer** and **Out Buffer**, which represents the ensemble of A RAM, B RAM and the RES RAM in our lab context.&#x20;
+2. For the two **In Buffers**, we should store the incoming data in the **first In Buffer** while the compute unit is taking inputs from the second **In Buffer**.
+3. Once the computation using the **second In Buffer** is complete, the transmitter[^2] writes to the **second In Buffer** while the compute unit takes inputs from the **first In Buffer**.
+
+Besides, there should also be mechanisms to
+
+* **Pause** the receive unit if the first In Buffer is full while the compute unit is still processing data from the second input buffer. This is called "backpressure".
+* **Pause** the compute unit if it has done the processing of data from the second input buffer while the first input buffer is still being filled up by the receive unit.
+
+{% hint style="success" %}
+The flow from Computer -> Out Buffers -> Transmit Unit is similar.
+{% endhint %}
+
 ## References
 
 1. [Vitis HLS Synthesis Guide (2025.2) by AMD](https://docs.amd.com/r/en-US/ug1399-vitis-hls).
 
+{% hint style="success" %}
+A sneak preview of what will we see in the last two topics for EE4218:
+
+1. Logic Synthesis: Basically it is what happens behind the screen when we click "Synthesize" in Vivado.
+2. Physical Synthesis: It is what happens when we click "Implementation" in Vivado.
+{% endhint %}
+
 [^1]: This is a formal term for the CPI we have learned in CG3207. It is a measure of throughput and it represents the **data processed per unit time**.
+
+[^2]: This can be either the AXI-Stream FIFO and AXI-DMA in our lab context.
