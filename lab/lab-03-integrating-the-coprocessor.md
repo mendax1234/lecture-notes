@@ -162,6 +162,48 @@ In summary, the flow is shown as follows:
 1. In the **send data** stage: The processor writes to the `SourceBuffer` -> Flush the cache block containing both the `SourceBuffer` and `DestinationBuffer` address range -> The processor initiates the AXI DMA transfer.
 2. In the **receive data** stage: The processor initiates the DMA write to DDR memory -> The processor **invalidates** the cache block containing the `DestinationBuffer` address range -> The processor then reads the data in the `DestinationBuffer` and sends it to the laptop.
 
+## Performance Comparison
+
+One important thing to do in Lab 03 is to compare the performance between three applications:
+
+1. Pure software + no data transmission
+2. Coprocessor + FIFO data transmission
+3. Coprocessor + DMA data transmission
+
+Given that, what my group gets at this point of time is shown as a table below.
+
+{% hint style="success" %}
+The clock frequency is 100MHz on our system.
+{% endhint %}
+
+| Pure software | Coprocessor + FIFO | Coprocessor + DMA |
+| ------------- | ------------------ | ----------------- |
+| 1392 cycles   | 50025 cycles       | 1817 cycles       |
+
+From this table, we might wonder why there is no really impressive performance improvement from the coprocessor comparing to the pure software is because our current application, which is a matrix multiplication of a 64x8 and 8x1 matrix, is not **arithmetic intense**.
+
+<details>
+
+<summary>What is <strong>Arithemetic Intensity</strong>?</summary>
+
+**Arithmetic Intensity (AI)** is a measure of how much calculating we do compared to how much data we have to move around to do it. It is typically measured in **Operations per Byte** (Ops/Byte) or **FLOPs per Byte**. The formula for AI is
+
+<p align="center"><span class="math">\text{AI} = \frac{\text{Total Arithmetic Operations}}{\text{Total Memory Traffic (Bytes)}}</span></p>
+
+
+
+* **High Arithmetic Intensity** **(Compute-Bound):** We do a lot of math on a small amount of data. This is where coprocessors and GPUs shine because they can chew through the math while the data just sits in their local memory.
+* **Low Arithmetic Intensity (Memory-Bound)**: We do very little math per piece of data. The processor spends most of its time waiting for data to be transferred rather than actually computing.
+
+So, why in lab 03, our matrix multiplication has Low Arithmetic Intensity? Let's calculate the total arithmetic operations and the total memory traffic in detail:
+
+1. **Total Arithmetic Operations**: Each row of matrix A (64x8) is multiplied by the only column in matrix B (8x1). So, for each element in the result matrix's, we are doing 8 multiplications and 7 additions. Thus, for the total 64 elements in the result matrix, we are doing $$64\times15=960$$ operations.
+2. **Total Memory Traffic**: As we have $$64\times8+8\times1+64\times1=584$$ elements to transfer and each element currently takes **4 bytes** in our application. Thus, our **total memory traffic** in bytes is $$584\times4=2336$$.
+
+Thus, the AI for our application is $$960\div 2336\approx0.41$$. This low arithemtic intensity is the main reason that we don't really see the performance improvement between the pure software and the coprocessor implementation.
+
+</details>
+
 ## Reference
 
 1. [AXI Basics on Youtube](https://youtube.com/playlist?list=PLkqJVNOiuuHtNrVaNK4O1BSgczja4obeW\&si=sSgWNK6TMGORjrlF).
