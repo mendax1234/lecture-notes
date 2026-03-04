@@ -18,7 +18,60 @@ In this part, I will cover some problems in the problem sets provide by Prof. Ma
 
 ### RTL Transformation 1
 
-#### Retime to minimize the clock period
+#### Page 1
+
+{% stepper %}
+{% step %}
+#### Sub-question d
+
+In the question (d), we are asked to draw the 2-parallel version of the DFG. In the exam, we just **copy and paste** the original DFG and add either the SIPO/PISO or shifted clock cycle block at the input or output.
+
+In the throughput analysis here, we **cannot assume** that the time-interleaving will give us an ideal case of $$n$$ times faster frequency! We must use the exact frequency we calculate using after the actual **retiming**.
+{% endstep %}
+
+{% step %}
+#### Sub-question e
+
+In the exam, if we are not **given** the combinational delay of an operator, just treat the combinational delay to be 0. However, in the EE4415 midterm, it will be given **explicitly**.
+{% endstep %}
+{% endstepper %}
+
+#### Page 2
+
+In the **calculation** of the loop bound, the **register overhead** should only be added **once**! It doesn't depend on the number of registers in the loop! And whether we can ignore this register overhead or not will be stated explicitly in the question!
+
+#### Page 3
+
+In the question (c), we are asked to pipeline a **parallel** design. In this way, we just need to do the **pipelining** on one of the execution units and they copy and paste to the rest of the execution units.
+
+#### Page 4
+
+{% stepper %}
+{% step %}
+#### Sub-question a
+
+In this question, we are asked to find the critical path. In this way, we just need to tell which **path** is the critical path, and we don't need to calculate the minimum clock period unless the problem explicitly specifies that.
+{% endstep %}
+
+{% step %}
+#### Sub-question b
+
+In this sub-question, there is one sentence saying that "constant inputs do not need to be retimed at all", what this really means is that we can **add or remove as many registers as we want** at those constant input edges (shown as the red edges below):
+
+<figure><img src="../.gitbook/assets/midterm-1.png" alt=""><figcaption></figcaption></figure>
+
+Also, in this question, we get to know one very important point:
+
+> We treat all the **inputs** as **one node** in
+>
+> 1. Retiming
+> 2. Repipelining
+>
+> So, if our gaussian surface needs to include the inputs, we **must include all the inputs**!
+{% endstep %}
+{% endstepper %}
+
+#### Page 5
 
 In the page 5, Q1 (d), the question askes us to use 2-way time interleaving to minimize the clock period. This problem can be transformed into a classic **cut cake** problem below.
 
@@ -34,17 +87,60 @@ Using the above information on the delay, no matter what method we try, we can m
 
 <figure><img src="../.gitbook/assets/cut-cake-2.svg" alt=""><figcaption></figcaption></figure>
 
-{% hint style="info" %}
-So, in **time-interleaving**, the minimum clock period is determined by the **min cut-cake problem**. In register insertion problem, the minimum clock period is determined by the **iteration bound**.
+So, in this problem, as there is **no loop**, we can actually use the "min-cut cake" idea. But the overall idea should still be as follows:
+
+> In a system, the **iteration bound** limits the maximum frequency.
+>
+> * In time interleaving, this iteration bound can be reduced by $$n$$ times ideally.
+> * In repipelining, this iteration bound **cannot be changed**.
+
+#### Page 7
+
+{% stepper %}
+{% step %}
+#### Sub-question a
+
+The analytical relationship between inputs and outputs is a **recursion** relationship in this problem. We need to give another name for the output that coming out from the first adder.
+
+{% hint style="danger" %}
+This kind of question **won't** appear in EE4415 AY25/26 Sem 2 midterm!
+{% endhint %}
+{% endstep %}
+
+{% step %}
+#### Sub-question c
+
+The **logic imbalance** only exists in a loop which has **more than or equal to** 2 registers!
+{% endstep %}
+
+{% step %}
+#### Sub-question d
+
+If the question says do n-slowing, we can also do the **retiming**! In other words, **n-slowing** and **retiming** are always combined and this is known as **time-interleaving**!
+{% endstep %}
+{% endstepper %}
+
+#### Page 8
+
+In the quesiton (b), "fine-grained pipelining" means that the multipliers and adders **can be internally pipelined** and this is **not suppposed to be done by the question**, but **should be done** by us.
+
+By the way, in the question, using **repipelining**, we cannot achieve a clock period that is **smaller** than the loop bound. So, the answer is obviously no and no manual retiming needs to be done.
+
+{% hint style="warning" %}
+For the question (b), if you are trying to do the **feedforward cutset register insertion** on the DFG, note that the adder (operator) inside the loop (which means it is part of the loop) **cannot be crossed**!
 {% endhint %}
 
 ## Tips
 
 1. For **retiming**, the gaussian surface **can** cross the loop, and we move the **registers** from the **input** to the **output** or vice versa.
 2. For register insertion, we can only do **feedforward cutset register insertion**.
-3. When the questions says **pipelining**, we can use **feedforward cutset register insertion**. When it says **retiming**, we can use **retiming**!
-4. **Always** double check the **critical path**! The path that is found might not be actually a critical path!  This is an eye-sight problem actually.
-5. Memorize the time unit table!
+3. When the questions says **pipelining**, we can use **feedforward cutset register insertion** and **retiming**. When it says **retiming**, we can only use **retiming**!
+4. In the DFG, we assume there is always one register at the **input** and **output**. These two registers **can be moved** in retiming.
+   1. In the midterm, the registers at the input and output will be added in the question. And whether these registers can be moved or not in retiming will be stated explicitly in the question.
+5. **Always** double check the **critical path**! The path that is found might not be actually a critical path!  This is an eye-sight problem actually.
+6. Memorize the time unit table!
+7. In midterms, we can bring any number of calculators we want and don't need to print out the Verilog reference sheet by ourselves as it will be provided.
+8. Usually, the sub questions in the midterm will be based on the original DFG and not be dependent on the other questions.
 
 > Questions:
 >

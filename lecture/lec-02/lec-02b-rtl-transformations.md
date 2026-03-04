@@ -288,7 +288,7 @@ T_{\infty}=\text{loopbound}_{\text{loop}}=\frac{590+60+100+80+100+70+\textcolor{
 $$
 
 {% hint style="danger" %}
-If we have **multiple registers** appearing in the loop, let's say $$n$$. Then we need to add $$n \times t_{OH}$$ in our $$t_{loop}$$ term.
+We only add one $$t_{OH}$$ in our $$t_{loop}$$ term even if there are multiple registers in the loop.
 {% endhint %}
 
 <details>
@@ -418,6 +418,10 @@ The rule works in reverse. If _every_ edge in a feedforward cutset already posse
 In specific architectures like parallel/interleaved filters (e.g., 3-tap FIR filter), we can sometimes insert registers in **non-cutset patterns** (dashed paths) while still preserving functionality due to the parallel nature of the hardware.
 
 <figure><img src="../../.gitbook/assets/feedforward-cutset-rule-observation-3.png" alt="" width="507"><figcaption></figcaption></figure>
+
+{% hint style="warning" %}
+This is an example of the **block filter** and it won't be tested in AY25/26 Sem 2's EE4415 midterm!
+{% endhint %}
 {% endstep %}
 {% endstepper %}
 
