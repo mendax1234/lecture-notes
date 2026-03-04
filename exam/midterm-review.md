@@ -46,7 +46,7 @@ So, in **time-interleaving**, the minimum clock period is determined by the **mi
 4. **Always** double check the **critical path**! The path that is found might not be actually a critical path!  This is an eye-sight problem actually.
 5. Memorize the time unit table!
 
-> TODO:
+> Questions:
 >
 > 1. Pipelining can we use time interleaving? The registers at input/output can move during the retiming?
 > 2. Do the [DICADP question](../textbook-1-dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective.md#example-propagation-and-contamination-delay-estimation) on the false path and the skew! Very classic one.
@@ -72,3 +72,7 @@ So, in **time-interleaving**, the minimum clock period is determined by the **mi
 > 22. We only can bring calculator, no need to print out the Verilog helpsheet.
 > 23. RTL Transformation PS (Big) Q1C, the retiming is wrong as it didn't duplicate the register at the input and output? Q1B also a big wrong with the overhead.
 > 24. RTL Transformation PS (Big) Q2(b), when calculating loop bound, don't care about the register overhead, but when calculating the maximum frequency that a system can reach, remember to add the register overhead? Also this question has wrong figure and Q2(a) is wrong!
+>
+> Tips
+>
+> 1. RTL Transformation PS (Big) Q3(b), if there is no loop in the diagram, technically there is no lower bound for the clock frequency, but ultimately, the clock cycle is limited by the overhead, and the large area/energy/latency overhead imposed by the registers, when repipelining aggressively.
