@@ -234,10 +234,6 @@ The answer is the **pipelining** used in our coprocessor doesn't affect the tota
 
 ## Reference
 
-The implementation of the DMA code utilizes the overall structure from Lab 02 and modifies according to the DMA Polling example from AMD.
-
-## Reference
-
 1. [AXI Basics on Youtube](https://youtube.com/playlist?list=PLkqJVNOiuuHtNrVaNK4O1BSgczja4obeW\&si=sSgWNK6TMGORjrlF).
 
 [^1]: In our lab context, the data to be sent to the coprocessor is the matrix A and B while the data to be received from the coprocessor is the result matrix.
