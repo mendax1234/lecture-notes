@@ -56,7 +56,7 @@ When we increase $$V_{\text{gate}}$$ to $$V_{\text{gate}}>V_{\text{TN}}$$, there
 {% hint style="success" %}
 #### Inversion Layer
 
-The **inversion layer** can be think of the region/layer where there is a **high concentration** of **free minority carriers**. In this case, the free minority carriers in p-substrate are **electrons**.$$V_{\text{gate}}>V_{\text{TN}$$
+The **inversion layer** can be think of the region/layer where there is a **high concentration** of **free minority carriers**. In this case, the free minority carriers in p-substrate are **electrons**.
 {% endhint %}
 {% endstep %}
 {% endstepper %}
