@@ -85,7 +85,7 @@ In the setup files, we have seen a lot of libraries, it's time to explain what e
 The `target_library` specifies the name of the technology library that corresponds to the library whose cells the designers want DC to infer and finally map to.
 
 {% hint style="success" %}
-It will be good to review the [logic synthesis](../../lecture/lec-03/lec-03a-digital-design-flow.md#logic-synthesis-1) process from EE4415 Lec 03a! The logic synthesis includes:
+It will be good to review the [logic synthesis](../../part-1-lec-digital-design-flow/lec-03/lec-03a-digital-design-flow.md#logic-synthesis-1) process from EE4415 Lec 03a! The logic synthesis includes:
 
 1. Translating the HDL code into **generic boolean** format (called GTECH)
 2. This GTECH is then optimized and mapped to the specific gates in the **technology library**.

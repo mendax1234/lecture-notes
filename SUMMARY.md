@@ -2,18 +2,23 @@
 
 * [Welcome](README.md)
 
-## Lecture
+## Part 1 Lec: Digital Design Flow
 
-* [Lec 01](lecture/lec-01/README.md)
-  * [Lec 01a - Intro](lecture/lec-01/lec-01a-intro.md)
-  * [Lec 01b - Timing Synchronous](lecture/lec-01/lec-01b-timing-synchronous.md)
-* [Lec 02](lecture/lec-02/README.md)
-  * [Lec 02a - Pipelining](lecture/lec-02/lec-02a-pipelining.md)
-  * [Lec 02b - RTL Transformations](lecture/lec-02/lec-02b-rtl-transformations.md)
-* [Lec 03](lecture/lec-03/README.md)
-  * [Lec 03a - Digital Design Flow](lecture/lec-03/lec-03a-digital-design-flow.md)
-  * [Lec 03b - Verilog Fundamentals](lecture/lec-03/lec-03b-verilog-fundamentals.md)
-* [Lec 04 - Automated Synthesis](lecture/lec-04-automated-synthesis.md)
+* [Lec 01](part-1-lec-digital-design-flow/lec-01/README.md)
+  * [Lec 01a - Intro](part-1-lec-digital-design-flow/lec-01/lec-01a-intro.md)
+  * [Lec 01b - Timing Synchronous](part-1-lec-digital-design-flow/lec-01/lec-01b-timing-synchronous.md)
+* [Lec 02](part-1-lec-digital-design-flow/lec-02/README.md)
+  * [Lec 02a - Pipelining](part-1-lec-digital-design-flow/lec-02/lec-02a-pipelining.md)
+  * [Lec 02b - RTL Transformations](part-1-lec-digital-design-flow/lec-02/lec-02b-rtl-transformations.md)
+* [Lec 03](part-1-lec-digital-design-flow/lec-03/README.md)
+  * [Lec 03a - Digital Design Flow](part-1-lec-digital-design-flow/lec-03/lec-03a-digital-design-flow.md)
+  * [Lec 03b - Verilog Fundamentals](part-1-lec-digital-design-flow/lec-03/lec-03b-verilog-fundamentals.md)
+* [Lec 04 - Automated Synthesis](part-1-lec-digital-design-flow/lec-04-automated-synthesis.md)
+
+## Part 2 Lec: Analog Design Flow
+
+* [Lec 0 - Introduction](part-2-lec-analog-design-flow/lec-0-introduction.md)
+* [Lec 1 - MOSFET and CMOS Process](part-2-lec-analog-design-flow/lec-1-mosfet-and-cmos-process.md)
 
 ## Exam
 

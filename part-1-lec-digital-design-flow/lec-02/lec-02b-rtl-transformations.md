@@ -751,7 +751,7 @@ $$
   * _Limitation:_ Slightly less than ideal $$n$$ due to MUX delay ($$\tau_{\text{MUX}}$$) affecting the critical path.
 * $$\tau_{\text{MUX}}$$ usually scales logarithmically ($$\propto \log_2 n$$). This is because a n-to-1 multiplexer is implemented using a bunch of 2-to-1 multiplexer in a tree manner shown as follows. And the delay is the height of the tree, which is $$\approx\log_2n$$.
 
-<figure><img src="../../.gitbook/assets/image.png" alt="" width="406"><figcaption><p>8-to-1 multiplexer implemented using 7 2-to-1 multiplexer, the tree height is 3</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1).png" alt="" width="406"><figcaption><p>8-to-1 multiplexer implemented using 7 2-to-1 multiplexer, the tree height is 3</p></figcaption></figure>
 {% endstep %}
 
 {% step %}
