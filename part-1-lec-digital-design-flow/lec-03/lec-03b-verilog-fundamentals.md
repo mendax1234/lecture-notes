@@ -121,6 +121,62 @@ The basic modeling structure is shown as follows:
 | Inout     | Must be `wire`                    | Must be `wire`                         |
 
 Think of the Parent side (external) as the place of verilog code where the **module** gets instantiated. And the Child side (internal) is the place of verilog code where the **module** is implemented.
+
+{% tabs %}
+{% tab title="Child Side" %}
+{% code lineNumbers="true" %}
+```verilog
+module Child (
+    input  wire data_in,   // CHILD INPUT: Must be wire (wire is default, but explicitly written here)
+    output reg  data_out,  // CHILD OUTPUT: Can be reg OR wire (using 'reg' here so we can use it in an always block)
+    inout  wire data_io    // CHILD INOUT: Must be wire
+);
+
+    // Internal logic for the child
+    always @(*) begin
+        // Since data_out is a 'reg' internally, we can assign to it in an always block
+        data_out = ~data_in; 
+    end
+
+    // Inout ports must be wires driven by continuous assignments (assign)
+    // Here, we drive it to 0 if data_in is 1, otherwise we set it to high-impedance (Z)
+    assign data_io = (data_in) ? 1'b0 : 1'bz;
+
+endmodule
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Parent Side" %}
+{% code lineNumbers="true" %}
+```verilog
+module Parent;
+
+    // 1. Declarations for the Parent Side
+    reg  parent_data_in;   // PARENT to Child Input: Can be reg OR wire (using 'reg' to drive it in an initial block)
+    wire parent_data_out;  // PARENT from Child Output: MUST be wire
+    wire parent_data_io;   // PARENT to/from Child Inout: MUST be wire
+
+    // 2. Instantiating the Child Module
+    Child my_child_instance (
+        .data_in  (parent_data_in),   // Driving a child 'wire' input with a parent 'reg'
+        .data_out (parent_data_out),  // Reading a child 'reg' output into a parent 'wire'
+        .data_io  (parent_data_io)    // Connecting a child 'wire' inout to a parent 'wire'
+    );
+
+    // 3. Driving the inputs (Why the parent input connection is often a 'reg')
+    initial begin
+        // Because parent_data_in is a 'reg', we can easily change its value in behavioral blocks
+        parent_data_in = 1'b0;
+        #10;
+        parent_data_in = 1'b1;
+    end
+
+endmodule
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
 {% endstep %}
 
 {% step %}
@@ -210,17 +266,17 @@ The function **`error`** returns a **value** and can be used wherever a **value*
 
 #### Procedures
 
-A **Verilog procedure** is an **`always`** or **`initial`** statement, a **task**, or a **function**.
+A **Verilog procedure** is an `always` or `initial` statement, a **task**, or a **function**.
 
-* The **statements** within a **sequential block** (i.e., statements between a **`begin`** and **`end`**) execute **sequentially** in the order in which they appear.
+* The **statements** within a [**sequential block**](#user-content-fn-1)[^1] (i.e., statements between a **`begin`** and **`end`**) execute **sequentially** in the order in which they appear.
 * However, the **procedure itself** executes **concurrently** with other **procedures** in the design.
 
 #### Procedural Blocks
 
 There are two types of procedural blocks:
 
-* **`initial` blocks** – execute **only once** at the start of simulation (not synthesizable).
-* **`always` blocks** – execute **repeatedly in a loop**.
+* `initial` **blocks** – execute **only once** at the start of simulation (not synthesizable).
+* `always` **blocks** – execute **repeatedly in a loop**.
 
 {% hint style="danger" %}
 Multiple procedural blocks may exist, and they execute **concurrently**.
@@ -280,7 +336,7 @@ The synthesis of the above block of code will be:
 <figure><img src="../../.gitbook/assets/blocking-assignment-synthesis.png" alt="" width="493"><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
-There is a register before `sum` because `sum` is defined as a `reg` and it appears in an `always @(posedge)` block. But it is **not recommended** to do so, use **non-blocking assignment `<=`**  instead!
+There is a register in front of `sum` because `sum` is defined as a `reg` and it appears in an `always @(posedge)` block. But it is **not recommended** to do so, use **non-blocking assignment `<=`**  instead!
 {% endhint %}
 
 #### Non-Blocking Assignments (`<=`)
@@ -373,7 +429,7 @@ signal_name <= cond1*value1 + cond2*value2 + ... condn*valuen
 ```
 {% endcode %}
 
-Unlike the `if/else` statements, we don't have any prioriy in the `case` statements.
+Unlike the `if/else` statements, we don't have any priority in the `case` statements.
 {% endstep %}
 {% endstepper %}
 
@@ -436,7 +492,7 @@ end
 ```
 {% endcode %}
 
-In practice, this loop is unrolled, and all elements of the memory array are initialized to 0 in parallel.
+In practice, this loop is **unrolled**, and all elements of the memory array are initialized to 0 in **parallel**.
 
 ## Simulation
 
@@ -449,7 +505,7 @@ We will use the VCS is EE4415's lab experience.
 
 ### Event Driven Simulation
 
-Most [logical simulations](#user-content-fn-1)[^1] are **event-driven**, meaning that the simulator remains idle and performs computations only when specific changes occur.
+Most [logical simulations](#user-content-fn-2)[^2] are **event-driven**, meaning that the simulator remains idle and performs computations only when specific changes occur.
 
 One example is used to compare the blocking statements and non-blocking statements.
 
@@ -478,4 +534,6 @@ endmodule
 
 > TODO: Do the exercises from Slide 55-63 in Lec 03b for Midterm review!
 
-[^1]: Logic simulation is the process of verifying the functional behavior and timing of a digital design (written in HDL like Verilog or VHDL) before it is manufactured. Unlike analog simulations (like SPICE) that calculate continuous voltages and currents, logic simulation abstracts signals into discrete values (0, 1, Z, X) to maximize speed and handle complex systems.
+[^1]: This is just the **procedure** here.
+
+[^2]: Logic simulation is the process of verifying the functional behavior and timing of a digital design (written in HDL like Verilog or VHDL) before it is manufactured. Unlike analog simulations (like SPICE) that calculate continuous voltages and currents, logic simulation abstracts signals into discrete values (0, 1, Z, X) to maximize speed and handle complex systems.
