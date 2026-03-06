@@ -232,6 +232,10 @@ The answer is the **pipelining** used in our coprocessor doesn't affect the tota
 
 </details>
 
+{% hint style="warning" %}
+For the current application used in our lab, we are doing only the **matrix** multiplied by the **vector**. If we do matrix multiplied by matrix, we might have higher arithmetic intensity.
+{% endhint %}
+
 ## Reference
 
 1. [AXI Basics on Youtube](https://youtube.com/playlist?list=PLkqJVNOiuuHtNrVaNK4O1BSgczja4obeW\&si=sSgWNK6TMGORjrlF).
