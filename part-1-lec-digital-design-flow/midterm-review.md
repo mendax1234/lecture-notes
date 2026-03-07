@@ -333,3 +333,4 @@ endmodule
 7. In midterms, we can bring any number of calculators we want and don't need to print out the Verilog reference sheet by ourselves as it will be provided.
 8. Usually, the sub questions in the midterm will be based on the original DFG and not be dependent on the other questions.
 9. Do the [DICADP question](../textbook-1-dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective.md#example-propagation-and-contamination-delay-estimation) on the false path and the skew! Very classic one.
+10. (AY25/26 Sem 2 Midterm): The energy per operation of a design is to sum the energy consumed by **all the components** (registers, combinational operators)!
