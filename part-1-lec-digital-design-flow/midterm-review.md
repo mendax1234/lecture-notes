@@ -40,6 +40,10 @@ In the exam, if we are not **given** the combinational delay of an operator, jus
 
 In the **calculation** of the loop bound, the **register overhead** should only be added **once**! It doesn't depend on the number of registers in the loop! And whether we can ignore this register overhead or not will be stated explicitly in the question!
 
+{% hint style="warning" %}
+If there are **more than 1** registers in the loop, we should get the **balanced** logic by dividing first and then add the register overhead to the result once!
+{% endhint %}
+
 #### Page 3
 
 In the question (c), we are asked to pipeline a **parallel** design. In this way, we just need to do the **pipelining** on one of the execution units and then copy and paste to the rest of the execution units.

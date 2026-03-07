@@ -336,7 +336,7 @@ Once **both of** the two red arrow are cut, no path exists between $$G_1$$ and $
 
 <summary>How to find the gaussian surface?</summary>
 
-The use of term _Gaussian surface_ may be confusing here, since it originates from electrostatics (the focus of FDP2021). But the underlying idea is simply **partition -> enclose -> identify boundary edges**.
+The use of term _Gaussian surface_ may be confusing here, since it originates from electrostatics (the focus of FDP2021). But the underlying idea is simpe: **partition -> enclose -> identify boundary edges**.
 
 1. **Choose a partition:** Select the set of nodes we want to isolate (the “inside” set).
    1. Example: To separate the left cluster from the right, choose `{A, B, C}`.
