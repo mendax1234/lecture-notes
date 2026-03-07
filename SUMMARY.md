@@ -14,15 +14,12 @@
   * [Lec 03a - Digital Design Flow](part-1-lec-digital-design-flow/lec-03/lec-03a-digital-design-flow.md)
   * [Lec 03b - Verilog Fundamentals](part-1-lec-digital-design-flow/lec-03/lec-03b-verilog-fundamentals.md)
 * [Lec 04 - Automated Synthesis](part-1-lec-digital-design-flow/lec-04-automated-synthesis.md)
+* [Midterm Review](part-1-lec-digital-design-flow/midterm-review.md)
 
 ## Part 2 Lec: Analog Design Flow
 
 * [Lec 0 - Introduction](part-2-lec-analog-design-flow/lec-0-introduction.md)
 * [Lec 1 - MOSFET and CMOS Process](part-2-lec-analog-design-flow/lec-1-mosfet-and-cmos-process.md)
-
-## Exam
-
-* [Midterm Review](exam/midterm-review.md)
 
 ## Textbook 1: DICADP
 

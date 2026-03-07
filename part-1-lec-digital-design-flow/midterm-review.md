@@ -26,7 +26,7 @@ In this part, I will cover some problems in the problem sets provide by Prof. Ma
 
 In the question (d), we are asked to draw the 2-parallel version of the DFG. In the exam, we just **copy and paste** the original DFG and add either the SIPO/PISO or shifted clock cycle block at the input or output.
 
-In the throughput analysis here, we **cannot assume** that the time-interleaving will give us an ideal case of $$n$$ times faster frequency! We must use the exact frequency we calculate using after the actual **retiming**.
+In the throughput analysis here, we **cannot assume** that the time-interleaving will give us an ideal case of $$n$$ times faster frequency! We must use the exact frequency we calculate after the actual **retiming**.
 {% endstep %}
 
 {% step %}
@@ -42,7 +42,7 @@ In the **calculation** of the loop bound, the **register overhead** should only 
 
 #### Page 3
 
-In the question (c), we are asked to pipeline a **parallel** design. In this way, we just need to do the **pipelining** on one of the execution units and they copy and paste to the rest of the execution units.
+In the question (c), we are asked to pipeline a **parallel** design. In this way, we just need to do the **pipelining** on one of the execution units and then copy and paste to the rest of the execution units.
 
 #### Page 4
 
@@ -50,7 +50,7 @@ In the question (c), we are asked to pipeline a **parallel** design. In this way
 {% step %}
 #### Sub-question a
 
-In this question, we are asked to find the critical path. In this way, we just need to tell which **path** is the critical path, and we don't need to calculate the minimum clock period unless the problem explicitly specifies that.
+In this question, we are asked to find the critical path. In this way, we just need to tell which **path** is the critical path, and we don't need to calculate the **minimum clock period** unless the problem explicitly specifies that.
 {% endstep %}
 
 {% step %}
@@ -83,13 +83,13 @@ Our job is to move the two registers (one at the input and one at the output) be
 The delay of the multiplier is 20ns and adder is 8ns in this problem.
 {% endhint %}
 
-Using the above information on the delay, no matter what method we try, we can minimally achieve 36ns for the critical path.
+Using the above information on the delay, no matter what method we try, we can minimally achieve 36ns for the critical path length.
 
 <figure><img src="../.gitbook/assets/cut-cake-2.svg" alt=""><figcaption></figcaption></figure>
 
 So, in this problem, as there is **no loop**, we can actually use the "min-cut cake" idea. But the overall idea should still be as follows:
 
-> In a system, the **iteration bound** limits the maximum frequency.
+> In a system, the **iteration bound** limits its **maximum frequency**.
 >
 > * In time interleaving, this iteration bound can be reduced by $$n$$ times ideally.
 > * In repipelining, this iteration bound **cannot be changed**.
@@ -100,7 +100,7 @@ So, in this problem, as there is **no loop**, we can actually use the "min-cut c
 {% step %}
 #### Sub-question a
 
-The analytical relationship between inputs and outputs is a **recursion** relationship in this problem. We need to give another name for the output that coming out from the first adder.
+The analytical relationship between inputs and outputs is a **recursion** relationship in this problem. We need to give another name for the signal that coming out from the first adder.
 
 {% hint style="danger" %}
 This kind of question **won't** appear in EE4415 AY25/26 Sem 2 midterm!
@@ -124,7 +124,7 @@ If the question says do n-slowing, we can also do the **retiming**! In other wor
 
 In the quesiton (b), "fine-grained pipelining" means that the multipliers and adders **can be internally pipelined** and this is **not suppposed to be done by the question**, but **should be done** by us.
 
-By the way, in the question, using **repipelining**, we cannot achieve a clock period that is **smaller** than the loop bound. So, the answer is obviously no and no manual retiming needs to be done.
+By the way, in the question, by only using **repipelining**, we cannot achieve a clock period that is **smaller** than the loop bound. So, the answer is obviously "no" and no manual retiming needs to be done.
 
 {% hint style="warning" %}
 For the question (b), if you are trying to do the **feedforward cutset register insertion** on the DFG, note that the adder (operator) inside the loop (which means it is part of the loop) **cannot be crossed**!
@@ -132,13 +132,17 @@ For the question (b), if you are trying to do the **feedforward cutset register 
 
 ### RTL Transformation 2
 
-#### Page 16
+#### Question 3
+
+In the sub-question, we are asked to discuss the effect of having an **iteration bound**. If there is no loop in the diagram, technically there is no lower bound for the clock frequency, but ultimately, the clock cycle is limited by the overhead and the large area/energy/latency overhead imposed by the registers, when repipelining aggressively.
+
+#### Question 4
 
 {% stepper %}
 {% step %}
 #### Sub-question b
 
-In question b, when the clock frequency / clock period is given, we also need to **minus** the register overhead to get the **maximum allowable time** for the combinational part.
+In question b, when the clock frequency / clock period is given, we also need to **subtract** the **register overhead** from the given clock period to get the **maximum allowable time** for the combinational part.
 {% endstep %}
 
 {% step %}
@@ -146,17 +150,17 @@ In question b, when the clock frequency / clock period is given, we also need to
 
 <figure><img src="../.gitbook/assets/midterm-2.png" alt=""><figcaption></figcaption></figure>
 
-This question is the first question I met to write a Verilog module by hand. The convention I used to solve this kind of question is name/label all the intermediate signals with the following naming convention: `[type]_[stage]_[description]`
+This question is the first question I met to write a Verilog module by hand. The convention I used to solve this kind of question is to name/label all the intermediate signals with the following naming convention: `[type]_[stage]_[description]`
 
 * `[type]`: Use `w` for combinational wires and `r` for register outputs.
 * `[stage]`: Use `s1`, `s2`, `s3`, etc., to denote which pipeline stage the signal belongs to.
 * `[description]`: A brief description of the mathematical operation or path (e.g., `top`, `diff`, `abs_A`).
 
 {% hint style="warning" %}
-Sometimes, the question will label the signal, so there is no need to name it yourself. In this case, just pay attention the the **width** of each signal.
+Sometimes, the question will label the signal. If so there is no need to name it ourselves. In this case, just pay attention the the **width** of each signal.
 {% endhint %}
 
-To decide the bits for the intermediate signal, we can use the following table.
+To decide the bits used/width for the intermediate signal, we can use the following table, where `Wa` denotes the width of signal `A` and `Wb` denotes the width of signal `B`.
 
 | Operation      | Expression | Result Bit Width                |
 | -------------- | ---------- | ------------------------------- |
@@ -257,11 +261,11 @@ When adding two signals, pay attention to the sign extension!
 {% endstep %}
 {% endstepper %}
 
-#### Page 19
+#### Question 5
 
-In question b, the **actual minimum clock** imposed by the loop is the **most unbalanced stage** in the loop (before retiming, if the question doesn't say can retime, just don't retime)!
+In question b, the **actual minimum clock** imposed by the loop is the **most unbalanced stage** in the loop (before retiming, if the question doesn't say that we can retime, just don't retime)!
 
-#### Page 23
+#### Question 6
 
 In question b, the correct code should be as follows.
 
@@ -286,16 +290,11 @@ module mac (
     
     // Combinational wires for math
     wire [31:0] mult_result;
-    wire [39:0] adder_result;
 
     // 1. Combinational Multiplier
     assign mult_result = Amult * Bmult;
 
-    // 2. Combinational Adder (Using the pipelined multiplier value)
-    assign adder_result = {8'b00000000, OUTmult_reg} + OUT_previous;
-    
-    // OUT is just a wire connected to the adder output (per the diagram)
-    assign OUT = adder_result; 
+    assign OUT = {8'b00000000, OUTmult_reg} + OUT_previous;
 
     // Sequential Logic (Registers)
     always @(posedge clk) begin
@@ -310,7 +309,7 @@ module mac (
         if (RSTACC == 1'b1) begin
             OUT_previous <= 40'd0; // Clear the accumulator
         end else begin
-            OUT_previous <= adder_result; // Accumulate
+            OUT_previous <= OUT; // Accumulate
         end
     end
 
@@ -320,43 +319,13 @@ endmodule
 
 ## Tips
 
-1. For **retiming**, the gaussian surface **can** cross the loop, and we move the **registers** from the **input** to the **output** or vice versa.
+1. For **retiming**, the gaussian surface **can** cross the loop, and we can move the **registers** from the **input** to the **output** or vice versa.
 2. For register insertion, we can only do **feedforward cutset register insertion**.
 3. When the questions says **pipelining**, we can use **feedforward cutset register insertion** and **retiming**. When it says **retiming**, we can only use **retiming**!
 4. In the DFG, we assume there is always one register at the **input** and **output**. These two registers **can be moved** in retiming.
    1. In the midterm, the registers at the input and output will be added in the question. And whether these registers can be moved or not in retiming will be stated explicitly in the question.
 5. **Always** double check the **critical path**! The path that is found might not be actually a critical path!  This is an eye-sight problem actually.
-6. Memorize the time unit table!
+6. Memorize the [time unit table](https://app.gitbook.com/s/6nPr3SObC3azazbFhfgF/lec/lec-01-the-devices#unit-table)!
 7. In midterms, we can bring any number of calculators we want and don't need to print out the Verilog reference sheet by ourselves as it will be provided.
 8. Usually, the sub questions in the midterm will be based on the original DFG and not be dependent on the other questions.
-
-> Questions:
->
-> 1. Pipelining can we use time interleaving? The registers at input/output can move during the retiming?
-> 2. Do the [DICADP question](../textbook-1-dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective.md#example-propagation-and-contamination-delay-estimation) on the false path and the skew! Very classic one.
-> 3. How to draw the parallel DFG elegantly? (RTL Transformation PS 1 (d).
-> 4. For the throughput analysis in parallelism, do I need to write exact precise number (RTL Transformation PS 1 (d)?
-> 5. Retiming is a technique that we can always do even if the problem not specify (RTL Transformation PS 2(b)?
-> 6. The overhead in any path just need to be added once (RTL Transformation PS 2(c))?
-> 7. The term "multiply-add" operation is T means that the one multiplier + one adder is takes T? (RTL Transformation PS 5(a)).
-> 8. The block architecture, using SIPO/PISO or shifted clock phase? (RTL Transformation PS 5b and 5c).
-> 9. The critical path doesn't need to take the skew, jitter and setup, hold into account? Only consider the combinational parts' delay? (RTL Transformation PS 3(a))
-> 10. What does the term "constant inputs do not need to be retimed at all"? (RTL Transformation PS 3 (b))
-> 11. If a diagram got two inputs, can draw the gaussian that includes one input, or must include two? (RTL Transformation PS 3(b))
-> 12. The contamination delay information is missing in RTL Transformation PS 3(c)? (I feel like the contamination delay is always missing).
-> 13. RTL Transformation PS page 5, Q1(e), 2-way parallelism will give us double frequency?
-> 14. For throughput analysis, we analyze frequency, and latency. But latency is in clock cycles or absolute time?
-> 15. RTL Transformation PS Page 7, Q6(a) is worth going through again! Especially know how to get the relationship between the input and the output. (How to denote another new variable?)
-> 16. RTL Transformation PS Page 7, Q6(c), the logic imbalance only exists in the loop with 2 registers?
-> 17. RTL Transformation PS Page 7, Q6(d), if the question only says 4-slow, not retiming, should we assume we can do retiming?
-> 18. Confrim the RTL Transformation PS Page 8 (a), the retiming is valid or not (In Good Notes already).
-> 19. Confrim the RTL Transformation PS Page 8 (b), "fine-grained" pipelining means that the adder and multiplier are all pipelined to have a delay of 0.5 clock cycles? Or I have to do it manually?
-> 20. So, in **time-interleaving**, the minimum clock period is determined by the **min cut-cake problem**. In register insertion problem, the minimum clock period is determined by the **iteration bound**. Confirm this.
-> 21. In RTL Tranformation PS (Big), Q1-a, the critical path just a path, in other words, we just need to find the path and state that path is the critical path?
-> 22. We only can bring calculator, no need to print out the Verilog helpsheet.
-> 23. RTL Transformation PS (Big) Q1C, the retiming is wrong as it didn't duplicate the register at the input and output? Q1B also a big wrong with the overhead.
-> 24. RTL Transformation PS (Big) Q2(b), when calculating loop bound, don't care about the register overhead, but when calculating the maximum frequency that a system can reach, remember to add the register overhead? Also this question has wrong figure and Q2(a) is wrong!
->
-> Tips
->
-> 1. RTL Transformation PS (Big) Q3(b), if there is no loop in the diagram, technically there is no lower bound for the clock frequency, but ultimately, the clock cycle is limited by the overhead, and the large area/energy/latency overhead imposed by the registers, when repipelining aggressively.
+9. Do the [DICADP question](../textbook-1-dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective.md#example-propagation-and-contamination-delay-estimation) on the false path and the skew! Very classic one.

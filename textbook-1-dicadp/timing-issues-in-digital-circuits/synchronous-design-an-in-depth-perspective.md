@@ -148,7 +148,7 @@ Consider the logic network shown in Figure 10.10. Determine the propagation and 
 
 In other words, for this simple (but contrived) **logic circuit**, the output does not even depend on inputs **C** and **D** (that is, there is redundancy). Therefore, the **propagation delay** is **4 t**<sub>**gate**</sub>. Given the **propagation** and **contamination delay**, the **minimum** and **maximum allowable skew** can be easily computed.
 
-In this problem, we also see a very familiar concept — [**short circuiting**](https://wenbo-notes.gitbook.io/cs1010-notes/lec-tut-lab-exes/lecture/lec-04-conditionals#short-circuiting) (NUS CS1010 Knowledge comes back)! We now rephrase it using the concept of controlling value. A gate has a **controlling value** if one input alone can determine the output regardless of other inputs:
+In this problem, we also see a very familiar concept — [**short circuiting**](https://wenbo-notes.gitbook.io/cs1010-notes/lec-tut-lab-exes/lecture/lec-04-conditionals#short-circuiting) (NUS CS1010 knowledge comes back)! We now rephrase it using the concept of controlling value. A gate has a **controlling value** if one input alone can determine the output regardless of other inputs:
 
 * **OR Gate**: Controlling value is 1. (If any input is 1, output is 1).
 * **AND Gate**: Controlling value is 0. (If any input is 0, output is 0).
