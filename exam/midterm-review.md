@@ -130,6 +130,194 @@ By the way, in the question, using **repipelining**, we cannot achieve a clock p
 For the question (b), if you are trying to do the **feedforward cutset register insertion** on the DFG, note that the adder (operator) inside the loop (which means it is part of the loop) **cannot be crossed**!
 {% endhint %}
 
+### RTL Transformation 2
+
+#### Page 16
+
+{% stepper %}
+{% step %}
+#### Sub-question b
+
+In question b, when the clock frequency / clock period is given, we also need to **minus** the register overhead to get the **maximum allowable time** for the combinational part.
+{% endstep %}
+
+{% step %}
+#### Sub-question c
+
+<figure><img src="../.gitbook/assets/midterm-2.png" alt=""><figcaption></figcaption></figure>
+
+This question is the first question I met to write a Verilog module by hand. The convention I used to solve this kind of question is name/label all the intermediate signals with the following naming convention: `[type]_[stage]_[description]`
+
+* `[type]`: Use `w` for combinational wires and `r` for register outputs.
+* `[stage]`: Use `s1`, `s2`, `s3`, etc., to denote which pipeline stage the signal belongs to.
+* `[description]`: A brief description of the mathematical operation or path (e.g., `top`, `diff`, `abs_A`).
+
+{% hint style="warning" %}
+Sometimes, the question will label the signal, so there is no need to name it yourself. In this case, just pay attention the the **width** of each signal.
+{% endhint %}
+
+To decide the bits for the intermediate signal, we can use the following table.
+
+| Operation      | Expression | Result Bit Width                |
+| -------------- | ---------- | ------------------------------- |
+| Addition       | `A + B`    | `max(Wa, Wb) + 1`               |
+| Subtraction    | `A - B`    | `max(Wa, Wb) + 1`               |
+| Multiplication | `A * B`    | `Wa + Wb`                       |
+| Division       | `A / B`    | Quotient: `Wa`, Remainder: `Wb` |
+
+Using this convention, the complete code will look like below.
+
+{% code lineNumbers="true" %}
+```verilog
+module pipelined_multiplier (
+    input wire clk,
+    input wire [15:0] A_in,
+    input wire [15:0] B_in,
+    output wire [31:0] Out
+);
+    // -------------------------------------------------------------------------
+    // INPUT REGISTERS (REGA, REGB)
+    // -------------------------------------------------------------------------
+    reg [15:0] r_in_A;
+    reg [15:0] r_in_B;
+
+    always @(posedge clk) begin
+        r_in_A <= A_in;
+        r_in_B <= B_in;
+    end
+
+    // -------------------------------------------------------------------------
+    // STAGE 1: Combinational Logic
+    // -------------------------------------------------------------------------
+    wire [15:0] w_s1_top_d1;
+    wire [16:0] w_s1_diff;       // 17-bit as labeled in diagram
+    wire [16:0] w_s1_diff_abs;
+    wire [15:0] w_s1_and;
+    wire [15:0] w_s1_bot_d1;
+
+    assign w_s1_top_d1   = D1(ABS(r_in_A));
+    assign w_s1_diff     = {1'b0, r_in_A} - {1'b0, r_in_B}; // Extended to 17-bit to prevent overflow
+    assign w_s1_diff_abs = ABS(w_s1_diff); 
+    assign w_s1_and      = r_in_A & r_in_B; // Bitwise AND
+    assign w_s1_bot_d1   = D1(ABS(r_in_B));
+
+    // STAGE 1: Pipeline Registers (First column of grey blocks)
+    reg [15:0] r_s1_top;
+    reg [16:0] r_s1_midtop;
+    reg [15:0] r_s1_midbot;
+    reg [15:0] r_s1_bot;
+
+    always @(posedge clk) begin
+        r_s1_top    <= w_s1_top_d1;
+        r_s1_midtop <= w_s1_diff_abs;
+        r_s1_midbot <= w_s1_and;
+        r_s1_bot    <= w_s1_bot_d1;
+    end
+
+    // -------------------------------------------------------------------------
+    // STAGE 2: Combinational Logic
+    // -------------------------------------------------------------------------
+    wire [31:0] w_s2_top_sqr;
+    wire [31:0] w_s2_midtop_sqr;
+    wire [31:0] w_s2_bot_sqr;
+    wire [31:0] w_s2_sub;
+    wire [31:0] w_s2_add;
+
+    // Expanding to 32 bits for the final mathematical operations
+    assign w_s2_top_sqr    = SQR_HALF(r_s1_top);
+    assign w_s2_midtop_sqr = SQR_HALF(r_s1_midtop);
+    assign w_s2_bot_sqr    = SQR_HALF(r_s1_bot);
+
+    assign w_s2_sub = w_s2_top_sqr - w_s2_midtop_sqr;
+    // Note: r_s1_midbot passes through from the previous stage, needs padding to 32 bits
+    assign w_s2_add = {16'b0, r_s1_midbot} + w_s2_bot_sqr; 
+
+    // STAGE 2: Pipeline Registers (Second column of grey blocks)
+    reg [31:0] r_s2_sub;
+    reg [31:0] r_s2_add;
+
+    always @(posedge clk) begin
+        r_s2_sub <= w_s2_sub;
+        r_s2_add <= w_s2_add;
+    end
+
+    // -------------------------------------------------------------------------
+    // STAGE 3: Final Combinational Logic (Output)
+    // -------------------------------------------------------------------------
+    // 32-bit final adder as labeled in the diagram
+    assign Out = r_s2_sub + r_s2_add;
+
+endmodule
+```
+{% endcode %}
+
+{% hint style="warning" %}
+When adding two signals, pay attention to the sign extension!
+{% endhint %}
+{% endstep %}
+{% endstepper %}
+
+#### Page 19
+
+In question b, the **actual minimum clock** imposed by the loop is the **most unbalanced stage** in the loop (before retiming, if the question doesn't say can retime, just don't retime)!
+
+#### Page 23
+
+In question b, the correct code should be as follows.
+
+{% code lineNumbers="true" %}
+```verilog
+module mac (
+    input [15:0] A,
+    input [15:0] B,
+    input clk, 
+    input RSTACC,          // Added reset signal here
+    output [39:0] OUT 
+);
+
+    // Registers for inputs
+    reg [15:0] Amult, Bmult;
+    
+    // NEW: Pipeline register for the multiplier output
+    reg [31:0] OUTmult_reg; 
+    
+    // Accumulator register
+    reg [39:0] OUT_previous;
+    
+    // Combinational wires for math
+    wire [31:0] mult_result;
+    wire [39:0] adder_result;
+
+    // 1. Combinational Multiplier
+    assign mult_result = Amult * Bmult;
+
+    // 2. Combinational Adder (Using the pipelined multiplier value)
+    assign adder_result = {8'b00000000, OUTmult_reg} + OUT_previous;
+    
+    // OUT is just a wire connected to the adder output (per the diagram)
+    assign OUT = adder_result; 
+
+    // Sequential Logic (Registers)
+    always @(posedge clk) begin
+        // Input registers
+        Amult <= A;
+        Bmult <= B;
+        
+        // NEW PIPELINE STAGE: Register the multiplier output
+        OUTmult_reg <= mult_result; 
+        
+        // ACCUMULATOR with Active-High Synchronous Reset
+        if (RSTACC == 1'b1) begin
+            OUT_previous <= 40'd0; // Clear the accumulator
+        end else begin
+            OUT_previous <= adder_result; // Accumulate
+        end
+    end
+
+endmodule
+```
+{% endcode %}
+
 ## Tips
 
 1. For **retiming**, the gaussian surface **can** cross the loop, and we move the **registers** from the **input** to the **output** or vice versa.

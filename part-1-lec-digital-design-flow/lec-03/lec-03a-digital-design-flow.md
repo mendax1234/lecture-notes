@@ -4,7 +4,7 @@
 
 ### What is an ASIC
 
-ASIC design, or Application-Specific Integrated Circuit design, is the specialized process of developing integrated circuits (ICs) that are custom-built for a specific application, product, or use case. Unlike general-purpose chips, such as microprocessors or FPGAs (Field Programmable Gate Arrays), ASICs are optimized to perform a predefined function with maximum efficiency, high performance, and low power consumption
+ASIC design, or Application-Specific Integrated Circuit design, is the specialized process of developing integrated circuits (ICs) that are custom-built for a specific application, product, or use case. Unlike general-purpose chips, such as microprocessors or FPGAs (Field Programmable Gate Arrays), ASICs are optimized to perform a predefined function with maximum efficiency, high performance, and low power consumption.
 
 In modern practice, most ASICs are **not designed at the transistor level**. Instead, they are built by assembling **pre-designed and pre-characterized logic cells** from a **standard-cell library**. These cells include gates, flip-flops, multiplexers, memories, and other functional blocks, each with known area, timing, and power properties.
 
@@ -49,7 +49,7 @@ This type of ASIC uses predesigned logic cells called **standard cells**, such a
 {% step %}
 #### Gate-array Based ASIC
 
-In this category of ASIC, transistors, logic gates, and other active devices are created and manufactured on a silicon wafer, while **interconnects** are not formed during fabrication. The pre-established arrangement of transistors on the gate array is referred to as the base array, and the smallest repetitive element forming the gate array is called the **base cel**l. Several advantages accompany this approach, including a shorter turnaround time, higher logic density, and customization of contact layers.
+In this category of ASIC, transistors, logic gates, and other active devices are created and manufactured on a silicon wafer, while **interconnects** are not formed during fabrication. The pre-established arrangement of transistors on the gate array is referred to as the base array, and the smallest repetitive element forming the gate array is called the **base cell**. Several advantages accompany this approach, including a shorter turnaround time, higher logic density, and customization of contact layers.
 {% endstep %}
 {% endstepper %}
 
@@ -93,7 +93,7 @@ This step decides:
 * How blocks communicate (interfaces, buses, clocks)
 * What is hardware vs software (if applicable)
 
-**Output:** Block-level architecture and interface definitions.
+**Output:** Block-level architecture and interface definitions or a more hierarchical **RTL code**.
 {% endstep %}
 
 {% step %}
@@ -259,6 +259,8 @@ The cell-based flow is a standard industry methodology for taking a design from 
 
 {% hint style="warning" %}
 This is the industry version of the ASIC Design Flow we introduce below/later.
+
+* In **Synopsys**, this flow is introduced in the [textbook 2: AACS](../../textbook-2-aacs/asic-design-methodology/traditional-design-flow.md).
 {% endhint %}
 
 ### Levels of Abstraction
@@ -336,6 +338,10 @@ Synthesis is defined by the formula: **Translation + Optimization + Mapping.**
 2. **Optimize + Map:** Refines the logic and maps it to the specific gates available in the Target Technology library.
 
 <figure><img src="../../.gitbook/assets/synthesis-process.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="danger" %}
+The figure above is **very very important**! This is what logic synthesis does in Synopsys design compiler!
+{% endhint %}
 {% endstep %}
 
 {% step %}
@@ -367,14 +373,14 @@ To get the best result, the designer must:
 
 <figure><img src="../../.gitbook/assets/asic-design-flow-starting-point.png" alt=""><figcaption></figcaption></figure>
 
-And below are the two guidelines recommended to follow when designing ASIC
+And below are the two guidelines recommended to follow when designing ASIC.
 
 ### Think Hardware
 
 Synthesis tools are designed to create physical circuits, so our HDL code must describe actual physical structures rather than abstract software behaviors.
 
 * **Write HDL Hardware Descriptions:**
-  * Always think of the **topolog**y (the physical arrangement of components) that our code implies.
+  * Always think of the **topology** (the physical arrangement of components) that our code implies.
   * Our goal is to describe a network of registers, muxes, and gates.
 * **Do Not Write HDL Simulation Models:**
   * Avoid using code intended only for software-style testing.
