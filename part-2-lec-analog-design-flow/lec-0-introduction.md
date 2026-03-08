@@ -46,7 +46,7 @@ The smaller box coming out from "synthesis" is pretty similar to the **logic syn
 
 #### Technology Library
 
-We have seen the technology library in [synopsys tool chain](../textbook-2-aacs/synopsys-technology-library/technology-libraries.md) and EE4218 and CG3207. In Part 2 of EE4415, we are going to use `FreePDK45` in Cadence. So, basically, in the technology library we have the **design models** for the following elements:
+We have seen the technology library in [synopsys tool chain](../textbook-2-synopsys/synopsys-technology-library/technology-libraries.md) and EE4218 and CG3207. In Part 2 of EE4415, we are going to use `FreePDK45` in Cadence. So, basically, in the technology library we have the **design models** for the following elements:
 
 1. Basic logic gates,
 2. Registers,

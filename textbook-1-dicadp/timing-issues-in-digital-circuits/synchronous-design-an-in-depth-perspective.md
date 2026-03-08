@@ -261,7 +261,7 @@ $$
 $$
 
 {% hint style="success" %}
-In the Synopsys's [setup timing report](../../textbook-2-aacs/constraining-designs/environment-and-constraints.md#setup-timing-report), you will find out that this is equivalent to the **data required time** and **data arrival time**.
+In the Synopsys's [setup timing report](../../textbook-2-synopsys/constraining-designs/environment-and-constraints.md#setup-timing-report), you will find out that this is equivalent to the **data required time** and **data arrival time**.
 {% endhint %}
 {% endstep %}
 
@@ -281,7 +281,7 @@ $$
 $$
 
 {% hint style="success" %}
-In the Synopsys's [hold timing report](../../textbook-2-aacs/constraining-designs/environment-and-constraints.md#setup-timing-report), you will find out that this is equivalent to the **data required time** and **data arrival time**.
+In the Synopsys's [hold timing report](../../textbook-2-synopsys/constraining-designs/environment-and-constraints.md#setup-timing-report), you will find out that this is equivalent to the **data required time** and **data arrival time**.
 {% endhint %}
 {% endstep %}
 

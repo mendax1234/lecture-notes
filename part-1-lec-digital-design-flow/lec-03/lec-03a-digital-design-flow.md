@@ -260,7 +260,7 @@ The cell-based flow is a standard industry methodology for taking a design from 
 {% hint style="warning" %}
 This is the industry version of the ASIC Design Flow we introduce below/later.
 
-* In **Synopsys**, this flow is introduced in the [textbook 2: AACS](../../textbook-2-aacs/asic-design-methodology/traditional-design-flow.md).
+* In **Synopsys**, this flow is introduced in the [textbook 2: AACS](../../textbook-2-synopsys/asic-design-methodology/traditional-design-flow.md).
 {% endhint %}
 
 ### Levels of Abstraction
