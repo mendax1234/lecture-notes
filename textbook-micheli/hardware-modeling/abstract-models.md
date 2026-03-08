@@ -1,20 +1,18 @@
 # Abstract Models
 
-We present in this section some abstract models that are used to represent different circuits views at the logic and architectural levels. They are based on **graphs**.
+We present in this section some **abstract models** that are used to represent different circuits views at the **logic** and **architectural** levels. They are based on **graphs**.
 
 ## Structure
 
-Structural representations can be modeled in terms of **incidence** structures. An incidence structure consists of
+**Structural** representations can be modeled in terms of **incidence** structures. An incidence structure consists of
 
 1. a set of **modules/pins**
 2. a set of **nets**, and
 3. an incidence relation among modules and nets
 
-For example, the following figures  shows an incidence structure
+For example, the following figure shows an incidence structure.
 
-<figure><img src="../../.gitbook/assets/incidence-structure.png" alt="" width="455"><figcaption><p>Figure 3.5(a) Modules, nets and pins</p></figcaption></figure>
-
-We have three **abstract models** to model this incidence stucutre.
+<figure><picture><source srcset="../../.gitbook/assets/incidence-structure.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/incidence-structure-light.png.png" alt="" width="455"></picture><figcaption><p>Figure 3.5(a) Modules, nets and pins</p></figcaption></figure>
 
 <details>
 
@@ -35,36 +33,38 @@ So, our incidence structure in Figure 3.5(a) will be something like as follows:
 
 </details>
 
+We have three **abstract models** to model this incidence stucture.
+
 ### Incidence Matrix/Netlist
 
-The module-net incidence matrix or module-oriented netlist to model Figure 3.5(a) are shown as follows:
+The **module-net incidence matrix** or **module-oriented netlist** to model Figure 3.5(a) are shown as follows:
 
-<figure><img src="../../.gitbook/assets/incidence-matrix-netlist.png" alt="" width="258"><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/incidence-matrix-netlist-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/incidence-matrix-netlist-light.png.png" alt="" width="258"></picture><figcaption></figcaption></figure>
 
 ### Hypergraph
 
-The hypergraph model of Figure 3.5(a) can be shown as follows:
+The **hypergraph** model of Figure 3.5(a) can be shown as follows:
 
-<figure><img src="../../.gitbook/assets/hyper-graph-abstract-model.png" alt="" width="319"><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/hyper-graph-abstract-model-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/hyper-graph-abstract-model-light.png" alt="" width="319"></picture><figcaption></figcaption></figure>
 
 ### Bipartite Graph
 
 The bipartite graph is **equivalent** to a hypergraph. Similarly, the bipartite graph model of Figure 3.5(a)  is shown as follows:
 
-<figure><img src="../../.gitbook/assets/bipartite-graph-abstract-model.png" alt="" width="229"><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/bipartite-graph-abstract-model-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/bipartite-graph-abstract-model-light.png.png" alt="" width="229"></picture><figcaption></figcaption></figure>
 
 ## Logic Networks
 
 A generalized logic network is a structure in which each leaf module is associated with a **multiple-input and single output** combinational or sequential logic function.
 
-<figure><img src="../../.gitbook/assets/logic-network-example.png" alt="" width="534"><figcaption><p>Figure 3.7 Example of a logic network</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/logic-network-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/logic-network-example-light.png" alt="" width="534"></picture><figcaption><p>Figure 3.7 Example of a logic network</p></figcaption></figure>
 
 Logic networks are usually represented by **graphs**.
 
-<figure><img src="../../.gitbook/assets/logic-network-graph.png" alt="" width="500"><figcaption><p>Figure 3.8 Example of a logic network graph</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/logic-network-graph-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/logic-network-graph-light.png" alt="" width="500"></picture><figcaption><p>Figure 3.8 Example of a logic network graph</p></figcaption></figure>
 
 {% hint style="warning" %}
-Logic networks is a **hybrid structural/behavioral** representation.
+Logic network is a **hybrid structural/behavioral** representation.
 {% endhint %}
 
 ### Mapped Network
@@ -90,13 +90,13 @@ The **behavioral view** of **sequential circuits** at the **logic level** can be
 
 The **state transition table** is a tabulation of the state transition and output functions. Its corresponding graph-based representation is the **state transition diagram**.
 
-<figure><img src="../../.gitbook/assets/state-transition-diagram-example.png" alt="" width="563"><figcaption><p>Figure 3.9 Example of a state transition diagram</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/state-transition-diagram-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/state-transition-diagram-example-light.png" alt="" width="563"></picture><figcaption><p>Figure 3.9 Example of a state transition diagram</p></figcaption></figure>
 
 ### Hierarchical State Diagram
 
 It is sometimes convenient to represent finite-state machine diagrams **hierarchically** by splitting them into subdiagrams. An example is shown as follows:
 
-<figure><img src="../../.gitbook/assets/hierarchical-state-diagram-example.png" alt=""><figcaption><p>Figure 3.10 Example of a hierarchical state transition diagram.</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/hierarchical-state-diagram-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/hierarchical-state-diagram-example-light.png" alt=""></picture><figcaption><p>Figure 3.10 Example of a hierarchical state transition diagram.</p></figcaption></figure>
 
 There are two levels in the diagram:
 
@@ -115,20 +115,44 @@ We consider here models that abstract the information represented by procedural 
 
 ### Data-Flow Graphs
 
-Data-flow graphs represent operations and data dependencies.
+Data-flow graphs represent operations and data dependencies. For example,
 
-<figure><img src="../../.gitbook/assets/data-flow-graph-example.png" alt="" width="563"><figcaption><p>Figure 3.11 Example of a data flow graph</p></figcaption></figure>
+{% code lineNumbers="true" %}
+```
+x1 = x + dx;
+u1 = u – ( 3 . x . u . dx ) – ( 3 . y . dx );
+y1 = y + u . dx ;
+c = x < a ;
+x = x1;
+u = u1;
+y = y1 ;
+```
+{% endcode %}
+
+The data graph for the code above can be shown as follows:
+
+<figure><picture><source srcset="../../.gitbook/assets/data-flow-graph-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/data-flow-graph-example-light.png.png" alt="" width="563"></picture><figcaption><p>Figure 3.11 Example of a data flow graph</p></figcaption></figure>
+
+Data-Flow graphs are useful to represent **data paths** (not control) and it is **purely behavioral**.
+
+{% hint style="warning" %}
+In the data graphs, the labels beside the vertex is just to denote the **numbering** of that vertex.
+{% endhint %}
 
 ### Sequencing Graphs
 
-The sequencing graphs are an **extension** of the data graphs. They are useful to represent data path and control. (a control/data-flow graph (CDFG)). A sequencing graph is/has
+The sequencing graphs are an **extension** of the data graphs. They are useful to represent data path and control (a control/data-flow graph (CDFG)). A sequencing graph is/has
 
 1. Hierarchy
 2. Control-flow commands such as branching and iteration
 3. Two extra vertices called **source** and **sink** which always model NOPs.
 4. Often shown without data annotations, especially when doing scheduling and binding
 
-<figure><img src="../../.gitbook/assets/sequence-graph-example.png" alt="" width="563"><figcaption><p>Figure 3.12 Example of a sequencing graph</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/sequence-graph-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/sequence-graph-example-light.png.png" alt="" width="563"></picture><figcaption><p>Figure 3.12 Example of a sequencing graph</p></figcaption></figure>
+
+{% hint style="warning" %}
+The top NOP is **source** and the bottom NOP is **sink**.
+{% endhint %}
 
 #### Types of Sequencing Graphs
 
@@ -136,19 +160,19 @@ The sequencing graphs are an **extension** of the data graphs. They are useful t
 {% step %}
 #### Hierarchical Sequencing Graph
 
-<figure><img src="../../.gitbook/assets/hierarchical-sequencing-graph.png" alt=""><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/hierarchical-sequencing-graph-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/hierarchical-sequencing-graph-light.png.png" alt=""></picture><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
 #### Branching Sequencing Graph
 
-<figure><img src="../../.gitbook/assets/branching-sequencing-graph.png" alt=""><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/branching-sequencing-graph-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/branching-sequencing-graph-light.png" alt=""></picture><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
 #### Iteration Sequencing Graph
 
-<figure><img src="../../.gitbook/assets/iteration-sequencing-graph.png" alt=""><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/iteration-sequencing-graph-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/iteration-sequencing-graph-light.png" alt=""></picture><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 

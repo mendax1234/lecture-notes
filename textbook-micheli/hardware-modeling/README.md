@@ -1,6 +1,6 @@
 # Hardware Modeling
 
-A model of a circuit is an **abstraction**, i.e., a representation that shows relevant features without associated details. **Models** are used to specify circuits, to reason about their properties and as means of transfening the information about a design among humans as well as among humans and computer-aided design tools.
+A model of a circuit is an **abstraction**, i.e., a representation that shows relevant features without associated details. **Models** are used to specify circuits, to reason about their properties and as means of transfering the information about a design among humans and humans as well as among humans and computer-aided design (CAD) tools.
 
 <details>
 
@@ -16,9 +16,11 @@ A circuit can be modeled differently according to&#x20;
 2. **view** (e.g., behavioral, structural, physical), and
 3. the **modeling means** being used (e.g., language, diagram, mathematical model).
 
-Abstraction levels and views were described in [computer-aided-synthesis-and-optimization.md](../introduction/computer-aided-synthesis-and-optimization.md "mention"). We comment now on the **modeling means**.
+Abstraction levels and views were described in [computer-aided-synthesis-and-optimization.md](../introduction/computer-aided-synthesis-and-optimization.md "mention"). We comment now on the "**modeling means**".
 
+{% hint style="warning" %}
 This book does not advocate the use of any specific hardware language. The synthesis techniques that we present have **general value** and are not related to the specifics of any particular language. For this reason, we shall consider also **abstract models** for circuits at both the **architectural** and **logic levels**.
+{% endhint %}
 
 **Abstract models** are **mathematical models** based on **graphs** and **Boolean algebra**.
 
@@ -29,6 +31,32 @@ This book does not advocate the use of any specific hardware language. The synth
 Perhaps the two bullet points above are the most important **intuitions** from this section.
 {% endhint %}
 
-We show in the Figure 1.20 (we have seen this at the [introduction](../introduction/ "mention") chapter) relations among HDL models, abstract models, and the synthesis tasks.
+Figure 1.20 (we have seen this at the [introduction](../introduction/ "mention") chapter) shows the relations among HDL models, abstract models, and the synthesis tasks.
 
 <figure><img src="../../.gitbook/assets/circuit-models-synthesis-optimization.png" alt=""><figcaption><p>Figure 1.20 Circuit models, synthesis and optimization: a simplified view</p></figcaption></figure>
+
+The **language models** can be thought of as a way to specify the specifications. In other words, what we want to achieve. In HDL, we have **bahavioral** and **structural** flavor. Thus, we have different **abstract models** to capture the information described by these two types of HDL.
+
+{% stepper %}
+{% step %}
+#### Behavioral HDL
+
+In behavioral HDL, we can write both **data paths** and **control units**.
+
+* For **data paths**, we can use the following abstract models:
+  * [Data-flow and Sequencing Graphs](abstract-models.md#data-flow-and-sequencing-graphs).
+  * [Logic networks and Logic network Graphs](abstract-models.md#logic-networks).
+  * For purely combinational data path, we can even use [mapped networks](abstract-models.md#mapped-network).
+* For **control units**, we can use the following abstract models:
+  * [State-transition diagrams](abstract-models.md#state-diagrams)
+{% endstep %}
+
+{% step %}
+#### Structural HDL
+
+In structural HDL, we can only specify the **data path**. So, we can use the following abstraact models:
+
+* [Structure](abstract-models.md#structure), like Incidence matrix/netlist, hypergraph, bipartite graph.
+* [Logic networks and Logic network Graphs](abstract-models.md#logic-networks).
+{% endstep %}
+{% endstepper %}

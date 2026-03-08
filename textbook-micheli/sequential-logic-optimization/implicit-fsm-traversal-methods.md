@@ -17,7 +17,7 @@ For example, if our initial state is `001` and we have 2 inputs, meaning that we
 * We repeat this until we have traversed all the states in the set of reachable states.
 
 {% hint style="success" %}
-Up until now, [retiming](sequential-circuit-optimization-using-network-models.md#retiming-1), [state encoding](synchronous-circuit-optimization-using-state-based-models.md#state-encoding), and [state extraction](implicit-fsm-traversal-methods.md#state-extraction) can all be done by the **modern synthesis tool**. However, the [**state minimization**](synchronous-circuit-optimization-using-state-based-models.md#state-minimization) and the [repipelining](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/lecture/lec-02/lec-02b-rtl-transformations#repipelining) we learned in EE4415 is done **manually**.
+Up until now, [retiming](sequential-circuit-optimization-using-network-models.md#retiming-1), [state encoding](synchronous-circuit-optimization-using-state-based-models.md#state-encoding), and [state extraction](implicit-fsm-traversal-methods.md#state-extraction) can all be done by the **modern synthesis tool**. However, the [**state minimization**](synchronous-circuit-optimization-using-state-based-models.md#state-minimization) and the [repipelining](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-02/lec-02b-rtl-transformations#repipelining) we learned in EE4415 is done **manually**.
 {% endhint %}
 
 [^1]: No new reachable states added to the subset.

@@ -1,6 +1,8 @@
 # Compilation and Behavioral Optimization
 
-We explain in this section how **circuit models**, described by **HDL programs**, can be transformed into the **abstract models** that will be used as a starting point for **synthesis** in the following chapters. Most **hardware compilation techniques** have analogues in **software compilation**. Since **hardware synthesis** followed the development of **software compilers**, many techniques were borrowed and adapted from the rich field of **compiler design**. Nevertheless, some **behavioral optimization techniques** are applicable only to **hardware synthesis**. We shall briefly survey general issues on **compilation**, where the interested reader can find a wealth of literature, and we shall concentrate on the specific **hardware issues**.
+We explain in this section how **circuit models**, described by **HDL programs**, can be transformed into the **abstract models** that will be used as a starting point for **synthesis** in the following chapters.
+
+Most **hardware compilation techniques** have analogues in **software compilation**. Since **hardware synthesis** followed the development of **software compilers**, many techniques were borrowed and adapted from the rich field of **compiler design**. Nevertheless, some **behavioral optimization techniques** are applicable only to **hardware synthesis**. We shall briefly survey general issues on **compilation**, where the interested reader can find a wealth of literature, and we shall concentrate on the specific **hardware issues**.
 
 A **software compiler** consists of
 
@@ -11,45 +13,39 @@ The **front end** is **language dependent**, and the **back end** varies accordi
 
 Similarly, a **hardware compiler** can be seen as consisting of a **front end**, an **optimizer**, and a **back end** (Figure 3.16).
 
-<figure><img src="../../.gitbook/assets/sw-hw-compiler.png" alt=""><figcaption><p>Figure 3.16 Anatomies of software and hardware compilers.</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/sw-hw-compiler-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/sw-hw-compiler-light.png" alt=""></picture><figcaption><p>Figure 3.16 Anatomies of software and hardware compilers.</p></figcaption></figure>
 
-The **back end** is much more complex than a **software compiler**, because of the requirements on **timing** and **interface** of the internal operations. The **back end** exploits several techniques that go under the generic names of:
+The **back end** of a hardware compiler is much more complex than a **software compiler** because of the requirements on **timing** and **interface** of the internal operations. The **back end** exploits several techniques that go under the generic names of:
 
 * **architectural synthesis**,
 * **logic synthesis**, and
 * **library binding**.
 
-We describe the **front end** and the **optimization techniques** in this section. The **back end** is described in the different parts in this note. Overall, applying these three stages in software compilation, high-level synthesis, and RTL/HDL synthesis will result in:
+We describe the **front end** and the **optimization techniques** in this section. The **back end** is described in the different parts in this note. Overall, the usage of these three stages in the context of software compilation, high-level synthesis, and RTL/HDL synthesis will be:
 
 {% stepper %}
 {% step %}
 #### Software Compilation
 
-**Front end:** Compile program into intermediate representation (IR).
-
-**Optimisation**: Optimise IR.
-
-**Back-end**: Generate target code for an architecture (ISA).
+* **Front end:** Compile program into intermediate representation (IR).
+* **Optimisation**: Optimise IR.
+* **Back-end**: Generate target code for an architecture (ISA).
 {% endstep %}
 
 {% step %}
 #### High-level Synthesis
 
-**Front end**: Compile High-Level model into **sequencing graph.**
-
-**Optimisation**: Optimise the sequencing graph.
-
-**Back end**: Generate the RTL or gate-level interconnection for a technology library.
+* **Front end**: Compile High-Level model into **sequencing graph.**
+* **Optimisation**: Optimise the sequencing graph.
+* **Back end**: Generate the RTL or gate-level interconnection for a technology library.
 {% endstep %}
 
 {% step %}
 #### RTL/HDL Synthesis
 
-**Front end**: Parse RTL description into a **synchronous logic network**.
-
-**Optimisation**: Optimise combinational and sequential logic.
-
-**Back-end**: Generate gate-level netlist for a technology library.
+* **Front end**: Parse RTL description into a **synchronous logic network**.
+* **Optimisation**: Optimise combinational and sequential logic.
+* **Back-end**: Generate gate-level netlist for a technology library.
 {% endstep %}
 {% endstepper %}
 
@@ -59,7 +55,7 @@ The **optimizations** are similar across these three compiling techniques, but t
 
 ## Compilation Techniques
 
-The **front end** of a **compiler** is responsible for **lexical analysis**, **syntax analysis**, **parsing**, and creation of the **intermediate form**.
+The **front end** of a compiler is responsible for **lexical analysis**, **syntax analysis**, **parsing**, and creation of the **intermediate form**.
 
 ### Lexical Analyzer
 
@@ -67,29 +63,29 @@ A **lexical analyzer** is a component of a compiler that reads the **source mode
 
 ### Parser
 
-A **parser** receives a set of **tokens**. Its first task is to verify that they satisfy the **syntax rules** of the **language**. The parser has knowledge of the **grammar** of the language and generates a set of **parse trees**, which are **tree-like representations** of the **syntactic structure** of a language (an example is shown in Figure 3.17).
+A **parser** receives a set of **tokens**. Its first task is to verify that they satisfy the syntax rules of the language. The parser has knowledge of the grammar of the language and generates a set of **parse trees**, which are tree-like representations of the syntactic structure of a language (an example is shown in Figure 3.17).
 
-<figure><img src="../../.gitbook/assets/parse-tree-example.png" alt=""><figcaption><p>Figure 3.17 Example of a parse tree for the statement a = p + q * r.</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/parse-tree-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/parse-tree-example-light.png" alt=""></picture><figcaption><p>Figure 3.17 Example of a parse tree for the statement a = p + q * r.</p></figcaption></figure>
 
-**Syntactic errors**, as well as some **semantic errors** (such as an operator applied to an incompatible operand), are detected at this stage. The **error recovery policy** depends on the **compiler** and on the **gravity of the error**. **Software tools** can be used to create **lexical analyzers** and **parsers**, such as **lex** and **yacc**, commonly provided with the **UNIX operating system**.
+**Syntactic errors**, as well as some **semantic errors** (such as an operator applied to an incompatible operand), are detected at this stage. The **error recovery policy** depends on the compiler and on the gravity of the erro**r**. Software tools can be used to create **lexical analyzers** and **parsers**, such as lex and yacc, commonly provided with the UNIX operating system.
 
 {% hint style="warning" %}
 Whereas the **front ends** of a compiler for **software** and **hardware** are very similar, the subsequent steps may be fairly different. In particular, for **hardware languages**, diverse **strategies** are used according to their **semantics** and **intent**.
 {% endhint %}
 
-The **semantic analysis** of the **parse trees** leads to the creation of the **intermediate form**, which represents the implementation of the original **HDL program** on an **abstract machine**. Such a machine is identified by a set of **operations** and **dependencies**, and it can be represented graphically by a **sequencing graph**. The **hardware model** in terms of an **abstract machine** is **virtual**, in the sense that it does not distinguish the **area** and **delay costs** of the operations. Therefore, **behavioral optimization** can be performed on such a model while **abstracting** the underlying **circuit technological parameters**.
+The **semantic analysis** of the parse trees leads to the creation of the intermediate form, which represents the implementation of the original HDL program on an **abstract machine**. Such a machine is identified by a set of operations and dependencies, and it can be represented graphically by a **sequencing graph**. The **hardware model** in terms of an **abstract machine** is virtual, in the sense that it does not distinguish the **area** and **delay costs** of the operations. Therefore, **behavioral optimization** can be performed on such a model while abstracting the underlying circuit technological parameters.
 
 ## Optimization Techniques
 
-**Behavioral optimization** is a set of **semantic-preserving transformations** that minimize the amount of **information** needed to specify the **partial order of tasks**. No knowledge about the **circuit implementation style** is required at this stage. The **latitude** of applying such optimization depends on the **freedom to rearrange the intermediate code**. Therefore, models that are highly constrained to adhere to a **time schedule** or to an **operator binding** may benefit very little from these techniques.
+**Behavioral optimization** is a set of semantic-preserving transformations that minimize the amount of information needed to specify the partial order of tasks. No knowledge about the circuit implementation style is required at this stage. The latitude of applying such optimization depends on the freedom to rearrange the intermediate code. Therefore, models that are highly constrained to adhere to a **time schedule** or to an **operator binding** may benefit very little from these techniques.
 
 {% hint style="danger" %}
-We consider here these transformations as applied to sequences of statements, e.g., as **program-level** transformations.
+We consider these transformations here as the transformations which are applied to sequences of statements, e.g., **program-level** transformations.
 {% endhint %}
 
 ### Data-Flow-Based Transformations
 
-These **transformations** are dealt with in detail in most books on **software compiler design**.
+These transformations are dealt with in detail in most books on software compiler design.
 
 #### Tree Heigh Reduction
 

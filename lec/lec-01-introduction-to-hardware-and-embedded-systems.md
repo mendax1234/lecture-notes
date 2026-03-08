@@ -123,7 +123,7 @@ In this course (EE4218), we focus on the algorithms _inside_ the CAD tools. Most
 ### Graphs
 
 {% hint style="info" %}
-CAD tools represent circuits as graphs. More on Data Flow Graph (DFG) is on [EE4415](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/lecture/lec-02/lec-02b-rtl-transformations#data-flow-graphs).
+CAD tools represent circuits as graphs. More on Data Flow Graph (DFG) is on [EE4415](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-02/lec-02b-rtl-transformations#data-flow-graphs).
 {% endhint %}
 
 Graph $$G=(V, E)$$ is composed of two parts:
