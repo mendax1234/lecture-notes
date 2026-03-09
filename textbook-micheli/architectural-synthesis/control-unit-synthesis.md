@@ -7,10 +7,10 @@ From a **circuit implementation** point of view, the **control-unit model** can 
 * In the **microcode-based implementation**, the **control information** is stored in a **read-only memory (ROM)** array addressed by a **counter**.
 * In the **hardwired implementation**, the control unit is realized as a **sequential circuit** consisting of an interconnection of a **combinational circuit** and **registers**. For example, this is the normal FSM we have seen in [DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-02-digital-system-design-and-verilog#finite-state-machines).
 
-From a **logic standpoint**, the **synchronous implementation** of control can be modeled as a **finite-state machine (FSM)**.
+From a logic standpoint, the synchronous implementation of control can be modeled as a **finite-state machine (FSM)**.
 
 {% hint style="danger" %}
-It is important to remark that a synthesized **microcoded control unit** is **not reprogrammable**, that is, the **microcode-based implementation** is simply a method of storing the **control information** in an organized fashion (e.g., in a **memory array**) without providing support for **modifying** it.
+It is important to remark that a synthesized **microcoded control unit** is **not reprogrammable**, that is, the **microcode-based implementation** is simply a method of storing the **control information** in an organized fashion (e.g., in a **memory array**) **without** providing support for modifying it.
 {% endhint %}
 
 ## Hard-wired Control Synthesis
@@ -23,7 +23,7 @@ Then the state-transition diagram, which is the result of our control-unit synth
 
 <figure><picture><source srcset="../../.gitbook/assets/control-unit-synthesis-state-tran-light.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/control-unit-synthesis-state-tran-dark.png" alt=""></picture><figcaption></figcaption></figure>
 
-This state-transition diagram basically means when the FSM is in S1, its output will be 1, 2, 10, which are equivalent to activate the $$v_1,v_2$$ and $$v_{10}$$ operations. And similar for the rest 3 states.
+This state-transition diagram basically means when the FSM is in S1, its output will be 1, 2, 6, 8, 10, which are equivalent to activate the $$v_1,v_2,v_6,v_8$$ and $$v_{10}$$ operations. And similar for the rest 3 states.
 
 {% hint style="warning" %}
 Here, for simplicity, we omit the IDLE state and assume that these 4 cycles are repeated **continuously**.
@@ -72,12 +72,10 @@ Consider again the **scheduled sequencing graph** we've seen in the [#hard-wired
 
 <figure><picture><source srcset="../../.gitbook/assets/vertical-microcode-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/vertical-microcode-example-light.png" alt="" width="149"></picture><figcaption><p>Figure 4.14 Example of vertical microcode</p></figcaption></figure>
 
-**Figure 4.14** can be interpreted in two ways:
+Figure 4.14 can be interpreted in two ways:
 
-1. **Serialized execution**:\
-   The **operations** are **serialized**, and the **latency** becomes **11**, since each operation is activated in a separate **control step**.
-2. **Parallel word access**:\
-   Multiple **ROM words** can be read within a single **cycle**. For example, the first five **words** could be read during the first **control step**, allowing multiple **operations** to be activated concurrently.
+1. **Serialized execution**: The **operations** are **serialized**, and the **latency** becomes **11**, since each operation is activated in a separate **control step**.
+2. **Parallel word access**: Multiple **ROM words** can be read within a single cycle. For example, the first five words could be read during the first control step, allowing multiple operations to be activated concurrently.
 
 In this vertical microcode, the first few rows contain the **encoded activation signal** and the job of the decoder is to decode these rows and then activate the corresponding operations.
 
@@ -105,8 +103,8 @@ Note that the operations within each **group** are **not concurrent**. Therefore
 
 <figure><picture><source srcset="../../.gitbook/assets/optimize-microcode-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/optimize-microcode-light.png" alt="" width="381"></picture><figcaption></figcaption></figure>
 
-In this scheme, **null fields** (i.e., all-zero entries within a field) indicate that no **operation** in that group is activated during the corresponding **control step**.
+In this scheme, **null fields** (e.g., all-zero entries within a field) indicate that no **operation** in that group is activated during the corresponding **control step**.
 
-This encoding requires **9 bits —** instead of **11 bits** for the **horizontal encoding** and **4 bits** for the fully **vertical encoding —** while still preserving full **concurrency**.
+This encoding requires 9 bits — instead of 11 bits for the **horizontal encoding** and **4 bits** for the fully vertical encoding — while still preserving full concurrency.
 
 </details>

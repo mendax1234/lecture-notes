@@ -6,15 +6,11 @@ Specifications for architectural synthesis include
 2. **resource descriptions**, and
 3. **design constraints**.
 
-Behavioral models are represented using [**sequencing graphs**](../hardware-modeling/abstract-models.md#sequencing-graphs), as described earlier. Here, we focus on resources and constraints in greater detail.
-
-{% hint style="success" %}
-The behavioral models can be thought of as the **function** we want to achieve using our circuit.
-{% endhint %}
+Behavioral models are **usually** represented using [**data-flow and sequencing graphs**](../hardware-modeling/abstract-models.md#sequencing-graphs), as described earlier. Here, we focus on [resources](circuit-specifications-for-architectural-synthesis.md#resources) and [constraints](circuit-specifications-for-architectural-synthesis.md#constraints) in greater detail.
 
 ## Resources
 
-Resources implement different hardware functions and can be broadly classified into three categories.
+**Resources** are used to implement different hardware functions and can be broadly classified into three categories.
 
 {% hint style="warning" %}
 This part can also be called as **building blocks**, which are a set of resources fully characterized in terms of area and execution delay. Basically, we want to know how to connect the **building blocks** we have to achieve the outcome we want.
@@ -29,14 +25,14 @@ This part can also be called as **building blocks**, which are a set of resource
 
 #### Primitive Resources
 
-**Primitive resources**, which are carefully designed reusable subcircuits, such as arithmetic units and standard logic functions (e.g., encoders and decoders).
+**Primitive resources** are carefully designed reusable subcircuits, such as arithmetic units and standard logic functions (e.g., encoders and decoders).
 
 #### Application-specific Resources
 
-**Application-specific resources**, which implement specialized subtasks. An example is a subcircuit that services a specific interrupt in a processor. These resources are typically implementations of other HDL models.
+**Application-specific resources** implement specialized subtasks. An example is a subcircuit that services a specific interrupt in a processor. These resources are typically implementations of other HDL models.
 
 {% hint style="danger" %}
-The major decisions in architectural synthesis are often related to the use of **functional resources**. From the perspective of formulating architectural synthesis and optimization problems, there is no fundamental difference between primitive and application-specific functional resources. Both types can be characterized in terms of area and performance and can be used as building blocks.
+The major decisions in architectural synthesis are often related to **the use of** **functional resources**. From the perspective of formulating architectural synthesis and optimization problems, there is no fundamental difference between primitive and application-specific functional resources. Both types can be characterized in terms of area and performance and can be used as building blocks.
 {% endhint %}
 
 ### Memory Resources
@@ -44,7 +40,7 @@ The major decisions in architectural synthesis are often related to the use of *
 **Memory resources** store data. Examples include registers, read-only memory (ROM), and read-write memory (RAM).
 
 {% hint style="warning" %}
-Requirement for storage resources are **implicit** in the **sequencing graph itself**.
+Requirement for storage resources are **implicit** in the **sequencing graph itself** but we still need to consider which register to use and how many registers we are going to use in our system. We will see more on this later in the [problem set](../../tutorial/problem-set-1.md#id-04.-combine-everything).
 {% endhint %}
 
 ### Interface Resources
@@ -53,7 +49,7 @@ Requirement for storage resources are **implicit** in the **sequencing graph its
 
 ### Steering Logics
 
-As we have seen [earlier](./), **steering logics** are multiplexers and buses that route data to the correct destination at the appropriate time.
+As we have seen [earlier](./), **steering logics** are multiplexers that route data to the correct destination at the appropriate time.
 
 <details>
 

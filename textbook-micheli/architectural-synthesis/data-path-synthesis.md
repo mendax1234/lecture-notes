@@ -1,17 +1,17 @@
 # Data-Path Synthesis
 
-**Data-path synthesis** is a generic term that has often been **abused**. We distinguish here **data-path synthesis techniques** at the **physical level** from those at the **architectural level**.
+**Data-path synthesis** is a generic term that has often been abused. We distinguish here **data-path synthesis techniques** at the **physical level** from those at the **architectural level**.
 
-* **Physical-level data-path synthesis** exploits the **regularity** of **data-path structures** and is specific to **data-path layout**.
+* **Physical-level data-path synthesis** exploits the regularity of **data-path structures** and is specific to **data-path layout**.
 * **Architectural-level data-path synthesis** involves the complete definition of the **structural view** of the **data path**, that is, refining the **binding information** into the specification of all **interconnections**.
 
-To avoid confusion, we refer to this architectural-level task as **connectivity synthesis**.
+To avoid confusion, we refer to this **architectural-level** task as **connectivity synthesis**.
 
 ## Connectivity Synthesis
 
 **Data-path connectivity synthesis** consists of defining the **interconnections** among **resources**, **steering logic circuits** (**multiplexers** or **buses**), **memory resources** (**registers** and **memory arrays**), **input/output ports**, and the **control unit**. Therefore, a complete **binding** is required.
 
-**Connectivity synthesis** refines the **binding information** by providing the detailed **interconnections** among the **blocks**. For example, the **inputs**, **outputs**, and **control signals** of the **multiplexers** must be specified and properly **connected**.
+**Connectivity synthesis** refines the **binding information** by providing the detailed **interconnections** among the blocks. For example, the **inputs**, **outputs**, and **control signals** of the **multiplexers** must be specified and properly connected.
 
 <details>
 
@@ -38,7 +38,7 @@ The connections to the **control unit** include the **enable signals** for all *
 
 </details>
 
-**Data-path connectivity synthesis** also specifies the **interconnections** between the **data path** and its **environment** through the **input/output ports**. **Interfacing problems** arise when the **environment** is not **synchronous** with the **data path** being synthesized. Notable examples include interfaces to **asynchronous circuits** and to **synchronous circuits** with different **cycle times**.
+**Data-path connectivity synthesis** also specifies the interconnections between the data path and its environment through the **input/output ports**. **Interfacing problems** arise when the environment is not **synchronous** with the data path being synthesized. Notable examples include interfaces to **asynchronous circuits** and to **synchronous circuits** with different cycle times.
 
 ### Memory Arrays
 
@@ -50,20 +50,20 @@ The **data path** may include **multi-port memory arrays**, also called **regist
 
 The **interface** to the **control unit** is provided by the **signals** that **enable the registers** and that control the **steering circuits** (i.e., **multiplexers** and **buses**). **Sequential resources** require a **start signal** (and sometimes a **reset signal**). Hence, the execution of each **operation** requires a set of **activation signals**.
 
-In addition, the **control unit** receives **condition signals** from the **data path** that evaluate the clauses of **branching** and **iterative constructs**. **Condition signals** provided by **data-dependent operations** are called **completion signals**. The ensemble of these **control points** must be identified during **data-path synthesis**.
+In addition, the **control unit** receives condition signals from the data pat**h** that evaluate the clauses of branching and iterative constructs. **Condition signals** provided by data-dependent operations are called **completion signals**. The ensemble of these **control points** must be identified during **data-path synthesis**.
 
 <details>
 
 <summary>Example of the Interface Circuits</summary>
 
-**Figure 4.12** shows the **interconnections** between the **data path** and the **control unit**. Specifically, the **activation signals** include the **register enable signals**, the **ALU control signal**, and the **multiplexer control signals**. The **completion signal** **c** is provided by the **ALU**.
+[Figure 4.12](data-path-synthesis.md#example-of-connectivity-synthesis-or-data-path-synthesis) shows the **interconnections** between the **data path** and the **control unit**. Specifically, the **activation signals** include the **register enable signals**, the **ALU control signal**, and the **multiplexer control signals**. The completion signal c is provided by the ALU.
 
-Consider, for example, the execution of **operation** $$v_{10}$$ in the **sequencing graph** of Figure 4.2, which computes $$x + dx$$ and stores the result in **register r**<sub>**1**</sub>. This requires:
+Consider, for example, the execution of operation $$v_{10}$$ in the **sequencing graph** of Figure 4.2, which computes $$x + dx$$ and stores the result in register r<sub>1</sub>. This requires:
 
-* Controlling the **multiplexers** feeding the **ALU** and **register r**<sub>**1**</sub>,
-* Setting the **ALU control signal** to perform an **addition**, and
-* Enabling **register r**<sub>**1**</sub> to store the result.
+* Controlling the **multiplexers** feeding the ALU and register r<sub>1</sub>,
+* Setting the **ALU control signal** to perform an addition, and
+* Enabling register r<sub>1</sub> to store the result.
 
-The ensemble of these **signals** constitutes the **activation signals** for **operation** $$v_{10}$$.
+The ensemble of these signals constitutes the activation signals for operation $$v_{10}$$.
 
 </details>

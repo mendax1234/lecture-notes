@@ -1,6 +1,6 @@
 # Architectural Synthesis
 
-This part focuses on the synthesis and optimization of circuits at the architectural level. It describes techniques for transforming an abstract behavioral model into a **data path** and a **control unit**.
+This part focuses on the **synthesis** and **optimization** of circuits at the **architectural** level. It describes techniques for transforming an abstract behavioral model into a **data path** and a **control unit**.
 
 * The data path consists of interconnected resources, while
 * the control unit determines their execution timing and input/output operations according to a defined schedule.
@@ -45,26 +45,37 @@ An example of such a macroscopic structure is the differential equation integrat
 
 <figure><picture><source srcset="../../.gitbook/assets/control-unit-datapath-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/control-unit-datapath-light.png" alt=""></picture><figcaption><p>Figure 4.1 Structural view of the differential equation integrator with one multiplier and one ALU</p></figcaption></figure>
 
+So, usually the process to come up with such a structure is that
+
+1. We write behavioral code (can be C code or HDL code) according to the function specifications.
+2. We compile the behavioral code into [**abstract models**](../hardware-modeling/), usually it is in the [data flow and sequencing graphs](../hardware-modeling/abstract-models.md#data-flow-and-sequencing-graphs) at this point as we don't know the clock cycle information yet.
+3. We do scheduling and binding based on the data-flow and sequencing graphs in the above step. The output here will is the **annotated** sequencing graph. (In this case, we also can know the register usage)
+4. We do the control unit and data-path synthesis to get the final structure view shown in Figure 4.1. And based on this structure view, we can write the RTL code.
+
 {% hint style="warning" %}
-Basically, the architectural synthesis "converts" our behavioral model into RTL(HDL) code. This "conversion" can be done **manually** or **automatically**:
+Basically, the architectural synthesis "converts" our behavioral abstract model into RTL code. This "conversion" can be done **manually** or **automatically**:
 
 * If done **manually**, this is called **microarchitecture design**.
 * If done **automatically**, this is called **High Level Synthesis (HLS)**.
 {% endhint %}
 
-Circuit implementations are evaluated based on several key metrics:
+After getting the structural pircture similar to what Figure 4.1 shows, we say that we have a first version of circuit implementation. The circuit implementations are evaluated based on several key metrics:
 
 1. **area**,
-2. **cycle time** (i.e., the clock period), and
-3. **latency** (i.e., the number of cycles required to complete all operations).
+2. **cycle time** (e.g., the clock period), and
+3. **latency** (e.g., the number of cycles required to complete all operations).
 
 {% hint style="success" %}
 For pipelined circuits, **throughput** (i.e., the rate at which computations are completed) is also an important performance metric.
 {% endhint %}
 
-The [**design space**](../introduction/computer-aided-synthesis-and-optimization.md#design-space), introduced in Chapter 1, is the set of all feasible structures that satisfy a given circuit specification. [**Pareto points**](../introduction/computer-aided-synthesis-and-optimization.md#pareto-point) are the design points that are not dominated by any other point across all objectives of interest.
+The [**design space**](../introduction/computer-aided-synthesis-and-optimization.md#design-space), introduced in Chapter 1, is the set of all feasible structures that satisfy a given circuit specification. [**Pareto points**](../introduction/computer-aided-synthesis-and-optimization.md#pareto-point) are the design points that are **not dominated** by any other point across all objectives of interest.
 
 **Architectural exploration** involves traversing this design space to identify a range of feasible, non-inferior solutions, from which the designer can select the preferred implementation. This exploration requires solving constrained optimization problems. **Architectural synthesis tools** assist by selecting an appropriate design point based on user-specified criteria and constructing the corresponding **data path** and **control unit**.
+
+{% hint style="success" %}
+The **architectural synthesis tools** mentioned here refers to the HLS tools, like Vitis, etc.
+{% endhint %}
 
 In this section, we first examine circuit modeling in greater detail, followed by architectural optimization for non-pipelined circuits, including **scheduling** and **resource sharing** techniques.
 
