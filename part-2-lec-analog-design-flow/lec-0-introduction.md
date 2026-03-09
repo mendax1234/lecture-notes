@@ -25,11 +25,11 @@ In CG2027, we have seen the following famous and classic design methodology diag
 
 Some history about this diagram is that:
 
-1. At Intel, they are very good at the **device** and **circuit** level in the past. Thus, they can tune their devices specifically for their microprocessors. This makes Intel put **less effort** on the **module** and **gate** level. However, nowadays those two levels became more and more complex and TSMC is now the lead.
+1. At Intel, they were very good at the **device** and **circuit** level in the past. Thus, they can tune their devices specifically for their microprocessors. This makes Intel put **less effort** on the **module** and **gate** level. However, nowadays those two levels became more and more complex and TSMC is now the lead.
 2. At AMD, at first they were not good at **circuit** and **device** level, thus they put more effort on the **system, module** and **gate** level. Now, they can just use TSMC to deal with the two low levels!
 
 {% hint style="success" %}
-That's why at this point of time this note is written, AMD is much better than Intel.
+That's why at the point of time this note is written, AMD is much better than Intel.
 {% endhint %}
 
 Now, using this design methodology diagram to see EE4415, our findings can be seen from below.
@@ -46,7 +46,7 @@ The smaller box coming out from "synthesis" is pretty similar to the **logic syn
 
 #### Technology Library
 
-We have seen the technology library in [synopsys tool chain](../textbook-2-synopsys/synopsys-technology-library/technology-libraries.md) and EE4218 and CG3207. In Part 2 of EE4415, we are going to use `FreePDK45` in Cadence. So, basically, in the technology library we have the **design models** for the following elements:
+We have seen the technology library in [synopsys tool chain](../textbook-2-synopsys/synopsys-technology-library/technology-libraries.md), EE4218 and CG3207. In Part 2 of EE4415, we are going to use `FreePDK45` in Cadence. So, basically, in the technology library we will have the **design models** for the following elements:
 
 1. Basic logic gates,
 2. Registers,
@@ -75,4 +75,4 @@ So, what is really useful about the SPICE is that we can read the **delay inform
 
 <figure><img src="../.gitbook/assets/SPICE-waveform.png" alt=""><figcaption></figcaption></figure>
 
-From the waveform, we can easily read the $$t_{\text{PHL}}$$ and $$t_{\text{PLH}}$$ we have learned in [CG2027](https://app.gitbook.com/s/6nPr3SObC3azazbFhfgF/lec/lec-01-the-devices#timing-diagram).
+From the waveform, we can easily read the $$t_{\text{PHL}}$$ and $$t_{\text{PLH}}$$ which we have learned in [CG2027](https://app.gitbook.com/s/6nPr3SObC3azazbFhfgF/lec/lec-01-the-devices#timing-diagram).

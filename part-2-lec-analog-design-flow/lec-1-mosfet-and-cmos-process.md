@@ -19,7 +19,7 @@ The [**concentration** of **free carriers**](#user-content-fn-1)[^1] determine t
 
 #### The MOS Capapictor with P-substrate
 
-There are 4 stages for the MOS capacitor with P-substrate and the **stage transformation** is done by increasing  $$V_{\text{gate}}$$.
+There are 4 stages for the MOS capacitor with P-substrate and the **stage transformation** is done by increasing $$V_{\text{gate}}$$.
 
 <figure><img src="../.gitbook/assets/mos-capacitor-p-substrate.png" alt=""><figcaption></figcaption></figure>
 
@@ -39,7 +39,7 @@ In this stage, we increase $$V_{\text{gate}}$$ from negative to 0. Now, there is
 {% step %}
 #### Depletion
 
-When we increase $$V_{\text{gate}}$$  to $$0<V_{\text{gate}}<V_{\text{TN}}$$, there will be a **some** **positive charges** at the gate, causing the **holes** in the p-substrate to be pushed to its bottom. This will cause a special region called the **depletion region** to be formed at the top of the p-substrate.
+When we increase $$V_{\text{gate}}$$  to $$0<V_{\text{gate}}<V_{\text{TN}}$$, there will be **some** **positive charges** at the gate, causing the **holes** in the p-substrate to be pushed to its bottom. This will cause a special region called the **depletion region** to be formed at the top of the p-substrate.
 
 {% hint style="success" %}
 #### Depletion Region
@@ -56,7 +56,7 @@ When we increase $$V_{\text{gate}}$$ to $$V_{\text{gate}}>V_{\text{TN}}$$, there
 {% hint style="success" %}
 #### Inversion Layer
 
-The **inversion layer** can be think of the region/layer where there is a **high concentration** of **free minority carriers**. In this case, the free minority carriers in p-substrate are **electrons**.
+The **inversion layer** can be thought of as the region/layer where there is a **high concentration** of **free minority carriers**. In this case, the free minority carriers in p-substrate are **electrons**.
 {% endhint %}
 {% endstep %}
 {% endstepper %}
