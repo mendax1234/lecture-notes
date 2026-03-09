@@ -261,7 +261,7 @@ $$
 $$
 
 {% hint style="success" %}
-In the Synopsys's [setup timing report](../../textbook-2-synopsys/constraining-designs/environment-and-constraints.md#setup-timing-report), you will find out that this is equivalent to the **data required time** and **data arrival time**.
+In the Synopsys's [setup timing report](../../textbook-2-synopsys/constraining-designs/environment-and-constraints.md#setup-timing-report), you will find out that this is equivalent to the **data required time** and **data arrival time**. The [timing diagram](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/lec/lec-07-timing#setup-time) in EE4218 is very useful as well!
 {% endhint %}
 {% endstep %}
 
@@ -281,7 +281,7 @@ $$
 $$
 
 {% hint style="success" %}
-In the Synopsys's [hold timing report](../../textbook-2-synopsys/constraining-designs/environment-and-constraints.md#setup-timing-report), you will find out that this is equivalent to the **data required time** and **data arrival time**.
+In the Synopsys's [hold timing report](../../textbook-2-synopsys/constraining-designs/environment-and-constraints.md#setup-timing-report), you will find out that this is equivalent to the **data required time** and **data arrival time**. The [timing diagram](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/lec/lec-07-timing#hold-time) in EE4218 is very useful as well!
 {% endhint %}
 {% endstep %}
 
