@@ -474,4 +474,117 @@ In the real circuit design, we often use the following two conventions to make t
 2. **MOSFET Aspect ratio**: $$W/L$$ (Channel width / length).
 {% endhint %}
 
+#### Short-Channel Effect
+
+The free carriers **cannot** be always accelerated under the electric field along the channel. When the electric field field along the channel reaches a critical value $$\xi_c$$ , the velocity tends to **saturate** due to scattering effects. This can be illustrated in the following Figure.
+
+<figure><img src="../.gitbook/assets/velocity-saturation.png" alt="" width="546"><figcaption></figcaption></figure>
+
+The saturation velocity for electrons and holes is approximately the same: $$10^5$$m/s. The velocity is approximated by the following expression:
+
+$$
+\begin{align*}
+v&=\frac{\mu_n\xi}{1+\xi/\xi_c}\quad\quad\text{for }\xi<\xi_c\\
+&=v_{\text{sat}}=\mu_n\xi_c\quad\text{ for }\xi\geq\xi_c
+\end{align*}
+$$
+
+The critical electric field $$\xi_c=\frac{V_{\text{DSAT,S}}}{L}$$, where $$V_{\text{DSAT,S}}$$ is the saturation voltage for a short channel device.
+
+<figure><img src="../.gitbook/assets/short-vs-long-channel.png" alt=""><figcaption></figcaption></figure>
+
+From this figure we can see that a short-channel device experiences an **extended saturation** region, and tend to operate more often in saturation condition than their long-channel counterparts.
+
+To get the saturated current $$I_{\text{DSAT,S}}$$, we can replace the $$V_{\text{DS}}$$ in the formula we derived above with $$V_{\text{DSAT,S}}$$. Thus, we will get
+
+$$
+I_{\text{DSAT,S}}=\mu_nC_{\text{OX}}V_{\text{DSAT,S}}\left(\frac{W}{L}\right)\left(V_{\text{GS}}-V_{\text{TN}}-\frac{V_{\text{DSAT,S}}}{2}\right)
+$$
+
+{% hint style="warning" %}
+This equation applies to both NMOS and PMOS. Just need to change the constant and threshold voltage to the PMOS's ones.
+{% endhint %}
+
+In short, the comparison between long-channel device and short-channel device can be summarized  as below.
+
+<figure><img src="../.gitbook/assets/short-vs-long-formula.png" alt=""><figcaption></figcaption></figure>
+
+For the saturation voltage $$V_{\text{DSAT}}$$:
+
+* Long channel -> $$V_{\text{DSAT,L}}=V_{\text{GS}}-V_{\text{TN}}$$
+* Short channel -> $$V_{\text{DSAT,S}}<V_{\text{GS}}-V_{\text{TN}}$$
+
+<details>
+
+<summary>Output characteristic of long-channel vs. short-channel devices</summary>
+
+Plot the $$I_D\sim V_{\text{DS}}$$ characteristic in LTSpice for the NMOS transistors below and observe the short-channel effect.
+
+1. M1: $$L=4\mu m$$, $$W=20\mu m$$ -> $$W/L=20/4=5$$
+2. M2: $$L=0.2\mu m$$, $$W=1\mu m$$ -> $$W/L=1/0.2=5$$
+
+***
+
+**Sol**. The plot is shown below.
+
+<figure><img src="../.gitbook/assets/output-characteristic-example.png" alt=""><figcaption></figcaption></figure>
+
+From the plot, we can not only observe the short-channel effect on M2 easily but also observe that the [#channel-length-modulation](lec-1-mosfet-and-cmos-process.md#channel-length-modulation "mention") affects M2 **more** than M1 because the saturation line in M2 is steeper than the saturation line in M1.
+
+</details>
+
+### Sub-threshold Leakage
+
+&#x20;When the gate voltage $$V_{\text{GS}}<V_{\text{TN}}$$, we say that the device operates in a **sub-threshold region** or **weak inversion**.
+
+* In this case, the channel **almost** doesn't exist.
+* In this region, the drain current $$I_D$$ follows an **exponential relationship** with $$V_{\text{GS}}$$ (not quadratic)
+
+<figure><img src="../.gitbook/assets/subthreshold-region.png" alt=""><figcaption></figcaption></figure>
+
+So, we can see that in this sub-threshold region, the drain current $$I_D$$ is **not zero**! Our understanding that before the gate voltage reaches $$V_{\text{TN}}$$, there is **no current** flowing in the channel is **wrong**! This causes leakage current when the NMOS transistor is turned off (e.g., $$V_{\text{GS}}=0$$) and increases static power consumption.
+
+<figure><img src="../.gitbook/assets/id-vs-vgs-log.png" alt="" width="521"><figcaption></figcaption></figure>
+
+{% hint style="danger" %}
+In this figure, the y-axis is $$\log(I_D)$$ instead of $$I_D$$!
+{% endhint %}
+
+If we put this $$\lg(I_D)\sim V_{\text{GS}}$$ plot together with the normal quadratic $$I_D\sim V_{\text{GS}}$$ plot, we will get something similar to below.
+
+<figure><img src="../.gitbook/assets/log-normal-comparison.png" alt=""><figcaption></figcaption></figure>
+
+#### Sub-threshold Swing
+
+This slope is defined and used in the $$\log(I_D)\sim V_{\text{GS}}$$ plot. It is defined to be as follows:
+
+$$
+\begin{align*}
+S&=\frac{\partial V_{\text{GS}}}{\partial\lg(I_D)}\\
+&=n\left(\frac{kT}{q}\right)\ln(10)
+\end{align*}
+$$
+
+The intuitive understanding for the sub-threshold slope is that if it is smaller, than the gradient is **steeper**. Because we use $$\Delta x/\Delta y$$ to calculate the **swing**!
+
+{% hint style="warning" %}
+#### High or Low sub-threshold swing is better?
+
+We prefer low sub-threshold swing because small change in the $$V_{\text{GS}}$$ will give us **greater** increase in drain current $$I_D$$ so that the MOSFET "wakes up" faster!
+{% endhint %}
+
+### Body Effect
+
+As we have assumed at the beginning of this note, the body voltage $$V_B$$ is **fixed**. However, in reality, we can change the body voltage to change the **threshold voltage** of the device. This is the intuition of **body effect**.
+
+{% hint style="info" %}
+#### Why Body Effect is not commonly used?
+
+In a circuit, the body of each transistor is usually connected **together**! Thus it is hard to separate the body and then control the threshold voltage of each transistor.
+{% endhint %}
+
+## CMOS Process Flow
+
+> TODO: The idea of this part is to know the layout.
+
 [^1]: In other words, can simply think of it as the **number of free carriers**.
