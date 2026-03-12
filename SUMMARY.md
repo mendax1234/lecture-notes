@@ -26,6 +26,8 @@
 * [Introduction](textbook-1-dicadp/introduction/README.md)
   * [Issues in Digital IC Design](textbook-1-dicadp/introduction/issues-in-digital-ic-design.md)
   * [Quality Metrics of a Digital Design](textbook-1-dicadp/introduction/quality-metrics-of-a-digital-design.md)
+* [The Manufacturing Process](textbook-1-dicadp/the-manufacturing-process/README.md)
+  * [Manufacturing CMOS IC](textbook-1-dicadp/the-manufacturing-process/manufacturing-cmos-ic.md)
 * [Designing Sequential Logic Circuits](textbook-1-dicadp/designing-sequential-logic-circuits.md)
 * [Timing Issues in Digital Circuits](textbook-1-dicadp/timing-issues-in-digital-circuits/README.md)
   * [Classification of Digital Systems](textbook-1-dicadp/timing-issues-in-digital-circuits/classification-of-digital-systems.md)
