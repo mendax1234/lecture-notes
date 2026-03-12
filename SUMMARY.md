@@ -21,6 +21,10 @@
 * [Lec 0 - Introduction](part-2-lec-analog-design-flow/lec-0-introduction.md)
 * [Lec 1 - MOSFET and CMOS Process](part-2-lec-analog-design-flow/lec-1-mosfet-and-cmos-process.md)
 
+## Lab & Homework
+
+* [Lab 2 - FP8 Adder Design](lab-and-homework/lab-2-fp8-adder-design.md)
+
 ## Textbook 1: DICADP
 
 * [Introduction](textbook-1-dicadp/introduction/README.md)
