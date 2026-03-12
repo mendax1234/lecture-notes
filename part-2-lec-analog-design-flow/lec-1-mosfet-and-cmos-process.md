@@ -577,7 +577,7 @@ We prefer low sub-threshold swing because small change in the $$V_{\text{GS}}$$ 
 
 As we have assumed at the beginning of this note, the body voltage $$V_B$$ is **fixed**. However, in reality, we can change the body voltage to change the **threshold voltage** of the device. This is the intuition of **body effect**.
 
-{% hint style="info" %}
+{% hint style="danger" %}
 #### Why Body Effect is not commonly used?
 
 In a circuit, the body of each transistor is usually connected **together**! Thus it is hard to separate the body and then control the threshold voltage of each transistor.
