@@ -36,3 +36,12 @@ More specifically, the "pipelined" column will show **no** for all the loops. Th
 {% hint style="warning" %}
 After we make any changes to the HLS IP, we need to upgrade the IP in the block diagram in our Vivado. After that, we need to generate new bitstream and update the platform on our Vitis by using the "Switch/Re-read XSA" in the `vitis-comp.json` so that we don't need to create new platform.
 {% endhint %}
+
+### HLS Optimization
+
+#### Unrolling
+
+Tips:
+
+1. If the unrolling factor is an integer factor of the maximum iteration count, we can use `skip_exit_check` to skip the exit check and thus minimizing the area and simplifying the logic.
+2. `region`: An optional keyword that unrolls all loops within the body (region) of the specified loop, without unrolling the enclosing loop itself.

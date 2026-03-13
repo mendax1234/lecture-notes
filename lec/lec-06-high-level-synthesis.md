@@ -90,7 +90,7 @@ It does **not work well** for **control-oriented blocks** or **custom I/O interf
 In this part, we will see how several examples on how the HLS tools sythesize the high-level code into a macro-scopic structure which can then be easily implemented by the RTL code. The workflow is summarized as follows:
 
 1. HLS tools generate an **scheduled and bound** sequencing graph from the high-level code.
-2. HLS tools do the data-path and contrl-unit synthesis based on that sequencing graph automatically. RTL is then generated based on this macro-scopic picture.
+2. HLS tools do the data-path and control-unit synthesis based on that sequencing graph automatically. RTL is then generated based on this macro-scopic picture.
 
 {% hint style="warning" %}
 Some HLS tools like Vitis may go one step further, which is to generate a netlist rather than the HDL code.
@@ -153,9 +153,9 @@ Now, we can play around with the pipelined design, which is default in the newer
 
 <figure><img src="../.gitbook/assets/pipeline-hls.png" alt=""><figcaption></figcaption></figure>
 
-Compared to the [#multi-cycle](lec-06-high-level-synthesis.md#multi-cycle "mention") design, this pipelined design **does not need to wait** for the previous input to complete execution before starting the next computation. Instead, the next input can begin processing while the previous one is still being executed.Thus, in this pipelined design, we will have:
+Compared to the [#multi-cycle](lec-06-high-level-synthesis.md#multi-cycle "mention") design, this pipelined design **does not need to wait** for the previous input to complete execution before starting the next computation. Instead, the next input can begin processing while the previous one is still being executed. Thus, in this pipelined design, we will have:
 
-1. [**Initial Interval**](#user-content-fn-1)[^1] (II) to be 1.
+1. [**Initiation Interval**](#user-content-fn-1)[^1] (II) to be 1.
 2. **Binding**: no sharing (2 adders, 2 multipliers)
 3. **Timing**: period = 10ns, latency = 2, Trip count = 16
 4. **Total latency**: 17 \[170ns] (II \* Trip Count + 1 cycle overhead to "fill" the pipeline)
@@ -165,13 +165,13 @@ This also gives us an important insight: in a pipelined design, **latency** — 
 {% hint style="success" %}
 #### Tips to calculate the Total Latency and Overhead quickly
 
-Given that we already know the Initial Interval, the latency and the trip count, the **total latency** can be calculated as
+Given that we already know the Initiation Interval, the latency and the trip count, the **total latency** can be calculated as
 
 <p align="center">Total Latency = Initial Interval * Trip Count + Overhead.</p>
 
 Where, the overhead can be calculated as
 
-<p align="center">Overhead = Initial Interval - Latency</p>
+<p align="center">Overhead = Initiation Interval - Latency</p>
 {% endhint %}
 
 #### Pipelined (II=2)
@@ -239,6 +239,10 @@ Besides the **cyclical array partitioning** we have mentioned above, we also hav
 1. **Block partitioning**: Suppose our function is to calculate `b[i] = a[i] + a[i+N]`. Now, it will be beneficial if we put `a[i]` and `a[i+N]` into separate memories. Similarly, `a[i+1]` should be put into the same memory as `a[i]` and `a[i+1+N]` should be put in the same memory as `a[i+N]`, thus each of the two memories will have a block size of $$N$$.
 2. **Complete partitioning**: Suppose now our function becomes `d[i] = b[0]*a[i] + b[1]*c[i]`, assuming the array `b[]` is small, it would be **advantegeous** to put **each element** of the array b into a dedicated register so that we can read any number of the elements in the array b as we like. This is called **complete partitioning** and it is actually quite popular in the AI and ML field.
 
+{% hint style="success" %}
+Page 83 of the [AMD HLS Optimization guide](https://docs.amd.com/v/u/en-US/ug1270-vivado-hls-opt-methodology-guide) actually summarizes the array partitioning very well!
+{% endhint %}
+
 </details>
 
 ### Dataflow
@@ -297,6 +301,7 @@ The flow from Computer -> Out Buffers -> Transmit Unit is similar.
 ## References
 
 1. [Vitis HLS Synthesis Guide (2025.2) by AMD](https://docs.amd.com/r/en-US/ug1399-vitis-hls).
+2. [Vivado HLS Optimization Guide](https://docs.amd.com/v/u/en-US/ug1270-vivado-hls-opt-methodology-guide). (Page 83, Page 91, Page 116, Page 125 are very very clear and useful!)
 
 {% hint style="success" %}
 A sneak preview of what will we see in the last two topics for EE4218:
