@@ -11,6 +11,7 @@
 * [Lec 05 - Microarchitecture Design](lec/lec-05-microarchitecture-design.md)
 * [Lec 06 - High-Level Synthesis](lec/lec-06-high-level-synthesis.md)
 * [Lec 07 - Timing](lec/lec-07-timing.md)
+* [Lec 08 - Technology Mapping](lec/lec-08-technology-mapping.md)
 
 ## Tutorial
 
