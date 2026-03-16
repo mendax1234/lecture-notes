@@ -98,7 +98,7 @@ The NMOS structure as well as its circuit symbol used in EE4415 Part 2 is shown 
 
 <figure><img src="../.gitbook/assets/nmos-structure.png" alt=""><figcaption></figcaption></figure>
 
-The NMOS/PMOS (we will see later) has four pins: 1) source, 2) drain, 3) gate and 4) body. There are some very important conventions that we should know about these 4 parts.
+The NMOS/PMOS (we will see later) has four pins: 1) source, 2) drain, 3) gate and 4) body. Regarding these four pinrs, there are some very important conventions that we should know.
 
 {% stepper %}
 {% step %}
@@ -107,7 +107,7 @@ The NMOS/PMOS (we will see later) has four pins: 1) source, 2) drain, 3) gate an
 The **body** pin is usually connected to a **fixed voltage**. We actually don't really care too much about how much that fixed voltage is.
 
 {% hint style="warning" %}
-If we really care about the body voltage, that's called **body effect** which we will see later. Basically, the idea for the body effect is that the body voltage may affect the threhold voltage of the MOSFET.
+If we really care about the body voltage, that's called **body effect** which we will see later. Basically, the idea for the body effect is that the body voltage may affect the threshold voltage of the MOSFET.
 {% endhint %}
 {% endstep %}
 
@@ -124,7 +124,7 @@ In NMOS, the current flows from the **drain** to the **source**. As the free car
 {% step %}
 #### Gate
 
-As we have seen in CG2027, the **gate** pin is where we apply the voltage to control the "channel width" of the n-channel (in NMOS). If we simply look at the gate part, we can find out that this is the [mos capacitor](lec-1-mosfet-and-cmos-process.md#the-mos-capacitor) we have seen above! Thus, whatever analysis we have done in the MOS capacitor applies to here as well!
+As we have seen in CG2027, the **gate** pin is where we apply the voltage to control the "channel width" of the n-channel (in NMOS). If we simply look at the gate part, we can find out that this is the [mos capacitor](lec-1-mosfet-and-cmos-process.md#the-mos-capacitor) we have seen above! Thus, whatever analysis we have done in the MOS capacitor applies here as well!
 
 Besides, there is a small difference between the **gate voltage** we applied and the real voltage above the **channel**. The relationship can be shown below.
 
@@ -248,6 +248,10 @@ $$
 
 The **on-resistance** of a transistor in a **linear region** can thus be easily calculated using the ohm's law.
 
+{% hint style="warning" %}
+Here, we assume that the gate voltage $$V_{\text{gate}}=V_{\text{DD}}$$.
+{% endhint %}
+
 $$
 R_{\text{DS}}=\frac{V_{\text{DS}}}{I_{\text{D}}}=\frac{1}{k_n'(W/L)(V_{\text{GS}}-V_{\text{TN}})}=\frac{1}{k_n'(W/L)(V_{\text{DD}}-V_{\text{TN}})}
 $$
@@ -263,7 +267,7 @@ $$
 In the saturation region, $$V_{\text{DSAT,n}}$$ is the value that $$V_{\text{DS}}$$ saturates at. In our case, it will be $$V_{\text{GS}}-V_{\text{TN}}$$. After replacing $$V_{\text{DSAT,n}}$$ with $$V_{\text{GS}}-V_{\text{TN}}$$, we can get the exact same formula that we have seen in CG2027, which is
 
 $$
-I_D=\mu_n C_{\text{OX}}\frac{W}{L}(V_{\text{GS}}-V_{\text{TN}})^2(1+\lambda_nV_{\text{DS}})
+I_D=\frac{1}{2}\mu_n C_{\text{OX}}\frac{W}{L}(V_{\text{GS}}-V_{\text{TN}})^2(1+\lambda_nV_{\text{DS}})
 $$
 
 {% hint style="warning" %}
@@ -315,7 +319,7 @@ R_{\text{DS}}=\frac{V_{\text{DS}}}{I_{\text{D}}}=\frac{1}{k_n'(W/L)(V_{\text{GS}
 $$
 
 {% hint style="warning" %}
-$$k_p'<0$$ and $$V_{\text{TP}}<0$$.
+$$k_p'<0$$ and $$V_{\text{TP}}<0$$. We assume that the gate voltage $$V_{\text{gate}}=0.$$
 {% endhint %}
 {% endstep %}
 
@@ -329,7 +333,7 @@ $$
 In the saturation region, $$V_{\text{DSAT,n}}$$ is the value that $$V_{\text{DS}}$$ saturates at. In our case, it will be $$V_{\text{GS}}-V_{\text{TN}}$$. After replacing $$V_{\text{DSAT,n}}$$ with $$V_{\text{GS}}-V_{\text{TN}}$$, we can get the exact same formula that we have seen in CG2027, which is
 
 $$
-I_D=\mu_p C_{\text{OX}}\frac{W}{L}(V_{\text{GS}}-V_{\text{TP}})^2(1+\lambda_pV_{\text{DS}})
+I_D=\frac{1}{2}\mu_p C_{\text{OX}}\frac{W}{L}(V_{\text{GS}}-V_{\text{TP}})^2(1+\lambda_pV_{\text{DS}})
 $$
 {% endstep %}
 {% endstepper %}
@@ -461,10 +465,10 @@ This can be intuitively understood by the ["suck" theorem](https://app.gitbook.c
 1. **Linear region**: $$I_D=\mu_n C_{\text{OX}}\frac{W}{L}\left [ (V_{\text{GS}}-V_{\text{TN}})V_{\text{DS}}-\frac{V_{\text{DS}}^2}{2}\right](1+\lambda_nV_{\text{DS}})$$
 2. **Saturation region**: $$I_D=\mu_n C_{\text{OX}}\frac{W}{L}\left [ (V_{\text{GS}}-V_{\text{TN}})V_{\text{DSAT,n}}-\frac{V_{\text{DSAT,n}}^2}{2}\right](1+\lambda_nV_{\text{DS}})$$
 
-The **channel length modulation** factor $$\lambda \propto\frac{1}{L}$$.
+The **channel length modulation** factor $$\lambda \propto\frac{1}{L}$$. Intuitively, this means that if the channle length $$L$$ is longer, the MOSFET suffers **less** from the channel length effect.
 
 {% hint style="warning" %}
-In the I-V diagram of $$I_D$$ and $$V_{\text{DS}}$$, this **channel length modulation** can be seen by how flat the saturation line is. If it is **flatter**, meaning that the device suffers little from the channel length modulation and vice versa. This will become clearer when we compare the **long-channel device** and the **short-channel device** later.
+In the I-V diagram of $$I_D$$ and $$V_{\text{DS}}$$, this **channel length modulation** can be seen by how flat the saturation line is. If it is **flatter**, meaning that the device suffers little from the channel length modulation and vice versa. In other words, the device's current in the saturation region [isn't affected too much](#user-content-fn-2)[^2] by the change[^3] of $$V_{\text{DS}}$$. This will become clearer when we compare the **long-channel device** and the **short-channel device** later.
 {% endhint %}
 
 {% hint style="success" %}
@@ -502,7 +506,7 @@ I_{\text{DSAT,S}}=\mu_nC_{\text{OX}}V_{\text{DSAT,S}}\left(\frac{W}{L}\right)\le
 $$
 
 {% hint style="warning" %}
-This equation applies to both NMOS and PMOS. Just need to change the constant and threshold voltage to the PMOS's ones.
+This equation applies to both NMOS and PMOS. For the PMOS counterpart, we just need to change the constant and threshold voltage to the PMOS's ones.
 {% endhint %}
 
 In short, the comparison between long-channel device and short-channel device can be summarized  as below.
@@ -590,3 +594,7 @@ In a circuit, the body of each transistor is usually connected **together**! Thu
 This part has been introduced in the classical textbook [DICADP Chapter 2](../textbook-1-dicadp/the-manufacturing-process/).
 
 [^1]: In other words, can simply think of it as the **number of free carriers**.
+
+[^2]: This means that if the current plot in the saturation is **flatter**, then it is not affected  too much by the channel length modulation.
+
+[^3]: This means **increasing** in NMOS or **decreasing** in PMOS.
