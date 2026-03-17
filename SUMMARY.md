@@ -25,6 +25,7 @@
 ## Lab & Homework
 
 * [Lab 2 - FP8 Adder Design](lab-and-homework/lab-2-fp8-adder-design.md)
+* [Homework 1](lab-and-homework/homework-1.md)
 
 ## Textbook 1: DICADP
 
