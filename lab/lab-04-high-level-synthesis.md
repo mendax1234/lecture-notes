@@ -3,7 +3,7 @@
 In Lab 04, we will have two parts to do/demo.
 
 1. HLS: This part is basically to replace the HDL `myip` we've designed in Lab 01 with the HLS version  along with different optmization skills used in HLS.
-2. PYNQ.
+2. PYNQ: This is an alternative to replace the **standalone** PS. PYNQ gives us a full Linux OS and python library to operate on. Given that, many fancy stuff like network, image processing, etc are supported on PYNQ. The trade-off is that the **overhead** will be a lot!
 
 ## HLS
 
@@ -39,9 +39,43 @@ After we make any changes to the HLS IP, we need to upgrade the IP in the block 
 
 ### HLS Optimization
 
+The purpose of this lab is to demonstrate **one and only one** HLS optimization. Thus, based on our application, which is the matrix multiplication, we have enough resources and thus **unroll** will give us the best performance but worst area usage.
+
+#### Understand HLS Optimization
+
+
+
 #### Unrolling
 
-Tips:
+More specifically, we **fully unroll** all the 4 loops in our application. Theoretically, the clock cycles taken can be divided into three parts
+
+1. Read input A and B: 512 + 8 = 520 cycles.
+2. Compute: 1 (if FSM is used to implement, maybe have 1 or 2 more clock cycles)
+3. Write output: 64 cycles.
+
+And the real number of clock cycles we get is 587, which is around the same as the theoretical and the 2 more cycles indeed come from the FSM state transition within the compute stage.
+
+<figure><img src="../.gitbook/assets/schedule-viewer-lab4.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="warning" %}
+Doing unrolling without array partitioning is useless. However in 2025.2 version, the array partition can be done automatically by the tool.
+{% endhint %}
+
+<details>
+
+<summary>Tips on Unrolling</summary>
 
 1. If the unrolling factor is an integer factor of the maximum iteration count, we can use `skip_exit_check` to skip the exit check and thus minimizing the area and simplifying the logic.
 2. `region`: An optional keyword that unrolls all loops within the body (region) of the specified loop, without unrolling the enclosing loop itself.
+
+</details>
+
+#### Interface
+
+In C based design, all input and output operations are performed, in zero time, through formal function arguments. In an RTL design these same input and output operations must be performed through a port in the design interface and typically operate using a specific I/O (inputoutput) protocol.
+
+Here, we use AXIS as our I/O protocol. The data comes into the input and out from the output is done **one by one** because of the following sentence from the Xilinix docs.
+
+> After the block-level protocol has been used to start the operation of the block, the port-level IO protocols are used to **sequence** data into and out of the block.
+
+## PYNQ
