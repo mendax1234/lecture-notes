@@ -147,6 +147,10 @@ This design will give us:
 * **Trip count**: 16
 * **Total latency**: 32 \[320ns]
 
+{% hint style="danger" %}
+This is a rather low-level technique is there is **no pragma** for it. This is done automatically by the HLS tool if we give the tool a more stringent timing constraint.
+{% endhint %}
+
 ### Pipelined
 
 Now, we can play around with the pipelined design, which is default in the newer version of Vitis. This time, we will use **dedicated binding**.

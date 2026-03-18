@@ -43,7 +43,29 @@ The purpose of this lab is to demonstrate **one and only one** HLS optimization.
 
 #### Understand HLS Optimization
 
+In [lec-06-high-level-synthesis.md](../lec/lec-06-high-level-synthesis.md "mention"), we have learned that the HLS optimizations are done on loops, no matter it is a normal `for` loop or a dataflow loop. The key idea in understanding the HLS optimization is to **find out the computation done per iteration**. For example, in the following loop,
 
+{% code lineNumbers="true" %}
+```cpp
+for (j = 0; j < COLS_A; j++) {
+#pragma HLS unroll // fully unroll, COLS_A which is 8 multiplier and adder will
+                   // be created
+  ap_uint<16> temp_product = A_array[(i * COLS_A) + j] * B_array[j];
+  sum += temp_product;
+}
+```
+{% endcode %}
+
+The two obvious computations are **multiply** and **add**.
+
+{% hint style="warning" %}
+Except for the obvious computations, there might be some hidden operations within each iteration.
+{% endhint %}
+
+After knowing the main operation per iteration, we can then apply the HLS optimization skills we have learned to these operations:
+
+1. **pipeline**: this is used to overlap the operation per iteration
+2. **unroll**: this is used to run more than one operations simultaneously.
 
 #### Unrolling
 
