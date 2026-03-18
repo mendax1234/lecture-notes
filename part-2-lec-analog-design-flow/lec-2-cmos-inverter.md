@@ -71,16 +71,16 @@ The voltage transfer characteristic is simply a diagram denoting the relationshi
    2. For the PMOS, same likelihood that $$V_{\text{GS}}<V_{\text{TP}}$$ but $$V_{\text{DS}}<V_{\text{GS}}-V_{\text{TP}}$$ (as $$V_{\text{DS}}=V_{\text{GS}}$$ now, L.H.S is definitely **smaller** than R.H.S). Thus PMOS will be in **Saturation**.
 4. When $$V_{\text{in}}$$ is a little higher, $$V_{\text{out}}$$ is low. In this case
    1. For the NMOS, it is definitely on. $$V_{\text{DS}}<V_{\text{GS}}-V_{\text{TN}}$$ (L.H.S is around 0 while R.H.S is definitely a **positive** number). Thus NMOS is in **Linear**.
-   2. For the PMOS, it is likely that $$V_{\text{GS}}<V_{\text{TP}}$$ and $$V_{\text{DS}}<V_{\text{GS}}-V_{\text{TP}}$$ (L.H.S is around negative $$V_{\text{DD}}$$ while R.H.S is a kind of more negative number)
+   2. For the PMOS, it is likely that $$V_{\text{GS}}<V_{\text{TP}}$$ and $$V_{\text{DS}}<V_{\text{GS}}-V_{\text{TP}}$$ (L.H.S is around negative $$V_{\text{DD}}$$ while R.H.S is a less negative number). Thus PMOS is in **Saturation**.
 5. When $$V_{\text{in}}$$ is a little higher, $$V_{\text{out}}$$ is low. In this case
    1. For the NMOS, it is likely that it will be in **Saturation**.
    2. For the PMOS, it is likely that $$V_{\text{GS}}>V_{\text{TP}}$$ (both negative here). Thus, PMOS is in **Off**.
 
-In addition, the region between step 2 to step 4 is called **high-gain region** because the gain[^1] of the curve is **quite high** in its magnitude.
+In addition, the region between step 2 to step 4 is called **high-gain region** because the gain[^1] of the curve is **quite high** in terms of its magnitude.
 
 <details>
 
-<summary>Example of CMOS Inverter VTC.</summary>
+<summary>Example of CMOS Inverter VTC</summary>
 
 {% hint style="danger" %}
 Read the termologies below before opening this example.
@@ -116,7 +116,11 @@ Usually, as the ideal input low and high are 0 and $$V_{\text{DD}}$$ respectivel
 
 The switching threshold $$V_M$$ is when the input voltage is equal to the output voltage ($$V_{\text{in}}=V_{\text{out}}$$). The value can be found easily by drawing a line $$y=x$$ in the VTC graph and finding the x/y-coordinate of the intersection point.
 
-If we want to find the value of $$V_M$$ analytically, we can do so by equating the currents through the transistors.  (TODO, why?) This will give us
+If we want to find the value of $$V_M$$ analytically, we can do so by equating the currents through the transistors.
+
+> WHy we can equate the current? Is it because the voltage drop is the same and we usually size the PMOS and NMOS to have the same resistance?
+
+This will give us
 
 $$
 V_{\text{M}} =
