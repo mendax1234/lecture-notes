@@ -38,6 +38,10 @@ These two tips above explain the convention that we used in EE4415 Part 1, which
 
 ## Synopsys Tips
 
+### DC
+
+The design compiler (DC) is a very powerful tool to know the usage of a bunch of commands that will be used in Synopsys. For example, when writing the `constraints.tcl`, I am not sure how to use the command `set_input_transition`, I can run the `dc_shell` and then type `set_input_transition -help`. This is very useful!
+
 ### VCS
 
 VCS is usually used for us to look at the waveform and debug our RTL code. The steps from opening the waveform and then debug it are summarized as follows:
