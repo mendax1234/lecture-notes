@@ -310,11 +310,11 @@ From the equation we derive in [#propagation-delay-calculation](lec-2-cmos-inver
 
 ## Inverter Chain
 
-Suppose we have the interter chain with a given $$C_L$$ as below. How many stages are needed to **minimize** the delay and how do we size the inverters?
+Suppose we have an interter chain with a given $$C_L$$ as below. How many stages are needed to **minimize** the delay and how do we size the inverters?
 
 <figure><img src="../.gitbook/assets/inverter-chain-opening-question.png" alt=""><figcaption></figcaption></figure>
 
-Intuitively, we might think less gates means less propagation delay. However, we may soon find out this is **not true** in this case!
+Intuitively, we might think that less gates means less propagation delay. However, we may soon find out this is **not true** in this case!
 
 #### Inverter with a Load
 
@@ -371,7 +371,7 @@ The plot of $$t_p-C_L$$ is shown below for reference.
 
 <summary>INV1x, INV2x, INV4x, what are they?</summary>
 
-In the CMOS inverter, we usually size the PMOS to the **twice** larger than the NMOS so that we can have roughly the same $$t_{\text{pLH}}$$ and $$t_{\text{pHL}}$$.
+In the CMOS inverter, we usually size the PMOS to **twice** larger than the NMOS so that we can have roughly the same $$t_{\text{pLH}}$$ and $$t_{\text{pHL}}$$.
 
 {% hint style="danger" %}
 Remember that in CG2027, we've seen that to **size** the PMOS and NMOS, we are **only** changing its **width** but its length must remain the same.
@@ -379,9 +379,9 @@ Remember that in CG2027, we've seen that to **size** the PMOS and NMOS, we are *
 
 So, when we see INV2x, INV4x, etc., it means the **size/drive strength** is being multiplied by scaling the width $$W$$ of _both_ transistors by that factor (2,4, etc).
 
-* INV1x: NMOS = W$$ $1W$ $$, PMOS = $$ $2W$ $$2W (Total gate capacitance $$\approx3C_{\text{unit}}$$$$ $\approx 3 C_{unit}$ $$)
-* INV2x: NMOS = 2W $$ $2W$ $$, PMOS = $$ $4W$ $$4W (Total gate capacitance $$\approx6C_{\text{unit}}$$ $$ $\approx 6 C_{unit}$ $$)
-* INV4x: NMOS = 4W$$ $4W$ $$, PMOS = $$ $8W$ $$8W (Total gate capacitance $$ $\approx 12 C_{unit}$ $$$$\approx12C_{\text{unit}}$$)
+* INV1x: NMOS = W, PMOS = 2W (Total gate capacitance $$\approx3C_{\text{unit}}$$)
+* INV2x: NMOS = 2W , PMOS = 4W (Total gate capacitance $$\approx6C_{\text{unit}}$$ )
+* INV4x: NMOS = 4W, PMOS = 8W (Total gate capacitance $$\approx12C_{\text{unit}}$$)
 
 {% hint style="success" %}
 Again, as we have seen [above](lec-2-cmos-inverter.md#defining-with-exact-values), if in Cadence EDA tools, we have the exact value for $$W$$ and $$L$$, we can get the gate capacitance by just plugging in those numbers.
@@ -389,7 +389,7 @@ Again, as we have seen [above](lec-2-cmos-inverter.md#defining-with-exact-values
 
 A bigger inverter directly implies the following three things:
 
-1. **Bigger Drive Strength**: A wider channel allows more current ($$ $I_{ds}$ $$$$ $I_{ds}$ $$$$I_{\text{DS}}$$) to flow.
+1. **Bigger Drive Strength**: A wider channel allows more current ($$I_{\text{DS}}$$) to flow.
 2. **Lower Resistance**: As the bigger size implies lower resistance of the MOSFET.
 3. **Bigger Capacitance**: As the biiger size implies bigger capacitance of the MOSFET.
 
@@ -397,11 +397,11 @@ A bigger inverter directly implies the following three things:
 
 #### Inverter delay with the load
 
-As we have seen in the [#inverter-with-a-load](lec-2-cmos-inverter.md#inverter-with-a-load "mention"), we propagation delay of an inverter should also take its **intrinsic capacitance** into account. Given that, we can also add the gate capacitance $$C_{\text{gin}}$$ for the sake of analysis later.
+As we have seen in the [#inverter-with-a-load](lec-2-cmos-inverter.md#inverter-with-a-load "mention"), the propagation delay of an inverter should also take its **intrinsic capacitance** into account. Given that, we can also add the gate capacitance $$C_{\text{gin}}$$ for the sake of analysis later.
 
 <figure><img src="../.gitbook/assets/inverter-with-load-simplified.png" alt="" width="541"><figcaption></figcaption></figure>
 
-The formula for the propagation delay $$t_p$$ can be refactored to as follows by dividing both the nominator and the denominator with $$C_{\text{gin}}$$
+The formula for the propagation delay $$t_p$$ can be refactored to as follows by dividing both the nominator and the denominator with $$C_{\text{gin}}$$.
 
 $$
 t_p = 0.69 R C_{\text{int}} \left(1 + \frac{C_L}{C_{\text{int}}} \right)
@@ -437,6 +437,126 @@ $$
 $$
 t_{p,\text{chain}} = \sum_{j=1}^{N} t_{p,j} = t_{p0} \sum_{j=1}^{N}\left(1 + \frac{C_{\text{gin},j+1}}{\gamma C_{\text{gin},j}}\right), \qquad C_{\text{gin},N+1} = C_L
 $$
+
+### Optimal Delay for Given N
+
+In this section, we are going to if the number of stages in the inverter chain is given, what will be the optimal delay for that inverter chain. We also assume that we know the **load capacitance of the laster inverter** and the **gate capacitance of the first inverter** or in other words, we know the **ratio** of them.
+
+#### Optimal Inverter Size for Given N
+
+Look at the $$t_{\text{p,chain}}$$ formula above, we can find out this is nothing but an application of the [AM-GM inequality](https://en.wikipedia.org/wiki/AM%E2%80%93GM_inequality), which basically states that for two non-negative numbers, $$x$$ and $$y$$, we always have $$\frac{x+y}{2}\geq \sqrt{xy}$$. In our $$t_{\text{p,chain}}$$ formula, the only unknowns are $$C_{\text{gin,2}},\dots,C_{\text{gin,N}}$$. Thus, the minimum inverter delay is achieved when
+
+$$
+\frac{C_{\text{gin, j+1}}}{C_{\text{gin, j}}}=\frac{C_{\text{gin, j}}}{C_{\text{gin, j-1}}}
+$$
+
+which is equivalent to $$C_{\text{gin, j}}=\sqrt{C_{\text{gin, j+1}}C_{\text{gin, j-1}}}$$. This is equivalent to saying that each stage as the same **effective fanout** ($$f=C_{\text{gin, j+1}}\div C_{\text{gin, j}}$$) -> each stage has the **same delay**. Thus the total inverter chain delay can be simplified to as follows.
+
+$$
+t_{\text{p,chain}}=Nt_{p0}(1+\frac{f}{\gamma})
+$$
+
+As we have defined the gate size above, which is nothing but the sum of the width of NMOS and PMOS, it is obvious that the gate size is direct proportional to the gate capacitance! So, we can see that the effective fanout $$f$$ here sets the inverter size as well at each stage, but what is the **optimal value** of $$f$$?
+
+#### Optimal $$f$$ for Given N
+
+In the previous section, we know that to get the minimum inverter chain delay, each stage should have the **same effective fanout** $$f$$, but it didn't tell us the value of $$f$$. To get that value, we can calculate the product of the effective fanout for the $$N$$ stages.
+
+$$
+\begin{align*}f^N&=\frac{C_{\text{g,2}}}{C_{\text{g,1}}}\cdot\frac{C_{\text{g,3}}}{C_{\text{g,2}}}\cdots\frac{C_{\text{g,N-1}}}{C_{\text{g,N}}}\cdot\frac{C_{\text{L}}}{C_{\text{g,N}}}\\
+&=\frac{C_L}{C_{\text{g,1}}}=F\end{align*}
+$$
+
+As per our assumption at the start, $$F$$ is a known value defined to be load capacitance of the last inverter $$\div$$ gate capacitance of the first inverter and it is called the **overall effective fanout**. Thus the effective fanout $$f$$ is
+
+$$
+f=\sqrt[N]{F}
+$$
+
+And the minimum inverter chain delay for given number of stages $$N$$ is finally simplifed to as follows:
+
+$$
+t_{\text{p,chain}}=Nt_{\text{p0}}\left( 1+\frac{\sqrt[n]{F}}{\gamma} \right)
+$$
+
+{% hint style="danger" %}
+The $$f$$ here is optimal only for the given number of stages! We will see later that the $$f$$ may not be optimal if we can change the number of stages!
+{% endhint %}
+
+<details>
+
+<summary>Example of Inverter chain delay</summary>
+
+A 3-stage inverter chain needs to drive a $$C_L$$ of 8 times of its input gate capacitance, $$C_1$$. Assume that the input is driven by an inverter with minimum transistor size, (W/L)n=(W/L)p = 1.
+
+1. What is the required fan-out for minimum delay?
+2. Determine the transistor sizes in all inverters.
+
+<figure><img src="../.gitbook/assets/inverter-chain-delay-example.png" alt=""><figcaption></figcaption></figure>
+
+***
+
+**Sol**. For the first question, it is obvious and we just need to plug the numbers into the formula. Our overall effective fanout $$F=8C_L\div C_L=8$$. Thus, the optimal effective fanout for each stage is $$f=\sqrt[3]{8}=2$$.
+
+For the second question, the size of the transistor is direct proportional to the gate capacitance and thus we can use the effective fanout $$f$$ to help us.
+
+<p align="center"><span class="math">(W/L)_{1\text{n}} = (W/L)_{1\text{p}} = (W/L)_{0\text{n}} \cdot f = 2</span></p>
+
+<p align="center"><span class="math">(W/L)_{2\text{n}} = (W/L)_{2\text{p}} = (W/L)_{1\text{n}} \cdot f = 4</span></p>
+
+<p align="center"><span class="math">(W/L)_{3\text{n}} = (W/L)_{3\text{p}} = (W/L)_{2\text{n}} \cdot f = 8</span><span class="math">\begin{align*} (W/L)_{1n} &#x26;= (W/L)_{1p} = (W/L)_{0n} \cdot f = 2 \\ (W/L)_{2n} &#x26;= (W/L)_{2p} = (W/L)_{1n} \cdot f = 4 \\ (W/L)_{3n} &#x26;= (W/L)_{3p} = (W/L)_{2n} \cdot f = 8 \end{align*}</span></p>
+
+</details>
+
+### Optimal Delay for unknown N
+
+The previous analysis assumes that the number of stages $$N$$ is given. But the arbitrarily chosen $$N$$ may not produce the minimum inverter delay. Now if $$N$$ is not given at first, we try to find the optimal $$f$$ and thus find the number of stages $$N$$.
+
+We start from the formula $$f=\sqrt[N]{F}$$ that always holds. We can use the basic [change of base in logarithm](https://en.wikipedia.org/wiki/Logarithm#Change_of_base) to rewrite this formula to be
+
+$$
+N=\log_fF=\frac{\ln F}{\ln f}
+$$
+
+Then, out inverter chain delay will become
+
+$$
+t_{\text{p,chain}}=t_{\text{t0}}\frac{\ln F}{\ln f}\left(1+\frac{f}{\gamma} \right)
+$$
+
+The minimu value of this formula confirms to appear at the point when its derivative is 0. After the differentiation, we can get
+
+$$
+f=e^{1+\gamma/f}
+$$
+
+And thus, the number of stages $$N$$ can be rewritten as
+
+$$
+N=\frac{\ln F}{\ln f}=\frac{\ln F}{1+\gamma/f}
+$$
+
+Now, we can draw the diagrams of $$f-\gamma$$, $$t_{\text{p,chain}}/t_{\text{p,chain,opt}}-f$$. They may look like below.
+
+<figure><img src="../.gitbook/assets/inverter-chain-numerical.png" alt=""><figcaption></figcaption></figure>
+
+From this diagram, the common industry practice is that:
+
+1. First choose $$f$$ to be around 4.
+2. Calculate the number of stages using $$N=\frac{\ln F}{\ln f}=\frac{\ln F}{1+\gamma/f}$$.
+
+#### Summary
+
+* If $$N$$ is given, $$f=\sqrt[N]{F}$$
+* Otherwise, choose $$f_{\text{opt}}=4$$, use $$N=\frac{\ln F}{\ln f_{\text{opt}}}=\frac{\ln F}{1+\gamma/f_{\text{opt}}}$$ to find the number of stages $$N$$.$$N=\fra$$
+
+<details>
+
+<summary>Clock Tree Design Example</summary>
+
+As we have seen in the first part of EE4415, inside the clock tree, there are a lot of buffers and repeaters. The inverter chain we have learned here is actually applied to the clock tree a lot!
+
+</details>
 
 [^1]: Can be thought of as the slope.
 
