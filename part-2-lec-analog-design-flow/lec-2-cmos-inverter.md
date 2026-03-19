@@ -611,7 +611,73 @@ For the whole chip,
 
 ### Short Circuit Power Consumption
 
-As we have seen in the [VTC](lec-2-cmos-inverter.md#voltage-transfer-characteristic), there is a region where
+As we have seen in the [VTC](lec-2-cmos-inverter.md#voltage-transfer-characteristic), when $$V_{\text{in}}$$ switches from $$0\to 1$$ or $$1\to0$$, there is a region when both NMOS and PMOS are turned on, this is the source of the short circuit power consumption.
+
+<figure><img src="../.gitbook/assets/short-circuit-power-comsumption-figure.png" alt=""><figcaption></figcaption></figure>
+
+To calculate the short circuit power consumption, we have two methods.
+
+{% stepper %}
+{% step %}
+#### Integration
+
+$$
+\begin{align*}
+E_{\text{sc}} &= V_{\text{DD}} \cdot \int_0^{t_{\text{sc}}} I_{\text{sc}}(t)\,dt 
+\;\Rightarrow\; 
+P_{\text{sc}} = V_{\text{DD}} \cdot f \cdot \int_0^{t_{\text{sc}}} I_{\text{sc}}(t)\,dt \\
+E_{\text{sc}} &\approx 2V_{\text{DD}} \cdot \frac{I_{\text{peak}} t_{\text{sc}}}{2} 
+= V_{\text{DD}} I_{\text{peak}} t_{\text{sc}} \\
+P_{\text{sc}} &= V_{\text{DD}} I_{\text{peak}} t_{\text{sc}} f
+\end{align*}
+$$
+{% endstep %}
+
+{% step %}
+#### Triangular Approximation
+
+$$
+\begin{align*}
+Q_{\text{sc}} &= \frac{I_{\text{peak}} t_{\text{sc}}}{2} \\
+E_{\text{sc}} &= 2V_{\text{DD}} Q 
+= 2V_{\text{DD}} \cdot \frac{I_{\text{peak}} t_{\text{sc}}}{2} 
+= V_{\text{DD}} I_{\text{peak}} t_{\text{sc}}
+\end{align*}
+$$
+{% endstep %}
+{% endstepper %}
+
+### Leakage Power Consumption
+
+This is also called the **static power consumption** and it is caused by the **leakages** from $$V_{\text{DD}}$$ to GND.
+
+<figure><img src="../.gitbook/assets/static-power-consumption.png" alt=""><figcaption></figcaption></figure>
+
+As you can see from the figure above, the leakage current has two parts
+
+1. sub-threshold current: This is what we've seen in [Lec 01](lec-1-mosfet-and-cmos-process.md#sub-threshold-leakage).
+2. drain PN junction leakages.
+
+In summary, the formula for the static power consumption is
+
+$$
+P_{\text{static}}=I_{\text{stat}}V_{\text{DD}}=(I_{\text{junc}}+I_{\text{sub}})V_{\text{DD}}
+$$
+
+### Summary
+
+In summary, the power dissipation of the CMOS invertor can be summarized as follows:
+
+$$
+\begin{align*}
+P_{\text{total}} &= P_{\text{dyn}} + P_{\text{sc}} + P_{\text{stat}} \\
+&= C_L V_{DD}^2 f_{0 \rightarrow 1} + I_{\text{peak}} V_{DD} t_s f_{0 \rightarrow 1} + I_{\text{leak}} V_{DD}
+\end{align*}
+$$
+
+To reduce the power dissipation of the CMOS inverter, we have the following table where "Dev size" represents the device size.
+
+<figure><img src="../.gitbook/assets/power-consumption-reduction.png" alt=""><figcaption></figcaption></figure>
 
 [^1]: Can be thought of as the slope.
 
