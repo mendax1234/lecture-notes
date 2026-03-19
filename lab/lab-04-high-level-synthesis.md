@@ -101,3 +101,101 @@ Here, we use AXIS as our I/O protocol. The data comes into the input and out fro
 > After the block-level protocol has been used to start the operation of the block, the port-level IO protocols are used to **sequence** data into and out of the block.
 
 ## PYNQ
+
+
+
+### PYNQ Setup
+
+In Lab 4 or in this course, the minimal requirement for PYNQ is to setup and run the python equivalent code of the C program on it. That's it. For more fancy techniques on PYNQ, please go to [NUS CEG5203](https://nusmods.com/courses/CEG5203/hardware-acceleration-and-reconfigurable-computing). To setup the PYNQ locally on Windows, I have summarized the following steps from the official lab manual.
+
+{% hint style="warning" %}
+Make sure you have installed [balena etcher](https://etcher.balena.io/) and [Mobaxterm](https://mobaxterm.mobatek.net/) or equivalent of these two software on your OS.
+{% endhint %}
+
+{% stepper %}
+{% step %}
+#### Flash the Linux OS into the SD card
+
+If you are taking EE4218, NUS would have probably provided you and your team with the SD card and the linux OS `.img` file. So, all you have to do is to flash the linux OS `.img` file into the SD card using balena etcher or the equivalent tool.
+{% endstep %}
+
+{% step %}
+#### Setup Linux on Kria
+
+Here, I will only focus on the recommended way to connect to Kria, which is to use the **Ethernet**. As I am using Windows 11, the setting up process requires you to do the following steps in sequence:
+
+1. Plug the SD card with the Linux OS inside into the Kria board.
+2. Connect the ethernet from kria to the ethernet port on your laptop.
+3. Power on the Kria board.
+
+After that, for Windows users, please go to the following settings in your control panel and setup as follows:
+
+<figure><img src="../.gitbook/assets/kria-network-setup.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="warning" %}
+Pay attention to which Ethernet you are using and select the Ethernet adaptor after Step 5 above!
+{% endhint %}
+
+After that, open your terminal on Windows and type `arp -s`, you might get something like below
+
+{% code lineNumbers="true" %}
+```ps
+Interface: 100.75.116.30 --- 0x7
+  Internet Address      Physical Address      Type
+  100.100.100.100                             dynamic
+  169.254.169.254                             dynamic
+  224.0.0.22                                  static
+  224.0.0.251                                 static
+  239.255.255.250                             static
+
+Interface: 172.31.27.161 --- 0x12
+  Internet Address      Physical Address      Type
+  172.31.24.1           00-00-5e-00-01-d7     dynamic
+  172.31.24.2           dc-68-0c-82-da-37     dynamic
+  172.31.24.3           dc-68-0c-82-d8-c9     dynamic
+  224.0.0.22            01-00-5e-00-00-16     static
+  224.0.0.251           01-00-5e-00-00-fb     static
+  224.0.0.252           01-00-5e-00-00-fc     static
+  239.255.255.250       01-00-5e-7f-ff-fa     static
+  255.255.255.255       ff-ff-ff-ff-ff-ff     static
+
+Interface: 192.168.137.1 --- 0x33
+  Internet Address      Physical Address      Type
+  192.168.137.219       00-0a-35-14-b3-33     static
+  224.0.0.22            01-00-5e-00-00-16     static
+  224.0.0.251           01-00-5e-00-00-fb     static
+  224.0.0.252           01-00-5e-00-00-fc     static
+  239.255.255.250       01-00-5e-7f-ff-fa     static
+  255.255.255.255       ff-ff-ff-ff-ff-ff     static
+```
+{% endcode %}
+
+Find the interface starting with `192.168.137.1` and within this interface, the only ip address that starts with `192.168.137.*` is the ip address of the Kria board.
+
+After knowing the ip address of the kria board, you can just open your mobaxterm and setup a new session.&#x20;
+
+{% hint style="warning" %}
+If you are taking EE4218 in AY25/26 Sem 2, the username is `ubuntu` and password is `CEG5203*`. Otherwise, please contact Prof Rajesh for the username and password.
+{% endhint %}
+{% endstep %}
+
+{% step %}
+#### Run PYNQ code on Kria
+
+After connecting to the Kria board, normally we will enter into a ubuntu terminal. In that terminal, to run the pynq code, we need to create a folder with
+
+1. The hardware `.xsa` file
+2. The python PYNQ code
+
+To run the pynq code, use the following commands
+
+{% code lineNumbers="true" %}
+```shellscript
+sudo -s
+source /etc/profile.d/pynq_venv.sh
+cd /home/ubuntu/PYNQCodeDir/
+python3 PYNQCode.py
+```
+{% endcode %}
+{% endstep %}
+{% endstepper %}
