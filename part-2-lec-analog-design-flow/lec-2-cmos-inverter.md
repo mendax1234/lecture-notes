@@ -558,6 +558,61 @@ As we have seen in the first part of EE4415, inside the clock tree, there are a 
 
 </details>
 
+## Power Consumption
+
+Power consumption is a major design specification of digital IC. Normally, we want low power consumption for an IC. In this section, we are going to see what factors will affect the power consumption of a CMOS inverter.
+
+The CMOS power consumption/dissipation can be divided into three parts:
+
+1. **Dynamic power consumption**: This comes from **charging** the capacitors.
+2. **Short circuit currents**: This comes from the short circuit path betwen poewr supply rails during switching. The fact taht we have rise and fall time also explains the existence of the short circuit when switching.
+3. **Leakage**: This comes from the leaking diodes and transistors.
+
+### Dynamic Power Consumption
+
+The dynamic power consumption only comes from **charging** the capacitor. In other words, there is **no power consumption** when NMOS is open!
+
+<figure><img src="../.gitbook/assets/cmos-inverter-dynamic-power-consumption.png" alt=""><figcaption></figcaption></figure>
+
+Thus, the formula to calculate the power consumption will be
+
+$$
+P_{\text{dyn}}=\frac{\text{Energy}}{\text{Transition}}\cdot f=C_LV_{\text{DD}}^2f_{0\to1}
+$$
+
+where $$f_{0\to1}$$ is the frequency of transition from 0 to 1 and it can be defined as $$p_{\text{sw}}\cdot f_{\text{clk}}$$. Thus the formula can be refactored to be as follows.
+
+$$
+P_{\text{dyn}}=C_LV_{\text{DD}}^2f_{0\to1}=C_LV_{\text{DD}}^2p_{\text{sw}}f_{\text{clk}}
+$$
+
+where
+
+1. $$p_{\text{sw}}$$ is the activity factor representing how often, on average, the gates switch.
+2. $$f_{\text{clk}}$$ is the clock frequency.
+
+<details>
+
+<summary>Example of dynamic power consumption calculation</summary>
+
+Consider a $$0.25\mu \text{m}$$ chip with 2 million gates, an average load capacitance of 15 fF/gate (fanout of 4), 2.5V supply and 1GHz clock. Compute the dynamic Power consumption per gate, as well as for the whole chip (assuming one transition per clock cycle).
+
+***
+
+**Sol**. For the single gate,&#x20;
+
+<p align="center"><span class="math">P = V_{\text{DD}}^2 \cdot C_L \cdot f  = (2.5)^2 \times 15 \times 10^{-15} \times 10^9  \approx 93.7\,\mu\text{W}</span></p>
+
+For the whole chip,
+
+<p align="center"><span class="math">P_{\text{total}} = 93.7 \times 10^{-6} \times 2 \times 10^6  \approx 187.4\,\text{W}</span><span class="math">   Uploaded image give me the latex code for these two formulas.  Here are the LaTeX codes for the two formulas:  1. By integration R_{eq} = -\frac{2}{V_{DD}} \int_{V_{DD}}^{V_{DD}/2} \frac{v}{I_{Dsat}(1+\lambda v)} \, dv  \approx \frac{3V_{DD}}{4I_{Dsat}} \left(1 - \frac{7}{9}\lambda V_{DD}\right) 2. Using the two endpoints R_{eq} = \frac{1}{2} \left( \frac{V_{DD}}{I_{Dsat}(1+\lambda V_{DD})}  +  \frac{V_{DD}/2}{I_{Dsat}(1+\lambda V_{DD}/2)} \right) \approx \frac{3V_{DD}}{4I_{Dsat}} \left(1 - \frac{5}{6}\lambda V_{DD}\right) If you want, I can also align them nicely using align or equation environments for your report.   all the subscript use \text{} except for the one character subscript  Got it — here is the corrected LaTeX with multi-character subscripts wrapped in \text{} (and single-character ones like v kept normal):  1. By integration R_{\text{eq}} = -\frac{2}{V_{\text{DD}}}  \int_{V_{\text{DD}}}^{V_{\text{DD}}/2}  \frac{v}{I_{\text{Dsat}}(1+\lambda v)} \, dv  \approx \frac{3V_{\text{DD}}}{4I_{\text{Dsat}}}  \left(1 - \frac{7}{9}\lambda V_{\text{DD}}\right) 2. Using the two endpoints R_{\text{eq}} = \frac{1}{2} \left( \frac{V_{\text{DD}}}{I_{\text{Dsat}}(1+\lambda V_{\text{DD}})}  +  \frac{V_{\text{DD}}/2}{I_{\text{Dsat}}(1+\lambda V_{\text{DD}}/2)} \right) \approx \frac{3V_{\text{DD}}}{4I_{\text{Dsat}}}  \left(1 - \frac{5}{6}\lambda V_{\text{DD}}\right) If you want a cleaner typeset version (e.g., aligned equations), I can format them into an align block too.   Uploaded image Latex code for this formula also! same requreiemt nfro the subscript.  Here’s the LaTeX code with the same subscript rule applied (\text{} for multi-character subscripts):  t_p = 0.69 R_{\text{eq}} (C_{\text{int}} + C_L)  = 0.69 R_{\text{eq}} C_{\text{int}} + 0.69 R_{\text{eq}} C_L  = 0.69 R_{\text{eq}} C_{\text{int}} \left( 1 + \frac{C_L}{C_{\text{int}}} \right) Let me know if you want it in an align environment for better formatting 👍   Uploaded image This formula also, with the same requirement on the subscript.  Here’s the LaTeX code with the same subscript rule applied (\text{} for multi-character subscripts, single-character like  L L kept normal):  t_p = 0.69 R C_{\text{int}} \left(1 + \frac{C_L}{C_{\text{int}}} \right) = 0.69 R C_{\text{int}} \left( 1 + \frac{C_L / C_{\text{gin}}}{C_{\text{int}} / C_{\text{gin}}} \right) = 0.69 R C_{\text{int}} \left( 1 + \frac{f}{\gamma} \right) If you want consistency across your whole document (e.g., always treating “gin” as text), this format is exactly what you should stick with.   Uploaded image Same requiremnt, for these equations, can use block like begin{aligns*} if it is suitable in this case.  Yes, this is a good case for an align* block. Here’s the LaTeX with your subscript requirement applied (multi-character subscripts in \text{}):  \begin{align*} (W/L)_{1n} &#x26;= (W/L)_{1p} = (W/L)_{0n} \cdot f = 2 \\ (W/L)_{2n} &#x26;= (W/L)_{2p} = (W/L)_{1n} \cdot f = 4 \\ (W/L)_{3n} &#x26;= (W/L)_{3p} = (W/L)_{2n} \cdot f = 8 \end{align*} Note: n and p are single-character subscripts, so they correctly remain without \text{}.   ohh, I think need to separate  Yep — if you want to strictly follow your rule, the subscripts like 1n, 2p, 0n are multi-character, so they should be split into number + \text{}.  Here’s the corrected version:  \begin{align*} (W/L)_{1\text{n}} &#x26;= (W/L)_{1\text{p}} = (W/L)_{0\text{n}} \cdot f = 2 \\ (W/L)_{2\text{n}} &#x26;= (W/L)_{2\text{p}} = (W/L)_{1\text{n}} \cdot f = 4 \\ (W/L)_{3\text{n}} &#x26;= (W/L)_{3\text{p}} = (W/L)_{2\text{n}} \cdot f = 8 \end{align*} This way:  1, 2, 3, 0 → normal (single character)  n, p → wrapped in \text{} when combined → 1\text{n}  If you want even cleaner typography, another option is _{\scriptsize \text{n}}, but your current format is already standard 👍   Uploaded image give me the latex code for tehse two equations, each use align*  Here are the two parts, each formatted using align* and following your subscript rule:  Single gate \begin{align*} P &#x26;= V_{\text{DD}}^2 \cdot C_L \cdot f \\   &#x26;= (2.5)^2 \times 15 \times 10^{-15} \times 10^9 \\   &#x26;\approx 93.7\,\mu\text{W} \end{align*} The whole chip \begin{align*} P_{\text{total}} &#x26;= 93.7 \times 10^{-6} \times 2 \times 10^6 \\                  &#x26;\approx 187.4\,\text{W} \end{align*} If you want, I can also wrap the headings (“Single gate”, “The whole chip”) into proper LaTeX sectioning or formatting.</span></p>
+
+</details>
+
+### Short Circuit Power Consumption
+
+As we have seen in the [VTC](lec-2-cmos-inverter.md#voltage-transfer-characteristic), there is a region where
+
 [^1]: Can be thought of as the slope.
 
 [^2]: Gate size is nothing but the sum of the width of NMOS and the width of PMOS.
