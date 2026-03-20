@@ -21,6 +21,7 @@
 * [Lec 0 - Introduction](part-2-lec-analog-design-flow/lec-0-introduction.md)
 * [Lec 1 - MOSFET and CMOS Process](part-2-lec-analog-design-flow/lec-1-mosfet-and-cmos-process.md)
 * [Lec 2 - CMOS Inverter](part-2-lec-analog-design-flow/lec-2-cmos-inverter.md)
+* [Lec 3 - Combinational Logic Circuits](part-2-lec-analog-design-flow/lec-3-combinational-logic-circuits.md)
 
 ## Lab & Homework
 

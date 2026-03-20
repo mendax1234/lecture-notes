@@ -679,6 +679,10 @@ To reduce the power dissipation of the CMOS inverter, we have the following tabl
 
 <figure><img src="../.gitbook/assets/power-consumption-reduction.png" alt=""><figcaption></figcaption></figure>
 
+{% hint style="warning" %}
+The device size will directly affect $$C_L$$, $$I_{\text{peak}}$$ and $$I_{\text{leak}}$$ becasue device size bigger -> width bigger -> more current can pass through.
+{% endhint %}
+
 [^1]: Can be thought of as the slope.
 
 [^2]: Gate size is nothing but the sum of the width of NMOS and the width of PMOS.
