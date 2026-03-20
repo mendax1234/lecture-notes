@@ -1,4 +1,4 @@
-# Lec 03a - Digital Design Flow
+# Lec 3a - Digital Design Flow
 
 ## ASIC Fundamentals
 
@@ -27,11 +27,15 @@ In a **full-custom** design, the entire chip is designed at the **transistor and
 * Allows **maximum performance, lowest power, and smallest area**
 * Extremely expensive and time-consuming
 
-The full-custom method is more complex and costly, but it can do much more than the gate array method (or called "[programmable](lec-03a-digital-design-flow.md#programmable-asic)" method). The size of the ASIC decreases significantly as the design incorporates only the necessary gates and electronics, and unused gates are deleted. These ASICs are designed for a specific purpose and support a particular function in the end product.
+The full-custom method is more complex and costly, but it can do much more than the gate array method (or called "[programmable](lec-3a-digital-design-flow.md#programmable-asic)" method). The size of the ASIC decreases significantly as the design incorporates only the necessary gates and electronics, and unused gates are deleted. These ASICs are designed for a specific purpose and support a particular function in the end product.
 
 {% hint style="success" %}
 This style is used for high-end CPUs, GPUs, RF circuits, analog/mixed-signal ICs, high-speed interfaces.
 {% endhint %}
+
+An example of the full-custom layout is shown below.
+
+<figure><img src="../../.gitbook/assets/full-custom-layout.png" alt="" width="563"><figcaption></figcaption></figure>
 
 #### Semi-Custom ASIC
 
@@ -44,6 +48,17 @@ In **semi-custom** design, the chip is built from **pre-designed logic cells**, 
 #### Cell-Based ASIC
 
 This type of ASIC uses predesigned logic cells called **standard cells**, such as gates, multiplexers, and flip-flops. **Standard cells** are made using **full-custom** design methodology and serve as basic building blocks for ASIC design, ensuring the same performance and flexibility but reducing time and risk.
+
+In reality, these standard cells will be placed in a **row** so we have a row of cells.
+
+* Each row corresponds to a macroscopic block created by the **partitioning**.
+* And the location of the row is determined by **floor planning**.
+* Within that specific row, the location of the standard cell is decided by the **placement** algorithm.
+* After the placement, **routing** is done **globally first** to determine which channel that the wire can be put into and **then locally** to decide the exact wire connections between standard cells and the macroscopic rows.
+
+<figure><img src="../../.gitbook/assets/standard-cell-design-example.png" alt="" width="375"><figcaption></figcaption></figure>
+
+In the image above, the big square block actually represents another flavor of the standard-cell design called **macro-cell**. In our layout, instead of the standard cells, we can also have **macro-cell**, also called the IP blocks, like CPUs, RAM, etc.
 {% endstep %}
 
 {% step %}
@@ -53,18 +68,52 @@ In this category of ASIC, transistors, logic gates, and other active devices are
 {% endstep %}
 {% endstepper %}
 
+An example of the standard cell layout is given below.
+
+<figure><img src="../../.gitbook/assets/standard-cell-layout.png" alt="" width="563"><figcaption></figcaption></figure>
+
+Compared to the full custom design layout, we can clearly see the flavour or **rows** used in the standard cell layout.
+
 #### Programmable ASIC
 
 This type of ASIC can be programmed at the hardware level after manufacturing. Unlike traditional ASICs, which are custom-designed and fabricated for specific applications, programmable ASICs offer a degree of flexibility and reprogramming. Programmable logic devices (PLDs) and [field-programmable gate arrays (FPGAs)](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/digital-building-blocks/logic-arrays#field-programmable-gate-array) are perfect examples of programmable ASICs.
 
+In the Programmable ASIC, we also have two flavors
+
+{% stepper %}
+{% step %}
+#### Island FPGAs
+
+In this flavor, we have arrays of configurable logic blocks (CLBs) as well as horizontal and vertical routing channels. This can be illustrated as below.
+
+<figure><img src="../../.gitbook/assets/island-fpga.png" alt="" width="392"><figcaption></figcaption></figure>
+{% endstep %}
+
+{% step %}
+#### Row-based FPGAs
+
+This flavor is more like the standard-cell design where we have **rows** of CLBs and routing channels with fixed width between these rows of logic. This can be shown as follows.
+
+<figure><img src="../../.gitbook/assets/row-based-fpga.png" alt="" width="399"><figcaption></figcaption></figure>
+{% endstep %}
+{% endstepper %}
+
 ## The Design Flow Lifecycle
+
+{% hint style="info" %}
+Ths ASIC Design Flow of this part is combined together with the EE4218 Lec 09 — Physical Design.
+{% endhint %}
 
 ### ASIC Design Flow
 
 The ASIC design flow describes the sequence of steps used to transform a **high-level system idea** into a **manufacturable integrated circuit**. Each step progressively adds more implementation detail, moving from abstract functionality to physical silicon.
 
-{% stepper %}
-{% step %}
+<figure><img src="../../.gitbook/assets/asic-design-flow.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="warning" %}
+Sometimes the **system partitioning** can be moved before the logic synthesis to help us write hierarchical HDL code. But if it is placed after the logic synthesis, it means that we are partitioning the netlist to get the macroscopic block that will be used in the upcoming floor planning stage.
+{% endhint %}
+
 #### Design Entry
 
 > Describe what the chip should do.
@@ -77,11 +126,11 @@ This stage defines:
 * The data paths and control logic
 * Clocking and reset behavior
 
+{% hint style="success" %}
 **Output:** RTL or high-level behavioral description of the system.
-{% endstep %}
+{% endhint %}
 
-{% step %}
-#### System Partitioning
+#### System Partitioning (Before)
 
 > Break a large system into manageable blocks.
 
@@ -93,18 +142,17 @@ This step decides:
 * How blocks communicate (interfaces, buses, clocks)
 * What is hardware vs software (if applicable)
 
+{% hint style="success" %}
 **Output:** Block-level architecture and interface definitions or a more hierarchical **RTL code**.
-{% endstep %}
+{% endhint %}
 
-{% step %}
 #### Logic Synthesis
 
 > Convert abstract logic into real hardware.
 
-The HDL description is converted into a **gate-level netlist** using a logic synthesis tool.\
-This netlist contains:
+The HDL description is converted into a **gate-level netlist** using a logic synthesis tool. This netlist is nothing but a HDL file containing:
 
-* Standard cells (AND, OR, flip-flops, multiplexers, etc.)
+* Standard cells module instantiations (AND, OR, flip-flops, multiplexers, etc.)
 * Their logical connections
 
 The synthesis tool optimizes the design for:
@@ -113,10 +161,36 @@ The synthesis tool optimizes the design for:
 * Power
 * Area
 
+{% hint style="success" %}
 **Output:** Technology-mapped gate-level netlist.
-{% endstep %}
+{% endhint %}
 
-{% step %}
+#### System Partitioning (After)
+
+> Break a **netlist** into smaller and manageable blocks.
+
+The idea is similar to the system partitioning mentioned in step 2 excepted that the partitioning here is done at the **netlist** instead of the complex chip. For example, we can partition the following netlist into three partitions.
+
+<figure><img src="../../.gitbook/assets/partition-after-example.png" alt=""><figcaption></figcaption></figure>
+
+To make the partition, we must ensure the the **cut** will cross the **minimum number of edges**.
+
+{% hint style="success" %}
+**Output**: A netlist with several **macroscopic blocks**.
+{% endhint %}
+
+<details>
+
+<summary>Subgraph Replication to reduce the crossed edges</summary>
+
+Sometimes we can do some circuit manipulations such as the **subgraph replication** to minimize the crossed edges by the partition algorithm.
+
+<figure><img src="../../.gitbook/assets/subgraph-replication.png" alt=""><figcaption></figcaption></figure>
+
+As seen in the graph above, by using extra NOT gates at the inputs A and A' in the specific partitions, we reduce the number of crossed edges by the partition algorithm.
+
+</details>
+
 #### Pre-layout simulation
 
 > Verify functional correctness before physical design.
@@ -131,63 +205,53 @@ The synthesized netlist is simulated to ensure the design still behaves correctl
 {% hint style="success" %}
 This catches logic errors introduced during synthesis.
 {% endhint %}
-{% endstep %}
 
-{% step %}
 #### Floor Planning
 
-> Define the chip's physical organization.
+> **Floor planning** is a physical design step in which a topology of a complete chip is planned on a (usually) rectangular area so that the final area, interconnects, and possibly power consumption can be minimized by strategically budgeting **areas** for functional modules and their **physical locations** along the I/O pads, clock and power/ground rails.
 
-The overall layout of the chip is planned. This includes:
-
-* Placement of major blocks (CPU, memory, IO, etc.)
-* Location of I/O pads
-* Power and clock distribution
-* Global and local routing regions
-
-Good floorplanning is critical for:
-
-* Performance
-* Power distribution
-* Routing success
-
-**Output:** Chip-level physical blueprint.
-{% endstep %}
-
-{% step %}
-#### Placement
-
-> Decide where each cell goes.
-
-All standard cells from the netlist are assigned exact physical locations inside their blocks.\
-The placement tool tries to:
-
-* Minimize wire length
-* Reduce congestion
-* Improve timing
-
-**Output:** Physically placed cells, but not yet wired.
-{% endstep %}
-
-{% step %}
-#### Routing
-
-> Create all electrical connections.
-
-Metal wires are created to connect:
-
-* Cells inside blocks
-* Different blocks
-* Power and clock networks
-
-**Output:** Fully routed chip layout.
+In other words, **floor planning** is nothing but to determine the **approximate** location of the **macroscopic blocks** from Step 4 (System partitioning used on the netlist).
 
 {% hint style="success" %}
-This step produces the full **physical layout** of the chip.
+**Output:** A circuit layout with the **rows** and maybe other IP blocks placed.
 {% endhint %}
-{% endstep %}
 
-{% step %}
+#### Placement
+
+> **Placement** is a physical design step in which various functional modules, after being planned, will be placed to achieve routability so that the final area, interconnects, timing/congestions and possibly power consumption can be minimized.
+
+In other words, **placement** is nothing but decide the approximate location of the **standard cells** within each row in the layout. An example of a bad placement vs. a good placement.
+
+<figure><img src="../../.gitbook/assets/good-bad-placement.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="success" %}
+**Output:** Physically placed cells, but not yet wired.
+{% endhint %}
+
+{% hint style="warning" %}
+#### Floor planning vs. Placement
+
+Floor planning is coarse/macroscopic/large-block level, as opposed to placement, which is fine/microscopic/cell-level.
+{% endhint %}
+
+#### Routing
+
+> **Routing** is a physical design step in which various functional modules, after being placed, are connected so that the final area, delay, number of layers, and vias can be minimized by performing **global** (coarse) routing followed by **detailed** (fine) routing of modules according to some micro-electronic governing issues.
+
+In other words, **routing** is when wires are created to connect:
+
+* standard cells inside rows[^2]
+* Different rows
+
+While the routing has two flavors:
+
+1. **Global routing**: It decides which channel[^3] the wires can go into.
+2. **Detailed routing**: It decides the exact route for each wire.
+
+{% hint style="success" %}
+**Output:** Fully routed chip layout which is nothing but the full **physical layout** of the chip.
+{% endhint %}
+
 #### Circuit Extraction
 
 > Find the real electrical behavior of wires.
@@ -203,10 +267,10 @@ of every wire and interconnect. These parasitic values affect:
 * Power
 * Signal integrity
 
+{% hint style="success" %}
 **Output:** An extracted RC model of the chip.
-{% endstep %}
+{% endhint %}
 
-{% step %}
 #### Post-layout Simulation
 
 > Verify that the real chip still works.
@@ -223,45 +287,40 @@ This checks whether:
 
 If problems are found, the design may need to go back to placement or routing for fixes.
 
+{% hint style="success" %}
 **Output:** A design that is ready for fabrication.
-{% endstep %}
-{% endstepper %}
+{% endhint %}
 
-#### Cell-Based Design Flow
+<details>
+
+<summary>Cell-Based Design Flow.</summary>
 
 The cell-based flow is a standard industry methodology for taking a design from concept to physical silicon.
 
-{% stepper %}
-{% step %}
-#### Front-End (Logical Design)
-
-* **Spec Development:** Defining the requirements of the chip. e.g., the throughput, power etc.
-* **HDL (RTL) Coding & Simulation:** Writing the design in a HDL and verifying its logical behavior.
-* **Preliminary Synthesis:** Converting the code into a generic gate-level netlist.
-* **Preliminary Floorplanning:** Estimating the area and initial placement to refine the synthesis.
-* **Design for Testability (DFT):** Adding hardware to allow the chip to be tested after manufacturing; involves Test Pattern Generation.
-* **Pre-layout Simulation:** Verifying the logic again before physical layout begins.
-{% endstep %}
-
-{% step %}
-#### Back-End (Physical Design)
-
-* **Layout:** Involves Floorplanning (area allocation), Placement (fixing cell locations), and Routing (connecting wires).
-* **Post-layout Simulation & Static Timing Analysis (STA):** Verifying the design with real wire delays to ensure it meets speed requirements. (This will be done in the second half of EE4415)
-* **ECO (Engineering Change Order):** Making small, late-stage manual fixes to the design.
-* **Layout Verification:** Ensuring the physical file is error-free. This includes:
-  * **DRC:** Design Rule Checking (physical spacing rules).
-  * **ERC:** Electrical Rule Checking (power/ground rules).
-  * **LVS:** Layout vs. Schematic (ensuring the layout matches the logic).
-  * **Antenna & Metal Density:** Checks for manufacturing reliability.
-{% endstep %}
-{% endstepper %}
+1. **Front-End (Logical Design)**
+   1. **Spec Development:** Defining the requirements of the chip. e.g., the throughput, power etc.
+   2. **HDL (RTL) Coding & Simulation:** Writing the design in a HDL and verifying its logical behavior.
+   3. **Preliminary Synthesis:** Converting the code into a generic gate-level netlist.
+   4. **Preliminary Floorplanning:** Estimating the area and initial placement to refine the synthesis.
+   5. **Design for Testability (DFT):** Adding hardware to allow the chip to be tested after manufacturing; involves Test Pattern Generation.
+   6. **Pre-layout Simulation:** Verifying the logic again before physical layout begins.
+2. **Back-End Physical Design**
+   1. **Layout:** Involves Floorplanning (area allocation), Placement (fixing cell locations), and Routing (connecting wires).
+   2. **Post-layout Simulation & Static Timing Analysis (STA):** Verifying the design with real wire delays to ensure it meets speed requirements. (This will be done in the second half of EE4415)
+   3. **ECO (Engineering Change Order):** Making small, late-stage manual fixes to the design.
+   4. **Layout Verification:** Ensuring the physical file is error-free. This includes:
+      * **DRC:** Design Rule Checking (physical spacing rules).
+      * **ERC:** Electrical Rule Checking (power/ground rules).
+      * **LVS:** Layout vs. Schematic (ensuring the layout matches the logic).
+      * **Antenna & Metal Density:** Checks for manufacturing reliability.
 
 {% hint style="warning" %}
 This is the industry version of the ASIC Design Flow we introduce below/later.
 
 * In **Synopsys**, this flow is introduced in the [textbook 2: AACS](../../textbook-2-synopsys/asic-design-methodology/traditional-design-flow.md).
 {% endhint %}
+
+</details>
 
 ### Levels of Abstraction
 
@@ -408,3 +467,7 @@ The reliability and ease of manufacturing a chip depend heavily on how the timin
 1. [Synopsys — What is ASIC Design?](https://www.synopsys.com/glossary/what-is-asic-design.html)
 
 [^1]: A mask layer in VLSI is a photolithographic template (photomask) used during fabrication to define specific geometric patterns of materials — such as silicon, polysilicon, or metal — onto a silicon wafer
+
+[^2]: each row is nothing but a macroscopic block.
+
+[^3]: The channel is the gap between the rows in the layout.

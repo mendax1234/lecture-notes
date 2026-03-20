@@ -1,4 +1,4 @@
-# Lec 01b - Timing Synchronous
+# Lec 1b - Timing Synchronous
 
 ## Synchronous Sequencing Models
 
@@ -73,7 +73,7 @@ Think of the above steps as: “Everyone stop, look at your inputs, remember the
   * Results must be ready **before the next clock event**. If not, will cause timing violation!
 
 {% hint style="success" %}
-To understand the term "**sychronize"** better, you can refer to the textbook [DICADP](../../textbook-1-dicadp/timing-issues-in-digital-circuits/classification-of-digital-systems.md#synchronous-interconnect). Basically, **synchronization** turns "random arrival" into "scheduled arrival" so that the data/input can be sampled directly without any uncertainty. This will create stable input for the following combinational logic to process it during the entire upcoming clock cycle (We have seen this uncertainty from [above](lec-01b-timing-synchronous.md#system-abstraction)).
+To understand the term "**sychronize"** better, you can refer to the textbook [DICADP](../../textbook-1-dicadp/timing-issues-in-digital-circuits/classification-of-digital-systems.md#synchronous-interconnect). Basically, **synchronization** turns "random arrival" into "scheduled arrival" so that the data/input can be sampled directly without any uncertainty. This will create stable input for the following combinational logic to process it during the entire upcoming clock cycle (We have seen this uncertainty from [above](lec-1b-timing-synchronous.md#system-abstraction)).
 {% endhint %}
 
 In the following timing diagram, the first time shift represents the **Setup Time** (t<sub>setup</sub>), which is the required window where input signal `x` must be stable before the clock edge to be sampled correctly. The second time shift represents the **Clock-to-Output Delay** (t<sub>CK-Q</sub>), which is the time it takes for the register to react to the clock edge and update the output signal `y` before it propagates to the subsequent combinational logic.
@@ -98,7 +98,7 @@ In digital logic, the order of data flow is critical. Usually, we want to achiev
 
 <figure><img src="../../.gitbook/assets/lec01-sequence-synchronous-data-independent.png" alt=""><figcaption></figcaption></figure>
 
-However, in reality, the time it takes for a signal to propagate through a combinational block depends on the specific input values. As we have seen [above](lec-01b-timing-synchronous.md#system-abstraction) or in [Harris & Harris DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/combinational-logic-design/timing#propagation-and-contamination-delay):
+However, in reality, the time it takes for a signal to propagate through a combinational block depends on the specific input values. As we have seen [above](lec-1b-timing-synchronous.md#system-abstraction) or in [Harris & Harris DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/combinational-logic-design/timing#propagation-and-contamination-delay):
 
 * **Propagation Delay** (t<sub>pd</sub>): The time taken by the _slowest_ path (critical path).
 * **Contamination Delay** (t<sub>cd</sub>): The time taken by the _fastest_ path (short path).
@@ -355,7 +355,7 @@ As the following parts are mostly covered in [DICADP](../../textbook-1-dicadp/ti
 | /                       | $$\tau_{\text{comb,max/min}}$$                                   | Maximum and minimum allowed combinational delay                                                                                                         |
 
 {% hint style="danger" %}
-In EE4415, the definition of clock jitter is a bit different from DICADP. So, we must follow EE4415's logic: **Jitter cancels out for Hold Time** because it is a "common mode" noise source in the same clock cycle (See more from the diagram on hold time constraint [here](../../textbook-1-dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective.md#impact-of-skew-and-jitter-on-performance)). However, in EE4415 we introduces Random Skew ($$|t_{skew,RAND}|$$) to account for the variation that _does_ differ between the two registers (like thermal noise in the wires), which the DICADP textbook might have just lumped into "jitter." This is further discussed in [#clock-jitter-difference](lec-01b-timing-synchronous.md#clock-jitter-difference "mention").
+In EE4415, the definition of clock jitter is a bit different from DICADP. So, we must follow EE4415's logic: **Jitter cancels out for Hold Time** because it is a "common mode" noise source in the same clock cycle (See more from the diagram on hold time constraint [here](../../textbook-1-dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective.md#impact-of-skew-and-jitter-on-performance)). However, in EE4415 we introduces Random Skew ($$|t_{skew,RAND}|$$) to account for the variation that _does_ differ between the two registers (like thermal noise in the wires), which the DICADP textbook might have just lumped into "jitter." This is further discussed in [#clock-jitter-difference](lec-1b-timing-synchronous.md#clock-jitter-difference "mention").
 {% endhint %}
 
 #### Max-Delay Constraint
@@ -475,7 +475,7 @@ As we have seen in DICADP, positive skew will improve **performance** but decrea
 The rule above always holds!
 {% endhint %}
 
-As positive skew can improve performance, but it might violate the hold time constraint of R2. So, we will find the **maximum positive skew** we can have for a **designed combinational logic** (meaning that $$\tau_{\text{COMB,cd}}$$ and $$\tau_{\text{COMB,pd}}$$ are fixed). From the Eq. (4) in [#min-delay-constraint](lec-01b-timing-synchronous.md#min-delay-constraint "mention"), we can derive the maximum positive skew as follows,
+As positive skew can improve performance, but it might violate the hold time constraint of R2. So, we will find the **maximum positive skew** we can have for a **designed combinational logic** (meaning that $$\tau_{\text{COMB,cd}}$$ and $$\tau_{\text{COMB,pd}}$$ are fixed). From the Eq. (4) in [#min-delay-constraint](lec-1b-timing-synchronous.md#min-delay-constraint "mention"), we can derive the maximum positive skew as follows,
 
 $$
 t_{\text{skew,DET,max}}
@@ -489,7 +489,7 @@ t_{\text{HOLD,REG2}}
 \left| t_{\text{skew,RAND,21}} \right|
 $$
 
-Substitue the maximum skew into the Eq. (4) in [#max-delay-constraint](lec-01b-timing-synchronous.md#max-delay-constraint "mention"), the resulting clock cycle T<sub>CK</sub> will be,
+Substitue the maximum skew into the Eq. (4) in [#max-delay-constraint](lec-1b-timing-synchronous.md#max-delay-constraint "mention"), the resulting clock cycle T<sub>CK</sub> will be,
 
 $$
 T_{\text{CK}}
@@ -539,14 +539,14 @@ In the "zero" column, $$t_{\text{skew,DET}} = 0$$. In the "max" column, $$t_{\te
 
 <summary>Sequencing vs. Timing Constraint</summary>
 
-As we have talked about [#sequencing-in-synchronous-systems](lec-01b-timing-synchronous.md#sequencing-in-synchronous-systems "mention") before, now we may find an interesting interpretion that
+As we have talked about [#sequencing-in-synchronous-systems](lec-1b-timing-synchronous.md#sequencing-in-synchronous-systems "mention") before, now we may find an interesting interpretion that
 
 > timing constraints <-> conditions for correct sequencing
 
-| Sequencing                        | Meaning                                                            | Timing Constraint                                                                     |
-| --------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------- |
-| data moves by **one**             | The combinational logic must complete computation within one cycle | [#max-delay-constraint](lec-01b-timing-synchronous.md#max-delay-constraint "mention") |
-| and **only one** stage each cycle | The input of REG1 does not affect the output of REG2 at one event  | [#min-delay-constraint](lec-01b-timing-synchronous.md#min-delay-constraint "mention") |
+| Sequencing                        | Meaning                                                            | Timing Constraint                                                                    |
+| --------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| data moves by **one**             | The combinational logic must complete computation within one cycle | [#max-delay-constraint](lec-1b-timing-synchronous.md#max-delay-constraint "mention") |
+| and **only one** stage each cycle | The input of REG1 does not affect the output of REG2 at one event  | [#min-delay-constraint](lec-1b-timing-synchronous.md#min-delay-constraint "mention") |
 
 </details>
 

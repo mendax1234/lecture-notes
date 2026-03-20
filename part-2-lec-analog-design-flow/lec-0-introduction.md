@@ -42,7 +42,7 @@ The digital design flow can be summarized very well in the following diagram.
 
 <figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-The smaller box coming out from "synthesis" is pretty similar to the **logic synthesis** part we have learned in synopsys toolchain and [EE4415 Part 1 Lec 03](../part-1-lec-digital-design-flow/lec-03/lec-03a-digital-design-flow.md#logic-synthesis-1).
+The smaller box coming out from "synthesis" is pretty similar to the **logic synthesis** part we have learned in synopsys toolchain and [EE4415 Part 1 Lec 03](../part-1-lec-digital-design-flow/lec-3/lec-3a-digital-design-flow.md#logic-synthesis-1).
 
 #### Technology Library
 

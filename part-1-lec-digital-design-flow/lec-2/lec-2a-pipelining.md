@@ -1,4 +1,4 @@
-# Lec 02a - Pipelining
+# Lec 2a - Pipelining
 
 Pipelining involves inserting registers into a combinational block to divide it into $$n$$ stages. This allows different combinational parts to operate on different data in parallel ([parallelism in **temporal form**](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-06-advanced-processor#parallelism-in-temporal-and-spatial-form)), significantly improving **throughput**.
 
@@ -14,7 +14,7 @@ The core idea of pipelining is:
 * **Latency (clock cycles)**: Worsens (increases) due to the added delay of the inserted registers.
 
 {% hint style="warning" %}
-You will see a more detailed version of the throughput and latency change in the [#performance-analysis](lec-02a-pipelining.md#performance-analysis "mention").
+You will see a more detailed version of the throughput and latency change in the [#performance-analysis](lec-2a-pipelining.md#performance-analysis "mention").
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/pipeline-example.png" alt=""><figcaption></figcaption></figure>
@@ -24,7 +24,7 @@ You will see a more detailed version of the throughput and latency change in the
 We assume a perfectly balanced logic design where the total combinational delay is split evenly among stages, such that $$\tau_{\text{COMB,i}} = \frac{\tau_{\text{COMB}}}{n}$$.
 
 {% hint style="warning" %}
-Treat $$\tau_{\text{COMB}}$$ as a constant and $$n$$ is sometimes called the **pipeline depth**. We will prove at the [end](lec-02a-pipelining.md#logic-imbalance) of this section that the assumption we made above on the balanced combinational logic **doesn't matter** to our analysis!
+Treat $$\tau_{\text{COMB}}$$ as a constant and $$n$$ is sometimes called the **pipeline depth**. We will prove at the [end](lec-2a-pipelining.md#logic-imbalance) of this section that the assumption we made above on the balanced combinational logic **doesn't matter** to our analysis!
 {% endhint %}
 
 ### Throughput
@@ -40,7 +40,7 @@ $$
 $$n$$ is the pipeline depth. $$t_{\text{OH}}$$ is the overhead (setup time, clock-to-Q delay).
 
 {% hint style="warning" %}
-The $$T_{\text{pipe}}$$ here is equal to $$T_{\text{CK}}$$ and we assume that we have the **same pipeline register overhead**, which means that **same type** of register is used and we are not adding any [skew](../lec-01/lec-01b-timing-synchronous.md#clock-skew) to the clock of the register.
+The $$T_{\text{pipe}}$$ here is equal to $$T_{\text{CK}}$$ and we assume that we have the **same pipeline register overhead**, which means that **same type** of register is used and we are not adding any [skew](../lec-1/lec-1b-timing-synchronous.md#clock-skew) to the clock of the register.
 {% endhint %}
 
 #### Throughput Improvement
@@ -156,7 +156,7 @@ $$
 $$
 
 {% hint style="success" %}
-The same techinique used in the [#latency-improvement](lec-02a-pipelining.md#latency-improvement "mention"), which is to divide both the nominators and denominators with $$A_{\text{COMB}}$$ and then use the geometric series approximation. $$\frac{1}{1+x} \approx 1-x$$ is used here to get the final approximation.
+The same techinique used in the [#latency-improvement](lec-2a-pipelining.md#latency-improvement "mention"), which is to divide both the nominators and denominators with $$A_{\text{COMB}}$$ and then use the geometric series approximation. $$\frac{1}{1+x} \approx 1-x$$ is used here to get the final approximation.
 {% endhint %}
 
 Area overhead grows **linearly** as we increase the number of stages ($$n$$).
@@ -173,13 +173,13 @@ $$
 
 #### Energy Improvement
 
-We assume the same switching activity/glitching ($$\sum_{i=1}^{n}E_{\text{COMB,i}}=E_{\text{COMB}}$$) and the $$E_{\text{reg,i}} \ll E_{\text{COMB}}$$). We can use the similar or almost the same steps from the [area analysis](lec-02a-pipelining.md#silicon-area) above to get the following formula:
+We assume the same switching activity/glitching ($$\sum_{i=1}^{n}E_{\text{COMB,i}}=E_{\text{COMB}}$$) and the $$E_{\text{reg,i}} \ll E_{\text{COMB}}$$). We can use the similar or almost the same steps from the [area analysis](lec-2a-pipelining.md#silicon-area) above to get the following formula:
 
 $$
 \frac{E_{\text{pipe}}}{E} = \frac{E_{\text{COMB}} + (n+1)E_{\text{reg,i}}}{E_{\text{COMB}} + 2E_{\text{reg,i}}} \approx 1 + (n-1)\frac{E_{\text{reg,i}}}{E_{\text{COMB}}}
 $$
 
-Similar to the [area](lec-02a-pipelining.md#silicon-area), the energy grows **linearly** with the number of stage ($$n$$).
+Similar to the [area](lec-2a-pipelining.md#silicon-area), the energy grows **linearly** with the number of stage ($$n$$).
 
 #### PPA Analysis Summary
 

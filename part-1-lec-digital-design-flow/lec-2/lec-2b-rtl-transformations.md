@@ -1,4 +1,4 @@
-# Lec 02b - RTL Transformations
+# Lec 2b - RTL Transformations
 
 ## Foundations of Synchronous Systems
 
@@ -184,7 +184,7 @@ There is a fundamental difference between how we optimize timing for **recursive
 In non-recursive DFGs, the data flows in one direction only, so we can achieve **any** desired clock cycle time by inserting more pipeline registers (pipelining) and redistributing them (retiming).
 
 {% hint style="success" %}
-The method above is called [**repipelining**](lec-02b-rtl-transformations.md#repipelining).
+The method above is called [**repipelining**](lec-2b-rtl-transformations.md#repipelining).
 {% endhint %}
 
 The result is that the speed is limited only by technology constraints (setup/hold times), not by the logic structure itself.
@@ -496,7 +496,7 @@ This will bring us the following benefits
 * **Frequency:** The $$N$$ registers inside the loop can be retimed (distributed) into the Multiplier/Adder logic to break critical paths, allowing the clock frequency to potentially increase by $$N$$ times.
 
 {% hint style="success" %}
-For more on Timing Interleaving, you can refer to [below](lec-02b-rtl-transformations.md#time-interleaving-2).
+For more on Timing Interleaving, you can refer to [below](lec-2b-rtl-transformations.md#time-interleaving-2).
 {% endhint %}
 
 ## Parallelism
@@ -771,14 +771,14 @@ $$
 = 1 + \frac{\tau_{\text{MUX}}}{\tau_{\text{COMB}} + t_{\text{OH}}}
 $$
 
-Notice that it is the **latency in time** that remains almost the same. But the latency in **clock cycles** are increased by $$n$$ in parallelism (The [graph above](lec-02b-rtl-transformations.md#parallelism)) because
+Notice that it is the **latency in time** that remains almost the same. But the latency in **clock cycles** are increased by $$n$$ in parallelism (The [graph above](lec-2b-rtl-transformations.md#parallelism)) because
 
 $$
 \text{cycles}=LAT_{\text{parallel}}\div T_{\text{parallel}}
 $$
 
 {% hint style="danger" %}
-In [SIPO/PISO architecture](lec-02b-rtl-transformations.md#sipo-piso-converters), the **latency in clock cycles** is increased by $$2n$$ because both SIPO and PISO will introduce $$n$$ clock cycles delay each!
+In [SIPO/PISO architecture](lec-2b-rtl-transformations.md#sipo-piso-converters), the **latency in clock cycles** is increased by $$2n$$ because both SIPO and PISO will introduce $$n$$ clock cycles delay each!
 {% endhint %}
 {% endstep %}
 {% endstepper %}
@@ -850,11 +850,11 @@ In this course, we will mainly introduce **cutset retiming**, while in EE4218, w
 Just a personal tip, **cutset retiming** is more powerful!
 {% endhint %}
 
-With the help of **cutset retiming**, we will see how they can be combined with other tools to perform the [**RTL Transformations**](lec-02b-rtl-transformations.md#rtl-transformation). These transformations can be used to practically move the register to a given microarchitecture (at iso-latency[^8] in terms of cycles), or even modifying the latency (by adding registers at the input or output and retime). Before that, let's see the assumptions and some math notations first.
+With the help of **cutset retiming**, we will see how they can be combined with other tools to perform the [**RTL Transformations**](lec-2b-rtl-transformations.md#rtl-transformation). These transformations can be used to practically move the register to a given microarchitecture (at iso-latency[^8] in terms of cycles), or even modifying the latency (by adding registers at the input or output and retime). Before that, let's see the assumptions and some math notations first.
 
 #### Assumptions
 
-To apply retiming algorithms formally, let's model the circuit as a [Data Flow Graph (DFG)](lec-02b-rtl-transformations.md#data-flow-graphs) with specific constraints to handle Input/Output boundaries correctly.
+To apply retiming algorithms formally, let's model the circuit as a [Data Flow Graph (DFG)](lec-2b-rtl-transformations.md#data-flow-graphs) with specific constraints to handle Input/Output boundaries correctly.
 
 <figure><img src="../../.gitbook/assets/retiming-assumptions.png" alt=""><figcaption></figcaption></figure>
 
@@ -896,7 +896,7 @@ This rule applies to path branching as well, which can be seen from below
 
 > This part has appeared in Micheli's book and EE4218 as well. Can refer to the notes [there](https://wenbo-notes.gitbook.io/ee4218-hsd-notes/textbook-micheli/sequential-logic-optimization/sequential-circuit-optimization-using-network-models#cycle-time-minimization).
 
-To algorithmically optimize a circuit, we define retiming mathematically using a **Data Flow Graph (DFG)** where vertices ($$V$$) represent logic gates and edges ($$E$$) represent the wires connecting them, which is same as we have learned at the [beginning](lec-02b-rtl-transformations.md#data-flow-graphs) of this note.
+To algorithmically optimize a circuit, we define retiming mathematically using a **Data Flow Graph (DFG)** where vertices ($$V$$) represent logic gates and edges ($$E$$) represent the wires connecting them, which is same as we have learned at the [beginning](lec-2b-rtl-transformations.md#data-flow-graphs) of this note.
 
 {% stepper %}
 {% step %}
@@ -1004,7 +1004,7 @@ Retiming **never changes** the total number of registers in a closed loop (cycle
 {% endstep %}
 
 {% step %}
-#### Invariance of [Iteration Bound](lec-02b-rtl-transformations.md#iteration-bound-1)
+#### Invariance of [Iteration Bound](lec-2b-rtl-transformations.md#iteration-bound-1)
 
 Because the number of **registers in loops** (Property 2) and the **logic delays** remains constant, the fundamental speed limit of the circuit (Iteration Bound) **does not change**.
 {% endstep %}
@@ -1022,7 +1022,7 @@ Cutset retiming is a graphical technique used to rearrange registers across larg
 
 #### Definition
 
-We have seen the definition of cutset from [above](lec-02b-rtl-transformations.md#cutset). To do the retiming, we apply a constant retiming shift ($$k$$) to the entire subgraph $$G2$$, while leaving $$G1$$ unchanged.
+We have seen the definition of cutset from [above](lec-2b-rtl-transformations.md#cutset). To do the retiming, we apply a constant retiming shift ($$k$$) to the entire subgraph $$G2$$, while leaving $$G1$$ unchanged.
 
 * $$r(V) = k$$ for all vertices in $$G2$$.
 * $$r(V) = 0$$ for all vertices in $$G1$$.
@@ -1090,7 +1090,7 @@ The **intuition** is that:
 
 #### Practical Application
 
-This generalizes the [basic node retiming rule](lec-02b-rtl-transformations.md#fundamental-transformation) we have seen from above. Instead of moving a register across a single operator, we treat the entire subgraph $$G2$$ as a "super-node" and move registers across its boundary.
+This generalizes the [basic node retiming rule](lec-2b-rtl-transformations.md#fundamental-transformation) we have seen from above. Instead of moving a register across a single operator, we treat the entire subgraph $$G2$$ as a "super-node" and move registers across its boundary.
 
 <figure><img src="../../.gitbook/assets/retiming-practical-usage.png" alt=""><figcaption></figcaption></figure>
 
@@ -1103,7 +1103,7 @@ This is the **most important** application that we should take away from this wh
 Up till now, we are equipped with several skills
 
 1. Feedforward Cutset Insertion
-2. Cutset Retiming (The most important one is the [practical application](lec-02b-rtl-transformations.md#practical-application-1) above)
+2. Cutset Retiming (The most important one is the [practical application](lec-2b-rtl-transformations.md#practical-application-1) above)
 3. N-Slowing insertion
 
 We will now use these skills to start getting our hands "dirty"!
@@ -1124,7 +1124,7 @@ Repipelining is considered a **special case of cutset retiming** where the cutse
 Edges exist from $$G1 \to G2$$, but no edges exist from $$G2 \to G1$$.
 
 {% hint style="warning" %}
-Loops can exist _internally_ within $$G1$$ or $$G2$$, but the gaussian surface itself **cannot** cross a loop because we are doing **register insertion** here. The existence of the  loop also **limits** the maximum clock frequency we can achieve (see more from the [#loop-bound](lec-02b-rtl-transformations.md#loop-bound "mention"))
+Loops can exist _internally_ within $$G1$$ or $$G2$$, but the gaussian surface itself **cannot** cross a loop because we are doing **register insertion** here. The existence of the  loop also **limits** the maximum clock frequency we can achieve (see more from the [#loop-bound](lec-2b-rtl-transformations.md#loop-bound "mention"))
 {% endhint %}
 
 #### The Transformation Procedure
@@ -1157,7 +1157,7 @@ We start by adding 4 registers at each input because we notice there are 4 opera
 
 <figure><img src="../../.gitbook/assets/gaussian-filter-first-optimization.gif" alt=""><figcaption></figcaption></figure>
 
-This is done by applying the [#cutset-retiming](lec-02b-rtl-transformations.md#cutset-retiming "mention") or simply the [#feedforward-cutset-register-insertion](lec-02b-rtl-transformations.md#feedforward-cutset-register-insertion "mention") technique we have learned, our final clock cycle is 2 because the critical path would be the multiplier which takes two cycles while the latency is 4+5=9 cycles.
+This is done by applying the [#cutset-retiming](lec-2b-rtl-transformations.md#cutset-retiming "mention") or simply the [#feedforward-cutset-register-insertion](lec-2b-rtl-transformations.md#feedforward-cutset-register-insertion "mention") technique we have learned, our final clock cycle is 2 because the critical path would be the multiplier which takes two cycles while the latency is 4+5=9 cycles.
 
 {% hint style="danger" %}
 The reason for only **one register** added above the second level of multipliers instead of 3 is because of [**register sharing**](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/textbook-micheli/sequential-logic-optimization/sequential-circuit-optimization-using-network-models#register-sharing) we have learned in EE4218.
@@ -1198,7 +1198,7 @@ When drawing the **gaussian surface** here, notice that the **gaussian surface**
 
 ### Time Interleaving
 
-Another RTL transformation skill is called **time interleaving**, which utilizes the [N-slowing](lec-02b-rtl-transformations.md#n-slowing-insertion) technique we have covered above to first replace each register with $$N$$ cascaded registers and then retime it.
+Another RTL transformation skill is called **time interleaving**, which utilizes the [N-slowing](lec-2b-rtl-transformations.md#n-slowing-insertion) technique we have covered above to first replace each register with $$N$$ cascaded registers and then retime it.
 
 {% hint style="success" %}
 Time interleaving is a technique to process $$N$$ independent data streams on a single hardware block at a $$N$$-time faster clock frequency (in ideal case) by utilizing pipeline "slots" created through register replacement.
@@ -1455,7 +1455,7 @@ Execute the chosen transformation on the original RTL structure.
 <figure><img src="../../.gitbook/assets/combining-rtl-transformations.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
-Repipelining **includes** pipelining and if the original RTL is pipelined, the N<sub>original</sub> is number of pipeline stages. If it is non-pipelined, the N<sub>original</sub> is just 1. And the PPA analysis for repipelining is the **same as** the [PPA analysis of pipelining](lec-02a-pipelining.md#performance-analysis).
+Repipelining **includes** pipelining and if the original RTL is pipelined, the N<sub>original</sub> is number of pipeline stages. If it is non-pipelined, the N<sub>original</sub> is just 1. And the PPA analysis for repipelining is the **same as** the [PPA analysis of pipelining](lec-2a-pipelining.md#performance-analysis).
 {% endhint %}
 
 * $$N > 0$$: Standard application (Insertion, Parallelism, Interleaving).
