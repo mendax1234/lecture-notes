@@ -236,7 +236,7 @@ When considering an **architectural-level model** of a **circuit** as a **sequen
 **Latency** can be measured in terms of **clock cycles**. Thus, the **product** of the **cycle-time** and **latency** determines the **overall execution time**. Often, **cycle-time** and **latency** are **optimized independently**, for the sake of **simplifying the optimization problem** as well as **satisfying other design constraints**, such as **interfacing to other circuits**.
 
 {% hint style="info" %}
-NUS EE4415 also has some notes on [latency](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-01/lec-01b-timing-synchronous#latency), which are quite good to refer to!
+NUS EE4415 also has some notes on [latency](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-1/lec-1b-timing-synchronous#latency), which are quite good to refer to!
 {% endhint %}
 {% endstep %}
 
@@ -260,7 +260,7 @@ As latency is the number of clock cycles needed to complete **one computation**.
 **Pipelining** allows a **circuit** to **increase its throughput** beyond this limit. **Maximum-rate pipelining** occurs when the **throughput** is the **inverse of the cycle-time**, i.e., when **data** are **produced** and **consumed** at **each clock cycle**.
 
 {% hint style="info" %}
-NUS EE4415 also has some notes on [throughput](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-01/lec-01b-timing-synchronous#throughput), which are quite good to refer to!
+NUS EE4415 also has some notes on [throughput](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-1/lec-1b-timing-synchronous#throughput), which are quite good to refer to!
 {% endhint %}
 {% endstep %}
 {% endstepper %}
