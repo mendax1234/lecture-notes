@@ -12,6 +12,7 @@
 * [Lec 06 - High-Level Synthesis](lec/lec-06-high-level-synthesis.md)
 * [Lec 07 - Timing](lec/lec-07-timing.md)
 * [Lec 08 - Technology Mapping](lec/lec-08-technology-mapping.md)
+* [Lec 09 - Physical Synthesis](lec/lec-09-physical-synthesis.md)
 
 ## Tutorial
 

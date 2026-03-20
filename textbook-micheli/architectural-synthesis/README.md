@@ -83,4 +83,9 @@ In this section, we first examine circuit modeling in greater detail, followed b
 In this part, we will see how the [**back-end**](../hardware-modeling/compilation-and-behavioral-optimization.md) works!
 {% endhint %}
 
-> TODO: The architectural synthesis is basically to draw the anotated sequencing graph so that the scheduling and binding are done, and based on this information, we can do the data-path and control-unit synthesis manually, which will give us a structural view and state-transition diagram, and then we can write our own HDL code!
+The **big picture** for architectural synthesis, or how we write a good RTL code is to
+
+1. Draw the data flow and sequencing graph based on the function specification
+2. Apply scheduling and binding to **back annotate** the DFSG
+3. Perform the data-path and control unit synthesis to get the microarchitecture diagram
+4. Write the RTL code using that microarchitecture diagram

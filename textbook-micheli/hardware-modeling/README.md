@@ -35,13 +35,13 @@ Figure 1.20 (we have seen this at the [introduction](../introduction/ "mention")
 
 <figure><img src="../../.gitbook/assets/circuit-models-synthesis-optimization.png" alt=""><figcaption><p>Figure 1.20 Circuit models, synthesis and optimization: a simplified view</p></figcaption></figure>
 
-The **language models** can be thought of as a way to specify the specifications. In other words, what we want to achieve. In HDL, we have **bahavioral** and **structural** flavor. Thus, we have different **abstract models** to capture the information described by these two types of HDL.
+The **language models** can be thought of as a way to specify the specifications. In other words, what we want to achieve. In HDL, we have **normal RTL** and **Netlist** flavor. Thus, we have different **abstract models** to capture the information described by these two types of HDL.
 
 {% stepper %}
 {% step %}
-#### Behavioral HDL
+#### Normal RTL
 
-In behavioral HDL, we can write both **data paths** and **control units**.
+This normal RTL corresponds to the first two rows under the **behavioral view**. In the normal RTL, we can write both **data paths** and **control units**.
 
 * For **data paths**, we can use the following abstract models:
   * [Data-flow and Sequencing Graphs](abstract-models.md#data-flow-and-sequencing-graphs).
@@ -52,9 +52,9 @@ In behavioral HDL, we can write both **data paths** and **control units**.
 {% endstep %}
 
 {% step %}
-#### Structural HDL
+#### Netlist HDL
 
-In structural HDL, we can only specify the **data path**. So, we can use the following abstraact models:
+The netlist which is the output of the logic synthesis is nothing but a bunch of standard cell modules instantiated in the HDL. Thus, it is under the **structural view** of the graph above. For this kind of HDL, the abstract models are:
 
 * [Structure](abstract-models.md#structure), like Incidence matrix/netlist, hypergraph, bipartite graph.
 * [Logic networks and Logic network Graphs](abstract-models.md#logic-networks).
