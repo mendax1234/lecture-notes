@@ -374,16 +374,19 @@ Note that the verilog and the rules we are talking here are for writing the **RT
 
 ### HDL Coding Tips
 
-1. For best results, use templates from the synthesis manual of the EDA tool you are using, but has the risk that the code may not work well with another tool.
-   1. For example, the synthesis manual for Vivado is [here](https://docs.amd.com/r/en-US/ug901-vivado-synthesis). (Very useful)
+For best results, use templates from the synthesis manual of the EDA tool you are using, but has the risk that the code may not work well with another tool.
+
+{% hint style="success" %}
+For example, the synthesis manual for Vivado is [here](https://docs.amd.com/r/en-US/ug901-vivado-synthesis). (Very useful)
+{% endhint %}
 
 ### General Rules for Synthesizability
 
-> In this section, `reg` means the **variable** type is `reg` only. It doesn't mean that signal is a **register**. If a `reg` signal is inferred as a physical register, we will mention it explicitly.
+> In this section, `reg` only means that the **variable** type is `reg`. It doesn't mean that signal is a **register**. If a `reg` signal is inferred as a physical register, we will mention it explicitly.
 
 #### Do NOT use delays (`#delay`)
 
-Combinational (propagation) delays are hardware dependent; not&#x20;something the synthesis tool can insert based on HDL code. So, the following code and the use of delay mentioned [here](https://wenbo-notes.gitbook.io/ddca-notes/textbook/hardware-description-languages/combinational-logic#delays) are **not recommended,**
+Combinational (propagation) delays are hardware dependent; not something the synthesis tool can insert based on HDL code, so the following code and the use of delay mentioned [here](https://wenbo-notes.gitbook.io/ddca-notes/textbook/hardware-description-languages/combinational-logic#delays) are **not recommended,**
 
 {% code lineNumbers="true" %}
 ```verilog
@@ -393,7 +396,7 @@ end
 ```
 {% endcode %}
 
-In RTL Verilog code, we insert **clock cycle delays** explicity by introducing a&#x20;**physical** [**register**](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/latches-and-flip-flops#register) (e.g., it is a part of our design). So, the following is the correct code for the above,
+In RTL Verilog code, we insert clock cycle delays explicity by introducing a **physical** [**register**](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/latches-and-flip-flops#register) (e.g., it is a part of our design). So, the following is the correct code for the above,
 
 {% code lineNumbers="true" %}
 ```verilog
@@ -409,7 +412,7 @@ assign data_out = data_d2;
 {% endcode %}
 
 {% hint style="warning" %}
-Using one such always block as above gives us a way to insert any number of registers between two combinational blocks.
+Using one such `always` block as above gives us a way to insert **any number** of registers between two combinational blocks.
 {% endhint %}
 
 So, the key takeaway is
@@ -429,9 +432,7 @@ So, the key takeaway is
 In the above image, the glitch happens because NOT gate has a propagation delay.
 {% endhint %}
 
-Another example is that "**do not use** something like `@(posedge button)` for detecting a transition".
-
-* Use a synchronous edge detection scheme instead — e.g., by comparing the current value with the previous value stored in a register.
+Another example is that "**do not use** something like `@(posedge button)` for detecting a transition". Instead, use a **synchronous edge detection** scheme — e.g., by comparing the current value with the previous value stored in a register.
 
 {% code lineNumbers="true" %}
 ```verilog
@@ -448,7 +449,7 @@ end
 
 #### Do not have combinational feedback path
 
-Every circular assignment should be broken by a register (an assignment in a&#x20;synchronous `always` block). This is what we have seen in [Harris and Harris](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/synchronous-logic-design).
+Every circular assignment should be broken by a register (an assignment in a synchronous `always` block). This is what we have seen in [Harris and Harris](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/synchronous-logic-design).
 
 <figure><img src="../.gitbook/assets/cg3207-lec02-synchronous-sequential-logic.png" alt=""><figcaption></figcaption></figure>
 
@@ -466,7 +467,7 @@ assign Z = X | Y;
 ```
 {% endcode %}
 
-But its' ok to have a `reg` at the LHS of multiple statements within the **same**&#x20;`always` block as long as the **same type of assignment** is used. e.g., the use of `if` statements.
+But it's ok to have a `reg` at the LHS of multiple statements within the same `always` block as long as the same type of assignment is used, e.g., the use of `if` statements.
 
 * Only blocking (`=`) or only non-blocking (`<=`), **do not mix** the two for a particular `reg`.
 * Within an always block, if a signal is assigned more than once, whichever assignment executes last in the flow of control is what the `reg` ends up holding.
@@ -479,9 +480,9 @@ If we use either [`initial` block](https://wenbo-notes.gitbook.io/ddca-notes/lab
 {% step %}
 #### Wires cannot be initialized
 
-`wire`s cannot be meaningfully initialized as they don't store anything. (Go back review the [working principle of `wire`](https://wenbo-notes.gitbook.io/ddca-notes/lab/resources/verilog-lifesaver#wire) again if we forget)
+`wire`s cannot be meaningfully initialized as they don't store anything. (Go back review the [working principle of `wire`](https://wenbo-notes.gitbook.io/ddca-notes/lab/resources/verilog-lifesaver#wire) again if you forget)
 
-Initialization to 0 or 1 will connect the wire to a **constant** 0 or 1 respectively.&#x20;Further assignment using `assign` will cause it to have multiple drivers. This is **dangerous** and **not recommended!**
+Initialization to 0 or 1 will connect the wire to a constant 0 or 1 respectively, further assignment using `assign` will cause it to have multiple drivers. This is **dangerous** and **not recommended!**
 {% endstep %}
 
 {% step %}
@@ -611,8 +612,8 @@ By keeping the above two rules, we should be able to avoid 99% of problems. But 
 
 This usually involves a [resettable register](https://wenbo-notes.gitbook.io/ddca-notes/textbook/hardware-description-languages/sequential-logic#resettable-registers) which we've seen a lot in Harris & Harris. To design such resettable register, we should keep the following rules in mind
 
-1. Inside the `if` statement (to reset the value in the register), output should be assigned a vector of 0's and 1's,   &#x20;and **nothing more should be done**.
-2. All other code (e.g., the synchronous portion) should be inside the `else` (begin   &#x20;and end of else). There should not be additional **outer** `if/else ifs`, but can have **inner** `if/else ifs`, but these `if`s need not have `else`, why?
+1. Inside the `if` statement (to reset the value in the register), output should be assigned a vector of 0's and 1's, and **nothing more should be done**.
+2. All other code (e.g., the synchronous portion) should be inside the `else` (begin and end of else). There should not be additional **outer** `if/else ifs`, but can have **inner** `if/else ifs`, but these `if`s need not have `else`, why?
    1. It’s because it’s synchronous. In clocked logic, missing `else` = “hold value,” which is fine. But in combinational logic, missing `else` = “need to remember,” which infers unintended latches. (**This is super important!**)
 
 {% hint style="danger" %}
@@ -648,8 +649,8 @@ Inferring using the **second** way is **not recommended**!
 
 Basically, the registers will be **simplified** if they fall into the following two cases
 
-1. If there are two registers storing identical content, they could be merged by   &#x20;the synthesis tool as a part of optimization (configurable)
-2. If a register content is not used in a parent module, it is optimized away,   &#x20;along with the combinational circuits exclusively feeding it.
+1. If there are two registers storing identical content, they could be merged by the synthesis tool as a part of optimization (configurable).
+2. If a register content is not used in a parent module, it is optimized away, along with the combinational circuits exclusively feeding it.
 
 For example, given the following Verilog code, draw the schematic,
 
@@ -667,7 +668,7 @@ assign Z = X & Y;
 ```
 {% endcode %}
 
-To solve this kind of drawing schematic questions, we do it systematically
+To solve this kind of drawing schematic questions, let's do it systematically:
 
 1. **Find the registers**: Based on the two rules listed above, here `D` and `A` are register.
 2. **Start building/drawing the circuit in order**: We start from the first line, which is the `assign` statement to build the circuit

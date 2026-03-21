@@ -106,24 +106,37 @@ This design acts as a hybrid [**Branch History Table**](#user-content-fn-1)[^1] 
 * Lookup: It reads the entry at that index to retrieve:
   * `PrPCSrcF` (Predicted Direction): Should we branch? (1 = Taken, 0 = Not Taken).
   * `PrBTAF` (Predicted Target): Where do we jump?
-* Action: If `PrPCSrcF == 1`, the PC Mux immediately updates `PC` to `PrBTAF` (predicting "Taken"), saving cycles by not waiting for the Decode stage.
+* Action: If `PrPCSrcF == 1`, the PC Mux immediately updates `PC` to `PrBTAF` (predicting "Taken") so the next instruction at the BTA will be fetched during the next clock cycle.
 
 **2. Validation (Resolution Stage)**
 
 * Comparison: The processor waits until the branch resolves (in the Execute or Memory stage) to check two things:
   1. Direction Check: Did we guess Taken/Not Taken correctly? (`Actual_PCSrc` XOR `Predicted_PCSrc`).
   2. Target Check: Did we jump to the correct address? (`Actual_BTA` != `Predicted_BTA`).
-* Misprediction Signal: If either check fails, the `Branch Mispredicted` signal goes high.
+* Misprediction Signal: If the check fails, either the `Branch_Mispredicted` signal goes high or `BTA_Mispredicted` goes high.
 
 **3. Recovery & Update (Writeback)**
 
 * Flush: If mispredicted, the pipeline flushes instructions fetched from the wrong path (`FlushD`, `FlushE`).
-* Correction: The PC is reset to the correct address (`BTAE` if taken, `PC+4` if not).
+* Correction: The PC is reset to the correct address (`BTAE` if taken, `PCE+4` if not).
 * Training: The BHT is updated (Written) with the _correct_ information (`PCSrc`, `BTA`) for that PC index so the prediction is accurate next time.
 
 {% hint style="danger" %}
 This implementaion targets the [first version](https://wenbo-notes.gitbook.io/ddca-notes/lec/lec-03-risc-v-isa-and-microarchitecture#single-cycle-processor-with-control) of the RISC-V microarchitecture introduced in Lec 03. For the one that is applicable for the latest microarchitecture, please wait for Mach-V!
 {% endhint %}
+
+> Why not use `InstrF` to index the BHT?
+
+Indexing the **BHT with `InstrF`** would require placing the BHT **after the instruction memory**, since the instruction should better be fetched and decoded before we know whether it is a branch. This is undesirable because **instruction memory access dominates the Fetch-stage delay**; placing the BHT after it would **lengthen the critical path** and reduce the maximum clock frequency.
+
+Instead, we index the **BHT with `PCF`**. This allows the BHT lookup to occur **in parallel with instruction memory access**, keeping the Fetch-stage critical path short. Although PC-based indexing may cause **aliasing or predictions on non-branch instructions**, this is acceptable because the predictor’s main goal is to **speculatively compute the next PC early**.
+
+**Operation sequence (PC-indexed BHT):**
+
+* In cycle _n_, `PCF` indexes the BHT while the instruction is fetched from instruction memory.
+* If the fetched instruction turns out to be a branch, the BHT prediction is already available.
+* Based on the prediction, the **next PC** (PC+4 or BTA) is selected for cycle _n+1_.
+* If predicted taken, the instruction at the **BTA** is fetched in the next cycle.
 
 </details>
 
