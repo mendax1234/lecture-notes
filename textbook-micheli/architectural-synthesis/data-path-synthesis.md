@@ -9,9 +9,9 @@ To avoid confusion, we refer to this **architectural-level** task as **connectiv
 
 ## Connectivity Synthesis
 
-**Data-path connectivity synthesis** consists of defining the **interconnections** among **resources**, **steering logic circuits** (**multiplexers** or **buses**), **memory resources** (**registers** and **memory arrays**), **input/output ports**, and the **control unit**. Therefore, a complete **binding** is required.
+**Data-path connectivity synthesis** consists of defining the **interconnections** among **resources**, steering logic circuits (multiplexers or buses), memory resources (registers and memory arrays), input/output ports, and the control unit. Therefore, a complete **binding** is required.
 
-**Connectivity synthesis** refines the **binding information** by providing the detailed **interconnections** among the blocks. For example, the **inputs**, **outputs**, and **control signals** of the **multiplexers** must be specified and properly connected.
+**Connectivity synthesis** refines the binding information by providing the detailed **interconnections** among the blocks. For example, the inputs, outputs, and control signals of the multiplexers must be specified and properly connected.
 
 <details>
 
@@ -25,16 +25,16 @@ Here, we are using [**constrained scheduling**](the-fundamental-architectural-sy
 
 > All **data** transferred from one **resource** to another across a **cycle boundary** must be stored in some **register/flip-flops**.
 
-Thus, here we need **two flip-flops** here to store the data because we have only 2 intermediate variables at any given time, stored in register r1 and r2. **Figure 4.12** shows a refined view of the **data path** of this system. It explicitly shows the **interconnections** of the **multiplexers**.
+Thus, here we need **two flip-flops** here to store the data because we have only 2 intermediate variables at any given time, stored in register r1 and r2. Figure 4.12 shows a refined view of the data path of this system. It explicitly shows the **interconnections** of the multiplexers.
 
 <figure><picture><source srcset="../../.gitbook/assets/data-path-synthesis-example-1-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/data-path-synthesis-example-1-light.png" alt=""></picture><figcaption><p>Figure 4.12 Structural view of the differential equationa integrator with one multiplier and one ALU</p></figcaption></figure>
 
-Here, we can easily see that r1 should be on the **right side** of the sequencing graph and r1 should be on the **left side**. This is because from the data-path synthesis diagram,
+Here, we can easily see that r1 should be on the **right side** of the sequencing graph and r2 should be on the **left side**. This is because from the data-path synthesis diagram,
 
 * r2 only accepts inputs from the multiplier while
 * r1 can accept inputs from either the adder or the multiplier.
 
-The connections to the **control unit** include the **enable signals** for all **registers**, the **select signals** of the **multiplexers**, and a **control signal** for the **ALU** that selects the operation to be performed among (**+**, **−**, **<**). The **data path** returns a signal **c** to the **control unit**, indicating the **completion of the iteration**.
+The connections to the control unit include the **enable signals** for all **registers**, the **select signals** of the **multiplexers**, and a **control signal** for the **ALU** that selects the operation to be performed among (**+**, **−**, **<**). The **data path** returns a signal c to the **control unit**, indicating the completion of the iteration.
 
 </details>
 
