@@ -13,7 +13,7 @@ Behavioral models are **usually** represented using [**data-flow and sequencing 
 **Resources** are used to implement different hardware functions and can be broadly classified into three categories.
 
 {% hint style="warning" %}
-This part can also be called as **building blocks**, which are a set of resources fully characterized in terms of area and execution delay. Basically, we want to know how to connect the **building blocks** we have to achieve the outcome we want.
+This part can also be called as **building blocks**, which are a set of resources fully characterized in terms of area and execution delay. Basically, we want to know how to connect the **building blocks** we have **behaviorally** to achieve the outcome we want.
 {% endhint %}
 
 ### Functional Resources
@@ -32,7 +32,7 @@ This part can also be called as **building blocks**, which are a set of resource
 **Application-specific resources** implement specialized subtasks. An example is a subcircuit that services a specific interrupt in a processor. These resources are typically implementations of other HDL models.
 
 {% hint style="danger" %}
-The major decisions in architectural synthesis are often related to **the use of** **functional resources**. From the perspective of formulating architectural synthesis and optimization problems, there is no fundamental difference between primitive and application-specific functional resources. Both types can be characterized in terms of area and performance and can be used as building blocks.
+The major decisions in architectural synthesis are often related to **the use of** **functional resources**. From the perspective of formulating architectural synthesis and optimization problems, there is **no** fundamental difference between primitive and application-specific functional resources. Both types can be characterized in terms of area and performance and can be used as building blocks.
 {% endhint %}
 
 ### Memory Resources
@@ -53,7 +53,7 @@ As we have seen [earlier](./), **steering logics** are multiplexers that route d
 
 <details>
 
-<summary>Measure the performance of resources in clock-cycle</summary>
+<summary>Measure the performance of resources in clock cycles</summary>
 
 When architectural synthesis targets **synchronous circuit implementations**, as is often the case and as considered in this book, it is convenient to measure the **performance** of the **resources** in terms of the **cycles** required to execute the corresponding **operation**, which we call the **execution delay** of the resource.
 
@@ -65,13 +65,13 @@ Constraints in architectural synthesis can be classified into two major groups: 
 
 ### Interface Constraints
 
-**Interface constraints** are additional **specifications** to ensure that the **circuit** can be embedded in a given **environment**. They relate to the **format** and **timing** of the **I/O data transfers**.
+**Interface constraints** are additional **specifications** to ensure that the **circuit** can be embedded in a given **environment**. They are related to the **format** and **timing** of the **I/O data transfers**.
 
 For example, the **timing constraint** is one kind of the **interface constraint**, which includes
 
 * Cycle-time
 * Latency of a set of operations
-* Time spaing between operation pairs
+* Time spanning between operation pairs
 
 ### Implementation Constraints
 
@@ -104,10 +104,14 @@ We will see two circuit types in this section, they are
 
 In **resource-dominated circuits**, area and performance depend on few, well-characterized functional resources. For example, the adders and multipliers take up most of the available time.
 
+{% hint style="success" %}
 One example of resource-dominated circuits is the DSP circuits.
+{% endhint %}
 
 ### Non Resource-dominated Circuits
 
 In **non resource-dominated circuits**, the area and performance are strongly influenced by **sparse logic**, **control** and **wiring**.
 
+{% hint style="success" %}
 Examples are the microprocessors and some ASIC circuits.
+{% endhint %}

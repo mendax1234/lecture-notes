@@ -2,16 +2,16 @@
 
 We now consider the fundamental problems in **architectural synthesis** and **optimization**. We assume that a circuit is specified by:
 
-* A **sequencing graph**.
-* A set of **functional resources**, fully characterized in terms of **area** and **execution delays**.
-* A set of **constraints**.
+* A sequencing graph.
+* A set of **functional resources**, fully characterized in terms of area and execution delays.
+* A set of constraints.
 
 **Architectural synthesis** and **optimization** consists of two stages.
 
-1. First, **placing the operations in time and space**, i.e., determining the **time interval** for their execution and their **binding to resources**. This is know as **binding** and **scheduling**.
+1. First, placing the operations in time and space, i.e., determining the **time interval** for their execution and their binding to resources. This is know as **binding** and **scheduling**.
 2. Second, determining the detailed interconnections of the **data path** and the logic-level specifications of the **control unit**. This is know as the **data-path** and **control unit synthesis.**
 
-We now show that the first **stage** is equivalent to **annotating** the **sequencing graph** with additional **information** about the scheduling and binding.
+We now show that the first stage is equivalent to **annotating** the sequencing graph with additional information about the scheduling and binding.
 
 {% hint style="warning" %}
 Usually, **scheduling** is done first and then is **binding**. More specifically,
@@ -106,12 +106,12 @@ In this case, we reduce our latency to 3 as now $$\lambda=t_n-t_0=4-1=3$$.
 
 **Binding** specifies which **resource** implements an operation.
 
-1. We define the type of **operation** as the type of computation it performs. e.g., addition, multiplication, etc.
-2. A **resource type** can implement **more than one operation type**. e.g., the resource type ALU may cover operation {addition, subtraction, comparison}.
+1. We define the type of operation as the type of computation it performs. e.g., addition, multiplication, etc.
+2. A resource type can implement **more than one operation type**. e.g., the resource type ALU may cover operation {addition, subtraction, comparison}.
 
-Now, we can define the **resource types** mathematically:
+Now, we can define the resource types mathematically:
 
-> We call a **resource-type set** the set of **resource types**. For the sake of **simplicity**, we identify the **resource-type set** with its **enumeration**. Thus, assuming that there are $$n$$ **resource types**, we denote the **resource-type set** by $$(1,2,\dots,n_{\text{res}})$$. The **function** $$\Tau:V\to\{1,2,\dots,n_{\text{res}}\}$$ denotes the **resource type** that can implement an **operation**.
+> We call a **resource-type set** the set of resource types. For the sake of simplicity, we identify the resource-type set with its enumeration. Thus, assuming that there are $$n$$ resource types, we denote the resource-type set by $$(1,2,\dots,n_{\text{res}})$$. The function $$\Tau:V\to\{1,2,\dots,n_{\text{res}}\}$$ denotes the resource type that can implement an operation.
 
 {% hint style="warning" %}
 It is interesting to note that there may be more than one operation of the **same** **type**. In this case, **resource sharing** may be applied, as described later in this section. Conversely, the **binding problem** can be extended to a **resource selection** (or **module selection**) problem by assuming that there may be more than one **resource** applicable to an operation (e.g., a ripple-carry and a carry-look-ahead adder for an addition). In this case, $$\Tau$$ is a **one-to-many mapping**.
@@ -162,7 +162,7 @@ The tabulation of the binding is as follows:
 | $$\beta(v_{11})$$ | $$(2,2)$$ |
 
 {% hint style="warning" %}
-Remember the meaning of $$\beta(v_i) = (t, r)$$ we mentioned above. For example, $$\beta(v_2)=(1,2)$$ indicates that the operation 2 will be implemented by tje 2-nd instance of resource type 1 (multiplier).
+Remember the meaning of $$\beta(v_i) = (t, r)$$ we mentioned above. For example, $$\beta(v_2)=(1,2)$$ indicates that the operation 2 will be implemented by the 2-nd instance of resource type 1 (multiplier).
 {% endhint %}
 
 </details>

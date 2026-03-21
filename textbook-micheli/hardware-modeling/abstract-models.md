@@ -25,11 +25,11 @@ Incidence structures can be made hierarchical in the following way.
 
 For example, let's say the module `m2` in Figure 3.5(a) has **submodules**, the details of `m2` can be shown as follows,
 
-<figure><img src="../../.gitbook/assets/hierarchical-abstract-incidence-structure.png" alt="" width="373"><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/hierarchical-abstract-incidence-structure-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/hierarchical-abstract-incidence-structure-light.png" alt="" width="373"></picture><figcaption></figcaption></figure>
 
 So, our incidence structure in Figure 3.5(a) will be something like as follows:
 
-<figure><img src="../../.gitbook/assets/hierarchy-incidence.png" alt="" width="320"><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/hierarchy-incidence-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/hierarchy-incidence-light.png.png" alt="" width="320"></picture><figcaption></figcaption></figure>
 
 </details>
 
@@ -64,7 +64,7 @@ Logic networks are usually represented by **graphs**.
 <figure><picture><source srcset="../../.gitbook/assets/logic-network-graph-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/logic-network-graph-light.png" alt="" width="500"></picture><figcaption><p>Figure 3.8 Example of a logic network graph</p></figcaption></figure>
 
 {% hint style="warning" %}
-Logic network is a **hybrid structural/behavioral** representation.
+Logic network is a **hybrid structural/behavioral** representation. The node $$V_p$$ adheres to the "multiple inputs, single output" rule because the output coming out from $$V_p$$ used by $$V_q$$ and $$V_x$$ is the same!
 {% endhint %}
 
 ### Mapped Network
@@ -111,7 +111,7 @@ The normal and hierarchical state diagrams are both **behavioral**.
 
 ## Data-flow and Sequencing Graphs
 
-We consider here models that abstract the information represented by procedural HDLs with imperative semantics.
+We consider here models that abstract the information represented by **procedural HDLs** with imperative semantics.
 
 ### Data-Flow Graphs
 
@@ -136,7 +136,7 @@ The data graph for the code above can be shown as follows:
 Data-Flow graphs are useful to represent **data paths** (not control) and it is **purely behavioral**.
 
 {% hint style="warning" %}
-In the data graphs, the labels beside the vertex is just to denote the **numbering** of that vertex.
+In the data graphs, the labels beside the vertex is just used to denote the **numbering** of that vertex.
 {% endhint %}
 
 ### Sequencing Graphs

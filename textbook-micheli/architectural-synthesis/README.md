@@ -82,10 +82,3 @@ In this section, we first examine circuit modeling in greater detail, followed b
 {% hint style="warning" %}
 In this part, we will see how the [**back-end**](../hardware-modeling/compilation-and-behavioral-optimization.md) works!
 {% endhint %}
-
-The **big picture** for architectural synthesis, or how we write a good RTL code is to
-
-1. Draw the data flow and sequencing graph based on the function specification
-2. Apply scheduling and binding to **back annotate** the DFSG
-3. Perform the data-path and control unit synthesis to get the microarchitecture diagram
-4. Write the RTL code using that microarchitecture diagram

@@ -135,6 +135,10 @@ This will give you the schemetic of the critical path in your system, like below
 This is the clock path from the clock source to the clock pin of the **capturing register**. It starst with the value of **one clock period** because the capturing register will capture the data coming from the data path at the next clock period.
 
 <figure><img src="../.gitbook/assets/destination-clock-path.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="warning" %}
+The clock uncertainty is added to the destination clock path.
+{% endhint %}
 {% endstep %}
 {% endstepper %}
 

@@ -5,7 +5,7 @@
 Unlike general-purpose computers (desktops/laptops), an **Embedded System** is a computer system embedded within a larger device, typically dedicated to a specific task.
 
 {% hint style="success" %}
-A better definition for **Embedded System** and also the one that is favored by Prof Rajesh is: "Any system where the user doesn't want to know that it includes a processor".
+A better definition for **Embedded System** which is also the one that is favored by Prof Rajesh: "Any system where the user doesn't want to know that it includes a processor".
 {% endhint %}
 
 * **Ubiquity**: There are approximately 50+ devices per household (e.g., washing machines, routers), vastly outnumbering general-purpose computers.
@@ -66,7 +66,7 @@ The goal is to find the optimal point (a.k.a, [Pareto Point](../textbook-micheli
 
 <figure><img src="../.gitbook/assets/hw-sw-codesign-pareto-curve.png" alt="" width="331"><figcaption></figcaption></figure>
 
-In this Pareto Curve, the y-axis is "resouces", higher means using more resources while the x-axis is "performance<sup>-1</sup>", and closer to the origin point means tha the performance is higher. Thus, it is obvious that the <mark style="color:$warning;">orange</mark> point is the **worst design** among the four designs as it uses more resources then the middle <mark style="color:$success;">green</mark> point but brings even less performance than it.
+In this Pareto Curve, the y-axis is "resouces", higher means using more resources while the x-axis is "performance<sup>-1</sup>", and closer to the origin point means that the performance is higher. Thus, it is obvious that the <mark style="color:$warning;">orange</mark> point is the **worst design** among the four designs as it uses more resources then the middle <mark style="color:$success;">green</mark> point but brings even less performance than it.
 
 * **Partitioning**: Deciding which parts of the system is better to be implemented software and which part is better to be implemented on hardware (ASIC/FPGA).
   * The if/else structure like "if some button is pressed, then do something" is better to be implemented in **software**.
@@ -95,7 +95,7 @@ In **classical optimization**, we aim to find the minimum (or maximum) of a func
 
 In many **real-world problems**, however, variables are **discrete**, so derivatives do not exist and classical optimization methods no longer apply. This leads to **combinatorial optimization**, where the solution space is finite or countable.
 
-A canonical example is the **0-1 Knapsack Problem**: we want to maximize the value
+A canonical example is the **0-1 Knapsack Problem** where we want to maximize the value
 
 $$
 \max_{x_1, \dots, x_n} \sum_{i=1}^{n} v_i x_i
@@ -107,7 +107,7 @@ $$
 \sum_{i=1}^{n} w_i x_i \leq W, \quad x_i \in \{0, 1\}
 $$
 
-Here, each decision is binary, making the problem inherently discrete. The knapsack problem is **NP-hard** (decision version NP-complete), meaning that **no polynomial-time exact algorithm is known**. As a result, solutions often rely on **dynamic programming, approximations, or heuristics** rather than calculus-based methods.
+Here, each decision is binary, making the problem inherently discrete. The knapsack problem is **NP-hard**, meaning that **no polynomial-time exact algorithm is known**. As a result, solutions often rely on **dynamic programming, approximations,** or **heuristics** rather than calculus-based methods.
 
 ### Complexity
 
@@ -122,7 +122,7 @@ In this course (EE4218), we focus on the algorithms _inside_ the CAD tools. Most
 
 ### Graphs
 
-{% hint style="info" %}
+{% hint style="success" %}
 CAD tools represent circuits as graphs. More on Data Flow Graph (DFG) is on [EE4415](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-2/lec-2b-rtl-transformations#data-flow-graphs).
 {% endhint %}
 
@@ -193,7 +193,7 @@ Node weight can be put inside **adjacency list** easily, but cannot be put insid
 
 #### Hypergraphs
 
-Similar to the definition of normal graphs, in **hypergraphs**, an edge can connect _more_ than two vertices. A,k.a, edges not between **pairs** of vertices, but between a **set** of vertices.
+Similar to the definition of normal graphs, in **hypergraphs**, an edge can connect _more_ than two vertices. In other words, edges are not between **pairs** of vertices, but between a **set** of vertices.
 
 * Hypergraphs can be directed/undirected.
 * A node can be the source (or be connected to) multiple hyperedges.

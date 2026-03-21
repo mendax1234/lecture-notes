@@ -35,13 +35,13 @@ Figure 1.20 (we have seen this at the [introduction](../introduction/ "mention")
 
 <figure><img src="../../.gitbook/assets/circuit-models-synthesis-optimization.png" alt=""><figcaption><p>Figure 1.20 Circuit models, synthesis and optimization: a simplified view</p></figcaption></figure>
 
-The **language models** can be thought of as a way to specify the specifications. In other words, what we want to achieve. In HDL, we have **normal RTL** and **Netlist** flavor. Thus, we have different **abstract models** to capture the information described by these two types of HDL.
+The **language models** can be thought of as a way to specify the specifications. In other words, what we want to achieve. In HDL, we have two flavors: **normal RTL** and **Netlist**. Thus, we have different **abstract models** to capture the information described by these two flavors of HDL.
 
 {% stepper %}
 {% step %}
 #### Normal RTL
 
-This normal RTL corresponds to the first two rows under the **behavioral view**. In the normal RTL, we can write both **data paths** and **control units**.
+This normal RTL corresponds to the first two rows which are under the **behavioral view**. In the normal RTL, we can write both **data paths** and **control units**.
 
 * For **data paths**, we can use the following abstract models:
   * [Data-flow and Sequencing Graphs](abstract-models.md#data-flow-and-sequencing-graphs).
