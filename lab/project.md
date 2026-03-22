@@ -162,7 +162,11 @@ Basically, in the sigmoid function
 * Very positive inputs end up to close to 1
 * The output just increases steadily when the inputs are around 0
 
-So, the **activation** of the neuron here is basically a measure of how positive the relavent weighted sum is.
+{% hint style="success" %}
+A neuron is **active/lit up** in a network when its calculated activation/output value is close to 1 or non-zero,  meaning that it effectively passes the signal to the next layer.
+{% endhint %}
+
+So, the **activation** of the neuron here is basically a measure of how **positive** the relavent weighted sum is.
 
 $$
 \sigma(w_1 a_1 + w_2 a_2 + w_3 a_3 + w_4 a_4 + \cdots + w_n a_n)
