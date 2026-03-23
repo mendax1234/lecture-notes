@@ -214,7 +214,7 @@ And then we wrap the sigmoid around the outside of the whole thing. This represe
 The sigmoid function can be replaced by any other activation function! The resulting vector is a vector of the number of neurons is the second layer elements
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
 So, the neat formula we have to calculate the activations of the second layer using the activations from the first layer is
 
@@ -228,11 +228,46 @@ $$
 Up till this point, we might find out that it is more accurate to think of each neuron as a **function** that takes in the **ouputs** of all the neurons in the previous layer and spits out the number between 0 and 1.
 {% endhint %}
 
+## Convolution
+
+Convolution is inherently a maths topic, however, it can be used with the neural network to enpower us to do something interesting on image processing. In this section, we will talk about the basics of convolution and how this idea of convolution can be used in image processing.
+
+### Convolution Basics
+
+The motivation of convolution starts from a single problem
+
+> How do we combine two lists to get a third list, which is also equivalent to how to we combine two functions to get a third function.
+
+Intuitively, we can add/multiply each element in the two lists and use the result as the elements in the third list. For example,
+
+{% code lineNumbers="true" %}
+```c
+// Two list a and b, we want to get the third list c
+a = [1, 2, 3]
+b = [4, 5, 6]
+
+// Addition
+c = [5, 7, 9]
+
+// Multiplication
+c = [4, 10, 18]
+```
+{% endcode %}
+
+Now, we can introduce another way which is called **convolution** to combine these two lists/functions to get the third list/function. Intuitively, what convolution does is to flip the second list and uses it as a sliding window.
+
+<figure><img src="../.gitbook/assets/convolution-sliding-windows-list.png" alt=""><figcaption></figcaption></figure>
+
+### Image Processing
+
+### Max Pooling
+
 ## References
 
 At the point I am taking this course, I haven't taken any AI course at NUS. However, I found that the following resources are very useful when I get on board with the Neural Network.
 
-1. [3Blue1Bronw — What is a neural network](https://youtu.be/aircAruvnKk?si=TnZzNrhEZmoWnMvB).
+1. [3Blue1Brown — What is a neural network](https://youtu.be/aircAruvnKk?si=TnZzNrhEZmoWnMvB).
+2. [3Blue1Brown — What is a convolution](https://youtu.be/KuXjwB4LzSA?si=QBq3t7uadoE2KqXe).
 
 [^1]: In the output layer, each neuron has a one-to-one mapping relationship with the digit from 0 to 9.
 
