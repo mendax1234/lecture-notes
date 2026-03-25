@@ -56,7 +56,7 @@ Having said that, the neural network can not only be used to recognize the numbe
 
 > In this section, we will see the "Hello World" application — the digit recognition — in neural network. And we will also see how the **inference** is done in a neural network. This is also what the base project is aimed at.
 
-The MLP is the **plain vanilla** form of the neural network with no added frills. But it is the basics to understand other neural networks!
+The MLP is the **plain vanilla** form of the neural network with no added frills. But it is the basics to understand other neural networks! Sometimes, it is also called as the **fully-connected neural network**.
 
 {% hint style="warning" %}
 We will use the image recognition MLP as an example is the following section about MLP.
@@ -185,7 +185,7 @@ In this case, let's say our bias is 10.
 In summary,
 
 * The **weights** tell us what pixel pattern this neuron in the second layer (the first hidden layer) is picking up on.
-* The **bias** tells us how hight the weighted sum needs to be before the neuron starts getting meaningfully active.
+* The **bias** tells us how high the weighted sum needs to be before the neuron starts getting meaningfully active.
 
 And yeah! That's just one neuron in thie first hidden layer! Every other neuron in the first hidden layer will be connected to all 784 pixel neurons from the input layer. And each one of those 784 connections has its own **weights** and **bias** associated with it.
 
@@ -230,13 +230,51 @@ Up till this point, we might find out that it is more accurate to think of each 
 
 ### CNN
 
-> TODO: CNN vs the plain vanilla neural network, what computations get replaced?
+A convolutional neural network (CNN) is a type of feedforward neural network that learns **features** via filter (or kernel) optimization. Here, we will use the image classification as an example. Assume that our input is an image, to recognize or classify the image, the flow/layers of CNN can be:
+
+1. Convolution
+2. Pooling
+3. Activation
 
 #### Convolution
 
+In the convolution, the process is similar as what we have mentioned in [#image-processing](project.md#image-processing "mention"). The only difference is that to recognize an image accurately, we might use severl kernels, each kernel will be responsible for filtering our one feature from the input image, which is nothing but a matrix.
+
+<figure><img src="../.gitbook/assets/kernel-filter-features.png" alt=""><figcaption></figcaption></figure>
+
+The result after convolution using each kernel is also a very big matrix or maybe we might filter out some **weak** features/patterns. Thus, we need to compress the matrix.
+
+{% hint style="warning" %}
+#### CNN vs. Plain Vanilla Neural Network
+
+In the CNN, the kernel operations replace the weights operation in the plain vanilla neural network.
+{% endhint %}
+
 #### Pooling
 
+The procedure of compressing the convoluted image is called **pooling**. Pooling can be as easy as getting the **mean** or **max** value of a **region**.
+
+<figure><img src="../.gitbook/assets/pooling-explanation.png" alt=""><figcaption></figcaption></figure>
+
+After the pooling, the size of the matrix/image will be lowered to a large extent.
+
+<details>
+
+<summary>Why is pooling valid?</summary>
+
+In the input image, the neighboring pixels tend to have **similar** values. Thus, after convolution, the neighboring pixels in the convoluted image/matrix also tend to have **similar** values. This will cause the **information redundancy**. And pooling is used to lower this **information redundancy**.
+
+</details>
+
 #### Activation
+
+After the pooling, the **non-linear mapping** is applied to each element of the image/matrix after the pooling layer. This **non-linear mapping** is called the **activation function**. The intuition for doing so is to **reinforce** the features after the pooling layer.
+
+#### Training
+
+We can expand the 2-dimension images into one-dimension and input them into a fully-connected neural network, or [Multi-Layer Perceptron](project.md#multilayer-perceptron) (MLP) to get the value for the **kernel matrix** used in the convolution.
+
+<figure><img src="../.gitbook/assets/from-cnn2mlp.png" alt=""><figcaption></figcaption></figure>
 
 ## Convolution
 
@@ -335,7 +373,7 @@ As we put the **centre element** of the kernel at the first pixel and start movi
 It is definitely to change the size of the kernel matrix and the value inside it. By doing so will give us different image processing, like blurring or filtering out the shape of the figure, etc.
 {% endhint %}
 
-The purpose of the kernel can be understood as **finding the pattern** in the image. Usually we use one kernel for one pattern.
+The purpose of the kernel can be understood as **finding the features/pattern** in the image. Usually we use one kernel for one pattern.
 
 <details>
 
