@@ -7,5 +7,5 @@ metaLinks:
 # Lec 05 - Microarchitecture Design
 
 {% hint style="info" %}
-This part is mainly the [Broken link](/broken/pages/4PSe2PzRCWqN000OIPgL "mention") from the famous Textbook of Micheli!
+This part is mainly the [Architectural Synthesis](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/architectural-synthesis "mention") from the famous Textbook of Micheli!
 {% endhint %}

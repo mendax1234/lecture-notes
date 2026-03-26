@@ -7,5 +7,5 @@ metaLinks:
 # Lec 04 - Abstarct Models and Behavioural Optimisations
 
 {% hint style="info" %}
-Again, this part will mostly be the same of [Chapter 3](/broken/pages/cUtQfQ9ddbJymeoKLdbV) (The "[Abstract Model](/broken/pages/hHOQ49FJVCjKJV2amfsn)" and "[Compilation and Behavioral Optimization](/broken/pages/ngeOHD7tuT61rAm1ykYl)") of De Micheli's book.
+Again, this part will mostly be the same of [Chapter 3](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/hardware-modeling) (The "[Abstract Model](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/hardware-modeling/abstract-models)" and "[Compilation and Behavioral Optimization](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/hardware-modeling/compilation-and-behavioral-optimization)") of De Micheli's book.
 {% endhint %}
