@@ -1,0 +1,26 @@
+# Table of contents
+
+## Micheli
+
+* [Introduction](README.md)
+  * [Microelectronics](micheli/introduction/microelectronics.md)
+  * [Semiconductor Technologies and Circuit Taxonomy](micheli/introduction/semiconductor-technologies-and-circuit-taxonomy.md)
+  * [Microelectronic Design Styles](micheli/introduction/microelectronic-design-styles.md)
+  * [Design of Microelectronic Circuits](micheli/introduction/design-of-microelectronic-circuits.md)
+  * [Computer-aided Synthesis and Optimization](micheli/introduction/computer-aided-synthesis-and-optimization.md)
+  * [Organization of the Book](micheli/introduction/organization-of-the-book.md)
+* [Hardware Modeling](micheli/hardware-modeling/README.md)
+  * [Abstract Models](micheli/hardware-modeling/abstract-models.md)
+  * [Compilation and Behavioral Optimization](micheli/hardware-modeling/compilation-and-behavioral-optimization.md)
+  * [Perspectives](micheli/hardware-modeling/perspectives.md)
+* [Architectural Synthesis](micheli/architectural-synthesis/README.md)
+  * [Circuit Specifications for Architectural Synthesis](micheli/architectural-synthesis/circuit-specifications-for-architectural-synthesis.md)
+  * [The Fundamental Architectural Synthesis Problems](micheli/architectural-synthesis/the-fundamental-architectural-synthesis-problems.md)
+  * [Area and Performance Estimation](micheli/architectural-synthesis/area-and-performance-estimation.md)
+  * [Strategies for Architectural Optimization](micheli/architectural-synthesis/strategies-for-architectural-optimization.md)
+  * [Data-Path Synthesis](micheli/architectural-synthesis/data-path-synthesis.md)
+  * [Control-Unit Synthesis](micheli/architectural-synthesis/control-unit-synthesis.md)
+* [Sequential Logic Optimization](micheli/sequential-logic-optimization/README.md)
+  * [Synchronous Circuit Optimization using State-Based Models](micheli/sequential-logic-optimization/synchronous-circuit-optimization-using-state-based-models.md)
+  * [Sequential Circuit Optimization using Network Models](micheli/sequential-logic-optimization/sequential-circuit-optimization-using-network-models.md)
+  * [Implicit FSM Traversal Methods](micheli/sequential-logic-optimization/implicit-fsm-traversal-methods.md)
