@@ -24,7 +24,7 @@ To understand the AXI-Stream FIFO architecture in depth, we are going to look at
 
 The laptop sending data process can be illustrated as follows:
 
-<figure><img src=".gitbook/assets/lab03-sysmte-architecture-send-data.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lab03-sysmte-architecture-send-data.svg" alt=""><figcaption></figcaption></figure>
 
 The detailed steps are as follows:
 
@@ -79,7 +79,7 @@ input M_AXIS_TREADY;            // Connected slave device is ready to accept dat
 
 Similarly, the process of the laptop receiving data from the coprocessor can be illustrated as follows:
 
-<figure><img src=".gitbook/assets/lab03-sysmte-architecture-receive-data.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lab03-sysmte-architecture-receive-data.svg" alt=""><figcaption></figcaption></figure>
 
 The detailed steps are as follows:
 
@@ -93,7 +93,7 @@ The detailed steps are as follows:
 
 In the AXI-Stream FIFO architecture, one big disadvantage is the **large overhead**. This is because in this architecture, the processor sends the data **byte-by-byte** from the DDR Memory to the AXI-Stream FIFO and the FIFO won't send the data to the corprocessor until its TX buffer is full. Another disadvantage is the AXI-Stream FIFO **size**, which depends on the size of the data[^1]. To optimize the design, we will use the AXI DMA to replace the AXI-Stream FIFO and its architecture can be shown as follows:
 
-<figure><img src=".gitbook/assets/lab03-system-architecture-axi-dma.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lab03-system-architecture-axi-dma.svg" alt=""><figcaption></figcaption></figure>
 
 In this architecture, we have made the following changes
 
@@ -112,7 +112,7 @@ Now we can look at how the DMA works and some "issues" with it.
 
 The process of the laptop sending the data can be illustrated as follows:
 
-<figure><img src=".gitbook/assets/lab03-system-architecture-dma-send-data.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lab03-system-architecture-dma-send-data.svg" alt=""><figcaption></figcaption></figure>
 
 The steps in detail are:
 
@@ -126,7 +126,7 @@ The steps in detail are:
 
 Similarly, the process of the laptop receiving data can be illustrated as follows:
 
-<figure><img src=".gitbook/assets/lab03-system-architecture-dma-receive-data.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lab03-system-architecture-dma-receive-data.svg" alt=""><figcaption></figcaption></figure>
 
 The steps in detail are:
 

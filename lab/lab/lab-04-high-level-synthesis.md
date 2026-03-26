@@ -19,7 +19,7 @@ In this part, we will need to compare the performance improvement between the di
 
 In the lab munual, Prof Rajesh said that it is recommended to connect 2 coprocessors to our Zynq so that we can demo the performance difference between the baseline HLS version with the optimized HLS version quickly. To do this on DMA, the complete block diagram is shown below.
 
-<figure><img src=".gitbook/assets/connect-2-coprocessors.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/connect-2-coprocessors.png" alt=""><figcaption></figcaption></figure>
 
 To do so, we need to make the following changes:
 
@@ -35,7 +35,7 @@ To do so, we need to make the following changes:
 
 As my Vitis (2025.2) will do some optimizations automatically, to disable these optimizations, we need to change the `hls.syn.compile.pipeline_loops` to 0 in the `hls_config.cfg`. Besides, it is safer for us to add the `#pragma HLS pipeline off` manually in our code as well. After doing all this, to verify that our HLS doesn't have any optimization, we can see from the "Performance & Resource Estimates" in the C synthesis report.
 
-<figure><img src=".gitbook/assets/c-synthesis-report-baseline.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/c-synthesis-report-baseline.png" alt=""><figcaption></figcaption></figure>
 
 More specifically, the "pipelined" column will show **no** for all the loops. This will indicate that our baseline is a **real** baseline.
 
@@ -83,7 +83,7 @@ More specifically, we **fully unroll** all the 4 loops in our application. Theor
 
 And the real number of clock cycles we get is 587, which is around the same as the theoretical and the 2 more cycles indeed come from the FSM state transition within the compute stage.
 
-<figure><img src=".gitbook/assets/schedule-viewer-lab4.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/schedule-viewer-lab4.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 Doing unrolling without array partitioning is useless. However in 2025.2 version, the array partition can be done automatically by the tool.
@@ -134,7 +134,7 @@ Here, I will only focus on the recommended way to connect to Kria, which is to u
 
 After that, for Windows users, please go to the following settings in your control panel and setup as follows:
 
-<figure><img src=".gitbook/assets/kria-network-setup.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/kria-network-setup.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 Pay attention to which Ethernet you are using and select the Ethernet adaptor after Step 5 above!

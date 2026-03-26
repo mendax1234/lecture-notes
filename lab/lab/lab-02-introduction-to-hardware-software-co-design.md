@@ -8,7 +8,7 @@ metaLinks:
 
 In Lab 02, we are going to configure our FPGA and write a C program to enable the feature of sending data and receiving data to and from the coprocessor via UART. The sending and receiving process is shown in the following diagram.
 
-<figure><img src=".gitbook/assets/lab02-intro.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lab02-intro.svg" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 The orange line in the coprocessor module indicates that in this lab, we will just do the "loopback", which means that the coprocessor won't do any calculation and this matrix multiplication job is done **on the ARM A53 processor** on the PS instead. In the future lab, we will open this loop.
@@ -18,7 +18,7 @@ The orange line in the coprocessor module indicates that in this lab, we will ju
 
 The diagram for the hardware platform that we are going to create is shown as follows:
 
-<figure><img src=".gitbook/assets/lab02-hardware-platform.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lab02-hardware-platform.svg" alt=""><figcaption></figcaption></figure>
 
 The newly added blocks will be discussed in detail in this section
 
@@ -98,7 +98,7 @@ For example, the processor takes around 2-3 cycles to get the data from the L1 c
 
 In this lab, we configure the system so that the PS acts as the AXI master and the PL acts as the AXI slave. Since we only need a single AXI connection from PS to PL, we enable `AXI_HPM0_FPD` under the master interface. The data width is set to 32 bits because each transaction transfers 32-bit data.
 
-<figure><img src=".gitbook/assets/lab02-ps-pl-configuration.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lab02-ps-pl-configuration.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 If we want to change the data to be 64-bit in the future lab, don't forget to change the data bit width here!
@@ -106,7 +106,7 @@ If we want to change the data to be 64-bit in the future lab, don't forget to ch
 
 After this configuration, the AXI interface from the PS to the PL, shown as the AXI arrow in the diagram, will be created. However, this AXI bus also requires a clock signal to operate. Therefore, we connect the system clock to the AXI interface so that all data transfers on this bus are synchronized to the 100 MHz clock.
 
-<figure><img src=".gitbook/assets/lab02-axi-interface-configuration.png" alt=""><figcaption><p>Connect <code>pl_clk0</code> to <code>maxihpm0_fpd_aclk</code></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/lab02-axi-interface-configuration.png" alt=""><figcaption><p>Connect <code>pl_clk0</code> to <code>maxihpm0_fpd_aclk</code></p></figcaption></figure>
 
 ### AXI-Stream FIFO
 
@@ -123,11 +123,11 @@ In the block diagram of the AXI-Stream FIFO, the AXI-Lite port **cannot** be omi
 
 For the FIFO depth, consider the data required for the matrix multiplication. A ($$64 \times 8$$) matrix and an ($$8 \times 1$$) matrix contain ($$64 \times 8 + 8 \times 1 = 520$$) elements in total. Since 520 exceeds 512, a FIFO depth of 512 is insufficient. Therefore, the FIFO size should be set to **1024** to allow all data to be sent in a single transfer.
 
-<figure><img src=".gitbook/assets/axi-stream-fifo-config.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/axi-stream-fifo-config.png" alt=""><figcaption></figcaption></figure>
 
 As in the lab, we are basically looping back, so we should connect `AXI_STR_TXD` to `AXI_STR_RXD` directly.
 
-<figure><img src=".gitbook/assets/axi-stream-fifo-loopback.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/axi-stream-fifo-loopback.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 In Lab 02, we don't really need to optimize the hardware usage by changing 1024 back to 512 and make some corresponding changes at the software.
@@ -145,7 +145,7 @@ For example, it connects the PS AXI bus to:
 
 In this way, AXI SmartConnect enables one master interface from the PS to communicate with multiple slave modules in the PL.
 
-<figure><img src=".gitbook/assets/axi-smartconnect.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/axi-smartconnect.png" alt=""><figcaption></figcaption></figure>
 
 ### AXI-Timer
 
@@ -251,7 +251,7 @@ In Lab 02, we will just study how the example works and copy & paste the useful 
 
 This can be done easily by just clicking the "+" button in the navigator.
 
-<figure><img src=".gitbook/assets/create-own-application-in-vitis.png" alt="" width="370"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/create-own-application-in-vitis.png" alt="" width="370"><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 While we can keep many applications in our project folder, the processor can usually only run one application at a time. We choose which one to "Run" or "Debug."
@@ -492,7 +492,7 @@ for (i = 0; i < RES_SIZE; i++) {
 
 This is because the `stdin` and `stdout` are directed to the console (RealTerm). This can be seen from our BSP:
 
-<figure><img src=".gitbook/assets/stdin-stdout-direct.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/stdin-stdout-direct.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 To capture the data sent to RealTerm into a CSV, we can go to the "Capture" tab. Before we run our C program, we should click "start overwriting" so that we can always capture the correct result.
@@ -539,7 +539,7 @@ When we are doing the profiling, we should "comment out" all the `xil_printf()` 
 
 Below is a TCF Profiling running on the `main_stdio.c`.
 
-<figure><img src=".gitbook/assets/profile-example.png" alt=""><figcaption><p>TCF Profiling running on the <code>main_stdio.c</code></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/profile-example.png" alt=""><figcaption><p>TCF Profiling running on the <code>main_stdio.c</code></p></figcaption></figure>
 
 From the table, we can see that the method `TxSend()` and `RxReceive()` takes 65 + 30 = 95% of time during the application execution. These two methods are sending the data from the PS to the AXI-Stream FIFO and receive the data back from the AXI-Stream FIFO. Thus, we can see that the real matrix multiply only takes less than 5% of time running!
 
