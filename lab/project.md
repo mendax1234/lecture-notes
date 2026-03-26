@@ -236,7 +236,7 @@ Up till this point, we might find out that it is more accurate to think of each 
 
 ### CNN
 
-A convolutional neural network (CNN) is a type of feedforward neural network that learns **features** via filter (or kernel) optimization. Here, we will use the image classification as an example. Assume that our input is an image, to recognize or classify the image, the flow/layers of CNN can be:
+A convolutional neural network (CNN) is a type of feedforward neural network that learns **features** via filter (or kernel) optimization. Here, we will use the image classification as an example. Assume that our input is an image, to recognize or classify that image, the flow/layers of CNN can be:
 
 1. Convolution
 2. Pooling
