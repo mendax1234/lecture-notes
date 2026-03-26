@@ -78,7 +78,7 @@ The main layers can be classified into five categories
 4. Global Average Pooling Layer
 5. Fully Connected Layer
 
-The whole idea of the CNN is that&#x20;
+The whole idea of the CNN is that we filter out the features using the convolution layer, strengthened it using the activation layer, compressed it using the max pooling layer and then&#x20;
 
 #### Convolution Layer
 
@@ -103,6 +103,10 @@ When we do the [convolution](../neural-network/convolution-neural-network.md#ima
 In our application, we always pad our input cuboid is the padding of 1 and use stride = 1. Thus, the output cuboid's $$H'$$ and $$W'$$ won't change.
 
 </details>
+
+#### Activation Layer
+
+The activation layer will just apply the **activate function** on each element of the input cuboid so that the features in the output cuboid, which is nothing but another feature maps, is **strengthened**.
 
 ## HLS
 
