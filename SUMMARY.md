@@ -1,52 +1,26 @@
 # Table of contents
 
-* [Welcome](README.md)
+## Micheli
 
-## Lec
-
-* [Lec 01 - Introduction to Hardware and Embedded Systems](lec/lec-01-introduction-to-hardware-and-embedded-systems.md)
-* [Lec 02 - Verilog for Synthesis](lec/lec-02-verilog-for-synthesis.md)
-* [Lec 03 - Sequential Logic Optimization](lec/lec-03-sequential-logic-optimization.md)
-* [Lec 04 - Abstarct Models and Behavioural Optimisations](lec/lec-04-abstarct-models-and-behavioural-optimisations.md)
-* [Lec 05 - Microarchitecture Design](lec/lec-05-microarchitecture-design.md)
-* [Lec 06 - High-Level Synthesis](lec/lec-06-high-level-synthesis.md)
-* [Lec 07 - Timing](lec/lec-07-timing.md)
-* [Lec 08 - Technology Mapping](lec/lec-08-technology-mapping.md)
-* [Lec 09 - Physical Synthesis](lec/lec-09-physical-synthesis.md)
-
-## Tutorial
-
-* [Problem Set 1](tutorial/problem-set-1.md)
-
-## Lab
-
-* [Lab 01 - Introduction to Hardware Design](lab/lab-01-introduction-to-hardware-design.md)
-* [Lab 02 - Introduction to Hardware/Software Co-Design](lab/lab-02-introduction-to-hardware-software-co-design.md)
-* [Lab 03 - Integrating the Coprocessor](lab/lab-03-integrating-the-coprocessor.md)
-* [Lab 04 - High Level Synthesis](lab/lab-04-high-level-synthesis.md)
-* [Project](lab/project.md)
-
-## Textbook: Micheli
-
-* [Introduction](textbook-micheli/introduction/README.md)
-  * [Microelectronics](textbook-micheli/introduction/microelectronics.md)
-  * [Semiconductor Technologies and Circuit Taxonomy](textbook-micheli/introduction/semiconductor-technologies-and-circuit-taxonomy.md)
-  * [Microelectronic Design Styles](textbook-micheli/introduction/microelectronic-design-styles.md)
-  * [Design of Microelectronic Circuits](textbook-micheli/introduction/design-of-microelectronic-circuits.md)
-  * [Computer-aided Synthesis and Optimization](textbook-micheli/introduction/computer-aided-synthesis-and-optimization.md)
-  * [Organization of the Book](textbook-micheli/introduction/organization-of-the-book.md)
-* [Hardware Modeling](textbook-micheli/hardware-modeling/README.md)
-  * [Abstract Models](textbook-micheli/hardware-modeling/abstract-models.md)
-  * [Compilation and Behavioral Optimization](textbook-micheli/hardware-modeling/compilation-and-behavioral-optimization.md)
-  * [Perspectives](textbook-micheli/hardware-modeling/perspectives.md)
-* [Architectural Synthesis](textbook-micheli/architectural-synthesis/README.md)
-  * [Circuit Specifications for Architectural Synthesis](textbook-micheli/architectural-synthesis/circuit-specifications-for-architectural-synthesis.md)
-  * [The Fundamental Architectural Synthesis Problems](textbook-micheli/architectural-synthesis/the-fundamental-architectural-synthesis-problems.md)
-  * [Area and Performance Estimation](textbook-micheli/architectural-synthesis/area-and-performance-estimation.md)
-  * [Strategies for Architectural Optimization](textbook-micheli/architectural-synthesis/strategies-for-architectural-optimization.md)
-  * [Data-Path Synthesis](textbook-micheli/architectural-synthesis/data-path-synthesis.md)
-  * [Control-Unit Synthesis](textbook-micheli/architectural-synthesis/control-unit-synthesis.md)
-* [Sequential Logic Optimization](textbook-micheli/sequential-logic-optimization/README.md)
-  * [Synchronous Circuit Optimization using State-Based Models](textbook-micheli/sequential-logic-optimization/synchronous-circuit-optimization-using-state-based-models.md)
-  * [Sequential Circuit Optimization using Network Models](textbook-micheli/sequential-logic-optimization/sequential-circuit-optimization-using-network-models.md)
-  * [Implicit FSM Traversal Methods](textbook-micheli/sequential-logic-optimization/implicit-fsm-traversal-methods.md)
+* [Introduction](README.md)
+  * [Microelectronics](micheli/introduction/microelectronics.md)
+  * [Semiconductor Technologies and Circuit Taxonomy](micheli/introduction/semiconductor-technologies-and-circuit-taxonomy.md)
+  * [Microelectronic Design Styles](micheli/introduction/microelectronic-design-styles.md)
+  * [Design of Microelectronic Circuits](micheli/introduction/design-of-microelectronic-circuits.md)
+  * [Computer-aided Synthesis and Optimization](micheli/introduction/computer-aided-synthesis-and-optimization.md)
+  * [Organization of the Book](micheli/introduction/organization-of-the-book.md)
+* [Hardware Modeling](micheli/hardware-modeling/README.md)
+  * [Abstract Models](micheli/hardware-modeling/abstract-models.md)
+  * [Compilation and Behavioral Optimization](micheli/hardware-modeling/compilation-and-behavioral-optimization.md)
+  * [Perspectives](micheli/hardware-modeling/perspectives.md)
+* [Architectural Synthesis](micheli/architectural-synthesis/README.md)
+  * [Circuit Specifications for Architectural Synthesis](micheli/architectural-synthesis/circuit-specifications-for-architectural-synthesis.md)
+  * [The Fundamental Architectural Synthesis Problems](micheli/architectural-synthesis/the-fundamental-architectural-synthesis-problems.md)
+  * [Area and Performance Estimation](micheli/architectural-synthesis/area-and-performance-estimation.md)
+  * [Strategies for Architectural Optimization](micheli/architectural-synthesis/strategies-for-architectural-optimization.md)
+  * [Data-Path Synthesis](micheli/architectural-synthesis/data-path-synthesis.md)
+  * [Control-Unit Synthesis](micheli/architectural-synthesis/control-unit-synthesis.md)
+* [Sequential Logic Optimization](micheli/sequential-logic-optimization/README.md)
+  * [Synchronous Circuit Optimization using State-Based Models](micheli/sequential-logic-optimization/synchronous-circuit-optimization-using-state-based-models.md)
+  * [Sequential Circuit Optimization using Network Models](micheli/sequential-logic-optimization/sequential-circuit-optimization-using-network-models.md)
+  * [Implicit FSM Traversal Methods](micheli/sequential-logic-optimization/implicit-fsm-traversal-methods.md)
