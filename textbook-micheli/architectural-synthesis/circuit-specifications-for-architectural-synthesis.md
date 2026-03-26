@@ -40,7 +40,7 @@ The major decisions in architectural synthesis are often related to **the use of
 **Memory resources** store data. Examples include registers, read-only memory (ROM), and read-write memory (RAM).
 
 {% hint style="warning" %}
-Requirement for storage resources are **implicit** in the **sequencing graph itself** but we still need to consider which register to use and how many registers we are going to use in our system. We will see more on this later in the [problem set](/broken/pages/cssdIs3DeRSXUDjp91Cv#id-04.-combine-everything).
+Requirement for storage resources are **implicit** in the **sequencing graph itself** but we still need to consider which register to use and how many registers we are going to use in our system. We will see more on this later in the [problem set](../../tutorial/problem-set-1.md#id-04.-combine-everything).
 {% endhint %}
 
 ### Interface Resources

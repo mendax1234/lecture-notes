@@ -43,7 +43,7 @@ For example, in the figure above we have seen, from opertion 1 to 3, as it cross
 An **upper bound** on the **register usage** can then be derived by examining a **scheduled sequencing graph**. This bound is, in general, **loose**, because the number of registers can be minimized. The **binding information** is needed for evaluating and/or performing the **register optimization**. Therefore, accurate estimation of the number of registers requires both **scheduling** and **binding**.
 
 {% hint style="warning" %}
-We will se how to do the **register optimization** in [problem set 1](/broken/pages/cssdIs3DeRSXUDjp91Cv#id-04.-combine-everything)!
+We will se how to do the **register optimization** in [problem set 1](../../tutorial/problem-set-1.md#id-04.-combine-everything)!
 {% endhint %}
 
 ### Steering Logic

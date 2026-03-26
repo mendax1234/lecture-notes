@@ -31,7 +31,7 @@ This book does not advocate the use of any specific hardware language. The synth
 Perhaps the two bullet points above are the most important **intuitions** from this section.
 {% endhint %}
 
-Figure 1.20 (we have seen this at the [..](../../ "mention") chapter) shows the relations among HDL models, abstract models, and the synthesis tasks.
+Figure 1.20 (we have seen this at the [introduction](../introduction/ "mention") chapter) shows the relations among HDL models, abstract models, and the synthesis tasks.
 
 <figure><img src="../../.gitbook/assets/circuit-models-synthesis-optimization.png" alt=""><figcaption><p>Figure 1.20 Circuit models, synthesis and optimization: a simplified view</p></figcaption></figure>
 
