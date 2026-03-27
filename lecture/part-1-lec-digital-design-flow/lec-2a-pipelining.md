@@ -1,5 +1,9 @@
 # Lec 2a - Pipelining
 
+> This section and the next focuses on **RTL transformation**. The motivation is simple: if someone asks for a **2× improvement in throughput**, how should we modify the RTL to achieve it?
+>
+> As Prof. Massimo pointed out, this topic is often treated with heavy mathematical analysis in research. However, in this course, the goal is to build a sense of **intuition** instead. Rather than relying on purely equations, we focus on **visuals —** understanding and improving RTL structures by just inspecting them.
+
 Pipelining involves inserting registers into a combinational block to divide it into $$n$$ stages. This allows different combinational parts to operate on different data in parallel ([parallelism in **temporal form**](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-06-advanced-processor#parallelism-in-temporal-and-spatial-form)), significantly improving **throughput**.
 
 {% hint style="success" %}
@@ -17,7 +21,7 @@ The core idea of pipelining is:
 You will see a more detailed version of the throughput and latency change in the [#performance-analysis](lec-2a-pipelining.md#performance-analysis "mention").
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/pipeline-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/pipeline-example.png" alt=""><figcaption></figcaption></figure>
 
 ## Performance Analysis
 
@@ -40,7 +44,7 @@ $$
 $$n$$ is the pipeline depth. $$t_{\text{OH}}$$ is the overhead (setup time, clock-to-Q delay).
 
 {% hint style="warning" %}
-The $$T_{\text{pipe}}$$ here is equal to $$T_{\text{CK}}$$ and we assume that we have the **same pipeline register overhead**, which means that **same type** of register is used and we are not adding any [skew](../lec-1/lec-1b-timing-synchronous.md#clock-skew) to the clock of the register.
+The $$T_{\text{pipe}}$$ here is equal to $$T_{\text{CK}}$$ and we assume that we have the **same pipeline register overhead**, which means that **same type** of register is used and we are not adding any [skew](lec-1b-timing-synchronous.md#clock-skew) to the clock of the register.
 {% endhint %}
 
 #### Throughput Improvement
@@ -51,7 +55,7 @@ $$
 \frac{f_{\text{pipe}}}{f} = n \frac{\tau_{COMB} + t_{OH}}{\tau_{COMB} + n \cdot t_{OH}}
 $$
 
-<figure><img src="../../.gitbook/assets/pipeline-throughput-frequency-improvement.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/pipeline-throughput-frequency-improvement.png" alt="" width="563"><figcaption></figcaption></figure>
 
 * Case 1 ($$n \ll \frac{\tau_{\text{COMB}}}{t_{\text{OH}}}$$): Improvement is linear (factor of $$n$$). To verify, can neglect $$n\cdot t_{\text{OH}}$$.
 * Case 2 ($$n > \frac{\tau_{\text{COMB}}}{t_{\text{OH}}}$$): Improvement saturates to a maximum of $$1 + \frac{\tau_{\text{COMB}}}{t_{\text{OH}}}$$. To verify, can neglect the term $$\tau_{\text{COMB}}$$ in the denominator. So as $$n\to +\infty$$, the ratio $$\to 1+\frac{\tau_{\text{COMB}}}{t_{\text{OH}}}$$.
@@ -201,7 +205,7 @@ The pipeline has two states:
 1. **Transient (Filling)**: The pipeline is not yet full. It fills up stage-by-stage.
 2. **Steady State**: Occurs when the last stage ($$n$$-th) activates. From this point on, one output is generated every clock period.
 
-<figure><img src="../../.gitbook/assets/data-flow-in-pipeline.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/data-flow-in-pipeline.png" alt=""><figcaption></figcaption></figure>
 
 ### Stalls
 

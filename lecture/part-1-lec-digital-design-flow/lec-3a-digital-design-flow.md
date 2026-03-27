@@ -16,7 +16,7 @@ Therefore, a more practical way to define an ASIC is by its **design style** rat
 
 ASICs can be classified by **how much of the silicon is customized** and **when the functionality is fixed**.
 
-<figure><img src="../../.gitbook/assets/types-of-asics.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/types-of-asics.png" alt=""><figcaption></figcaption></figure>
 
 #### Full-Custom ASIC
 
@@ -35,7 +35,7 @@ This style is used for high-end CPUs, GPUs, RF circuits, analog/mixed-signal ICs
 
 An example of the full-custom layout is shown below.
 
-<figure><img src="../../.gitbook/assets/full-custom-layout.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/full-custom-layout.png" alt="" width="563"><figcaption></figcaption></figure>
 
 #### Semi-Custom ASIC
 
@@ -56,7 +56,7 @@ In reality, these standard cells will be placed in a **row** so we have a row of
 * Within that specific row, the location of the standard cell is decided by the **placement** algorithm.
 * After the placement, **routing** is done **globally first** to determine which channel that the wire can be put into and **then locally** to decide the exact wire connections between standard cells and the macroscopic rows.
 
-<figure><img src="../../.gitbook/assets/standard-cell-design-example.png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/standard-cell-design-example.png" alt="" width="375"><figcaption></figcaption></figure>
 
 In the image above, the big square block actually represents another flavor of the standard-cell design called **macro-cell**. In our layout, instead of the standard cells, we can also have **macro-cell**, also called the IP blocks, like CPUs, RAM, etc.
 {% endstep %}
@@ -70,7 +70,7 @@ In this category of ASIC, transistors, logic gates, and other active devices are
 
 An example of the standard cell layout is given below.
 
-<figure><img src="../../.gitbook/assets/standard-cell-layout.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/standard-cell-layout.png" alt="" width="563"><figcaption></figcaption></figure>
 
 Compared to the full custom design layout, we can clearly see the flavour or **rows** used in the standard cell layout.
 
@@ -86,7 +86,7 @@ In the Programmable ASIC, we also have two flavors
 
 In this flavor, we have arrays of configurable logic blocks (CLBs) as well as horizontal and vertical routing channels. This can be illustrated as below.
 
-<figure><img src="../../.gitbook/assets/island-fpga.png" alt="" width="392"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/island-fpga.png" alt="" width="392"><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
@@ -94,7 +94,7 @@ In this flavor, we have arrays of configurable logic blocks (CLBs) as well as ho
 
 This flavor is more like the standard-cell design where we have **rows** of CLBs and routing channels with fixed width between these rows of logic. This can be shown as follows.
 
-<figure><img src="../../.gitbook/assets/row-based-fpga.png" alt="" width="399"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/row-based-fpga.png" alt="" width="399"><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 
@@ -108,7 +108,7 @@ Ths ASIC Design Flow of this part is combined together with the EE4218 Lec 09 â€
 
 The ASIC design flow describes the sequence of steps used to transform a **high-level system idea** into a **manufacturable integrated circuit**. Each step progressively adds more implementation detail, moving from abstract functionality to physical silicon.
 
-<figure><img src="../../.gitbook/assets/asic-design-flow.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/asic-design-flow.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 Sometimes the **system partitioning** can be moved before the logic synthesis to help us write hierarchical HDL code. But if it is placed after the logic synthesis, it means that we are partitioning the netlist to get the macroscopic block that will be used in the upcoming floor planning stage.
@@ -171,7 +171,7 @@ The synthesis tool optimizes the design for:
 
 The idea is similar to the system partitioning mentioned in step 2 excepted that the partitioning here is done at the **netlist** instead of the complex chip. For example, we can partition the following netlist into three partitions.
 
-<figure><img src="../../.gitbook/assets/partition-after-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/partition-after-example.png" alt=""><figcaption></figcaption></figure>
 
 To make the partition, we must ensure the the **cut** will cross the **minimum number of edges**.
 
@@ -185,7 +185,7 @@ To make the partition, we must ensure the the **cut** will cross the **minimum n
 
 Sometimes we can do some circuit manipulations such as the **subgraph replication** to minimize the crossed edges by the partition algorithm.
 
-<figure><img src="../../.gitbook/assets/subgraph-replication.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/subgraph-replication.png" alt=""><figcaption></figcaption></figure>
 
 As seen in the graph above, by using extra NOT gates at the inputs A and A' in the specific partitions, we reduce the number of crossed edges by the partition algorithm.
 
@@ -222,7 +222,7 @@ In other words, **floor planning** is nothing but to determine the **approximate
 
 In other words, **placement** is nothing but decide the approximate location of the **standard cells** within each row in the layout. An example of a bad placement vs. a good placement.
 
-<figure><img src="../../.gitbook/assets/good-bad-placement.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/good-bad-placement.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 **Output:** Physically placed cells, but not yet wired.
@@ -326,7 +326,7 @@ This is the industry version of the ASIC Design Flow we introduce below/later.
 
 The levels of abstraction is ASIC Design Flow can be summarized as follows
 
-<figure><img src="../../.gitbook/assets/level-of-abstraction-asic-design-flow.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/level-of-abstraction-asic-design-flow.png" alt=""><figcaption></figcaption></figure>
 
 ### Logic Design Approaches
 
@@ -396,7 +396,7 @@ Synthesis is defined by the formula: **Translation + Optimization + Mapping.**
 1. **Translate:** Converts the HDL source code into a "Generic Boolean" format (often called GTECH).
 2. **Optimize + Map:** Refines the logic and maps it to the specific gates available in the Target Technology library.
 
-<figure><img src="../../.gitbook/assets/synthesis-process.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/synthesis-process.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 The figure above is **very very important**! This is what logic synthesis does in Synopsys design compiler!
@@ -430,7 +430,7 @@ To get the best result, the designer must:
 * Deeply understand the circuit being described before writing the code.
 * Provide a "Best Start Point" by writing clean, efficient, and hardware-aware HDL to give the tool the best chance at a high-quality final result.
 
-<figure><img src="../../.gitbook/assets/asic-design-flow-starting-point.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/asic-design-flow-starting-point.png" alt=""><figcaption></figcaption></figure>
 
 And below are the two guidelines recommended to follow when designing ASIC.
 

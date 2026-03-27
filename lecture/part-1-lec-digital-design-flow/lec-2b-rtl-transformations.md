@@ -12,7 +12,7 @@ A **Data-Flow Graph** (DFG) is a mathematical map of our hardware circuit. It do
 
 For example, in the following diagram, we can see three distinct elements. Each has a specific hardware meaning.
 
-<figure><img src="../../.gitbook/assets/dfg-mac-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/dfg-mac-example.png" alt=""><figcaption></figcaption></figure>
 
 * **Nodes (Circles/Ovals)**:
   * **Meaning**: These are the operators (Adders, Multipliers, Logic Gates).
@@ -51,13 +51,13 @@ The systematic procedure to draw DFG on a single rate system is as follows:
 
 For example,
 
-<figure><img src="../../.gitbook/assets/dfg-single-rate-conversion-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/dfg-single-rate-conversion-example.png" alt=""><figcaption></figcaption></figure>
 
 #### DFG on Multi-Rate System
 
 In a [multi-rate system](#user-content-fn-1)[^1], different signals are synchronized to clocks with different frequency. For example, in the following multi-rate system,
 
-<figure><img src="../../.gitbook/assets/multi-rate-system-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/multi-rate-system-example.png" alt=""><figcaption></figcaption></figure>
 
 * A has input frequency f<sub>A</sub>, outputs frequency 3f<sub>A</sub>.
 * B has input frequency 5f<sub>B</sub>, outputs frequency 2f<sub>B</sub>.
@@ -73,7 +73,7 @@ We can represent a multi-rate system as single-rate by using the following two t
 1. Apply **unfolding** to each node of multi-rate system (Will see later)
 2. Start from output and go backwards until inputs are reached.
 
-<figure><img src="../../.gitbook/assets/multi-rate-system-dfg-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/multi-rate-system-dfg-example.png" alt=""><figcaption></figcaption></figure>
 
 #### Assumptions
 
@@ -93,7 +93,7 @@ For any RTL transformation to be valid, it must preserve **Functionality**, but 
 If we use the other definition of latency, which is **clock cycles** <i class="fa-xmark">:xmark:</i> **cycle-time**, we can find out that the latency will actually be similar or smaller.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/functionality-vs-latency.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/functionality-vs-latency.png" alt=""><figcaption></figcaption></figure>
 
 The image above entails 5 RTL transformations, we are going to learn 3 of them in this section. Some of them preserve the latency while the rest didn't. However, all of them preserve the functionality.
 {% endstep %}
@@ -131,7 +131,7 @@ Another explanation would be that, in microcroprocessor, we consider more about 
 
 The trade-offs between PPA analysis of the **5 RTL transformations** we are going to learn in this section are shown as follows:
 
-<figure><img src="../../.gitbook/assets/area-speed-power-analysis.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/area-speed-power-analysis.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 We will see a **much more detailed** version at the end of this section!
@@ -149,7 +149,7 @@ A **Path** ($$p$$) is a sequence of connected nodes and edges starting from node
 
 Data flows from one stage to the immediately next one.
 
-<figure><img src="../../.gitbook/assets/linear-pipeline.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/linear-pipeline.png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
@@ -157,7 +157,7 @@ Data flows from one stage to the immediately next one.
 
 Some data skips registers.
 
-<figure><img src="../../.gitbook/assets/feedforward-path.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/feedforward-path.png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
@@ -165,7 +165,7 @@ Some data skips registers.
 
 Some data goes back to previous register.
 
-<figure><img src="../../.gitbook/assets/feedback-path.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/feedback-path.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 According to [DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/latches-and-flip-flops#register), an N-bit register is a bank of N flip-flops. Thus, the pipeline register here can have several inputs.
@@ -237,7 +237,7 @@ The intuition behind the loop bound is that it [**highly likely**](#user-content
 
 For example, in the following recursive DFG, we can calculate the loop bounds for two existing loops.
 
-<figure><img src="../../.gitbook/assets/loop-bound-calculation-example.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/loop-bound-calculation-example.png" alt="" width="563"><figcaption></figcaption></figure>
 
 1. Loop 1 is the inner loop at the right side, containing 4 registers (4 "D" in loop 1\_ and a total combinational delay of 12.
    1. Its loop bound is $$12\div4=3$$
@@ -275,11 +275,11 @@ Prof. Massimo used the example of loop unrolling — originally a compiler optim
 
 In Intel Itanium processor, the six loops limit the microprocessor's clock frequency.
 
-<figure><img src="../../.gitbook/assets/iteration-bound-example.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/iteration-bound-example.png" alt="" width="563"><figcaption></figcaption></figure>
 
 In each ALU, we can see that there is a loop with one register. To calculate the iteration bound, we can use the extra information on the combinational delay give below:
 
-<figure><img src="../../.gitbook/assets/iteration-bound-example-extra-info.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/iteration-bound-example-extra-info.png" alt=""><figcaption></figcaption></figure>
 
 Using the formula we have seen above, we can know that the iteration bound is
 
@@ -297,7 +297,7 @@ We only add one $$t_{OH}$$ in our $$t_{loop}$$ term even if there are multiple r
 
 The loop existing in the Intel Intanium processor can be simpilifed to as follows:
 
-<figure><img src="../../.gitbook/assets/lec02-skew-jitter-analysis-on-intel.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lec02-skew-jitter-analysis-on-intel.svg" alt=""><figcaption></figcaption></figure>
 
 In this case, we can clearly see that
 
@@ -328,7 +328,7 @@ We must either remove **all** edges in the cutset or leave them all intact.
 
 To find the **cutset**, we can imagine drawing a closed "Gaussian surface" (a bubble) around a group of nodes. The edges that cross this boundary line form the cutset. Each edge must be crossed exactly once. For example, in the diagram below, the two <mark style="color:red;">red</mark> arrows form a cutset.
 
-<figure><img src="../../.gitbook/assets/cut-set-example.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/cut-set-example.png" alt="" width="563"><figcaption></figcaption></figure>
 
 Once **both of** the two red arrow are cut, no path exists between $$G_1$$ and $$G_2$$; they are completely mathematically independent.
 
@@ -363,7 +363,7 @@ When selecting a partition (drawing a "Gaussian Surface"), aim to cross as **few
 
 Not all cutsets allow for safe register insertion. We must identify a **Feedforward** Cutset. A cutset is "feedforward" if **all** its edges point in the **same direction**. In other words, the edges in the cutset must all be incoming to the bubble or all outgoing from it.
 
-<figure><img src="../../.gitbook/assets/feedforward-cutset-example.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/feedforward-cutset-example.png" alt="" width="563"><figcaption></figcaption></figure>
 
 #### Feedforward Cutset Register Insertion
 
@@ -381,7 +381,7 @@ This rule never holds in a **loop**! It is only valid in a feedforward cutset!
 
 Functionality is preserved because the **relative timing** between signals inside $$G_1$$ and $$G_2$$ stays constant. Since _all_ signals crossing the boundary are delayed by the exact same amount ($$k$$), the sub-circuits just see the same data sequence shifted in time.
 
-<figure><img src="../../.gitbook/assets/feedforward-cutset.png" alt="" width="491"><figcaption><p>Feedforward cutset</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/feedforward-cutset.png" alt="" width="491"><figcaption><p>Feedforward cutset</p></figcaption></figure>
 
 {% hint style="success" %}
 In the figure above, this is a **feedforward cutset** and we can see clearly that as $$G_2$$ doesn't send any signal back to $$G_1$$, it is valid to add any number of registers to the **inputs** of $$G_2$$.
@@ -389,7 +389,7 @@ In the figure above, this is a **feedforward cutset** and we can see clearly tha
 
 This is generally impossible in loops because loops usually create bidirectional (non-feedforward) cutsets. As we have seen above in the "[recursive DFGs](https://wenbo-notes.gitbook.io/ee4415-icd-notes/lecture/lec-02/lec-02b-rtl-transformations#recursive-dfgs)", adding registers in a loop changes the recursion depth (e.g., changing $$x[i-1]$$ to $$x[i-3]$$), which alters the math.
 
-<figure><img src="../../.gitbook/assets/non-feedforward-cutset.png" alt="" width="489"><figcaption><p>Non-feedforward cutset</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/non-feedforward-cutset.png" alt="" width="489"><figcaption><p>Non-feedforward cutset</p></figcaption></figure>
 
 </details>
 
@@ -401,7 +401,7 @@ From this rule, we have the following observations
 
 Primary inputs and outputs are technically special cases of feedforward cutsets. Therefore, we can **always** safely insert registers at **all** inputs/outputs of a system without affecting its functionality.
 
-<figure><img src="../../.gitbook/assets/feedforward-cutset-rule-observation-1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/feedforward-cutset-rule-observation-1.png" alt=""><figcaption></figcaption></figure>
 
 The reason for the validaty of doing so is that we can easily partition the [whole system](#user-content-fn-6)[^6] into **one group** and the inputs and outputs as **two separate groups**. Through this partitioning can we achieve two feedforward cutset so that we can do the insertion.
 {% endstep %}
@@ -417,7 +417,7 @@ The rule works in reverse. If _every_ edge in a feedforward cutset already posse
 
 In specific architectures like parallel/interleaved filters (e.g., 3-tap FIR filter), we can sometimes insert registers in **non-cutset patterns** (dashed paths) while still preserving functionality due to the parallel nature of the hardware.
 
-<figure><img src="../../.gitbook/assets/feedforward-cutset-rule-observation-3.png" alt="" width="507"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/feedforward-cutset-rule-observation-3.png" alt="" width="507"><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 This is an example of the **block filter** and it won't be tested in AY25/26 Sem 2's EE4415 midterm!
@@ -431,7 +431,7 @@ This is an example of the **block filter** and it won't be tested in AY25/26 Sem
 
 The counterexample has been introduced in the "[recursive DFGs](https://wenbo-notes.gitbook.io/ee4415-icd-notes/lecture/lec-02/lec-02b-rtl-transformations#recursive-dfgs)" already. Below is a diagram which makes it (The MAC, which is the core of most modern NPUs) more intuitive
 
-<figure><img src="../../.gitbook/assets/non-feedforward-cutset-fail.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/non-feedforward-cutset-fail.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 As this cutset is not a feedforward cutset, it is **not valid** to add registers at all the edges in this cutset!
@@ -445,7 +445,7 @@ As discussed above, **register insertion is only valid across a feedforward cuts
 
 To address this limitation, we use the **N-slowing technique**. The idea is to replace **every register in the entire system** (including the registers in the loop) with **N cascaded registers**.
 
-<figure><img src="../../.gitbook/assets/n-slowing.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/n-slowing.png" alt=""><figcaption></figcaption></figure>
 
 This transformation is equivalent to replacing each original register with a **single register that has an N-cycle delay**. As a result:
 
@@ -455,7 +455,7 @@ This transformation is equivalent to replacing each original register with a **s
 
 So, now the signal dependency and periodicity can be summarized as follows,
 
-<figure><img src="../../.gitbook/assets/signal-dependency-analysis.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/signal-dependency-analysis.png" alt=""><figcaption></figcaption></figure>
 
 From this table, we observe that the "**step width" for processing a single data stream increases from 1 cycle to N cycles**. This means that the system’s functionality no longer depends on the intermediate cycles within each N-cycle window.
 
@@ -488,7 +488,7 @@ Suppose we are under the second situation, the dependency changes from $$i-1$$ t
 * **The "Waiting Room"**: While the hardware processes Streams B, C, and D (cycles 2, 3, 4), Stream A's data shifts through the register chain, safe and isolated.
 * **Reconnection**: Exactly at Cycle 5, Stream A returns. Stream A's old data falls out of the $$N^{th}$$ register at that exact moment, allowing the adder to correctly compute $$New\_A + Old\_A$$.
 
-<figure><img src="../../.gitbook/assets/n-slowed-mac.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/n-slowed-mac.png" alt=""><figcaption></figcaption></figure>
 
 This will bring us the following benefits
 
@@ -521,7 +521,7 @@ If we treat the normal fast clock `clk` as the baseline, the following design is
 Different starting point will give us different interpretations of the following design.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/parallelism-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/parallelism-example.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 In the figure above, each "out" on the vertical column corresponds to a **separate processing unit.**
@@ -564,7 +564,7 @@ In this section, when we say "cycles", we are referring to the normal clock whic
 
 One method to distribute inputs is to use shifted clock phases. In this architecture, the $$n$$ **launching registers** are driven by $$n$$ distinct clock signals, each phase-shifted by $$T_{CK}$$ relative to the previous one and with a long clock period of $$n\cdot T_{CK}$$. The final **capturing register** is clocked at the normal clock with a period of $$T_{CK}$$.
 
-<figure><img src="../../.gitbook/assets/shifted-clock-phase.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/shifted-clock-phase.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 In this design, we have an obvious overhead of $$n\cdot T_{CK}$$. After the overhead, the out of each input data will be available one $$T_{CK}$$ after another.
@@ -576,7 +576,7 @@ However, as you might notice, this approach requires complex clock generation ci
 {% step %}
 #### Ring Counter
 
-<figure><img src="../../.gitbook/assets/ring-counter.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/ring-counter.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 This is usually hard to implement because the synthesis tool will always give out warnings on this kind of design.
@@ -588,7 +588,7 @@ This is usually hard to implement because the synthesis tool will always give ou
 
 This technique is highly **not recommended** in both CG3207 and EE4218. However, Prof Massimo introduces an elegant way to deal with the **glitch** that may occur during the clock gating.
 
-<figure><img src="../../.gitbook/assets/clock-gating.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/clock-gating.png" alt=""><figcaption></figcaption></figure>
 
 In this system, **glitches mainly originate from the comparator**, which compares the counter value with the target value $$i$$ to generate a slower, gated clock. Since the comparator is a **combinational circuit**, it can output a momentarily glitch.
 
@@ -606,7 +606,7 @@ As a result, the slowered clk `clki` ticks high **once** every N ticks of the ma
 
 An alternative implementation utilizes Serial-In-Parallel-Out (SIPO) and Parallel-In-Serial-Out (PISO) converters.
 
-<figure><img src="../../.gitbook/assets/sipo-piso.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sipo-piso.png" alt=""><figcaption></figcaption></figure>
 
 In this method, the spirit is to prepare $$n$$ **indepedent data inputs** simultaneously and then feed them into a **high-performance** MIMO system, then converts the $$n$$ outputs which are simultaneously ready into the serial output.
 
@@ -671,7 +671,7 @@ In shifted clock phase design, the **replicas** are the combinational part after
 
 If we insert register(s) **before** the replica or **after** the replica, we will get different effects for the two architectures introduced above:
 
-<figure><img src="../../.gitbook/assets/comparison-sipo-piso-shift-clock-phase.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/comparison-sipo-piso-shift-clock-phase.png" alt=""><figcaption></figcaption></figure>
 
 {% stepper %}
 {% step %}
@@ -751,7 +751,7 @@ $$
   * _Limitation:_ Slightly less than ideal $$n$$ due to MUX delay ($$\tau_{\text{MUX}}$$) affecting the critical path.
 * $$\tau_{\text{MUX}}$$ usually scales logarithmically ($$\propto \log_2 n$$). This is because a n-to-1 multiplexer is implemented using a bunch of 2-to-1 multiplexer in a tree manner shown as follows. And the delay is the height of the tree, which is $$\approx\log_2n$$.
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt="" width="406"><figcaption><p>8-to-1 multiplexer implemented using 7 2-to-1 multiplexer, the tree height is 3</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1).png" alt="" width="406"><figcaption><p>8-to-1 multiplexer implemented using 7 2-to-1 multiplexer, the tree height is 3</p></figcaption></figure>
 {% endstep %}
 
 {% step %}
@@ -856,7 +856,7 @@ With the help of **cutset retiming**, we will see how they can be combined with 
 
 To apply retiming algorithms formally, let's model the circuit as a [Data Flow Graph (DFG)](lec-2b-rtl-transformations.md#data-flow-graphs) with specific constraints to handle Input/Output boundaries correctly.
 
-<figure><img src="../../.gitbook/assets/retiming-assumptions.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/retiming-assumptions.png" alt=""><figcaption></figcaption></figure>
 
 {% stepper %}
 {% step %}
@@ -871,7 +871,7 @@ To apply retiming algorithms formally, let's model the circuit as a [Data Flow G
 
 When moving registers, combinational operators at vertices through retiming cannot be broken up. (e.g., a register can only be either at their input vertices or their output). If operators need to be pipielined, just preliminarily break them into sub-stage and follow the same rules.
 
-<figure><img src="../../.gitbook/assets/retiming-assumption-register-moving.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/retiming-assumption-register-moving.png" alt="" width="563"><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 
@@ -879,7 +879,7 @@ When moving registers, combinational operators at vertices through retiming cann
 
 The core operation of retiming allows registers to be moved forward or backward across the inputs and outputs of an operator without changing the circuit's steady-state[^9] functional behavior.
 
-<figure><img src="../../.gitbook/assets/retiming-fundamental-transformation.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/retiming-fundamental-transformation.png" alt=""><figcaption></figcaption></figure>
 
 For example, in the diagram above
 
@@ -890,7 +890,7 @@ For example, in the diagram above
 
 This rule applies to path branching as well, which can be seen from below
 
-<figure><img src="../../.gitbook/assets/retiming-path-branching.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/retiming-path-branching.png" alt=""><figcaption></figcaption></figure>
 
 ### Fundamental Definition
 
@@ -910,7 +910,7 @@ The "Retiming Vector" is an **integer** value assigned to every vertex $$V$$ in 
   * $$r(V) < 0$$: Registers are moved **Forward** (from Input -> Output).
   * $$r(V) = 0$$: No movement occurred for this node.
 
-<figure><img src="../../.gitbook/assets/retiming-vector.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/retiming-vector.png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
@@ -959,7 +959,7 @@ The intuition is that the [**decrease** ](#user-content-fn-12)[^12]of the number
 
 For example, let's do the retiming on the following DFG
 
-<figure><img src="../../.gitbook/assets/retiming-example-1.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/retiming-example-1.png" alt="" width="563"><figcaption></figcaption></figure>
 
 The retiming is to done on the operator 2 and we move the register from operator 2's output to two of its inputs.
 
@@ -1027,7 +1027,7 @@ We have seen the definition of cutset from [above](lec-2b-rtl-transformations.md
 * $$r(V) = k$$ for all vertices in $$G2$$.
 * $$r(V) = 0$$ for all vertices in $$G1$$.
 
-<figure><img src="../../.gitbook/assets/cutset-retiming-definition.png" alt="" width="540"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/cutset-retiming-definition.png" alt="" width="540"><figcaption></figcaption></figure>
 
 This operation only affects the weights of the **cutset edges** (edges connecting $$G1$$ and $$G2$$). Internal edges within $$G1$$ or $$G2$$ are unchanged.
 
@@ -1045,7 +1045,7 @@ Since we apply $$r(V)=k,\forall~V\in G_2$$, we can get the following two cases b
 
 To illustrate it clearly, we can see the following graph.
 
-<figure><img src="../../.gitbook/assets/cutset-retiming-big-0.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/cutset-retiming-big-0.svg" alt=""><figcaption></figcaption></figure>
 
 So, when k > 0, we can see that it is either we
 
@@ -1062,7 +1062,7 @@ This rule gives us a very powerful technique, which is that
 
 This will be just the reverse process of case A.
 
-<figure><img src="../../.gitbook/assets/cutset-retiming-small-0.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/cutset-retiming-small-0.svg" alt=""><figcaption></figcaption></figure>
 
 So, when k < 0, we can see that it is either we&#x20;
 
@@ -1092,7 +1092,7 @@ The **intuition** is that:
 
 This generalizes the [basic node retiming rule](lec-2b-rtl-transformations.md#fundamental-transformation) we have seen from above. Instead of moving a register across a single operator, we treat the entire subgraph $$G2$$ as a "super-node" and move registers across its boundary.
 
-<figure><img src="../../.gitbook/assets/retiming-practical-usage.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/retiming-practical-usage.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 This is the **most important** application that we should take away from this whole section about **cutset** **retiming**! It will be pretty useful in the RTL transformations we are going to talk about later.
@@ -1119,7 +1119,7 @@ The first RTL Transformation technique that we will learn is **repipelining**. R
 
 Repipelining is considered a **special case of cutset retiming** where the cutset is **strictly feedforward**.
 
-<figure><img src="../../.gitbook/assets/repipelining-definition.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/repipelining-definition.png" alt=""><figcaption></figcaption></figure>
 
 Edges exist from $$G1 \to G2$$, but no edges exist from $$G2 \to G1$$.
 
@@ -1147,7 +1147,7 @@ We model Inputs and Outputs as absolute boundaries (Source/Sink). We cannot "bor
 
 Let's practice the repipelining on the gaussian filter.
 
-<figure><img src="../../.gitbook/assets/gaussian-filter.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/gaussian-filter.png" alt=""><figcaption></figcaption></figure>
 
 In this gaussian filter, the clock cycle = 1 + 2 + 1 + 2 + 1 = 7 while the latency is 5 cycles because there are 5 registers in total for the inputs to get the complete correct output.
 
@@ -1155,7 +1155,7 @@ In this gaussian filter, the clock cycle = 1 + 2 + 1 + 2 + 1 = 7 while the laten
 
 We start by adding 4 registers at each input because we notice there are 4 operators.
 
-<figure><img src="../../.gitbook/assets/gaussian-filter-first-optimization.gif" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/gaussian-filter-first-optimization.gif" alt=""><figcaption></figcaption></figure>
 
 This is done by applying the [#cutset-retiming](lec-2b-rtl-transformations.md#cutset-retiming "mention") or simply the [#feedforward-cutset-register-insertion](lec-2b-rtl-transformations.md#feedforward-cutset-register-insertion "mention") technique we have learned, our final clock cycle is 2 because the critical path would be the multiplier which takes two cycles while the latency is 4+5=9 cycles.
 
@@ -1169,7 +1169,7 @@ The reason for only **one register** added above the second level of multipliers
 Add two registers because we have two "groups" of multipliers.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/gaussian-filter-second-optimization.gif" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/gaussian-filter-second-optimization.gif" alt=""><figcaption></figcaption></figure>
 
 Now the clock cycle becomes 1, which is obvious and as we want. The latency becomes 9+2=11.
 
@@ -1179,11 +1179,11 @@ Now the clock cycle becomes 1, which is obvious and as we want. The latency beco
 
 We first deal with the top adder and multiplier, as we have 2 "groups" of adder and multiplier at the top, we first add 2+2x2=6 registers.
 
-<figure><img src="../../.gitbook/assets/gaussian-filter-third-optimization-1.gif" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/gaussian-filter-third-optimization-1.gif" alt=""><figcaption></figcaption></figure>
 
 Then we deal with the bottom four adders. We add 4 registers at the output and then push it back because it is much easier.
 
-<figure><img src="../../.gitbook/assets/gaussian-filter-third-optimization-2.gif" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/gaussian-filter-third-optimization-2.gif" alt=""><figcaption></figcaption></figure>
 
 Lastly, we achieved the 0.5 clock cycle and as we have added 4+6=10 more registers, the latency becomes 11+10=21. One thing worht noting here is that the latency measured in **clock cycles** increase, but if we are interested in the latency measured in **seconds**, the result will be **smaller** as our clock cycle time **drops a lot**!
 
@@ -1227,7 +1227,7 @@ Let's optimize our MAC to be a unit that is "2-slowed" to process two datasets s
 1. **Step 1:** The accumulator register is replaced by 2 registers.
 2. **Step 2:** One of these registers is retimed (moved) into the middle of the multiplier/adder logic.
 
-<figure><img src="../../.gitbook/assets/time-interleaving-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/time-interleaving-example.png" alt=""><figcaption></figcaption></figure>
 
 After applying the time interleaving technique, we achieve that:
 
@@ -1404,7 +1404,7 @@ $$
 
 One real-world example is the Intel Atom. This real-world example demonstrates **Time Interleaving** ($$N=2$$) implemented as Simultaneous Multi-Threading.
 
-<figure><img src="../../.gitbook/assets/intel-atom-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/intel-atom-example.png" alt=""><figcaption></figcaption></figure>
 
 * **Implementation:**
   * Technique: 2-slowing with Register File replication ($$N=2$$) while sharing execution units.
@@ -1452,7 +1452,7 @@ Execute the chosen transformation on the original RTL structure.
 
 **Normalization:** All metrics (Area, Throughput, Energy) are normalized to the [**Original RTL**](#user-content-fn-14)[^14] ($$=1$$).
 
-<figure><img src="../../.gitbook/assets/combining-rtl-transformations.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/combining-rtl-transformations.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 Repipelining **includes** pipelining and if the original RTL is pipelined, the N<sub>original</sub> is number of pipeline stages. If it is non-pipelined, the N<sub>original</sub> is just 1. And the PPA analysis for repipelining is the **same as** the [PPA analysis of pipelining](lec-2a-pipelining.md#performance-analysis).
@@ -1476,7 +1476,7 @@ These tips are based on the tutorial questions done during the last lecture of E
 
 In a DFG given in this course (EE4218 might have a different version of DFG), we assume that there is always **one** register at the **input and output**.
 
-<figure><img src="../../.gitbook/assets/rtl-transformation-tip-1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/rtl-transformation-tip-1.png" alt=""><figcaption></figcaption></figure>
 
 For example, in the DFG above, when looking at this problem, our first thing is to draw <mark style="color:blue;">**two registers**</mark> at the input and output.
 

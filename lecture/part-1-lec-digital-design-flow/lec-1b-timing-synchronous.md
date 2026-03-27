@@ -6,7 +6,7 @@
 
 A digital system consists of communicating blocks shown as follows,
 
-<figure><img src="../../.gitbook/assets/communication-blocks.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/communication-blocks.png" alt="" width="563"><figcaption></figcaption></figure>
 
 We assume that each combinational module evaluates its output in
 
@@ -16,7 +16,7 @@ $$
 
 For example, the module 2 needs to "know" when in<sub>2</sub> / out<sub>1</sub> is correct (has settled). This can be illustrated using the following figure,
 
-<figure><img src="../../.gitbook/assets/communication-between-digital-modules.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/communication-between-digital-modules.png" alt="" width="563"><figcaption></figcaption></figure>
 
 In module 1, the <mark style="color:green;">fast path</mark> gives earliest possible correct output ($$\tau_{\text{comb},\text{min}}$$), while the <mark style="color:red;">slow path</mark> gives the latest settling output ($$\tau_{\text{comb},\text{max}}$$). The correct out<sub>1</sub> settles between $$\tau_{\text{comb},\text{min}}$$ and $$\tau_{\text{comb},\text{max}}$$. So, to ensure out<sub>1</sub> is correct, we wait until after $$\tau_{\text{comb},\text{max}}$$. This again highlights the importance of [**critical path**](https://wenbo-notes.gitbook.io/ddca-notes/textbook/combinational-logic-design/timing#critical-path)!
 
@@ -44,7 +44,7 @@ As shown above, if changes in **out**<sub>**1**</sub> propagate immediately, the
 
 In asynchronous mode, additional circuitry generates "completion signal" and this completion signal enables the computation of next block when its output is valid.
 
-<figure><img src="../../.gitbook/assets/asynchronous-communication-mode.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/asynchronous-communication-mode.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 This approached is **less favored** by the industry. The reason is **not** because this approach is less-efficient. In fact, the asynchronous approach is **more efficient** then the synchronous approach. The reason is that the automation tools don't support asynchronous systems well, but they support synchronous systems well.
@@ -78,11 +78,11 @@ To understand the term "**sychronize"** better, you can refer to the textbook [D
 
 In the following timing diagram, the first time shift represents the **Setup Time** (t<sub>setup</sub>), which is the required window where input signal `x` must be stable before the clock edge to be sampled correctly. The second time shift represents the **Clock-to-Output Delay** (t<sub>CK-Q</sub>), which is the time it takes for the register to react to the clock edge and update the output signal `y` before it propagates to the subsequent combinational logic.
 
-<figure><img src="../../.gitbook/assets/synchronous-communication-mode.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/synchronous-communication-mode.png" alt="" width="563"><figcaption></figcaption></figure>
 
 And if we draw a register diagram, it will be similar to the following
 
-<figure><picture><source srcset="../../.gitbook/assets/lec01-synchronous-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/lec01-synchronous-example-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/lec01-synchronous-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/lec01-synchronous-example-light.png" alt=""></picture><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 In both cases of synchronous and asynchronous design, energy/timing/area overhead is paid for.
@@ -96,14 +96,14 @@ In both cases of synchronous and asynchronous design, energy/timing/area overhea
 
 In digital logic, the order of data flow is critical. Usually, we want to achieve the **Deterministic Sequencing**. Thus we require a strict First-In, First-Out (FIFO) behavior, where the n<sup>th</sup> input produces the n<sup>th</sup> output in the **exact same sequence**. Ideally, this is easy to achieve if the delay through a module is **data independent** (e.g., every calculation takes the exact same amount of time).
 
-<figure><img src="../../.gitbook/assets/lec01-sequence-synchronous-data-independent.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lec01-sequence-synchronous-data-independent.png" alt=""><figcaption></figcaption></figure>
 
 However, in reality, the time it takes for a signal to propagate through a combinational block depends on the specific input values. As we have seen [above](lec-1b-timing-synchronous.md#system-abstraction) or in [Harris & Harris DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/combinational-logic-design/timing#propagation-and-contamination-delay):
 
 * **Propagation Delay** (t<sub>pd</sub>): The time taken by the _slowest_ path (critical path).
 * **Contamination Delay** (t<sub>cd</sub>): The time taken by the _fastest_ path (short path).
 
-<figure><img src="../../.gitbook/assets/lec01-sequence-synchronous-data-dependent.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lec01-sequence-synchronous-data-dependent.png" alt=""><figcaption></figcaption></figure>
 
 If we connect modules directly without synchronization (asynchronous design without handshaking mechanism), "Fast" data can overtake "Slow" data. For example,
 
@@ -123,7 +123,7 @@ This is also called the **lockedstep movement**.
   * We define the signal's value at the i-th cycle as the _single_ stable value present right[^1] before the sampling edge.
   * Any changes happening _between_ cycle i and i+1 are considered "work in progress" and are ignored until the next clock edge arrives.
 
-<figure><img src="../../.gitbook/assets/lec01-sequencing-with-register.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lec01-sequencing-with-register.png" alt=""><figcaption></figcaption></figure>
 
 In the diagram above, "**in**<sub>**1**</sub>**(i)**" denotes a signal using a common notation that will be used throughout this module.
 
@@ -162,7 +162,7 @@ However, as clock is distributed throughout the chip with wires + repeaters:
 
 <summary>Repeater and Interconnect Wire</summary>
 
-<figure><img src="../../.gitbook/assets/repeater-interconnect-wire.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/repeater-interconnect-wire.png" alt=""><figcaption></figcaption></figure>
 
 First, let's look at the symbols in the diagram above,
 
@@ -197,7 +197,7 @@ In synchronous circuit design, while we originate from a **single global clock s
 
 When distributing clk in the **same direction** as data flow, the skew t<sub>skew, ij</sub> is **positive**. If **opposite direction**, the skew is **negative**. For example, the following diagram shows a **positive clock skew** by assuming that the data and clock distribution flow from register R1 to register R2.
 
-<figure><img src="../../.gitbook/assets/clock-skew-sign-example.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/clock-skew-sign-example.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 An analogy is to think of the clock skew as a **vector** and the two points are t<sub>i</sub> and t<sub>j</sub>. Thus,
@@ -207,7 +207,7 @@ An analogy is to think of the clock skew as a **vector** and the two points are 
 
 Another example will be the timing diagram we have seen in [Harris & Harris DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/timing-of-sequential-logic#clock-skew). The following diagram will indicate a **negative skew** (t<sub>2</sub> - t<sub>1</sub> < 0, assuming the data flows from R1 to R2).
 
-<figure><img src="../../.gitbook/assets/clock-skew-example-ddca.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/clock-skew-example-ddca.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 The **clock skew** and **clock skew seen by a certain regsiter** are different!
@@ -233,7 +233,7 @@ From this formula, we can see that the clock skew has two components
 
 In reality, the clock period T<sub>CK</sub> is not perfectly constant due to jitter. Specifically, we define **cycle-to-cycle jitter** (t<sub>jitter</sub>) as the random, time-varying deviation between two successive clock events (such as two rising clock edges). This means the actual clock period is not fixed; instead, it fluctuates around a nominal period (T<sub>nom</sub>), strictly bounded within the range of $$T_{\text{nom}} - |t_{\text{jitter}}|$$ to $$T_{\text{nom}} + |t_{\text{jitter}}|$$.
 
-<figure><img src="../../.gitbook/assets/clock-jitter.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/clock-jitter.png" alt=""><figcaption></figcaption></figure>
 
 #### The Reason of Clock Jitter
 
@@ -242,7 +242,7 @@ The two main reasons for clock jitter are:
 1. **clock generator**'s intrinsic jitter
 2. **clock distribution network**: due to time-varying delay of repeaters (supply noise)
 
-<figure><img src="../../.gitbook/assets/clock-jitter-cause.png" alt=""><figcaption><p>Clock Distribution Network</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/clock-jitter-cause.png" alt=""><figcaption><p>Clock Distribution Network</p></figcaption></figure>
 
 Based on the above diagram, we have the formula for calculating the t<sub>jitter,i</sub> to be
 
@@ -262,7 +262,7 @@ As we have seen in Eq.5, jitter is introduced by buffers, wires, and supply nois
 
 In EE4415, we assume that the **common path dominates**. This means that most of the jitter is added **before the clock splits**, so both FF<sub>i</sub> and FF<sub>j</sub> see **almost the same clock shift** in the same given clock cycle. In the waveform below, this is represented by the jitter occurring at the **green circle** for both clocks.
 
-<figure><img src="../../.gitbook/assets/clock-jitter-difference-dark.png" alt="" width="369"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/clock-jitter-difference-dark.png" alt="" width="369"><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 In different clock cycles, the jitter can shift in either direction and does not have to be the same as in the previous cycle.
@@ -285,7 +285,7 @@ In positive-edge triggered (PET) flip flops, input is **sampled** at rising cloc
    2. The **earilest** new input **must not arrive** before t<sub>HOLD</sub> so that the previous "old" input won't be affected!
 2. CK-Q delay: output is updated at t<sub>CK-Q</sub> after clock edge.
 
-<figure><img src="../../.gitbook/assets/timing-parameters-for-edge-triggered-ffs.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/timing-parameters-for-edge-triggered-ffs.png" alt="" width="563"><figcaption></figcaption></figure>
 
 #### Asynchronous Resettable Filp Flops
 
@@ -297,7 +297,7 @@ In asynchronous resettable flip flops, the RESET signal has **higher** priority 
 
 For example, the following diagram shows an **active-low** asynchronous reset
 
-<figure><img src="../../.gitbook/assets/active-low-asynchronous-reset-ffs.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/active-low-asynchronous-reset-ffs.png" alt=""><figcaption></figcaption></figure>
 
 * If we want to enable the clock event, release the RESET button at least t<sub>RECOVERY</sub> before the rising clock edge.
 * If we want to ignore the clock event, press and hold (small typo in the figure above) the RESET and don't release until t<sub>REMOVAL</sub> after the rising clock edge.
@@ -327,7 +327,7 @@ System timing constraints are affected by
 
 To start, let's first see an intuitive understanding of FF timing constraints.
 
-<figure><img src="../../.gitbook/assets/intuitive-understand-ff-timing-constraint.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/intuitive-understand-ff-timing-constraint.png" alt="" width="563"><figcaption></figcaption></figure>
 
 * To meet the setup time constraint, we can think of it as "the computation should be completed before next edge in REG<sub>2</sub>" -> This gives us the **max-delay constraint** for the combinational logic
 * To meet the hold time constraint, we can think of it as "the computation can only affect REG<sub>2</sub> after a certain time, which is the hold time or REG<sub>2</sub>" -> This gives us the **min-delay constraint** for the combinational logic
@@ -385,7 +385,7 @@ T_{\text{CK}} \ge \tau_{\text{COMB,pd}} + t_{\text{SETUP, REG2}} + \tau_{\text{C
 \tau_{\text{COMB,pd}} \le T_{\text{CK}} - t_{\text{SETUP, REG2}} - \tau_{\text{CK-Q, REG1}} + t_{\text{skew,DET}} - |t_{\text{skew,RAND,21}}| - 2|t_{\text{jitter}}| \tag{2}
 $$
 
-<figure><img src="../../.gitbook/assets/max-delay-constraint.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/max-delay-constraint.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 As the spirit is to make R.H.S as big as possible (worst-case scenario), we will map the clock skew $$\delta$$ to $$t_{\text{skew,DET}} - |t_{\text{skew,RAND}}|$$.
@@ -443,7 +443,7 @@ $$
 Ideally, we want a register to have **low** hold time (t<sub>hold</sub>). So, to map this to the Eq. 3, the worst-case scenario is when t<sub>HOLD, REG2, eq</sub> is **biggest**, thus we replace $$\delta$$ with $$t_{\text{skew,DET,21}} + |t_{\text{skew,RAND,21}}|$$.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/min-delay-constraint.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/min-delay-constraint.png" alt=""><figcaption></figcaption></figure>
 
 Rearrange it, we will get,
 
@@ -703,7 +703,7 @@ In real-world chips (like the Roofline Model), the bottleneck usually shifts bet
 
 **Latency** is the time/clock cycles required to complete a **single** computation from the moment inputs arrive until the final output is valid.
 
-<figure><img src="../../.gitbook/assets/latency.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/latency.png" alt=""><figcaption></figcaption></figure>
 
 Latency is measured as:
 
@@ -773,7 +773,7 @@ This is the time taken by a single block to finish its job.
 
 For a system with N blocks, the total latency is not just the simple sum. We must account for **loops** or repeated execution of specific blocks.
 
-<figure><img src="../../.gitbook/assets/system-level-latency.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/system-level-latency.png" alt=""><figcaption></figcaption></figure>
 
 $$
 \text{Total Latency} \le \sum_{i=1}^{N} (\text{\#execution}_i \cdot \max(\text{LAT}_i))
@@ -803,7 +803,7 @@ AlexNet is a classic CNN used for image classification (mapping a raw image to 1
 * **POOL (Max Pooling)**: Down-sampling layer. Reduces data size by taking the maximum value in a patch.
 * **FC (Fully Connected Layers)**: The final classification stage. Every input neuron connects to every output neuron (matrix-vector multiplication).
 
-<figure><img src="../../.gitbook/assets/alex-cnn-architecture.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/alex-cnn-architecture.png" alt=""><figcaption></figcaption></figure>
 
 #### Throughput Analysis: "The Bottleneck Shift"
 
@@ -821,7 +821,7 @@ AlexNet is a classic CNN used for image classification (mapping a raw image to 1
 * _Conv2:_ Requires 224 Million MACs (Peak Compute Load).
 * _FC8:_ Requires only 4.1 Million MACs.
 
-<figure><img src="../../.gitbook/assets/wordsout-mac.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/wordsout-mac.png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
@@ -836,7 +836,7 @@ $$
 * Expansion ($$X > 1$$): Layers like Conv1 ($$X=1.89$$) and Conv2 ($$X=2.67$$) expand data, increasing the throughput burden on subsequent blocks.
 * Compression ($$X < 1$$): Layers like MaxPool ($$X \approx 0.23$$) and FC6 ($$X=0.44$$) aggressively reduce data rates.
 
-<figure><img src="../../.gitbook/assets/x-factor.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/x-factor.png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
@@ -849,7 +849,7 @@ When we map these requirements to hardware limits, we see distinct bottlenecks:
   * _Implication:_ CNN accelerators are essentially huge arrays of MAC units.
 * **Memory-Bound**: (See next section).
 
-<figure><img src="../../.gitbook/assets/total-throughput.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/total-throughput.png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 
@@ -877,7 +877,7 @@ To feed the compute units for 30fps, we need high bandwidth:
   * _First Layers:_ Low bandwidth (compute-bound).
   * _Last Layers:_ Massive bandwidth spike (memory-bound) because FC layers read huge weight matrices for relatively few computations.
 
-<figure><img src="../../.gitbook/assets/memory-bandwidth.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/memory-bandwidth.png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 

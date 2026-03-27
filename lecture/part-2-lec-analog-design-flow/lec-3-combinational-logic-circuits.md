@@ -424,6 +424,18 @@ The 0-to-1 transition triggers the evaluation of the following stage to also mak
 The limitation of this solution is that it can only implement **non-inverting logic**, which breaks the universalty of the **inverting logic** which states that we can implement any boolean logic using NAND/NOR.
 {% endhint %}
 
+<details>
+
+<summary>High speed circuits with large fan-ins (np-CMOS)</summary>
+
+With the help of the dynamic CMOS gates, we can build high speed circuits with even high fan-in, which is quite counter-intuitive as we might have seen [previously](lec-3-combinational-logic-circuits.md#fan-in).
+
+The idea is that, in dynamic CMOS gates, we can **not only** take PDN only, we can also take PUN only! This kind of circuit is called **np-CMOS**!
+
+<figure><img src="../.gitbook/assets/np-cmos-circuit.png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
 [^1]: This is nothing but the **transistors**.
 
 [^2]: 

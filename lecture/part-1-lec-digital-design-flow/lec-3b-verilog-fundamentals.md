@@ -2,7 +2,7 @@
 
 At this point, we should be very familiar with the Verilog. So, the focus of this section will be
 
-> Know how different statements written in Verilog are synthesized and how they are related to the powerful [RTL Transformation](../lec-2/lec-2b-rtl-transformations.md) skills we have learned.
+> Know how different statements written in Verilog are synthesized and how they are related to the powerful [RTL Transformation](lec-2b-rtl-transformations.md) skills we have learned.
 
 ## Verilog Coding
 
@@ -108,7 +108,7 @@ endmodule
 
 The basic modeling structure is shown as follows:
 
-<figure><img src="../../.gitbook/assets/basic-model-structure-verilog-module.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/basic-model-structure-verilog-module.png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
@@ -333,7 +333,7 @@ endmodule
 
 The synthesis of the above block of code will be:
 
-<figure><img src="../../.gitbook/assets/blocking-assignment-synthesis.png" alt="" width="493"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/blocking-assignment-synthesis.png" alt="" width="493"><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 There is a register in front of `sum` because `sum` is defined as a `reg` and it appears in an `always @(posedge)` block. But it is **not recommended** to do so, use **non-blocking assignment `<=`**  instead!
@@ -367,7 +367,7 @@ endmodule
 
 The synthesis of the above block of code will be:
 
-<figure><img src="../../.gitbook/assets/non-blocking-assignment-synthesis.png" alt="" width="487"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/non-blocking-assignment-synthesis.png" alt="" width="487"><figcaption></figcaption></figure>
 
 ### Continuous Assignment
 
@@ -453,7 +453,7 @@ end
 
 The synthesis tool will give us a **transparent high** latch shown as follows:
 
-<figure><img src="../../.gitbook/assets/inferred-latches-example.png" alt="" width="456"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/inferred-latches-example.png" alt="" width="456"><figcaption></figcaption></figure>
 
 The latch is **transparent high** is because `out` will update only when `sel` is high. Otherwise, it will remember its state.
 
@@ -472,7 +472,7 @@ end
 
 And this will give us the correct multiplexer we want:
 
-<figure><img src="../../.gitbook/assets/inferred-latches-example-2.png" alt="" width="437"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/inferred-latches-example-2.png" alt="" width="437"><figcaption></figcaption></figure>
 
 </details>
 

@@ -12,7 +12,7 @@ IC Design can be classified into the following three categories:
 
 The semiconductor industry can be summarized as follows:
 
-<figure><img src="../../.gitbook/assets/lec01-semiconductor-industry.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lec01-semiconductor-industry.png" alt="" width="563"><figcaption></figcaption></figure>
 
 Inside this image, there are some terms that are important and good to know
 
@@ -52,7 +52,7 @@ The trend in IC Design is the shift from **Board-level integration** to **Chip-l
 * In the past (Board-level): We needed a large motherboard (PCB) with separate chips for the processor, memory, and input/output controllers, all connected by wires on the board.
 * Now (SoC): All those separate components are shrunk down and printed onto a single piece of silicon. This is a System-on-Chip (SoC).
 
-<figure><img src="../../.gitbook/assets/lec01-soc.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lec01-soc.png" alt=""><figcaption></figcaption></figure>
 
 The large box represents the single silicon die containing everything that used to be on a motherboard:
 
@@ -68,7 +68,7 @@ SoCs are smaller, faster, cheaper to manufacture, and use much less power (cruci
 
 From a general perspective, we have experienced a widening gap between what we _want_ devices to do and the power available to do it.
 
-<figure><img src="../../.gitbook/assets/lec01-challenges.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lec01-challenges.png" alt=""><figcaption></figcaption></figure>
 
 &#x20;The above image shows three different rates of growth from 1980 to 2020:
 
@@ -128,7 +128,7 @@ We are designing in a power limited regime.
 
 The following chart tracks power consumption across different generations of chip technology (from old 0.25um to modern 45nm).
 
-<figure><img src="../../.gitbook/assets/lec01-leakage-problem.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lec01-leakage-problem.png" alt="" width="563"><figcaption></figcaption></figure>
 
 Notice how the <mark style="color:yellow;">yellow portion</mark> grows massively on the right side. In older chips, [**Leakage Power**](#user-content-fn-1)[^1] was tiny. In newer, smaller chips (45nm and below), leakage consumes nearly half the total power. So the trend is, as we make transistors smaller to make chips faster, they become "leaky," wasting electricity and generating heat even when doing nothing.
 
