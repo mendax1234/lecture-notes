@@ -48,7 +48,7 @@ The timing constraints provided to the synthesis tool is different from the cons
 
 ### `set_max/min_delay`
 
-Similar to the [`set_max/min_delay`](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/textbook-2-synopsys/constraining-designs/environment-and-constraints#set_max_delay) command we have seen in Synopsys, in Vivado, this command is to set maximum/minimum delays between any two points.
+Similar to the [`set_max/min_delay`](/broken/spaces/Sp0XaarBjbEX3JIMrRaR/pages/OZXlIFP6DBFkqX5tyZeG#set_max_delay) command we have seen in Synopsys, in Vivado, this command is to set maximum/minimum delays between any two points.
 
 #### CDC Issue
 

@@ -22,7 +22,7 @@ Usually, technology mapping can be divided into two categories:
 The library based technology mapping uses the **standard cells** available from the standard cell library.
 
 {% hint style="success" %}
-In EE4415, we have seen this kind of standard cell library (called [Technology library](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/textbook-2-synopsys/synopsys-technology-library/technology-libraries) by Synopsys).
+In EE4415, we have seen this kind of standard cell library (called [Technology library](/broken/spaces/Sp0XaarBjbEX3JIMrRaR/pages/Ge93lDdpR59nCb5wK779) by Synopsys).
 {% endhint %}
 
 For example, the following figure gives an example of available standard cells in the IBM standard-cell library used for the POWER4.

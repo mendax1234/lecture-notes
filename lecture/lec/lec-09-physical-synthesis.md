@@ -16,13 +16,13 @@ In the physical synthesis stage, we are trying to minimize signal delays, inter-
 ## Physical Design Styles
 
 {% hint style="info" %}
-This part is covered in EE4415 [Lec 03 — ASIC Design Style](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-3/lec-3a-digital-design-flow#design-styles).
+This part is covered in EE4415 [Lec 03 — ASIC Design Style](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-3a-digital-design-flow#design-styles).
 {% endhint %}
 
 ## Physical Design Flow
 
 {% hint style="info" %}
-This part is covered in EE4415 [Lec 03 — ASIC Design Flow](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-3/lec-3a-digital-design-flow#design-styles). For the final, please print out Lec slides P26-32.
+This part is covered in EE4415 [Lec 03 — ASIC Design Flow](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-3a-digital-design-flow#design-styles). For the final, please print out Lec slides P26-32.
 {% endhint %}
 
 ## Placement for FPGA
@@ -182,6 +182,8 @@ The general idea of this algorithm is that:
 
 ## Routing for FPGA
 
+> In this section, we will look at the FPGA routing architecture first and then have a glimpse of the routing algorithms used in FPGA.
+
 The terminologies used in routing for FPGAs is shown below.
 
 <figure><img src="../.gitbook/assets/routing-terminologies-fpga.png" alt=""><figcaption></figcaption></figure>
@@ -197,10 +199,117 @@ The FPGA routing channel architecture can be divided into three parts:
 {% hint style="success" %}
 **Router**
 
-Usually, there is a **router** that determines which programmable switch should be turned on to connect all the logic block input and output pints as required by the circuit.
+Usually, there is a **router** that determines which programmable switch should be turned on to connect all the logic block input and output pins as required by the circuit. There are two groups of FPGA routers:
+
+1. Combined global-detailed routers which determine a complete routing path in one step.
+2. Two step routing algorithms:
+   1. First perform [global routing](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-3a-digital-design-flow#routing)
+   2. Then peform [detailed routing](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-3a-digital-design-flow#routing)
 {% endhint %}
 
-The routing architecture can be represented as a **directed graph**.
+### Maze Routing
+
+Maze routing is originally developed for ASIC routing, but adapted for FPGA routing later. The first step of maze routing is to build the maze, or the so-called grid.
+
+1. The grid graph is a representation of the **layout**
+2. A layout is considered as a collection of unit side squares cells arranged in a $$h\times w$$ array.
+3. Each cell is represented by a **vertex** and there is an **edge** between two vertices if cells are adjacent.
+
+<figure><img src="../.gitbook/assets/build-a-maze.png" alt="" width="494"><figcaption></figcaption></figure>
+
+The objective of the algorithm is to find a **path** between source (S) and target (T) without using any **blocked vertex**.
+
+{% hint style="success" %}
+The blocked vertices are represented as filled black circles in the grid above.
+{% endhint %}
+
+The algorithm is similar to **breadth-first search**. We work on a grid graph and the time complexity is thus $$O(h\times w)$$. The algorithm can be vividly thought of as propagating a "wave" from source until it hits the sink and then we trace back to find the path.
+
+<figure><img src="../.gitbook/assets/maze-routing-hop.png" alt="" width="519"><figcaption></figcaption></figure>
+
+For example, the above image represents the maze routing for our example at the beginning of this section.
+
+{% hint style="warning" %}
+The values in the vertices represents the number of hops needed from the source vertex.
+{% endhint %}
+
+This algorithm is guaranteed to find the optimal solution.
+
+<details>
+
+<summary>Multiple Terminal Nets</summary>
+
+In the maze routing, what if we have more than two terminals. In other words, we have more than two **targets**. The solution is that
+
+> For the third terminal, we use the path between the first two as the **source** of the wave.
+
+<figure><img src="../.gitbook/assets/multiple-terminal-nets.png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
+### FPGA Routing-Resource Graph
+
+The second FPGA routing algorithm utilizes the FPGA routing-resource graph, which is nothing but another representation of the routing architecture where
+
+1. Each wire and each logic block pin becomes a **node** and
+2. Potential connections (switches) become **edges**
+
+<figure><img src="../.gitbook/assets/fpga-routing-resource-graph.png.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="warning" %}
+In this graph, the **either** one of the three vertical switches turning on will connect the red wire to P2.
+{% endhint %}
+
+In the [#maze-routing](lec-09-physical-synthesis.md#maze-routing "mention") approach, we assume that each edge[^5] has a cost of 1. However, in a resource-routing graph, the cost of each [network resource](#user-content-fn-6)[^6] may be different and it depends on
+
+1. how many other **nodes** want to use it.
+2. long wires may cost more than a short wire.
+
+Thus, multiple **iterations** may need to be performed before a valid solution is found. Some or all of the nets may be ripped-up and re-routed by different paths to
+
+* Resolve competition for routing resources
+* Improve circuit speed.
+
+However, in the first iteration, every connection is routed for minimum delay, even if it leads to congestion (overuse of some resources).
+
+{% hint style="warning" %}
+#### Congestion
+
+In a resource-routing grpah, the **congestion** happens when **one node** is used to more than 1 other nodes.
+{% endhint %}
+
+
+
+<figure><img src="../.gitbook/assets/congestion-solving.gif" alt=""><figcaption></figcaption></figure>
+
+At the first iteration, we find the shorted cost path from P1 -> P2 and P3 -> P4. However, there is a congestion in the middle purple node. To solve this congestion, we increase the cost of the congestion node from 1 to 3.
+
+#### Criticality of a path
+
+The criticality of a path from the source of net (S) to its target (T) is given by:
+
+$$
+\text{Crit}(S,T)=1-\frac{\text{slack}(S,T)}{D_{\text{max}}}
+$$
+
+* $$D_{\text{max}}$$ is the total delay of the path from source to target.
+* $$\text{Slack}(S,T)$$ is the amount of delay that could be added to this connection, before it affects the critical path delay. In other words, it is $$D_{\text{max}}$$ **minus** the logic gate delays of the source **and** target
+* $$\text{Crit}(S,T)$$ is between 0 and 1. The higher the value, the more critical the connection/path.
+
+<figure><img src="../.gitbook/assets/criticality-explanation.png" alt="" width="375"><figcaption></figcaption></figure>
+
+#### Cost of a node
+
+The cost of using a routing resource **node,** $$n$$, as part of a **connection** $$(S,T)$$ is given by:
+
+$$
+\text{Cost}(n)=\text{Crit}(S,T)\cdot \text{delay}(n)+(1-\text{Crit}(S,T))\cdot(\text{delay}(n)+h(n))\cdot p(n)
+$$
+
+* The first term is a delay sensitive term — the criticality of the connection times the **delay of the node**.
+* The second term is the congestion sensitive term
+  * $$h(n)$$ is the historic congestion (previous iteraions)
+  * $$p(n)$$ is the present congestion cost of the node: it is 1 if there is no overuse, and increases with overuse.
 
 [^1]: This netlist is also in HDL and in EE4415 Lab 02, we can see that this netlist is nothing but the structural HDL using the standard cells in the technology library. But they are nothing but some HDL module instantiations.
 
@@ -209,3 +318,7 @@ The routing architecture can be represented as a **directed graph**.
 [^3]: Can think of it as a rectangle canva with transistors organized into standard cells, and standard cells grouped into blocks and the wires connecting the standard cells.
 
 [^4]: The process is that we heat the solid state metal to a high temperature and cool it down very slowly according to a specific schedule. If the heating temperature is sufficiently high to ensure random state and the cooling process is slow enough to ensure thermal equilibrium, then the atoms will place themselves in a pattern that corresponds to the global energy minimum of a perfect crystal.
+
+[^5]: The edge in a grid approach is same as the wire in the routing thus it is same as the **node** in the FPGA routing-resource graph.
+
+[^6]: Here, it means the **nodes** in the resource-routing graph.
