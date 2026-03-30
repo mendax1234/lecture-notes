@@ -314,11 +314,11 @@ Suppose we have an interter chain with a given $$C_L$$ as below. How many stages
 
 <figure><img src="../.gitbook/assets/inverter-chain-opening-question.png" alt=""><figcaption></figcaption></figure>
 
-Intuitively, we might think that less gates means less propagation delay. However, we may soon find out this is **not true** in this case!
+Intuitively, we might intuitively think that less gates means less propagation delay. However, we may soon find out that this is **not true** in this case!
 
 #### Inverter with a Load
 
-In a real CMOS inverter, except for the external load $$C_L$$, it also has **internal load** which composes of two parts:
+In a real CMOS inverter, except for the external load $$C_L$$, it also has an **internal load** which is composed of two parts:
 
 1. the gate capacitance $$C_{\text{gin}}$$, and
 2. the intrinsic capacitance $$C_{\text{int}}$$
