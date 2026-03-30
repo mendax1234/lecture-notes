@@ -42,28 +42,6 @@ This part includes training the model to do the image classification and then ex
 It is highly recommended to go through the [Broken link](/broken/pages/APbqsDQrqDDhSUfaKLjG "mention") section before looking at this part!
 {% endhint %}
 
-### Training
-
-The process of training is done in Python but the output of this step is just a `best_model.pth` file.
-
-### Exporting
-
-The exporting process will take in the `best_model.pth` and then output two constant header files in C++ which will then used by the HLS. In this part, we export two things
-
-{% stepper %}
-{% step %}
-#### Weights
-
-Weights are stored in the `weights.h` file. This file is just a massive list of hardcoded, fixed-point numbers. It contains all the weights and biases for our Convolutional (Conv) and Fully Connected (FC) layers after they have been mathematically combined with the Batch Normalization layers.
-{% endstep %}
-
-{% step %}
-#### Look Up Table for the Sigmoid Function
-
-The look up table values are stored in the `lut_sigmoid.h`. This file contains exactly one array: `static const lut_t LUT_SIGMOID[256]`. Instead of forcing our hardware to calculate complex exponential math for the sigmoid [activation function](../neural-network/multilayer-perceptron.md#activation-function), this file acts as a pre-calculated cheat sheet. The hardware just looks up the answer.
-{% endstep %}
-{% endstepper %}
-
 ### Neural Network Architecture
 
 The neural network architecture is shown below.
@@ -78,7 +56,23 @@ The main layers can be classified into five categories
 4. Global Average Pooling Layer
 5. Fully Connected Layer
 
-The whole idea of the CNN is that we filter out the features using the convolution layer, strengthened it using the activation layer, compressed it using the max pooling layer and then&#x20;
+The whole idea of the CNN is that we filter out the features using the convolution layer, strengthened it using the activation layer, compressed it using the max pooling layer and fed into another bunch of convolution, activation and max pooling layer to get more features. Lastly, it is fed into the average pooling layer to get the final 64 features (instead of a huge 3-dimension cuboid) and these 64 features are passed through the fully connected layer to get 10 outputs indicating which category the input image belongs.
+
+<details>
+
+<summary>Qunatisation</summary>
+
+You might have noticed that between each layer, the data being passed needs to be stored in the memory and the bit width for each element might not be the same. For example, after the convolution layer, the multiply will double the bit width.
+
+What **quantisation** means here is that, we choose **one format** (for example Q6.10) to represent all the data that is transferred between the layers. When the data is coming out from the convolution layer, we use a **more bits** to store the intermediate result first and then truncate it back to the smaller data bit format.
+
+{% hint style="warning" %}
+Indeed, we might lost precision here, but this precision is not a big deal when our data is transmitting forward in this neural network. This is also why we care more about the throughput instead of the precision in AI.
+{% endhint %}
+
+However, in the **training process**, we might need to use the full data to do the back propagation.
+
+</details>
 
 #### Convolution Layer
 
@@ -107,6 +101,28 @@ In our application, we always pad our input cuboid is the padding of 1 and use s
 #### Activation Layer
 
 The activation layer will just apply the **activate function** on each element of the input cuboid so that the features in the output cuboid, which is nothing but another feature maps, is **strengthened**.
+
+### Training
+
+The process of training is done in Python but the output of this step is just a `best_model.pth` file.
+
+### Exporting
+
+The exporting process will take in the `best_model.pth` and then output two constant header files in C++ which will then used by the HLS. In this part, we export two things
+
+{% stepper %}
+{% step %}
+#### Weights
+
+Weights are stored in the `weights.h` file. This file is just a massive list of hardcoded, fixed-point numbers. It contains all the weights and biases for our Convolutional (Conv) and Fully Connected (FC) layers after they have been mathematically combined with the Batch Normalization layers.
+{% endstep %}
+
+{% step %}
+#### Look Up Table for the Sigmoid Function
+
+The look up table values are stored in the `lut_sigmoid.h`. This file contains exactly one array: `static const lut_t LUT_SIGMOID[256]`. Instead of forcing our hardware to calculate complex exponential math for the sigmoid [activation function](../neural-network/multilayer-perceptron.md#activation-function), this file acts as a pre-calculated cheat sheet. The hardware just looks up the answer.
+{% endstep %}
+{% endstepper %}
 
 ## HLS
 
