@@ -192,6 +192,14 @@ Another important concept used in this microarchitecture design is that, as long
 
 <figure><img src="../.gitbook/assets/mp-microarchitecture.svg" alt=""><figcaption></figcaption></figure>
 
+### Average Pooling
+
+<figure><img src="../.gitbook/assets/ap-microarchitecture.svg" alt=""><figcaption></figcaption></figure>
+
+### Activation (Relu)
+
+<figure><img src="../.gitbook/assets/relu-microarchitecture.svg" alt=""><figcaption></figcaption></figure>
+
 ### Matrix Multiplication
 
 In Lab 01, our `matrix_multiply` is not that easy to be understood. In the project time, I redesign the `matrix_multiply` unit to have a clear microarchitecture shown as follow
