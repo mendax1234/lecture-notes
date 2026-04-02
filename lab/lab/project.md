@@ -184,6 +184,14 @@ After getting the data, the rest stuff is nothing but designing the datapath. Ho
 Another important concept used in this microarchitecture design is that, as long as we have an `Enable` port for our memory, we can always present the data but whether the data will be written into the memory depends on that `Enable` signal.
 {% endhint %}
 
+### Fully Connected and Argmax
+
+<figure><img src="../.gitbook/assets/fc-microarchitecture.svg" alt=""><figcaption></figcaption></figure>
+
+### Max Pooling
+
+<figure><img src="../.gitbook/assets/mp-microarchitecture.svg" alt=""><figcaption></figcaption></figure>
+
 ### Matrix Multiplication
 
 In Lab 01, our `matrix_multiply` is not that easy to be understood. In the project time, I redesign the `matrix_multiply` unit to have a clear microarchitecture shown as follow
