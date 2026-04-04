@@ -6,7 +6,7 @@ metaLinks:
 
 # Lec 08 - Technology Mapping
 
-As we have seen in the previous lectures, technology mapping is done in the [**logic synthesis**](https://wenbo-notes.gitbook.io/ddca-notes/lec/lec-02-digital-system-design-and-verilog#substeps) step of the ASIC/FPGA Design Flow. **Technology mapping** converts the [**technology independent network**](#user-content-fn-1)[^1] resulting from [logic optimization](#user-content-fn-2)[^2] by matching pieces of the network with the **logic cells** that are available in a t**echnology-dependent cell library**.
+As we have seen in the previous lectures, technology mapping is done in the [**logic synthesis**](https://wenbo-notes.gitbook.io/ddca-notes/lec/lec-02-digital-system-design-and-verilog#substeps) step of the ASIC/FPGA Design Flow. **Technology mapping** converts the [**technology independent network**](#user-content-fn-1)[^1] resulting from [logic optimization](#user-content-fn-2)[^2] by matching pieces of the network with the **logic cells** that are available in a **technology-dependent cell library**.
 
 {% hint style="success" %}
 In other words, technology mapping can be thought of as the process of [**binding**](#user-content-fn-3)[^3] nodes in the network to cells in the library.
@@ -14,7 +14,7 @@ In other words, technology mapping can be thought of as the process of [**bindin
 
 Usually, technology mapping can be divided into two categories:
 
-1. **Library Base** technology mapping: Standard-cell based.
+1. **Library Based** technology mapping: Standard-cell based.
 2. **FPGA** Technology Mapping: Look-up Table/Multiplexer based.
 
 ## Library Based Technology Mapping
@@ -22,7 +22,7 @@ Usually, technology mapping can be divided into two categories:
 The library based technology mapping uses the **standard cells** available from the standard cell library.
 
 {% hint style="success" %}
-In EE4415, we have seen this kind of standard cell library (called [Technology library](/broken/spaces/Sp0XaarBjbEX3JIMrRaR/pages/Ge93lDdpR59nCb5wK779) by Synopsys).
+In EE4415, we have seen this kind of standard cell library (called [Technology library](https://app.gitbook.com/s/GFmM0S0eSJLSE772wZne/textbook-synopsys/synopsys-technology-library/technology-libraries) by Synopsys).
 {% endhint %}
 
 For example, the following figure gives an example of available standard cells in the IBM standard-cell library used for the POWER4.
@@ -95,10 +95,10 @@ Note that we partition based on the <i class="fa-circle-notch">:circle-notch:</i
 
 ### Pattern Matching
 
-Pattern matching is one of the crucial tasks for technology mapping as it determines which cells in the library may be used to implement a set of notes in the subject boolean network.
+Pattern matching is one of the crucial tasks for technology mapping as it determines which cells in the library **may** be used to implement a set of nodes in the subject boolean network.
 
 {% hint style="success" %}
-We can think of **patterns** as what we have while **subject boolean networks** are what we want to achieve using the what we have — patterns.
+We can think of **patterns** as what we have while **subject boolean networks** as what we want to achieve using the what we have — patterns.
 {% endhint %}
 
 There are two main types of matching:
@@ -108,7 +108,7 @@ There are two main types of matching:
 
 #### Structural Matching
 
-In the structural matching, we match the netowrk with library cells **recursively** until the entire network is matched.
+In structural matching, we match the network with library cells **recursively** until the entire network is matched.
 
 <figure><picture><source srcset="../.gitbook/assets/structural-mapping-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/structural-mapping-example-light.png" alt=""></picture><figcaption></figcaption></figure>
 
@@ -148,6 +148,8 @@ Match (u,v){                        // Matches isomorphic graphs too
 ```
 {% endcode %}
 
+> TODO: Need a more concrete example to explain the recursion above.
+
 The whole spirit of this algorithm is that if the root of the pattern is a leaf, it is okay. If the root of the pattern is **not** a leaf, but the vertex is a leaf, that is **not okay**. Below is an example of the structural pattern matching:
 
 <figure><img src="../.gitbook/assets/structural-pattern-matching-example.gif" alt=""><figcaption></figcaption></figure>
@@ -175,7 +177,7 @@ In boolean matching, let's consider a **cluster function** $$f$$ (our subject gr
 
 Matching of two functions $$f$$ and $$g$$ involves **comparing two functions for equivalence** and **finding an assignment** of the cluster variables to pattern inputs. When doing the function equivalence check, we can have three methods:
 
-1. Permutation of the input variables
+1. Permutation of the Input Variables
 2. Negation of Input Variables
 3. Negation of Output
 
@@ -216,7 +218,7 @@ Some examples of the boolean signatures are:
 Formally speaking, this boolean signature is defined to be a set of variables that are pair-wise interchangeable without affecting the logic.
 
 {% hint style="success" %}
-In other words, just treat as as the **number** of pair-wire interchangeable variables in a certain function[^4].
+In other words, just treat it as the **number** of pair-wise interchangeable variables in a certain function[^4].
 {% endhint %}
 
 For example
@@ -247,7 +249,7 @@ For example, in the expression below.
 
 {% code lineNumbers="true" %}
 ```verilog
-ab + c'b'
+ab + cb'
 ```
 {% endcode %}
 
@@ -368,7 +370,7 @@ This is also the equivalent of the [**covering**](lec-08-technology-mapping.md#c
 
 So the general steps are as follows:
 
-1. Iterate teh following steps until **all product term** are processed:
+1. Iterate the following steps until **all product term** are processed:
    1. Select the product term with most variables
    2. Place it into any table where it fits
    3. If no table has enough place, add a new table. e.g., a 3-bit function can be implemented using two 2-input LUT with an extra 2-to-1 multiplexer suppose we only have 2-input LUT available.
@@ -398,7 +400,7 @@ After the covering ([#bin-packing](lec-08-technology-mapping.md#bin-packing "men
 
 [^2]: This represents the **combinational logic optimization** and it won't be covered in EE4218. FYI, the classic textbook from Giovanni covers this in much greater detail.
 
-[^3]: Not the binding we have seen in the architectural synthesis step.
+[^3]: This is **not** the binding that we have seen in the architectural synthesis step.
 
 [^4]: The function here is either **cluster function** or **pattern function**.
 

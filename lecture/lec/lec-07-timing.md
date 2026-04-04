@@ -7,12 +7,12 @@ metaLinks:
 # Lec 07 - Timing
 
 {% hint style="info" %}
-Most of this part is covered in EE4415, but for the final, just print out the lecture slides as cheatsheet!
+Most of this part is covered in EE4415, but for the finals, just print out the lecture slides as cheatsheet!
 {% endhint %}
 
 ## Setup Time
 
-In the setup time analysis, we are more interested in analyzing the n-th rising clock edge and the (n+1)-th rising clock edge.
+In the setup time analysis, we are more interested in analyzing the n-th rising clock edge on the launching FF and the (n+1)-th rising clock edge on the capturing FF.
 
 <figure><picture><source srcset="../.gitbook/assets/setup-time-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/setup-time-light.png" alt=""></picture><figcaption></figcaption></figure>
 
@@ -29,7 +29,7 @@ If jitter is considered, this should be substracted from the data required time 
 
 ## Hold Time
 
-In the hold time analysis, we are more interested in anlyzing the **same** rising clock edge on the capturing register.
+In the hold time analysis, we are more interested in anlayzing the **same** rising clock edge on the capturing register.
 
 <figure><picture><source srcset="../.gitbook/assets/hold-time-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/hold-time-light.png" alt="" width="563"></picture><figcaption></figcaption></figure>
 
