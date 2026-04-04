@@ -10,20 +10,16 @@ We assume here, for the sake of simplicity, that registers are edge-triggered an
 
 The sequential circuit model may have either a **behavioral** or a **structural** flavor, or a combination of both. Whereas the behavior of combinational logic circuits can be expressed by **logic functions**, the behavior of sequential circuits can be captured by _**traces**_, i.e., by input and output sequences. In this section, we will introduce two ways to represent the **synchronous circuit behavior.**
 
-{% hint style="success" %}
-Almost every modern circuit can be thought of as a FSM, thus the techiques like retiming, and RTL Transformations can be used on almost any RTL circuit!
-{% endhint %}
-
 {% stepper %}
 {% step %}
 ### State-Based Model
 
-A convenient way to express the circuit behavior is by means of **finite-state machine models/state-based models.** One example will be the **state transition diagrams**, as shown in Figure 9.2 (a). **State transition diagrams** encapsulate the **traces** that the corresponding circuit can **accept** and **produce**. Thus, **state-based representations** have a **behavioral flavor**.
+A convenient way to express the circuit behavior is by means of **finite-state machine models/state-based models.** One example will be the **state transition diagrams**, as shown in Figure 9.2 (a). **State transition diagrams** encapsulate the **traces** that the corresponding circuit can accept and produce. Thus, **state-based representations** have a **behavioral flavor**.
 
 <figure><img src="../../.gitbook/assets/state-transition-diagram.png" alt="" width="462"><figcaption><p>Figure 9.2(a) State transition diagram</p></figcaption></figure>
 
 {% hint style="warning" %}
-In the diagram above, just treat r as 1 and r' as 0, this will make the state transition diagram easier to be understodd. This image above is actually composed of one state transition diagram and its corresponding state transition table.
+In the diagram above, just treat r as 1 and r' as 0, this will make the state transition diagram easier to understand. This image above is actually composed of one state transition diagram and its corresponding state transition table.
 {% endhint %}
 
 While many optimization techniques have been proposed, this finite-state machine representation **lacks** a **direct relation** between
@@ -96,6 +92,10 @@ And for each of the model we talked about just now, we will cover the following 
 * The Structural model
   * Retiming
   * Synchronous/Network/RTL transformations
+
+{% hint style="warning" %}
+In the real design, I personally recommend to use the structural model to model a synchronous circuit and use the RTL transformation to optimize it. The state-based model is nothing but a normal FSM and will only be useful to model the control unit to generate the control signals. Try not to use FSM to model a datapath!
+{% endhint %}
 
 <details>
 

@@ -1,6 +1,6 @@
 # Sequential Circuit Optimization using Network Models
 
-We already mentioned in the [**introduction**](/broken/pages/va8ty9egNJnyz60xrHZ2) **to this chapter** that the **behavior of sequential circuits** can be described by **traces**, i.e., by **sequences of inputs and outputs**.
+We already mentioned in the [introduction](./) to this chapter that the **behavior of sequential circuits** can be described by **traces**, i.e., by **sequences of inputs and outputs**.
 
 * These sequences correspond to those that the related **finite-state machine models** can **accept and generate**.
 
@@ -14,7 +14,7 @@ We assume that the observed **operation of the network** begins at time $$n = 0$
 
 #### Some Notations
 
-Now are introduce two notations that will be used in representing the **network models** as logic expressions
+Now we will introduce two notations that will be used in representing the **network models** as logic expressions
 
 {% stepper %}
 {% step %}
@@ -22,7 +22,7 @@ Now are introduce two notations that will be used in representing the **network 
 
 We denote sequences by **time-labeled variables**.
 
-* For example, $$x(n)$$ denotes **variable x at time n**.
+* For example, $$x(n)$$ denotes **variable** $$x$$ **at time** $$n$$.
 * A sequence of values of variable $$x$$ is denoted by $$x^{(n)}\forall n$$ in an **interval of interest**.
 {% endstep %}
 
@@ -168,7 +168,7 @@ The **most general approach** to **synchronous logic optimization** is to perfor
 We present **retiming** first. Then we survey **recent results** on **synchronous logic transformations** as well as on **enhancements** to the original **retiming method**. We conclude this section by describing the **specification of don’t-care conditions** for **optimizing synchronous networks**.
 
 {% hint style="warning" %}
-The combination of **retiming** and **network transformation** is combined into one thing call "[RTL Transformation](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-2/lec-2b-rtl-transformations)" which is introduced in NUS EE4415.
+The combination of **retiming** and **network transformation** is combined into one thing call "[RTL Transformation](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-2b-rtl-transformations)" which is introduced in NUS EE4415.
 {% endhint %}
 
 ## Retiming
@@ -437,7 +437,7 @@ We start from the V<sub>d</sub> and writing the **data arrival time** for each v
 1. For V<sub>e</sub>, we write 3+7=10.
 2. For V<sub>f</sub>, we write 10+7=17.
 
-As 17>13, we must **add a register** between V<sub>e</sub> and V<sub>f</sub>. To do so, let's use the [cutset retiming](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-2/lec-2b-rtl-transformations#cutset-retiming) we have learned in EE4415! So, we draw a **gaussian surface** around the V<sub>e</sub>, V<sub>d</sub>, and V<sub>c</sub>, then we move the register on the edge from V<sub>b</sub> -> V<sub>c</sub> to the edge from V<sub>e</sub> -> V<sub>f</sub>. Done!
+As 17>13, we must **add a register** between V<sub>e</sub> and V<sub>f</sub>. To do so, let's use the [cutset retiming](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-2b-rtl-transformations#cutset-retiming) we have learned in EE4415! So, we draw a **gaussian surface** around the V<sub>e</sub>, V<sub>d</sub>, and V<sub>c</sub>, then we move the register on the edge from V<sub>b</sub> -> V<sub>c</sub> to the edge from V<sub>e</sub> -> V<sub>f</sub>. Done!
 
 After that, we start from V<sub>f</sub> and found out that the data arrival time at V<sub>g</sub> is 14 > 13, we need to add another register here. In this case, in order not to make the other paths violate our target, we apply the **cutset retiming again** and bring the register from V<sub>h</sub> -> V<sub>a</sub> to V<sub>f</sub> -> V<sub>g</sub>. Now we are done, the critical path now is 13.
 

@@ -17,15 +17,19 @@ The state minimization skill that we learned here **cannot be done** by the EDA 
 
 ## State Minimization
 
-> TODO: Prof Rajesh's m states, n state bits avaiable, how many encoding possibilities, $$n\ge\log_2m$$.
-
 The **state minimization problem** aims at reducing the number of **machine states**. This leads to a reduction in the size of the **state transition graph**. **State reduction** may correlate to a reduction of the number of **storage elements**. (When states are **encoded** with a **minimum number of bits**, the number of **registers** is the **ceiling** of the logarithm of the number of states.) The reduction in **states** correlates to a reduction in **transitions**, and hence to a reduction of **logic gates**.
 
 {% hint style="warning" %}
 In Harris and Harris [DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/finite-state-machines#example-fsm-state-encoding), we have seen that using one-hot encoding can reduce the logic gates used. Here, both the normal binary encoding and one-hot encoding has the **same number of** states. So, the last sentence "the reduction in states ..." still holds. We will discuss about [state encoding](synchronous-circuit-optimization-using-state-based-models.md#state-encoding) later in this section.
 {% endhint %}
 
-**State minimization** can be defined informally as deriving a **finite-state machine** with **similar behavior** and a **minimum number of states**. A more precise definition relies on choosing to consider **completely** (or **incompletely**) specified **finite-state machines**. This decision affects the **formalism**, the **problem complexity**, and the **algorithms**. Hence, **state minimization** is described separately for both cases in the following sections.
+**State minimization** can be defined informally as deriving a finite-state machine with **similar behavior** and a **minimum number of states**.
+
+{% hint style="danger" %}
+The sentence above which is the definition of state minimization might be the most important take away from this section!
+{% endhint %}
+
+A more precise definition relies on choosing to consider **completely** (or **incompletely**) specified finite-state machines. This decision affects the formalism, the problem complexity, and the algorithms. Hence, state minimization is described separately for both cases in the following sections.
 
 * In a **Completely Specified FSM:**
   * No Don't care conditions
@@ -48,17 +52,17 @@ This raises a natural question: **does a meaningful trade-off exist?** Specifica
 
 ### Optimization for Completely Specified FSM
 
-When considering **completely specified finite-state machines**, the **transition function** $$\delta$$ and the **output function** $$\lambda$$ are specified for each pair $$(\text{input}, \text{state}) \in X \times S$$. Two **states** are **equivalent** if the **output sequences** of the finite-state machine, initialized in the two states, **coincide for any input sequence**. Equivalency is checked by using the result of the following **theorem**.
+When considering **completely specified finite-state machines**, the transition function $$\delta$$ and the output function $$\lambda$$ are specified for each pair $$(\text{input}, \text{state}) \in X \times S$$. Two state**s** are **equivalent** if the **output sequences** of the finite-state machine, initialized in the two states, coincide for **any input sequence**. Equivalency is checked by using the result of the following theorem.
 
-> **Theorem 9.2.1.** Two **states** of a **finite-state machine** are **equivalent** if and only if, for any **input**, they have **identical outputs** and the corresponding **next states** are **equivalent**.
+> **Theorem 9.2.1.** Two states of a finite-state machine are **equivalent** if and only if, for **any input**, they have **identical outputs** and the corresponding **next states** are **equivalent**.
 
-Now, we will introduce three methods to do the state optimization. The goal is to find the final partition set.
+Now, we will introduce three methods to do the state optimization. The goal is to find the **final partition set**.
 
 #### Normal Method
 
 > TODO: Missing formal notation because the lack of the following maths from Discrete Maths
 >
-> 1. Symmetic, reflexive, transitive
+> 1. Symmetric, reflexive, transitive
 > 2. Equivalence classes.
 
 The normal method has the following three steps:
@@ -73,19 +77,19 @@ The normal method has the following three steps:
 
 <figure><img src="../../.gitbook/assets/state-minimization-normal-1.png" alt=""><figcaption><p>Figure 9.3 State diagram</p></figcaption></figure>
 
-Consider the **state diagram** shown in **Figure 9.3**, whose **state table** is reported next:
+Consider the **state diagram** shown in Figure 9.3, whose state table is reported next:
 
 <figure><img src="../../.gitbook/assets/state-table.png" alt="" width="560"><figcaption></figcaption></figure>
 
-The **state set** can be **partitioned** first according to the **outputs**, i.e.,
+The **state set** can be partitioned first according to the outputs, i.e.,
 
 <p align="center"><span class="math">\Pi_1 = \bigl\{ \{s_1, s_2\}, \{s_3, s_4\}, \{s_5\} \bigr\}</span></p>
 
-Then we check each **block** of $$\Pi_1$$ to see if the corresponding **next states** are in a **single block** of $$\Pi_1$$ for any **input**. The **next states** of $$s_1$$ and $$s_2$$​ **match**. The **next states** of $$s_3$$ and $$s_4$$ are in **different blocks**. Hence, the **block** $$\{s_1, s_3, s_4\}$$ must be **split**, yielding:
+Then we check each **block** of $$\Pi_1$$ to see if the corresponding **next states** are in a **single block** of $$\Pi_1$$ for any **input**. The **next states** of $$s_1$$ and $$s_2$$​ **match**. The **next states** of $$s_3$$ and $$s_4$$ are in **different blocks**. Hence, the block $$\{s_3, s_4\}$$ must be **split**, yielding:
 
 <p align="center"><span class="math">\Pi_2 = \bigl\{ \{s_1, s_2\}, \{s_3\}, \{s_4\}, \{s_5\} \bigr\}</span></p>
 
-When checking the **blocks** again, we find that no **further refinement** is possible, because the **next states** of $$s_1$$​ and $$s_2$$​ **match**. Hence, there are **four classes of compatible states**. We denote $$\{s_1, s_2\}$$ as $$s_{12}$$ in the following **minimal table**:
+When checking the blocks again, we find that no **further refinement** is possible, because the **next states** of $$s_1$$​ and $$s_2$$​ **match**. Hence, there are **four classes of compatible states**. We denote $$\{s_1, s_2\}$$ as $$s_{12}$$ in the following **minimal table**:
 
 <figure><img src="../../.gitbook/assets/minimal-state-table.png" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -101,7 +105,7 @@ The complexity of this algorithm is $$O(n_s^2)$$.
 
 #### Hopcroft's method
 
-In the **algorithm** described above, the **refinement of the partitions** is done by looking at the **transitions** from the **states** in the **block under consideration** to other **states**. **Hopcroft** suggested a **partition refinement method** where the **transitions into the states** of the **block under consideration** are considered.
+In the **algorithm** described above, the **refinement of the partitions** is done by looking at the **transitions** from the **states** in the **block under consideration** to other **states**. Hopcroft suggested a **partition refinement method** where the **transitions into the states** of the **block under consideration** are considered.
 
 <details>
 
@@ -157,33 +161,28 @@ We can first draw an **lower-triangular** matrix like below:
 
 ### Optimization for Incompletely Specified FSM
 
-In the case of **incompletely specified finite-state machines**, the **transition function** $$\delta$$ and the **output function** $$\lambda$$ are not specified for some (input, state) pairs. Equivalently, don’t care conditions denote the unspecified transitions and outputs.They model the **knowledge** that some **input patterns** cannot occur in some **states**, or that some **outputs** are not observed in some **states** under certain **input conditions**.
+In the case of **incompletely specified finite-state machines**, the transition function $$\delta$$ and the output function $$\lambda$$ are not specified for some (input, state) pairs. Equivalently, don’t care conditions denote the unspecified transitions and outputs.They model the knowledge that some **input patterns** cannot occur in some states, or that some **outputs** are not observed in some states under certain input conditions.
 
-An **input sequence** is said to be **applicable** if it does not lead to any **unspecified transition**. Two **states** are **compatible** if the **output sequences** of the **finite-state machine**, initialized in the two states, **coincide** whenever both **outputs** are specified and for any **applicable input sequence**. The following **theorem** applies to **incompletely specified finite-state machines**.
+An **input sequence** is said to be **applicable** if it does not lead to any **unspecified transition**. Two **states** are **compatible** if the **output sequences** of the **finite-state machine**, initialized in the two states, **coincide** whenever both **outputs** are specified and for any **applicable input sequence**. The following theorem applies to **incompletely specified finite-state machines**.
 
 > **Theorem 9.2.2.** Two **states** of a **finite-state machine** are **compatible** if and only if, for any **input**, the corresponding **output functions** **match** when both are specified, and the corresponding **next states** are **compatible** when both are specified.
 
 {% hint style="success" %}
 In other words, the **compatibility rule** can be summarized as follows:
 
-1. **Output Rule (Immediate Check)**
-
-* **Rule:** The **outputs** produced by $$S_1$$ and $$S_2$$​ for the same **input** must not **contradict** each other. (The first number is the output of $$S_1$$ and the second number is the output of $$S_2$$)
-  * **✅ Compatible:**
-    * 1 vs 1 -> outputs **match**.
-    * 1 vs x -> outputs **match** (Don't Care).
-  * **❌ Incompatible:**
-    * 0 vs 1 -> outputs **conflict**.
-
-2. **Next State Rule (Future Check)**
-
-* **Rule:** The **next states** $$N_1$$​ and $$N_2$$ that $$S_1$$​ and $$S_2$$​ transition to must form a **compatible pair**.
-  * **✅ Compatible:**
-    * Both go to the **same state** (e.g., $$S_1 \to S_5$$​ and $$S_2 \to S_5$$).
-    * One goes to a **Don't Care state** (e.g., $$S_1 \to S_5$$ and $$S_2 \to x(\text{Don't Care})$$ or vice versa).
-    * They go to **different states**, but the **next states themselves are compatible** (e.g., $$S_1 \to S_3$$​, $$S_2 \to S_4$$​, provided $$S_3$$ and $$S_4$$​ are compatible).
-  * **❌ Incompatible:**
-    * They go to **different states** that are **incompatible**.
+1. **Output Rule (Immediate Check):** The **outputs** produced by $$S_1$$ and $$S_2$$​ for the same **input** must not **contradict** each other. (The first number is the output of $$S_1$$ and the second number is the output of $$S_2$$)
+   * **Compatible:**
+     * 1 vs 1 -> outputs **match**.
+     * 1 vs x -> outputs **match** (Don't Care).
+   * **Incompatible:**
+     * 0 vs 1 -> outputs **conflict**.
+2. **Next State Rule (Future Check):** The **next states** $$N_1$$​ and $$N_2$$ that $$S_1$$​ and $$S_2$$​ transition to must form a **compatible pair**.
+   * **Compatible:**
+     * Both go to the **same state** (e.g., $$S_1 \to S_5$$​ and $$S_2 \to S_5$$).
+     * One goes to a **Don't Care state** (e.g., $$S_1 \to S_5$$ and $$S_2 \to x(\text{Don't Care})$$ or vice versa).
+     * They go to **different states**, but the **next states themselves are compatible** (e.g., $$S_1 \to S_3$$​, $$S_2 \to S_4$$​, provided $$S_3$$ and $$S_4$$​ are compatible).
+   * **Incompatible:**
+     * They go to **different states** that are **incompatible**.
 {% endhint %}
 
 > TODO: Lack of maths knowledge to include the formal definition here. And how to find all compatible pairs?
@@ -249,11 +248,11 @@ For this reason, **state encoding techniques** for **two-level logic** and **mul
 
 <summary>Appreciate the complexity of state encoding</summary>
 
-Suppose we have $$m$$ states and $$n$$ available bits to encode these states. The constratin is given as follows,
+Suppose we have $$m$$ states and $$n$$ available bits to encode these states. The constraint is given as follows,
 
 <p align="center"><span class="math">\log_2m\le n\le m</span></p>
 
-How many possible encoding we can have?
+How many possible encodings can we have?
 
 ***
 
@@ -268,9 +267,9 @@ This huge number implies that the **state encoding** problem are NP-hard and **h
 
 ### State Encoding for Two-Level Circuits
 
-The **two-level circuits** are usually represented in the [**sum-of-product**](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/combinational-logic-design/boolean-equations#sum-of-products-form) form, e.g., $$F = (A \cdot B) + (C \cdot D)$$. In Harris and Harris [DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/digital-building-blocks/logic-arrays#programmable-logic-array), we have seen that
+The **two-level circuits** are usually represented in the [sum-of-product](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/combinational-logic-design/boolean-equations#sum-of-products-form) form, e.g., $$F = (A \cdot B) + (C \cdot D)$$. In Harris and Harris [DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/digital-building-blocks/logic-arrays#programmable-logic-array), we have seen that
 
-> _Programmble logic arrays (PLAs)_ implement two-level combinational logic in sum-of-products (SOP) form. PLAs are built from and AND array followed by an OR array
+> _Programmble logic arrays (PLAs)_ implement two-level combinational logic in sum-of-products (SOP) form. PLAs are built from an AND array followed by an OR array
 
 **Two-level circuits** have been the object of investigation for **several decades**. The **circuit complexity** of a **sum-of-products representation** is related to the number of **inputs**, **outputs**, and **product terms**. For **PLA-based implementations**, these quantities can be used to compute readily the **circuit area** and the **physical length of the longest path**, which correlates with the **critical path delay**.
 
@@ -290,7 +289,7 @@ The _quote_ above focuses on the **combinational component**, so let's consider 
    * **Primary Outputs**: The actual signals going out to the world (e.g., an LED or motor).
    * **Next State**: Signals sent back to the registers to tell them "where to go next clock cycle."
 
-From here, we can clearly see that the **total number of I/O** in the combinational logic is two the number of $$n_b$$ plus the primary inputs and outputs.
+From here, we can clearly see that the **total number of I/O** in the combinational logic is two the number of $$n_b$$ (state encoding length) plus the primary inputs and outputs.
 
 > **Rule 2**: The number of **product terms** to be considered is the size of a **minimum (or minimal) sum-of-products representation**.
 
