@@ -97,3 +97,106 @@ More specifically, the Euler paths in the PUN and PDN must be **consistent**, wh
 The Euler path will determine how we order the input gates. For example,
 
 <figure><img src="../.gitbook/assets/euler-path-example.png" alt=""><figcaption></figcaption></figure>
+
+## Parasitics
+
+In this part, we will look where the load capacitances come from, basically we will talk about the following two parts:
+
+* MOS Capacitance
+* The interconnect (wiring)
+
+### MOS Capacitance
+
+Usually, the intrinsic capacitance from the MOS transistor comes from the following three parts:
+
+1. Structure capacitances (overlap capacitance)
+2. Channel capacitances
+3. Depletion Region capacitances of the reverse-biased pn-junctions of the drain and source. Also called diffusion capacitances.
+
+After that, we will see how these three capacitances are put together to give us the MOS capacitance model as well as the parasitic capacitances in CMOS inverter.
+
+#### MOS Structure Capacitance
+
+If we see from the top-down view of our CMOS gate, we will see the diagram below
+
+<figure><img src="../.gitbook/assets/mos-structure-capacitance.png" alt=""><figcaption></figcaption></figure>
+
+There is some overlapped region between tthe gate and two doped active regions and this is where the MOS structure capacitances come from. This overlap capacitance is denoted as $$C_{\text{GSO}}/C_{\text{GDO}}$$ and it can be calculated by
+
+$$
+C_{\text{GSO}}=C_{\text{GDO}}=C_{\text{OX}}\cdot x_d\cdot W
+$$
+
+The term $$x_d$$ is the length of the overlapped region as shown above and it is dependent on the **process** used to make that CMOS gate. Thus, sometimes we can treat $$x_d$$ as 1 and get the **overlap capacitance per channel width**.
+
+$$
+C_{\text{GSO}}=C_{\text{GDO}}=C_{\text{OX}}\cdot W
+$$
+
+#### MOS Channel Capacitance
+
+<figure><img src="../.gitbook/assets/mos-channel-capacitance.png" alt=""><figcaption></figcaption></figure>
+
+In the diagram above, we can see four types of capacitances:
+
+1. $$C_{\text{GCS}}$$: Gate-to-channel capacitance on the **source** side
+2. $$C_{\text{GCD}}$$: Gate-to-channel capacitance on the **drain** side
+3. $$C_{\text{GCB}}$$: Gate-to-substrate capacitance. It depends upon the operating region and the terminal voltages.
+4. $$C_{\text{GSO}}$$ and $$C_{\text{GDO}}$$ are the overlap capacitances.
+
+The total gate-to-channel capacitance $$C_{\text{GC}}$$ is
+
+$$
+C_{\text{GC}}=C_{\text{GCS}}+C_{\text{GCD}}+C_{\text{GCB}}
+$$
+
+<details>
+
+<summary>Average Distribution of Channel Capacitance</summary>
+
+This information is very useful and can be shown in the following table:
+
+<figure><img src="../.gitbook/assets/average-distribution-channel-capacitance.png" alt=""><figcaption></figcaption></figure>
+
+* $$C_{\text{GC}}$$: Gate-to-channel capacitance
+* $$C_{\text{G}}$$: Total gate capacitance ($$C_{\text{GC}}$$ + Overlap capacitances)
+
+An interesting fact is that the $$C_{\text{GC}}$$ is same in the cutoff and linear region, but becomes a little bit smaller when operating in the saturation region. This is because of the pinch-off effect/[channel length modulation](lec-1-mosfet-and-cmos-process.md#channel-length-modulation) and this will make the inversion layer non-linear.
+
+</details>
+
+#### MOS Diffusion Capacitances
+
+This junction or diffusion capacitance comes from the reverse-biased source-body and drain-body pn-junctions.
+
+<figure><img src="../.gitbook/assets/mos-diffusion-capacitances.png" alt="" width="563"><figcaption></figcaption></figure>
+
+#### MOS Capacitance Model
+
+To incorporate all the three types of capacitances we have mentioned above, we will see the MOS capacitance model shown as follows:
+
+<figure><img src="../.gitbook/assets/mos-capacitance-model.png" alt=""><figcaption></figcaption></figure>
+
+And to put it together in the the CMOS inverter we've seen, these capacitances are shown as below.
+
+<figure><img src="../.gitbook/assets/parasitic-cap-in-cmos-inverter.png" alt=""><figcaption></figcaption></figure>
+
+### Wire
+
+The wire in the schematic is quite different from the real physical wires in the circuit.
+
+<figure><img src="../.gitbook/assets/wire-schemetic-physical.png" alt=""><figcaption></figcaption></figure>
+
+And the wire with parasitics will look like below
+
+<figure><img src="../.gitbook/assets/wire-with-parasitics.png" alt=""><figcaption></figcaption></figure>
+
+However, depending on the use cases, we can sometimes simplify the wire model
+
+1. Inductive effects can be ignored if
+   1. the resistance of the wire is substantially large enough
+   2. the rise and fall times of the applied signals are not extremely fast
+2. A capacitance-only model can be used when
+   1. the wire is short, or the cross-section is large, or the interconnect material has low resistivity
+3. Inter-wire capacitance can be ignored when
+   1. the separation between neighboring wires is large, or when the wires run together for only a short distance. In this case, all the parasitic capacitance are between the interconnect and ground.
