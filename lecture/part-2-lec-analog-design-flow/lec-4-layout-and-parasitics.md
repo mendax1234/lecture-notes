@@ -45,7 +45,7 @@ As the CMOS diagram might be a bit too complex, we have the so-called **stick di
 
 #### Stick Layout
 
-Similarly, as the real layout is quite complex, we usually draw the two **stick layouts** to make our life simpler. The steps to draw a stick layout are as follows:
+Similarly, as the real layout is quite complex, we usually draw the **stick layout** to make our life simpler. The steps to draw a stick layout are as follows:
 
 1. Make sure you have or draw the static CMOS circuit with the labeling of transistors, like A, B, C, D, etc.
 2. Draw the long vertical line to represent the gates and label them as A, B, C, D, etc, exactly match with the number of labelled transistors in the first step.
@@ -59,7 +59,7 @@ For example,
 
 <figure><img src="../.gitbook/assets/Screenshot 2026-03-27 203259.png" alt=""><figcaption></figcaption></figure>
 
-The first red dashed circle is to denote that transistor A and B are short circuit but are not connected with the metal coming from the $$V_{\text{DD}}$$ PMOS A and C.
+The first red dashed circle is to denote that transistor A and B are short circuit but are not connected with the metal coming from the $$V_{\text{DD}}$$ to PMOS A and C.
 
 #### Logic Graph
 
@@ -97,6 +97,10 @@ More specifically, the Euler paths in the PUN and PDN must be **consistent**, wh
 The Euler path will determine how we order the input gates. For example,
 
 <figure><img src="../.gitbook/assets/euler-path-example.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="success" %}
+The [logic2stick](https://logic2stick.vercel.app/) website is very useful and can help you with Q2 in HW2!
+{% endhint %}
 
 ## Parasitics
 

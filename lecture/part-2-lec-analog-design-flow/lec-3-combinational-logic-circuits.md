@@ -131,7 +131,7 @@ Because of this, we say the analysis is difficult.
 
 > This part is essentially the [sizing](https://app.gitbook.com/s/6nPr3SObC3azazbFhfgF/lec/lec-03-cmos-logic#sizing-for-symmetry) part in CG2027, but presented in more details using a more systematic way.
 
-As we might have seen above, in the CMOS logic gates, there are a bunch of avaiable low-resistance paths, all these paths will give us different delays if we didn't size the transistors properly. Thus, to make our life easier,
+As we might have seen above, in the CMOS logic gates, there are a bunch of available low-resistance paths, all these paths will give us different delays if we didn't size the transistors properly. Thus, to make our life easier,
 
 1. We use the delay of an inverter[^3] as a benchmark.
 2. We choose the transistor sizes (in logic gate) in such a way that the **worst-case** gate delay is same as that of the benchmark inverter.
@@ -142,7 +142,7 @@ In other words, we should size the logic gates to have the same $$t_{\text{pLH}}
 
 #### Build the benchmark
 
-Assume that the mobility constant $$k_n'\div k_p'=-3$$, meaning that the mobility of electrons is 3 times faster than the mobility of holes or more intuitively, it means that NMOS is 3 times stronger than PMOS. We denote that $$R_{\text{eqn}}$$ and $$R_{\text{eqp}}$$ are the **on resistance** of NMOS and PMOS transistor when $$(W/L)_{n/p}=1$$, which are nothing but two constants. We also denote $$R_p$$ and $$R_n$$ as the **currnet on resistance** of the each one of the NMOS and PMOS transistors in the CMOS logic gates, thus we can change their values by sizing the transistors.
+Assume that the mobility constant $$k_n'\div k_p'=-3$$, meaning that the mobility of electrons is 3 times faster than the mobility of holes or more intuitively, it means that NMOS is 3 times stronger than PMOS. We denote that $$R_{\text{eqn}}$$ and $$R_{\text{eqp}}$$ as the **on resistance** of NMOS and PMOS transistor when $$(W/L)_{n/p}=1$$, which are nothing but two **constants**. We also denote $$R_p$$ and $$R_n$$ as the **current on resistance** of each **one** of the NMOS and PMOS transistors in the CMOS logic gates, thus we can change their values by sizing the transistors.
 
 {% stepper %}
 {% step %}
@@ -173,7 +173,7 @@ t_{\text{pHL}}&=0.69R_{n}C
 \end{align*}
 $$
 
-Now, if the size of our PMOS and NMOS is $$(W/L)_{n/p}=1$$, we will have $$R_p=R_{\text{eqp}}$$ and $$R_n=R_{\text{eqn}}$$. Thus, $$t_{\text{pLH}}=\frac{1}{3}t_{\text{pHL}}$$. This is **not our goal**! To solve this, we need to size the PMOS to to 3 times larger sp that $$R_p=\frac{1}{3}R_{\text{eqp}}=R_{\text{eqn}}$$.
+Now, if the size of our PMOS and NMOS is $$(W/L)_{n/p}=1$$, we will have $$R_p=R_{\text{eqp}}$$ and $$R_n=R_{\text{eqn}}$$. Thus, $$t_{\text{pLH}}=\frac{1}{3}t_{\text{pHL}}$$. This is **not our goal**! To solve this, we need to size the PMOS to 3 times larger so that $$R_p=\frac{1}{3}R_{\text{eqp}}=R_{\text{eqn}}$$.
 
 {% hint style="warning" %}
 This is our 1x Inverter, which is also our benchmark. In Inv 1x, we assume that we size the PUN and PDN to have a worst case equivalent **resistance** same as $$R_{\text{eqn}}$$. That's why we size the PMOS to match the NMOS just now instead of sizing the NMOS to match the PMOS.
@@ -223,7 +223,7 @@ $$
 t_{\text{pLH}}=0.69\times2R_nC=0.69\times2R_{\text{eqn}}C
 $$
 
-TO make the PDN have the worst-case on resistance of $$R_{\text{eqn}}$$, we just need to make the widt of NMOS A, B, C to be 2. Thus $$R_n=\frac{1}{2}R_{\text{eqn}}$$.
+TO make the PDN have the worst-case on resistance of $$R_{\text{eqn}}$$, we just need to make the width of NMOS A, B, C to be 2. Thus $$R_n=\frac{1}{2}R_{\text{eqn}}$$.
 
 {% hint style="danger" %}
 We don't need to size the NMOS D, can just leave it as 1 as it won't cause a worst case situation.
