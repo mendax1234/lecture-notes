@@ -27,7 +27,7 @@ This part is covered in EE4415 [Lec 03 — ASIC Design Flow](https://app.gitbook
 
 ## Placement for FPGA
 
-In the [ASIC design flow](https://wenbo-notes.gitbook.io/ee4415-icd-notes/part-1-lec-digital-design-flow/lec-3/lec-3a-digital-design-flow#placement), we hav seen a rough idea what is placement in ASICs. Here, we will dicuss the placement for FPGAs, which is a bit different from ASICs. The main difference is that, in FPGA, the "standard cell" is the CLB. Thus, after floorplanning, we will have a big block containing many of smaller parts, what the placement algorithms does is to find the position of the CLB to put these smaller parts.
+In the [ASIC design flow](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-3a-digital-design-flow#placement), we have had a rough idea what placement is in ASICs. Here, we will dicuss the placement for FPGAs, which is a bit different from ASICs. The main difference is that, in FPGA, the "standard cell" is the CLB. Thus, after floorplanning, we will have a big block containing many of smaller parts, what the placement algorithm does is to find the position of the CLB to put these smaller parts.
 
 <figure><picture><source srcset="../.gitbook/assets/placement-fpga-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/placement-fpga-light.png" alt="" width="563"></picture><figcaption></figcaption></figure>
 
@@ -63,15 +63,15 @@ Given the position of the CLBs, the measure of the wire-length between two CLBs 
 1. **Euclidean**: The distance is $$\sqrt{(y_2-y_1)^2+(x_2-x_1)^2}$$
 2. **Manhattan**: The distance is $$|y_2-y_1|+|x_2-x_1|$$
 
-For example, in the position of CLB A and C are fixed, what is the optimum position of the incoming new CLB B?
+For example, if the position of CLB A and C are fixed, what is the optimum position of the incoming new CLB B?
 
 <figure><img src="../.gitbook/assets/placement-example-1.png" alt="" width="524"><figcaption></figcaption></figure>
 
 {% stepper %}
 {% step %}
-**Linear Cost**
+#### **Linear Cost**
 
-As the position between CLB A and CLB C is fixed, $$x_1+x_2=x_3+x_2=c$$, where $$c$$ is a constant. Using the linear cost, we want to minimize $$x_1+x_2+x_3$$. Thus, replace $$x_2,x_3$$ with $$c-x_1,x_1$$ respecitvely, we will give
+As the position between CLB A and CLB C is fixed, meaning that $$x_1+x_2=x_3+x_2=c$$, where $$c$$ is a constant. Using the linear cost, we want to minimize $$x_1+x_2+x_3$$. Thus, replace $$x_2,x_3$$ with $$c-x_1,x_1$$ respecitvely, the total cost will be
 
 $$
 x_1+c
@@ -83,9 +83,9 @@ To make the above smallest, we just let $$x_1=0=x_3$$, thus the ideal position s
 {% endstep %}
 
 {% step %}
-**Quadratic Cost**
+#### **Quadratic Cost**
 
-Similar to the linear cost, the only thing different here is that our objective function becomes to minimize $$x_1^2+x_2^2+x_3^2$$. Again, replace $$x_2,x_3$$ with $$c-x_1,x_1$$ respecitvely, we will get
+Similar to the linear cost, the only different thing here is that our objective function becomes to minimize $$x_1^2+x_2^2+x_3^2$$. Again, replace $$x_2,x_3$$ with $$c-x_1,x_1$$ respecitvely, we will get
 
 $$
 x_1^2+(c-x_1)^2+x_1^2
@@ -157,7 +157,7 @@ The curve we can derive is shown below.
 
 The y-axis denotes the **probability** that we accept the change while the x-axis denotes the cost.
 
-1. From the black vertical line and $$x=30$$, we can see that probability decreases with decreasing $$T$$ for the same $$\Delta C$$.
+1. From the black vertical line at $$x=30$$, we can see that probability decreases with decreasing $$T$$ for the same $$\Delta C$$.
 2. From any one of the three curves, we can see that probability decreases with increasing $$\Delta C$$ for the same $$T$$.
 
 In essence, what this algorithm really taught us is to **not be greedy**! Otherwise, we might easily reach a **local minimum** instead of reaching the **global minimum**.
@@ -202,7 +202,7 @@ The FPGA routing channel architecture can be divided into three parts:
 Usually, there is a **router** that determines which programmable switch should be turned on to connect all the logic block input and output pins as required by the circuit. There are two groups of FPGA routers:
 
 1. Combined global-detailed routers which determine a complete routing path in one step.
-2. Two step routing algorithms:
+2. Two-step routing algorithms:
    1. First perform [global routing](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-3a-digital-design-flow#routing)
    2. Then peform [detailed routing](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-3a-digital-design-flow#routing)
 {% endhint %}
@@ -257,7 +257,7 @@ The second FPGA routing algorithm utilizes the FPGA routing-resource graph, whic
 <figure><img src="../.gitbook/assets/fpga-routing-resource-graph.png.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
-In this graph, the **either** one of the three vertical switches turning on will connect the red wire to P2.
+In this graph, **either** one of the three vertical switches turning on will connect the red wire to P2.
 {% endhint %}
 
 In the [#maze-routing](lec-09-physical-synthesis.md#maze-routing "mention") approach, we assume that each edge[^5] has a cost of 1. However, in a resource-routing graph, the cost of each [network resource](#user-content-fn-6)[^6] may be different and it depends on
@@ -282,7 +282,7 @@ In a resource-routing grpah, the **congestion** happens when **one node** is use
 
 <figure><img src="../.gitbook/assets/congestion-solving.gif" alt=""><figcaption></figcaption></figure>
 
-At the first iteration, we find the shorted cost path from P1 -> P2 and P3 -> P4. However, there is a congestion in the middle purple node. To solve this congestion, we increase the cost of the congestion node from 1 to 3.
+At the first iteration, we find the shortest cost path from P1 -> P2 and P3 -> P4. However, there is a congestion in the middle purple node. To solve this congestion, we increase the cost of the congestion node from 1 to 3.
 
 #### Criticality of a path
 
@@ -293,10 +293,12 @@ $$
 $$
 
 * $$D_{\text{max}}$$ is the total delay of the path from source to target.
-* $$\text{Slack}(S,T)$$ is the amount of delay that could be added to this connection, before it affects the critical path delay. In other words, it is $$D_{\text{max}}$$ **minus** the logic gate delays of the source **and** target
+* $$\text{Slack}(S,T)$$ is the amount of delay that could be added to this connection, before it affects the critical path delay. In other words, it is $$D_{\text{max}}$$ **minus** the logic gate delays of the source + target + the wire in between.
 * $$\text{Crit}(S,T)$$ is between 0 and 1. The higher the value, the more critical the connection/path.
 
 <figure><img src="../.gitbook/assets/criticality-explanation.png" alt="" width="375"><figcaption></figcaption></figure>
+
+For example, in the resource graph above, $$D_{\text{max}}$$ is 10ns and $$\text{Slack}(S,T)$$ is 10-6-4=0ns.&#x20;
 
 #### Cost of a node
 

@@ -73,7 +73,7 @@ Here are the steps for developing an **HLS component** from a **C++ function**:
 
 <figure><picture><source srcset="../.gitbook/assets/hls-component-flow-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/hls-component-flow-light.png" alt=""></picture><figcaption><p>HLS Component Development Flow</p></figcaption></figure>
 
-The **tool** implements the **HLS component** based on the **target flow**, **default tool configuration**, **design constraints**, and any **optimization pragmas or directives** you specify. You can use **optimization directives** to **modify** and **control** the implementation of the **internal logic** and **I/O ports**, overriding the **default behaviors** of the tool.
+The **tool** implements the **HLS component** based on the **target flow**, **default tool configuration**, **design constraints**, and any **optimization pragmas or directives** we specify. We can use **optimization directives** to **modify** and **control** the implementation of the **internal logic** and **I/O ports**, overriding the **default behaviors** of the tool.
 
 {% hint style="warning" %}
 The pragmas can be done in C code by using `#pragmas DIRECTIVE`, and the example directives can be `UNROLL`, `PIPELINE`, `ARRAY_PARTITION`, `DATAFLOW`, etc.
@@ -93,7 +93,7 @@ It does **not work well** for **control-oriented blocks** or **custom I/O interf
 
 ## HLS Tutorial
 
-In this part, we will see how several examples on how the HLS tools sythesize the high-level code into a macro-scopic structure which can then be easily implemented by the RTL code. The workflow is summarized as follows:
+In this part, we will see several examples on how the HLS tools sythesize the high-level code into a macro-scopic structure which can then be easily implemented by the RTL code. The workflow is summarized as follows:
 
 1. HLS tools generate an **scheduled and bound** sequencing graph from the high-level code.
 2. HLS tools do the data-path and control-unit synthesis based on that sequencing graph automatically. RTL is then generated based on this macro-scopic picture.
@@ -154,7 +154,7 @@ This design will give us:
 * **Total latency**: 32 \[320ns]
 
 {% hint style="danger" %}
-This is a rather low-level technique is there is **no pragma** for it. This is done automatically by the HLS tool if we give the tool a more stringent timing constraint.
+This is a rather low-level technique and there is **no pragma** for it. This is done automatically by the HLS tool if we give the tool a more stringent timing constraint.
 {% endhint %}
 
 ### Pipelined
@@ -181,7 +181,7 @@ Given that we already know the Initiation Interval, the latency and the trip cou
 
 Where, the overhead can be calculated as
 
-<p align="center">Overhead = Initiation Interval - Latency</p>
+<p align="center">Overhead = Latency - Initiation Interval</p>
 {% endhint %}
 
 #### Pipelined (II=2)
@@ -221,7 +221,7 @@ In this design, we will have:
 
 Suppose now we might have more budget, how can we further squeeze the performance? A typical idea would be using **parallelism**. Indeed, and this is what we called **unrolling** in HLS.
 
-However, to get the true performance of **parallelism**, we must provided the **independent** data **simultaneously**. How can we achieve that if we only have **two-ported memory** (meaning that we can only read one data at a time)? The answer will be not hard to think of, which is to
+However, to get the true performance of **parallelism**, we must provide the **independent** data **simultaneously**. How can we achieve that if we only have **two-ported memories** (meaning that we can only read one data at a time)? The answer will be not hard to think of, which is to
 
 1. use **multiple memories** so that we can read multiple data at one time.
 2. still use **one memory** but one read operation will give us **multiple data**.
@@ -259,7 +259,7 @@ Page 83 of the [AMD HLS Optimization guide](https://docs.amd.com/v/u/en-US/ug127
 
 > This is the **fourth** HLS technique that we are introducing in this HLS tutorial. The rest three are: Multicycle, Pipeline, and Unrolling & Partition.
 
-**Dataflow** is nothing but a **macroscopic** pipelining. Now, instead of thinking about how to accelerate a data stream, we are thinking about how to accelerate a **block stream** where a block contains bunches of data. An example will be the coprocessor that we designed in EE4218 [Lab 01](/broken/pages/yC1muqnntbZFhP15VFCW).
+**Dataflow** is nothing but a **macroscopic** pipelining. Now, instead of thinking about how to accelerate a data stream, we are thinking about how to accelerate a **block stream** where a block contains bunches of data. An example will be the coprocessor that we designed in EE4218 [Lab 01](https://app.gitbook.com/s/BcpQMbfvKRcTJoaXhJD0/lab/lab-01-introduction-to-hardware-design).
 
 <figure><img src="../.gitbook/assets/data-flow-example.png" alt="" width="377"><figcaption></figcaption></figure>
 
