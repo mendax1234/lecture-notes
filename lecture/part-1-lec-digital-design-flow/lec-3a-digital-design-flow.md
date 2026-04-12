@@ -173,7 +173,7 @@ The idea is similar to the system partitioning mentioned in step 2 excepted that
 
 <figure><img src="../.gitbook/assets/partition-after-example.png" alt=""><figcaption></figcaption></figure>
 
-To make the partition, we must ensure the the **cut** will cross the **minimum number of edges**.
+To make the partition, we must ensure that the **cut** will cross the **minimum number of edges**.
 
 {% hint style="success" %}
 **Output**: A netlist with several **macroscopic blocks**.
@@ -220,7 +220,7 @@ In other words, **floor planning** is nothing but to determine the **approximate
 
 > **Placement** is a physical design step in which various functional modules, after being planned, will be placed to achieve routability so that the final area, interconnects, timing/congestions and possibly power consumption can be minimized.
 
-In other words, **placement** is nothing but decide the approximate location of the **standard cells** within each row in the layout. An example of a bad placement vs. a good placement.
+In other words, **placement** is nothing but to decide the approximate location of the **standard cells** within each row in the layout. An example of a bad placement vs. a good placement.
 
 <figure><img src="../.gitbook/assets/good-bad-placement.png" alt=""><figcaption></figcaption></figure>
 
@@ -238,12 +238,12 @@ Floor planning is coarse/macroscopic/large-block level, as opposed to placement,
 
 > **Routing** is a physical design step in which various functional modules, after being placed, are connected so that the final area, delay, number of layers, and vias can be minimized by performing **global** (coarse) routing followed by **detailed** (fine) routing of modules according to some micro-electronic governing issues.
 
-In other words, **routing** is when wires are created to connect:
+In other words, **routing** is when wires are created to connect
 
 * standard cells inside rows[^2]
 * Different rows
 
-While the routing has two flavors:
+But the routing has two flavors:
 
 1. **Global routing**: It decides which channel[^3] the wires can go into.
 2. **Detailed routing**: It decides the exact route for each wire.
