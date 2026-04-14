@@ -21,6 +21,7 @@
 * [Lec 3 - Combinational Logic Circuits](part-2-lec-analog-design-flow/lec-3-combinational-logic-circuits.md)
 * [Lec 4 - Layout & Parasitics](part-2-lec-analog-design-flow/lec-4-layout-and-parasitics.md)
 * [Lec 5 - Sequential Circuits](part-2-lec-analog-design-flow/lec-5-sequential-circuits.md)
+* [Lec 6 - Memories](part-2-lec-analog-design-flow/lec-6-memories.md)
 
 ## Lab & Homework
 
