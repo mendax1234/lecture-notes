@@ -22,7 +22,7 @@ The basic element of a latch is 2 inverters connected in a feedback loop manner,
 
 <figure><img src="../.gitbook/assets/bistability-latch.png" alt="" width="477"><figcaption></figcaption></figure>
 
-For this element, we can draw the VTC of the two inverters and put them together in one VTC diagram.
+Such an element is called a **cross-coupled inverter**. For this cross-coupled inverters, we can draw the VTC of the two inverters and put them together in one VTC diagram.
 
 <figure><img src="../.gitbook/assets/bistable-diagram.png" alt="" width="557"><figcaption></figcaption></figure>
 
@@ -93,11 +93,11 @@ This implementation corresponds to the second way to write to a latch. In this w
 
 <figure><img src="../.gitbook/assets/reduced-load-latch.png" alt=""><figcaption></figcaption></figure>
 
-The output of the transmission gate must over-performs that weak inverter's output so that it can set the input of the strong inverter thus setting output coming out from the latch.
+The output of the transmission gate must over-perform the weak inverter's output so that it can set the input of the **strong inverter** thus setting output coming out from the latch.
 
 ### Registers
 
-The register/flip-flop can be made easily but cascading two latches (negative latch + positive latch) and this can be shown as follows.
+The register/flip-flop can be made easily by cascading two latches (negative latch + positive latch) and this can be shown as follows.
 
 <figure><img src="../.gitbook/assets/master-slave-register.png" alt=""><figcaption></figcaption></figure>
 
@@ -110,11 +110,11 @@ How this register actually works is that
 This is called master-slave edge triggered register and we assume that our focus is the D flip-flop in this section.
 {% endhint %}
 
-Now, we can use the different latches implementation to build different flavors of registers
+Now, we can use the different latches implementation to build different flavors of registers.
 
 #### Transmission Gate based
 
-In this flavor, we will have the register looks like below:
+In this flavor, we will have the register look like below:
 
 <figure><img src="../.gitbook/assets/transmission-gate-mux-reg.png" alt=""><figcaption></figcaption></figure>
 

@@ -356,16 +356,16 @@ This can be illustrated in the figure below.
 
 <figure><img src="../.gitbook/assets/charge-leakage.png" alt=""><figcaption></figcaption></figure>
 
-The circuit will fail if $$\Delta V>NM_H$$ because in this case the output can be read as High by the next component correctly! This will give us the lower bound of $$f_{\text{clk}}$$ assuming 50% duty cycle. Assume that we have constant leakage current $$I_{\text{leak}}$$, using the wo definitions of charges $$Q=CV=It$$.
+The circuit will fail if $$\Delta V>\text{NM}_\text{H}$$ because in this case the output cannot be read as High by the next component correctly! This will give us the lower bound of $$f_{\text{clk}}$$ assuming 50% duty cycle. Assume that we have constant leakage current $$I_{\text{leak}}$$, using the wo definitions of charges $$Q=CV=It$$.
 
 $$
-\Delta V=\frac{I_{\text{leak}}t_{\text{eval}}}{C_L}<NM_H
+\Delta V=\frac{I_{\text{leak}}t_{\text{eval}}}{C_L}<\text{NM}_\text{H}
 $$
 
 This will give us
 
 $$
-t_{\text{eval}}<\frac{NM_HC_L}{I_{\text{leak}}}
+t_{\text{eval}}<\frac{\text{NM}_\text{H}C_L}{I_{\text{leak}}}
 $$
 
 {% hint style="warning" %}
