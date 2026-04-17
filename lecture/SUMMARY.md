@@ -19,5 +19,7 @@
 * [Problem Set 1](tutorial/problem-set-1.md)
 * [Quiz 1](tutorial/quiz-1.md)
 * [Problem Set 2](tutorial/problem-set-2.md)
+* [Quiz 2](tutorial/quiz-2.md)
 * [Problem Set 3](tutorial/problem-set-3.md)
+* [Quiz 3](tutorial/quiz-3.md)
 * [PYP Review](tutorial/pyp-review.md)

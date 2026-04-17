@@ -10,3 +10,6 @@ In the last two lectures, prof. Rajesh guided us to do some very insightful pyp 
 6. HLS is good at resource-dominated circuits (like DSPs) but not good at non-resource dominated circuits (like microprocessors)
 7. If there is hold time violation only at one core, we can disable that core and still sell that chip as lower model, like i3, etc.
 8. Include the discrete maths formula, liek $$\bar ab+ac=a+bc$$, etc.
+9. In the Verilog synthesis tool, the manipulation (addtion/multiplication) of the constants (`localparam`) are done by the compiler so no hardware will be needed for it.
+10. In the HLS, the true dual port is automatically enabled unless the question says we are using the single-port memory.
+11. In the HLS II analysis, the II is limited by the **slowest stage**, so if in one operation, we need to read 3 data without using array partitioning, we needs two cycles to read the data and thus our II will be 2. But if let's say our multiplier takes 2 cycles to calculate, the II will still be 2! Only when the execute stage takes more than 3 cycles, then our II will be 3. In summary, the II will be the number of cycles taken by the slowest macro stage (read, execute, etc).
