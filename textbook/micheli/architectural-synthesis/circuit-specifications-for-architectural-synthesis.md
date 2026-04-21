@@ -12,6 +12,10 @@ Behavioral models are **usually** represented using [**data-flow and sequencing 
 
 **Resources** are used to implement different hardware functions and can be broadly classified into three categories.
 
+1. Functional Resources
+2. Memory Resources
+3. Interface Resources
+
 {% hint style="warning" %}
 This part can also be called as **building blocks**, which are a set of resources fully characterized in terms of area and execution delay. Basically, we want to know how to connect the **building blocks** we have **behaviorally** to achieve the outcome we want.
 {% endhint %}
@@ -40,14 +44,14 @@ The major decisions in architectural synthesis are often related to **the use of
 **Memory resources** store data. Examples include registers, read-only memory (ROM), and read-write memory (RAM).
 
 {% hint style="warning" %}
-Requirement for storage resources are **implicit** in the **sequencing graph itself** but we still need to consider which register to use and how many registers we are going to use in our system. We will see more on this later in the [problem set](/broken/pages/Bs5pn2autAi2VruUo8aL#id-04.-combine-everything).
+Requirement for storage resources are **implicit** in the **sequencing graph itself** but we still need to consider which register to use and how many registers we are going to use in our system. We will see more on this later in the [problem set](https://app.gitbook.com/s/08HOWaEgI5q3ZZTecFRP/tutorial/problem-set-1#id-04.-combine-everything).
 {% endhint %}
 
 ### Interface Resources
 
 **Interface resources** support data transfer within the system. These include buses, which serve as major communication channels inside a data path.
 
-### Steering Logics
+#### Steering Logics
 
 As we have seen [earlier](./), **steering logics** are multiplexers that route data to the correct destination at the appropriate time.
 

@@ -25,7 +25,7 @@ Usually, **scheduling** is done first and then is **binding**. More specifically
 **Scheduling** is the task of
 
 1. Associating a **start-time** with each operation
-2. Determining **latency** and parallelism of the implementation
+2. Determining **latency** and parallelism of the implementation[^1]
 
 To formally define what the **scheduling** is, let's make some notation conventions.
 
@@ -74,7 +74,7 @@ The source ($$v_0$$) always starts at **cycle 1** while the sink ($$v_n$$) alway
 
 <summary>Example of Constrained Scheduling</summary>
 
-If we are constrained to use 1 [function unit](#user-content-fn-1)[^1] per type (e.g., 1 adder and 1 multiplier). Our scheduling will look like as follows:
+If we are constrained to use 1 [function unit](#user-content-fn-2)[^2] per type (e.g., 1 adder and 1 multiplier). Our scheduling will look like as follows:
 
 <figure><picture><source srcset="../../.gitbook/assets/constrained-scheduling-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/constrained-scheduling-light.png" alt="" width="440"></picture><figcaption><p>Figure 4.4 Constrained scheduling sequenc graph</p></figcaption></figure>
 
@@ -177,7 +177,7 @@ When **binding constraints** are specified, a resource binding must be **compati
 
 <summary>Example of Partial Binding</summary>
 
-Consider again the sequencing graph we've used throughout this section. A hypothetical **partial binding** requires that operation**s** $$v_6$$​ and $$v_8$$​ be performed by the same **multiplier**. Then, the operations $$v_6$$​ and $$v_8$$ cannot execute concurrently, and the corresponding schedule differs from that shown in [Figure 4.5](the-fundamental-architectural-synthesis-problems.md#example-of-resource-sharing-binding). The **partial binding** and the corresponding schedule are shown in Figure 4.6.
+Consider again the sequencing graph we've used throughout this section. A hypothetical **partial binding** requires that operations $$v_6$$​ and $$v_8$$​ be performed by the same **multiplier**. Then, the operations $$v_6$$​ and $$v_8$$ cannot execute concurrently, and the corresponding schedule differs from that shown in [Figure 4.5](the-fundamental-architectural-synthesis-problems.md#example-of-resource-sharing-binding). The **partial binding** and the corresponding schedule are shown in Figure 4.6.
 
 <figure><picture><source srcset="../../.gitbook/assets/partial-binding-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/partial-binding-light.png" alt="" width="563"></picture><figcaption><p>Figure 4.6 Example of partial binding of operations v6 and v8 to a single resource</p></figcaption></figure>
 
@@ -187,4 +187,23 @@ Consider again the sequencing graph we've used throughout this section. A hypoth
 In general, **scheduling** and **binding** are **interrelated problems**, and **constraints** may complicate the **search for a solution**.
 {% endhint %}
 
-[^1]: We will see later this is called **resource type**.
+## Summary
+
+In this section, we've seen 3 types of scheduling and 3 types of binding. To summarize,
+
+1. **Scheduling** determines **when** to start the execution a/many certain operation(s)[^3].
+   1. Unconstrained Scheduling: There is no **resource usage constraint**, each operation can start at any time **as long as** its [precedence condition is satisfied](#user-content-fn-4)[^4].
+   2. Constrained Scheduling: There is a **resource usaage constraint**! For example, we only have 1 ALU and 1 multiplier.
+   3. Scheduling with chain: Chaining can be done in both unconstrained or constrained scheduling as long as the chained propagation delay fits within 1 clock-cycle time.
+2. **Binding** determines **which** instance of a certain resource type should be used to execute a certain operation. In this section, we assume that scheduling is done before binding.
+   1. Dedicated Binding: **Each operation** has its own dedicated resource! The binding function is thus a 1-to-1 mapping. Note that there is no resource sharing between different clock cycles, which might be a wastage is there is no pipelining!
+   2. Resource-sharing Binding: Assume there is no pipelining, we can actually share some resources between the clock cycles. This is the idea of resource-sharing binding, meaning that some resources can be shared in between clock cycles.
+   3. Partial Binding: This is a special binding where there is some constraint on some operation(s), like they must use the same resouce etc.
+
+[^1]: This means the circuit.
+
+[^2]: We will see later this is called **resource type**.
+
+[^3]: This is nothing but the nodes in our CDFG.
+
+[^4]: This means that the precedent operations must finish!

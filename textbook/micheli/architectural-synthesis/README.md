@@ -11,7 +11,7 @@ This part focuses on the **synthesis** and **optimization** of circuits at the *
 * and a logic-level specification of its **control unit**.
 
 {% hint style="success" %}
-We've seen this structure in the RISC-V processor design in [CG3207](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-03-risc-v-isa-and-microarchitecture#risc-v-microarchitecture)!
+We've seen this one kind of this structure (pipelined) in the RISC-V processor design in [CG3207](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-03-risc-v-isa-and-microarchitecture#risc-v-microarchitecture)!
 {% endhint %}
 
 {% stepper %}
@@ -50,10 +50,10 @@ So, usually the process to come up with such a structure is that
 1. We write behavioral code (can be C code or HDL code) according to the function specifications.
 2. We compile the behavioral code into [**abstract models**](../hardware-modeling/), usually it is in the [data flow and sequencing graphs](../hardware-modeling/abstract-models.md#data-flow-and-sequencing-graphs) at this point as we don't know the clock cycle information yet.
 3. We do scheduling and binding based on the data-flow and sequencing graphs in the above step. The output here will is the **annotated** sequencing graph. (In this case, we also can know the register usage)
-4. We do the control unit and data-path synthesis to get the final structure view shown in Figure 4.1. And based on this structure view, we can write the RTL code.
+4. We do the control unit and data-path synthesis to get the final structure view shown in Figure 4.1. And based on this structural view, we can write the RTL code.
 
 {% hint style="warning" %}
-Basically, the architectural synthesis "converts" our behavioral abstract model into RTL code. This "conversion" can be done **manually** or **automatically**:
+Basically, the architectural synthesis "converts" our behavioral abstract model into macroscopic microarchitecture first and then based on the microarchitecture to write/generate the RTL code. This "conversion" can be done **manually** or **automatically**:
 
 * If done **manually**, this is called **microarchitecture design**.
 * If done **automatically**, this is called **High Level Synthesis (HLS)**.
