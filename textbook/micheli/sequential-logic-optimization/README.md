@@ -57,6 +57,10 @@ A structural model can be represented by
 
 **State transition diagrams** can be transformed into synchronous logic networks by **state encoding** and can be recovered from synchronous logic networks by **state extraction**.
 
+{% hint style="warning" %}
+We will experience more about the sentence above in the [problem set 2](https://app.gitbook.com/s/08HOWaEgI5q3ZZTecFRP/tutorial/problem-set-2#id-2.-fsm-back-engineering)!&#x20;
+{% endhint %}
+
 {% stepper %}
 {% step %}
 #### State Encoding
@@ -105,7 +109,7 @@ In the real design, I personally recommend to use the structural model to model 
 * **Synchronous Circuits** are a specific _subset_ of sequential circuits.
 * **Asynchronous** Circuits are the _other_ subset.
 
-One example will be the [**latches**](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/latches-and-flip-flops#d-latch), which are level-sensitive and are categorized to be **asynchronous circuits**.
+One example will be the [**latches**](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/latches-and-flip-flops#d-latch), which are level-sensitive and are categorized to be **asynchronous circuits** (latches are **sequential** but **not synchronous**)!
 
 </details>
 
