@@ -27,7 +27,7 @@ In resource-dominated circuits, we assume that both **area** and **timing** are 
 In general circuits, such as [non resource-dominated circuits](circuit-specifications-for-architectural-synthesis.md#non-resource-dominated-circuits), the **area estimate** is the sum of the areas of the **bound resource instances** plus the area of the **steering logic**, **registers** (or **memories**), **control unit**, and **wiring area**. All these components depend on the **binding**, which in turn depends on the **schedule**.
 
 {% hint style="danger" %}
-The paragraph above is really important as it serves as a bridge for us to know how binding and scheduling can affect the area estimate!
+The paragraph above is really important as it serves as a bridge for us to know how binding and scheduling can affect the area estimation!
 {% endhint %}
 
 The **latency** of the circuit still depends on the **schedule**, which in turn must take into account the **propagation delays** on paths between **register boundaries**. Thus, **performance estimation** requires more detailed information. We consider the components of the **data path** first, and then we comment on the **control unit**.
@@ -43,7 +43,7 @@ For example, in the figure above we have seen, from opertion 1 to 3, as it cross
 An **upper bound** on the **register usage** can then be derived by examining a **scheduled sequencing graph**. This bound is, in general, **loose**, because the number of registers can be minimized. The **binding information** is needed for evaluating and/or performing the **register optimization**. Therefore, accurate estimation of the number of registers requires both **scheduling** and **binding**.
 
 {% hint style="warning" %}
-We will se how to do the **register optimization** in [problem set 1](/broken/pages/Bs5pn2autAi2VruUo8aL#id-04.-combine-everything)!
+We will se how to do the **register optimization** in [problem set 1](https://app.gitbook.com/s/08HOWaEgI5q3ZZTecFRP/tutorial/problem-set-1#id-04.-combine-everything)!
 {% endhint %}
 
 ### Steering Logic
@@ -66,7 +66,7 @@ While the **area of multiplexers** can be easily evaluated, determining their nu
 **Wiring** contributes to the overall **area** and **delay**. The **wiring area overhead** can be estimated from the structure, once a **binding** is known, by using models that are appropriate for the physical design style of the implementation. The **propagation delay** on the **wires** may not be negligible, and it is proportional to the **wiring length**.
 
 {% hint style="success" %}
-We can link it to the [wire-load models](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/textbook-2-synopsys/synopsys-technology-library/logic-library-basics#wire-load-models) used in Synopsys tool suite we have learned in EE4415!
+We can link it to the [wire-load models](/broken/spaces/Sp0XaarBjbEX3JIMrRaR/pages/yiHeUDckY82hF8wEj6os#wire-load-models) used in Synopsys tool suite we have learned in EE4415!
 {% endhint %}
 
 Unfortunately, estimating the **wiring area** and **length** requires knowledge of both the structure (i.e., the **binding**) and the **placement** of the physical implementation of the resources. Fast floor planners, statistical placement models, and statistical wiring models have been used for this purpose.

@@ -8,7 +8,7 @@
 
 While **Architectural Synthesis** is the overarching process of mapping behavioral descriptions to structure so that we can write RTL code, **Scheduling** and **Binding** are the specific mechanisms that perform **Architectural Optimization** by navigating the design space to determine the best trade-offs (Pareto points) between area and latency.
 
-{% hint style="warning" %}
+{% hint style="success" %}
 Think of the architectural optimization as a **subset** of architectural synthesis.
 {% endhint %}
 

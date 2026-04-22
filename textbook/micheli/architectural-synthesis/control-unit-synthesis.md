@@ -31,13 +31,16 @@ Here, for simplicity, we omit the IDLE state and assume that these 4 cycles are 
 
 ## Microcoded Control Synthesis
 
-A **microcoded implementation** can be achieved by using a **memory** that has as many **words** as the **latency** $$\lambda$$. Each word corresponds one-to-one with a **schedule step**. Therefore, the **ROM** must have as many **address bits** as ($$n_{\text{bit}} = \lceil \log_2 \lambda \rceil$$). A **synchronous counter** with ($$n_{\text{bit}}$$) bits is used to address the **ROM**.
+A **microcoded implementation** can be achieved by using a **memory** that has as many **words** as the **latency** $$\lambda$$. Each word corresponds one-to-one with a **schedule step**. Therefore, the **ROM** must have as many **address bits** as $$n_{\text{bit}} = \lceil \log_2 \lambda \rceil$$. A **synchronous counter** with ($$n_{\text{bit}}$$) bits is used to address the **ROM**.
 
 The **counter** has a **reset signal** that clears it so that it addresses the first word in memory, corresponding to the first operations to be executed. When the **sequencing graph** models a set of operations that must be **iterated**, the last word of the schedule clears the counter. The counter runs on the **system clock**.
 
 The only **external control signal** provided by the **environment** is the **counter reset**. By raising this signal, the overall circuit **halts and resets**. By lowering it, the circuit starts execution from the **first operation**.
 
-There are different ways to implement a microcoded memory array, and here we will introduce two methods
+There are different ways to implement a microcoded memory array, and here we will introduce two methods:
+
+1. Horizontal Microcode
+2. Vertical Microcode
 
 ### Horizontal Microcode
 
@@ -108,3 +111,16 @@ In this scheme, **null fields** (e.g., all-zero entries within a field) indicate
 This encoding requires 9 bits — instead of 11 bits for the **horizontal encoding** and **4 bits** for the fully vertical encoding — while still preserving full concurrency.
 
 </details>
+
+## Summary
+
+In the control unit synthesis, the main problem is to assign the **activation signals** ($$n_{\text{act}}$$) to different resources at **each clock cycle**. To architect a system that can issue these activation signals at each clock cycle, we can use two methods:
+
+1. A FSM (Hard-wired Control Synthesis)
+2. A memory (Micro-coded Control Synthesis): More specifically, we are talking about the horizontal mode here.
+
+In both ways, the **number of state** or the **number of memory addresses** are equal to the latency of the circuit, which is $$\lambda$$. And the content of the state or the content in one memory address corresponds to the activation signals in that specific cycle.
+
+{% hint style="warning" %}
+In the vertical mode of micro-coded control synthesis, life is a bit different.
+{% endhint %}

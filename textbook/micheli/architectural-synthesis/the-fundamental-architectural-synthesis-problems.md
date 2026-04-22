@@ -191,13 +191,13 @@ In general, **scheduling** and **binding** are **interrelated problems**, and **
 
 In this section, we've seen 3 types of scheduling and 3 types of binding. To summarize,
 
-1. **Scheduling** determines **when** to start the execution a/many certain operation(s)[^3].
+1. **Scheduling** determines **when** to start the execution of a/many certain operation(s)[^3].
    1. Unconstrained Scheduling: There is no **resource usage constraint**, each operation can start at any time **as long as** its [precedence condition is satisfied](#user-content-fn-4)[^4].
    2. Constrained Scheduling: There is a **resource usaage constraint**! For example, we only have 1 ALU and 1 multiplier.
    3. Scheduling with chain: Chaining can be done in both unconstrained or constrained scheduling as long as the chained propagation delay fits within 1 clock-cycle time.
 2. **Binding** determines **which** instance of a certain resource type should be used to execute a certain operation. In this section, we assume that scheduling is done before binding.
-   1. Dedicated Binding: **Each operation** has its own dedicated resource! The binding function is thus a 1-to-1 mapping. Note that there is no resource sharing between different clock cycles, which might be a wastage is there is no pipelining!
-   2. Resource-sharing Binding: Assume there is no pipelining, we can actually share some resources between the clock cycles. This is the idea of resource-sharing binding, meaning that some resources can be shared in between clock cycles.
+   1. Dedicated Binding: **Each operation** has its own dedicated resource! The binding function is thus a 1-to-1 mapping. Note that there is no resource sharing between different clock cycles, which might be a wastage if there is no pipelining!
+   2. Resource-sharing Binding: Assume that there is no pipelining, we can actually share some resources between the clock cycles. This is the idea of resource-sharing binding, meaning that some resources can be shared in between clock cycles.
    3. Partial Binding: This is a special binding where there is some constraint on some operation(s), like they must use the same resouce etc.
 
 [^1]: This means the circuit.
