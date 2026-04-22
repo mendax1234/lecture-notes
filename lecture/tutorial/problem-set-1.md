@@ -28,11 +28,49 @@ metaLinks:
 
 ### 02. Scheduling
 
-1. One good way to do the scheduling problem is to draw a table whose column represents the clock cycle and the row represents the resouces.
+This is a classic scheduling problem and one good way to do the scheduling problem is to draw a table whose column represents the clock cycle and the row represents the resouces. For example,
+
+| Cycle | Multiplier1 | Multiplier2 | ALU |
+| ----- | ----------- | ----------- | --- |
+| 1     | V1          | —           | V2  |
+| 2     | V1          | —           | V3  |
+| 3     | V4          | V5          | —   |
+| 4     | V4          | V5          | —   |
+| 5     | —           | —           | V6  |
+| 6     | V7          | —           | —   |
+| 7     | V7          | —           | —   |
 
 ### 03. Binding
 
-1. Binding problem becomes complex when we deal with the registers sharing.
+In this question, we need to do two bindings:
+
+1. Resource Binding
+2. Register Binding
+
+#### Resource Binding
+
+This is just to come up with a table summarizing the resource binding function $$\beta$$ to each resource type. For example, my binding for this problem is shown in the following table with the following conventions used:
+
+* Resource type: 1 means multiplier and 2 means ALU
+* Resource instance: Followed by the resource type
+
+| Operation | Binding Function |
+| --------- | ---------------- |
+| V1        | (2, 1)           |
+| V2        | (1, 2)           |
+| V3        | (1, 1)           |
+| V4        | (1, 1)           |
+| V5        | (1, 1)           |
+| V6        | (1, 1)           |
+| V7        | (2, 1)           |
+
+#### Register Binding
+
+The register binding is more complex here. But as long as we get the trick, it won't be that hard. To do the register binding, we need to draw the non-register sharing diagram from the **scheduled** sequencing graph, which may look like something below:
+
+<figure><img src="../.gitbook/assets/register-binding.png" alt=""><figcaption></figcaption></figure>
+
+The <mark style="color:red;">red</mark> vertical arrows are the key in the problem! It starts at the next cycle of the starting node and ends at the end of the cycle of the ending node! After drawing this kind of diagram, we can easily which register can be shared.
 
 ### 04. Combine Everything
 
