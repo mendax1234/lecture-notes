@@ -10,23 +10,37 @@ metaLinks:
 
 ### 01. Netlist and Logic Network
 
-#### Netlist
+<figure><img src="../.gitbook/assets/ps1-q1.png" alt=""><figcaption></figcaption></figure>
 
-1. **Netlist** is used to represent a **structure** which is nothing but a bunch of blocks[^1] and their interconnections.
-2. To represent a **structure**, we can use the following methods:
+#### Structural Netlist
+
+> **Netlist** is used to represent a **structure** which is nothing but a bunch of blocks[^1] and their interconnections.
+
+This question is a classic [**structure**](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/hardware-modeling/abstract-models#structure) hardware model question, where we have three choices to model the structural netlist:
+
+1. Incidence netlist/matrix, where the netlist can have two flavors:
    1. module-oriented netlist.
    2. net-oriented netlist.
-   3. Adjacency matrix where the column is the module and the row is the net.
-   4. Hypergraph
-   5. Bipartite graph
+2. Hypergraph
+3. Bipartite graph
 
 #### Logic Network
 
-1. A **logic network** is nothing but **one block**, which has **multiple/one inputs** and **only one output**.
-2. A **logic network graph**, is to implement that **logic network** with one big block using [smaller blocks](#user-content-fn-2)[^2].
-   1. A **synchronous logic network graph** would be just to add the **registers** on the **edges** of a normal logic network graph.
+> A [**logic network**](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/hardware-modeling/abstract-models#logic-networks) is nothing but **one block**, which has **multiple/one inputs** and **only one output**. While a **logic network graph**, is to implement that **logic network** with one big block using [smaller blocks](#user-content-fn-2)[^2].
+>
+> * A **synchronous logic network graph** would be just to add the **registers** on the **edges** of a normal logic network graph.
+
+The detailed logic network and logic network graph is shown as follows.
+
+<figure><img src="../.gitbook/assets/ps1-q1b-ans.png" alt="" width="563"><figcaption></figcaption></figure>
+
+However, for the logic network (not logic network graph), we can just draw three big black box shown as follows.
+
+<figure><img src="../.gitbook/assets/ps1-q1b-logic-network.svg" alt=""><figcaption></figcaption></figure>
 
 ### 02. Scheduling
+
+<figure><img src="../.gitbook/assets/ps1-q2.png" alt=""><figcaption></figcaption></figure>
 
 This is a classic scheduling problem and one good way to do the scheduling problem is to draw a table whose column represents the clock cycle and the row represents the resouces. For example,
 
@@ -41,6 +55,8 @@ This is a classic scheduling problem and one good way to do the scheduling probl
 | 7     | V7          | —           | —   |
 
 ### 03. Binding
+
+<figure><img src="../.gitbook/assets/ps1-q3.png" alt=""><figcaption></figcaption></figure>
 
 In this question, we need to do two bindings:
 
@@ -115,7 +131,7 @@ Some techniques available reduce the row width, a.k.a, control-store word size, 
 3. Combine the columns with an explicit shifted pattern and by doing rewiring on the other multiplexer(s).
 4. Simplify the available ALU controls.
 
-## Tips
+
 
 [^1]: If you think of them as **logic gates**, life will be a lot easier. But, just keep in mind, a block doesn't need to be exactly **one** logic gate. Later you will see that a **block** is nothing but an operator with **multiple/one input** and **only one output.**
 
