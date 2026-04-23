@@ -81,7 +81,7 @@ The major task in **state extraction** is to determine the **valid states** (e.g
 
 The typical flow is summarized as follows:
 
-1. FSM specification
+1. FSM specification (Write out the state transition table)
 2. State minimization
 3. State encoding
 4. Combinational (next-state, output) logic optimization

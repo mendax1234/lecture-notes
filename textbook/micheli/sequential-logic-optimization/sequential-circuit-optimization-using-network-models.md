@@ -23,7 +23,7 @@ Now we will introduce two notations that will be used in representing the **netw
 We denote sequences by **time-labeled variables**.
 
 * For example, $$x(n)$$ denotes **variable** $$x$$ **at time** $$n$$.
-* A sequence of values of variable $$x$$ is denoted by $$x^{(n)}\forall n$$ in an **interval of interest**.
+* A sequence of values of variable $$x$$ is denoted by $$x^{(n)}~\forall n$$ in an **interval of interest**.
 {% endstep %}
 
 {% step %}
@@ -46,7 +46,7 @@ It is convenient sometimes to have a **shorthand notation for variables**, witho
 
 Consider the **circuit of Figure 9.2(b)**, which provides an **oscillating sequence** when input **r** is **FALSE**.
 
-<figure><img src="../../.gitbook/assets/synchronous-logic-network-dark.png" alt="" width="251"><figcaption><p>Figure 9.2(b)</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/synchronous-logic-network-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/synchronous-logic-network-light.png" alt="" width="377"></picture><figcaption><p>Figure 9.2(b)</p></figcaption></figure>
 
 Its **behavior** can be expressed as $$z^{(n)} = (z^{(n-1)} + r^{(n)})'$$, for all $$n \ge 0$$. Input **r** is a **reset condition**. Using the **shorthand notation**, the circuit can be described by the expression $$z = (z@1 + r)'$$.
 
@@ -75,7 +75,9 @@ As in the case of **combinational synthesis**, we restrict our attention to **no
 
 We define a **path weight** as the **sum of the edge weights** along that path.
 
-* _(Path weights should not be confused with **path delays**, which are the **composition of vertex propagation delays**.)_
+{% hint style="warning" %}
+Path weights should not be confused with **path delays**, which are the **composition of vertex propagation delays**.
+{% endhint %}
 
 When compared to **combinational logic networks**, **synchronous networks** differ in:
 
@@ -113,9 +115,9 @@ Note that **synchronous logic networks** **simplify** to **combinational network
 
 <summary>Example of using multi-graph to represent a synchronous logic model</summary>
 
-An example of a **synchronous circuit** and its **network model** are shown in **Figure 9.7**.
+An example of a **synchronous circuit** and its **network model** are shown in Figure 9.7.
 
-<figure><img src="../../.gitbook/assets/synchronous-logic-network-example.png" alt=""><figcaption><p>Figure 9.7 Synchronous circuit and synchronous logic network</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/synchronous-logic-network-example-light.png" alt=""><figcaption><p>Figure 9.7 Synchronous circuit and synchronous logic network</p></figcaption></figure>
 
 The **circuit** decodes an **incoming data stream** coded with **bi-phase marks**, as produced by a **compact-disk player**. The **network model** is a **multi-graph**. For example, there are **two edges** between $$u_1$$ and $$v_1$$​, with **zero** and **unit weight**. Note that **zero weights** are not shown. There are **two unit-weighted cycles**.
 
@@ -131,13 +133,13 @@ As in the case of **combinational networks**, an **alternative representation** 
 
 <summary>Example of using logic expressions to represent a synchronous logic model</summary>
 
-Consider the **network of Figure 9.7**. It can be described by the following **set of equations**:
+Consider the [network of Figure 9.7](sequential-circuit-optimization-using-network-models.md#example-of-using-multi-graph-to-represent-a-synchronous-logic-model). It can be described by the following **set of equations**:
 
-<figure><img src="../../.gitbook/assets/logic-expression-example-1.png" alt="" width="279"><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/logic-expression-example-1-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/logic-expression-example-1-light.png" alt="" width="279"></picture><figcaption></figcaption></figure>
 
 or equivalently, using the shorthand notation,
 
-<figure><img src="../../.gitbook/assets/shorthand-notation-example.png" alt="" width="218"><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/shorthand-notation-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/shorthand-notation-example-light.png" alt="" width="218"></picture><figcaption></figcaption></figure>
 
 </details>
 {% endstep %}
@@ -149,26 +151,26 @@ There are different approaches to optimizing synchronous networks
 {% step %}
 #### Combinational Optimization
 
-The **simplest** approach is to **ignore the registers** and to **optimize the combinational component** using **techniques of combinational logic synthesis**. This is equivalent to **deleting the edges with positive weights** and **optimizing the corresponding combinational logic network**. Needless to say, the **removal of the registers** from the **network** **segments the circuit** and **weakens the optimality**.
+The simplest approach is to **ignore the registers** and to **optimize the combinational component** using techniques of combinational logic synthesis. This is equivalent to deleting the edges with positive weights and optimizing the corresponding combinational logic network. Needless to say, the **removal of the registers** from the network segments the circuit and weakens the optimality.
 {% endstep %}
 
 {% step %}
 #### Retiming
 
-A **radically different approach** is **retiming**. By **retiming a network**, we **move the position of the registers only**; hence, we do **not change the graph topology**, but we **modify the weight set** $$W$$. **Leiserson and Saxe** presented **polynomially bounded algorithms** for finding the **optimum retiming**, which **minimizes the circuit cycle-time or area**. **Unfortunately, retiming** may **not lead to the best implementation**, because **only register movement** is considered.
+A radically different approach is **retiming**. By retiming a network, we **move the position of the registers only**; hence, we do not change the graph topology, but we modify the weight set $$W$$. Leiserson and Saxe presented polynomially bounded algorithms for finding the **optimum retiming**, which **minimizes the circuit cycle-time or area**. Unfortunately, retiming may not lead to the best implementatio**n**, because only register movement is considered.
 {% endstep %}
 
 {% step %}
 #### Network Transformation
 
-The **most general approach** to **synchronous logic optimization** is to perform **network transformations** that **blend retiming** with **combinational transformations**. Such transformations can have an **algebraic** or **Boolean flavor**. In the latter case, the concept of **don’t-care conditions** must be **extended to synchronous networks**.
+The most general approach to synchronous logic optimization is to perform **network transformations** that **blend retiming** with **combinational transformations**. Such transformations can have an **algebraic** or **Boolean flavor**. In the latter case, the concept of don't-care conditions must be extended to synchronous networks.
 {% endstep %}
 {% endstepper %}
 
-We present **retiming** first. Then we survey **recent results** on **synchronous logic transformations** as well as on **enhancements** to the original **retiming method**. We conclude this section by describing the **specification of don’t-care conditions** for **optimizing synchronous networks**.
+We present **retiming** first. Then we survey **recent results** on **synchronous logic transformations** as well as on **enhancements** to the original **retiming method**. We conclude this section by describing the specification of don't-care conditions for **optimizing synchronous networks**.
 
 {% hint style="warning" %}
-The combination of **retiming** and **network transformation** is combined into one thing call "[RTL Transformation](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-2b-rtl-transformations)" which is introduced in NUS EE4415.
+The combination of **retiming** and **network transformation** is combined into one thing called "[RTL Transformation](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-2b-rtl-transformations)" which is introduced in NUS EE4415.
 {% endhint %}
 
 ## Retiming
@@ -185,7 +187,7 @@ The goal of **retiming** is to try to balance the "pipeline". Or in other words,
 
 ### Modeling and Assumptions for Retiming
 
-We describe first the original **retiming algorithms** of **Leiserson and Saxe**, using a **graph model** that abstracts the **computation performed at each vertex**. Indeed, **retiming** can be applied to **networks** that are more general than **synchronous logic networks**, where **any type of computation** is performed at the **vertices** (e.g., **arithmetic operations**).
+We describe first the original **retiming algorithms** of Leiserson and Saxe, using a **graph model** that abstracts the **computation performed at each vertex**. Indeed, **retiming** can be applied to **networks** that are more general than **synchronous logic networks**, where **any type of computation** is performed at the **vertices** (e.g., **arithmetic operations**).
 
 #### Modeling
 
@@ -195,7 +197,7 @@ When modeling circuits for **retiming**, it is convenient to represent the **env
 With this model, **no vertex** is a **source** or **sink** in the **graph**.
 {% endhint %}
 
-Because of the **generality of the model**, we shall refer to it as a **synchronous network** and denote it by $$G_{sn}(V, E, W)$$. We shall **defer to a later section** a discussion of **specific issues** related to **modeling the environment**, such as representing **distinguished primary input and output ports** (e.g., **Figure 9.7**).
+Because of the **generality of the model**, we shall refer to it as a **synchronous network** and denote it by $$G_{sn}(V, E, W)$$. We shall **defer to a later section** a discussion of **specific issues** related to **modeling the environment**, such as representing **distinguished primary input and output ports** (e.g., [Figure 9.7](sequential-circuit-optimization-using-network-models.md#example-of-using-multi-graph-to-represent-a-synchronous-logic-model)).
 
 <details>
 
@@ -203,12 +205,12 @@ Because of the **generality of the model**, we shall refer to it as a **synchron
 
 A **synchronous network** is shown in **Figure 9.8**. The **numbers above the vertices** represent the **propagation delays**.
 
-<figure><img src="../../.gitbook/assets/example-synchronous-network.png" alt=""><figcaption><p>Figure 9.8 Example of synchronous network</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/example-synchronous-network-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/example-synchronous-network-light.png" alt=""></picture><figcaption><p>Figure 9.8 Example of synchronous network</p></figcaption></figure>
 
 </details>
 
 {% hint style="danger" %}
-The **retiming algorithms** proposed by **Leiserson and Saxe** assume that **vertices** have **fixed propagation delays**. Unfortunately, this is a **limitation** that may lead to **inaccurate results**. When **registers** have **input loads** different from other **gates**, shifting the **registers** in the circuit may indeed **affect the propagation delays**.
+The **retiming algorithms** proposed by Leiserson and Saxe assume that **vertices** have **fixed propagation delays**. Unfortunately, this is a **limitation** that may lead to **inaccurate results**. When **registers** have **input loads** different from other **gates**, shifting the **registers** in the circuit may indeed **affect the propagation delays**.
 {% endhint %}
 
 #### Math Notations
@@ -246,7 +248,7 @@ $$
 
 For example, consider the **circuit fragment** shown in **Figure 9.9(a)**, whose **network** is shown in **Figure 9.9(b)**. A **retiming** of **vertex** $$v_c$$**​** by **1** leads to the **circuit fragment** of **Figure 9.9(c)**, whose **network** is shown in **Figure 9.9(d)**.
 
-<figure><img src="../../.gitbook/assets/retiming-a-vertex.png" alt=""><figcaption><p>Figure 9.9 Retiming a vertex</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/retiming-a-vertex-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/retiming-a-vertex-light.png" alt=""></picture><figcaption><p>Figure 9.9 Retiming a vertex</p></figcaption></figure>
 {% endstep %}
 
 {% step %}
@@ -276,7 +278,11 @@ $$
 \tilde{w}(v_i,\dots,v_j)=w(v_i,\dots,v_j)+r_j-r_i
 $$
 
-As a consequence, **weights on cycles** are **invariant under retiming**. Note that the **path delay** is **invariant with respect to retiming** by definition.
+As a consequence, **weights on cycles** are **invariant under retiming**.
+
+{% hint style="warning" %}
+Note that the **path delay** is **invariant with respect to retiming** by definition.
+{% endhint %}
 {% endstep %}
 {% endstepper %}
 
@@ -294,7 +300,7 @@ Consider the **network of Figure 9.8**. An **equivalent network** is shown in **
 
 where the **entries** are associated with the **vertices** in [**lexicographic**](#user-content-fn-3)[^3] **order,** which means $$r_a=-1,r_b=-1,\dots$$
 
-<figure><img src="../../.gitbook/assets/retimned-network.png" alt=""><figcaption><p>Figure 9.10 Retimed network</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/retimned-network-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/retimned-network-light.png" alt=""></picture><figcaption><p>Figure 9.10 Retimed network</p></figcaption></figure>
 
 To verify this retiming by hand, let's take edge $$v_a\to v_b$$ for example,
 
@@ -324,7 +330,7 @@ Before we move on, let's define some math notations that will be used in the fol
 
 We have see the difference between path weight and path delay from [above](sequential-circuit-optimization-using-network-models.md#definition-of-the-synchronous-logic-network), now let's give them a formal definition.
 
-* **Path Weight** ($$W(v_{i}, v_{j})$$) :For each ordered vertex pair $$v_{i}, v_{j} \in V$$, we define $$W(v_{i}, v_{j}) = \min w(v_{i}, \dots, v_{j})$$ over all paths from $$v_{i}$$ to $$v_{j}$$.
+* **Path Weight** ($$W(v_{i}, v_{j})$$): For each ordered vertex pair $$v_{i}, v_{j} \in V$$, we define $$W(v_{i}, v_{j}) = \min w(v_{i}, \dots, v_{j})$$ over all paths from $$v_{i}$$ to $$v_{j}$$.
 * **Path Delay** ($$D(v_i,v_j)$$): Similarly, we define $$D(v_{i}, v_{j}) = \max d(v_{i}, \dots, v_{j})$$ over all paths from $$v_{i}$$ to $$v_{j}$$ with weight $$W(v_{i}, v_{j})$$.
 
 {% hint style="danger" %}
@@ -345,7 +351,7 @@ The usefulness of relating the retiming theory to the quantities $$W(v_{i}, v_{j
 * they are **unique** for **each vertex pair** and capture the most stringent timing requirement between them.
 * In addition, $$\tilde{W}(v_{i}, v_{j}) = W(v_{i}, v_{j}) + r_{j} - r_{i}$$ and $$\tilde{D}(v_{i}, v_{j}) = D(v_{i}, v_{j})$$. These quantities can be computed by using an all-pair shortest/longest path algorithm, such as Warshall-Floyd.
 
-We denote by $$W$$ and $$D$$ the **square matrices** of size $$|V|$$ containing these elements. This means that we have 2 VxV square matrices which are used to store the path weight and delay of every "possible" edge in the network.
+We denote by $$W$$ and $$D$$ the **square matrices** of size $$|V|$$ containing these elements. This means that we have 2 $$V\times V$$ square matrices which are used to store the path weight and delay of every "possible" edge in the network.
 
 {% hint style="warning" %}
 We say that a **retiming vector** is feasible if it is **legal** and the **retimed network** is **timing feasible** for a given cycle-time $$\phi$$.
@@ -426,20 +432,20 @@ The steps for this algorithm are:
 
 For example, in the following synchronous logic network where the critical path length is 3+7+7+7=24. We set our **first target** to 13.
 
-<figure><img src="../../.gitbook/assets/feas-example-1.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/feas-example-1-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/feas-example-1-light.png" alt="" width="563"></picture><figcaption></figcaption></figure>
 
 We can omit the edge with weight 0 in the graph,
 
-<figure><img src="../../.gitbook/assets/feas-example-2.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/feas-example-2-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/feas-example-2-light.png" alt="" width="563"></picture><figcaption></figcaption></figure>
 
-We start from the V<sub>d</sub> and writing the **data arrival time** for each vertice that V<sub>d</sub> can reach.
+We start from the $$V_d$$ and writing the **data arrival time** for each vertice that $$V_d$$ can reach.
 
-1. For V<sub>e</sub>, we write 3+7=10.
-2. For V<sub>f</sub>, we write 10+7=17.
+1. For $$V_e$$, we write 3+7=10.
+2. For $$V_f$$, we write 10+7=17.
 
-As 17>13, we must **add a register** between V<sub>e</sub> and V<sub>f</sub>. To do so, let's use the [cutset retiming](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-2b-rtl-transformations#cutset-retiming) we have learned in EE4415! So, we draw a **gaussian surface** around the V<sub>e</sub>, V<sub>d</sub>, and V<sub>c</sub>, then we move the register on the edge from V<sub>b</sub> -> V<sub>c</sub> to the edge from V<sub>e</sub> -> V<sub>f</sub>. Done!
+As 17>13, we must **add a register** between $$V_e$$ and $$V_f$$. To do so, let's use the [cutset retiming](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-2b-rtl-transformations#cutset-retiming) we have learned in EE4415! So, we draw a **gaussian surface** around the $$V_e$$, $$V_d$$, and $$V_c$$, then we move the register on the edge from $$V_b$$ -> $$V_c$$ to the edge from $$V_e$$ -> $$V_f$$. Done!
 
-After that, we start from V<sub>f</sub> and found out that the data arrival time at V<sub>g</sub> is 14 > 13, we need to add another register here. In this case, in order not to make the other paths violate our target, we apply the **cutset retiming again** and bring the register from V<sub>h</sub> -> V<sub>a</sub> to V<sub>f</sub> -> V<sub>g</sub>. Now we are done, the critical path now is 13.
+After that, we start from $$V_f$$ and found out that the data arrival time at $$V_g$$ is 14 > 13, we need to add another register here. In this case, in order not to make the other paths violate our target, we apply the **cutset retiming again** and bring the register from $$V_h$$ -> $$V_a$$ to $$V_f$$ -> $$V_g$$. Now we are done, the critical path now is 13.
 
 > HW: Argue that 13 is the optimal solution in this case.
 {% endstep %}
@@ -453,7 +459,7 @@ Retiming may affect the **circuit area**, because it may **increase or decrease 
 
 Before explaining the method, let us recall that the **synchronous network model** splits **multi-terminal nets** into **two-terminal** ones. As a result, **synchronous delays** are modeled by **weights on each edge**. Consider a **vertex** with **two (or more) fanout stems**. From an **implementation standpoint**, there is **no reason** for having **independent registers** on **multiple fanout paths**. **Registers can be shared**, as shown in **Figure 9.13 (c)**.
 
-<figure><img src="../../.gitbook/assets/register-sharing.png" alt="" width="563"><figcaption><p>Figure 9.13 (a) Circuit and network fragment (b) Retiming without register sharing. (c) Retiming with register sharing</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/register-sharing-darl.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/register-sharing-light.png" alt="" width="563"></picture><figcaption><p>Figure 9.13 (a) Circuit and network fragment (b) Retiming without register sharing. (c) Retiming with register sharing</p></figcaption></figure>
 
 > TODO: For the maths part on the method to do area minimization, it is not discussed in EE4218. SO, FYI, can read the textbook.
 
