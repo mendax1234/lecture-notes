@@ -104,15 +104,100 @@ As state transition graph drawing is **always** based on the state transition ta
 As we are dealing with a mealy machine here, so we will use the [mealy-machine drawing convention](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-02-digital-system-design-and-verilog#finite-state-machines) in our state transition graph!
 {% endhint %}
 
-### 2. FSM Back Engineering
+### 2. FSM Reverse Engineering
 
-1. For the questions (a), pay close attention to the structure of the table!
-2. To minimize the area of a circuit, we should think of the skills like dynamic programming learned in [lec-08-technology-mapping.md](../lec/lec-08-technology-mapping.md "mention"). So, the systemetic approach is
-   1. Decomposition the circuit using the standard cells
-   2. Partitioning
-   3. Do the pattern matching
-   4. Do the covering and use dynamic programming to find the minimum cost of area.
+<figure><img src="../.gitbook/assets/ps2-q2.png" alt=""><figcaption></figcaption></figure>
+
+This is a classic problem regarding the FSM reverse engineering, where we need to reverse engineer the state transition table from the structural network!.
+
+#### Reverse Engineering
+
+From the structural network diagram, the most important thing is to find the number of **registers** as it indicates the number of **state bits** $$n_b$$ that are used in the FSM and the total number of states $$n_s=2^{n_b}$$ if the problem didn't specify it uses the one-hot state encoding.
+
+Thus, in this problem, as we have two registesr, we have 4 states in total and we can use $$C_1C_0$$ to denote the current state and $$C_1^+C_0^+$$ to denote the next states first. Then we write down the boolean equation for $$C_1^+,C_0^+$$, Out1 and Out2:
+
+$$
+\begin{align*}
+C_0^+ &= \text{IN}\,\overline{C_1}\,\overline{C_0} \\
+C_1^+ &= \text{IN}\,\overline{C_1} + \overline{C_1}\,C_0 \\
+\text{Out1} &= \overline{C_1}\,C_0 +\text{IN}\,\overline{C_1}\,\overline{C_0} \\
+\text{Out2} &= \,C_1\,\overline{C_0}
+\end{align*}
+$$
+
+Based on these four equations, we can quickly find the position where $$C_1^+,C_0^+$$, Out1 and Out2 are 1. Thus, our state transition table will look like as follows:
+
+| IN | C1 | C0 | C1⁺ | C0⁺ | out1 | out2 |
+| -- | -- | -- | --- | --- | ---- | ---- |
+| 0  | 0  | 0  | 0   | 1   | 0    | 0    |
+| 0  | 0  | 1  | 1   | 0   | 1    | 0    |
+| 0  | 1  | 0  | 0   | 0   | 0    | 1    |
+| 0  | 1  | 1  | 0   | 0   | 0    | 0    |
+| 1  | 0  | 0  | 1   | 0   | 1    | 0    |
+| 1  | 0  | 1  | 1   | 0   | 1    | 0    |
+| 1  | 1  | 0  | 0   | 0   | 0    | 1    |
+| 1  | 1  | 1  | 0   | 0   | 0    | 0    |
+
+After getting the state transition table, suppose that we use the encoding as follows:
+
+$$
+S_0=00,S_1=01,S_2=10,S_3=11
+$$
+
+We can get the state transition table that we are familiar with as follows:
+
+| IN | Current State | Next State | out1 | out2 |
+| -- | ------------- | ---------- | ---- | ---- |
+| 0  | S0            | S1         | 0    | 0    |
+| 1  | S0            | S2         | 1    | 0    |
+| 0  | S1            | S2         | 1    | 0    |
+| 1  | S1            | S2         | 1    | 0    |
+| 0  | S2            | S0         | 0    | 1    |
+| 1  | S2            | S0         | 0    | 1    |
+| 0  | S3            | S0         | 0    | 0    |
+| 1  | S3            | S0         | 0    | 0    |
+
+#### Unreachable State
+
+Based on the state transition table above, it is obvious that state $$S_3$$ is unreachable.
+
+{% hint style="warning" %}
+Finding the unreachable state is part of the application of our [state extraction](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/sequential-logic-optimization/implicit-fsm-traversal-methods#state-extraction) techinique.
+{% endhint %}
+
+#### The use of LUT to implement combinational logic
+
+> TODO: Complete this after reviewing for the Chapter 8 and 9.
+
+#### Decomposition
+
+To minimize the area of a circuit, we should think of the skills like dynamic programming learned in [lec-08-technology-mapping.md](../lec/lec-08-technology-mapping.md "mention"). So, the systemetic approach is
+
+1. Decomposition the circuit using the standard cells
+2. Partitioning
+3. Do the pattern matching
+4. Do the covering and use dynamic programming to find the minimum cost of area.
 
 ### 3. Retiming
 
-1. When there are two registers coming out from a node, in reality only **one register** is needed (We can add one more wire!)
+<figure><img src="../.gitbook/assets/ps2-q3.png" alt=""><figcaption></figcaption></figure>
+
+This is a very classic problem of retiming and for those who are taking EE4415 together with EE4218, I believe at this point of time, you must be very familiar with this kind of synchronous logic network!
+
+#### Critical Path
+
+The critical path is the path with the longest propagation delay between two registers. Thus, one trick is to "erase" all the edges with non-zero weights. The critical path in the question is
+
+<p align="center"><span class="math">V_c</span>-><span class="math">V_e</span>-><span class="math">V_f</span>-><span class="math">V_g</span>-><span class="math">V_a</span></p>
+
+And the critical path length is $$3+1+7+7=3=21$$.
+
+#### Area Estimation in synchronous logic graph
+
+In the "[Area Minimization](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/sequential-logic-optimization/sequential-circuit-optimization-using-network-models#area-minimization)" section in our lecture, we have seen that the registers can be shared, so when there are two registers coming out from a node, in reality only **one register** is needed (We can add one more wire!)
+
+Thus, the total number of registers needed here is **4**!
+
+#### Retiming
+
+This will be very easy if you are from EE4415! As the iteration bound in this circuit is the loop from $$V_a$$->$$V_f$$->$$V_g$$ with the loop bound of 17. Thus, the optimum critical path length in this circuit is 17 if we are not doing the timing interleaving!
