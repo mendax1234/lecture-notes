@@ -88,35 +88,79 @@ The register binding is more complex here. But as long as we get the trick, it w
 
 The <mark style="color:red;">red</mark> vertical arrows are the key in the problem! It starts at the next cycle of the starting node and ends at the end of the cycle of the ending node! After drawing this kind of diagram, we can easily which register can be shared.
 
+<details>
+
+<summary>Rationale behind this technique</summary>
+
+The reason we are starting at the next cycle is due to the nature of the register. Let's take the register $$Z_1$$ from the graph above as an example. In cycle 1, the data is fed into the D port of the D Flip-flop/register, the register can only "broadcast" this new value at the next clock edge. That's why we start at the next cycle.
+
+Same thing for the ending point, which is at the end of the cycle of the ending node. Similarly, this is also because the new data will only take effect at the next clock cycle!
+
+</details>
+
+{% hint style="warning" %}
+Register binding can be thought of as **labelling** the edges in the CDFG!
+{% endhint %}
+
 ### 04. Combine Everything
 
-In short, all the things we have seen here covers most of the [lec-05-microarchitecture-design.md](../lec/lec-05-microarchitecture-design.md "mention") content. This thing can only be done either by HLS tolls or by humans.
+In short, all the things we have seen here covers most of the [lec-05-microarchitecture-design.md](../lec/lec-05-microarchitecture-design.md "mention") content. This thing can only be done either by HLS tools or by humans.
 
-{% hint style="info" %}
+{% hint style="warning" %}
 Unlike the HLS synthesis used in the question, the logic synthesis will only do the boolean algebra optimization.
 {% endhint %}
 
 #### Draw the CDFG
 
-The vertice represents the operator type, and the inputs coming to the vertices are the signals. For complex CDFGs like conditional, loops and function calling, the drawing might become more complex.
+In the CDFG drawing, by default we assume that there is no resource sharing! Thus, the CDFG for this question will look like as follows:
+
+<figure><img src="../.gitbook/assets/cdfg-ps1-q4-1.svg" alt=""><figcaption></figcaption></figure>
 
 #### Scheduling
 
-When we have two vertices which we are not sure whether which one can be issued first, look at their distance to the sink node, whichever has a shorter distance should be issued first.
+> When we have two vertices which we are not sure whether which one can be issued first, look at their distance to the sink node, whichever has a shorter distance should be issued later!
+>
+> In scheduling, if the constraint is resources, we should aim for **lowest latency**. If the constraint is **latency**, we should aim for **minimum resources** used.
 
-> TODO: check the above point with prof.
+The final scheduling table we have is shown as follows:
 
-In scheduling, if the constraint is resources, we should aim for **lowest latency**. If the constraint is **latency**, we should aim for **minimum resources** used.
+| t | Mult1 | Mult2 | ACU |
+| - | ----- | ----- | --- |
+| 1 | V3    | —     | V1  |
+| 2 | V3    | V2    | V4  |
+| 3 | —     | V2    | V6  |
+| 4 | V5    | —     | V8  |
+| 5 | V5    | —     | V9  |
+| 6 | —     | —     | V7  |
 
-#### Binding
+{% hint style="warning" %}
+The result after scheduling can be a table like above or it can be a scheduled CDFG graph! There is no difference between them! Also pay attention that the shifting by a variable amount operation needs an ALU to implement!
+{% endhint %}
 
-To illustrate the binding function for the function units. Just draw a binding function and vertice table.
+#### Resource Binding
 
-#### Register Sharing
+Based on the scheduling table, the binding table will be very trivial and thus will be omitted here.
 
-1. Think about each register should be kept for how long.
-2. The output signals **automatically** has a register that can be shared with others if possible.
-3. The intuition is that we are **labeling** the intermediate signals in the CDFG with the shared registers.
+#### Register Binding
+
+The ultimate goal of doing the register sharing here is that
+
+> We are **labeling** the **edges** in the scheduled CDFG with the regsiter name!
+
+To do the register sharing, we can use the technique we have learned in the [previous problem](problem-set-1.md#register-binding) in:
+
+1. The scheduling table
+2. The scheduled CDFG
+
+There is no difference between them, so my suggestion is to use whichever you prefer and then use the other to check the correctness during the final! One example of using the scheduling table to do the register sharing is shown as follows:
+
+<figure><img src="../.gitbook/assets/register-sharing-using-scheduling-table.png" alt="" width="563"><figcaption></figcaption></figure>
+
+The exact technique we've learned [previously](problem-set-1.md#register-binding) on which register is kept for how long can be used here. For example, the register $$Z_1$$ is kept from cycle 2 to cycle 4 and will be reused in cycle 6.
+
+{% hint style="warning" %}
+The output signals **automatically** has a register that can be shared with others if possible! For example, in this question, we have three outputs: $$p,q,r$$. Inherently, they are all registers, so from vertice $$V_8$$->$$V_9$$, the $$p$$ register can be used!
+{% endhint %}
 
 #### Control Unit Synthesis
 
@@ -130,8 +174,6 @@ Some techniques available reduce the row width, a.k.a, control-store word size, 
 2. Combine the mutually exclusively columns and remember to reserve a binary representation for the NOP.
 3. Combine the columns with an explicit shifted pattern and by doing rewiring on the other multiplexer(s).
 4. Simplify the available ALU controls.
-
-
 
 [^1]: If you think of them as **logic gates**, life will be a lot easier. But, just keep in mind, a block doesn't need to be exactly **one** logic gate. Later you will see that a **block** is nothing but an operator with **multiple/one input** and **only one output.**
 
