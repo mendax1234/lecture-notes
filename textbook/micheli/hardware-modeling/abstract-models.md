@@ -136,7 +136,7 @@ The data graph for the code above can be shown as follows:
 Data-Flow graphs are useful to represent **data paths** (not control) and it is **purely behavioral**.
 
 {% hint style="warning" %}
-In the data graphs, the labels beside the vertex is just used to denote the **numbering** of that vertex.
+In the data graphs, the label beside the vertex is just used to denote the **numbering** of that vertex.
 {% endhint %}
 
 ### Sequencing Graphs

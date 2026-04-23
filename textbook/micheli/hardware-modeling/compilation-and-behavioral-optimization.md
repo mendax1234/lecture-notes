@@ -67,7 +67,7 @@ A **parser** receives a set of **tokens**. Its first task is to verify that they
 
 <figure><picture><source srcset="../../.gitbook/assets/parse-tree-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/parse-tree-example-light.png" alt=""></picture><figcaption><p>Figure 3.17 Example of a parse tree for the statement a = p + q * r.</p></figcaption></figure>
 
-**Syntactic errors**, as well as some **semantic errors** (such as an operator applied to an incompatible operand), are detected at this stage. The **error recovery policy** depends on the compiler and on the gravity of the erro**r**. Software tools can be used to create **lexical analyzers** and **parsers**, such as lex and yacc, commonly provided with the UNIX operating system.
+**Syntactic errors**, as well as some **semantic errors** (such as an operator applied to an incompatible operand), are detected at this stage. The **error recovery policy** depends on the compiler and on the gravity of the error. Software tools can be used to create **lexical analyzers** and **parsers**, such as `lex` and `yacc`, commonly provided with the UNIX operating system.
 
 {% hint style="warning" %}
 Whereas the **front ends** of a compiler for **software** and **hardware** are very similar, the subsequent steps may be fairly different. In particular, for **hardware languages**, diverse **strategies** are used according to their **semantics** and **intent**.
@@ -87,7 +87,7 @@ We consider these transformations here as the transformations which are applied 
 
 These transformations are dealt with in detail in most books on software compiler design.
 
-#### Tree Heigh Reduction
+#### Tree Height Reduction
 
 This **transformation** applies to **arithmetic expression trees** and strives to split expressions into **two-operand expressions**, so that the **parallelism** available in **hardware** can be exploited optimally. It can be seen as
 
@@ -126,7 +126,7 @@ allows the first two additions to be performed in **parallel** if enough **hardw
 
 </details>
 
-**Tree-height reduction** was studied in depth as an **optimization scheme** for **software compilers**. It is used in **hardware compilers** mainly as a **local transformation**, due to the limited **parallelism** in **basic blocks**. **Tree-height reduction** exploits properties of **arithmetic operations** to **balance the expression tree** as much as possible. In the best case, the **tree height** is  $$O(\log n_{ops})$$) for ($$n_{ops}$$) operations, and the height is proportional to a **lower bound** on the overall **computation time**.
+**Tree-height reduction** was studied in depth as an **optimization scheme** for **software compilers**. It is used in **hardware compilers** mainly as a **local transformation**, due to the limited **parallelism** in **basic blocks**. **Tree-height reduction** exploits properties of **arithmetic operations** to **balance the expression tree** as much as possible. In the best case, the **tree height** is  $$O(\log n_{ops})$$ for ($$n_{ops}$$) operations, and the height is proportional to a **lower bound** on the overall **computation time**.
 
 {% stepper %}
 {% step %}
@@ -158,7 +158,7 @@ x = (a + d) + b * c;
 
 This **transformation** is illustrated in **Figure 3.18**. A further **refinement** can be achieved by exploiting the **distributive property**.
 
-<figure><img src="../../.gitbook/assets/community-associativity.png" alt=""><figcaption><p>Figure 3.18 Example of tree-height reduction using commutavity and distributivity.</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/community-associativity-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/community-associativity-light.png" alt=""></picture><figcaption><p>Figure 3.18 Example of tree-height reduction using commutavity and distributivity.</p></figcaption></figure>
 
 </details>
 {% endstep %}
@@ -186,7 +186,7 @@ x = a * b * c * d + a * e;
 
 which has a **tree height of 3** and **one additional operation**. This **transformation** is shown in **Figure 3.19**. Note that **two multipliers** are necessary to reduce the **computation time** with this transformation.
 
-<figure><img src="../../.gitbook/assets/distributivity.png" alt=""><figcaption><p>Figure 3.19 Example of tree-height reduction using distributive property.</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/distributivity-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/distributivity-light.png" alt=""></picture><figcaption><p>Figure 3.19 Example of tree-height reduction using distributive property.</p></figcaption></figure>
 
 </details>
 {% endstep %}
@@ -271,14 +271,16 @@ The vairable propagation is better because instead of waiting for `a = x` to fin
 </details>
 
 {% hint style="danger" %}
-The **propagation** of **y** cannot be performed after a different **reassignment** to **x.** For example,
+The **propagation** of `y` cannot be performed after a different **reassignment** to `x`**.** For example,
 
+{% code lineNumbers="true" %}
+```c
+x = 5;
+y = x;      // Copy statement: We establish that y is a copy of x.
+x = 10;     // Reassignment: x is modified here ("killed").
+z = y + 2;  // Usage: We use y here.
 ```
-1.  x = 5;
-2.  y = x;      // Copy statement: We establish that y is a copy of x.
-3.  x = 10;     // Reassignment: x is modified here ("killed").
-4.  z = y + 2;  // Usage: We use y here.
-```
+{% endcode %}
 
 If a compiler replaces the `y` in Line 4 with `x`, then there will be a problem!
 {% endhint %}
