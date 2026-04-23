@@ -52,7 +52,7 @@ This raises a natural question: **does a meaningful trade-off exist?** Specifica
 
 ### Optimization for Completely Specified FSM
 
-When considering **completely specified finite-state machines**, the transition function $$\delta$$ and the output function $$\lambda$$ are specified for each pair $$(\text{input}, \text{state}) \in X \times S$$. Two state**s** are **equivalent** if the **output sequences** of the finite-state machine, initialized in the two states, coincide for **any input sequence**. Equivalency is checked by using the result of the following theorem.
+When considering **completely specified finite-state machines**, the transition function $$\delta$$ and the output function $$\lambda$$ are specified for each pair $$(\text{input}, \text{state}) \in X \times S$$. Two states are **equivalent** if the **output sequences** of the finite-state machine, initialized in the two states, coincide for **any input sequence**. Equivalency is checked by using the result of the following theorem.
 
 > **Theorem 9.2.1.** Two states of a finite-state machine are **equivalent** if and only if, for **any input**, they have **identical outputs** and the corresponding **next states** are **equivalent**.
 
@@ -75,27 +75,27 @@ The normal method has the following three steps:
 
 <summary>Example of using the normal method to minimize the states</summary>
 
-<figure><img src="../../.gitbook/assets/state-minimization-normal-1.png" alt=""><figcaption><p>Figure 9.3 State diagram</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/state-minimization-normal-1-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/state-minimization-normal-1-light.png" alt=""></picture><figcaption><p>Figure 9.3 State diagram</p></figcaption></figure>
 
 Consider the **state diagram** shown in Figure 9.3, whose state table is reported next:
 
-<figure><img src="../../.gitbook/assets/state-table.png" alt="" width="560"><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/state-table-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/state-table-light.png" alt="" width="560"></picture><figcaption></figcaption></figure>
 
-The **state set** can be partitioned first according to the outputs, i.e.,
+The **state set** can be partitioned first according to the **outputs**, i.e.,
 
 <p align="center"><span class="math">\Pi_1 = \bigl\{ \{s_1, s_2\}, \{s_3, s_4\}, \{s_5\} \bigr\}</span></p>
 
-Then we check each **block** of $$\Pi_1$$ to see if the corresponding **next states** are in a **single block** of $$\Pi_1$$ for any **input**. The **next states** of $$s_1$$ and $$s_2$$​ **match**. The **next states** of $$s_3$$ and $$s_4$$ are in **different blocks**. Hence, the block $$\{s_3, s_4\}$$ must be **split**, yielding:
+Then we check each block of $$\Pi_1$$ to see if the corresponding **next states** are in a **single block** of $$\Pi_1$$ for any **input**. The next states of $$s_1$$ and $$s_2$$​ match. The next states of $$s_3$$ and $$s_4$$ are in **different blocks**. Hence, the block $$\{s_3, s_4\}$$ must be split, yielding:
 
 <p align="center"><span class="math">\Pi_2 = \bigl\{ \{s_1, s_2\}, \{s_3\}, \{s_4\}, \{s_5\} \bigr\}</span></p>
 
 When checking the blocks again, we find that no **further refinement** is possible, because the **next states** of $$s_1$$​ and $$s_2$$​ **match**. Hence, there are **four classes of compatible states**. We denote $$\{s_1, s_2\}$$ as $$s_{12}$$ in the following **minimal table**:
 
-<figure><img src="../../.gitbook/assets/minimal-state-table.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/minimal-state-table.-darkpng" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/minimal-state-table-light.png" alt="" width="563"></picture><figcaption></figcaption></figure>
 
 The corresponding diagram is shown in Figure 9.4
 
-<figure><img src="../../.gitbook/assets/minimal-state-diagram.png" alt=""><figcaption><p>Figure 9.4 Minimum-state diagram. (Dotted edges are superfluous)</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/minimal-state-diagram-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/minimal-state-diagram-light.png" alt=""></picture><figcaption><p>Figure 9.4 Minimum-state diagram. (Dotted edges are superfluous)</p></figcaption></figure>
 
 </details>
 
@@ -145,11 +145,11 @@ This method includes the following steps:
 
 Suppose that we have the following state table:
 
-<figure><img src="../../.gitbook/assets/implication-chart-example.png" alt="" width="505"><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/implication-chart-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/implication-chart-example-light.png" alt="" width="505"></picture><figcaption></figcaption></figure>
 
 We can first draw an **lower-triangular** matrix like below:
 
-<figure><img src="../../.gitbook/assets/implication-chart-method-2.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/implication-chart-method-2-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/implication-chart-method-2-light.png" alt="" width="563"></picture><figcaption></figcaption></figure>
 
 1. We tick (<i class="fa-check">:check:</i>) the cell (S1, S2) because they are obviously equivalent.
 2. Based on the **outputs**, we cross (<i class="fa-x">:x:</i>) the cell (S1, S3), (S1, S4), (S1, S5), (S2, S3), (S2, S4), (S2, S5), (S3, S5), (S4, S5). And we left with the cell (S3, S4).
@@ -187,7 +187,7 @@ In other words, the **compatibility rule** can be summarized as follows:
 
 > TODO: Lack of maths knowledge to include the formal definition here. And how to find all compatible pairs?
 
-Compability is **not transitive**. For example, if S1 has an output 10, S2 has an output 1\*, and S3 has an output 11. S1 is compatible with S2 if their next states are compatible. S2 and S3 are compatible if their next states are compatible. **But**, S1 and S3 is **incompatible** irrespective of their next states!
+Compability is **not transitive**. For example, if S1 has an output 10, S2 has an output 1x, and S3 has an output 11. S1 is compatible with S2 if their next states are compatible. S2 and S3 are compatible if their next states are compatible. But, S1 and S3 is **incompatible** irrespective of their next states!
 
 #### Normal Method
 
@@ -204,11 +204,11 @@ The normal method includes the following steps
 
 <summary>Example to minimize the states in an incompletely specified FSM</summary>
 
-<figure><img src="../../.gitbook/assets/incomplete-fsm.png" alt=""><figcaption><p>Figure 9.5 (a) State diagram</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/incomplete-fsm-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/incomplete-fsm-light.png" alt=""></picture><figcaption><p>Figure 9.5 (a) State diagram</p></figcaption></figure>
 
-Consider the **finite-state machine** of **Figure 9.5 (a)**, described by the following **table**, where only the **output function** $$\lambda$$ is **incompletely specified** for the sake of simplicity.
+Consider the **finite-state machine** of Figure 9.5 (a), described by the following table, where only the **output function** $$\lambda$$ is **incompletely specified** for the sake of simplicity.
 
-<figure><img src="../../.gitbook/assets/incomplete-specified-state-table.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/incomplete-specified-state-table-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/incomplete-specified-state-table-light.png" alt="" width="563"></picture><figcaption></figcaption></figure>
 
 Note first that replacing the **don’t care entries** by 1s would lead to the **table** of [Example above](synchronous-circuit-optimization-using-state-based-models.md#example-of-using-the-normal-method-to-minimize-the-states), which can be **minimized** to **four states**. Other choices of the **don’t care entries** would lead to other **completely specified finite-state machines**. Unfortunately, there is an **exponential number** of completely specified finite-state machines corresponding to the choice of the **don’t care values**.
 
@@ -220,11 +220,11 @@ Let us consider **pairwise compatibility**:
 
 This shows the **lack of transitivity** of the **compatibility relation**. The following **table** lists the **compatible** and **incompatible pairs**:
 
-<figure><img src="../../.gitbook/assets/compatible-in-pair.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/compatible-in-pair-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/compatible-in-pair-light.png" alt="" width="563"></picture><figcaption></figcaption></figure>
 
 Maximal compatibility classes are the following:
 
-<figure><img src="../../.gitbook/assets/max-compability-class.png" alt="" width="476"><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/max-compability-class-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/max-compability-class-light.png" alt="" width="476"></picture><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 In this case, we might find out that the partition $$\Pi=\{\{S_1,S_5\},\{S_2,S_3,S_4\}\}$$ is the **minimal partition** because only two states are needed. Any partition that is better than this can only has **1 state**, which is impossible in this case.
@@ -234,15 +234,15 @@ In this case, we might find out that the partition $$\Pi=\{\{S_1,S_5\},\{S_2,S_3
 
 ## State Encoding
 
-The **state encoding (or assignment) problem** consists of determining the **binary representation of the states** of a **finite-state machine**.
+The **state encoding (or assignment) problem** consists of determining the **binary representation of the states** of a finite-state machine.
 
 {% hint style="warning" %}
-In the most general case, the state encoding problem is complicated by the **choice of register type** used for storage (e.g., **D, T, JK**). We consider here only **D-type registers**, because they are the **most commonly used**.
+In the most general case, the state encoding problem is complicated by the **choice of register type** used for storage (e.g., D, T, JK). We consider here only **D-type registers**, because they are the most commonly used.
 {% endhint %}
 
 **State encoding** affects **circuit area** and **performance**. Most known techniques for state encoding target the reduction of **circuit complexity measures** that correlate well with **circuit area** but only weakly with **circuit performance**. **Circuit complexity** is related to the number of **storage bits** $$n_b$$​ used for the **state representation** (i.e., **encoding length**) and to the size of the **combinational component**. A measure of the latter differs significantly when considering **two-level** versus **multiple-level circuit implementations**.
 
-For this reason, **state encoding techniques** for **two-level logic** and **multiple-level logic** have been developed **independently**. We shall **survey methods** for **both cases** next.
+For this reason, **state encoding techniques** for **two-level logic** and **multiple-level logic** have been developed independently. We shall survey methods for **both cases** next.
 
 <details>
 
@@ -271,14 +271,14 @@ The **two-level circuits** are usually represented in the [sum-of-product](https
 
 > _Programmble logic arrays (PLAs)_ implement two-level combinational logic in sum-of-products (SOP) form. PLAs are built from an AND array followed by an OR array
 
-**Two-level circuits** have been the object of investigation for **several decades**. The **circuit complexity** of a **sum-of-products representation** is related to the number of **inputs**, **outputs**, and **product terms**. For **PLA-based implementations**, these quantities can be used to compute readily the **circuit area** and the **physical length of the longest path**, which correlates with the **critical path delay**.
+**Two-level circuits** have been the object of investigation for several decades. The **circuit complexity** of a **sum-of-products representation** is related to the number of **inputs**, **outputs**, and **product terms**. For **PLA-based implementations**, these quantities can be used to compute readily the **circuit area** and the **physical length of the longest path**, which correlates with the **critical path delay**.
 
 > **Rule 1**: The number of **inputs and outputs** of the **combinational component** is equal to **twice the state encoding length** plus the number of **primary inputs and outputs**.
 
 As we have seen in DDCA, an FSM contains two parts:
 
 1. Memory (Implemented using registers)
-2. Combinational Logic (Implemented using PLA as we suppose above)
+2. Combinational Logic (Implemented using PLA as we assume above)
 
 The _quote_ above focuses on the **combinational component**, so let's consider the inputs and outputs to / from the combinational part only.
 
@@ -315,7 +315,7 @@ This number is dependent **purely** on the number of **state bits** we use to en
 
 #### Heuristics
 
-Most **classical heuristic methods** for **state encoding** are based on a **reduced dependency criterion**. The **rationale** is to encode the states so that the **state variables** have the **least dependencies** on those representing the **previous states**. **Reduced dependencies** correlate **weakly** with the **minimality** of a **sum-of-products representation**.
+Most **classical heuristic methods** for **state encoding** are based on a **reduced dependency criterion**. The rationale is to encode the states so that the **state variables** have the **least dependencies** on those representing the **previous states**. **Reduced dependencies** correlate **weakly** with the **minimality** of a **sum-of-products representation**.
 
 For example, [adjacent code](#user-content-fn-2)[^2] should be used to states that share/have
 

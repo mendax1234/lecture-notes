@@ -46,7 +46,7 @@ It is convenient sometimes to have a **shorthand notation for variables**, witho
 
 Consider the **circuit of Figure 9.2(b)**, which provides an **oscillating sequence** when input **r** is **FALSE**.
 
-<figure><img src="../../.gitbook/assets/synchronous-logic-network.png" alt="" width="251"><figcaption><p>Figure 9.2(b)</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/synchronous-logic-network-dark.png" alt="" width="251"><figcaption><p>Figure 9.2(b)</p></figcaption></figure>
 
 Its **behavior** can be expressed as $$z^{(n)} = (z^{(n-1)} + r^{(n)})'$$, for all $$n \ge 0$$. Input **r** is a **reset condition**. Using the **shorthand notation**, the circuit can be described by the expression $$z = (z@1 + r)'$$.
 
