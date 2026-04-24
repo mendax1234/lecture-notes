@@ -60,7 +60,12 @@ Usually, we set the objective function as the coarse approximation of the **wire
 1. **Linear cost**: we merely sum all wire-lengths, e.g., $$x_1+x_2$$
 2. **Quadratic cost**: we sum the square of each wire, e.g., $$x_1^2+x_2^2$$
 
-> TODO: Go through the use case for these two cost functions again which happened in Quiz 3!
+{% hint style="success" %}
+#### Implications of different cost functions
+
+1. The **quadratic** cost function tends to minimize the **standard deviation** of wires, which will penalize long wires and might give us better timing performance. But the average wire length might go up compared to the linear cost function.
+2. The **linear** cost function tends to minimize the **total wire length**, which tends to minimize the cost.
+{% endhint %}
 
 Given the position of the CLBs, the measure of the wire-length between two CLBs also have two flavours:
 

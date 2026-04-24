@@ -8,7 +8,7 @@ metaLinks:
 
 ## Problems
 
-### 01. Netlist and Logic Network
+### 1. Netlist and Logic Network
 
 <figure><img src="../.gitbook/assets/ps1-q1.png" alt=""><figcaption></figcaption></figure>
 
@@ -38,7 +38,7 @@ However, for the logic network (not logic network graph), we can just draw three
 
 <figure><img src="../.gitbook/assets/ps1-q1b-logic-network.svg" alt=""><figcaption></figcaption></figure>
 
-### 02. Scheduling
+### 2. Scheduling
 
 <figure><img src="../.gitbook/assets/ps1-q2.png" alt=""><figcaption></figcaption></figure>
 
@@ -54,7 +54,7 @@ This is a classic scheduling problem and one good way to do the scheduling probl
 | 6     | V7          | —           | —   |
 | 7     | V7          | —           | —   |
 
-### 03. Binding
+### 3. Binding
 
 <figure><img src="../.gitbook/assets/ps1-q3.png" alt=""><figcaption></figcaption></figure>
 
@@ -102,7 +102,7 @@ Same thing for the ending point, which is at the end of the cycle of the ending 
 Register binding can be thought of as **labelling** the edges in the CDFG!
 {% endhint %}
 
-### 04. Combine Everything
+### 4. Combine Everything
 
 In short, all the things we have seen here covers most of the [lec-05-microarchitecture-design.md](../lec/lec-05-microarchitecture-design.md "mention") content. This thing can only be done either by HLS tools or by humans.
 
