@@ -162,6 +162,40 @@ The exact technique we've learned [previously](problem-set-1.md#register-binding
 The output signals **automatically** has a register that can be shared with others if possible! For example, in this question, we have three outputs: $$p,q,r$$. Inherently, they are all registers, so from vertice $$V_8$$->$$V_9$$, the $$p$$ register can be used!
 {% endhint %}
 
+#### Datapath Synthesis
+
+This part is a very classic problem! And I have summarized somes steps/tips for doing this kind of question. But before that, let's look at the solution first.
+
+<figure><img src="../.gitbook/assets/datapath-synthesis-ps1-q4.svg" alt=""><figcaption></figcaption></figure>
+
+{% stepper %}
+{% step %}
+#### Derive the Inputs of the Resources
+
+In this step, our focus should be the **resources**, like Mult1, Mult2 and ALU1. To find the input to these resources, we need to look at the scheduled table after we did the [register binding](problem-set-1.md#register-binding). For example, for multiplier 1, it can do two operations:
+
+1. $$V_3$$: Inputs are $$e$$ and $$f$$.
+2. $$V_5$$: Inputs are $$Z1$$ and $$Z2$$.
+
+Thus, there should be two 2-to-1 multiplexer at multiplier 1's inputs. Same for the rest two resources.
+
+{% hint style="warning" %}
+Note that in the ALU1, the register $$Z3$$ is reused so we duplicate it to the second and third port of the 6-to-1 multiplexer.
+{% endhint %}
+{% endstep %}
+
+{% step %}
+#### Derive the outputs of the Resources
+
+In this step, our focus should be the **output registers and the intermediate resgiters**! We need to find out the input into these registers may come from which resource! For exampe, for the register $$Z1$$, from the scheduled table after register binding, we find out that, $$Z1$$ can actually be written by:
+
+1. ALU1, or&#x20;
+2. Multiplier 1
+
+Thus, there should be a multiplexer in front of $$Z1$$. Same for the rest 5 registers.
+{% endstep %}
+{% endstepper %}
+
 #### Control Unit Synthesis
 
 If an operator, like multiplier, expands for two cycles, the multiplexer selection unit should be don't care for the first cycle and technically the write enable signal can also be don't care in the first cycle.
