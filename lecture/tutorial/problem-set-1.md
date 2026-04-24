@@ -168,6 +168,10 @@ This part is a very classic problem! And I have summarized somes steps/tips for 
 
 <figure><img src="../.gitbook/assets/datapath-synthesis-ps1-q4.svg" alt=""><figcaption></figcaption></figure>
 
+Actually, as $$Z3$$ is duplicated, we can make the second 6-to-1 multiplexer into a 5-to-1 multiplexer.
+
+<figure><img src="../.gitbook/assets/datapath-synthesis-ps1-q4-optimized.svg" alt=""><figcaption></figcaption></figure>
+
 {% stepper %}
 {% step %}
 #### Derive the Inputs of the Resources
@@ -198,16 +202,88 @@ Thus, there should be a multiplexer in front of $$Z1$$. Same for the rest 5 regi
 
 #### Control Unit Synthesis
 
-If an operator, like multiplier, expands for two cycles, the multiplexer selection unit should be don't care for the first cycle and technically the write enable signal can also be don't care in the first cycle.
+This is a classic control unit synthesis question! To solve, this question, we also need the **scheduled table** after doing the register binding! The steps I do this question is that:
+
+{% stepper %}
+{% step %}
+#### Form the Columns of the table
+
+The columns of the control unit table should contain
+
+1. All the multiplexer select signals
+2. Resource signals (like ALU control signals, etc)
+3. Intermediate and Output register write enable signals
+{% endstep %}
+
+{% step %}
+#### Fill in the table cycle by cycle
+
+When filling the table, do it systemetically based on the scheduled table after register binding! By which I mean
+
+1. First find out the arrow coming from a resource in the scheduled table, and make the write enable of that register to 1. For example, in cycle 1, $$Z1$$ is coming out from operation $$V_1$$ to operation $$V_5$$, then the $$Z1$$ write enable should be 1.
+2. Find out the operations done in that cycle and decide the resource signals and multiplexer signals.
+
+{% hint style="warning" %}
+If a regsiter is not written in one cycle, its multiplexer signal is don't care (X) and its write enable is 0.
+{% endhint %}
+{% endstep %}
+{% endstepper %}
+
+The complete control unit synthesis table is shown below, assuming that a horizontal microprogrammed controller is used.
+
+| Cycle | M1 | M2 | M3 | M4 | M5  | M6  | p\_en | q\_en | r\_en | z1\_en | z2\_en | z3\_en | ALUctl |
+| ----: | -- | -- | -- | -- | --- | --- | ----- | ----- | ----- | ------ | ------ | ------ | ------ |
+|     1 | 0  | 0  | 1  | X  | 000 | 000 | 0     | 0     | 0     | 1      | 0      | 0      | 000    |
+|     2 | 0  | 0  | X  | 0  | 001 | 001 | 0     | 0     | 0     | 0      | 1      | 1      | 000    |
+|     3 | X  | X  | X  | 1  | 010 | 010 | 0     | 0     | 0     | 0      | 1      | 1      | 010    |
+|     4 | 1  | 1  | X  | X  | 011 | 010 | 1     | 0     | 0     | 0      | 0      | 0      | 001    |
+|     5 | 1  | 1  | 0  | X  | 100 | 011 | 0     | 1     | 0     | 1      | 0      | 0      | 001    |
+|     6 | X  | X  | X  | X  | 101 | 100 | 0     | 0     | 1     | 0      | 0      | 0      | 001    |
 
 #### Control Unit Optimization
 
-Some techniques available reduce the row width, a.k.a, control-store word size, of the controlled unit implemented using microprogramming.
+Some techniques available reduce the **row width**, a.k.a, control-store word size, of the controlled unit implemented using microprogramming.
 
-1. Combine the identical columns.
-2. Combine the mutually exclusively columns and remember to reserve a binary representation for the NOP.
-3. Combine the columns with an explicit shifted pattern and by doing rewiring on the other multiplexer(s).
-4. Simplify the available ALU controls.
+{% stepper %}
+{% step %}
+#### Combine the identical columns
+
+In this case, the columns M1, M2 can be combined and the columns Z2\_en and Z3\_en can be combined as well.
+{% endstep %}
+
+{% step %}
+#### Combine the mutually exclusive columns
+
+In this case, the p\_en, q\_en and r\_en are mutually exclusive and thus we can combine them together and use a 2-bit representation for that.
+
+{% hint style="warning" %}
+The reason for using 2 bits is because 3+1 (NOP) can be represented using 2 bits. Remember to leave one space for the NOP!
+{% endhint %}
+{% endstep %}
+
+{% step %}
+#### Combine the columsn with an explicit shift pattern
+
+This can be combined if we use the **unoptimized version** of the second multiplexer at the ALU ah, but this may cause the fact that we have two 6-to-1 multiplexers now.
+{% endstep %}
+
+{% step %}
+#### Simplify the ALU control signals
+
+This is purely dependant on the ALU design. If the question says we can change that, then it is okay to do so. Otherwise, just leave it untouched.
+{% endstep %}
+{% endstepper %}
+
+After doing all the optimizations mentioned above, the optimized control unit table is shown as follows.
+
+| Cycle | M12 | M3 | M4 | M56 | pqr\_en | z1\_en | Z23\_en | ALUctl |
+| ----: | --- | -- | -- | --- | ------- | ------ | ------- | ------ |
+|     1 | 0   | X  | 1  | 000 | 00      | 1      | 0       | 000    |
+|     2 | 0   | 0  | X  | 001 | 00      | 0      | 1       | 000    |
+|     3 | X   | 1  | X  | 010 | 00      | 0      | 1       | 010    |
+|     4 | 1   | X  | X  | 011 | 01      | 0      | 0       | 001    |
+|     5 | 1   | X  | 0  | 100 | 10      | 1      | 0       | 001    |
+|     6 | X   | X  | X  | 101 | 11      | 0      | 0       | 001    |
 
 [^1]: If you think of them as **logic gates**, life will be a lot easier. But, just keep in mind, a block doesn't need to be exactly **one** logic gate. Later you will see that a **block** is nothing but an operator with **multiple/one input** and **only one output.**
 
