@@ -45,7 +45,9 @@ In the constructive placement algorithm, we start with one or a few "seed" cells
 
 #### Minimum-cut Algorithm
 
-> TODO: This is not the focus.
+{% hint style="info" %}
+This is not the focus. As this is not the focus of this section, just print out P35 of the slide for the finals
+{% endhint %}
 
 #### Analytical Algorithm
 
@@ -57,6 +59,8 @@ Usually, we set the objective function as the coarse approximation of the **wire
 
 1. **Linear cost**: we merely sum all wire-lengths, e.g., $$x_1+x_2$$
 2. **Quadratic cost**: we sum the square of each wire, e.g., $$x_1^2+x_2^2$$
+
+> TODO: Go through the use case for these two cost functions again which happened in Quiz 3!
 
 Given the position of the CLBs, the measure of the wire-length between two CLBs also have two flavours:
 
@@ -105,15 +109,14 @@ In the iterative approach, what we are essentially doing is to start from an ini
 Indeed, it is valid to start this process from **different initial placements**.
 {% endhint %}
 
-This process is **largely** inspired by how the nature optimizes certain stuff, which is what we called **simulation-based**/**meta-heuristic techniques**. We will discuss three different flavors of the simulation-based method here
+This process is **largely** inspired by how the nature optimizes certain stuff, which is what we called **simulation-based**/**meta-heuristic techniques**. We will discuss two different flavors of the simulation-based method here:
 
 1. Simulated-annealing
 2. Simulate evolution
-3. Force-directed placement
 
 #### Simulated-Annealing
 
-As its name suggests, the motivation or inspiration of this method comes from [annealing in metal](#user-content-fn-4)[^4]. The overal idea is that
+As its name suggests, the motivation or inspiration of this method comes from [annealing in metal](#user-content-fn-4)[^4]. The overal idea is that:
 
 1. An initial placement is created by assigning logic blocks randomly to the available CLBs in the FPGA.
 2. A large number of moves, or local improvements are then made to gradually improve the placement.
@@ -212,7 +215,7 @@ Usually, there is a **router** that determines which programmable switch should 
 Maze routing is originally developed for ASIC routing, but adapted for FPGA routing later. The first step of maze routing is to build the maze, or the so-called grid.
 
 1. The grid graph is a representation of the **layout**
-2. A layout is considered as a collection of unit side squares cells arranged in a $$h\times w$$ array.
+2. A layout is considered as a collection of unit side square cells arranged in a $$h\times w$$ array.
 3. Each cell is represented by a **vertex** and there is an **edge** between two vertices if cells are adjacent.
 
 <figure><img src="../.gitbook/assets/build-a-maze.png" alt="" width="494"><figcaption></figcaption></figure>
@@ -230,7 +233,7 @@ The algorithm is similar to **breadth-first search**. We work on a grid graph an
 For example, the above image represents the maze routing for our example at the beginning of this section.
 
 {% hint style="warning" %}
-The values in the vertices represents the number of hops needed from the source vertex.
+The value in the vertices represents the number of hops needed from the source vertex.
 {% endhint %}
 
 This algorithm is guaranteed to find the optimal solution.
