@@ -220,7 +220,7 @@ In other words, **floor planning** is nothing but to determine the **approximate
 
 > **Placement** is a physical design step in which various functional modules, after being planned, will be placed to achieve routability so that the final area, interconnects, timing/congestions and possibly power consumption can be minimized.
 
-In other words, **placement** is nothing but to decide the approximate location of the **standard cells** within each row in the layout. An example of a bad placement vs. a good placement.
+In other words, **placement** is nothing but to decide the approximate location of the **standard cells** within each row in the layout. An example of a bad placement vs. a good placement is shown below.
 
 <figure><img src="../.gitbook/assets/good-bad-placement.png" alt=""><figcaption></figcaption></figure>
 
@@ -247,6 +247,8 @@ But the routing has two flavors:
 
 1. **Global routing**: It decides which channel[^3] the wires can go into.
 2. **Detailed routing**: It decides the exact route for each wire.
+
+And the reason we divide routing into two flavors is to divide the **complex** routing problems into smaller parts, solve them separately and then combine the solutions together. By doing so, one very obvious disadvantage is that the solution might not be **optimal**!
 
 {% hint style="success" %}
 **Output:** Fully routed chip layout which is nothing but the full **physical layout** of the chip.
