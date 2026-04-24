@@ -120,7 +120,7 @@ In the structural matching algorithm, we assume and require that
 
 The pseudocode for the structural matching algorithm is shown below.
 
-{% code lineNumbers="true" %}
+{% code overflow="wrap" lineNumbers="true" %}
 ```c
 Match (u,v){                        // Matches isomorphic graphs too
     if (u is a leaf)                // Leaf of pattern graph
@@ -141,16 +141,32 @@ Match (u,v){                        // Matches isomorphic graphs too
             vl = left child of v;
             vr = right child of v;
             // The Pattern can be flipped
-            return (Match(ul, vl) AND Match(ur,vr) + Match(ur,vl) AND Match(ul,vr));
+            return ((Match(ul, vl) AND Match(ur,vr)) OR (Match(ur,vl) AND Match(ul,vr)));
         }
     }
 }
 ```
 {% endcode %}
 
-> TODO: Need a more concrete example to explain the recursion above.
+{% hint style="success" %}
+The whole spirit of this algorithm is that if the root of the pattern is a leaf, it is okay. If the root of the pattern is **not** a leaf, but the vertex is a leaf, that is **not okay**.&#x20;
+{% endhint %}
 
-The whole spirit of this algorithm is that if the root of the pattern is a leaf, it is okay. If the root of the pattern is **not** a leaf, but the vertex is a leaf, that is **not okay**. Below is an example of the structural pattern matching:
+And this recursive structural matching algorithm is run in an outer loop which traverses our giant unmapped network. At every **single gate**, it pauses, treats that gate as a temporary "root" (`v`), grabs a library cell (`u`), and fires off the recursive algorithm to see if the tree structure extending backward from `v` exactly matches the tree structure extending backward from `u`. And the pseudocode for the outer loop can be shown as follows:
+
+{% code overflow="wrap" lineNumbers="true" %}
+```
+For every node 'n' in the Entire Network:
+    For every library cell 'c' in the Library:
+        Let u = root of 'c'
+        Let v = node 'n'
+        
+        If Match(u, v) is true:
+            Record that cell 'c' can perfectly cover the logic ending at node 'n'
+```
+{% endcode %}
+
+Below is an example of the structural pattern matching:
 
 <figure><img src="../.gitbook/assets/structural-pattern-matching-example.gif" alt=""><figcaption></figcaption></figure>
 
@@ -171,9 +187,9 @@ Boolean matching is **decomposition independent**.
 * Two logically equivalent patterns may have different structures.
 {% endhint %}
 
-In boolean matching, let's consider a **cluster function** $$f$$ (our subject graph) within $$n$$ input variables and a **pattern function** $$g$$ with $$m$$ cell inputs.
+In boolean matching, let's consider a **cluster function** $$f$$ (our subject graph) with $$n$$ input variables and a **pattern function** $$g$$ with $$m$$ cell inputs.
 
-<figure><picture><source srcset="../.gitbook/assets/cluster-vs-pattern-cell-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/cluster-vs-pattern-cell-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/cluster-vs-pattern-cell-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/cluster-vs-pattern-cell-light.png" alt=""></picture><figcaption><p>Example of Cluster Function (Cluster Cell) and Pattern Function (Library cell)</p></figcaption></figure>
 
 Matching of two functions $$f$$ and $$g$$ involves **comparing two functions for equivalence** and **finding an assignment** of the cluster variables to pattern inputs. When doing the function equivalence check, we can have three methods:
 
@@ -181,7 +197,24 @@ Matching of two functions $$f$$ and $$g$$ involves **comparing two functions for
 2. Negation of Input Variables
 3. Negation of Output
 
-> TODO: Add example for each of the above method.
+<details>
+
+<summary>Examples of the function equivalence check</summary>
+
+1. **Permutation of the Input Variables (P-equivalence)**: This means two functions compute the exact same logic if you simply cross or swap the input wires.
+   * Library Cell (Pattern): `f(A, B) = A & ~B` _(An AND gate with the second input inverted)_
+   * Network Logic (Subject): `g(X, Y) = ~X & Y`
+   * The Match: These are P-equivalent. The tool doesn't need a custom cell for `g`; it just uses cell `f` and physically **routes** wire `Y` to pin `A`, and wire `X` to pin `B`.
+2. **Negation of Input Variables**: This means the functions match if you insert an inverter on one or more input wires.
+   * Library Cell (Pattern): `f(A, B) = A & B` _(A standard AND gate)_
+   * Network Logic (Subject): `g(X, Y) = ~X & ~Y` _(Which evaluates to a NOR gate due to De Morgan's Law)_
+   * The Match: These match under input negation. If the library has spare inverters, the tool can implement the NOR logic by routing inverted `X` and `Y` signals into the standard AND cell.
+3. **Negation of Output**: This means the functions match if you invert the final output signal.
+   * Library Cell (Pattern): `f(A, B) = A & B` _(A standard AND gate)_
+   * Network Logic (Subject): `g(X, Y) = ~(X & Y)` _(A standard NAND gate)_
+   * The Match: These match under output negation. The tool uses the AND cell and tacks an inverter onto its output pin to perfectly cover the NAND logic.
+
+</details>
 
 Thus, the functions in boolean matching can be equivalent in three ways:
 
@@ -213,7 +246,7 @@ Some examples of the boolean signatures are:
 
 {% stepper %}
 {% step %}
-**Symmetries of a function**
+#### **Symmetries of a function**
 
 Formally speaking, this boolean signature is defined to be a set of variables that are pair-wise interchangeable without affecting the logic.
 
@@ -241,7 +274,7 @@ From the [definition](lec-08-technology-mapping.md#boolean-matching) of boolean 
 {% endstep %}
 
 {% step %}
-**Unate/Binate variables**
+#### **Unate/Binate variables**
 
 **Unate variables** are variables with which a function monotonically "increases/decreases". Otherwise, we say that those variables are **binate variables**.
 
