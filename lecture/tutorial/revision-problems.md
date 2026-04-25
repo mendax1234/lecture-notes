@@ -2,19 +2,7 @@
 
 ## Problems
 
-In the last two lectures, prof. Rajesh guided us to do some very insightful pyp questions, which I think are quite useful for the finals in this sem.
-
-1. Resource sharing will **mess up** the microarchitecture of pipelining. Also, in pipelining, we assume we use dedicated binding, thus both our functional resources usage and the register usage will blow up. However, in the real-case, we assume that we have enough of these resources, thus, doing the pipeline way is preferable and is also commonly used.
-2. The sequence detector (AY19/20 PYP) is a very classic application of FSM.
-3. Search and see how Prof uses the word "manifest"
-4. Boolean match is equal to function match. Boolean signature match is the signature match we've been talking about.
-5. Usually, there is an IP block called asynchronous FIFO which will take care of metastability filtering etc.
-6. HLS is good at resource-dominated circuits (like DSPs) but not good at non-resource dominated circuits (like microprocessors)
-7. If there is hold time violation only at one core, we can disable that core and still sell that chip as lower model, like i3, etc.
-8. Include the discrete maths formula, liek $$\bar ab+ac=a+bc$$, etc.
-9. In the Verilog synthesis tool, the manipulation (addtion/multiplication) of the constants (`localparam`) are done by the compiler so no hardware will be needed for it.
-10. In the HLS, the true dual port is automatically enabled unless the question says we are using the single-port memory.
-11. In the HLS II analysis, the II is limited by the **slowest stage**, so if in one operation, we need to read 3 data without using array partitioning, we needs two cycles to read the data and thus our II will be 2. But if let's say our multiplier takes 2 cycles to calculate, the II will still be 2! Only when the execute stage takes more than 3 cycles, then our II will be 3. In summary, the II will be the number of cycles taken by the slowest macro stage (read, execute, etc).
+In the last two lectures, prof. Rajesh guided us to do some very insightful pyp questions, which I think are quite useful for the finals for this sem (AY25/26 Sem2)
 
 ### 1. Reverse Engineering the CDFG
 
@@ -254,6 +242,10 @@ This is the same example we've seen in the [lecture notes](../lec/lec-07-timing.
 #### Q2
 
 We've also seen this in one of the quizes. HLS is good when the data processed in loops has a data-independent exit conditions because the HLS can do the unrolling, pipelining etc easily.
+
+{% hint style="success" %}
+HLS is good at resource-dominated circuits (like DSPs) but not good at non-resource dominated circuits (like microprocessors)
+{% endhint %}
 {% endstep %}
 
 {% step %}
@@ -318,7 +310,7 @@ endmodule
 
 **Question**: The Initiation Interval for the following code is how many?
 
-{% code title="Version 1" overflow="wrap" lineNumbers="true" %}
+{% code overflow="wrap" lineNumbers="true" %}
 ```cpp
 #define N 2048
 
@@ -340,7 +332,78 @@ Now, if we uncomment Line 11, how will II change? To get II=1, how are we going 
 
 ***
 
-**Sol**. For the version 1 code snippet, the II is 1. It is because the vitis will automatically enable the **true dual port** block rams.
+**Sol**. For the code snippet, the II is 1. It is because the vitis will automatically enable the **true dual port** block rams.
+
+{% hint style="warning" %}
+The true dual port for two read memory accesses can only be done in BRAM/URAM, the LUTRAM doesn't support the true dual port feature!
+{% endhint %}
+
+<details>
+
+<summary>What if we implement the array <code>a</code> using LUTRAM?</summary>
+
+The code snippet will be changed to as follows:
+
+{% code overflow="wrap" lineNumbers="true" %}
+```cpp
+#define N 2048
+
+void test(int a[N], int out[1024]) {
+#pragma HLS INTERFACE ap_memory port=a
+#pragma HLS INTERFACE ap_memory port=out
+
+// Only specify the implementation (LUTRAM), let HLS figure out the ports needed
+#pragma HLS BIND_STORAGE variable=a impl=lutram
+
+    for (int i = 0; i < 1024; i++) {
+#pragma HLS PIPELINE
+        // HLS will synthesize a Dual-Port LUTRAM here (II=1)
+        out[i] = (a[i] + a[i + 1024]) / 2; 
+        
+        // Test this later: HLS will synthesize a Quad-Port LUTRAM here (II=1)
+        // out[i] = (a[i] + a[i + 512] + a[i + 1024]) / 3; 
+    }
+}
+```
+{% endcode %}
+
+Based on my testing,
+
+1. Line 13 will give out the II to be 1.
+2. Line 16 will give out the II to be 2.
+
+The conclusion is that, as the array `a` is not written in the code, the HLS tool optimizes it to use 2 ports for reading. Thus, the II for Line 13 is 2. Same will apply for Line 16. If we add some write to array `a`, the II will immediately become 2! Below is the code snippet I use to test this!
+
+{% code overflow="wrap" lineNumbers="true" %}
+```cpp
+#define N 2048
+
+void sum_halves(int a[N], int out[1024]) {
+#pragma HLS INTERFACE ap_memory port=a
+#pragma HLS INTERFACE ap_memory port=out
+
+// Bind 'a' to LUTRAM. 
+// Physically limits us to a maximum of ONE write per clock cycle.
+#pragma HLS BIND_STORAGE variable=a impl=lutram
+
+    for (int i = 0; i < 1024; i++) {
+#pragma HLS PIPELINE
+        
+        // 2 Reads (This is fine, LUTRAM can do multiple reads)
+        int temp = (a[i] + a[i + 1024]) / 2; 
+        out[i] = temp;
+        
+        // Attempt 2 Writes to array 'a'. 
+        // LUTRAM physically cannot do this in one cycle.
+        // This forces the compiler to stretch the loop over 2 cycles -> II=2.
+        a[i] = temp;
+        a[i + 1024] = temp + 1; 
+    }
+}
+```
+{% endcode %}
+
+</details>
 
 If we uncomment line 11, II will become 2. Now the II is bottlenecked by the memory. To fix this, we need to use **array partitioning**. The possible partitioning we can do is:
 
