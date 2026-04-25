@@ -22,4 +22,4 @@
 * [Quiz 2](tutorial/quiz-2.md)
 * [Problem Set 3](tutorial/problem-set-3.md)
 * [Quiz 3](tutorial/quiz-3.md)
-* [PYP Review](tutorial/pyp-review.md)
+* [Revision Problems](tutorial/revision-problems.md)

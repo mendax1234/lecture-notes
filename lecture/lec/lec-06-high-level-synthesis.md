@@ -76,7 +76,7 @@ Here are the steps for developing an **HLS component** from a **C++ function**:
 The **tool** implements the **HLS component** based on the **target flow**, **default tool configuration**, **design constraints**, and any **optimization pragmas or directives** we specify. We can use **optimization directives** to **modify** and **control** the implementation of the **internal logic** and **I/O ports**, overriding the **default behaviors** of the tool.
 
 {% hint style="warning" %}
-The pragmas can be done in C code by using `#pragmas DIRECTIVE`, and the example directives can be `UNROLL`, `PIPELINE`, `ARRAY_PARTITION`, `DATAFLOW`, etc.
+The pragmas can be done in C code by using `#pragmas DIRECTIVE`, and the example directives are `UNROLL`, `PIPELINE`, `ARRAY_PARTITION`, `DATAFLOW`, etc.
 {% endhint %}
 
 In addition, HLS tools support **arbitrary-precision and fixed-point data types**, which help reduce hardware area and improve efficiency compared to standard data types.
@@ -87,7 +87,11 @@ In addition, HLS tools support **arbitrary-precision and fixed-point data types*
 
 Using an inherently **sequential high-level language** to produce inherently **parallel hardware** is challenging. Sometimes the expected results are achieved, while other times small, seemingly irrelevant changes in code can produce **substantially different hardware**. HLS works fairly well for **inner blocks** with **data-oriented, resource-dominated functionality** and relatively simple control flow, such as **digital signal processing** and **machine learning inference**.
 
-It does **not work well** for **control-oriented blocks** or **custom I/O interfaces**. HLS is typically used for **inner blocks**, though it is becoming more popular for **full-system design**. **Static allocation** (arrays of finite sizes) works, but constructs that depend on runtime behavior, like **dynamically allocated arrays**, and **recursion** generally do not work. The goal of HLS is **not** to describe something that runs on a processor but to **describe the processor itself**!
+It does **not work well** for **control-oriented blocks** or **custom I/O interfaces**. HLS is typically used for **inner blocks**, though it is becoming more popular for **full-system design**. **Static allocation** (arrays of finite sizes) works, but constructs that depend on runtime behavior, like **dynamically allocated arrays**, and **recursion** generally do not work.
+
+{% hint style="success" %}
+The goal of HLS is **not** to describe something that runs on a processor but to **describe the processor itself**!
+{% endhint %}
 
 </details>
 
@@ -165,10 +169,16 @@ Now, we can play around with the pipelined design, which is default in the newer
 
 Compared to the [#multi-cycle](lec-06-high-level-synthesis.md#multi-cycle "mention") design, this pipelined design **does not need to wait** for the previous input to complete execution before starting the next computation. Instead, the next input can begin processing while the previous one is still being executed. Thus, in this pipelined design, we will have:
 
-1. [**Initiation Interval**](#user-content-fn-1)[^1] (II) to be 1.
+1. **Initiation Interval** (II) to be 1.
 2. **Binding**: no sharing (2 adders, 2 multipliers)
 3. **Timing**: period = 10ns, latency = 2, Trip count = 16
 4. **Total latency**: 17 \[170ns] (II \* Trip Count + 1 cycle overhead to "fill" the pipeline)
+
+{% hint style="warning" %}
+#### Initiation Interval
+
+This is a formal term for the CPI we have learned in CG3207. It is a measure of throughput and it represents the **data processed per unit time**. In other words, it's the **number of cycles** we need to wait before giving a new **set** of inputs. In this case, one set of inputs are `a, b, d, e`.
+{% endhint %}
 
 This also gives us an important insight: in a pipelined design, **latency** — the time required for a single input to complete its execution — is not that important, because we do not need to wait for that input to finish before issuing the next one.
 
@@ -177,7 +187,7 @@ This also gives us an important insight: in a pipelined design, **latency** — 
 
 Given that we already know the Initiation Interval, the latency and the trip count, the **total latency** can be calculated as
 
-<p align="center">Total Latency = Initial Interval * Trip Count + Overhead.</p>
+<p align="center">Total Latency = Initiation Interval * Trip Count + Overhead.</p>
 
 Where, the overhead can be calculated as
 
@@ -226,7 +236,7 @@ However, to get the true performance of **parallelism**, we must provide the **i
 1. use **multiple memories** so that we can read multiple data at one time.
 2. still use **one memory** but one read operation will give us **multiple data**.
 
-The first method will need us to **partition our array** wisely into the separate memories and it is called **partitioning** in HLS. Now, suppose we use **unrolling by a factor of 2** + **partitioning** on our [#pipelined-ii-2](lec-06-high-level-synthesis.md#pipelined-ii-2 "mention") design, we will get the following design:
+The first method will require us to **partition our array** wisely into the separate memories and it is called **partitioning** in HLS. Now, suppose we use **unrolling by a factor of 2** + **partitioning** on our [#pipelined-ii-2](lec-06-high-level-synthesis.md#pipelined-ii-2 "mention") design, we will get the following design:
 
 <figure><img src="../.gitbook/assets/unroll-partition.png" alt=""><figcaption></figcaption></figure>
 
@@ -247,7 +257,7 @@ And it is **much faster** than the first design, which is [#single-cycle](lec-06
 Besides the **cyclical array partitioning** we have mentioned above, we also have the following two **array partitioning** techniques:
 
 1. **Block partitioning**: Suppose our function is to calculate `b[i] = a[i] + a[i+N]`. Now, it will be beneficial if we put `a[i]` and `a[i+N]` into separate memories. Similarly, `a[i+1]` should be put into the same memory as `a[i]` and `a[i+1+N]` should be put in the same memory as `a[i+N]`, thus each of the two memories will have a block size of $$N$$.
-2. **Complete partitioning**: Suppose now our function becomes `d[i] = b[0]*a[i] + b[1]*c[i]`, assuming the array `b[]` is small, it would be **advantegeous** to put **each element** of the array b into a dedicated register so that we can read any number of the elements in the array b as we like. This is called **complete partitioning** and it is actually quite popular in the AI and ML field.
+2. **Complete partitioning**: Suppose now our function becomes `d[i] = b[0]*a[i] + b[1]*c[i]`, assuming the array `b[]` is small, it would be **advantegeous** to put **each element** of the array `b` into a dedicated register so that we can read any number of the elements in the array `b` as we like. This is called **complete partitioning** and it is actually quite popular in the AI and ML field.
 
 {% hint style="success" %}
 Page 83 of the [AMD HLS Optimization guide](https://docs.amd.com/v/u/en-US/ug1270-vivado-hls-opt-methodology-guide) actually summarizes the array partitioning very well!
@@ -297,7 +307,7 @@ To implement the ping-pong buffer,
 
 1. We first duplicate each **In Buffer** and **Out Buffer**, which represents the ensemble of A RAM, B RAM and the RES RAM in our lab context.
 2. For the two **In Buffers**, we should store the incoming data in the **first In Buffer** while the compute unit is taking inputs from the second **In Buffer**.
-3. Once the computation using the **second In Buffer** is complete, the transmitter[^2] writes to the **second In Buffer** while the compute unit takes inputs from the **first In Buffer**.
+3. Once the computation using the **second In Buffer** is complete, the transmitter[^1] writes to the **second In Buffer** while the compute unit takes inputs from the **first In Buffer**.
 
 Besides, there should also be mechanisms to
 
@@ -320,6 +330,4 @@ A sneak preview of what will we see in the last two topics for EE4218:
 2. Physical Synthesis: It is what happens when we click "Implementation" in Vivado.
 {% endhint %}
 
-[^1]: This is a formal term for the CPI we have learned in CG3207. It is a measure of throughput and it represents the **data processed per unit time**.
-
-[^2]: This can be either the AXI-Stream FIFO and AXI-DMA in our lab context.
+[^1]: This can be either the AXI-Stream FIFO and AXI-DMA in our lab context.

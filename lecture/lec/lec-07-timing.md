@@ -24,7 +24,7 @@ What is really amazing about this timing diagram is that it incorporates the ide
 In setup time constraint, the data arrival time must be **smaller than** the data required time.
 
 {% hint style="warning" %}
-If jitter is considered, this should be substracted from the data required time as we can use the worst-case analysis on $$t_{\text{logic\_max}}$$.
+If jitter is considered, this should be substracted from the data required time as we can use the worst-case analysis on $$t_{\text{logic\_max}}$$. From the data required time equation, we can also clearly see that positive skew can increase the performance!
 {% endhint %}
 
 ## Hold Time
@@ -40,10 +40,10 @@ In the hold time constraint, the data arrival time must be **bigger** than the d
 
 ## Timing Constraints
 
-The timing constraints is provided to the synthesis tool so that it knows what to optimize. More specifically, the timing constraints we provide are in the unit of **nanoseconds**. In particular, we will be talking about the constraints file used in Vivado.
+The timing constraints is provided to the synthesis tool so that it knows what to optimize. More specifically, the timing constraints we provide are in the unit of **nanoseconds**. In particular, we will be talking about the constraint file used in Vivado.
 
 {% hint style="warning" %}
-The timing constraints provided to the synthesis tool is different from the constraint used in scheduling. The latter is usually in the unit of clock cycles.
+The timing constraints provided to the synthesis tool is different from the constraint used in scheduling. The latter is usually in the unit of clock cycles and it constrains the latency of the operation!
 {% endhint %}
 
 ### `set_max/min_delay`
@@ -69,7 +69,7 @@ After making these assumptions, we can step through this timing diagram.
 1. At the first rising clock edge of clock A, after the clock-to-Q delay, `Din` becomes stable.
 2. As clock A and clock B are **totally different**, let's say `Din` arrives within the **aperture time** of the capturing register. This will trigger the metastability phase at the output of the capturing register and according to our assumption, this **metastable phase** lasts for 8ns. In other words, `Ds` is **unstable** for 8ns.
 3. Now the interesting thing happens:
-   1. Let's say there is some other combinational path together with `Ds` and assume it takes 2ns to finish. Now, the data arriving at the **sampling** register will happen to fall within its **aperture time** again. So on and so forth, we will have a bunch of register being in **metastability state**.
+   1. Let's say there is some other combinational path together with `Ds` and assume it takes 2ns to finish. Now, the data arriving at the **sampling** register will happen to fall within its **aperture time** again. And if combinational data path after this register is also 2ns, so on and so forth, we will have a bunch of register being in **metastability state**.
    2. But, let's say the combinational path with `Ds` takes 0.5ns to finish. Now, the data won't arrive within the aperture time of the sampling register. Thus, the data is safe to propagate!
 4. This indicates that we should limit the **combinational path** delay so that we can sample the data coming from another clock domain safely. In our case, the **maximum delay** for the combinational path together with the `Ds` is 1ns. This can be done by using the `set_max_delay` command we have introduced just now.
 
@@ -77,7 +77,7 @@ In short, to solve the CDC issue, using `set_max_delay` is one way! FYI, the oth
 
 ### Vivado Timing Report Analysis
 
-In this section, we are going to interpret the Vivado timing report. This is very useful as it can give us some hints on where is our critical path and how we find it in our microarchitecture diagram so that we can have a rough idea on improving the performance!
+In this section, we are going to interpret the Vivado timing report. This is very useful as it can give us some hints on where our critical path is and how we find it in our microarchitecture diagram so that we can have a rough idea on improving the performance!
 
 {% hint style="success" %}
 Here, I will be using the superscalar processor I designed — [Mach-V](https://mendax1234.github.io/Mach-V/)!

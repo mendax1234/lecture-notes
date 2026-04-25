@@ -1,4 +1,6 @@
-# PYP Review
+# Revision Problems
+
+## Problems
 
 In the last two lectures, prof. Rajesh guided us to do some very insightful pyp questions, which I think are quite useful for the finals in this sem.
 
@@ -13,3 +15,11 @@ In the last two lectures, prof. Rajesh guided us to do some very insightful pyp 
 9. In the Verilog synthesis tool, the manipulation (addtion/multiplication) of the constants (`localparam`) are done by the compiler so no hardware will be needed for it.
 10. In the HLS, the true dual port is automatically enabled unless the question says we are using the single-port memory.
 11. In the HLS II analysis, the II is limited by the **slowest stage**, so if in one operation, we need to read 3 data without using array partitioning, we needs two cycles to read the data and thus our II will be 2. But if let's say our multiplier takes 2 cycles to calculate, the II will still be 2! Only when the execute stage takes more than 3 cycles, then our II will be 3. In summary, the II will be the number of cycles taken by the slowest macro stage (read, execute, etc).
+
+## Tips
+
+Things to print out:
+
+1. [Vivado HLS Optimization Guide](https://docs.amd.com/v/u/en-US/ug1270-vivado-hls-opt-methodology-guide). (Page 83, Page 91, Page 116, Page 125 are very very clear and useful!)
+2. Lecture 7 slides.
+3. EE4415 [Lec1b-Timing Synchronous](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-1b-timing-synchronous).
