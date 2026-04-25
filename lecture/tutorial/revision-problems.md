@@ -23,3 +23,4 @@ Things to print out:
 1. [Vivado HLS Optimization Guide](https://docs.amd.com/v/u/en-US/ug1270-vivado-hls-opt-methodology-guide). (Page 83, Page 91, Page 116, Page 125 are very very clear and useful!)
 2. Lecture 7 slides.
 3. EE4415 [Lec1b-Timing Synchronous](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-1b-timing-synchronous).
+4. Print the unit table, which will be useful for the clock frequency.
