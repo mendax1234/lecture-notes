@@ -68,7 +68,7 @@ When designing an embedded system (sensor -> processor -> actuator[^2]), we must
 
 > HW/SW Co-design is about designing the hardware specifically for a type of software to make it efficient.
 
-The goal is to find the optimal point (a.k.a, [Pareto Point](/broken/pages/oCuIZajl7pg8oX0FFUq0#pareto-point)) on the Pareto Curve (trading off Resources vs. Performance)
+The goal is to find the optimal point (a.k.a, [Pareto Point](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/introduction/computer-aided-synthesis-and-optimization#pareto-point)) on the Pareto Curve (trading off Resources vs. Performance)
 
 <figure><img src="../.gitbook/assets/hw-sw-codesign-pareto-curve.png" alt="" width="331"><figcaption></figcaption></figure>
 

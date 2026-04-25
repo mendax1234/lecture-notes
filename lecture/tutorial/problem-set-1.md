@@ -147,7 +147,7 @@ The ultimate goal of doing the register sharing here is that
 
 > We are **labeling** the **edges** in the scheduled CDFG with the regsiter name!
 
-To do the register sharing, we can use the technique we have learned in the [previous problem](problem-set-1.md#register-binding) in:
+To do the register sharing, we can use the technique we have learned in the [previous problem](problem-set-1.md#register-binding):
 
 1. The scheduling table
 2. The scheduled CDFG
@@ -161,6 +161,14 @@ The exact technique we've learned [previously](problem-set-1.md#register-binding
 {% hint style="warning" %}
 The output signals **automatically** has a register that can be shared with others if possible! For example, in this question, we have three outputs: $$p,q,r$$. Inherently, they are all registers, so from vertice $$V_8$$->$$V_9$$, the $$p$$ register can be used!
 {% endhint %}
+
+<details>
+
+<summary>Tips to minimize the multiplexers at the intermediate/output registers</summary>
+
+To minimize the multiplexers at the intermediate/output registers, we try to make the arrows coming out from a certain resource to use the **same register**!
+
+</details>
 
 #### Datapath Synthesis
 
@@ -181,7 +189,7 @@ In this step, our focus should be the **resources**, like Mult1, Mult2 and ALU1.
 1. $$V_3$$: Inputs are $$e$$ and $$f$$.
 2. $$V_5$$: Inputs are $$Z1$$ and $$Z2$$.
 
-Thus, there should be two 2-to-1 multiplexer at multiplier 1's inputs. Same for the rest two resources.
+Thus, there should be two 2-to-1 multiplexer at multiplier 1's inputs. A quick trick is to look at how many operations that a certain resource can do, let's say $$n$$, this will indicated the size of the 2 multiplexers at the resource's input, like $$n$$-to-1 multiplexer. Same for the rest two resources.
 
 {% hint style="warning" %}
 Note that in the ALU1, the register $$Z3$$ is reused so we duplicate it to the second and third port of the 6-to-1 multiplexer.
