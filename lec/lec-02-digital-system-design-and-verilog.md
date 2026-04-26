@@ -83,8 +83,8 @@ Today, the steps from **functional specification** to **architectural synthesis*
 
 * The words at the right side of the arrow is the **output** of its upper step. For example, after "Logic Synthesis", the output is a **netlist**.
 * In EE4218, the "Architectural Synthesis" is changed to "**High-Level Synthesis (HLS)/Microarchitecture Design**".
-  * Usually calls HLS when it is **automated**, microarchitecture design when it is **manual**.
-* This design flow follows a divide-and-conquer approach. However, this also means that the final system — assembled from many independently optimized components — is not guaranteed to be globally optimal.
+  * Usually called HLS when it is **automated**, microarchitecture design when it is **manual**.
+* This design flow follows a divide-and-conquer approach. However, this also means that the final system — assembled from many independently optimized components — is **not guaranteed** to be globally optimal.
 * Generally, EE4218 focuses on from **Functoinal Specification** to **Architectural Synthesis**, while EE4415 focuses on from **Logic Synthesis** to **ASIC Fabrication**.
 {% endhint %}
 
@@ -198,7 +198,7 @@ end
 {% endstepper %}
 
 {% hint style="danger" %}
-These 5 steps are important and usually people will ignore the macroscopic block part, which is to think hardware. This will be dangerous. As macroscopic block will be useful when we **check our sysnthesis report** to see whether the hardware after sysnthesis is the same as what we want to build.
+These 5 steps are important and usually people will ignore the macroscopic block part, which is to think hardware. This will be dangerous. As macroscopic block will be useful when we **check our sysnthesis report** to see whether the hardware after sysnthesis is the same as what we want to build. You will appreciate more about this from EE4218!
 {% endhint %}
 
 #### Logical Synthesis
@@ -265,12 +265,12 @@ From Step 3 above, we see that between registers, there is only combinational lo
 
 If the clock is too fast and the longest "road" (critical path) hasn’t been traversed yet, the **data won’t arrive in time**, causing **incorrect data at the next register**. So, the **maximum clock frequency** is limited by the **critical path delay**.
 
-{% hint style="info" %}
+{% hint style="success" %}
 "Engineering is about trade offs. So, most of the time the answer to a certain question is 'it depends'."
 
 <p align="right">— Prof. Rajesh</p>
 
-So, the two design shown in the image above doesn't have one better and one worse, they both have their own use case.
+So, the two design shown in the image above doesn't have one better and one worse answer, they both have their own use case.
 {% endhint %}
 {% endstep %}
 {% endstepper %}
@@ -361,7 +361,7 @@ And our solution in practice is to use **iterative approaches**:
 
 ### FPGA
 
-We have learned quite a lot about [FPGA in Harris & Harris](https://wenbo-notes.gitbook.io/ddca-notes/textbook/digital-building-blocks/logic-arrays#field-programmable-gate-array). Please go back and review the working principle of FPGA FYI. The purpose of this section is to get us know ASIC vs. FPGA, what are the use case for each of them. So, in short,
+We have learned quite a lot about [FPGA in Harris & Harris](https://wenbo-notes.gitbook.io/ddca-notes/textbook/digital-building-blocks/logic-arrays#field-programmable-gate-array). Please go back and review the working principle of FPGA FYI. The purpose of this section is to get us know ASIC vs. FPGA and what are the use cases for each of them. So, in short,
 
 * **FPGA:** flexible, fast to deploy, good for prototyping and low-volume/highly-custom tasks.
 * **ASIC:** high-performance, power/area-efficient, cost-effective only for large-scale production.
@@ -374,7 +374,7 @@ Note that the verilog and the rules we are talking here are for writing the **RT
 
 ### HDL Coding Tips
 
-For best results, use templates from the synthesis manual of the EDA tool you are using, but has the risk that the code may not work well with another tool.
+For best results, use templates from the synthesis manual of the EDA tool you are using, but there might be risks that the code may not work well with another tool.
 
 {% hint style="success" %}
 For example, the synthesis manual for Vivado is [here](https://docs.amd.com/r/en-US/ug901-vivado-synthesis). (Very useful)
@@ -537,7 +537,7 @@ To write RTL for **more complex combinational circuit**, use
 
 These are the same as Harris & Harris, besides that, we also recommend that
 
-1.  Every `reg` must be assigned a meaningful value (not something like `Z <= Z;`) for    &#x20;every **possible combination** of inputs (e.g., all branches of `if/case` statements). Otherwise, that `reg` will become **physical register** and it is no longer a combinational circuit anymore (This is very dangerous!). For example, the following code is **correct**<br>
+1.  Every `reg` must be assigned a meaningful value (not something like `Z <= Z;`) for **every possible** combination of inputs (e.g., all branches of `if`/`case` statements). Otherwise, that `reg` will become **physical register** and it is no longer a combinational circuit anymore (This is very dangerous!). For example, the following code is correct:<br>
 
     <pre class="language-verilog" data-line-numbers><code class="lang-verilog">always @(*)
     begin
@@ -547,9 +547,6 @@ These are the same as Harris & Harris, besides that, we also recommend that
             Z = Y;
     end
     </code></pre>
-
-
-
 2. Two cases with blocking and non-blocking statements in `always @(*)`
    1. Blocking executes **immediately, in order**. So if a `reg` is used on both **left-hand side (LHS)** and **right-hand side (RHS)**, we should assign it **first** before we read it. (that `reg` should appear on LHS before RHS)
    2.  Non-blocking executes **in parallel at the end of the clock edge**/**at the end of the always block**, so within the same block we’ll **never see the updated value** in the RHS. For example, in the following code snippet, `Z` in Line 5 will hold the old value of `Z`.<br>
@@ -593,13 +590,13 @@ Synchronous means that the output changes only on the rising or falling edge of 
 
 By keeping the above two rules, we should be able to avoid 99% of problems. But the remaining 1%, will probably be in the paper exam. 😂
 
-1. Use **non-blocking** assignments (`<=`) for the **outputs of the always block** (signals),   &#x20;as well as for any **internal physical registers**. But the updated values are **not available** for use at the **same clock edge**. (See Step 1, rule 2(b) example)
+1. Use **non-blocking** assignments (`<=`) for the **outputs of the** `always` **block (signals)**, as well as for any **internal physical registers**. But the updated values are not available for use at the **same clock edge**. (See Step 1, rule 2(b) example)
 2.  If we insist on using **blocking assignments** (`=`) for internal combinational parts (variables). In this case, the variable should appear on the LHS **before** RHS.<br>
 
     <pre class="language-verilog" data-line-numbers><code class="lang-verilog">always @ (posedge CLK)
     begin
         tmp = X | Y; // tmp is a combinational variable
-        Z &#x3C;= tmp; //Z is an output (signal)
+        Z &#x3C;= tmp; // Z is an output (signal)
         // Z &#x3C;= X | Y; is fine as well
     end
     </code></pre>
