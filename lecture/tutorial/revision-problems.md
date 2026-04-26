@@ -405,6 +405,14 @@ void sum_halves(int a[N], int out[1024]) {
 
 </details>
 
+<details>
+
+<summary>What if we use the AMD recommendation to read BRAM at the third cycle?</summary>
+
+If our design of VNN, we use the AMD recommendation to read the data from BRAM at the third cycle, providing us with a true high-performance AI accelerator design. In this case, the II is still 1, not 3!
+
+</details>
+
 If we uncomment line 11, II will become 2. Now the II is bottlenecked by the memory. To fix this, we need to use **array partitioning**. The possible partitioning we can do is:
 
 1. Complete partitioning.
