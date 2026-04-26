@@ -38,7 +38,7 @@ With multiplexing, each physical pin can be connected to different internal I/O 
 A short example will be when our laptop is sending data to the UART, the data goes from a certain **pin** -> the multiplexer routed it to the RXD on the UART -> UART stores the data in its small FIFO -> the data is waited to be collected by the PS by using `scanf()` or equivalent.
 
 {% hint style="warning" %}
-In this lab, we configure the our `UART1` to use pin number 36 and 37 on the board.
+In this lab, we will configure our `UART1` to use pin number 36 and 37 on the board.
 {% endhint %}
 
 <details>
@@ -218,7 +218,7 @@ The **Board Support Package (BSP)** is located in the "Settings" of the platform
 
 * **Software Layer**: Application code (e.g., `printf`, `main()`).
 * **BSP Layer**: Low-level drivers, initialization code, memory maps, and vector tables.
-* **Hardware Layer**: Physical silicon (IPs likeAXI-FIFOs, AXI-Timers).
+* **Hardware Layer**: Physical silicon (IPs like AXI-FIFOs, AXI-Timers).
 
 The BSP does not create hardware; it configures the **software interface** for hardware defined in Vivado (`.xsa`).
 
@@ -234,6 +234,9 @@ The BSP does not create hardware; it configures the **software interface** for h
 ### Create Software Applications
 
 These are the programs we write. We can create multiple independent applications in our workspace that use this **same Platform**. Usually, there are **two** ways to create applications:
+
+1. Import from the Examples provided by AMD
+2. Create our own applications
 
 {% hint style="danger" %}
 While we can keep many applications in our project folder, the processor can usually only run one application at a time. We choose which one to "Run" or "Debug."
@@ -252,10 +255,6 @@ In Lab 02, we will just study how the example works and copy & paste the useful 
 This can be done easily by just clicking the "+" button in the navigator.
 
 <figure><img src="../.gitbook/assets/create-own-application-in-vitis.png" alt="" width="370"><figcaption></figcaption></figure>
-
-{% hint style="danger" %}
-While we can keep many applications in our project folder, the processor can usually only run one application at a time. We choose which one to "Run" or "Debug."
-{% endhint %}
 
 ### UART Example
 
@@ -277,7 +276,7 @@ SentCount += XUartPs_Send(&Uart_Ps, &HelloWorld[SentCount], 1);
 
 The meaning of the three parameters in this method are:
 
-* `&Uart_Ps` (Instance Pointer): This is the "Handle" to your specific UART hardware. The Kria board has two UARTs (UART0 and UART1). This pointer tells the function _which_ one to use.
+* `&Uart_Ps` (Instance Pointer): This is the "Handle" to our specific UART hardware. The Kria board has two UARTs (UART0 and UART1). This pointer tells the function _which_ one to use.
 * `&HelloWorld[SentCount]` (Data Pointer): This is the memory address of the specific character we want to send right now.
 * `1` (Number of Bytes): This is the size of the chunk we are sending. In this specific example, AMD chose to send 1 byte at a time.
 
