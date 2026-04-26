@@ -2,11 +2,6 @@
 
 ## Problems
 
-* The quadratic cost function is better then linear cost function in the critical path.
-* Multiple short wires are bad for performance because the flexibility increases, but the performance drops. This is always the trend (cannot be both flexible and high-performance)
-* Placement is not sufficient to guarantee routability.
-* Every time if we split a large problem into smaller ones, we will lose some optimality.
-
 ### 1. Placement for high performance
 
 **Question**: For analytical placers, using a quadratic cost function is better-suited for high-performance circuits as compared to using a linear cost function.

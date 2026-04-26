@@ -26,7 +26,7 @@ This question is a classic [**structure**](https://app.gitbook.com/s/W45nwClYZdz
 
 #### Logic Network
 
-> A [**logic network**](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/hardware-modeling/abstract-models#logic-networks) is nothing but **one block**, which has **multiple/one inputs** and **only one output**. While a **logic network graph**, is to implement that **logic network** with one big block using [smaller blocks](#user-content-fn-2)[^2].
+> A [**logic network**](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/hardware-modeling/abstract-models#logic-networks) is nothing but **one block**, which has **multiple/one inputs** and **only one output**. While a **logic network graph** is to implement that **logic network** with one big block using [smaller blocks](#user-content-fn-2)[^2].
 >
 > * A **synchronous logic network graph** would be just to add the **registers** on the **edges** of a normal logic network graph.
 
@@ -34,7 +34,7 @@ The detailed logic network and logic network graph is shown as follows.
 
 <figure><img src="../.gitbook/assets/ps1-q1b-ans.png" alt="" width="563"><figcaption></figcaption></figure>
 
-However, for the logic network (not logic network graph), we can just draw three big black box shown as follows.
+However, for the logic network (not logic network graph), we can just draw three big black boxes shown as follows.
 
 <figure><img src="../.gitbook/assets/ps1-q1b-logic-network.svg" alt=""><figcaption></figcaption></figure>
 
@@ -86,7 +86,7 @@ The register binding is more complex here. But as long as we get the trick, it w
 
 <figure><img src="../.gitbook/assets/register-binding.png" alt=""><figcaption></figcaption></figure>
 
-The <mark style="color:red;">red</mark> vertical arrows are the key in the problem! It starts at the next cycle of the starting node and ends at the end of the cycle of the ending node! After drawing this kind of diagram, we can easily which register can be shared.
+The <mark style="color:red;">red</mark> vertical arrow is the key in the problem! It starts at the next cycle of the starting node and ends at the end of the cycle of the ending node! After drawing this kind of diagram, we can see easily which register can be shared.
 
 <details>
 
@@ -106,10 +106,6 @@ Register binding can be thought of as **labelling** the edges in the CDFG!
 
 In short, all the things we have seen here covers most of the [lec-05-microarchitecture-design.md](../lec/lec-05-microarchitecture-design.md "mention") content. This thing can only be done either by HLS tools or by humans.
 
-{% hint style="warning" %}
-Unlike the HLS synthesis used in the question, the logic synthesis will only do the boolean algebra optimization.
-{% endhint %}
-
 #### Draw the CDFG
 
 In the CDFG drawing, by default we assume that there is no resource sharing! Thus, the CDFG for this question will look like as follows:
@@ -118,13 +114,13 @@ In the CDFG drawing, by default we assume that there is no resource sharing! Thu
 
 #### Scheduling
 
-> When we have two vertices which we are not sure whether which one can be issued first, look at their distance to the sink node, whichever has a shorter distance should be issued later!
+> When we have two vertices which we are not sure which one can be issued first, look at their distance to the sink node, whichever has a shorter distance should be issued later!
 >
 > In scheduling, if the constraint is resources, we should aim for **lowest latency**. If the constraint is **latency**, we should aim for **minimum resources** used.
 
 The final scheduling table we have is shown as follows:
 
-| t | Mult1 | Mult2 | ACU |
+| t | Mult1 | Mult2 | ALU |
 | - | ----- | ----- | --- |
 | 1 | V3    | —     | V1  |
 | 2 | V3    | V2    | V4  |
@@ -189,7 +185,7 @@ In this step, our focus should be the **resources**, like Mult1, Mult2 and ALU1.
 1. $$V_3$$: Inputs are $$e$$ and $$f$$.
 2. $$V_5$$: Inputs are $$Z1$$ and $$Z2$$.
 
-Thus, there should be two 2-to-1 multiplexer at multiplier 1's inputs. A quick trick is to look at how many operations that a certain resource can do, let's say $$n$$, this will indicated the size of the 2 multiplexers at the resource's input, like $$n$$-to-1 multiplexer. Same for the rest two resources.
+Thus, there should be two 2-to-1 multiplexer at multiplier 1's inputs. A quick trick is to look at how many operations that a certain resource can do, let's say $$n$$, this will indicate the size of the 2 multiplexers at the resource's input, like $$n$$-to-1 multiplexer. Same for the rest two resources.
 
 {% hint style="warning" %}
 Note that in the ALU1, the register $$Z3$$ is reused so we duplicate it to the second and third port of the 6-to-1 multiplexer.
@@ -210,7 +206,7 @@ Thus, there should be a multiplexer in front of $$Z1$$. Same for the rest 5 regi
 
 #### Control Unit Synthesis
 
-This is a classic control unit synthesis question! To solve, this question, we also need the **scheduled table** after doing the register binding! The steps I do this question is that:
+This is a classic control unit synthesis question! To solve this question, we also need the **scheduled table** after doing the register binding! The steps I do this question are as follows:
 
 {% stepper %}
 {% step %}
@@ -250,7 +246,7 @@ The complete control unit synthesis table is shown below, assuming that a horizo
 
 #### Control Unit Optimization
 
-Some techniques available reduce the **row width**, a.k.a, control-store word size, of the controlled unit implemented using microprogramming.
+Some techniques available to reduce the **row width**, a.k.a, control-store word size, of the controlled unit implemented using microprogramming are introduced as follows:
 
 {% stepper %}
 {% step %}
@@ -270,9 +266,9 @@ The reason for using 2 bits is because 3+1 (NOP) can be represented using 2 bits
 {% endstep %}
 
 {% step %}
-#### Combine the columsn with an explicit shift pattern
+#### Combine the columns with an explicit shift pattern
 
-This can be combined if we use the **unoptimized version** of the second multiplexer at the ALU ah, but this may cause the fact that we have two 6-to-1 multiplexers now.
+This can be done if we use the **unoptimized version** of the second multiplexer at the ALU, but this may cause the fact that we have two 6-to-1 multiplexers now.
 {% endstep %}
 
 {% step %}

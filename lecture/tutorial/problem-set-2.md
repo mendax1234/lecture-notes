@@ -13,7 +13,7 @@ This problem is a classic state minimization problem. We need to master two tech
 
 #### State Minimization
 
-According to the three steps we mentioned in the [lecture](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/sequential-logic-optimization/synchronous-circuit-optimization-using-state-based-models#normal-method), which is
+According to the three steps we mentioned in the [lecture](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/sequential-logic-optimization/synchronous-circuit-optimization-using-state-based-models#normal-method) to do the state minimization, which are
 
 > * **Initial partition (**$$\Pi_1$$**):** States are placed in the same block if they produce identical **outputs** for every input.
 > * **Refinement step (**$$\Pi_k\to\Pi_{k+1}$$**):** States remain in the same block if they were in the same block in  $$\Pi_k$$ **and** their next states fall in the same block of $$\Pi_k$$ for all inputs.
@@ -41,10 +41,10 @@ We first check each pair in the first block and see if their **next states** are
 There is no need to check for the outputs as the initial partition is derived from the outputs! So, the states in the same block confirm will have the same outputs.
 {% endhint %}
 
-After checking, we find out that the states in the pair $$\{A,D\}$$  not **equivalent**. Thus, we need to separate state $$D$$ out from the first block to form the third block.
+After checking, we find out that the states in the pair $$\{A,D\}$$ are not **equivalent**. Thus, we need to separate state $$D$$ out from the first block to form the third block.
 
 {% hint style="danger" %}
-When separating the state $$D$$ out, we must also check if there are other states which are equivalent to $$D$$, meaning that they should have the **same outputs** and the **same next states**. Here, there is no such state, so $$D$$ itself will form the third block.
+When separating the state $$D$$ out, we must also check if there are other states which are equivalent to $$D$$, meaning that they have the **same outputs** and the **same next states**. Here, there is no such state, so $$D$$ itself will form the third block.
 {% endhint %}
 
 Now, our partition becomes
@@ -108,13 +108,13 @@ As we are dealing with a mealy machine here, so we will use the [mealy-machine d
 
 <figure><img src="../.gitbook/assets/ps2-q2.png" alt=""><figcaption></figcaption></figure>
 
-This is a classic problem regarding the FSM reverse engineering, where we need to reverse engineer the state transition table from the structural network!.
+This is a classic problem regarding the FSM reverse engineering, where we need to reverse engineer the state transition table from the structural network!
 
 #### Reverse Engineering
 
 From the structural network diagram, the most important thing is to find the number of **registers** as it indicates the number of **state bits** $$n_b$$ that are used in the FSM and the total number of states $$n_s=2^{n_b}$$ if the problem didn't specify it uses the one-hot state encoding.
 
-Thus, in this problem, as we have two registesr, we have 4 states in total and we can use $$C_1C_0$$ to denote the current state and $$C_1^+C_0^+$$ to denote the next states first. Then we write down the boolean equation for $$C_1^+,C_0^+$$, Out1 and Out2:
+Thus, in this problem, as we have two registesrs, we will have 4 states in total and we can use $$C_1C_0$$ to denote the current state and $$C_1^+C_0^+$$ to denote the next states first. Then we write down the boolean equation for $$C_1^+,C_0^+$$, Out1 and Out2:
 
 $$
 \begin{align*}
@@ -167,7 +167,17 @@ Finding the unreachable state is part of the application of our [state extractio
 
 #### The use of LUT to implement combinational logic
 
-> TODO: Complete this after reviewing for the Chapter 8 and 9.
+Looking at the four combinational logic mentioned [above](problem-set-2.md#reverse-engineering), we can observe that $$C_1^+$$ and $$\text{Out1}$$ are the same, so we only need to use LUTs to implement one function and rewire to the other.
+
+1. $$C_0^+$$ contains 3 variables and thus needs **two** 2-input LUTs.
+2. $$C_1^+$$/$$\text{Out1}$$: contain 3 variables and thus needs **two** 2-input LUTs.
+3. $$\text{Out2}$$: contains 2 variables and needs only **one** 2-input LUT.
+
+Thus, the total number of 2-input LUTs needs is:
+
+$$
+2+2+1=5
+$$
 
 #### Decomposition
 

@@ -123,11 +123,11 @@ The cost of the circuit is \_\_\_\_\_\_ µm²
 #### Draw the sequencing graph
 
 Before drawing the sequencing graph, we should observe the expression and see if there are any parts that we can use shift (no cost) and addition to replace the multiplication symbol. In this case, we can replace `3d` by `d>>2+d`. Thus, our sequencing graph will look like below,
+
+<figure><img src="../.gitbook/assets/quiz1-q9-sequencing-graph.svg" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
-<figure><img src="../.gitbook/assets/quiz1-q9-sequencing-graph.svg" alt=""><figcaption></figcaption></figure>
-
 #### Draw the scheduling table
 
 Before drawing the scheduling table, we should observe the constraints in this question:
@@ -138,7 +138,7 @@ Before drawing the scheduling table, we should observe the constraints in this q
 
 Given these two constraints, we should be able to observe that:
 
-1. It is impossible to share multipliers as the sharing of multipliers will add multiplexer to the inputs of the multiplier, thus make each multiplication take 3 cycles to complete. Also, as we share the multiplier, meaning that we have at least 2 multiplication operation happening sequentially, making it take 6 cycles in total to complete. This violates our latency constraint!
+1. It is impossible to share multipliers as the sharing of multipliers will add multiplexer to the inputs of the multiplier, thus make each multiplication take 3 cycles to complete. Also, as we share the multiplier, meaning that we have at least 2 multiplication operations happening sequentially, making it take 6 cycles in total to complete. This violates our latency constraint!
 2. It is impossible to add multiplexer at the output of the multiplier. As the registers have no cost, there is no need to do register binding/sharing.
 3. It is possible to share the ALU because the delay of one ALU + multiplexer is 30+20=50ns, which can be finished safely in one clock cycle.
 
@@ -154,12 +154,10 @@ With all this insights, we can draw our scheduled table as follows:
 
 Based on the scheduled table, we can do the register binding. For the sake of simplicity, I did the register binding by labeling the sequencing graph instead of drawing arrows in between the table.
 
-
+<figure><img src="../.gitbook/assets/quiz1-q9-register-bound-sequencing-graph.svg" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
-<figure><img src="../.gitbook/assets/quiz1-q9-register-bound-sequencing-graph.svg" alt=""><figcaption></figcaption></figure>
-
 #### Datapath Synthesis
 
 After getting the scheduled table after doing the register binding, the datapath synthesis is very easy. And the datapath should look like as follows:

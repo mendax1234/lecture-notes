@@ -27,7 +27,7 @@ $$
 
 #### Linear Cost
 
-The linear cost function tends to minimize the **total wire length**, which tends to minimize the cost. In this question, it is obvious if we use a linear cost function, whatever BRAM and CLB block we choose, the total wire length remains the **same**!
+The linear cost function tends to minimize the **total wire length**, which tends to minimize the cost. In this question, it is obvious that if we use a linear cost function, whatever BRAM and CLB block we choose, the total wire length remains the **same**!
 
 <figure><img src="../.gitbook/assets/placement-linear.png" alt=""><figcaption></figcaption></figure>
 

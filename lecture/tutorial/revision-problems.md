@@ -59,7 +59,7 @@ To solve this question, we must follow the following steps systemetically
 {% step %}
 #### Recover the CDFG
 
-My tip here is that, we should focus on the control-store table and don't care about the schduling in the CDFG first. So, to draw the CDFG:
+My tip here is that, we should focus on the control-store table and don't care about the scheduling in the CDFG first. So, to draw the CDFG:
 
 1. Identify which operation is done in a certain cycle
 2. Construct the node with the register information labelled at the **output edge**.
@@ -416,7 +416,7 @@ If our design of VNN, we use the AMD recommendation to read the data from BRAM a
 If we uncomment line 11, II will become 2. Now the II is bottlenecked by the memory. To fix this, we need to use **array partitioning**. The possible partitioning we can do is:
 
 1. Complete partitioning.
-2. Cyclical partitioning by a factor of 3. This utilizes the fact that $$0\bmod 3=0, 512\bmod3=2,1024\bmod3=2$$.
+2. Cyclical partitioning by a factor of 3. This utilizes the fact that $$0\bmod 3=0, 512\bmod3=2,1024\bmod3=1$$.
 3. Block partitioning by a factor of 2. Split into two block RAMs, at any point of time, two memory accesses per block is okay.
 
 <details>
@@ -432,12 +432,3 @@ The manifests the **memory wall** bottleneck in the AI accelerator design!
 {% endhint %}
 
 </details>
-
-## Tips
-
-Things to print out:
-
-1. [Vivado HLS Optimization Guide](https://docs.amd.com/v/u/en-US/ug1270-vivado-hls-opt-methodology-guide). (Page 83, Page 91, Page 116, Page 125 are very very clear and useful!)
-2. Lecture 7 slides.
-3. EE4415 [Lec1b-Timing Synchronous](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-1b-timing-synchronous).
-4. Print the unit table, which will be useful for the clock frequency.
