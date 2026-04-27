@@ -23,3 +23,4 @@
 * [Problem Set 3](tutorial/problem-set-3.md)
 * [Quiz 3](tutorial/quiz-3.md)
 * [Revision Problems](tutorial/revision-problems.md)
+* [Final Recap](tutorial/final-recap.md)
