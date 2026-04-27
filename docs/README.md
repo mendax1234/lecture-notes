@@ -1,7 +1,7 @@
 ---
 description: Welcome to your team’s developer platform
 cover: .gitbook/assets/home-cover.png
-coverY: -21.452649869678545
+coverY: 0
 layout:
   width: wide
   cover:
