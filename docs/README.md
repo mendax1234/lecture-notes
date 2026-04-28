@@ -31,7 +31,7 @@ layout:
 
 <p align="center"><a href="http://app.gitbook.com/join" class="button primary">Explore the Knowledge Base</a> <a href="http://app.gitbook.com/join" class="button secondary">Browse by Topic</a></p>
 
-<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="image">Cover image</th></tr></thead><tbody><tr><td><h4><i class="fa-notebook">:notebook:</i></h4></td><td><strong>The Journey</strong></td><td>Connecting theoretical concepts across different fields to solve real-world problems.</td><td><a href="https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/kBwWKlDJwmXRyPHTg6XD/">Bachelor</a></td><td><a href=".gitbook/assets/home-6.png">home-6.png</a></td></tr><tr><td><h4><i class="fa-magnifying-glass">:magnifying-glass:</i></h4></td><td><strong>The Notes</strong></td><td>A growing, open-source collection of my lecture notes and academic summaries.</td><td><a href="https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/kBwWKlDJwmXRyPHTg6XD/">Bachelor</a></td><td data-object-fit="cover"><a href=".gitbook/assets/home-7.png">home-7.png</a></td></tr><tr><td><h4><i class="fa-memo">:memo:</i></h4></td><td><strong>The Community</strong></td><td>Mentorship, collaboration, and the spirit of gracious professionalism.</td><td><a href="https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/xakydb3VvWScDL0os4es/">API Reference</a></td><td><a href=".gitbook/assets/home-8.png">home-8.png</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="image">Cover image</th></tr></thead><tbody><tr><td><h4><i class="fa-notebook">:notebook:</i></h4></td><td><strong>The Journey</strong></td><td>Connecting theoretical concepts across different fields to solve real-world problems.</td><td><a href="https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/kBwWKlDJwmXRyPHTg6XD/">Bachelor</a></td><td><a href=".gitbook/assets/home-1.png">home-1.png</a></td></tr><tr><td><h4><i class="fa-magnifying-glass">:magnifying-glass:</i></h4></td><td><strong>The Notes</strong></td><td>A growing, open-source collection of my lecture notes and academic summaries.</td><td><a href="https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/kBwWKlDJwmXRyPHTg6XD/">Bachelor</a></td><td><a href=".gitbook/assets/home-2.png">home-2.png</a></td></tr><tr><td><h4><i class="fa-memo">:memo:</i></h4></td><td><strong>The Community</strong></td><td>Mentorship, collaboration, and the spirit of gracious professionalism.</td><td><a href="https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/xakydb3VvWScDL0os4es/">API Reference</a></td><td><a href=".gitbook/assets/home-3.png">home-3.png</a></td></tr></tbody></table>
 
 {% columns %}
 {% column %}
@@ -45,7 +45,7 @@ This space documents my journey of bridging the gaps between different technical
 {% endcolumn %}
 
 {% column %}
-<figure><img src=".gitbook/assets/home-9.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/home-4.png" alt=""><figcaption></figcaption></figure>
 {% endcolumn %}
 {% endcolumns %}
 
