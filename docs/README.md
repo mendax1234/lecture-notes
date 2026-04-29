@@ -1,6 +1,8 @@
 ---
 description: Welcome to your team’s developer platform
-cover: .gitbook/assets/home-cover.png
+cover:
+  light: .gitbook/assets/home-cover-light.png
+  dark: .gitbook/assets/home-cover.png
 coverY: 0
 layout:
   width: wide
@@ -29,9 +31,9 @@ layout:
 
 <p align="center">A collection of lecture notes, summaries, and things I've learned along the way.</p>
 
-<p align="center"><a href="http://app.gitbook.com/join" class="button primary">Explore the Knowledge Base</a> <a href="http://app.gitbook.com/join" class="button secondary">Browse by Topic</a></p>
+<p align="center"><a href="https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/kBwWKlDJwmXRyPHTg6XD/" class="button primary">Explore the Knowledge Base</a> <a href="https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/kBwWKlDJwmXRyPHTg6XD/" class="button secondary">Browse by Topic</a></p>
 
-<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="image">Cover image</th></tr></thead><tbody><tr><td><h4><i class="fa-notebook">:notebook:</i></h4></td><td><strong>The Journey</strong></td><td>Connecting theoretical concepts across different fields to solve real-world problems.</td><td><a href="https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/kBwWKlDJwmXRyPHTg6XD/">Bachelor</a></td><td><a href=".gitbook/assets/home-1.png">home-1.png</a></td></tr><tr><td><h4><i class="fa-magnifying-glass">:magnifying-glass:</i></h4></td><td><strong>The Notes</strong></td><td>A growing, open-source collection of my lecture notes and academic summaries.</td><td><a href="https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/kBwWKlDJwmXRyPHTg6XD/">Bachelor</a></td><td><a href=".gitbook/assets/home-2.png">home-2.png</a></td></tr><tr><td><h4><i class="fa-memo">:memo:</i></h4></td><td><strong>The Community</strong></td><td>Mentorship, collaboration, and the spirit of gracious professionalism.</td><td><a href="https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/xakydb3VvWScDL0os4es/">API Reference</a></td><td><a href=".gitbook/assets/home-3.png">home-3.png</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="image">Cover image</th><th data-hidden data-type="image">Cover image (dark)</th><th data-hidden data-type="image">Cover image (dark)</th><th data-hidden data-card-cover-dark data-type="image">Cover image (dark)</th></tr></thead><tbody><tr><td><h4><i class="fa-notebook">:notebook:</i></h4></td><td><strong>The Journey</strong></td><td>Connecting theoretical concepts across different fields to solve real-world problems.</td><td><a href="https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/kBwWKlDJwmXRyPHTg6XD/">Bachelor</a></td><td><a href=".gitbook/assets/home-1-light.png">home-1-light.png</a></td><td><a href=".gitbook/assets/home-1.png">home-1.png</a></td><td><a href=".gitbook/assets/home-1.png">home-1.png</a></td><td><a href=".gitbook/assets/home-1.png">home-1.png</a></td></tr><tr><td><h4><i class="fa-magnifying-glass">:magnifying-glass:</i></h4></td><td><strong>The Notes</strong></td><td>A growing, open-source collection of my lecture notes and academic summaries.</td><td><a href="https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/kBwWKlDJwmXRyPHTg6XD/">Bachelor</a></td><td><a href=".gitbook/assets/home-2-light.png">home-2-light.png</a></td><td></td><td><a href=".gitbook/assets/home-2.png">home-2.png</a></td><td><a href=".gitbook/assets/home-2.png">home-2.png</a></td></tr><tr><td><h4><i class="fa-memo">:memo:</i></h4></td><td><strong>The Community</strong></td><td>Mentorship, collaboration, and the spirit of gracious professionalism.</td><td><a href="https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/kBwWKlDJwmXRyPHTg6XD/">Bachelor</a></td><td><a href=".gitbook/assets/home-3-light.png">home-3-light.png</a></td><td></td><td></td><td><a href=".gitbook/assets/home-3.png">home-3.png</a></td></tr></tbody></table>
 
 {% columns %}
 {% column %}
@@ -45,13 +47,13 @@ This space documents my journey of bridging the gaps between different technical
 {% endcolumn %}
 
 {% column %}
-<figure><img src=".gitbook/assets/home-4.png" alt=""><figcaption></figcaption></figure>
+<figure><picture><source srcset=".gitbook/assets/home-4.png" media="(prefers-color-scheme: dark)"><img src=".gitbook/assets/home-4-light.png" alt=""></picture><figcaption></figcaption></figure>
 {% endcolumn %}
 {% endcolumns %}
 
 {% columns %}
 {% column %}
-<figure><img src=".gitbook/assets/home-10.png" alt=""><figcaption></figcaption></figure>
+<figure><picture><source srcset=".gitbook/assets/home-5.png" media="(prefers-color-scheme: dark)"><img src=".gitbook/assets/home-5-light.png" alt=""></picture><figcaption></figcaption></figure>
 {% endcolumn %}
 
 {% column %}
@@ -61,6 +63,6 @@ The best engineering is collaborative. Competing and building with FRC Team 6940
 
 I strongly believe in the open-source spirit. Whether through sharing these study notes or helping peers when I can, my goal is to lower the barrier to entry, make knowledge more accessible, and contribute to a more supportive learning community.
 
-<a href="https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/fN8WpEzp1MLfkzY30iaR/" class="button primary" data-icon="book-open">How to contribute</a>
+<a href="https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/kBwWKlDJwmXRyPHTg6XD/" class="button primary" data-icon="book-open">How to contribute</a>
 {% endcolumn %}
 {% endcolumns %}
