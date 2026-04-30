@@ -1,2 +1,3 @@
-# Harvard CS50 Course Review
-The course view are hosted online on [Gitbook](https://wenbo-notes.gitbook.io/harvard-cs50-notes). And the repo is here: [mendax1234/Harvard-CS50-Notes](https://github.com/mendax1234/Harvard-CS50-Notes).
+# Welcome
+
+Welcome to my learning notes for [Harvard CS50](https://cs50.harvard.edu/x/2024/)!
