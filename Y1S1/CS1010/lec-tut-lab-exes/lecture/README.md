@@ -1,6 +1,0 @@
----
-description: Lecture Notes
----
-
-# Lecture
-

@@ -1,6 +1,0 @@
----
-description: Lab Notes
----
-
-# Lab
-
