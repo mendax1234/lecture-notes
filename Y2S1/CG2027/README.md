@@ -1,3 +1,3 @@
-# CG2027 Course Review
+# Welcome
 
-The course review is hosted on [this website](https://mendax1234.github.io/lecture-notes/year-2/sem-1/CG2027/).
+Welcome to my notes for NUS CG2027!
