@@ -1,3 +1,5 @@
-# CG3207 Course Review
+# Welcome
 
-The course review is hosted on [this website](https://mendax1234.github.io/lecture-notes/year-2/sem-1/CG3207/).
+Welcome to my notes for Digital Design & Computer Architecture (DDCA)!
+
+This notes basically will cover notes for EE2026, CG3207, EE4218 (part of) at NUS and [DDCA at ETHz](https://safari.ethz.ch/ddca/spring2025/doku.php?id=start)!
