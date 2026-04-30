@@ -1,0 +1,414 @@
+\documentclass[10pt, landscape]{article}
+\usepackage[scaled=0.92]{helvet}
+\usepackage{calc}
+\usepackage{multicol}
+\usepackage{ifthen}
+\usepackage[a4paper,margin=3mm,landscape]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage{color,graphicx,overpic}
+\usepackage{hyperref}
+\usepackage{newtxtext} 
+\usepackage{enumitem}
+\usepackage{amssymb}
+\usepackage[table]{xcolor}
+\usepackage{vwcol}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
+\usepackage{mathtools}
+\usepackage{nicematrix}
+%For pictures / figures
+\usepackage{color,graphicx,overpic}
+\graphicspath{ {./images/} }
+% for relations
+\usepackage{cancel}
+\usepackage{ mathrsfs }
+\graphicspath{ {./images/} }
+\setlist{nosep}
+\usepackage{amssymb}  % For \checkmark
+
+
+\pdfinfo{
+  /Title (CG1111A-Quiz2.pdf)
+  /Creator (TeX)
+  /Producer (pdfTeX 1.40.0)
+  /Author (Seamus)
+  /Subject (Example)
+  /Keywords (pdflatex, latex,pdftex,tex)}
+
+% Turn off header and footer
+\pagestyle{empty}
+
+\newenvironment{tightcenter}{%
+  \setlength\topsep{0pt}
+  \setlength\parskip{0pt}
+  \begin{center}
+}{%
+  \end{center}
+}
+
+% redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}%
+\renewcommand{\familydefault}{\sfdefault}
+\renewcommand\rmdefault{\sfdefault}
+% makes nested numbering (e.g. 1.1.1, 1.1.2, etc)
+\renewcommand{\labelenumii}{\theenumii}
+\renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
+\renewcommand\labelitemii{•}
+%  for logical not operator
+\renewcommand{\lnot}{\mathord{\sim}}
+\renewcommand{\bf}[1]{\textbf{#1}}
+\newcommand{\abs}[1]{\vert #1 \vert}
+\newcommand{\Mod}[1]{\ \mathrm{mod}\ #1}
+
+\makeatother
+\definecolor{myblue}{cmyk}{1,.72,0,.38}
+\everymath\expandafter{\the\everymath \color{myblue}}
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\let\iff\leftrightarrow
+\let\Iff\Leftrightarrow
+\let\then\rightarrow
+\let\Then\Rightarrow
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+%% this changes all items (enumerate and itemize)
+\setlength{\leftmargini}{0.5cm}
+\setlength{\leftmarginii}{0.5cm}
+\setlist[itemize,1]{leftmargin=2mm,labelindent=1mm,labelsep=1mm}
+\setlist[itemize,2]{leftmargin=4mm,labelindent=1mm,labelsep=1mm}
+
+%My Environments
+\newtheorem{example}[section]{Example}
+% -----------------------------------------------------------------------
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{multicols}{4}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{center}
+    \fbox{%
+        \parbox{0.8\linewidth}{\centering \textcolor{black}{
+            {\Large\textbf{CS2113 Final}}
+            \\ \normalsize{AY25/26 sem 1}}
+            \\ {\footnotesize \textcolor{myblue}{github.com/mendax1234}} 
+        }%
+    }
+\end{center}
+
+\section{Programming Paradigms, P5}
+\begin{enumerate}
+    \item \textbf{(Object, P5)}: Objects in OOP is an \textbf{abstraction} mechanism because it allows us to abstract away the lower level details and work with bigger granularity entities.
+    \item \textbf{(Classes, P8)}:
+    \begin{itemize}
+        \item \textbf{(Encapsulation vs. Abstraction)}: \textbf{Encapsulation} is the \textbf{process} of putting details and related methods together into one entity. And this entity is called the \textbf{abstraction}, as it contains less details. An object in OOP is an \textbf{encapsulation} in terms of two aspects, \textbf{P8}.
+    \end{itemize}
+    \item \textbf{(Association, P9)}: Associations between two \textbf{objects} can represent the association between two \textbf{classes}. It is usually be implemented using \textbf{instance level variables}. \\
+    %\includegraphics[width=1\linewidth]{images/1.png}
+    \begin{itemize}
+        \item \textbf{(Navigability, P10)}: It indicates whether one object holds a \textbf{reference} to another, allowing navigation in that direction.
+        \begin{itemize}
+            \item Unidirectional: Only one class has a reference $\rightarrow$ one-way navigation.
+            \item Bidirectional: Both classes reference each other for the same relationship $\rightarrow$ two-way navigation; if the references represent different relationships (e.g., pet vs breeder), they are simply \textbf{two separate unidirectional} associations, not a \textbf{bidirectional} one.
+        \end{itemize}
+        %\includegraphics[width=1\linewidth]{images/2.png}
+        \item \textbf{(Multiplicity, P10)}
+        \item \textbf{(Dependency, P11)}: A \textbf{dependency} is a need for one class to depend on another \textbf{without having a direct association} in the same direction. It is implemented in having \textbf{another class object} in the \textbf{method argument}.\\
+        %\includegraphics[width=0.8\linewidth]{images/3.png}
+        \item \textbf{(Composition, P12)}: A strong ``part-of'' relationship where the \textbf{part has no meaningful independent existence outside the whole}. The implementation is to use a \textbf{\texttt{private} instance level member}.
+        \item \textbf{(Aggregation, P13)}: A container–contained relationship where the part is \textbf{not an integral} part of the whole and can exist independently; weaker than composition. Similar to the implementation of composition but \textbf{without \texttt{private}.}
+        \item \textbf{(Association class, P13)}: A special \textbf{class} that represents additional information about an \textbf{association}.
+    \end{itemize}
+    \item \textbf{(Inheritance, P14)}:
+    \begin{itemize}
+        \item \textbf{(Multiple Inheritance, P14)}: A class inherited directly from multiple classes is \textbf{not allowed} in Java. Reason is that inheritance doesn't specify the override so the actual inheritance of some methods will be problematic.
+        \item \textbf{(Override, P15)}: Overridden methods have the same name, the same type signature, and the same \textbf{(or the subtype)} return type. a.k.a, \textbf{same method descriptor}
+        \item \textbf{(Overload, P15)}: Method overloading is when there are multiple methods with the \textbf{same name} but \textbf{method signatures}. Thus, these methods do the same things but take different parameters and produce possibly different return types.
+        \item In the code \texttt{class C \{A foo (B1 x, B2 y) \{\}\}}, \texttt{C::foo(B1, B2)} is \textbf{method signature} (method signature contains the \textbf{order} of parameters), \texttt{A C::foo(B1, B2)} is \textbf{method descriptor}.
+        %\includegraphics[width=1\linewidth]{images/4.png}
+        \item \textbf{(Interface, P16)}
+        \item \textbf{(Abstract class, P16)}: An abstract class \textbf{cannot be instantiated}, but \textbf{can be subclassed}. A class with an \texttt{abstract} method becomes an abstract class automatically. An abstract method cannot be implemented in its own abstract class.
+        \item \textbf{(Substitutability, P16)}: The specification from Enzio or (LSP, \textbf{P163})
+        \item \textbf{(Dynamic and Static Binding, P17)}: \textbf{Overridden methods} are resolved using \textbf{dynamic binding}, and therefore resolves to the implementation in the actual type of the object. \textbf{Overloaded methods} are resolved using \textbf{static binding}.
+    \end{itemize}
+    \item \textbf{(Polymorphism, P18)}: Polymorphism allows you to write code \textbf{targeting superclass objects}, use that code on \textbf{subclass objects}. and achieve possibly different results based on the \textbf{actual class of the object}.
+    \item \textbf{Java Collections Framework}: Unified architecture for representing/manipulating groups of objects. Standardizes handling to reduce effort \& increase performance.
+    \begin{itemize}
+        \item \textbf{Interfaces}: Abstract data types defining \textit{what} a collection does (e.g., \texttt{List}, \texttt{Set}).
+        \item \textbf{Implementations}: Concrete classes defining \textit{how} it works (e.g., \texttt{ArrayList}, \texttt{HashSet}).
+        \item \textbf{Algorithms}: Reusable methods for operations like searching \& sorting (e.g., \texttt{Collections.sort()}).
+    \end{itemize}
+    \item \textbf{(Java Access Modifiers)}: The following table shows the access to \textbf{members} permitted by each modifier.
+        \resizebox{\linewidth}{!}{%
+            \begin{tabular}{|l|c|c|c|c|}
+                \hline
+                \textbf{Modifier} & \textbf{Cls} & \textbf{Pkg} & \textbf{Sub} & \textbf{Wld} \\ \hline
+                \texttt{public} & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\ \hline
+                \texttt{protected} & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\times$ \\ \hline
+                no modifier & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ \\ \hline
+                \texttt{private} & $\checkmark$ & $\times$ & $\times$ & $\times$ \\ \hline
+            \end{tabular}%
+        }
+    \item \textbf{(Java Packages)}: The \textbf{package} of a \textbf{type/class} should match the folder path of the \textbf{source file}. e.g., \texttt{<source-folder>/seedu/util/Formatter.java} file) is in the package \texttt{seedu.util}
+    \item \textbf{Important Points}:
+    \begin{itemize}
+        \item \textbf{Class Level variables}: The criteria is that the variable should be same across different instances.
+        \item \textbf{Overriding} is \textbf{more related to polymorphism}. \textbf{Overloading} is \textbf{less related to polymorphism}.
+        \item \textbf{Runtime error and Compile Time Error}:
+        \begin{itemize}
+            \item To see whether a code will generate compile-error or not, we \textbf{only} see the CTT of the variable and the type casting. The casted type must be the subtype of CTT of L.H.S and should be within the type hierarchy (either subtype of supertype) of the CTT of R.H.S.
+            \item Run-time error judgment \textbf{only} needs us to see the RTT of the variable. We \textbf{must} ignore the type casting! So, during the run-time, we can just \textbf{ignore} the type casting and see the subtype relationship between the RTT of the L.H.S and R.H.S variable.
+        \end{itemize}
+        \item Casting to an \textbf{incompatible} type can result in a \texttt{ClassCastException} at \textbf{runtime}.
+        \item \textbf{Association vs. Dependency}: \textbf{association} means a ``\textbf{has-a}'' relationship, while \textbf{dependency} means a ``\textbf{uses-a}'' relationship.
+        \item In \textbf{Composition}, whether the \textbf{whole} can exist without \textbf{part} depends the multiplicity on the \textbf{part}.
+        \item \textbf{Aggregation vs. Composition}: In \textbf{Aggregation}, the part can exist \textbf{without} the whole, while in \textbf{composition}, cannot.
+        \item \textbf{Java Primitive Type Subtype relationship}: \\
+        \includegraphics[width=1\linewidth]{images/5.png}
+        \item In Java, \textbf{narrow type conversion without explicit casting} is \textbf{not allowed} and a \textbf{compilation-error }will be generated.
+        \item A \textbf{class method} \textbf{cannot access} its \textbf{instance fields} or call other of its \textbf{instance methods}. \texttt{this} keyword has no meaning in a \textbf{class method}.
+        \item In Java, a field/member or method with modifier \texttt{static} belongs to the \textbf{class} rather than the specific instance.
+        \item An \textbf{abstract class} can have \textbf{no abstract method}.
+        \item \textbf{All methods} declared in an \textbf{interface} are \texttt{public abstract}, so we can omit these two. \textbf{All fields/members} declared in an \textbf{interface} are \texttt{public static final} (constant), so we can omit these three.
+        \item \texttt{obj instanceOf Circle} will check if the \textbf{run-time type} of \texttt{obj} is a subtype of \texttt{Circle}.
+        \item In \textbf{Exception Handling}, if there is a block of \texttt{catch} that is \textbf{unreachable}, a \textbf{compile-error} will be generated.
+    \end{itemize}
+\end{enumerate}
+\section{Requirements, P20}
+\begin{enumerate}
+    \item \textbf{(Brownfield and Greenfield Project, P20)}
+    \item \textbf{(Non-Functional Requirements, P20)}
+    \item \textbf{(Gathering requiremnts, P23)}: (Brainstorming, \textbf{P23}) ; (User Surveys, \textbf{P23}) ; (Observation, \textbf{P23}) ; (Interviews, \textbf{P23}) ; (Focus Groups, \textbf{P23}) ; (Prototyping, \textbf{P23}) ; (Product Surveys, \textbf{P24})
+    \item \textbf{(Specifying Requirements, P25)}: (Prose, \textbf{P25}) ; (Feature Lists, \textbf{P25}) ; (User Stories, \textbf{P25}) ; (Use cases, \textbf{P29}) ; (Glossary, \textbf{P30}) ; (Supplementary requirements, \textbf{P30})
+    \item \textbf{Important Points}:
+    \begin{itemize}
+        \item \textbf{User story} is \textbf{not} detailed enough to tell us exact details of the product.
+        \item \textbf{User story} is a \textbf{functional requirement}, not a NFR.
+        \item \textbf{NFRs} describe \textbf{how} the system performs (quality/constraints), whereas \textbf{Functional Requirements} describe \textbf{what} the system does (features/behaviors). NFR shouldn't be restricted to a specific user.
+        \item \textbf{Examples to generate NFRs}
+        \begin{itemize}
+            \item \textbf{(Latency)}: Book confirmation received within \textbf{15 seconds}. (Give a specific number!)
+            \item \textbf{(General UI Design)}: Scanning window at least \textbf{3cm x 3cm}.
+            \item \textbf{(Reliability)}: Unlock signal sent successfully \textbf{99.9\%} of attempts.
+        \end{itemize}
+        \item \textbf{Useless Gathering Methods}: Relying on \textbf{introspection} (guessing since developer $\neq$ user), surveying the \textbf{wrong demographic}, or asking \textbf{leading/technical} questions rather than observing actual user behavior.
+    \end{itemize}
+\end{enumerate}
+\section{Design, P31}
+\begin{enumerate}
+    \item \textbf{(Software Design, P31)}
+    \item \textbf{(Design Fundamentals, P32)}:
+    \begin{itemize}
+        \item \textbf{(Abstraction, P32)}
+        \item \textbf{(Coupling, P32)}: Coupling is a measure of the degree of \textbf{dependence} between components, classes, methods, etc. High coupling is \textbf{discouraged}. X is coupled to Y if a change to Y can \textbf{potentially} require a change in X (This is usually reflected on the \textbf{method name change}). Criteria is on \textbf{P33}.
+        \item \textbf{(Cohesion, P33)}: Cohesion can usually be achieved by putting related codes together.
+    \end{itemize}
+    \item \textbf{(Modeling, P35)}: UML Models, P36
+    \begin{itemize}
+        \item \textbf{(Class Diagram, P38)}: (Attributes and operations notation, \textbf{P39}) ; (Association, \textbf{P41}) ; (Navigability, \textbf{P45}) ; (Multiplicity, \textbf{P47}) ; (UML Notes, \textbf{P48}) ; (Inheritance, \textbf{P50}) ; (Composition, \textbf{P52}) ; (Aggregation, \textbf{P53}) ; (Dependency, \textbf{P54}) ; (Enumeration, \textbf{P55}) ; (Abstract class \& method, \textbf{P56}) ; (Interface, \textbf{P57}); (Association Classes, \textbf{P58})
+        \item \textbf{(Object Diagram, P59)}: (Basic notation, \textbf{P59}) ; (Association, \textbf{P60})
+        \item \textbf{(Sequence Diagram, P60)}: (Sequence Diagrams Scenario, \textbf{P60}) ; (Basic Notation, \textbf{P61}) ; (Loop, \textbf{P63}) ; (Object Creation, \textbf{P63}) ; ( Object Deletion, \textbf{P64}) ; (Self Invocation, \textbf{P66}) ; (Alt and Opt, \textbf{P67}) ; (Call to static methods, \textbf{P68})
+    \end{itemize}
+    \item \textbf{(Architecture, P69)}: (N-tier architectural style, \textbf{P71}) ; (Client-server architectural style, \textbf{P71)}.
+    \item \textbf{(Design Patterns, P73)}: (Singleton, \textbf{P73}) ; (Facade Class, \textbf{P75})
+    \item \textbf{Important Points}
+    \begin{itemize}
+        \item \textbf{Compare the coupling levels}: Follow the threes steps below
+        \begin{itemize}
+            \item Count the Total Dependencies: Sum up every arrow in the diagram.
+            \item Check ``Fan-out'' (a.k.a, how many arrows going out from one object): This measures how dependent a single module is.
+            \item ``Ripple-effect'': This measures how far a change travels.
+        \end{itemize}
+        \item Coupling \textbf{decreases} testability, maintainability whil \textbf{increases} the risk of regression and the value of automated regression testing.
+        \item \textbf{Class Diagrams} define the general static \textbf{structure} (blueprint), whereas \textbf{Object Diagrams} capture a specific runtime \textbf{state} (snapshot) with actual instances and values.
+        \item In \textbf{class and object diagram drawing}, the \textbf{member name} is written together with the \textbf{multiplicity}.
+        \item \textbf{Overridden methods} should have a \textbf{dashed line} connecting to a \textbf{note}.
+        \item \textbf{Navigability} can be used in both \textbf{class} and \textbf{object diagrams.}
+        \item \textbf{Aggregation symbol} is \textbf{not recommended} to use in \textbf{UML diagrams}.
+        \item \textbf{Enums} drawing:
+        \begin{itemize}
+            \item In class diagrams, if the enum class is small, write out all the values.
+            \item In object diagrams, write the enum directly in the member field of that object.
+        \end{itemize}
+        \item \textbf{Keywords to draw the composition arrow}: ``\textbf{parts}''
+        \item ``\textbf{+}'' and ``\textbf{-}'' only indicates \textbf{visibility} not \textbf{accessibility}!
+        \item \textbf{Association overrides Dependency}: If a solid association line already exists between two classes, \textbf{do not draw} an additional dashed dependency line for method parameters of the same type.
+        \item In \textbf{class diagrams}, the \textbf{method} doesn't have an association arrow, if it has, the arrow belongs to the class! (Tut8-1)
+        \item In \textbf{object diagrams}, we only draw static \textbf{states}. So, method calls from an object will be shown as \textbf{association}! (Tut9-2-b)
+        \item In \textbf{object diagrams}, an Association Class instance acts as a \textbf{bridge} following defined \textbf{navigability} (Source $\to$ Assoc $\to$ Target), or as a \textbf{central connector} pointing \textbf{to both} participants if navigability is undefined.
+        \item In \textbf{sequence diagrams}, the \textbf{arrow} pointing to which \textbf{activation bar}, that method is from that \textbf{object}. Example is at \textbf{P61}.
+        \item In \textbf{sequence diagrams}, the \textbf{activation bar} denotes the period during which the \textbf{method/operation} is being executed.
+        \item In \textbf{sequence diagrams}, optional elements like the \textbf{activation bar, return arrows} can be \textbf{omitted} to reduce clutter.
+        \item In \textbf{sequence diagram}, \textbf{alt} is used for if-else or switch statements, while \textbf{opt} is used for if without else statements.
+        \item The software \textbf{architecture diagram} is designed by the \textbf{architect} and \textbf{cannot} contain details \textbf{private} to a component.
+        \item \textbf{Software design patterns} are \textbf{elegant solutions} to recurring problems in software design.
+    \end{itemize}
+\end{enumerate}
+\section{Implementation, P76}
+\begin{enumerate}
+    \item \textbf{(IDE, P76)}
+    \item \textbf{(General Code Quality, P77)}
+    \begin{itemize} 
+        \item Avoid long methods with more than 30 LoC, \textbf{P77}
+        \item Avoid deep nesting, no more than 3 levels of indentation, \textbf{P77}
+        \item Avoid complicated expressions, especially those having many negations and nested parentheses, \textbf{P78}
+        \item Avoid Magic Number, the ``number'' here can be some magic value, like string also, \textbf{P79}
+        \item Make the code obvious, use explicit casting, use parentheses/braces to group, use enumerations. \textbf{P79}
+        \item Structure Code Logically: Group relevant code together by using newlines, \textbf{P79}
+        \item Do not `Trip Up' Reader, five points in \textbf{P80}
+        \item Practice ``Keep it Simple, Stupid'', \textbf{P80}
+        \item Avoid premature optimizations, \textbf{P80}
+        \item SLAP Hard: Avoid having \textbf{multiple levels of abstraction} within a code fragment. All low-level statements are not good also. Should be all the same high-level statements. \textbf{P80}
+        \item Make the happy path prominent, \textbf{P81}
+        \item Use nouns for things(classes) and verbs for actions(methods), \textbf{P83}
+        \item Distinguish clearly between single-valued and multi-valued variables(ArrayList), \textbf{P83}
+        \item \textbf{Variable naming convention}: Use name to explain, \textbf{P83}
+        \item Avoid misleading names, \textbf{P84}
+        \item Case statement: Always use the default branch for the intended default action, not just to execute the last option, \textbf{P85}
+        \item Do not reuse formal parameters as local variables, \textbf{P85}
+        \item Avoid empty catch blocks, \textbf{P85}
+        \item Minimize global variables and define variables in the least possible scope, \textbf{P86}
+        \item Comments should explain WHAT and WHY, but \textbf{not} HOW, \textbf{P87}
+        \item Refactoring, \textbf{P88}
+    \end{itemize}
+    \item \textbf{(Java Coding Standard)}
+    \begin{itemize}
+        \item Names representing \textbf{packages} should be in all \textbf{lower case}. e.g., \texttt{com.company.application.ui}
+        \item \textbf{Class/enum} names must be \textbf{nouns} and written in \textbf{PascalCase}. e.g., \texttt{Line, AudioSystem}
+        \item \textbf{Variable} names must be in \textbf{camelCase}. e.g., \texttt{line, audioSystem}
+        \item \textbf{Constant} names must be all \textbf{uppercase} using \textbf{underscore} to separate words (aka SCREAMING\_SNAKE\_CASE).
+        \item Names representing \textbf{methods} must be \textbf{verbs} and written in \textbf{camelCase}. e.g., \texttt{getName(), computeTotalWidth()}
+        \item \textbf{Underscores} may be used in test method names using the following three part format: \texttt{featureUnderTest\_testScenario\\\_expectedBehavior()}
+        \item All \textbf{names} should be written in English.
+        \item \textbf{Boolean variables/methods} should be named to sound like booleans. e.g., \texttt{isSet, hasLicense()}
+        \item \textbf{Setter methods for boolean variables} must be of the form: \texttt{void setFound(boolean isFound);}
+        \item \textbf{Iterator variables} can be called \textbf{i, j, k} etc.
+        \item Basic \textbf{indentation} should be \textbf{4 spaces} (not tabs).
+        \item \textbf{Line length} should be no longer than \textbf{120 chars}. Indentation for \textbf{wrapped lines} should be \textbf{8 spaces}.
+        \item Use \textbf{K\&R style} brackets (brace in the same line with keyword, like \texttt{while}, etc)
+        \item In the \textbf{switch} statement, there is \textbf{no indentation} for \textbf{case} clauses.
+        \item \textbf{Imported classes} should always be listed explicitly. Not \texttt{import *}.
+        \item \textbf{Array specifiers} must be attached to the type not the variable. e.g., \texttt{int[] a = new int[20];}
+        \item In loops, if/else statements, always wrap with \textbf{curly braces}.
+        \item The \textbf{conditional} (if statements) should be put on a \textbf{separate line}.
+        \item \textbf{Comments} should be indented relative to their position in the code.
+    \end{itemize}
+    \item \textbf{(Documentation, P90)}: (JavaDocs, \textbf{P91})
+    \item \textbf{(Error Handling, P93)}: (Exceptions, \textbf{P93}) ; (Assertions, \textbf{P94}) ; (Exceptions vs. Assertions, \textbf{P95}) ; (Logging, \textbf{P95}.
+    \item \textbf{(Integration, P97)}: (Build Automation, \textbf{P97}) ; (CI/CD, \textbf{P97})
+    \item \textbf{(Reuse \& API, P98)}
+    \item \textbf{Important Points}
+    \begin{itemize}
+        \item \textbf{Comment Intensity} refers the \textbf{quality/number} of the comments, not the \textbf{indentation} of the commments.
+        \item \textbf{API documentation} may contain code examples.
+        \item An \textbf{assertion failure} indicates a \textbf{bug in the code}. 
+        \item Use \textbf{assertions} to indicate that the \textbf{programmer} messed up; use \textbf{exceptions} to indicate that \textbf{the user} or the \textbf{environment} messed up.
+        \item \textbf{Private} methods of a class \textbf{are not} part of its \textbf{API}.
+        \item \textbf{Design Priorities}: Define \textbf{APIs/Interfaces} early to establish contracts and allow \textbf{parallel development}; avoid involving customers in \textit{technical} design decisions or adhering to rigid mandates (e.g., ``must, mandatory, always'' are usually flags to be considered as wrong statements).
+    \end{itemize}
+\end{enumerate}
+\section{Quality Assurance, P99}
+\begin{enumerate}
+    \item \textbf{(Quality Assurance/Validation vs. Verification, P99)}: (Static Analysis, \textbf{P100}) ; (Formal verification, \textbf{P100})
+    \item \textbf{(Testing, P101)}
+    \begin{itemize}
+        \item Test case \& Testability, \textbf{P101}
+        \item Unit Testing, \textbf{P102}
+        \item Stubs, \textbf{P103}: Stubs are special classes created with some hard-coded members just for unit testing.
+        \item Integration testing, \textbf{P104}
+        \item System testing, \textbf{P105}: Take the whole system and test it against the system specification.
+        \item Alpha and beta testing, Dogfooding, \textbf{P105}
+        \item Developer Testing, \textbf{P106}: The bugs should be fixed as early as possible. Remember the graph!
+        \item Exploratory versus scripted testing, \textbf{P106}
+        \item Acceptance Testing vs. System testing, \textbf{P107}
+        \item Regression Testing, \textbf{P108}
+        \item Test Automation, \textbf{P108} ; Test Coverage, \textbf{P111}
+        \item \textbf{(Test Case Design, P113)}
+        \begin{itemize}
+            \item The E\&E rule, \textbf{P113}.
+            \item Positive \& negative test case, \textbf{P113}.
+            \item Black, White, Gray box, \textbf{P113}.
+            \item Equivalence partition, \textbf{P114}: An EP may not have adjacent values.
+            \item Boundary Value Analysis, \textbf{P117}: Boundary Value Analysis and Equivalence partition are two ways to form test cases.
+            \item All pairs strategy, \textbf{P119}: It takes the largest product of domain sizes between any two variables as the minimum number of test cases.
+            \item Each Valid Input at Least Once in a Positive Test Case \& Test invalid inputs individually before combining them, \textbf{P120}
+        \end{itemize}
+        \item \textbf{Important Points}
+        \begin{itemize}
+            \item We \textbf{don't need to} distinguish between validation and verification. Just \textbf{do both}!
+            \item \textbf{Developer-testing} is \textbf{more about verification} than validation. As finding bugs in code instead of finding bugs in requirements.
+            \item \textbf{Formal methods} can prove the \textbf{absence} of errors.
+            \item \textbf{Scripted Testing} means \textbf{test cases are predetermined}. They \textbf{need not} be an executable script. However, \textbf{exploratory testing} is usually \textbf{manual}.
+            \item \textbf{Acceptance testing} typically has \textbf{more user involvement} than \textbf{system testing}.
+            \item \textbf{System testing} can include testing for \textbf{non-functional qualities}.
+            \item \textbf{Regression testing} need not be automated but automation is highly recommended.
+            \item \textbf{100\% path coverage} has the highest intensity of testing.
+            \item In \textbf{equivalence partition} drawing, start from the \textbf{specification} and then think about the \textbf{edge cases}.
+        \end{itemize}
+    \end{itemize}
+\end{enumerate}
+\section{Project Management, P123}
+\begin{enumerate}
+    \item Git staged and modified, \textbf{P124}: \texttt{git add} is doing ``staging'' for the files!
+    \item Origin and upstream, \textbf{P128}
+    \item Git Pull, \textbf{P128}: \texttt{git pull} is a combination of fetch and merge.
+    \item Git Branch, \textbf{P129}: git commits form a timeline, this timeline of commits is called a \textbf{branch}.
+    \item Git commit, \textbf{P130}: Git commit contains a full snapshot of the working directory.
+    \item Objects and refs,\textbf{ P129\&P130}: \texttt{master} and \texttt{HEAD} are two example references.
+    \item Git Tags, \textbf{P131}: Git lets you \texttt{tag} commits with names, making them easy to reference later. A tag stays fixed to a commit.
+    \item De-attached HEAD example, \textbf{P132}: If HEAD ref points to a commit which is not a branch ref points to, the HEAD is de-attached.
+    \item Good Git Commit Messages, \textbf{P134}
+    \item (Git Branch Example, \textbf{P136}) ; (Git merge, fast-forward, squash commit, \textbf{P137-138}) ; (Git rebasing, \textbf{P142})
+    \item CS2113 Team Project Workflow, \textbf{P151}
+    \item \textbf{SDLC, P154}: (Sequential Models, \textbf{P154}) ; (Iterative Models, \textbf{P154}) ; (Agile Models, \textbf{P155}) ; (XP and Scrum, \textbf{P155})
+    \item \textbf{(Project Planning, P158)}: (WBS, \textbf{P158}) ; (Milestones, \textbf{P159}) ; (Buffers, \textbf{P159})
+    \item \textbf{Teamwork \& Team Structures, P161}
+\end{enumerate}
+\section{Principles, P162}
+\begin{enumerate}
+    \item \textbf{SWE Principles, P162}): (SRP, \textbf{P162}) ; (Open-Closed Principle, \textbf{P162}) ; (LSP, \textbf{P163}) ; (SoC, \textbf{P163})
+    \item \textbf{Important Points}
+    \begin{itemize}
+        \item In \textbf{Singleton} design pattern, certain \textbf{classes} should have \textbf{no more than just one instance}. These s\textbf{ingle instances} are commonly known as \textbf{singletons}.
+        \item \textbf{LSP} states that a \textbf{subclass} should not be more restrictive than the behavior/specifications specified by the \textbf{superclass.}
+
+    \end{itemize}
+\end{enumerate}
+
+\end{multicols}
+
+% Dividing Line
+% \hrulefill \\
+% \begin{multicols}{4}
+% \begin{enumerate}
+% \end{enumerate}
+% \end{multicols}
+
+\end{document}
