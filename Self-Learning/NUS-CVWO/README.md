@@ -1,2 +1,3 @@
-# NUS CVWO 25 Notes
-The notes are hosted online on [Gitbook](https://wenbo-notes.gitbook.io/nus-cvwo-notes). And the repo is here: [mendax1234/NUS-CVWO-Notes](https://github.com/mendax1234/NUS-CVWO-Notes).
+# Welcome
+
+Welcome to Wenbo's guide to ACE in NUS CVWO 2025.
