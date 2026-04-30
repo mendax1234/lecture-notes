@@ -21,11 +21,9 @@
 
 ## Year 2 <a href="#yr2" id="yr2"></a>
 
-***
-
-* [Semester 1](sem1/README.md)
-  * [CG3207 Computer Architecture](sem1/cg3207.md)
-  * [CG2027 Transistor-Level Digital Circuits](sem1/cg2027.md)
-  * [CS2113 SWE and OOP](sem1/cs2113.md)
-  * [ES2631 Critical Thinking and Writing](sem1/es2631.md)
-  * [LAF3202 French 4](sem1/laf3202.md)
+* [Semester 1](yr2/sem1/README.md)
+  * [CG3207 Computer Architecture](yr2/sem1/cg3207.md)
+  * [CG2027 Transistor-Level Digital Circuits](yr2/sem1/cg2027.md)
+  * [CS2113 SWE and OOP](yr2/sem1/cs2113.md)
+  * [ES2631 Critical Thinking and Writing](yr2/sem1/es2631.md)
+  * [LAF3202 French 4](yr2/sem1/laf3202.md)
