@@ -1,43 +1,17 @@
-# Lecture Notes (Source)
+# Lecture Notes
 
-[![Build Status](https://github.com/mendax1234/lecture-notes/actions/workflows/docs.yml/badge.svg)](https://github.com/mendax1234/lecture-notes/actions)
-[![Live Site](https://img.shields.io/badge/Status-Online-success)](https://mendax1234.github.io/lecture-notes/)
+[![Live Site](https://img.shields.io/badge/GitBook-Online-success)](https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/kBwWKlDJwmXRyPHTg6XD/)
 
-> **Looking for the notes?** > Access the rendered site here: **[NUS CEG Lecture Notes](https://mendax1234.github.io/lecture-notes/)**
+Source repository for my lecture notes, course summaries, and self-learning materials. The notes are written in Markdown and published with GitBook.
 
-## Development
+Read the rendered notes on [GitBook](https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/kBwWKlDJwmXRyPHTg6XD/).
 
-This repository hosts the source code for my MkDocs documentation site.
+## Structure
 
-### Dependencies
+- `docs/` - GitBook-facing pages and navigation.
+- `undergrad-nus/` - course notes, summaries, PDFs, and source files studying at NUS.
+- `Self-Learning/` - self-study notes and references.
 
-* Python 3.x
-* MkDocs Material
+## Contributing
 
-### Local Setup
-
-1. **Clone & Install**
-
-   ```bash
-   git clone https://github.com/mendax1234/lecture-notes.git
-   cd lecture-notes
-   
-   # Recommended: Use a virtual environment
-   python3 -m venv .venv
-   source .venv/bin/activate
-   
-   pip install mkdocs mkdocs-material
-
-2. **Run Locally**
-
-   ```bash
-   mkdocs serve
-   ```
-
-   Open `http://127.0.0.1:8000`.
-
-3. Deploy
-
-    ```bash
-    mkdocs gh-deploy
-    ```
+Suggestions are welcome via pull requests. I will review proposed changes and update the GitBook content accordingly.
