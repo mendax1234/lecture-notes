@@ -4,7 +4,7 @@
 
 Source repository for my lecture notes, course summaries, and self-learning materials. The notes are written in Markdown and published with GitBook.
 
-Read the rendered notes on [GitBook](https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/kBwWKlDJwmXRyPHTg6XD/).
+Read the rendered notes on [GitBook](https://wenbo-notes.gitbook.io/lecture-notes).
 
 ## Structure
 
