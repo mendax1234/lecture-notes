@@ -29,7 +29,7 @@ This part is covered in EE4415 [Lec 03 — ASIC Design Flow](https://app.gitbook
 
 In the [ASIC design flow](https://app.gitbook.com/s/Sp0XaarBjbEX3JIMrRaR/part-1-lec-digital-design-flow/lec-3a-digital-design-flow#placement), we have had a rough idea what placement is in ASICs. Here, we will dicuss the placement for FPGAs, which is a bit different from ASICs. The main difference is that, in FPGA, the "standard cell" is the CLB. Thus, after floorplanning, we will have a big block containing many of smaller parts, what the placement algorithm does is to find the position of the CLB to put these smaller parts.
 
-<figure><picture><source srcset="../.gitbook/assets/placement-fpga-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/placement-fpga-light.png" alt="" width="563"></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/placement-fpga-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/placement-fpga-light (1).png" alt="" width="563"></picture><figcaption></figcaption></figure>
 
 In this section, we are going to see the following two main types of placement algorithms:
 
@@ -53,7 +53,7 @@ This is not the focus. As this is not the focus of this section, just print out 
 
 The basic idea of this algorithm is that we **analytically model** the wire-length, and minimize a particular objective function on that basis.
 
-<figure><img src="../.gitbook/assets/placement-1.png" alt="" width="524"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/placement-1 (1).png" alt="" width="524"><figcaption></figcaption></figure>
 
 Usually, we set the objective function as the coarse approximation of the **wire length**. This again has two flavors:
 
@@ -61,7 +61,7 @@ Usually, we set the objective function as the coarse approximation of the **wire
 2. **Quadratic cost**: we sum the square of each wire, e.g., $$x_1^2+x_2^2$$
 
 {% hint style="success" %}
-#### Implications of different cost functions
+**Implications of different cost functions**
 
 1. The **quadratic** cost function tends to minimize the **standard deviation** of wires, which will penalize long wires and might give us better timing performance. But the average wire length might go up compared to the linear cost function.
 2. The **linear** cost function tends to minimize the **total wire length**, which tends to minimize the cost.
@@ -74,11 +74,11 @@ Given the position of the CLBs, the measure of the wire-length between two CLBs 
 
 For example, if the position of CLB A and C are fixed, what is the optimum position of the incoming new CLB B?
 
-<figure><img src="../.gitbook/assets/placement-example-1.png" alt="" width="524"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/placement-example-1 (1).png" alt="" width="524"><figcaption></figcaption></figure>
 
 {% stepper %}
 {% step %}
-#### **Linear Cost**
+**Linear Cost**
 
 As the position between CLB A and CLB C is fixed, meaning that $$x_1+x_2=x_3+x_2=c$$, where $$c$$ is a constant. Using the linear cost, we want to minimize $$x_1+x_2+x_3$$. Thus, replace $$x_2,x_3$$ with $$c-x_1,x_1$$ respecitvely, the total cost will be
 
@@ -88,11 +88,11 @@ $$
 
 To make the above smallest, we just let $$x_1=0=x_3$$, thus the ideal position should be as follows.
 
-<figure><img src="../.gitbook/assets/linear-cost-example.png" alt="" width="516"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/linear-cost-example (1).png" alt="" width="516"><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
-#### **Quadratic Cost**
+**Quadratic Cost**
 
 Similar to the linear cost, the only different thing here is that our objective function becomes to minimize $$x_1^2+x_2^2+x_3^2$$. Again, replace $$x_2,x_3$$ with $$c-x_1,x_1$$ respecitvely, we will get
 
@@ -102,7 +102,7 @@ $$
 
 Solve this quadratic function, we can find that when $$x_1=x_3=\frac{1}{3}c$$, the objective function is minimum. Thus, the ideal position can be shown as follows:
 
-<figure><img src="../.gitbook/assets/quadratic-cost-example-1.png" alt="" width="515"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/quadratic-cost-example-1 (1).png" alt="" width="515"><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 
@@ -161,7 +161,7 @@ Some observations we might have
 
 The curve we can derive is shown below.
 
-<figure><img src="../.gitbook/assets/negative-exponential-curve.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/negative-exponential-curve (1).png" alt=""><figcaption></figcaption></figure>
 
 The y-axis denotes the **probability** that we accept the change while the x-axis denotes the cost.
 
@@ -170,13 +170,13 @@ The y-axis denotes the **probability** that we accept the change while the x-axi
 
 In essence, what this algorithm really taught us is to **not be greedy**! Otherwise, we might easily reach a **local minimum** instead of reaching the **global minimum**.
 
-<figure><img src="../.gitbook/assets/convergence-simulated-annealing.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/convergence-simulated-annealing (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Simulated Evolution
 
 As its name suggests, the motivation or inspiration of this algorithm comes from the genetic algorithm. In a FPGA, the layout plane is divided into $$S=\{S_1,S_2,\dots,S_r\}$$ slots. Each cell block $$B=\{B_1,B_2,\dots, B_n\}$$ needs to be placed in one of the available slots.
 
-<figure><picture><source srcset="../.gitbook/assets/block-assignment-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/block-assignment-light.png" alt="" width="563"></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/block-assignment-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/block-assignment-light (1).png" alt="" width="563"></picture><figcaption></figcaption></figure>
 
 The algorithm starts with a **number** of initiali placement configurations, called **population**. Each configuration represents a feasible solution to the problem and is represented by a string. The symbols, like $$B_1$$, etc, used in the string are called **genes**. A solution string made up of genes is a **chromosome**. e.g., $$\{B_1,B_4,B_2,B_3\}$$ is a chromosome in the figure above.
 
@@ -194,7 +194,7 @@ The general idea of this algorithm is that:
 
 The terminologies used in routing for FPGAs is shown below.
 
-<figure><img src="../.gitbook/assets/routing-terminologies-fpga.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/routing-terminologies-fpga (1).png" alt=""><figcaption></figcaption></figure>
 
 The FPGA routing channel architecture can be divided into three parts:
 
@@ -202,7 +202,7 @@ The FPGA routing channel architecture can be divided into three parts:
 2. Track
 3. Segment
 
-<figure><img src="../.gitbook/assets/fpga-routing-channel-architecture.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/fpga-routing-channel-architecture (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 **Router**
@@ -281,12 +281,10 @@ Thus, multiple **iterations** may need to be performed before a valid solution i
 However, in the first iteration, every connection is routed for minimum delay, even if it leads to congestion (overuse of some resources).
 
 {% hint style="warning" %}
-#### Congestion
+**Congestion**
 
 In a resource-routing grpah, the **congestion** happens when **one node** is used to more than 1 other nodes.
 {% endhint %}
-
-
 
 <figure><img src="../.gitbook/assets/congestion-solving.gif" alt=""><figcaption></figcaption></figure>
 
@@ -306,7 +304,7 @@ $$
 
 <figure><img src="../.gitbook/assets/criticality-explanation.png" alt="" width="375"><figcaption></figcaption></figure>
 
-For example, in the resource graph above, $$D_{\text{max}}$$ is 10ns and $$\text{Slack}(S,T)$$ is 10-6-4=0ns.&#x20;
+For example, in the resource graph above, $$D_{\text{max}}$$ is 10ns and $$\text{Slack}(S,T)$$ is 10-6-4=0ns.
 
 #### Cost of a node
 

@@ -57,7 +57,7 @@ To solve this question, we must follow the following steps systemetically
 
 {% stepper %}
 {% step %}
-#### Recover the CDFG
+**Recover the CDFG**
 
 My tip here is that, we should focus on the control-store table and don't care about the scheduling in the CDFG first. So, to draw the CDFG:
 
@@ -80,7 +80,7 @@ This sign of this expression might be reversed, but it doesn't matter.
 {% endstep %}
 
 {% step %}
-#### Optimize the recovered CDFG
+**Optimize the recovered CDFG**
 
 Using the optimization techniques we have used a lot in problem set 1 and quiz 1 question 9. We can quickly observe that the expression $$1024\times b$$ can be easily replaced by $$b >>10$$, which we can just denote as `bs` and it is immediately available to us. Thus, the optimized CDFG will look like as follows:
 
@@ -92,7 +92,7 @@ The numbering is a bit unintuitive because I want to match what prof did in the 
 {% endstep %}
 
 {% step %}
-#### Scheduling and Binding
+**Scheduling and Binding**
 
 The next job is to do scheduling and binding. This is the same as what we've practiced previously.
 
@@ -113,7 +113,7 @@ Chaining is not possible here because chaining the ALUs requires at least 2 ALUs
 {% endstep %}
 
 {% step %}
-#### Register Binding
+**Register Binding**
 
 After we get the scheduled table, the next step is to do the register binding. And the optimal one I get should look like as follows:
 
@@ -121,7 +121,7 @@ After we get the scheduled table, the next step is to do the register binding. A
 {% endstep %}
 
 {% step %}
-#### Datapath Synthesis
+**Datapath Synthesis**
 
 The next step is the classic datapath synthesis, which is shown as follows.
 
@@ -129,7 +129,7 @@ The next step is the classic datapath synthesis, which is shown as follows.
 {% endstep %}
 
 {% step %}
-#### Control Unit Synthesis
+**Control Unit Synthesis**
 
 It suffices to just to do the horizontal microprogrammed control unit synthesis. I will leave it to the interested readers to do this.
 {% endstep %}
@@ -165,7 +165,7 @@ However, the idea of this problem is to test our skill to formulate it as a stat
 The most important idea here is to formulate the **state**. As the question says, the output `Dout` will change **immediately** after the arrival of the correct 4th bit. This means that the FSM we are going to design is a mealy machine. And, we can use the state bits as the first 3 bits of the number!
 
 {% hint style="success" %}
-#### History-based State Formulation
+**History-based State Formulation**
 
 This kind of state formulation technique we have seen is considered to be the trivial or brute-force state formulation when we design a FSM. It should be enough to tackle the finals but in the real-world design, we might want to see if there exists bette state formulations.
 {% endhint %}
@@ -215,7 +215,7 @@ As long as we find out that the number of blocks is bigger than 4, we can stop a
 2. **False**. Pipelining will increase the hardware as well.
 3. **True**.
 4. **False.** Boolean match is the same as functional match. If there is no boolean signature match, there is no boolean/functional match. But a boolean signature match doesn't guarantee a boolean/function match.
-5. **True**.&#x20;
+5. **True**.
 
 ### 4. Short Explanation
 
@@ -233,13 +233,13 @@ As long as we find out that the number of blocks is bigger than 4, we can stop a
 
 {% stepper %}
 {% step %}
-#### Q1
+**Q1**
 
 This is the same example we've seen in the [lecture notes](../lec/lec-07-timing.md#cdc-issue). Skip it here.
 {% endstep %}
 
 {% step %}
-#### Q2
+**Q2**
 
 We've also seen this in one of the quizes. HLS is good when the data processed in loops has a data-independent exit conditions because the HLS can do the unrolling, pipelining etc easily.
 
@@ -249,13 +249,13 @@ HLS is good at resource-dominated circuits (like DSPs) but not good at non-resou
 {% endstep %}
 
 {% step %}
-#### Q3
+**Q3**
 
 The word "manifest" as a verb means to show, display, or demonstrate something clearly through actions, signs, or appearance. We've seen this question in our [lecture notes](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/architectural-synthesis/strategies-for-architectural-optimization) as well, and the example is **retiming**.
 {% endstep %}
 
 {% step %}
-#### Q4
+**Q4**
 
 This is the **binning** we have seen in both EE4415 and EE4218.
 
@@ -264,7 +264,7 @@ This is the **binning** we have seen in both EE4415 and EE4218.
 {% endstep %}
 
 {% step %}
-#### Q5
+**Q5**
 
 One example is:
 

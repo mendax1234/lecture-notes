@@ -37,7 +37,7 @@ Embedded systems have the following characteristics:
 
 An embedded system usually consists of a CPU, memory (SRAM/DRAM/Flash), timers, and communication interfaces (I2C, SPI, UART) connected via a system bus as shown below.
 
-<figure><img src="../.gitbook/assets/embed-system-architecture.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/embed-system-architecture (1).png" alt=""><figcaption></figcaption></figure>
 
 * **Co-processor**: These are the processors that are used for some **specialized stuff**.
 * **Reset Control / Watchdog Timer:** The system must be able to automatically reset itself if it fails to respond or becomes unresponsive for a specified period.
@@ -70,7 +70,7 @@ When designing an embedded system (sensor -> processor -> actuator[^2]), we must
 
 The goal is to find the optimal point (a.k.a, [Pareto Point](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/introduction/computer-aided-synthesis-and-optimization#pareto-point)) on the Pareto Curve (trading off Resources vs. Performance)
 
-<figure><img src="../.gitbook/assets/hw-sw-codesign-pareto-curve.png" alt="" width="331"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/hw-sw-codesign-pareto-curve (1).png" alt="" width="331"><figcaption></figcaption></figure>
 
 In this Pareto Curve, the y-axis is "resouces", higher means using more resources while the x-axis is "performance<sup>-1</sup>", and closer to the origin point means that the performance is higher. Thus, it is obvious that the <mark style="color:$warning;">orange</mark> point is the **worst design** among the four designs as it uses more resources then the middle <mark style="color:$success;">green</mark> point but brings even less performance than it.
 
@@ -79,7 +79,7 @@ In this Pareto Curve, the y-axis is "resouces", higher means using more resource
   * Some certain computation-needed operations, like "Multiply and Accumulate", are better to be implemented in **hardware** for better efficiency.
 * **Co-simulation**: Verifying both HW and SW together. (Tools that are doing this are quite advanced nowadays)
 
-<figure><img src="../.gitbook/assets/hw-sw-codesign-steps.png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/hw-sw-codesign-steps (1).png" alt="" width="375"><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 The spirit of EE4218 is to **create custom hardware** for some **specific software**!
@@ -142,7 +142,7 @@ Graphs can be directed or undirected
 * **Directed**: $$e_k = (v_i, v_j)$$ (Ordered pair).
 * **Undirected**: $$e_k = \{v_i, v_j\}$$ (Unordered pair).
 
-<figure><img src="../.gitbook/assets/graph-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/graph-example (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Graph Representation
 
@@ -154,7 +154,7 @@ We can use the following two methods to represent a graph:
 
 A 2D array where $$A[i][j] = 1$$ if an edge exists. Good for dense graphs, but uses $$O(|V|^2)$$ memory.
 
-<figure><img src="../.gitbook/assets/graph-adjacency-matrix.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/graph-adjacency-matrix (1).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
@@ -162,7 +162,7 @@ A 2D array where $$A[i][j] = 1$$ if an edge exists. Good for dense graphs, but u
 
 An array of linked lists. More memory efficient for sparse graphs (like circuits).
 
-<figure><img src="../.gitbook/assets/graph-adjacency-list.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/graph-adjacency-list (1).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 
@@ -176,7 +176,7 @@ Both edge and vertex can have **weights**
 
 This usually represents the **cost** of an edge. For example, distance between two cities and width of a data bus.
 
-<figure><img src="../.gitbook/assets/graph-edge-weight.png" alt="" width="523"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/graph-edge-weight (1).png" alt="" width="523"><figcaption></figcaption></figure>
 
 The corresponding changes needed in the graph representations are
 
@@ -189,7 +189,7 @@ The corresponding changes needed in the graph representations are
 
 This is usually used to enforce some capacity constraint on the nodes. For example, the size of gates in a circuit and the delay of operations in a "data dependency graph".
 
-<figure><img src="../.gitbook/assets/graph-node-weight.png" alt="" width="359"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/graph-node-weight (1).png" alt="" width="359"><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 Node weight can be put inside **adjacency list** easily, but cannot be put inside the **adjacency matrix**.
@@ -204,7 +204,7 @@ Similar to the definition of normal graphs, in **hypergraphs**, an edge can conn
 * Hypergraphs can be directed/undirected.
 * A node can be the source (or be connected to) multiple hyperedges.
 
-<figure><img src="../.gitbook/assets/hypergraph-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/hypergraph-example (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Common Algorithms in EDA
 

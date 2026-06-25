@@ -14,7 +14,7 @@ Most of this part is covered in EE4415, but for the finals, just print out the l
 
 In the setup time analysis, we are more interested in analyzing the n-th rising clock edge on the launching FF and the (n+1)-th rising clock edge on the capturing FF.
 
-<figure><picture><source srcset="../.gitbook/assets/setup-time-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/setup-time-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/setup-time-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/setup-time-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 What is really amazing about this timing diagram is that it incorporates the idea of **data arrival time** and **data required time** to understand the setup time constraint as well as the hold time constraint we will see later.
 
@@ -31,7 +31,7 @@ If jitter is considered, this should be substracted from the data required time 
 
 In the hold time analysis, we are more interested in anlayzing the **same** rising clock edge on the capturing register.
 
-<figure><picture><source srcset="../.gitbook/assets/hold-time-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/hold-time-light.png" alt="" width="563"></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/hold-time-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/hold-time-light (1).png" alt="" width="563"></picture><figcaption></figcaption></figure>
 
 * The data arrival time is: $$t_{\text{CQ}}+t_{\text{logic\_min}}$$
 * The data required time is: $$t_{\text{skew}}+t_{\text{hold}}$$
@@ -54,7 +54,7 @@ Similar to the [`set_max/min_delay`](/broken/spaces/Sp0XaarBjbEX3JIMrRaR/pages/O
 
 The most interesting and important usage of the `set_max/min_delay` mentioned in this lecture is on the [CDC](https://en.wikipedia.org/wiki/Clock_domain_crossing) issue of metastability. Basically, CDC exists when two parts of our system uses [**totally different**](#user-content-fn-1)[^1] clocks but they are still communicating the data with each other. To understand this issue better, we will use the follwing timing diagram.
 
-<figure><picture><source srcset="../.gitbook/assets/cdc-issue-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/cdc-issue-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/cdc-issue-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/cdc-issue-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 Before we dive into the timing diagram, let's make some assumptions:
 
@@ -90,7 +90,7 @@ In Vivado, there are two timing reports avaiable:
 
 To open the timing report (let's take Implementation timing report as an example), we can click the as the following figure shows.
 
-<figure><img src="../.gitbook/assets/vivado-timing-analysis-1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/vivado-timing-analysis-1 (1).png" alt=""><figcaption></figcaption></figure>
 
 In each path, we will have three parts:
 
@@ -100,7 +100,7 @@ In each path, we will have three parts:
 
 This is the clock path from the clock source to the clock pin of the **launching register**. It starts with 0
 
-<figure><img src="../.gitbook/assets/source-clock-path.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/source-clock-path (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 "FDRE" means D flip-flop with reset and enable.
@@ -112,7 +112,7 @@ This is the clock path from the clock source to the clock pin of the **launching
 
 This is the combinational data path between the launching and capturing registers. It starts with 0 and will add the delay of each combinational part so the final value represents the total combinational of that path.
 
-<figure><img src="../.gitbook/assets/data-path.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/data-path (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 This part and the schemetic of the data path is probably the **most important** as this guides us what to optimize in our design.
@@ -124,11 +124,11 @@ This part and the schemetic of the data path is probably the **most important** 
 
 To show the schematic of the path, we can right click that path and then choose "Schematic" as follows.
 
-<figure><img src="../.gitbook/assets/vivado-timing-show-schemetic.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/vivado-timing-show-schemetic (1).png" alt=""><figcaption></figcaption></figure>
 
 This will give you the schemetic of the critical path in your system, like below.
 
-<figure><img src="../.gitbook/assets/vivado-timing-schemetic-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/vivado-timing-schemetic-example (1).png" alt=""><figcaption></figcaption></figure>
 
 </details>
 {% endstep %}
@@ -138,7 +138,7 @@ This will give you the schemetic of the critical path in your system, like below
 
 This is the clock path from the clock source to the clock pin of the **capturing register**. It starst with the value of **one clock period** because the capturing register will capture the data coming from the data path at the next clock period.
 
-<figure><img src="../.gitbook/assets/destination-clock-path.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/destination-clock-path (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 The clock uncertainty is added to the destination clock path.

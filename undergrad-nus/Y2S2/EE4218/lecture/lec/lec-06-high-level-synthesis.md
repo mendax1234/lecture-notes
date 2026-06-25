@@ -71,7 +71,7 @@ Here are the steps for developing an **HLS component** from a **C++ function**:
 6. **Package**: Review the **HLS synthesis reports** and **implementation timing reports**.
 7. **Iterate**: Re-run the previous steps until the **performance goals** are met.
 
-<figure><picture><source srcset="../.gitbook/assets/hls-component-flow-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/hls-component-flow-light.png" alt=""></picture><figcaption><p>HLS Component Development Flow</p></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/hls-component-flow-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/hls-component-flow-light (1).png" alt=""></picture><figcaption><p>HLS Component Development Flow</p></figcaption></figure>
 
 The **tool** implements the **HLS component** based on the **target flow**, **default tool configuration**, **design constraints**, and any **optimization pragmas or directives** we specify. We can use **optimization directives** to **modify** and **control** the implementation of the **internal logic** and **I/O ports**, overriding the **default behaviors** of the tool.
 
@@ -133,7 +133,7 @@ We assume that `a[i]` to `f[i]` are **separate memories** that can be read **asy
 
 The easiest and most trivial design is the single-cycle design, in which we finsih everything in one cycle and use the dedicated binding.
 
-<figure><img src="../.gitbook/assets/single-cycle-hls.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/single-cycle-hls (1).png" alt=""><figcaption></figcaption></figure>
 
 This design will give us:
 
@@ -148,7 +148,7 @@ This design will give us:
 
 Suppose now we use the multi-cycle design, which is default to the **older version** of Vitis. This time, we scheduled our design and use resource-sharing binding.
 
-<figure><img src="../.gitbook/assets/multi-cycle-hls.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/multi-cycle-hls (1).png" alt=""><figcaption></figcaption></figure>
 
 This design will give us:
 
@@ -165,7 +165,7 @@ This is a rather low-level technique and there is **no pragma** for it. This is 
 
 Now, we can play around with the pipelined design, which is default in the newer version of Vitis. This time, we will use **dedicated binding**.
 
-<figure><img src="../.gitbook/assets/pipeline-hls.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/pipeline-hls (1).png" alt=""><figcaption></figcaption></figure>
 
 Compared to the [#multi-cycle](lec-06-high-level-synthesis.md#multi-cycle "mention") design, this pipelined design **does not need to wait** for the previous input to complete execution before starting the next computation. Instead, the next input can begin processing while the previous one is still being executed. Thus, in this pipelined design, we will have:
 
@@ -175,7 +175,7 @@ Compared to the [#multi-cycle](lec-06-high-level-synthesis.md#multi-cycle "menti
 4. **Total latency**: 17 \[170ns] (II \* Trip Count + 1 cycle overhead to "fill" the pipeline)
 
 {% hint style="warning" %}
-#### Initiation Interval
+**Initiation Interval**
 
 This is a formal term for the CPI we have learned in CG3207. It is a measure of throughput and it represents the **data processed per unit time**. In other words, it's the **number of cycles** we need to wait before giving a new **set** of inputs. In this case, one set of inputs are `a, b, d, e`.
 {% endhint %}
@@ -204,7 +204,7 @@ As we have noticed in the first pipelined design, the bottleneck is the **multip
 
 In this method, instead of clocking the capturing register at the very next clock edge, we want to clock it at the second next clock edge. To achieve that without dividing the clock, we can add an **EN** signal shown as follows:
 
-<figure><img src="../.gitbook/assets/muti-cycle-path-example.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/muti-cycle-path-example (1).svg" alt=""><figcaption></figcaption></figure>
 
 The **EN** signal is asserted once every two cycles of the original clock signal. By doing so, we are actually **giving** the COMB logic (which is the multiplication logic) in between 2 clock cycles to finish. This method is called **multi-cycle path**.
 {% endstep %}
@@ -218,7 +218,7 @@ The second approach is to **redesign** the multiplier to let it finish in **2 cy
 
 By using either one of the method mentioned above, we can get the design as follows:
 
-<figure><img src="../.gitbook/assets/pipelined-ii-2.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/pipelined-ii-2 (1).png" alt=""><figcaption></figcaption></figure>
 
 In this design, we will have:
 
@@ -238,7 +238,7 @@ However, to get the true performance of **parallelism**, we must provide the **i
 
 The first method will require us to **partition our array** wisely into the separate memories and it is called **partitioning** in HLS. Now, suppose we use **unrolling by a factor of 2** + **partitioning** on our [#pipelined-ii-2](lec-06-high-level-synthesis.md#pipelined-ii-2 "mention") design, we will get the following design:
 
-<figure><img src="../.gitbook/assets/unroll-partition.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/unroll-partition (1).png" alt=""><figcaption></figcaption></figure>
 
 In this design, we will have
 
@@ -271,7 +271,7 @@ Page 83 of the [AMD HLS Optimization guide](https://docs.amd.com/v/u/en-US/ug127
 
 **Dataflow** is nothing but a **macroscopic** pipelining. Now, instead of thinking about how to accelerate a data stream, we are thinking about how to accelerate a **block stream** where a block contains bunches of data. An example will be the coprocessor that we designed in EE4218 [Lab 01](https://app.gitbook.com/s/BcpQMbfvKRcTJoaXhJD0/lab/lab-01-introduction-to-hardware-design).
 
-<figure><img src="../.gitbook/assets/data-flow-example.png" alt="" width="377"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/data-flow-example (1).png" alt="" width="377"><figcaption></figcaption></figure>
 
 In our coprocessor, we can identify three big stages:
 

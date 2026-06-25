@@ -27,7 +27,7 @@ In EE4415, we have seen this kind of standard cell library (called [Technology l
 
 For example, the following figure gives an example of available standard cells in the IBM standard-cell library used for the POWER4.
 
-<figure><picture><source srcset="../.gitbook/assets/cell-library-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/cell-library-example-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/cell-library-example-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/cell-library-example-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 **Basic gates and Patterns**
@@ -63,13 +63,13 @@ The library cells must be decomposed into primitives as well!
 
 Inside a technology library, we can have both basic functions and pattern trees. For example,
 
-<figure><picture><source srcset="../.gitbook/assets/base-function-pattern-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/base-function-pattern-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/base-function-pattern-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/base-function-pattern-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 </details>
 
 For example, we can decompose a `NAND4` gate using the primitives `NAND2` and `INV` as follows.
 
-<figure><picture><source srcset="../.gitbook/assets/decompose-nand4-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/decompose-nand4-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/decompose-nand4-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/decompose-nand4-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 Note that we might have more than 1 decompositions for one function!
@@ -85,7 +85,7 @@ The restriction for the subject boolean graph is that it should be a **multiple-
 
 For example, the following is a valid partitioning.
 
-<figure><picture><source srcset="../.gitbook/assets/partitioning-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/partitioning-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/partitioning-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/partitioning-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 In this partitioning, we call each one of the four partitions a **subject boolean network**.
 
@@ -110,7 +110,7 @@ There are two main types of matching:
 
 In structural matching, we match the network with library cells **recursively** until the entire network is matched.
 
-<figure><picture><source srcset="../.gitbook/assets/structural-mapping-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/structural-mapping-example-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/structural-mapping-example-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/structural-mapping-example-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 In the structural matching algorithm, we assume and require that
 
@@ -149,7 +149,7 @@ Match (u,v){                        // Matches isomorphic graphs too
 {% endcode %}
 
 {% hint style="success" %}
-The whole spirit of this algorithm is that if the root of the pattern is a leaf, it is okay. If the root of the pattern is **not** a leaf, but the vertex is a leaf, that is **not okay**.&#x20;
+The whole spirit of this algorithm is that if the root of the pattern is a leaf, it is okay. If the root of the pattern is **not** a leaf, but the vertex is a leaf, that is **not okay**.
 {% endhint %}
 
 And this recursive structural matching algorithm is run in an outer loop which traverses our giant unmapped network. At every **single gate**, it pauses, treats that gate as a temporary "root" (`v`), grabs a library cell (`u`), and fires off the recursive algorithm to see if the tree structure extending backward from `v` exactly matches the tree structure extending backward from `u`. And the pseudocode for the outer loop can be shown as follows:
@@ -168,11 +168,11 @@ For every node 'n' in the Entire Network:
 
 Below is an example of the structural pattern matching:
 
-<figure><img src="../.gitbook/assets/structural-pattern-matching-example.gif" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/structural-pattern-matching-example (1).gif" alt=""><figcaption></figcaption></figure>
 
 However, one of the biggest problems with structural pattern matching is that while structural matching definitely indicates that functional matching, functional matching doesn't necessarily indicate strucutral matching. For example, the following two expressions are functionally matched but they are not structurally matched.
 
-<figure><picture><source srcset="../.gitbook/assets/problem-structural-matching-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/problem-structural-matching-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/problem-structural-matching-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/problem-structural-matching-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 This inspires us to look at the second matching algorithm, which is boolean matching.
 
@@ -189,7 +189,7 @@ Boolean matching is **decomposition independent**.
 
 In boolean matching, let's consider a **cluster function** $$f$$ (our subject graph) with $$n$$ input variables and a **pattern function** $$g$$ with $$m$$ cell inputs.
 
-<figure><picture><source srcset="../.gitbook/assets/cluster-vs-pattern-cell-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/cluster-vs-pattern-cell-light.png" alt=""></picture><figcaption><p>Example of Cluster Function (Cluster Cell) and Pattern Function (Library cell)</p></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/cluster-vs-pattern-cell-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/cluster-vs-pattern-cell-light (1).png" alt=""></picture><figcaption><p>Example of Cluster Function (Cluster Cell) and Pattern Function (Library cell)</p></figcaption></figure>
 
 Matching of two functions $$f$$ and $$g$$ involves **comparing two functions for equivalence** and **finding an assignment** of the cluster variables to pattern inputs. When doing the function equivalence check, we can have three methods:
 
@@ -246,7 +246,7 @@ Some examples of the boolean signatures are:
 
 {% stepper %}
 {% step %}
-#### **Symmetries of a function**
+**Symmetries of a function**
 
 Formally speaking, this boolean signature is defined to be a set of variables that are pair-wise interchangeable without affecting the logic.
 
@@ -274,7 +274,7 @@ From the [definition](lec-08-technology-mapping.md#boolean-matching) of boolean 
 {% endstep %}
 
 {% step %}
-#### **Unate/Binate variables**
+**Unate/Binate variables**
 
 **Unate variables** are variables with which a function monotonically "increases/decreases". Otherwise, we say that those variables are **binate variables**.
 
@@ -292,7 +292,7 @@ The variable `a` and `c` are **unate variables** because either one of them bein
 
 In summary, the boolean signature helps reduce the number of checks in booleam matching. This flow of checking is summarized below.
 
-<figure><picture><source srcset="../.gitbook/assets/boolean-signature-flow-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/boolean-signature-flow-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/boolean-signature-flow-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/boolean-signature-flow-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 ### Covering
 
@@ -304,11 +304,11 @@ The technology mapping is an optimization problem of finding a [**minimum cost**
 
 For example, suppose the technology we have is shown below.
 
-<figure><picture><source srcset="../.gitbook/assets/tech-lib-with-area-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/tech-lib-with-area-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/tech-lib-with-area-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/tech-lib-with-area-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 The available coverings for the subject graph below are:
 
-<figure><img src="../.gitbook/assets/covering-example.gif" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/covering-example (1).gif" alt=""><figcaption></figcaption></figure>
 
 Obviously, in this case, the last covering is better as it uses the least area. So, the question comes, how do we determine the best — lowest area/delay covering? We may find out that most subject graphs are **trees**, and so are the pattern graphs. Thus, the problem gets simplified to **tree-covering-by-tree** problem. The optimal algorithms exist to solve this problem is to use **dynamic programming**.
 
@@ -320,7 +320,7 @@ As we have said "most" subject graphs/pattern graphs can be represented by **tre
 
 The common solution is to break the DAGs into trees (at the fanout point). This is shown below where the bottom-most leaf node has 2 fanouts and thus creating a DAG.
 
-<figure><picture><source srcset="../.gitbook/assets/dag-solution-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/dag-solution-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/dag-solution-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/dag-solution-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 However, this will require us to duplicate that node and thus increasing the area.
@@ -334,7 +334,7 @@ This is the fundamental requirement of [CS2040S](https://app.gitbook.com/o/MnEKr
 
 For example, we want to use dynamic programming to find the optimal covering of the following subject tree using the 4 avaiable pattern trees.
 
-<figure><picture><source srcset="../.gitbook/assets/dp-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/dp-example-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/dp-example-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/dp-example-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 The three leaf nodes are **input** nodes, they are not logic gates! This convention is used in EE4415 also! Basically, this is to ensure that the input to our subject graph is **synchronized**.
@@ -344,7 +344,7 @@ The three leaf nodes are **input** nodes, they are not logic gates! This convent
 2. Moving one level up, node `t` now has two options. It can be mapped with a big pattern graph or a small pattern graph. But, mapping with a big pattern graph gives us **smaller** area cost, which is 4 in this case. Thus we note 4 for node `t`.
 3. Moving one level up again, we are now at the root node `r`. In this node, we have two options again. However, mapping it with a bigger pattern graph gives us a smaller area. Thus, we note 5 for the root node `r`.
 
-<figure><picture><source srcset="../.gitbook/assets/dp-solution-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/dp-solution-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/dp-solution-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/dp-solution-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 From this example, we can also see that the **covering** problem can be thought of as a problem to **label** to node with the cost! And the total cost should be **minimum** for the optimal covering!
@@ -356,7 +356,7 @@ For **structural covering** (the covering we introduce above), the optimal polar
 
 This technique is useful when the library does not have any base gate into which the cells are decomposed. For example,
 
-<figure><picture><source srcset="../.gitbook/assets/inverter-pari-heuristic-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/inverter-pari-heuristic-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/inverter-pari-heuristic-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/inverter-pari-heuristic-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 By using the inverter pair heuristic, the decomposed design can now be matched using our existing technology library.
 
@@ -377,7 +377,7 @@ The focus of this section will be using the **look-up table based** implementati
 
 An $$n$$-input LUT can implement any $$n$$-bit function and it is actually implemented by a $$2^n$$-to-1 multiplexer. For example, a 2-input LUT and 3-input LUT can be implemented as follows:
 
-<figure><img src="../.gitbook/assets/2-3-input-LUT-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/2-3-input-LUT-example (1).png" alt=""><figcaption></figcaption></figure>
 
 The data inputs to the multiplexer are called **configuration memory**. From the two example, we can also see that an $$n$$-input LUT can implement $$2^n$$ possible functions. This also informs us that with each extra input, the number of possible functions increase **super-exponentially**.
 
@@ -385,13 +385,13 @@ The data inputs to the multiplexer are called **configuration memory**. From the
 
 Instead of using a bigger input LUT, we can use two smaller input LUT to compose one big input LUT. For example, a 5-input LUT can be implemented using **two** 4-input LUTs with the "fifth" signal used as the selection signal for a 2-to-1 multiplexer.
 
-<figure><img src="../.gitbook/assets/5-input-lut-with-2-4-input-lut.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/5-input-lut-with-2-4-input-lut (1).png" alt=""><figcaption></figcaption></figure>
 
 ### LUT Technology Mapping
 
 In the LUT Technology mapping, we still decompose and partition first. But after that, we will find the **minimum number** of LUTs we can used to mapped the decomposed graph using the LUTs. For example,
 
-<figure><picture><source srcset="../.gitbook/assets/lut-technology-mapping-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/lut-technology-mapping-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/lut-technology-mapping-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/lut-technology-mapping-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 #### Bin Packing
 
