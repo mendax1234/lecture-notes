@@ -10,7 +10,7 @@ metaLinks:
 
 In EE4218, we will be using the Kria KV260 SOM Vision Starter Kit containing a Xilinx Zynq Ultrascale+ SoC to implement a **coprocessor**. The overall system overview can be shown as follows:
 
-<figure><img src=".gitbook/assets/ultrascale-system-overview.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/ultrascale-system-overview (1).svg" alt=""><figcaption></figcaption></figure>
 
 On our FPGA board, we have two major blocks
 
@@ -44,7 +44,7 @@ The **bridge** is responsible for converting AXI transactions into a streaming d
 
 After the coprocessor done its job, the reverse of the steps above are performed to send the result back to the main memory in the PS. The flow can be visualized using the following diagram:
 
-<figure><img src=".gitbook/assets/receive-send-data-flow.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/receive-send-data-flow (1).svg" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -76,11 +76,11 @@ Now, let's see how the AXI works. Both AXI4 and AXI4-Lite interfaces consist of 
 
 Figure 1-1 shows how an AXI4 read transaction uses the read address and read data channels:
 
-<figure><img src=".gitbook/assets/axi4-chanell-architecture-read.png" alt=""><figcaption><p>Figure 1-1: Channel Architecture of Reads</p></figcaption></figure>
+<figure><img src=".gitbook/assets/axi4-chanell-architecture-read (1).png" alt=""><figcaption><p>Figure 1-1: Channel Architecture of Reads</p></figcaption></figure>
 
 Figure 1-2 shows how a write transaction uses the write address, write data, and write response channels.
 
-<figure><img src=".gitbook/assets/axi4-channel-arch-write.png" alt=""><figcaption><p>Figure 1-2: Channel Architecture of Writes</p></figcaption></figure>
+<figure><img src=".gitbook/assets/axi4-channel-arch-write (1).png" alt=""><figcaption><p>Figure 1-2: Channel Architecture of Writes</p></figcaption></figure>
 
 {% hint style="info" %}
 The **Write response** is sent after the **Slave interface** has received the **write address** and **all** corresponding write data.
@@ -97,7 +97,7 @@ In our coprocessor IP, we will make use of the AXIS interface to simplify the da
 
 AXIS coprocessors can't be connected directly to the AXI4 memory-mapped bus and requires some form of a [bridge](./#bridge) such as AXI Stream FIFO or AXI DMA.
 
-<figure><img src=".gitbook/assets/axis-explanation.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/axis-explanation (1).png" alt=""><figcaption></figcaption></figure>
 
 Data transfer is always from a **Master interface** to a **Slave interface**. This means a hardware block will receive data (input) through its **slave interface** (let's call it `S_AXIS`), and send data (output) through its **master interface** (let's call it `M_AXIS`).
 
@@ -149,7 +149,7 @@ I use the FSMD (FSM with Datapath) which has occured in the [Mach-V mul & div un
 
 The FSMD design used in this assignment is shown as follows:
 
-<figure><img src=".gitbook/assets/fsm-structure.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/fsm-structure (1).svg" alt=""><figcaption></figcaption></figure>
 
 The signals and their usage can be categorized into the following groups:
 
@@ -188,7 +188,7 @@ The Handshake process can be divided into the following two phases
 
 {% stepper %}
 {% step %}
-**Input Handshake (Testbench -> IP)**
+#### **Input Handshake (Testbench -> IP)**
 
 In this phase, the **Testbench acts as the Master** (sending data) and the **IP acts as the Slave** (receiving data).
 
@@ -200,7 +200,7 @@ In this phase, the **Testbench acts as the Master** (sending data) and the **IP 
 
 In the real timing diagram, we can see from the figure below that
 
-<figure><img src=".gitbook/assets/input-handshake-timing-diagram-1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/input-handshake-timing-diagram-1 (1).png" alt=""><figcaption></figcaption></figure>
 
 1. At 125ns, `ARESETN` is released, the testbench **immediately** asserts the `S_AXIS_TVALID` to HIGH and the FSM captures this input change and immediately sets the `n_state=0100` (Read Input). Meanwhile, in the testbench, as `S_AXIS_TREADY` is still 0, the `#100ns` delay is triggered, causing the `S_AXIS_TDATA` to be available only at 225ns.
 2. At 150ns, the positive clock edge happens, `state` changes to `0100` (Read Input). During this clock cycle (150ns - 250ns), nothing is written to `A_RAM` as the first `S_AXIS_TDATA` is available at 225ns only.
@@ -209,11 +209,11 @@ In the real timing diagram, we can see from the figure below that
 
 {% tabs %}
 {% tab title="Before Optimization" %}
-<figure><img src=".gitbook/assets/input-handshake-timing-diagram-2.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/input-handshake-timing-diagram-2 (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="After Optimization" %}
-<figure><img src=".gitbook/assets/16-cycle-compute.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/16-cycle-compute (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -234,7 +234,7 @@ At the clock edge, the data will be broadcasted to the next module. This is kind
 {% endstep %}
 
 {% step %}
-**Output Handshake (IP -> Testbench)**
+#### **Output Handshake (IP -> Testbench)**
 
 In this phase, the **IP acts as the Master** (sending results) and the **Testbench acts as the Slave** (receiving results).
 
@@ -245,7 +245,7 @@ In this phase, the **IP acts as the Master** (sending results) and the **Testben
 
 In the real timing diagram, we can see that
 
-<figure><img src=".gitbook/assets/output-handshake.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/output-handshake (1).png" alt=""><figcaption></figcaption></figure>
 
 1. At 2850ns, done is triggered High, in the meantime, `RES_read_en` is asserted High one cycle earlier deliberately to correctly read the `M_AXIS_TDATA` in the upcoming two clock cycles.
    1. Synchronous memory read completes at the very next active clock edge if both `read_en` and `addr` are available before that very next active clock edge. (Refer to the explanation in [Mach-V](https://mendax1234.github.io/Mach-V/hw/mem/main-memory/#block-ram)).
@@ -290,13 +290,13 @@ In the multiply and accumulate stage, we have three pipelines
 
 The cycle-time diagram after the optimization of the `Start` signal can be shown as follows:
 
-<figure><img src=".gitbook/assets/matrix-multiply-cycle-time-diagram.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/matrix-multiply-cycle-time-diagram (1).png" alt=""><figcaption></figcaption></figure>
 
 Basically, the one cycle `IDLE` stage in the matrix multiply unit happens **concurrently** with the last one cycle `Read_Inputs` stage in the top level FSMD, so in the diagram above, it is not shown.
 
 #### Arithmetic
 
-In Lab 01, we use 8 bits to represent each element in the matrix. More specifically, we use the [fixed-point notation](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/digital-building-blocks/arithmetic-circuits#fixed-point-number-systems) (unsigned 0.8 format). These means that we have a scale factor or 256 for each element. Thus, when we multiply two elements, the scale factors get multiplied too so we need to divide the result by 256 (shift right by 8 bits) to get the correct scale factor of 256 again.
+In Lab 01, we use 8 bits to represent each element in the matrix. More specifically, we use the [fixed-point notation](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/arithmetic-circuits#fixed-point-number-systems) (unsigned 0.8 format). These means that we have a scale factor or 256 for each element. Thus, when we multiply two elements, the scale factors get multiplied too so we need to divide the result by 256 (shift right by 8 bits) to get the correct scale factor of 256 again.
 
 [^1]: The peripherals do not have their own special CPU instructions. Instead, they are mapped to specific physical addresses in the system memory map (hardwired by Xilinx).
 

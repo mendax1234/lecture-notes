@@ -19,12 +19,12 @@ Thus, the whole network can be thought of as a function which takes in 784 input
 
 As its name suggested, a neural network has a lot of neurons. For now, we can think of a neuron as a container to hold a number between 0 and 1.
 
-<figure><img src="../.gitbook/assets/neurons.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/neurons (1).png" alt=""><figcaption></figcaption></figure>
 
 In our application, as our input image has 784 pixels, we treat each pixel as a neuron.
 
 {% hint style="success" %}
-**Activation**
+#### **Activation**
 
 The value held in the neuron is called its **activation**. You may notice that when the neuron's value/activation is closer to 1, it will be activated/lit up and vice versa.
 {% endhint %}
@@ -33,7 +33,7 @@ The value held in the neuron is called its **activation**. You may notice that w
 
 Each of the neuron/pixel from the input forms the **input layer** containing 784 neurons with some activation. This is called the **input layer**. Similarly, in our application, the **output layer** consists of 10 neurons, the activaion of [each neuron](#user-content-fn-1)[^1] represents how much possibility the system thinks the given image corresponds to that digit.
 
-<figure><img src="../.gitbook/assets/input-output-layer.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/input-output-layer (1).png" alt=""><figcaption></figcaption></figure>
 
 As you might notice in the figure above, there are also some layers in between. These are called the **hidden layers**. In our application, we will see later that they can represent certain **patterns**.
 
@@ -47,7 +47,7 @@ The **activations** in one layer determines the activation in the next layer.
 The sentence above is perhaps the most important takeaway from this "Layers" section!
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/activations.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/activations (1).png" alt=""><figcaption></figcaption></figure>
 
 So, what exactly happens in this system is that
 
@@ -55,10 +55,10 @@ So, what exactly happens in this system is that
 2. This patterns of activations causes some very specific pattern in the next layer, which causes some patterns in the layer after it, which finally causes some pattern in the output layer.
 3. And the brightest neuron of the output layer is the network's choice, so to speak, for what digit this image represents.
 
-<figure><img src="../.gitbook/assets/forward-propagation.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/forward-propagation (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
-**Forward Propagation**
+#### **Forward Propagation**
 
 The process described above is officially named as **forward propagation**, which is the fundamental process in neural networks where input data passes through hidden layers to the output layer, generating predictions.
 {% endhint %}
@@ -69,14 +69,14 @@ The process described above is officially named as **forward propagation**, whic
 
 This is based on the instinction when we recognize the digit, which is that we try to break the digit into the so-called **patterns**.
 
-<figure><img src="../.gitbook/assets/digit-into-patterns.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/digit-into-patterns (1).png" alt=""><figcaption></figcaption></figure>
 
 Similarly, in this neural network, we can think of each neuron in the 2 hidden layer as representing a specific pattern. More specifically
 
 * In the first hidden layer: each neuron represents an **edge pattern**
 * In the second hidden layer: each neuron represents a **bigger pattern**, like a loop, etc.
 
-<figure><img src="../.gitbook/assets/patterns.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/patterns (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
 </details>
 
@@ -86,7 +86,7 @@ Similarly, in this neural network, we can think of each neuron in the 2 hidden l
 
 We start from one neuron in the first hidden layer. From the previous section, we know that this neuron should represent an edge pattern. So, how do we know that this neuron can capture a certain **edge pattern** given all the neurons from the previous layer as inputs? What we will do is to assign a **weight** to each one of the connections between our neuron and neurons from the first layer.
 
-<figure><img src="../.gitbook/assets/weights.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/weights (1).png" alt=""><figcaption></figcaption></figure>
 
 These weights are just **numbers**. Then we take all the activations from the input layer and compute their weighted sum according to these weights.
 
@@ -98,11 +98,11 @@ $$
 
 As the weights can be any real number, the weighted sum we get can thus be any real number. However, we want the **activation** of our neuron to be between 0 and 1.
 
-<figure><img src="../.gitbook/assets/neurons-0-1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/neurons-0-1 (1).png" alt=""><figcaption></figcaption></figure>
 
 An intuition will be to pass this weighted sum as an input into another **function** that squishes the real number line into the range between 0 and 1. A function serving such purpose is called an **activation function**. One activation function is called the **sigmoid function** shown as below.
 
-<figure><img src="../.gitbook/assets/sigmoid-activation-function.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/sigmoid-activation-function (1).png" alt=""><figcaption></figcaption></figure>
 
 Basically, in the sigmoid function
 
@@ -121,7 +121,7 @@ $$
 $$
 
 {% hint style="success" %}
-**Bias**
+#### **Bias**
 
 But maybe we don't want the neuron to light up when the weighted sum is bigger than 0. Maybe we only want it to be active[^2] when the weighted sum is bigger than 10. That is to say, we want some **bias** for the neuron to be inactive. What will do then is to add some number to the weighted sum before we plug it through the sigmoid function. That additional number is called the **bias**.
 
@@ -154,7 +154,7 @@ Let's show a notation compact way on how these connections are represented.
 2. Organize all the the weights as a matrix, where each row of that matrix corresponds to the connections between one layer and a particular neuron in the next layer. What that means is that taking the weighted sum of the activations in the first layer according to these weights corresponds to one of the terms in the matrix product of the L.H.S.
 3. Organize all the biases into a vector and add the vector to the previous matrix vector product.
 
-<figure><img src="../.gitbook/assets/matrix-notation.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/matrix-notation (1).png" alt=""><figcaption></figcaption></figure>
 
 And then we wrap the sigmoid around the outside of the whole thing. This represents that we are applying the sigmoid function to each specific component of the resulting vector inside.
 
@@ -162,7 +162,7 @@ And then we wrap the sigmoid around the outside of the whole thing. This represe
 The sigmoid function can be replaced by any other activation function! The resulting vector is a vector of the number of neurons is the second layer elements
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 So, the neat formula we have to calculate the activations of the second layer using the activations from the first layer is
 
@@ -171,7 +171,7 @@ a^{(1)}=\sigma(Wa^{(0)}+b)
 $$
 
 {% hint style="success" %}
-**Recap on the understanding of** [#neurons](multilayer-perceptron.md#neurons "mention")
+#### **Recap on the understanding of** [#neurons](multilayer-perceptron.md#neurons "mention")
 
 Up till this point, we might find out that it is more accurate to think of each neuron as a **function** that takes in the **ouputs** of all the neurons in the previous layer and spits out the number between 0 and 1.
 {% endhint %}

@@ -8,7 +8,7 @@ A **neural network** consists of connected units or nodes called **artificial ne
 
 Typically, neurons are aggregated into **layers**. Different layers may perform different transformations on their inputs. Signals travel from the first layer (the _input layer_) to the last layer (the _output layer_), possibly passing through multiple intermediate layers (_hidden layers_). A network is typically called a **deep neural network** if it has at least two hidden layers.
 
-<figure><img src="../.gitbook/assets/layer-of-neural-network.png" alt="" width="332"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/layer-of-neural-network (1).png" alt="" width="332"><figcaption></figcaption></figure>
 
 We can think of the neural network as a **function**. For example, let's say we want to build a neural network to recognize the image given an $$28\times28$$ pixel image where each pixel is a value between 0 and 1 representing the gray scale of that pixel. Then our neural network will be a function as below.
 

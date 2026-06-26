@@ -19,7 +19,7 @@ In this part, we will need to compare the performance improvement between the di
 
 In the lab munual, Prof Rajesh said that it is recommended to connect 2 coprocessors to our Zynq so that we can demo the performance difference between the baseline HLS version with the optimized HLS version quickly. To do this on DMA, the complete block diagram is shown below.
 
-<figure><img src="../.gitbook/assets/connect-2-coprocessors.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/connect-2-coprocessors (1).png" alt=""><figcaption></figcaption></figure>
 
 To do so, we need to make the following changes:
 
@@ -35,7 +35,7 @@ To do so, we need to make the following changes:
 
 As my Vitis (2025.2) will do some optimizations automatically, to disable these optimizations, we need to change the `hls.syn.compile.pipeline_loops` to 0 in the `hls_config.cfg`. Besides, it is safer for us to add the `#pragma HLS pipeline off` manually in our code as well. After doing all this, to verify that our HLS doesn't have any optimization, we can see from the "Performance & Resource Estimates" in the C synthesis report.
 
-<figure><img src="../.gitbook/assets/c-synthesis-report-baseline.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/c-synthesis-report-baseline (1).png" alt=""><figcaption></figcaption></figure>
 
 More specifically, the "pipelined" column will show **no** for all the loops. This will indicate that our baseline is a **real** baseline.
 
@@ -49,7 +49,7 @@ The purpose of this lab is to demonstrate **one and only one** HLS optimization.
 
 #### Understand HLS Optimization
 
-In [Broken link](/broken/pages/KowzBWqwUKuiLhXsUmNr "mention"), we have learned that the HLS optimizations are done on loops, no matter it is a normal `for` loop or a dataflow loop. The key idea in understanding the HLS optimization is to **find out the computation done per iteration**. For example, in the following loop,
+In [Lec 06](https://app.gitbook.com/s/08HOWaEgI5q3ZZTecFRP/lec/lec-06-high-level-synthesis), we have learned that the HLS optimizations are done on loops, no matter it is a normal `for` loop or a dataflow loop. The key idea in understanding the HLS optimization is to **find out the computation done per iteration**. For example, in the following loop,
 
 {% code lineNumbers="true" %}
 ```cpp
@@ -83,7 +83,7 @@ More specifically, we **fully unroll** all the 4 loops in our application. Theor
 
 And the real number of clock cycles we get is 587, which is around the same as the theoretical and the 2 more cycles indeed come from the FSM state transition within the compute stage.
 
-<figure><img src="../.gitbook/assets/schedule-viewer-lab4.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/schedule-viewer-lab4 (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 Doing unrolling without array partitioning is useless. However in 2025.2 version, the array partition can be done automatically by the tool.
@@ -118,13 +118,13 @@ Make sure you have installed [balena etcher](https://etcher.balena.io/) and [Mob
 
 {% stepper %}
 {% step %}
-**Flash the Linux OS into the SD card**
+#### **Flash the Linux OS into the SD card**
 
 If you are taking EE4218, NUS would have probably provided you and your team with the SD card and the linux OS `.img` file. So, all you have to do is to flash the linux OS `.img` file into the SD card using balena etcher or the equivalent tool.
 {% endstep %}
 
 {% step %}
-**Setup Linux on Kria**
+#### **Setup Linux on Kria**
 
 Here, I will only focus on the recommended way to connect to Kria, which is to use the **Ethernet**. As I am using Windows 11, the setting up process requires you to do the following steps in sequence:
 
@@ -134,7 +134,7 @@ Here, I will only focus on the recommended way to connect to Kria, which is to u
 
 After that, for Windows users, please go to the following settings in your control panel and setup as follows:
 
-<figure><img src="../.gitbook/assets/kria-network-setup.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/kria-network-setup (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 Pay attention to which Ethernet you are using and select the Ethernet adaptor after Step 5 above!
@@ -184,7 +184,7 @@ If you are taking EE4218 in AY25/26 Sem 2, the username is `ubuntu` and password
 {% endstep %}
 
 {% step %}
-**Run PYNQ code on Kria**
+#### **Run PYNQ code on Kria**
 
 After connecting to the Kria board, normally we will enter into a ubuntu terminal. In that terminal, to run the pynq code, we need to create a folder with
 
