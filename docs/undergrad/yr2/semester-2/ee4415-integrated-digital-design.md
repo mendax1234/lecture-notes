@@ -5,7 +5,7 @@
 * **Full name**: [EE4415 Integrated Digital Design](https://nusmods.com/courses/EE4415/integrated-digital-design)
 * **Target audience**: NUS Year 4 EE/CEG Students
 * **Purpose of the course**: This course provides students with knowledge of integrated circuit design from both low-level and high-level perspectives. It covers topics ranging from CMOS transistor-level design to the use of RTL transformation techniques for optimizing the power, performance, and area of digital designs.
-* **Notes Content**: View the [EE4415 Lecture Notes](https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/Sp0XaarBjbEX3JIMrRaR/).
+* **Notes Content**: View the [EE4415 Notes](https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/Sp0XaarBjbEX3JIMrRaR/).
 
 I took this course in AY25/26 Semester 2 as a bonus course which is recommended to take together with EE4218!
 
