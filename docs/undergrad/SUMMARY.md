@@ -27,3 +27,6 @@
   * [CS2113 SWE and OOP](yr2/sem1/cs2113.md)
   * [ES2631 Critical Thinking and Writing](yr2/sem1/es2631.md)
   * [LAF3202 French 4](yr2/sem1/laf3202.md)
+* [Semester 2](yr2/semester-2/README.md)
+  * [EE4218 Embedded Hardare System Design](yr2/semester-2/ee4218-embedded-hardare-system-design.md)
+  * [EE4415 Integrated Digital Design](yr2/semester-2/ee4415-integrated-digital-design.md)

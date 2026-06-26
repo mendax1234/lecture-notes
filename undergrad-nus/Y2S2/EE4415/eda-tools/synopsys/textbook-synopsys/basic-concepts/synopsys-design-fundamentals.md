@@ -19,7 +19,7 @@ There are eight different types of design objects categorized by DC. These are:
 
 {% stepper %}
 {% step %}
-#### Design
+**Design**
 
 It corresponds to the **circuit description** that performs some logical function. The design may be stand-alone or may include other sub-designs.
 
@@ -29,7 +29,7 @@ Although sub-designs may be part of the design, it is treated as another design 
 {% endstep %}
 
 {% step %}
-#### Cell
+**Cell**
 
 It is the **instantiated** **name** of the **sub-design** in the design. In Synopsys terminology, there is no differentiation between the **cell** and **instance**; both are treated as cell.
 
@@ -39,37 +39,37 @@ Think of the module instantiation in Verilog.
 {% endstep %}
 
 {% step %}
-#### Reference
+**Reference**
 
 This is the **definition** of the **original design** to which the cell or instance refers. For example, a leaf cell in the netlist must be referenced from the link library, which contains the functional description of the cell. Similarly, a sub-design instantiated (called **cell** by Synopsys) must be referenced in the design, which contains functional description of the instantiated sub-design.
 {% endstep %}
 
 {% step %}
-#### Port
+**Port**
 
 These are the primary **inputs, outputs** or **IO's** of the **design**.
 {% endstep %}
 
 {% step %}
-#### Pin
+**Pin**
 
 It corresponds to the **inputs, outputs** or **IO's** of the **cells** in the design.
 {% endstep %}
 
 {% step %}
-#### Net
+**Net**
 
 These are the **signals names**, e.g., the wires that hook up the design together connecting by ports to pins and/or pins to each other.
 {% endstep %}
 
 {% step %}
-#### Clock
+**Clock**
 
 The **port or pin** that is identified as a **clock source**. The identification may be internal to the library or it may be done using `dc_shell-t` commands.
 {% endstep %}
 
 {% step %}
-#### Library
+**Library**
 
 Corresponds to the collection of **technology specific cells** that the design is targeting for synthesis; or linking for reference.
 {% endstep %}

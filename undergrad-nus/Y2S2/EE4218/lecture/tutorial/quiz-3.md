@@ -11,7 +11,7 @@
 
 ***
 
-**Sol.** The answer is **true**. We've seen the implications of linear vs. quadratic cost function in the [lecture](https://wenbo-notes.gitbook.io/ee4218-notes/lec/lec-09-physical-synthesis#implications-of-different-cost-functions), which is
+**Sol.** The answer is **true**. We've seen the implications of linear vs. quadratic cost function in the [lecture](../lec/lec-09-physical-synthesis.md#analytical-algorithm), which is
 
 > 1. The **quadratic** cost function tends to minimize the **standard deviation** of wires, which will penalize long wires and might give us better timing performance. But the average wire length might go up compared to the linear cost function.
 > 2. The **linear** cost function tends to minimize the **total wire length**, which tends to minimize the cost.

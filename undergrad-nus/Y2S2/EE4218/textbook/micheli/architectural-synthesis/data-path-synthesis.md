@@ -19,15 +19,15 @@ To avoid confusion, we refer to this **architectural-level** task as **connectiv
 
 Suppose that we are doing the data-path synthesis for the collowing data flow and sequencing graph with complete scheduling and binding.
 
-<figure><picture><source srcset="../../.gitbook/assets/data-path-synthesis-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/data-path-synthesis-example-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/data-path-synthesis-example-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/data-path-synthesis-example-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
-Here, we are using [**constrained scheduling**](the-fundamental-architectural-synthesis-problems.md#example-of-contrained-scheduling), which is to use exactly **one multiplier** and **one adder** in our whole design. Also, as we have seen in the [area and performance estimation](area-and-performance-estimation.md#registers) section,&#x20;
+Here, we are using [**constrained scheduling**](the-fundamental-architectural-synthesis-problems.md#example-of-contrained-scheduling), which is to use exactly **one multiplier** and **one adder** in our whole design. Also, as we have seen in the [area and performance estimation](area-and-performance-estimation.md#registers) section,
 
 > All **data** transferred from one **resource** to another across a **cycle boundary** must be stored in some **register/flip-flops**.
 
 Thus, here we need **two flip-flops** here to store the data because we have only 2 intermediate variables at any given time, stored in register r1 and r2. Figure 4.12 shows a refined view of the data path of this system. It explicitly shows the **interconnections** of the multiplexers.
 
-<figure><picture><source srcset="../../.gitbook/assets/data-path-synthesis-example-1-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/data-path-synthesis-example-1-light.png" alt=""></picture><figcaption><p>Figure 4.12 Structural view of the differential equationa integrator with one multiplier and one ALU</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/data-path-synthesis-example-1-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/data-path-synthesis-example-1-light (1).png" alt=""></picture><figcaption><p>Figure 4.12 Structural view of the differential equationa integrator with one multiplier and one ALU</p></figcaption></figure>
 
 Here, we can easily see that r1 should be on the **right side** of the sequencing graph and r2 should be on the **left side**. This is because from the data-path synthesis diagram,
 

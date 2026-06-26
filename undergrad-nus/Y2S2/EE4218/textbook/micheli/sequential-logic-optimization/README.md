@@ -12,7 +12,7 @@ The sequential circuit model may have either a **behavioral** or a **structural*
 
 {% stepper %}
 {% step %}
-### State-Based Model
+#### State-Based Model
 
 A convenient way to express the circuit behavior is by means of **finite-state machine models/state-based models.** One example will be the **state transition diagrams**, as shown in Figure 9.2 (a). **State transition diagrams** encapsulate the **traces** that the corresponding circuit can accept and produce. Thus, **state-based representations** have a **behavioral flavor**.
 
@@ -38,7 +38,7 @@ The state-based models can be represented by
 {% endstep %}
 
 {% step %}
-### Structural model
+#### Structural model
 
 An alternative representation of the circuit behavior is by means of **logic expressions** in terms of **time-labeled variables**. As in the case of **combinational circuits**, it is often convenient to express the **input/output behavior** by means of a set of **local expressions** with **mutual dependencies**. This leads to circuit representations in terms of **synchronous logic networks** that express the interconnection of **combinational modules** and **registers**, as shown in Figure 9.2 (b).
 
@@ -58,20 +58,20 @@ A structural model can be represented by
 **State transition diagrams** can be transformed into synchronous logic networks by **state encoding** and can be recovered from synchronous logic networks by **state extraction**.
 
 {% hint style="warning" %}
-We will experience more about the sentence above in the [problem set 2](https://app.gitbook.com/s/08HOWaEgI5q3ZZTecFRP/tutorial/problem-set-2#id-2.-fsm-back-engineering)!&#x20;
+We will experience more about the sentence above in the [problem set 2](https://app.gitbook.com/s/08HOWaEgI5q3ZZTecFRP/tutorial/problem-set-2#id-2.-fsm-back-engineering)!
 {% endhint %}
 
 {% stepper %}
 {% step %}
-#### State Encoding
+#### **State Encoding**
 
 **State encoding** defines the **state representation** in terms of **state variables**, thus allowing the description in terms of **networks**. **Unused state codes** are **don’t care conditions** that can be used for **network optimization**.
 {% endstep %}
 
 {% step %}
-#### State Extraction
+#### **State Extraction**
 
-The major task in **state extraction** is to determine the **valid states** (e.g., those **reachable from the reset state**) among those identified by all possible **polarity assignments** to the **state variables**.&#x20;
+The major task in **state extraction** is to determine the **valid states** (e.g., those **reachable from the reset state**) among those identified by all possible **polarity assignments** to the **state variables**.
 {% endstep %}
 {% endstepper %}
 

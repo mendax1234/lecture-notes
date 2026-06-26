@@ -35,7 +35,7 @@ The job of the row decoder is mainly to decode the row index from the address.
 
 #### Column Decoder
 
-In the column decoder, we usually use the so-called **analog multiplexer**, which is nothing but that [pass-gate multiplexers](https://wenbo-notes.gitbook.io/ee4415-notes/sEXO3Z2k4TIWXI0ZZLNy/part-2-lec-analog-design-flow/lec-5-sequential-circuits#pass-transistor-mux). And its structure can be shown as follows:
+In the column decoder, we usually use the so-called **analog multiplexer**, which is nothing but that [pass-gate multiplexers](lec-5-sequential-circuits.md#mux-based-latches). And its structure can be shown as follows:
 
 <figure><img src="../.gitbook/assets/column-decoder.png" alt=""><figcaption></figcaption></figure>
 

@@ -18,7 +18,7 @@ Now we will introduce two notations that will be used in representing the **netw
 
 {% stepper %}
 {% step %}
-#### Normal Notation
+#### **Normal Notation**
 
 We denote sequences by **time-labeled variables**.
 
@@ -27,7 +27,7 @@ We denote sequences by **time-labeled variables**.
 {% endstep %}
 
 {% step %}
-#### Shorthand Notation
+#### **Shorthand Notation**
 
 It is convenient sometimes to have a **shorthand notation for variables**, without explicit dependency on time but just marking the **synchronous delay offset** with respect to a **reference time point**.
 
@@ -102,7 +102,7 @@ A **synchronous logic network** can be represented using the following two ways
 
 {% stepper %}
 {% step %}
-#### Multi-graph
+#### **Multi-graph**
 
 Note that a **local function** may depend on the value of a **variable** at **different instances of time**.
 
@@ -125,7 +125,7 @@ The **circuit** decodes an **incoming data stream** coded with **bi-phase marks*
 {% endstep %}
 
 {% step %}
-#### Logic Equations
+#### **Logic Equations**
 
 As in the case of **combinational networks**, an **alternative representation** is possible in terms of **logic equations**, whose **support** consists of **variables with explicit dependence on time**.
 
@@ -149,19 +149,19 @@ There are different approaches to optimizing synchronous networks
 
 {% stepper %}
 {% step %}
-#### Combinational Optimization
+#### **Combinational Optimization**
 
 The simplest approach is to **ignore the registers** and to **optimize the combinational component** using techniques of combinational logic synthesis. This is equivalent to deleting the edges with positive weights and optimizing the corresponding combinational logic network. Needless to say, the **removal of the registers** from the network segments the circuit and weakens the optimality.
 {% endstep %}
 
 {% step %}
-#### Retiming
+#### **Retiming**
 
 A radically different approach is **retiming**. By retiming a network, we **move the position of the registers only**; hence, we do not change the graph topology, but we modify the weight set $$W$$. Leiserson and Saxe presented polynomially bounded algorithms for finding the **optimum retiming**, which **minimizes the circuit cycle-time or area**. Unfortunately, retiming may not lead to the best implementatio**n**, because only register movement is considered.
 {% endstep %}
 
 {% step %}
-#### Network Transformation
+#### **Network Transformation**
 
 The most general approach to synchronous logic optimization is to perform **network transformations** that **blend retiming** with **combinational transformations**. Such transformations can have an **algebraic** or **Boolean flavor**. In the latter case, the concept of don't-care conditions must be extended to synchronous networks.
 {% endstep %}
@@ -219,7 +219,7 @@ By using the retiming algorithms proposed by Leiserson and Saxe, we need to know
 
 {% stepper %}
 {% step %}
-#### The Path Delay
+#### **The Path Delay**
 
 We consider **topological critical paths** only. Hence, the **path delay** between two **registers** (identified by **non-zero weights** on some edges) is the **sum of the propagation delays** of the **vertices** along that path, **including the extremal vertices**. For a given **path** $$(v_i, \ldots, v_j)$$, we define the **path delay** as:
 
@@ -229,7 +229,7 @@ $$
 {% endstep %}
 
 {% step %}
-#### The Path Weight
+#### **The Path Weight**
 
 Note that the **path delay** is defined **independently** of the presence of **registers** along that path. The **path delay** must not be confused with the **path weight**, which relates to the **register count** along that path. For a given **path** $$(u_i, \ldots, u_j)$$, we define the **path weight** as:
 
@@ -239,7 +239,7 @@ $$
 {% endstep %}
 
 {% step %}
-#### The Retiming of a Vertex
+#### **The Retiming of a Vertex**
 
 **Retiming a vertex** means moving **registers** from its **outputs** to its **inputs**, or vice versa. When this is possible, the **retiming** of a **vertex** is an **integer** that measures the amount of **synchronous delays** that have been moved.
 
@@ -252,7 +252,7 @@ For example, consider the **circuit fragment** shown in **Figure 9.9(a)**, whose
 {% endstep %}
 
 {% step %}
-#### The Retiming of a Network
+#### **The Retiming of a Network**
 
 The **retiming of a network** is represented by a **vector** $$r$$, whose elements are the **retiming values** for the corresponding **vertices**. **Retiming** can be formally defined as follows.
 
@@ -261,7 +261,7 @@ The **retiming of a network** is represented by a **vector** $$r$$, whose elemen
 Consider the **network fragment** shown in **Figures 9.9(b) and (d)**. The **weight** $$w_{cx}=1$$ **before retiming**. Since $$r_c=1$$ and $$r_x=0$$, the **weight after retiming** is $$\tilde{w_{cx}}=1+0-1=0$$.
 
 {% hint style="danger" %}
-#### Notes
+**Notes**
 
 * The number of **elements** in the retiming vector depends on the **number of vertices** in the network.
 * We only need to write the $$r$$ vector **after** we do the retiming (See more from [#example-of-a-legal-retiming-of-a-network](sequential-circuit-optimization-using-network-models.md#example-of-a-legal-retiming-of-a-network "mention")).
@@ -270,7 +270,7 @@ Consider the **network fragment** shown in **Figures 9.9(b) and (d)**. The **wei
 {% endstep %}
 
 {% step %}
-#### The property of path weight
+#### **The property of path weight**
 
 It is simple to show that the **weight on a path** depends only on the **retiming of its** [**extremal vertices**](#user-content-fn-2)[^2], because the **retiming of the internal vertices** moves **registers within the path itself**. Namely, for a given **path** $$(v_i,\dots,v_j)$$:
 
@@ -326,7 +326,7 @@ Before we move on, let's define some math notations that will be used in the fol
 
 {% stepper %}
 {% step %}
-#### Path Weight and Delay
+#### **Path Weight and Delay**
 
 We have see the difference between path weight and path delay from [above](sequential-circuit-optimization-using-network-models.md#definition-of-the-synchronous-logic-network), now let's give them a formal definition.
 
@@ -339,7 +339,7 @@ The quantity $$D(v_{i}, v_{j})$$ is the **maximum delay** on a path with **minim
 {% endstep %}
 
 {% step %}
-#### Time Feasibility for a Network
+#### **Time Feasibility for a Network**
 
 For a given cycle-time $$\phi$$, we say that the network is **timing feasible** if it can operate correctly with a cycle-time $$\phi$$, i.e., its **topological critical path** has delay $$\phi$$ or less.
 
@@ -365,13 +365,13 @@ We will introduce two techniques here. However, both of them have **polynomial-t
 
 {% stepper %}
 {% step %}
-#### Leriserson and Saxe Algorithm
+#### **Leriserson and Saxe Algorithm**
 
 Before we look at the algorithm, let's first look at the Lerserson an Saxe Theorem
 
 > **Theorem 9.3.1.** Given a network $$G_{sn}(V, E, W)$$ and a cycle-time $$\phi$$, $$r$$ is a feasible retiming if and only if:
 >
-> <p align="center"><span class="math">\begin{align} r_i - r_j &#x26;\leq w_{ij}    &#x26;\quad \forall (v_i, v_j) \in E \tag{9.4} \\ r_i - r_j &#x26;\leq W(v_i, v_j) - 1    &#x26;\quad \forall v_i, v_j : D(v_i, v_j) > \phi \tag{9.5} \end{align}</span></p>
+> <p align="center"><span class="math">\begin{align} r_i - r_j &#x26;\leq w_{ij} &#x26;\quad \forall (v_i, v_j) \in E \tag{9.4} \\ r_i - r_j &#x26;\leq W(v_i, v_j) - 1 &#x26;\quad \forall v_i, v_j : D(v_i, v_j) > \phi \tag{9.5} \end{align}</span></p>
 
 <details>
 
@@ -407,7 +407,7 @@ The **complexity** of this algorithm is $$O(|V|^3 \log |V|)$$.
 {% endstep %}
 
 {% step %}
-#### FEAS
+#### **FEAS**
 
 Even though the Leriserson and Saxe method has polynomial-time compiexity, its run time may he high. Computing matrices W and D may require large storage for graphs with many vertices. Most large networks are **sparse**, i.e., the number of edges is much smaller than the vertex pairs. Some retiming algorithms exploit the sparsity of the network and are more efficient for large networks. We review here a **relaxation method** that can be used to check the existence of a feasible retiming for a given cycle-time $$\phi$$. It is called **FEAS** and it can replace the Bellman-Ford algorithm.
 

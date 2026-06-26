@@ -19,7 +19,7 @@ These are also known as the **schemes**. Basically, we have four schemes (2 big 
 
 The basic of CMOS static logic is to use the Pull-Up Network (PUN) implemented by PMOS to pull the output to 1 and Pull-Down Network (PDN) implemented by NMOS to pull the output down to 0.
 
-<figure><img src="../.gitbook/assets/pun-pdn-cmos-static-logic.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/pun-pdn-cmos-static-logic (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 We must design the PUN and PDN to be **mutually exclusive** thus only one network is conducting in steady state.
@@ -42,7 +42,7 @@ The number of transistors for an $$N$$-input CMOS logic gate is $$2N$$.
 
 We have seen in CG2027 that PMOS is good at passing a **strong 1** but weak 0 while NMOS is good at passing a **strong 1** but weak 1.
 
-<figure><img src="../.gitbook/assets/pun-pdn-strong-1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/pun-pdn-strong-1 (1).png" alt=""><figcaption></figcaption></figure>
 
 The main reason lies in the $$V_{\text{GS}}$$ that will turn the MOSFET on and off. For the interested readers, it is not hard to derive this conclusion using the knowledge learned in [Lec 01](lec-1-mosfet-and-cmos-process.md#i-v-characteristic).
 
@@ -64,11 +64,11 @@ The [CG2027 Lec 04 — Inversion Properpty of a Full adder](https://app.gitbook.
 
 The goal of using ratioed logic is to reduce the **number of** [**devices**](#user-content-fn-1)[^1] in the complementary CMOS. Normally, we have the following three types of ratioed logic.
 
-<figure><img src="../.gitbook/assets/ratioed-logic-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/ratioed-logic-example (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Resistive Load
 
-In this method, we are just utilizing the [voltage divider](#user-content-fn-2)[^2] we have learned in high school physics and our $$V_{\text{OH}}$$ and $$V_{\text{OL}}$$ will be as follows:
+In this method, we are just utilizing the voltage divider we have learned in high school physics and our $$V_{\text{OH}}$$ and $$V_{\text{OL}}$$ will be as follows:
 
 $$
 V_{\text{OH}}=V_{\text{DD}},~ V_{\text{OL}}=\frac{R_{\text{PDN}}}{R_{\text{PDN}}+R_L}\cdot V_{\text{DD}}
@@ -103,11 +103,11 @@ In this part, we will focus mainly on the CMOS static gates, which utilizes both
 
 In static CMOS gates, at every point of time, each gate output is connected to either $$V_{\text{DD}}$$ or $$V_{\text{SS}}$$ via a low-resistance path.
 
-<figure><img src="../.gitbook/assets/static-cmos-gates.png" alt="" width="207"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/static-cmos-gates (1).png" alt="" width="207"><figcaption></figcaption></figure>
 
 While in dynamic CMOS gates, the signal is stored on a parasitic capacitance. The output depends on reading the voltage on that parasitic capacitance. For example,
 
-<figure><img src="../.gitbook/assets/dynamic-cmos-gate.png" alt="" width="294"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/dynamic-cmos-gate (1).png" alt="" width="294"><figcaption></figcaption></figure>
 
 In the dynamic CMOS gate above, $$C_L$$ is the parasitic capacitance and $$M_p$$ is called the header PMOS, $$M_e$$ is called the footer NMOS. The Clk signal will determine when the output will be dependent on the inputs. In short, when `Clk == 1`, the output will depend on the inputs.
 
@@ -123,7 +123,7 @@ As in the dynamic CMOS gates, we only need to implement the PDN, it might save u
 
 The static properties such as VTC and noise margin of a CMOS static logic depends on which transistor turns on or off. Thus, we say it's **input data dependent**.
 
-<figure><img src="../.gitbook/assets/static-cmos-vtc.png" alt="" width="295"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/static-cmos-vtc (1).png" alt="" width="295"><figcaption></figcaption></figure>
 
 Because of this, we say the analysis is difficult.
 
@@ -133,7 +133,7 @@ Because of this, we say the analysis is difficult.
 
 As we might have seen above, in the CMOS logic gates, there are a bunch of available low-resistance paths, all these paths will give us different delays if we didn't size the transistors properly. Thus, to make our life easier,
 
-1. We use the delay of an inverter[^3] as a benchmark.
+1. We use the delay of an inverter[^2] as a benchmark.
 2. We choose the transistor sizes (in logic gate) in such a way that the **worst-case** gate delay is same as that of the benchmark inverter.
 
 {% hint style="warning" %}
@@ -146,7 +146,7 @@ Assume that the mobility constant $$k_n'\div k_p'=-3$$, meaning that the mobilit
 
 {% stepper %}
 {% step %}
-#### Find the relationship between $$R_{\text{eqn}}$$ and $$R_{\text{eqp}}$$
+**Find the relationship between** $$R_{\text{eqn}}$$ **and** $$R_{\text{eqp}}$$
 
 Using the on resistance in the linear region of the CMOS transistors that we've learned in Lec 01, which basically are:
 
@@ -163,7 +163,7 @@ This is the relationship between the two constants that we've set!
 {% endstep %}
 
 {% step %}
-#### Size the CMOS transistor&#x20;
+**Size the CMOS transistor**
 
 Using the $$RC$$ formula, we can easily write out the equations for $$t_{\text{pLH}}$$ and $$t_{\text{pHL}}$$, which is nothing but below,
 
@@ -182,9 +182,9 @@ This is our 1x Inverter, which is also our benchmark. In Inv 1x, we assume that 
 {% endstepper %}
 
 {% hint style="warning" %}
-#### Tips
+**Tips**
 
-1. &#x20;$$R_{n/p}=R_{\text{eqn/p}}\div (W/L)_{n/p}$$
+1. $$R_{n/p}=R_{\text{eqn/p}}\div (W/L)_{n/p}$$
 2. If our reference is INV1X, we also size both PUN and PDN to have a worst-case on resistance of $$R_{\text{eqn}}$$. If it is INV4X, we size them to have $$\frac{1}{4}R_{\text{eqn}}$$.
 {% endhint %}
 
@@ -199,7 +199,7 @@ The recommended steps/flow to do this kind of sizing problem:
 
 Using the same assumption we made in [above](lec-3-combinational-logic-circuits.md#build-the-benchmark), size the following CMOS logic gates.
 
-<figure><img src="../.gitbook/assets/size-example.png" alt="" width="269"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/size-example (1).png" alt="" width="269"><figcaption></figcaption></figure>
 
 Start from the longest path for worst-case, so the longest path in the PUN is from C->B->D. The delay is
 
@@ -241,7 +241,7 @@ It is definitely valid to start from a shorter path. But experience tells us tha
 
 In a gate with large fan-in, the circuit schematic may look like below.
 
-<figure><img src="../.gitbook/assets/high-fan-in.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/high-fan-in (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
 The bottom four NMOS are called "4 high-stack". And in the **worst-case**, $$t_{\text{pHL}}$$ is
 
@@ -258,7 +258,7 @@ $$
 We notice that $$R_1$$ appears in every term and is important in minimizing the delay!
 {% endhint %}
 
-Assume that all NMOS have an equal size and have an equivalent resistance of $$R_N$$, we have&#x20;
+Assume that all NMOS have an equal size and have an equivalent resistance of $$R_N$$, we have
 
 $$
 t_{\text{pHL}} = 0.69 R_N \left( C_1 + 2C_2 + 3C_3 + 4C_L \right)
@@ -266,7 +266,7 @@ $$
 
 Drawing the $$t_p$$ vs. fan-in diagram, we might have the following
 
-<figure><img src="../.gitbook/assets/tp-high-fan-in.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/tp-high-fan-in (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
 This tells us the propagation deteriorates quickly as a function of fan-in. Thus, we should avoid **high fan-in** circuits. Usually, gates with a fan-in greater than 4 should be avoided.
 
@@ -284,19 +284,19 @@ As we have seen from above, $$R_1$$ appears in every term of the $$t_{\text{pHL}
 
 We can put the late arrived signal, which is our critical path signal, near the output so that when it arrives, the other capacitors are discharged already. In this case, the delay is only determined by the time to discharge $$C_L$$.
 
-<figure><img src="../.gitbook/assets/input-reordering.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/input-reordering (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Logic restructuring
 
 We can use De Morgan's law to restructure the high fan-in gate into the combination of some smaller fan-in gates.
 
-<figure><img src="../.gitbook/assets/logic-restructuring.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/logic-restructuring (1).png" alt=""><figcaption></figcaption></figure>
 
 ## CMOS Dynamic Gates
 
 We have briefly seen the CMOS dynamic gates previously, the overall structure of the CMOS Dynamic Gates is shown below.
 
-<figure><img src="../.gitbook/assets/cmos-dynamic-gates-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/cmos-dynamic-gates-example (1).png" alt=""><figcaption></figcaption></figure>
 
 In CMOS Dynamic Gates, we observe that
 
@@ -308,7 +308,7 @@ In CMOS Dynamic Gates, we observe that
 4. No static power consumption (leakage) as the Clock signal controls the header PMOS and footer NMOS and they are mutually exclusive.
 
 {% hint style="warning" %}
-#### Notes on CMOS Dynamic Gates
+**Notes on CMOS Dynamic Gates**
 
 1. Once the output of a dynamic gate is **discharged**, it cannot be charged until the **next pre-charge** operation.
 2. Inputs to the gate can make at most **one transition** during evaluation. Otherwise, the point 1 is violated.
@@ -320,7 +320,7 @@ In CMOS Dynamic Gates, we observe that
 
 The CMOS dynamic gates have full swing outputs, $$V_{\text{OL}}=\text{GND}$$ and $$V_{\text{OH}}=V_{\text{DD}}$$. And as the PDN starts to work as soon as the input signals exceed $$V_{\text{tn}}$$, so $$V_m,V_{\text{IH}}$$ and $$V_{\text{IL}}$$ are all equal to $$V_{\text{TN}}$$.
 
-<figure><img src="../.gitbook/assets/cmos-dynamic-gates-vtc.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/cmos-dynamic-gates-vtc (1).svg" alt=""><figcaption></figcaption></figure>
 
 ### Dynamic Analysis
 
@@ -354,7 +354,7 @@ Analogous to the DRAM, during the evaluation stage, the charge stored in the $$C
 
 This can be illustrated in the figure below.
 
-<figure><img src="../.gitbook/assets/charge-leakage.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/charge-leakage (1).png" alt=""><figcaption></figcaption></figure>
 
 The circuit will fail if $$\Delta V>\text{NM}_\text{H}$$ because in this case the output cannot be read as High by the next component correctly! This will give us the lower bound of $$f_{\text{clk}}$$ assuming 50% duty cycle. Assume that we have constant leakage current $$I_{\text{leak}}$$, using the wo definitions of charges $$Q=CV=It$$.
 
@@ -374,7 +374,7 @@ The duty cycle for the dynamic CMOS gates can be changed and we will explore thi
 
 To solve the charge leakage problem, we can borrow the idea of [Level-Restoration Circuit](https://app.gitbook.com/s/6nPr3SObC3azazbFhfgF/lec/lec-03-cmos-logic#level-restoration-circuit) from CG2027! We can add a weak PMOS to pull the voltage at the $$C_L$$ up when the output is 1 and this can be shown as follows.
 
-<figure><img src="../.gitbook/assets/charge-leakage-solution.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/charge-leakage-solution (1).png" alt=""><figcaption></figcaption></figure>
 
 The requirement for for the transistors added and the inverter added is that
 
@@ -389,7 +389,7 @@ The analysis above is a classic interview question. The spirit is that the PMOS 
 
 Another problem on the dynamic CMOS gates is the charge sharing.
 
-<figure><img src="../.gitbook/assets/charge-sharing.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/charge-sharing (1).png" alt=""><figcaption></figcaption></figure>
 
 In other words, what we need to know about this problem
 
@@ -398,13 +398,13 @@ In other words, what we need to know about this problem
 
 To solve this problem, we just need to tweak our device to pre-charge the $$C_a$$ as well.
 
-<figure><img src="../.gitbook/assets/charge-sharing-solution.png" alt="" width="387"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/charge-sharing-solution (1).png" alt="" width="387"><figcaption></figcaption></figure>
 
 #### Cascading Dynamic Gates
 
 The third problem of cascading dynamic gates is that we **cannot** straight cascade the dynamic gates like below.
 
-<figure><img src="../.gitbook/assets/cascade-dynamic-gates.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/cascade-dynamic-gates (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 This is an inverter implemented using the CMOS Dynamic gates.
@@ -414,12 +414,12 @@ The problem occors when `In` make 0-to-1 transition. This is because during the 
 
 To solve this issue, we insert the registers at `OUT1` and `OUT2` to make a domino effect.
 
-<figure><img src="../.gitbook/assets/domino-effect.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/domino-effect (1).png" alt=""><figcaption></figcaption></figure>
 
 The 0-to-1 transition triggers the evaluation of the following stage to also make 0-to-1 transition, like a line of domino falling.
 
 {% hint style="warning" %}
-#### Limitations
+**Limitations**
 
 The limitation of this solution is that it can only implement **non-inverting logic**, which breaks the universalty of the **inverting logic** which states that we can implement any boolean logic using NAND/NOR.
 {% endhint %}
@@ -438,6 +438,4 @@ The idea is that, in dynamic CMOS gates, we can **not only** take PDN only, we c
 
 [^1]: This is nothing but the **transistors**.
 
-[^2]: 
-
-[^3]: This inverter can be 1x, 4x, etc, but the spirit is that tpLH and tpHL are the **same**.
+[^2]: This inverter can be 1x, 4x, etc, but the spirit is that tpLH and tpHL are the **same**.

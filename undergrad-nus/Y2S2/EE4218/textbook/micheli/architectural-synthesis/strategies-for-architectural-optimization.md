@@ -44,7 +44,7 @@ Indeed, solutions to the **minimum-latency scheduling problem** and the **minimu
 
 for different values of the **constraints**. For example, the following figure shows a design space exploration with area/latency optimization.
 
-<figure><picture><source srcset="../../.gitbook/assets/area-latency-opt-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/area-latency-opt-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/area-latency-opt-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/area-latency-opt-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 Not that the coordinates of the **pareto points** are (number of resource type 1, number of resource type 2) instead of the area or latency in this case!

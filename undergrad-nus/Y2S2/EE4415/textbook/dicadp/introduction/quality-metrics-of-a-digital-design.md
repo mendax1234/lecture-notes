@@ -41,7 +41,7 @@ $$
 
 As will be elaborated on in Chapter 2, the IC manufacturing process groups a number of identical circuits onto a single wafer (Figure 1.9).
 
-<figure><picture><source srcset="../../.gitbook/assets/wafer-die-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/wafer-die-light.png" alt=""></picture><figcaption><p>Figure 1.9</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/wafer-die-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/wafer-die-light (1).png" alt=""></picture><figcaption><p>Figure 1.9</p></figcaption></figure>
 
 Upon completion of the fabrication, the wafer is chopped into dies, which are then individually packaged after being tested. We will focus on the cost of the dies in this discussion. The cost of packaging and test is the topic of later chapters.
 

@@ -56,11 +56,9 @@ Here, we will look at two examples of scheduling under **no constraint**.
 
 <summary>Example of Unconstrained Scheduling</summary>
 
-
-
 In the **unconstrained scheduling**, which means any number of any type of resources is allowed to use, the scheduling can be done as follows:
 
-<figure><picture><source srcset="../../.gitbook/assets/unconstrained-scheduling-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/unconstrained-scheduling-light.png" alt="" width="563"></picture><figcaption><p>Figure 4.3 Unconstrained scheduling sequence graph</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/unconstrained-scheduling-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/unconstrained-scheduling-light (1).png" alt="" width="563"></picture><figcaption><p>Figure 4.3 Unconstrained scheduling sequence graph</p></figcaption></figure>
 
 The latency of this schedule is $$\lambda=t_n-t_0=5-1=4$$.
 
@@ -76,7 +74,7 @@ The source ($$v_0$$) always starts at **cycle 1** while the sink ($$v_n$$) alway
 
 If we are constrained to use 1 [function unit](#user-content-fn-2)[^2] per type (e.g., 1 adder and 1 multiplier). Our scheduling will look like as follows:
 
-<figure><picture><source srcset="../../.gitbook/assets/constrained-scheduling-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/constrained-scheduling-light.png" alt="" width="440"></picture><figcaption><p>Figure 4.4 Constrained scheduling sequenc graph</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/constrained-scheduling-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/constrained-scheduling-light (1).png" alt="" width="440"></picture><figcaption><p>Figure 4.4 Constrained scheduling sequenc graph</p></figcaption></figure>
 
 In this case, our latency is $$\lambda=t_n-t_0=8-1=7$$
 
@@ -96,7 +94,7 @@ The scheduling formulation can be extended by considering the **propagation dela
 
 Let's assume our multiplication takes 35ns and others take 25ns and our cycle time is 50ns. We can **chain** the operation 4 and 5 in Figure 4.3 to happen in one clock cycle! This will give us a sequence graph shown as follows:
 
-<figure><picture><source srcset="../../.gitbook/assets/schedule-chain-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/schedule-chain-light.png" alt=""></picture><figcaption><p>Schedule with chaining sequence graph</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/schedule-chain-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/schedule-chain-light (1).png" alt=""></picture><figcaption><p>Schedule with chaining sequence graph</p></figcaption></figure>
 
 In this case, we reduce our latency to 3 as now $$\lambda=t_n-t_0=4-1=3$$.
 
@@ -143,7 +141,7 @@ A necessary condition for a resource binding to produce a valid circuit implemen
 
 It is obvious that the resource usage of [Figure 4.3](the-fundamental-architectural-synthesis-problems.md#example-of-unconstrained-scheduling) is **not** **efficient**. Indeed, only four multipliers and two ALUs are required by the scheduled sequencing graph of Figure 4.3. This is shown in Figure 4.5.
 
-<figure><picture><source srcset="../../.gitbook/assets/resource-binding-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/resource-binding-example-light.png" alt="" width="563"></picture><figcaption><p>Figure 4.5 Scheduled sequencing graph with resource binding</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/resource-binding-example-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/resource-binding-example-light (1).png" alt="" width="563"></picture><figcaption><p>Figure 4.5 Scheduled sequencing graph with resource binding</p></figcaption></figure>
 
 The tabulation of the binding is as follows:
 
@@ -169,7 +167,7 @@ Remember the meaning of $$\beta(v_i) = (t, r)$$ we mentioned above. For example,
 
 ### Partial Binding
 
-> We have seen partial binding in the [earlier section](https://wenbo-notes.gitbook.io/ee4218-hsd-notes/textbook-micheli/architectural-synthesis/circuit-specifications-for-architectural-synthesis#partial-binding).
+> We have seen partial binding in the [earlier section](circuit-specifications-for-architectural-synthesis.md#resource-binding-constraints).
 
 When **binding constraints** are specified, a resource binding must be **compatible** with them. In particular, a **partial binding** may be part of the original specification, as described in the earlier section. This corresponds to specifying a binding for a subset of the operations $$U \subseteq V$$.
 
@@ -179,7 +177,7 @@ When **binding constraints** are specified, a resource binding must be **compati
 
 Consider again the sequencing graph we've used throughout this section. A hypothetical **partial binding** requires that operations $$v_6$$​ and $$v_8$$​ be performed by the same **multiplier**. Then, the operations $$v_6$$​ and $$v_8$$ cannot execute concurrently, and the corresponding schedule differs from that shown in [Figure 4.5](the-fundamental-architectural-synthesis-problems.md#example-of-resource-sharing-binding). The **partial binding** and the corresponding schedule are shown in Figure 4.6.
 
-<figure><picture><source srcset="../../.gitbook/assets/partial-binding-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/partial-binding-light.png" alt="" width="563"></picture><figcaption><p>Figure 4.6 Example of partial binding of operations v6 and v8 to a single resource</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/partial-binding-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/partial-binding-light (1).png" alt="" width="563"></picture><figcaption><p>Figure 4.6 Example of partial binding of operations v6 and v8 to a single resource</p></figcaption></figure>
 
 </details>
 
@@ -191,8 +189,8 @@ In general, **scheduling** and **binding** are **interrelated problems**, and **
 
 In this section, we've seen 3 types of scheduling and 3 types of binding. To summarize,
 
-1. **Scheduling** determines **when** to start the execution of a/many certain operation(s)[^3].
-   1. Unconstrained Scheduling: There is no **resource usage constraint**, each operation can start at any time **as long as** its [precedence condition is satisfied](#user-content-fn-4)[^4].
+1. **Scheduling** determines **when** to start the execution of a/many certain operation(s).
+   1. Unconstrained Scheduling: There is no **resource usage constraint**, each operation can start at any time **as long as** its [precedence condition is satisfied](#user-content-fn-3)[^3].
    2. Constrained Scheduling: There is a **resource usaage constraint**! For example, we only have 1 ALU and 1 multiplier.
    3. Scheduling with chain: Chaining can be done in both unconstrained or constrained scheduling as long as the chained propagation delay fits within 1 clock-cycle time.
 2. **Binding** determines **which** instance of a certain resource type should be used to execute a certain operation. In this section, we assume that scheduling is done before binding.
@@ -204,6 +202,4 @@ In this section, we've seen 3 types of scheduling and 3 types of binding. To sum
 
 [^2]: We will see later this is called **resource type**.
 
-[^3]: This is nothing but the nodes in our CDFG.
-
-[^4]: This means that the precedent operations must finish!
+[^3]: This means that the precedent operations must finish!

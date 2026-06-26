@@ -18,7 +18,7 @@ There are three important timing parameters associated with a register as illust
 2. The **hold time** (t<sub>hold</sub>) is the time the data input must remain valid after the clock edge.
 3. Assuming that the set-up and hold-times are met, the data at the D input is copied to the Q output after a worst-case propagation delay (with reference to the clock edge) denoted by t<sub>c-q</sub>.
 
-<figure><img src="../.gitbook/assets/register-setup-hold-c2q-time.png" alt=""><figcaption><p><strong>Figure 10.5</strong> Definition of set-up time, hold time and propagation delay of a synchronous register</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/register-setup-hold-c2q-time (1).png" alt=""><figcaption><p><strong>Figure 10.5</strong> Definition of set-up time, hold time and propagation delay of a synchronous register</p></figcaption></figure>
 
 Given the timing information for the registers and the combination logic, some **system-level timing constraints** can be derived. Assume that the worst-case propagation delay of the logic equals t<sub>plogic</sub>, while its minimum delay (also called the contamination delay) is t<sub>cd</sub>. The minimum clock period T, required for proper operation of the sequential circuit is given by
 

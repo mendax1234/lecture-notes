@@ -6,7 +6,7 @@
 
 A digital system consists of communicating blocks shown as follows,
 
-<figure><img src="../.gitbook/assets/communication-blocks.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/communication-blocks (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
 We assume that each combinational module evaluates its output in
 
@@ -16,12 +16,12 @@ $$
 
 For example, the module 2 needs to "know" when in<sub>2</sub> / out<sub>1</sub> is correct (has settled). This can be illustrated using the following figure,
 
-<figure><img src="../.gitbook/assets/communication-between-digital-modules.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/communication-between-digital-modules (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
 In module 1, the <mark style="color:green;">fast path</mark> gives earliest possible correct output ($$\tau_{\text{comb},\text{min}}$$), while the <mark style="color:red;">slow path</mark> gives the latest settling output ($$\tau_{\text{comb},\text{max}}$$). The correct out<sub>1</sub> settles between $$\tau_{\text{comb},\text{min}}$$ and $$\tau_{\text{comb},\text{max}}$$. So, to ensure out<sub>1</sub> is correct, we wait until after $$\tau_{\text{comb},\text{max}}$$. This again highlights the importance of [**critical path**](https://wenbo-notes.gitbook.io/ddca-notes/textbook/combinational-logic-design/timing#critical-path)!
 
 {% hint style="success" %}
-#### Some Notations
+**Some Notations**
 
 Some notations used in timing diagrams:
 
@@ -40,11 +40,11 @@ As shown above, if changes in **out**<sub>**1**</sub> propagate immediately, the
 
 {% stepper %}
 {% step %}
-#### Asynchronous
+**Asynchronous**
 
 In asynchronous mode, additional circuitry generates "completion signal" and this completion signal enables the computation of next block when its output is valid.
 
-<figure><img src="../.gitbook/assets/asynchronous-communication-mode.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/asynchronous-communication-mode (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 This approached is **less favored** by the industry. The reason is **not** because this approach is less-efficient. In fact, the asynchronous approach is **more efficient** then the synchronous approach. The reason is that the automation tools don't support asynchronous systems well, but they support synchronous systems well.
@@ -52,7 +52,7 @@ This approached is **less favored** by the industry. The reason is **not** becau
 {% endstep %}
 
 {% step %}
-#### Synchronous
+**Synchronous**
 
 In synchronous mode, all input and output signals are synchronized to the clock **clk**. The clock periodically triggers the next computation cycle and provides a global timing reference for all modules in the system.
 
@@ -73,16 +73,16 @@ Think of the above steps as: “Everyone stop, look at your inputs, remember the
   * Results must be ready **before the next clock event**. If not, will cause timing violation!
 
 {% hint style="success" %}
-To understand the term "**sychronize"** better, you can refer to the textbook [DICADP](/broken/pages/EN5IgwJplfTP1jP1b4Fr#synchronous-interconnect). Basically, **synchronization** turns "random arrival" into "scheduled arrival" so that the data/input can be sampled directly without any uncertainty. This will create stable input for the following combinational logic to process it during the entire upcoming clock cycle (We have seen this uncertainty from [above](lec-1b-timing-synchronous.md#system-abstraction)).
+To understand the term "**sychronize"** better, you can refer to the textbook [DICADP](https://app.gitbook.com/s/poTRQsFwJ5BwDDy8paeZ/dicadp/timing-issues-in-digital-circuits/classification-of-digital-systems#synchronous-interconnect). Basically, **synchronization** turns "random arrival" into "scheduled arrival" so that the data/input can be sampled directly without any uncertainty. This will create stable input for the following combinational logic to process it during the entire upcoming clock cycle (We have seen this uncertainty from [above](lec-1b-timing-synchronous.md#system-abstraction)).
 {% endhint %}
 
 In the following timing diagram, the first time shift represents the **Setup Time** (t<sub>setup</sub>), which is the required window where input signal `x` must be stable before the clock edge to be sampled correctly. The second time shift represents the **Clock-to-Output Delay** (t<sub>CK-Q</sub>), which is the time it takes for the register to react to the clock edge and update the output signal `y` before it propagates to the subsequent combinational logic.
 
-<figure><img src="../.gitbook/assets/synchronous-communication-mode.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/synchronous-communication-mode (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
 And if we draw a register diagram, it will be similar to the following
 
-<figure><picture><source srcset="../.gitbook/assets/lec01-synchronous-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/lec01-synchronous-example-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../.gitbook/assets/lec01-synchronous-example-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../.gitbook/assets/lec01-synchronous-example-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 In both cases of synchronous and asynchronous design, energy/timing/area overhead is paid for.
@@ -96,14 +96,14 @@ In both cases of synchronous and asynchronous design, energy/timing/area overhea
 
 In digital logic, the order of data flow is critical. Usually, we want to achieve the **Deterministic Sequencing**. Thus we require a strict First-In, First-Out (FIFO) behavior, where the n<sup>th</sup> input produces the n<sup>th</sup> output in the **exact same sequence**. Ideally, this is easy to achieve if the delay through a module is **data independent** (e.g., every calculation takes the exact same amount of time).
 
-<figure><img src="../.gitbook/assets/lec01-sequence-synchronous-data-independent.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lec01-sequence-synchronous-data-independent (1).png" alt=""><figcaption></figcaption></figure>
 
 However, in reality, the time it takes for a signal to propagate through a combinational block depends on the specific input values. As we have seen [above](lec-1b-timing-synchronous.md#system-abstraction) or in [Harris & Harris DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/combinational-logic-design/timing#propagation-and-contamination-delay):
 
 * **Propagation Delay** (t<sub>pd</sub>): The time taken by the _slowest_ path (critical path).
 * **Contamination Delay** (t<sub>cd</sub>): The time taken by the _fastest_ path (short path).
 
-<figure><img src="../.gitbook/assets/lec01-sequence-synchronous-data-dependent.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lec01-sequence-synchronous-data-dependent (1).png" alt=""><figcaption></figcaption></figure>
 
 If we connect modules directly without synchronization (asynchronous design without handshaking mechanism), "Fast" data can overtake "Slow" data. For example,
 
@@ -123,7 +123,7 @@ This is also called the **lockedstep movement**.
   * We define the signal's value at the i-th cycle as the _single_ stable value present right[^1] before the sampling edge.
   * Any changes happening _between_ cycle i and i+1 are considered "work in progress" and are ignored until the next clock edge arrives.
 
-<figure><img src="../.gitbook/assets/lec01-sequencing-with-register.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lec01-sequencing-with-register (1).png" alt=""><figcaption></figcaption></figure>
 
 In the diagram above, "**in**<sub>**1**</sub>**(i)**" denotes a signal using a common notation that will be used throughout this module.
 
@@ -162,7 +162,7 @@ However, as clock is distributed throughout the chip with wires + repeaters:
 
 <summary>Repeater and Interconnect Wire</summary>
 
-<figure><img src="../.gitbook/assets/repeater-interconnect-wire.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/repeater-interconnect-wire (1).png" alt=""><figcaption></figcaption></figure>
 
 First, let's look at the symbols in the diagram above,
 
@@ -191,13 +191,13 @@ $$
 {% hint style="success" %}
 In synchronous circuit design, while we originate from a **single global clock source** (CLK),
 
-* clk<sub>i</sub> refers to the local clock signal branch connected to FF<sub>i</sub>.&#x20;
+* clk<sub>i</sub> refers to the local clock signal branch connected to FF<sub>i</sub>.
 * The variable t<sub>i</sub> denotes the specific time instant when the clock edge actually arrives at FF<sub>i</sub>.
 {% endhint %}
 
 When distributing clk in the **same direction** as data flow, the skew t<sub>skew, ij</sub> is **positive**. If **opposite direction**, the skew is **negative**. For example, the following diagram shows a **positive clock skew** by assuming that the data and clock distribution flow from register R1 to register R2.
 
-<figure><img src="../.gitbook/assets/clock-skew-sign-example.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/clock-skew-sign-example (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 An analogy is to think of the clock skew as a **vector** and the two points are t<sub>i</sub> and t<sub>j</sub>. Thus,
@@ -205,9 +205,9 @@ An analogy is to think of the clock skew as a **vector** and the two points are 
 <p align="center"><span class="math">t_{\text{skew, ij}}=t_i-t_j=-t_{\text{skew, ji}}</span></p>
 {% endhint %}
 
-Another example will be the timing diagram we have seen in [Harris & Harris DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/timing-of-sequential-logic#clock-skew). The following diagram will indicate a **negative skew** (t<sub>2</sub> - t<sub>1</sub> < 0, assuming the data flows from R1 to R2).
+Another example will be the timing diagram we have seen in [Harris & Harris DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/timing-of-sequential-logic). The following diagram will indicate a **negative skew** (t<sub>2</sub> - t<sub>1</sub> < 0, assuming the data flows from R1 to R2).
 
-<figure><img src="../.gitbook/assets/clock-skew-example-ddca.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/clock-skew-example-ddca (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 The **clock skew** and **clock skew seen by a certain regsiter** are different!
@@ -233,7 +233,7 @@ From this formula, we can see that the clock skew has two components
 
 In reality, the clock period T<sub>CK</sub> is not perfectly constant due to jitter. Specifically, we define **cycle-to-cycle jitter** (t<sub>jitter</sub>) as the random, time-varying deviation between two successive clock events (such as two rising clock edges). This means the actual clock period is not fixed; instead, it fluctuates around a nominal period (T<sub>nom</sub>), strictly bounded within the range of $$T_{\text{nom}} - |t_{\text{jitter}}|$$ to $$T_{\text{nom}} + |t_{\text{jitter}}|$$.
 
-<figure><img src="../.gitbook/assets/clock-jitter.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/clock-jitter (1).png" alt=""><figcaption></figcaption></figure>
 
 #### The Reason of Clock Jitter
 
@@ -242,7 +242,7 @@ The two main reasons for clock jitter are:
 1. **clock generator**'s intrinsic jitter
 2. **clock distribution network**: due to time-varying delay of repeaters (supply noise)
 
-<figure><img src="../.gitbook/assets/clock-jitter-cause.png" alt=""><figcaption><p>Clock Distribution Network</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/clock-jitter-cause (1).png" alt=""><figcaption><p>Clock Distribution Network</p></figcaption></figure>
 
 Based on the above diagram, we have the formula for calculating the t<sub>jitter,i</sub> to be
 
@@ -262,7 +262,7 @@ As we have seen in Eq.5, jitter is introduced by buffers, wires, and supply nois
 
 In EE4415, we assume that the **common path dominates**. This means that most of the jitter is added **before the clock splits**, so both FF<sub>i</sub> and FF<sub>j</sub> see **almost the same clock shift** in the same given clock cycle. In the waveform below, this is represented by the jitter occurring at the **green circle** for both clocks.
 
-<figure><img src="../.gitbook/assets/clock-jitter-difference-dark.png" alt="" width="369"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/clock-jitter-difference-dark (1).png" alt="" width="369"><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 In different clock cycles, the jitter can shift in either direction and does not have to be the same as in the previous cycle.
@@ -276,16 +276,16 @@ In reality (but not considered in EE4415), the local branches also add jitter be
 
 ### Flip-Flop Timing Characteristics
 
-> This section has a lot of similarities with the [Timing of Sequential circuits](https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/jTJFBPtKk6NwweAooH53/) in Harris & Harris DDCA!
+> This section has a lot of similarities with the [Timing of Sequential circuits](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/timing-of-sequential-logic) in Harris & Harris DDCA!
 
 In positive-edge triggered (PET) flip flops, input is **sampled** at rising clock edge. And the **timing parameters** for D Flip Flops are:
 
-1. input (usually the old input, will see [why it's "old"](#user-content-fn-2)[^2] in [DICADP Figure 10.12](/broken/pages/Jzoje5you3j8KCAHvXFS#impact-of-skew-and-jitter-on-performance)) must be kept stable from **t**<sub>**SETUP**</sub>**&#x20;before** the active edge to **t**<sub>**HOLD**</sub>**&#x20;after** this edge. Otherwise, we will have **metastability**. The affect/[constraint ](#user-content-fn-3)[^3]imposed on the new input will thus be that:
-   1. &#x20;The **latest** new input **must arrive** before the t<sub>SETUP</sub>
+1. input (usually the old input, will see [why it's "old"](#user-content-fn-2)[^2] in [DICADP Figure 10.12](https://app.gitbook.com/s/poTRQsFwJ5BwDDy8paeZ/dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective#impact-of-skew-and-jitter-on-performance)) must be kept stable from **t**<sub>**SETUP**</sub>**&#x20;before** the active edge to **t**<sub>**HOLD**</sub>**&#x20;after** this edge. Otherwise, we will have **metastability**. The affect/[constraint ](#user-content-fn-3)[^3]imposed on the new input will thus be that:
+   1. The **latest** new input **must arrive** before the t<sub>SETUP</sub>
    2. The **earilest** new input **must not arrive** before t<sub>HOLD</sub> so that the previous "old" input won't be affected!
 2. CK-Q delay: output is updated at t<sub>CK-Q</sub> after clock edge.
 
-<figure><img src="../.gitbook/assets/timing-parameters-for-edge-triggered-ffs.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/timing-parameters-for-edge-triggered-ffs (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
 #### Asynchronous Resettable Filp Flops
 
@@ -297,7 +297,7 @@ In asynchronous resettable flip flops, the RESET signal has **higher** priority 
 
 For example, the following diagram shows an **active-low** asynchronous reset
 
-<figure><img src="../.gitbook/assets/active-low-asynchronous-reset-ffs.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/active-low-asynchronous-reset-ffs (1).png" alt=""><figcaption></figcaption></figure>
 
 * If we want to enable the clock event, release the RESET button at least t<sub>RECOVERY</sub> before the rising clock edge.
 * If we want to ignore the clock event, press and hold (small typo in the figure above) the RESET and don't release until t<sub>REMOVAL</sub> after the rising clock edge.
@@ -327,7 +327,7 @@ System timing constraints are affected by
 
 To start, let's first see an intuitive understanding of FF timing constraints.
 
-<figure><img src="../.gitbook/assets/intuitive-understand-ff-timing-constraint.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/intuitive-understand-ff-timing-constraint (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
 * To meet the setup time constraint, we can think of it as "the computation should be completed before next edge in REG<sub>2</sub>" -> This gives us the **max-delay constraint** for the combinational logic
 * To meet the hold time constraint, we can think of it as "the computation can only affect REG<sub>2</sub> after a certain time, which is the hold time or REG<sub>2</sub>" -> This gives us the **min-delay constraint** for the combinational logic
@@ -338,29 +338,29 @@ In this part, as T<sub>CK</sub> is fixed in the specification, t<sub>setup</sub>
 
 #### Terminology Mapping
 
-As the following parts are mostly covered in [DICADP](/broken/pages/LmGAZ4eWP4K07bhe7YK7#synchronous-design-an-in-depth-perspective), here is the table summarizing the difference between some terminologies used:
+As the following parts are mostly covered in [DICADP](https://app.gitbook.com/s/poTRQsFwJ5BwDDy8paeZ/dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective#impact-of-skew-and-jitter-on-performance), here is the table summarizing the difference between some terminologies used:
 
-| DICADP (Textbook1)      | EE4415                                                           | Description                                                                                                                                             |
-| ----------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| $$T_{CLK}$$ or $$T$$    | $$T_{CK}$$                                                       | Nominal clock period                                                                                                                                    |
-| $$t_{logic}$$           | $$\tau_{\text{COMB,max}}$$                                       | Maximum propagation delay through combinational logic                                                                                                   |
-| $$t_{logic,cd}$$        | $$\tau_{\text{COMB,min}}$$                                       | Minimum contamination delay through combinational logic                                                                                                 |
-| $$t_{c-q}$$             | $$\tau_{\text{CK-Q},\text{REG1}}$$                               | Register clock-to-Q propagation delay                                                                                                                   |
-| $$t_{c-q, cd}$$         | $$\tau_{\text{CK-Q},\text{REG1}}$$                               | Register clock-to-Q contamination delay (Prof. Massimo says that for registers, the contamination delay and the propagation delay are almost the same.) |
-| $$t_{su}$$              | $$t_{\text{SETUP},\text{REG2}}$$                                 | Setup time of the destination register                                                                                                                  |
-| $$t_{hold}$$            | $$t_{\text{HOLD},\text{REG2}}$$                                  | Hold time of the destination register                                                                                                                   |
-| $$\delta$$ (Clock Skew) | $$t_{\text{skew,DET}} \pm \left|t_{\text{skew,RAND,21}}\right|$$ | Clock skew (deterministic ± random in EE4415 but only deterministic in DICADP)                                                                          |
-| $$t_{\text{jitter}}$$   | $$t_{\text{jitter}}$$                                            | Clock jitter                                                                                                                                            |
-| /                       | $$\tau_{\text{comb}}$$                                           | Timing of the combinational logic between registers                                                                                                     |
-| /                       | $$\tau_{\text{comb,max/min}}$$                                   | Maximum and minimum allowed combinational delay                                                                                                         |
+| DICADP (Textbook1)      | EE4415                             | Description                                                                                                                                             |
+| ----------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| $$T_{CLK}$$ or $$T$$    | $$T_{CK}$$                         | Nominal clock period                                                                                                                                    |
+| $$t_{logic}$$           | $$\tau_{\text{COMB,max}}$$         | Maximum propagation delay through combinational logic                                                                                                   |
+| $$t_{logic,cd}$$        | $$\tau_{\text{COMB,min}}$$         | Minimum contamination delay through combinational logic                                                                                                 |
+| $$t_{c-q}$$             | $$\tau_{\text{CK-Q},\text{REG1}}$$ | Register clock-to-Q propagation delay                                                                                                                   |
+| $$t_{c-q, cd}$$         | $$\tau_{\text{CK-Q},\text{REG1}}$$ | Register clock-to-Q contamination delay (Prof. Massimo says that for registers, the contamination delay and the propagation delay are almost the same.) |
+| $$t_{su}$$              | $$t_{\text{SETUP},\text{REG2}}$$   | Setup time of the destination register                                                                                                                  |
+| $$t_{hold}$$            | $$t_{\text{HOLD},\text{REG2}}$$    | Hold time of the destination register                                                                                                                   |
+| $$\delta$$ (Clock Skew) | \$$t\_{\text{skew,DET\}} \pm \left | t\_{\text{skew,RAND,21\}}\right                                                                                                                         |
+| $$t_{\text{jitter}}$$   | $$t_{\text{jitter}}$$              | Clock jitter                                                                                                                                            |
+| /                       | $$\tau_{\text{comb}}$$             | Timing of the combinational logic between registers                                                                                                     |
+| /                       | $$\tau_{\text{comb,max/min}}$$     | Maximum and minimum allowed combinational delay                                                                                                         |
 
 {% hint style="danger" %}
-In EE4415, the definition of clock jitter is a bit different from DICADP. So, we must follow EE4415's logic: **Jitter cancels out for Hold Time** because it is a "common mode" noise source in the same clock cycle (See more from the diagram on hold time constraint [here](/broken/pages/Jzoje5you3j8KCAHvXFS#impact-of-skew-and-jitter-on-performance)). However, in EE4415 we introduces Random Skew ($$|t_{skew,RAND}|$$) to account for the variation that _does_ differ between the two registers (like thermal noise in the wires), which the DICADP textbook might have just lumped into "jitter." This is further discussed in [#clock-jitter-difference](lec-1b-timing-synchronous.md#clock-jitter-difference "mention").
+In EE4415, the definition of clock jitter is a bit different from DICADP. So, we must follow EE4415's logic: **Jitter cancels out for Hold Time** because it is a "common mode" noise source in the same clock cycle (See more from the Figure 10.11 on hold time constraint in [DICADP](https://app.gitbook.com/s/poTRQsFwJ5BwDDy8paeZ/dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective#clock-jitter)). However, in EE4415 we introduces Random Skew ($$|t_{skew,RAND}|$$) to account for the variation that _does_ differ between the two registers (like thermal noise in the wires), which the DICADP textbook might have just lumped into "jitter." This is further discussed in [#clock-jitter-difference](lec-1b-timing-synchronous.md#clock-jitter-difference "mention").
 {% endhint %}
 
 #### Max-Delay Constraint
 
-Before looking at the following tables, it is strongly recommended to look at the [tips](/broken/pages/Jzoje5you3j8KCAHvXFS#tips-for-memorization-and-calculation) I have summarized from the textbook DICADP. This will provide an intuitive way to understand how the clock uncertainty affects the setup time constraint and hold time constraint!
+Before looking at the following tables, it is strongly recommended to look at the [tips](https://app.gitbook.com/s/poTRQsFwJ5BwDDy8paeZ/dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective#tips-for-memorization-and-calculation) I have summarized from the textbook DICADP. This will provide an intuitive way to understand how the clock uncertainty affects the setup time constraint and hold time constraint!
 
 {% tabs %}
 {% tab title="Textbook DICADP" %}
@@ -385,7 +385,7 @@ T_{\text{CK}} \ge \tau_{\text{COMB,pd}} + t_{\text{SETUP, REG2}} + \tau_{\text{C
 \tau_{\text{COMB,pd}} \le T_{\text{CK}} - t_{\text{SETUP, REG2}} - \tau_{\text{CK-Q, REG1}} + t_{\text{skew,DET}} - |t_{\text{skew,RAND,21}}| - 2|t_{\text{jitter}}| \tag{2}
 $$
 
-<figure><img src="../.gitbook/assets/max-delay-constraint.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/max-delay-constraint (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 As the spirit is to make R.H.S as big as possible (worst-case scenario), we will map the clock skew $$\delta$$ to $$t_{\text{skew,DET}} - |t_{\text{skew,RAND}}|$$.
@@ -443,7 +443,7 @@ $$
 Ideally, we want a register to have **low** hold time (t<sub>hold</sub>). So, to map this to the Eq. 3, the worst-case scenario is when t<sub>HOLD, REG2, eq</sub> is **biggest**, thus we replace $$\delta$$ with $$t_{\text{skew,DET,21}} + |t_{\text{skew,RAND,21}}|$$.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/min-delay-constraint.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/min-delay-constraint (1).png" alt=""><figcaption></figcaption></figure>
 
 Rearrange it, we will get,
 
@@ -519,11 +519,11 @@ We can apply two worst case scenario analysis here to get the maximum t<sub>skew
 
 The following table compares the minimum clock period (T<sub>CK</sub>) we can achieve in two different design scenarios, which is either to use skew or not use it at all
 
-| TCK=                  | zero (intentional skew)                                                        | max (intentional skew)                                                                      |
-| --------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
-| **combinational +**   | $$\tau_{\text{COMB,pd}}$$                                                      | $$\tau_{\text{COMB,pd}} - \tau_{\text{COMB,cd}}$$                                           |
-| **FF overhead +**     | $$t_{\text{SETUP,REG2}} + \tau_{\text{CK-Q,REG1}}$$                            | $$t_{\text{SETUP,REG2}} + t_{\text{HOLD,REG2}}$$                                            |
-| **clocking overhead** | $$\left| t_{\text{skew,RAND,21}} \right| + 2\left| t_{\text{jitter}} \right|$$ | $$2\left(\left| t_{\text{skew,RAND,21}} \right| + \left| t_{\text{jitter}} \right|\right)$$ |
+| TCK=                  | zero (intentional skew)                             | max (intentional skew)                            |
+| --------------------- | --------------------------------------------------- | ------------------------------------------------- |
+| **combinational +**   | $$\tau_{\text{COMB,pd}}$$                           | $$\tau_{\text{COMB,pd}} - \tau_{\text{COMB,cd}}$$ |
+| **FF overhead +**     | $$t_{\text{SETUP,REG2}} + \tau_{\text{CK-Q,REG1}}$$ | $$t_{\text{SETUP,REG2}} + t_{\text{HOLD,REG2}}$$  |
+| **clocking overhead** | \$$\left                                            | t\_{\text{skew,RAND,21\}} \right                  |
 
 From the table, we can see that if we intentionally design to use a **positive skew** to improve **performance:**
 
@@ -587,7 +587,7 @@ Depending on the application, throughput is measured differently:
 * **Signal Processing (DSP)**: Samples/sec (kSPS).
 
 {% hint style="success" %}
-**Throughput** is the primary metric for continuous processing tasks like video streaming, DSP, or servers.&#x20;
+**Throughput** is the primary metric for continuous processing tasks like video streaming, DSP, or servers.
 {% endhint %}
 
 #### Single Block Throughput Model
@@ -635,7 +635,7 @@ However, the data rate may expand or compress at each stage, so we cannot direct
 
 {% stepper %}
 {% step %}
-#### Single Block Limit
+**Single Block Limit**
 
 The output of a single block is limited by either the **incoming data** or its own maximum internal speed ($$\max\text{DR}_{\text{out}}$$):
 
@@ -649,7 +649,7 @@ This is true because if a block’s input data rate is low, its output data rate
 {% endstep %}
 
 {% step %}
-#### Chain Limit (The Bottleneck Formula)
+**Chain Limit (The Bottleneck Formula)**
 
 For a chain of blocks ($$1 \to 2 \to \dots \to N$$), the maximum system throughput is the [**minimum**](#user-content-fn-6)[^6] of all blocks' capacities[^7], **scaled to the output**:
 
@@ -669,13 +669,13 @@ In a perfect design, no block should be faster than necessary. If Block 2 is 10x
 
 {% stepper %}
 {% step %}
-#### The Goal
+**The Goal**
 
 Every term inside the $$\min()$$ function should be equal.
 {% endstep %}
 
 {% step %}
-#### The Math
+**The Math**
 
 Ideally, the max speed of any specific block $$i$$ ($$\max\text{DR}_{\text{out,i}}$$) should be exactly:
 
@@ -688,7 +688,7 @@ This basically means that a block's designed speed should equal the target final
 {% endstepper %}
 
 {% hint style="warning" %}
-#### Practical Bottlenecks
+**Practical Bottlenecks**
 
 In real-world chips (like the Roofline Model), the bottleneck usually shifts between three areas:
 
@@ -703,7 +703,7 @@ In real-world chips (like the Roofline Model), the bottleneck usually shifts bet
 
 **Latency** is the time/clock cycles required to complete a **single** computation from the moment inputs arrive until the final output is valid.
 
-<figure><img src="../.gitbook/assets/latency.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/latency (1).png" alt=""><figcaption></figcaption></figure>
 
 Latency is measured as:
 
@@ -727,7 +727,7 @@ There is a common misconception that throughput is just the inverse of latency (
 
 {% stepper %}
 {% step %}
-#### Case A: No Overlap (Serial Execution)
+**Case A: No Overlap (Serial Execution)**
 
 If the system can only accept a new request _after_ the previous one is completely finished, then:
 
@@ -741,7 +741,7 @@ Here, we use **absolute time** to measure **latency**. If **clock cycles** are u
 {% endstep %}
 
 {% step %}
-#### Case B: Execution Overlap (Pipelining/Parallelism)
+**Case B: Execution Overlap (Pipelining/Parallelism)**
 
 In most modern VLSI systems, we use **pipelining** (as we did in NUS CG3207!). We accept new inputs while the previous ones are still being processed in later stages.
 
@@ -761,7 +761,7 @@ Unlike throughput (which is limited by the _slowest_ block), latency is **additi
 
 {% stepper %}
 {% step %}
-#### Block-Level Latency ($$\text{LAT}_i$$)
+**Block-Level Latency (**$$\text{LAT}_i$$**)**
 
 This is the time taken by a single block to finish its job.
 
@@ -769,11 +769,11 @@ This is the time taken by a single block to finish its job.
 {% endstep %}
 
 {% step %}
-#### System-Level Latency Formula
+**System-Level Latency Formula**
 
 For a system with N blocks, the total latency is not just the simple sum. We must account for **loops** or repeated execution of specific blocks.
 
-<figure><img src="../.gitbook/assets/system-level-latency.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/system-level-latency (1).png" alt=""><figcaption></figcaption></figure>
 
 $$
 \text{Total Latency} \le \sum_{i=1}^{N} (\text{\#execution}_i \cdot \max(\text{LAT}_i))
@@ -803,15 +803,15 @@ AlexNet is a classic CNN used for image classification (mapping a raw image to 1
 * **POOL (Max Pooling)**: Down-sampling layer. Reduces data size by taking the maximum value in a patch.
 * **FC (Fully Connected Layers)**: The final classification stage. Every input neuron connects to every output neuron (matrix-vector multiplication).
 
-<figure><img src="../.gitbook/assets/alex-cnn-architecture.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/alex-cnn-architecture (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Throughput Analysis: "The Bottleneck Shift"
 
 {% stepper %}
 {% step %}
-#### Data Volume vs. Operations
+**Data Volume vs. Operations**
 
-&#x20;($$\text{words}_{\text{out}}$$): The number of data words _decreases_ as we move deeper into the network.
+($$\text{words}_{\text{out}}$$): The number of data words _decreases_ as we move deeper into the network.
 
 * _Early Layers (Conv1-Conv2):_ High data volume (hundreds of thousands of words) due to large spatial maps.
 * _Later Layers (FC6-FC8):_ Low data volume (thousands of words).
@@ -821,11 +821,11 @@ AlexNet is a classic CNN used for image classification (mapping a raw image to 1
 * _Conv2:_ Requires 224 Million MACs (Peak Compute Load).
 * _FC8:_ Requires only 4.1 Million MACs.
 
-<figure><img src="../.gitbook/assets/wordsout-mac.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/wordsout-mac (1).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
-#### Target Throughput Calculation
+**Target Throughput Calculation**
 
 To sustain a real-time performance of 30 frames per second (fps), each layer must meet a specific throughput target. This target depends on the layer's "Gain" ($$X$$):
 
@@ -836,11 +836,11 @@ $$
 * Expansion ($$X > 1$$): Layers like Conv1 ($$X=1.89$$) and Conv2 ($$X=2.67$$) expand data, increasing the throughput burden on subsequent blocks.
 * Compression ($$X < 1$$): Layers like MaxPool ($$X \approx 0.23$$) and FC6 ($$X=0.44$$) aggressively reduce data rates.
 
-<figure><img src="../.gitbook/assets/x-factor.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/x-factor (1).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
-#### The "Roofline" Reality
+**The "Roofline" Reality**
 
 When we map these requirements to hardware limits, we see distinct bottlenecks:
 
@@ -849,7 +849,7 @@ When we map these requirements to hardware limits, we see distinct bottlenecks:
   * _Implication:_ CNN accelerators are essentially huge arrays of MAC units.
 * **Memory-Bound**: (See next section).
 
-<figure><img src="../.gitbook/assets/total-throughput.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/total-throughput (1).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 
@@ -859,7 +859,7 @@ Throughput is not just about computing; it is about moving data.
 
 {% stepper %}
 {% step %}
-#### Memory Capacity (Storage)
+**Memory Capacity (Storage)**
 
 * **Feature Memory (Intermediate Data)**: Largest at the _start_ (hundreds of KBs for Conv1/Conv2).
 * **Weight Memory (Parameters)**: Dominant at the _end_ (FC Layers).
@@ -868,7 +868,7 @@ Throughput is not just about computing; it is about moving data.
 {% endstep %}
 
 {% step %}
-#### Memory Bandwidth (Speed)
+**Memory Bandwidth (Speed)**
 
 To feed the compute units for 30fps, we need high bandwidth:
 
@@ -877,13 +877,13 @@ To feed the compute units for 30fps, we need high bandwidth:
   * _First Layers:_ Low bandwidth (compute-bound).
   * _Last Layers:_ Massive bandwidth spike (memory-bound) because FC layers read huge weight matrices for relatively few computations.
 
-<figure><img src="../.gitbook/assets/memory-bandwidth.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/memory-bandwidth (1).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 
 [^1]: means "immediately" here, not mean left or right
 
-[^2]: This mainly applies to the **hold time** explanation here. As R2 is also the launching register of the next pipeline stage, at the **same clock edge** when R1 samples the data, this new data sampled must not arrive at R2 before its hold time ends!&#x20;
+[^2]: This mainly applies to the **hold time** explanation here. As R2 is also the launching register of the next pipeline stage, at the **same clock edge** when R1 samples the data, this new data sampled must not arrive at R2 before its hold time ends!
 
 [^3]: This basically forms our simple setup time constraint and hold time constraint.
 

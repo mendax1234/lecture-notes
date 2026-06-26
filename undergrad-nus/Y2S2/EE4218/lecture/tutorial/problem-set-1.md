@@ -178,7 +178,7 @@ Actually, as $$Z3$$ is duplicated, we can make the second 6-to-1 multiplexer int
 
 {% stepper %}
 {% step %}
-#### Derive the Inputs of the Resources
+**Derive the Inputs of the Resources**
 
 In this step, our focus should be the **resources**, like Mult1, Mult2 and ALU1. To find the input to these resources, we need to look at the scheduled table after we did the [register binding](problem-set-1.md#register-binding). For example, for multiplier 1, it can do two operations:
 
@@ -193,11 +193,11 @@ Note that in the ALU1, the register $$Z3$$ is reused so we duplicate it to the s
 {% endstep %}
 
 {% step %}
-#### Derive the outputs of the Resources
+**Derive the outputs of the Resources**
 
 In this step, our focus should be the **output registers and the intermediate resgiters**! We need to find out the input into these registers may come from which resource! For exampe, for the register $$Z1$$, from the scheduled table after register binding, we find out that, $$Z1$$ can actually be written by:
 
-1. ALU1, or&#x20;
+1. ALU1, or
 2. Multiplier 1
 
 Thus, there should be a multiplexer in front of $$Z1$$. Same for the rest 5 registers.
@@ -210,7 +210,7 @@ This is a classic control unit synthesis question! To solve this question, we al
 
 {% stepper %}
 {% step %}
-#### Form the Columns of the table
+**Form the Columns of the table**
 
 The columns of the control unit table should contain
 
@@ -220,7 +220,7 @@ The columns of the control unit table should contain
 {% endstep %}
 
 {% step %}
-#### Fill in the table cycle by cycle
+**Fill in the table cycle by cycle**
 
 When filling the table, do it systemetically based on the scheduled table after register binding! By which I mean
 
@@ -250,13 +250,13 @@ Some techniques available to reduce the **row width**, a.k.a, control-store word
 
 {% stepper %}
 {% step %}
-#### Combine the identical columns
+**Combine the identical columns**
 
 In this case, the columns M1, M2 can be combined and the columns Z2\_en and Z3\_en can be combined as well.
 {% endstep %}
 
 {% step %}
-#### Combine the mutually exclusive columns
+**Combine the mutually exclusive columns**
 
 In this case, the p\_en, q\_en and r\_en are mutually exclusive and thus we can combine them together and use a 2-bit representation for that.
 
@@ -266,13 +266,13 @@ The reason for using 2 bits is because 3+1 (NOP) can be represented using 2 bits
 {% endstep %}
 
 {% step %}
-#### Combine the columns with an explicit shift pattern
+**Combine the columns with an explicit shift pattern**
 
 This can be done if we use the **unoptimized version** of the second multiplexer at the ALU, but this may cause the fact that we have two 6-to-1 multiplexers now.
 {% endstep %}
 
 {% step %}
-#### Simplify the ALU control signals
+**Simplify the ALU control signals**
 
 This is purely dependant on the ALU design. If the question says we can change that, then it is okay to do so. Otherwise, just leave it untouched.
 {% endstep %}

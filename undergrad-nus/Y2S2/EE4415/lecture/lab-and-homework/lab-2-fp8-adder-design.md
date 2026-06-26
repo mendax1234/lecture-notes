@@ -4,13 +4,13 @@
 
 The system architecture incorporating the FP8 adder can be shown as below.
 
-<figure><img src="../.gitbook/assets/fp8-adder-system-architecture.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/fp8-adder-system-architecture (1).svg" alt=""><figcaption></figcaption></figure>
 
 In this system architecture, we shall pay close attention to the input/output registers. They exist because we want our system to **receive synchronized inputs** and **give synchronized outputs** to the next module.
 
 {% stepper %}
 {% step %}
-#### Receive Synchronized Inputs
+**Receive Synchronized Inputs**
 
 The synchronized inputs should **come from outside** of the module. More specifically, from the output of the previous module. This can be done in two ways:
 
@@ -21,7 +21,7 @@ In Lab 2, we are using the first method to get the synchronized inputs into the 
 {% endstep %}
 
 {% step %}
-#### Give Synchronized Outputs
+**Give Synchronized Outputs**
 
 As you have seen from above, the output of a module can either
 
@@ -48,19 +48,19 @@ VCS is usually used for us to look at the waveform and debug our RTL code. The s
 
 {% stepper %}
 {% step %}
-#### Open the Waveform
+**Open the Waveform**
 
-<figure><img src="../.gitbook/assets/open-waveform.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/open-waveform (1).png" alt=""><figcaption></figcaption></figure>
 
 Right click the top-level module (the testbench), select the highlight part as shown above.
 {% endstep %}
 
 {% step %}
-#### Debug the Waveform
+**Debug the Waveform**
 
 After seeing the waveform, press <kbd>Shift</kbd> + <kbd>F</kbd> to enter the "Zoom Full" mode.
 
-<figure><img src="../.gitbook/assets/zoom-full.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/zoom-full (1).png" alt=""><figcaption></figcaption></figure>
 
 Then use the mouse to locate the testcase you want to debug, then press <kbd>Shift</kbd> + <kbd>=</kbd> (<kbd>+</kbd>) to "Zoom in" and you can use <kbd>Shift</kbd> + <kbd>o</kbd> (<kbd>O</kbd>) to "Zoom out".
 {% endstep %}

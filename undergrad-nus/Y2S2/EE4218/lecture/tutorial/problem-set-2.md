@@ -16,14 +16,14 @@ This problem is a classic state minimization problem. We need to master two tech
 According to the three steps we mentioned in the [lecture](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/sequential-logic-optimization/synchronous-circuit-optimization-using-state-based-models#normal-method) to do the state minimization, which are
 
 > * **Initial partition (**$$\Pi_1$$**):** States are placed in the same block if they produce identical **outputs** for every input.
-> * **Refinement step (**$$\Pi_k\to\Pi_{k+1}$$**):** States remain in the same block if they were in the same block in  $$\Pi_k$$ **and** their next states fall in the same block of $$\Pi_k$$ for all inputs.
+> * **Refinement step (**$$\Pi_k\to\Pi_{k+1}$$**):** States remain in the same block if they were in the same block in $$\Pi_k$$ **and** their next states fall in the same block of $$\Pi_k$$ for all inputs.
 > * **Convergence:** The refinement process terminates when $$\Pi_{k+1}=\Pi_{k}$$.
 
 The steps to solve this problem can be summarized as follows:
 
 {% stepper %}
 {% step %}
-#### Do the initial partition based on the outputs
+**Do the initial partition based on the outputs**
 
 Based purely on the outputs, our initial partition will be
 
@@ -33,7 +33,7 @@ $$
 {% endstep %}
 
 {% step %}
-#### Refine the initial partition
+**Refine the initial partition**
 
 We first check each pair in the first block and see if their **next states** are in the same partition.
 

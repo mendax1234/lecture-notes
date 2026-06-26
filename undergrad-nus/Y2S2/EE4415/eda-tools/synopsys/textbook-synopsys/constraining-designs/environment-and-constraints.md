@@ -21,7 +21,7 @@ The **constraints** may contain **timing** and/or **area** information, usually 
 
 The next step is to describe the **design environment**. This procedure entails defining for the design, the process parameters, I/O port attributes, and statistical wire load models. Figure 6-1 illustrates the essential DC commands used to describe the design environment.
 
-<figure><img src="../../.gitbook/assets/basic-design-environment.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/basic-design-environment (1).png" alt=""><figcaption></figcaption></figure>
 
 ### `set_min_library`
 
@@ -42,7 +42,7 @@ set_min_library "ex25_worst.db" –min_version "ex25_best.db"
 {% endcode %}
 
 {% hint style="success" %}
-#### Helpful Ideas
+**Helpful Ideas**
 
 The above command may be used for fixing **hold-time** violations during incremental compile or for in place optimization. In this case, the user should set both minimum and maximum values for the operating conditions.
 {% endhint %}
@@ -76,7 +76,7 @@ set_operating_conditions WORST
 {% endcode %}
 
 {% hint style="success" %}
-#### Helpful Ideas
+**Helpful Ideas**
 
 It is possible to optimize the design both with the WORST and the BEST case, simultaneously. The optimization is achieved by using the `-min` and `-max` options in the above command, as illustrated below. This is very useful for fixing the design for possible hold-time violations.
 
@@ -132,7 +132,7 @@ set_wire_load_mode top
 {% endcode %}
 
 {% hint style="success" %}
-#### Helpful Ideas
+**Helpful Ideas**
 
 It is extremely important that designers accurately model the wire loads of their design. Too optimistic or too pessimistic wire-load models result in increased synthesis iterations, in an effort to achieve timing convergence after post-layout. In general, during the prelayout phase, **slightly pessimistic wire-load models are used**. This is done to provide extra timing margin that may get absorbed, by the routed design.
 {% endhint %}
@@ -242,7 +242,7 @@ set_max_fanout 3.0 [all_outputs]
 
 **Design constraints** describe the **goals** for the design. They may consist of **timing** or **area** constraints. Depending on how the design is constrained, DC tries to meet the set objectives. The basic commands to constrain a design are shown in Figure 6-2.
 
-<figure><img src="../../.gitbook/assets/design-constraint-for-synthesis.png" alt="" width="563"><figcaption><p>Figure 6-2. Design Constraints for Synthesis</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/design-constraint-for-synthesis (1).png" alt="" width="563"><figcaption><p>Figure 6-2. Design Constraints for Synthesis</p></figcaption></figure>
 
 ### `creat_clock`
 
@@ -303,7 +303,7 @@ set_dont_touch [get_nets gated_rst]
 {% endcode %}
 
 {% hint style="success" %}
-#### Helpful Ideas
+**Helpful Ideas**
 
 For example, this command may be used on the block containing spare gates. The command will then instruct DC not to disturb (or optimize) the instantiation of the spare gates block.
 {% endhint %}
@@ -343,7 +343,7 @@ In Figure 6-3, the maximum input delay constraint of 23ns and the minimum input 
 If both `-min` and `-max` options are omitted, the **same** value is used for both the maximum and minimum input delay specifications.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/input-delay-example.png" alt=""><figcaption><p>Figure 6-3. Specification of Input Delay</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/input-delay-example (1).png" alt=""><figcaption><p>Figure 6-3. Specification of Input Delay</p></figcaption></figure>
 
 {% hint style="danger" %}
 The `set_input_delay` affects our **data arrival time.**
@@ -417,13 +417,13 @@ Now we can look at this report from two perspectives:
 
 {% stepper %}
 {% step %}
-#### Data Arrival Time
+**Data Arrival Time**
 
 As its name suggested, this it the **actual** time that the data arrives. It is calculated starting from the "input external delay" row as we have said that our input will arrive **maximumly** 1ns after the clocking edge. Then we add all the **combinational delay** and get the final data required time, which is 1.32ns.
 {% endstep %}
 
 {% step %}
-#### Data Required Time
+**Data Required Time**
 
 This is the time **required** for the data to arrive. In other words, the **data arrival time cannot be later than the data required time**, otherwise, we say that a timing violation happens! This value is started from the clock period and then minus the **clock uncertainty** value, and then minus the **library setup time**, which is the **real setup time** of a register/flip-flop.
 {% endstep %}
@@ -489,13 +489,13 @@ This timing report can also be seen from two perspectives:
 
 {% stepper %}
 {% step %}
-#### Data Arrival Time
+**Data Arrival Time**
 
 As we didn't set the `-min` input delay, so it's 0 here. To get this data arrival time, we start from the **contamination delay** of the combinational logic, and in this case, it is 0.19ns. So, our data arrival time is 0.19ns.
 {% endstep %}
 
 {% step %}
-#### Data Required Time
+**Data Required Time**
 
 To get the data required time, we start with the clock uncertainty, and the **worst-case** scenario is that this clock uncertainty will **add up to** our equivalent hold time. So, we add 0.10ns first. Then we add the **library hold time**, which represents the register's **hold time** information. In this case, it is -0.01ns, meaning that the hold time for our register is negative! So, at the end, our data arrival time is 0.09ns.
 
@@ -521,7 +521,7 @@ set_output_delay -max 19.0 -clock CLK {dataout}
 
 In Figure 6-4, the output delay constraint of 19ns is specified for the signal `dataout` with respect to the clock signal `CLK`, with a 50% duty cycle and a period of 30ns. This means that the data is valid for 11ns after the clock edge.
 
-<figure><img src="../../.gitbook/assets/set-output-delay.png" alt=""><figcaption><p>FIgure 6-4 Specification of Output Delay</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/set-output-delay (1).png" alt=""><figcaption><p>FIgure 6-4 Specification of Output Delay</p></figcaption></figure>
 
 {% hint style="danger" %}
 The `set_output_delay` affects our **data required time**.
@@ -608,7 +608,7 @@ set_clock_uncertainty -setup 0.5 -hold 0.25 [get_clocks CLK]
 {% endcode %}
 
 {% hint style="success" %}
-#### Helpful Ideas
+**Helpful Ideas**
 
 It is strongly recommended that users specify a certain amount of margin both for **pre-layout** and the **post layout** phased. The main reason for doing this is to make the chip less susceptible to the process variations that may occur during manufacturing.
 {% endhint %}
@@ -638,7 +638,7 @@ set_false_path -from in1 -through U1/Z -to out1
 {% endcode %}
 
 {% hint style="success" %}
-#### Helpful Ideas
+**Helpful Ideas**
 
 Use this command when the timing critical logic is failing the static timing analysis because of the **false paths**.
 {% endhint %}
@@ -680,7 +680,7 @@ set_max_delay 5 -from [all_inputs] -to [all_outputs]
 This command is the **opposite** of the [#set\_max\_delay](environment-and-constraints.md#set_max_delay "mention") command, and is used to define the **minimum delay** required in terms of time units for a particular **path**.
 
 {% hint style="danger" %}
-This command also has the precedence over [**DC derived timing requirements**](https://wenbo-notes.gitbook.io/ee4415-icd-notes/textbook-2-aacs/constraining-designs/environment-and-constraints#hold-timing-report)!
+This command also has the precedence over [DC derived timing requirements](environment-and-constraints.md#hold-timing-report)!
 {% endhint %}
 
 ### `group_path`

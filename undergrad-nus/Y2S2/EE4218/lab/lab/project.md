@@ -39,7 +39,7 @@ The whole project can be divided into three parts:
 This part includes training the model to do the image classification and then exports the weights from the trained model into the file that can be read by the HLS tools.
 
 {% hint style="success" %}
-It is highly recommended to go through the [Broken link](/broken/pages/APbqsDQrqDDhSUfaKLjG "mention") section before looking at this part!
+It is highly recommended to go through the [introduction.md](../neural-network/introduction.md "mention") section before looking at this part!
 {% endhint %}
 
 ### Neural Network Architecture
@@ -112,13 +112,13 @@ The exporting process will take in the `best_model.pth` and then output two cons
 
 {% stepper %}
 {% step %}
-#### Weights
+#### **Weights**
 
 Weights are stored in the `weights.h` file. This file is just a massive list of hardcoded, fixed-point numbers. It contains all the weights and biases for our Convolutional (Conv) and Fully Connected (FC) layers after they have been mathematically combined with the Batch Normalization layers.
 {% endstep %}
 
 {% step %}
-#### Look Up Table for the Sigmoid Function
+#### **Look Up Table for the Sigmoid Function**
 
 The look up table values are stored in the `lut_sigmoid.h`. This file contains exactly one array: `static const lut_t LUT_SIGMOID[256]`. Instead of forcing our hardware to calculate complex exponential math for the sigmoid [activation function](../neural-network/multilayer-perceptron.md#activation-function), this file acts as a pre-calculated cheat sheet. The hardware just looks up the answer.
 {% endstep %}
@@ -162,7 +162,7 @@ The address generation unit (AGU) is nothing but a combinational unit or a wire 
 
 {% stepper %}
 {% step %}
-#### AGU is a wire
+#### **AGU is a wire**
 
 When AGU is a wire, the timing diagram illustration is shown below. Assuming we are using the synchronous read memory (same as BRAM).
 
@@ -170,7 +170,7 @@ When AGU is a wire, the timing diagram illustration is shown below. Assuming we 
 {% endstep %}
 
 {% step %}
-#### AGU is a combinational circuit
+#### **AGU is a combinational circuit**
 
 <figure><img src="../.gitbook/assets/agu-comb.svg" alt=""><figcaption></figcaption></figure>
 {% endstep %}

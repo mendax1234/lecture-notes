@@ -21,7 +21,7 @@ The assessment structure for the whole EE4415 is shown as below:
 
 In CG2027, we have seen the following famous and classic design methodology diagram, and yes in EE4415, we are going to use that again but we will introduce some more interesting stuff!
 
-<figure><img src="../.gitbook/assets/design-methodology.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/design-methodology (1).png" alt=""><figcaption></figcaption></figure>
 
 Some history about this diagram is that:
 
@@ -34,19 +34,19 @@ That's why at the point of time this note is written, AMD is much better than In
 
 Now, using this design methodology diagram to see EE4415, our findings can be seen from below.
 
-<figure><img src="../.gitbook/assets/design-methodology-ee4415.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/design-methodology-ee4415 (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Digital Design Flow
 
 The digital design flow can be summarized very well in the following diagram.
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 The smaller box coming out from "synthesis" is pretty similar to the **logic synthesis** part we have learned in synopsys toolchain and [EE4415 Part 1 Lec 03](../part-1-lec-digital-design-flow/lec-3a-digital-design-flow.md#logic-synthesis-1).
 
 #### Technology Library
 
-We have seen the technology library in [synopsys tool chain](/broken/pages/Ge93lDdpR59nCb5wK779), EE4218 and CG3207. In Part 2 of EE4415, we are going to use `FreePDK45` in Cadence. So, basically, in the technology library we will have the **design models** for the following elements:
+We have seen the technology library in [synopsys tool chain](https://app.gitbook.com/s/GFmM0S0eSJLSE772wZne/textbook-synopsys/synopsys-technology-library/technology-libraries), EE4218 and CG3207. In Part 2 of EE4415, we are going to use `FreePDK45` in Cadence. So, basically, in the technology library we will have the **design models** for the following elements:
 
 1. Basic logic gates,
 2. Registers,
@@ -61,7 +61,7 @@ These standard cells are very **technology dependent**, meaning that they are de
 
 In Cadence, we our technology looks like below.
 
-<figure><img src="../.gitbook/assets/technology-library-cadence.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/technology-library-cadence (1).png" alt=""><figcaption></figcaption></figure>
 
 While in Synopsys (EE4415 Part 1), our technology library is a `saed32rvt_tt1p05v125c.db` file (this is a logic library and a technology library may have physical library as well). In this `.db` file, we can see a lot of **standard cells** as well.
 
@@ -69,10 +69,10 @@ While in Synopsys (EE4415 Part 1), our technology library is a `saed32rvt_tt1p05
 
 SPICE stands for **S**imulation **P**rogram with **I**ntegrated **C**ircuit **E**mphasis and it was developed by UC Berkeley in 1971. SPICE is basically a **transistor-level simulator**. An example of the SPICE based analog design flow is shown below.
 
-<figure><img src="../.gitbook/assets/SPICE-flow.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/SPICE-flow (1).png" alt=""><figcaption></figcaption></figure>
 
 So, what is really useful about the SPICE is that we can read the **delay information** from the **display results** coming out from the SPICE simulation engine. For example, below is the SPICE waveform for a CMOS Inverter Simulation with LTSpice.
 
-<figure><img src="../.gitbook/assets/SPICE-waveform.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/SPICE-waveform (1).png" alt=""><figcaption></figcaption></figure>
 
 From the waveform, we can easily read the $$t_{\text{PHL}}$$ and $$t_{\text{PLH}}$$ which we have learned in [CG2027](https://app.gitbook.com/s/6nPr3SObC3azazbFhfgF/lec/lec-01-the-devices#timing-diagram).

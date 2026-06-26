@@ -120,7 +120,7 @@ The cost of the circuit is \_\_\_\_\_\_ µm²
 
 {% stepper %}
 {% step %}
-#### Draw the sequencing graph
+**Draw the sequencing graph**
 
 Before drawing the sequencing graph, we should observe the expression and see if there are any parts that we can use shift (no cost) and addition to replace the multiplication symbol. In this case, we can replace `3d` by `d>>2+d`. Thus, our sequencing graph will look like below,
 
@@ -128,7 +128,7 @@ Before drawing the sequencing graph, we should observe the expression and see if
 {% endstep %}
 
 {% step %}
-#### Draw the scheduling table
+**Draw the scheduling table**
 
 Before drawing the scheduling table, we should observe the constraints in this question:
 
@@ -158,7 +158,7 @@ Based on the scheduled table, we can do the register binding. For the sake of si
 {% endstep %}
 
 {% step %}
-#### Datapath Synthesis
+**Datapath Synthesis**
 
 After getting the scheduled table after doing the register binding, the datapath synthesis is very easy. And the datapath should look like as follows:
 
@@ -172,7 +172,7 @@ $$
 {% endstep %}
 
 {% step %}
-#### Refine the Sharing
+**Refine the Sharing**
 
 Resource sharing is only reasonable if the two multiplexers cost less than another new resource. In this case, we might find out that the cost of 2 multiplexers are $$2\times20=40$$, which is **bigger** than another ALU! Thus, we shouldn't share the ALU! The refined scheduled table is shown as follows:
 

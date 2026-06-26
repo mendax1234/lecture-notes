@@ -14,7 +14,7 @@ In this part, I will cover some problems in the problem sets provide by Prof. Ma
 2. **(Ch4.6, Q4)**:
    1. When doing **retiming**, we can draw the **guassian surface** very big so that it can cover the input/output registers.
 3. **(Ch4.6, Q7)**:
-   1. Review the definition of the [**retiming vector**](https://wenbo-notes.gitbook.io/ee4415-icd-notes/lecture/lec-02/lec-02b-rtl-transformations#the-retiming-vector) $$r(V)$$, it denotes the movement of registers across the opeartor $$V$$.
+   1. Review the definition of the [retiming vector](lec-2b-rtl-transformations.md#fundamental-definition) $$r(V)$$, it denotes the movement of registers across the opeartor $$V$$.
 
 ### RTL Transformation 1
 
@@ -22,7 +22,7 @@ In this part, I will cover some problems in the problem sets provide by Prof. Ma
 
 {% stepper %}
 {% step %}
-#### Sub-question d
+**Sub-question d**
 
 In the question (d), we are asked to draw the 2-parallel version of the DFG. In the exam, we just **copy and paste** the original DFG and add either the SIPO/PISO or shifted clock cycle block at the input or output.
 
@@ -30,7 +30,7 @@ In the throughput analysis here, we **cannot assume** that the time-interleaving
 {% endstep %}
 
 {% step %}
-#### Sub-question e
+**Sub-question e**
 
 In the exam, if we are not **given** the combinational delay of an operator, just treat the combinational delay to be 0. However, in the EE4415 midterm, it will be given **explicitly**.
 {% endstep %}
@@ -52,17 +52,17 @@ In the question (c), we are asked to pipeline a **parallel** design. In this way
 
 {% stepper %}
 {% step %}
-#### Sub-question a
+**Sub-question a**
 
 In this question, we are asked to find the critical path. In this way, we just need to tell which **path** is the critical path, and we don't need to calculate the **minimum clock period** unless the problem explicitly specifies that.
 {% endstep %}
 
 {% step %}
-#### Sub-question b
+**Sub-question b**
 
 In this sub-question, there is one sentence saying that "constant inputs do not need to be retimed at all", what this really means is that we can **add or remove as many registers as we want** at those constant input edges (shown as the red edges below):
 
-<figure><img src="../.gitbook/assets/midterm-1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/midterm-1 (1).png" alt=""><figcaption></figcaption></figure>
 
 Also, in this question, we get to know one very important point:
 
@@ -79,7 +79,7 @@ Also, in this question, we get to know one very important point:
 
 In the page 5, Q1 (d), the question askes us to use 2-way time interleaving to minimize the clock period. This problem can be transformed into a classic **cut cake** problem below.
 
-<figure><img src="../.gitbook/assets/cut-cake-1.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/cut-cake-1 (1).svg" alt=""><figcaption></figcaption></figure>
 
 Our job is to move the two registers (one at the input and one at the output) between the combinational logic part and find out what's the **minimum sum** that we can achieve. And this minimum sum will be our critical path length.
 
@@ -89,7 +89,7 @@ The delay of the multiplier is 20ns and adder is 8ns in this problem.
 
 Using the above information on the delay, no matter what method we try, we can minimally achieve 36ns for the critical path length.
 
-<figure><img src="../.gitbook/assets/cut-cake-2.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/cut-cake-2 (1).svg" alt=""><figcaption></figcaption></figure>
 
 So, in this problem, as there is **no loop**, we can actually use the "min-cut cake" idea. But the overall idea should still be as follows:
 
@@ -102,7 +102,7 @@ So, in this problem, as there is **no loop**, we can actually use the "min-cut c
 
 {% stepper %}
 {% step %}
-#### Sub-question a
+**Sub-question a**
 
 The analytical relationship between inputs and outputs is a **recursion** relationship in this problem. We need to give another name for the signal that coming out from the first adder.
 
@@ -112,13 +112,13 @@ This kind of question **won't** appear in EE4415 AY25/26 Sem 2 midterm!
 {% endstep %}
 
 {% step %}
-#### Sub-question c
+**Sub-question c**
 
 The **logic imbalance** only exists in a loop which has **more than or equal to** 2 registers!
 {% endstep %}
 
 {% step %}
-#### Sub-question d
+**Sub-question d**
 
 If the question says do n-slowing, we can also do the **retiming**! In other words, **n-slowing** and **retiming** are always combined and this is known as **time-interleaving**!
 {% endstep %}
@@ -144,15 +144,15 @@ In the sub-question, we are asked to discuss the effect of having an **iteration
 
 {% stepper %}
 {% step %}
-#### Sub-question b
+**Sub-question b**
 
 In question b, when the clock frequency / clock period is given, we also need to **subtract** the **register overhead** from the given clock period to get the **maximum allowable time** for the combinational part.
 {% endstep %}
 
 {% step %}
-#### Sub-question c
+**Sub-question c**
 
-<figure><img src="../.gitbook/assets/midterm-2.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/midterm-2 (1).png" alt=""><figcaption></figcaption></figure>
 
 This question is the first question I met to write a Verilog module by hand. The convention I used to solve this kind of question is to name/label all the intermediate signals with the following naming convention: `[type]_[stage]_[description]`
 
@@ -328,9 +328,9 @@ endmodule
 3. When the questions says **pipelining**, we can use **feedforward cutset register insertion** and **retiming**. When it says **retiming**, we can only use **retiming**!
 4. In the DFG, we assume there is always one register at the **input** and **output**. These two registers **can be moved** in retiming.
    1. In the midterm, the registers at the input and output will be added in the question. And whether these registers can be moved or not in retiming will be stated explicitly in the question.
-5. **Always** double check the **critical path**! The path that is found might not be actually a critical path!  This is an eye-sight problem actually.
+5. **Always** double check the **critical path**! The path that is found might not be actually a critical path! This is an eye-sight problem actually.
 6. Memorize the [time unit table](https://app.gitbook.com/s/6nPr3SObC3azazbFhfgF/lec/lec-01-the-devices#unit-table)!
 7. In midterms, we can bring any number of calculators we want and don't need to print out the Verilog reference sheet by ourselves as it will be provided.
 8. Usually, the sub questions in the midterm will be based on the original DFG and not be dependent on the other questions.
-9. Do the [DICADP question](/broken/pages/Jzoje5you3j8KCAHvXFS#example-propagation-and-contamination-delay-estimation) on the false path and the skew! Very classic one.
+9. Do the [DICADP question](https://app.gitbook.com/s/poTRQsFwJ5BwDDy8paeZ/dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective#example-propagation-and-contamination-delay-estimation) on the false path and the skew! Very classic one.
 10. (AY25/26 Sem 2 Midterm): The energy per operation of a design is to sum the energy consumed by **all the components** (registers, combinational operators)!

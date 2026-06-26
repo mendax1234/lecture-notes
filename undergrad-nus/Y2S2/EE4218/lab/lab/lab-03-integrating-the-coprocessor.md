@@ -24,7 +24,7 @@ To understand the AXI-Stream FIFO architecture in depth, we are going to look at
 
 The laptop sending data process can be illustrated as follows:
 
-<figure><img src="../.gitbook/assets/lab03-sysmte-architecture-send-data.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lab03-sysmte-architecture-send-data (1).svg" alt=""><figcaption></figcaption></figure>
 
 The detailed steps are as follows:
 
@@ -38,13 +38,13 @@ In this process, we have cleared some very important confusions from Lab 01 and 
 
 {% stepper %}
 {% step %}
-**Confusion 1: What on earth is AXI Bus used for?**
+#### **Confusion 1: What on earth is AXI Bus used for?**
 
 In our system, the peripherals like UART, DDR Controller, AXI-Stream FIFO and AXI-Timer are all **MMIO** peripherals. **AXI Bus** can be just thought of as a special connection to read and write to a **"memory" block**. Thus, we may notice that in Lab 02, each of the **MMIO peripheral** has its own **address**. Thus, only the MMIO peripherals connected via the AXI bus can be seen and accessed by the A53 processor directly by using `lw`/`sw` instruction (or `LDR`/`SDR` in ARM Assembly).
 {% endstep %}
 
 {% step %}
-**Confusion 2: How to quickly decide the direction of `M_AXIS_xx` and `S_AXIS_xx`?**
+#### **Confusion 2: How to quickly decide the direction of `M_AXIS_xx` and `S_AXIS_xx`?**
 
 In Lab 01, the direction of the `M_AXIS_XXX` and `S_AXIS_XXXX` always makes us confused and this is also one question being asked during the lab demonstration. Today, at this point of time, hopefully we can understand it thoroughly by reading the following explanation! First, the AXIS interface always has two ends, namely:
 
@@ -79,7 +79,7 @@ input M_AXIS_TREADY;            // Connected slave device is ready to accept dat
 
 Similarly, the process of the laptop receiving data from the coprocessor can be illustrated as follows:
 
-<figure><img src="../.gitbook/assets/lab03-sysmte-architecture-receive-data.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lab03-sysmte-architecture-receive-data (1).svg" alt=""><figcaption></figcaption></figure>
 
 The detailed steps are as follows:
 
@@ -93,7 +93,7 @@ The detailed steps are as follows:
 
 In the AXI-Stream FIFO architecture, one big disadvantage is the **large overhead**. This is because in this architecture, the processor sends the data **byte-by-byte** from the DDR Memory to the AXI-Stream FIFO and the FIFO won't send the data to the corprocessor until its TX buffer is full. Another disadvantage is the AXI-Stream FIFO **size**, which depends on the size of the data[^1]. To optimize the design, we will use the AXI DMA to replace the AXI-Stream FIFO and its architecture can be shown as follows:
 
-<figure><img src="../.gitbook/assets/lab03-system-architecture-axi-dma.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lab03-system-architecture-axi-dma (1).svg" alt=""><figcaption></figcaption></figure>
 
 In this architecture, we have made the following changes
 
@@ -112,7 +112,7 @@ Now we can look at how the DMA works and some "issues" with it.
 
 The process of the laptop sending the data can be illustrated as follows:
 
-<figure><img src="../.gitbook/assets/lab03-system-architecture-dma-send-data.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lab03-system-architecture-dma-send-data (1).svg" alt=""><figcaption></figcaption></figure>
 
 The steps in detail are:
 
@@ -126,7 +126,7 @@ The steps in detail are:
 
 Similarly, the process of the laptop receiving data can be illustrated as follows:
 
-<figure><img src="../.gitbook/assets/lab03-system-architecture-dma-receive-data.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/lab03-system-architecture-dma-receive-data (1).svg" alt=""><figcaption></figcaption></figure>
 
 The steps in detail are:
 
@@ -139,7 +139,7 @@ In the [AXI-Stream FIFO architecture](lab-03-integrating-the-coprocessor.md#axi-
 
 {% stepper %}
 {% step %}
-**Send Data**
+#### **Send Data**
 
 In our system, the **data cache** uses the **write-back** mechanism, meaning that the update initially happens at the cache and these updates won't be reflected to the DDR memory until either the cache is full or depending on the replacement policy used in the cache. This will create the **problem** that:
 
@@ -149,7 +149,7 @@ To fix this issue, we will use **cache flush**, which is to force to flush the c
 {% endstep %}
 
 {% step %}
-**Receive Data**
+#### **Receive Data**
 
 The issues don't stop here. In the [receive data stage](lab-03-integrating-the-coprocessor.md#receive-data-1), remember that the last step is the processor moving data from the `DestinationBuffer` to the UART peripheral. In this step, the **problem** is that
 
@@ -174,7 +174,7 @@ This part contains some food for thoughts that might be beneficial for your unde
 
 {% stepper %}
 {% step %}
-**Why the AXI DMA doesn't need a big buffer like AXI-Stream FIFO?**
+#### **Why the AXI DMA doesn't need a big buffer like AXI-Stream FIFO?**
 
 In the AXI-Stream FIFO implementation, the data movement from the DDR to the AXI-Stream FIFO is done by the **processor**. In other words, the AXI-Stream FIFO cannot read the data directly from the DDR memory, it needs a "bridge", which is the processor. The processor needs to put the data together into a "large" buffer in the AXI-Stream FIFO and then the AXI-Stream FIFO can send the data block to the coprocessor.
 
@@ -182,7 +182,7 @@ In the AXI-DMA implementation, the AXI-DMA module can read the data in the DDR m
 {% endstep %}
 
 {% step %}
-**Why AXI DMA uses AXI-Lite while AXI-Stream FIFO uses AXI-FULL?**
+#### **Why AXI DMA uses AXI-Lite while AXI-Stream FIFO uses AXI-FULL?**
 
 In AXI-DMA implementation, the processor only needs to tell the AXI-DMA some **configuration information**, like the start address of the `SourceBuffer` and `DestinationBuffer`. The heavy data transmission is done by the DMA's master interfaces (MM2S/S2MM), which **do** use full AXI to talk to the DDR.
 

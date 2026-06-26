@@ -10,7 +10,7 @@ metaLinks:
 
 For a **positive edge-triggered system**, the **rising edge** of the **clock** is used to denote the beginning and completion of a **clock cycle**. In the ideal world, assuming the **clock paths** from a central distribution point to each **register** are perfectly balanced, the **phase** of the **clock** (i.e., the position of the **clock edge** relative to a reference) at various points in the system is going to be exactly equal. However, the **clock** is neither perfectly periodic nor perfectly simultaneous. This results in performance degradation and/or circuit malfunction. The following figure shows the basic structure of a **synchronous pipelined datapath**.
 
-<figure><img src="../../.gitbook/assets/pipelined-datapath-circuit.png" alt=""><figcaption><p>Pipelined Datapath Circuit and timing parameters</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/pipelined-datapath-circuit (1).png" alt=""><figcaption><p>Pipelined Datapath Circuit and timing parameters</p></figcaption></figure>
 
 In the ideal scenario, the **clock** at **registers 1** and **2** have the same **clock period** and transition at the exact same time. The following **timing parameters** characterize the **timing** of the **sequential circuit**.
 
@@ -45,7 +45,7 @@ $$\delta$$, t<sub>i</sub> and t<sub>j</sub> are all **scalars**! Treat them just
 
 Consider the transfer of data between registers R1 and R2 in **Figure 10.5**. The **clock skew** can be **positive or negative** depending upon the routing direction and position of the **clock source**. The **timing diagram** for the case with **positive skew** is shown in **Figure 10.6**. As the figure illustrates, the **rising clock edge** is delayed by a positive $$\delta$$ at the second register.
 
-<figure><img src="../../.gitbook/assets/timing-diagram-with-positive-clock-skew.png" alt=""><figcaption><p><strong>Figure 10.6</strong> Timing diagram to study the impact of clock skew on performance and functionality. In this sample timing diagram, <span class="math">\delta>0</span></p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/timing-diagram-with-positive-clock-skew (1).png" alt=""><figcaption><p><strong>Figure 10.6</strong> Timing diagram to study the impact of clock skew on performance and functionality. In this sample timing diagram, <span class="math">\delta>0</span></p></figcaption></figure>
 
 **Clock skew** is caused by static path-length mismatches in the **clock** load and by definition **skew** is constant from cycle to cycle. That is, if in one cycle **CLK**<sub>**2**</sub> lagged **CLK**<sub>**1**</sub> by $$\delta$$, then on the next cycle it will lag it by the same amount.
 
@@ -61,7 +61,7 @@ It is important to note that **clock skew** does not result in **clock period** 
 
 {% stepper %}
 {% step %}
-#### Positive Skew ($$\delta>0$$)
+**Positive Skew (**$$\delta>0$$**)**
 
 First consider the impact of **positive clock skew** on **performance**. From **Figure 10.6**, a new input **In** sampled by R<sub>1</sub> at edge <i class="fa-circle-1">:circle-1:</i> will propagate through the **combinational logic** and be sampled by R<sub>2</sub> on edge <i class="fa-circle-4">:circle-4:</i>. If the **clock skew** is positive, the time available for signal to propagate from R<sub>1</sub> to R<sub>2</sub> is **increased** by the skew $$\delta$$. Thus, our **effective allowable computing range** will be (T<sub>CLK</sub> + $$\delta$$). The output of the **combinational logic** must be valid one **set-up time** before the **rising edge** of **CLK**<sub>**2**</sub> (point <i class="fa-circle-4">:circle-4:</i>). The constraint on the **minimum clock period** can then be derived as:
 
@@ -84,11 +84,11 @@ $$
 {% endstep %}
 
 {% step %}
-#### Negative Skew ($$\delta<0$$)
+**Negative Skew (**$$\delta<0$$**)**
 
 Figure 10.7 shows the timing diagram for the case when $$\delta<0$$.
 
-<figure><img src="../../.gitbook/assets/timing-diagram-with-negative-clock-skew.png" alt=""><figcaption><p><strong>Figure 10.7</strong> Timing diagram to study the impact of clock skew on performance and functionality. In this sample timing diagram, <span class="math">\delta&#x3C;0</span></p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/timing-diagram-with-negative-clock-skew (1).png" alt=""><figcaption><p><strong>Figure 10.7</strong> Timing diagram to study the impact of clock skew on performance and functionality. In this sample timing diagram, <span class="math">\delta&#x3C;0</span></p></figcaption></figure>
 
 For its impact on performance, the **rising edge** of CLK<sub>2</sub> happens before the **rising edge** of **CLK**<sub>**1**</sub>. On the **rising edge** of CLK<sub>1</sub>, a new input is sampled by R<sub>1</sub>. The new sampled data propagates through the **combinational logic** and is sampled by R<sub>2</sub> on the **rising edge** of CLK<sub>2</sub>, which corresponds to edge <i class="fa-circle-2">:circle-2:</i>. As can be seen from **Figure 10.7** and Eq. (10.3), a **negative skew** directly impacts the **performance** of **sequential system**, making the **minimum clock period** for the system to be larger.
 
@@ -108,11 +108,11 @@ In whichever case, the newly derived two time constraints (setup and hold) are t
 
 Example scenarios for positive and negative clock skew are shown in Figure 10.8.
 
-<figure><img src="../../.gitbook/assets/positive-and-negative-clock-skew.png" alt=""><figcaption><p><strong>Figure 10.8</strong> Positive and egative clock skew</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/positive-and-negative-clock-skew (1).png" alt=""><figcaption><p><strong>Figure 10.8</strong> Positive and egative clock skew</p></figcaption></figure>
 
 {% stepper %}
 {% step %}
-#### Positive Skew ($$\delta>0$$)
+**Positive Skew (**$$\delta>0$$**)**
 
 This corresponds to a clock routed in the **same direction** **as the flow of the data** through the pipeline (Figure 10.8a). In this case, the **skew** has to be strictly controlled and satisfy Eq. (10.4). If this constraint is not met, the circuit does malfunction independent of the **clock period**.Reducing the **clock frequency** of an **edge-triggered circuit** does not help get around **skew** problems!
 
@@ -120,7 +120,7 @@ On the other hand, **positive skew** increases the [**throughput**](#user-conten
 {% endstep %}
 
 {% step %}
-#### Negative Skew ($$\delta<0$$)
+**Negative Skew (**$$\delta<0$$**)**
 
 When the clock is routed in the **opposite direction of the data** (Figure 10.8b), the **skew** is **negative** and condition (10.4) is unconditionally met.
 
@@ -128,7 +128,7 @@ The circuit operates correctly independent of the **skew**. The **skew** reduces
 
 Unfortunately, since a general **logic circuit** can have data flowing in **both directions** (for example, circuits with **feedback**), this solution to eliminate **races** will not always work (**Figure 10.9**).
 
-<figure><img src="../../.gitbook/assets/datapath-structure-with-feedback.png" alt=""><figcaption><p><strong>Figure 10.9</strong> Datapath structure with feedback</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/datapath-structure-with-feedback (1).png" alt=""><figcaption><p><strong>Figure 10.9</strong> Datapath structure with feedback</p></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 
@@ -144,7 +144,7 @@ This is a very classic question!
 
 Consider the logic network shown in Figure 10.10. Determine the propagation and contamination delay of the network, assuming that the worst case gate delay is t<sub>gate</sub>. The maximum and minimum delays of the gates is made, as they are assumed to be identical.
 
-<figure><img src="../../.gitbook/assets/example-pd-cd.png" alt=""><figcaption><p><strong>Figure 10.10</strong> Logic network for computation of performance</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/example-pd-cd (1).png" alt=""><figcaption><p><strong>Figure 10.10</strong> Logic network for computation of performance</p></figcaption></figure>
 
 **Sol:** The **contamination delay** is given by **2 t**<sub>**gate**</sub> (the delay through **OR**<sub>**1**</sub> and **OR**<sub>**2**</sub>). On the other hand, computation of the **worst case propagation delay** is not as simple as it appears. At first glance, it would appear that the **worst case** corresponds to path <i class="fa-circle-1">:circle-1:</i> and the delay is **5 t**<sub>**gate**</sub>. However, when analyzing the data dependencies, it becomes obvious that path <i class="fa-circle-1">:circle-1:</i> is **never exercised**. Path <i class="fa-circle-1">:circle-1:</i> is called a **false path**.
 
@@ -154,7 +154,7 @@ Consider the logic network shown in Figure 10.10. Determine the propagation and 
 
 In other words, for this simple (but contrived) **logic circuit**, the output does not even depend on inputs **C** and **D** (that is, there is redundancy). Therefore, the **propagation delay** is **4 t**<sub>**gate**</sub>. Given the **propagation** and **contamination delay**, the **minimum** and **maximum allowable skew** can be easily computed.
 
-In this problem, we also see a very familiar concept — [**short circuiting**](https://wenbo-notes.gitbook.io/cs1010-notes/lec-tut-lab-exes/lecture/lec-04-conditionals#short-circuiting) (NUS CS1010 knowledge comes back)! We now rephrase it using the concept of controlling value. A gate has a **controlling value** if one input alone can determine the output regardless of other inputs:
+In this problem, we also see a very familiar concept — [**short circuiting**](https://app.gitbook.com/s/KipySCGxC8NC1UpA24DS/lec-tut-lab-exes/lecture/lec-04-conditionals#short-circuiting) (NUS CS1010 knowledge comes back)! We now rephrase it using the concept of controlling value. A gate has a **controlling value** if one input alone can determine the output regardless of other inputs:
 
 * **OR Gate**: Controlling value is 1. (If any input is 1, output is 1).
 * **AND Gate**: Controlling value is 0. (If any input is 0, output is 0).
@@ -169,7 +169,7 @@ The computation of the **worst-case propagation delay** for **combinational logi
 
 ### Clock Jitter
 
-**Clock jitter** refers to the **temporal variation** of the **clock period** at a given point —  that is, the **clock period** can reduce or expand on a **cycle-by-cycle** basis. It is strictly a **temporal uncertainty** measure and is often specified at a given point on the chip. **Jitter** can be measured and cited in one of many ways.
+**Clock jitter** refers to the **temporal variation** of the **clock period** at a given point — that is, the **clock period** can reduce or expand on a **cycle-by-cycle** basis. It is strictly a **temporal uncertainty** measure and is often specified at a given point on the chip. **Jitter** can be measured and cited in one of many ways.
 
 * **Absolute jitter** (t<sub>jitter</sub>) refers to the worst-case variation (absolute value) of **a clock edge** at a given location relative to the edge of an ideal periodic reference clock.
 * **Cycle-to-cycle jitter** (T<sub>jitter</sub>) refers to time varying deviation of a single **clock period** and for a given spatial location i is given as $$T^i_{\text{jitter}}(n)=t^i_{\text{clk, n+1}}-t^i_{\text{clk, n}}-T_{\text{CLK}}$$, where $$t^i_{\text{clk, n+1}}$$ is the **clock period** for period (n+1), $$t^i_{\text{clk, n}}$$ is **clock period** for period n, and T<sub>CLK</sub> is the **nominal clock period**.
@@ -183,7 +183,7 @@ $$
 T_{\text{CLK}} - 2t_{\text{jitter}} \geq t_{\text{c-q}} + t_{\text{logic}} + t_{\text{su}} \quad \text{or} \quad T \geq t_{\text{c-q}} + t_{\text{logic}} + t_{\text{su}} + 2t_{\text{jitter}} \tag{10.5}
 $$
 
-<figure><img src="../../.gitbook/assets/jitter-on-performance.png" alt=""><figcaption><p><strong>Figure 10.11</strong> Circuit for studying the impact of jitter on performance</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/jitter-on-performance (1).png" alt=""><figcaption><p><strong>Figure 10.11</strong> Circuit for studying the impact of jitter on performance</p></figcaption></figure>
 
 {% hint style="warning" %}
 Worst case is to make the total time available **smaller** so that the T<sub>CLK</sub> has to become larger to compensate the effect casued by t<sub>jitter</sub>.
@@ -193,13 +193,13 @@ Worst case is to make the total time available **smaller** so that the T<sub>CLK
 
 In this section, the **combined impact** of **skew** and **jitter** is studied with respect to **conventional edge-triggered clocking**. Consider the **sequential circuit** shown in **Figure 10.12**.
 
-<figure><img src="../../.gitbook/assets/skew-jitter-on-performance.png" alt=""><figcaption><p><strong>Figure 10.12 Sequential circuit</strong> to study the impact of <strong>skew</strong> and <strong>jitter</strong> on <strong>edge-triggered systems</strong>. In this example, a <strong>positive skew</strong> (<span class="math">\delta</span>) is assumed.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/skew-jitter-on-performance (1).png" alt=""><figcaption><p><strong>Figure 10.12 Sequential circuit</strong> to study the impact of <strong>skew</strong> and <strong>jitter</strong> on <strong>edge-triggered systems</strong>. In this example, a <strong>positive skew</strong> (<span class="math">\delta</span>) is assumed.</p></figcaption></figure>
 
-Assume that nominally ideal clocks are distributed to both registers (the **clock period** is identical every cycle and the **skew** is 0). In reality, there is static **skew** $$\delta$$ between the two **clock signals** (assume that $$\delta>0$$). Assume that **CLK**<sub>**1**</sub> has a **jitter** of **t**<sub>**jitter1**</sub> and **CLK**<sub>**2**</sub> has a **jitter** of **t**<sub>**jitter2**</sub>.&#x20;
+Assume that nominally ideal clocks are distributed to both registers (the **clock period** is identical every cycle and the **skew** is 0). In reality, there is static **skew** $$\delta$$ between the two **clock signals** (assume that $$\delta>0$$). Assume that **CLK**<sub>**1**</sub> has a **jitter** of **t**<sub>**jitter1**</sub> and **CLK**<sub>**2**</sub> has a **jitter** of **t**<sub>**jitter2**</sub>.
 
 {% stepper %}
 {% step %}
-#### Performance Analysis
+**Performance Analysis**
 
 To determine the constraint on the **minimum clock period**, we must look at the minimum available time to perform the required computation. The **worst case** happens when the leading edge of the current **clock period** on **CLK**<sub>**1**</sub> happens late (edge <i class="fa-circle-3">:circle-3:</i>) and the leading edge of the next cycle of **CLK**<sub>**2**</sub> happens early (edge 10). This results in the following constraint
 
@@ -212,7 +212,7 @@ As the above equation illustrates, while **positive skew** can provide potential
 {% endstep %}
 
 {% step %}
-#### Functionality Analysis
+**Functionality Analysis**
 
 To formulate the **minimum delay constraint**, consider the case when the leading edge of the **CLK**<sub>**1**</sub> cycle arrives early (edge <i class="fa-circle-1">:circle-1:</i>) and the leading edge of the current cycle of **CLK**<sub>**2**</sub> arrives late (edge <i class="fa-circle-6">:circle-6:</i>). The separation between edge <i class="fa-circle-1">:circle-1:</i> and <i class="fa-circle-6">:circle-6:</i> should be smaller than the **minimum delay** through the network. This results in,
 
@@ -228,19 +228,19 @@ The above relation indicates that the **acceptable skew** is reduced by the **ji
 
 Now consider the case when the **skew** is **negative** ($$\delta<0$$) as shown in **Figure 10.13**. For the timing shown, $$\left|\delta\right|>t_{\text{jitter2}}$$. It can be easily verified that the **worst case** timing is exactly the same as the previous analysis, with $$\delta$$ taking a **negative** value. That is, **negative skew** reduces **performance**.
 
-<figure><img src="../../.gitbook/assets/skew-jitter-on-performance-negative.png" alt=""><figcaption><p><strong>Figure 10.13</strong> Consider a negative clock skew (<span class="math">\delta</span>) and the skew is assumed to be larger than the jitter.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/skew-jitter-on-performance-negative (1).png" alt=""><figcaption><p><strong>Figure 10.13</strong> Consider a negative clock skew (<span class="math">\delta</span>) and the skew is assumed to be larger than the jitter.</p></figcaption></figure>
 
 {% stepper %}
 {% step %}
-#### Performance Analysis
+**Performance Analysis**
 
-The situation is the same as [above](https://wenbo-notes.gitbook.io/ee4415-icd-notes/textbook-1-dicadp/timing-issues-in-digital-circuits#performance-analysis), and remember the we still use $$T_{\text{CLK}}+\delta$$ but just treat $$\delta$$ as a negative value. So, the equation will be the same as Eq. (10.6).
+The situation is the same as [above](synchronous-design-an-in-depth-perspective.md#impact-of-skew-and-jitter-on-performance), and remember the we still use $$T_{\text{CLK}}+\delta$$ but just treat $$\delta$$ as a negative value. So, the equation will be the same as Eq. (10.6).
 
 As the skew is negative, the T<sub>CLK</sub> must be larger to compensate the effect causing by the negative skew, making negative skew reduce performance. This is the same as we stated above.
 {% endstep %}
 
 {% step %}
-#### Functionality Analysis
+**Functionality Analysis**
 
 In this case, hold time constraint violations become much easier to satisfy. Since CLK<sub>2</sub> arrives earlier than CLK<sub>1</sub> ($$\delta < 0$$), the destination flip-flop completes its hold requirement earlier, widening the safety margin against the new data arriving from CLK<sub>1</sub>.
 {% endstep %}
@@ -252,7 +252,7 @@ Up till this point, we have seen many equations and they vary with the considera
 
 {% stepper %}
 {% step %}
-#### Setup Time (Performance)
+**Setup Time (Performance)**
 
 When doing the performance analysis, we are basically considering the **setup time constraint**, or **maximum delay constraint**. We have a fixed amount of time to get the data from Start to Finish.
 
@@ -272,7 +272,7 @@ In the Synopsys's [setup timing report](/broken/pages/OZXlIFP6DBFkqX5tyZeG#setup
 {% endstep %}
 
 {% step %}
-#### Hold Time (Functionality)
+**Hold Time (Functionality)**
 
 Think of Hold Time as the "Minimum Delay" constraint. We must ensure the _new_ data doesn't arrive too fast and overwrite the _old_ data before it's safe.
 
@@ -292,7 +292,7 @@ In the Synopsys's [hold timing report](/broken/pages/OZXlIFP6DBFkqX5tyZeG#setup-
 {% endstep %}
 
 {% step %}
-#### The "Worst-Case" Mental Check
+**The "Worst-Case" Mental Check**
 
 Always assume the universe is working against us:
 
@@ -301,7 +301,7 @@ Always assume the universe is working against us:
 {% endstep %}
 
 {% step %}
-#### The Variable Breakdown: Given vs. Calculated
+**The Variable Breakdown: Given vs. Calculated**
 
 * **The Constants (Given)**: t<sub>su</sub>, t<sub>hold</sub> ,t<sub>c-q</sub>,t<sub>c-q, cd</sub>(Register specs) and usually t<sub>jitter</sub> (Clock spec).
 * **The Calculated (Analyze the Circuit)**: t<sub>logic</sub> (Max delay) and t<sub>logic, cd</sub> (Min delay). We must calculate these by tracing the Longest and Shortest paths in the diagram. (See the [example above](synchronous-design-an-in-depth-perspective.md#example-propagation-and-contamination-delay-estimation))

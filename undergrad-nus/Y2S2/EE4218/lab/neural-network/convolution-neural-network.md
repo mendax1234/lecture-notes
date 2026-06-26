@@ -28,7 +28,7 @@ c = [4, 10, 18]
 
 Now, we want to introduce another way which is called **convolution** to combine these two lists/functions to get the third list/function. Intuitively, what convolution does is to **flip** the second list and uses it as a sliding window.
 
-<figure><img src="../.gitbook/assets/convolution-sliding-windows-list.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 Now, we can give the simpler definition of a convolution. The convolution of a list $$a_i$$ and another list $$b_i$$, denoted with the symbol $$*$$, is a **new list** and its $$n$$-th element is a sum shown below.
 
@@ -42,7 +42,7 @@ $$
 
 If the sum of the values in our sliding window (List B) is equal to 1, we can treat the value after convolution as an **average sum** of the values in List A.
 
-<figure><img src="../.gitbook/assets/average-sum-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/average-sum-example (1).png" alt=""><figcaption></figcaption></figure>
 
 The figure above is not a strictly average some but assigned a higher weight to the data in the central.
 
@@ -57,10 +57,10 @@ One worth noting example of using the idea of convolution is to do the image pro
 
 This is done by using a special sliding window called **kernel**. In this example, we assume that the kernel is a $$3\times3$$ matrix with each element to be $$\frac{1}{9}$$.
 
-<figure><img src="../.gitbook/assets/blur-image-processing.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/blur-image-processing (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
-**Pixel's RGB notation**
+#### **Pixel's RGB notation**
 
 In each pixel of a normal image, we have three values, namly a number between 0 to 1 denoteing the pecentage of Red, Green and Blue of that pixel. That's why each element in the kernel is multiplied with a $$3\times1$$ vector.
 {% endhint %}
@@ -107,7 +107,7 @@ Smart readers might have found out that the size of the convolution (third list/
 
 To deal with this problem, what we usually do is to trauncate the not used values. This can be shown as below.
 
-<figure><img src="../.gitbook/assets/trancuate-convolution.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/trancuate-convolution (1).png" alt=""><figcaption></figcaption></figure>
 
 </details>
 
@@ -123,12 +123,12 @@ A convolutional neural network (CNN) is a type of feedforward neural network tha
 
 In the convolution, the process is similar as what we have mentioned in [#image-processing](convolution-neural-network.md#image-processing "mention"). The only difference is that to recognize an image accurately, we might use severl kernels, each kernel will be responsible for filtering our one feature from the input image, which is nothing but a matrix.
 
-<figure><img src="../.gitbook/assets/kernel-filter-features.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/kernel-filter-features (1).png" alt=""><figcaption></figcaption></figure>
 
 The result after convolution using each kernel is also a very big matrix or maybe we might filter out some **weak** features/patterns. Thus, we need to compress the matrix.
 
 {% hint style="warning" %}
-**CNN vs. Plain Vanilla Neural Network**
+#### **CNN vs. Plain Vanilla Neural Network**
 
 In the CNN, the kernel operations replace the weights operation in the plain vanilla neural network.
 {% endhint %}
@@ -137,7 +137,7 @@ In the CNN, the kernel operations replace the weights operation in the plain van
 
 The procedure of compressing the convoluted image is called **pooling**. Pooling can be as easy as getting the **mean** or **max** value of a **region**.
 
-<figure><img src="../.gitbook/assets/pooling-explanation.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/pooling-explanation (1).png" alt=""><figcaption></figcaption></figure>
 
 After the pooling, the size of the matrix/image will be lowered to a large extent.
 
@@ -157,7 +157,7 @@ After the pooling, the **non-linear mapping** is applied to each element of the 
 
 We can expand the 2-dimension images into one-dimension and input them into a fully-connected neural network, or [Multi-Layer Perceptron](convolution-neural-network.md#multilayer-perceptron) (MLP) to get the value for the **kernel matrix** used in the convolution.
 
-<figure><img src="../.gitbook/assets/from-cnn2mlp.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/from-cnn2mlp (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Reference
 

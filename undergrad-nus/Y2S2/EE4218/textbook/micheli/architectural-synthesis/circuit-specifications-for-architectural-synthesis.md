@@ -44,7 +44,7 @@ The major decisions in architectural synthesis are often related to **the use of
 **Memory resources** store data. Examples include registers, read-only memory (ROM), and read-write memory (RAM).
 
 {% hint style="warning" %}
-Requirement for storage resources are **implicit** in the **sequencing graph itself** but we still need to consider which register to use and how many registers we are going to use in our system. We will see more on this later in the [problem set](https://app.gitbook.com/s/08HOWaEgI5q3ZZTecFRP/tutorial/problem-set-1#id-04.-combine-everything).
+Requirement for storage resources are **implicit** in the **sequencing graph itself** but we still need to consider which register to use and how many registers we are going to use in our system. We will see more on this later in the [problem set](https://app.gitbook.com/s/08HOWaEgI5q3ZZTecFRP/tutorial/problem-set-1#id-4.-combine-everything).
 {% endhint %}
 
 ### Interface Resources
@@ -86,7 +86,7 @@ For example, the **timing constraint** is one kind of the **interface constraint
 A different kind of **implementation constraint** is a **resource binding constraint**. In this case, a particular **operation** is required to be implemented by a given **resource**.
 
 {% hint style="success" %}
-**Partial Binding**
+#### **Partial Binding**
 
 **Architectural synthesis** with **resource binding constraints** is often referred to as **synthesis from partial structure**.
 {% endhint %}

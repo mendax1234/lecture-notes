@@ -18,7 +18,7 @@ The standard cell approach is basically to put the standard cells (logic gates) 
 Intuitively, we can think of laying as the **breadboard** we've used in EPP1. We have two $$V_{\text{DD}}$$ rows and two $$\text{GND}$$ rows. In between these rows is the region where we put our logic, in this case, the standard cells.
 
 {% hint style="success" %}
-#### Mirrored Cell
+**Mirrored Cell**
 
 The mirrored cells in the top and bottom rows are flipped vertically to share the N-well
 {% endhint %}
@@ -80,7 +80,7 @@ Actually, the example we've seen [above](lec-4-layout-and-parasitics.md#stick-la
 
 To achive this **uninterrupted diffusion stripe**, we need to use the concept of Euler path with the help of the [#logic-graph](lec-4-layout-and-parasitics.md#logic-graph "mention") we've seen above.
 
-> A **Euler path** is a path that passes through all nodes in the graph such that each **edge** is visited  **once** and **only once**.
+> A **Euler path** is a path that passes through all nodes in the graph such that each **edge** is visited **once** and **only once**.
 
 An uninterrupted diffusion strip is possible only if there exists a **consistant** Euler path.
 

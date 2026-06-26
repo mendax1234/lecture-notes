@@ -20,7 +20,7 @@ The state minimization skill that we learned here **cannot be done** by the EDA 
 The **state minimization problem** aims at reducing the number of **machine states**. This leads to a reduction in the size of the **state transition graph**. **State reduction** may correlate to a reduction of the number of **storage elements**. (When states are **encoded** with a **minimum number of bits**, the number of **registers** is the **ceiling** of the logarithm of the number of states.) The reduction in **states** correlates to a reduction in **transitions**, and hence to a reduction of **logic gates**.
 
 {% hint style="warning" %}
-In Harris and Harris [DDCA](https://wenbo-notes.gitbook.io/ddca-notes/textbook/sequential-logic-design/finite-state-machines#example-fsm-state-encoding), we have seen that using one-hot encoding can reduce the logic gates used. Here, both the normal binary encoding and one-hot encoding has the **same number of** states. So, the last sentence "the reduction in states ..." still holds. We will discuss about [state encoding](synchronous-circuit-optimization-using-state-based-models.md#state-encoding) later in this section.
+In Harris and Harris [DDCA](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/textbook/sequential-logic-design/finite-state-machines#example-fsm-state-encoding), we have seen that using one-hot encoding can reduce the logic gates used. Here, both the normal binary encoding and one-hot encoding has the **same number of** states. So, the last sentence "the reduction in states ..." still holds. We will discuss about [state encoding](synchronous-circuit-optimization-using-state-based-models.md#state-encoding) later in this section.
 {% endhint %}
 
 **State minimization** can be defined informally as deriving a finite-state machine with **similar behavior** and a **minimum number of states**.
@@ -68,7 +68,7 @@ Now, we will introduce three methods to do the state optimization. The goal is t
 The normal method has the following three steps:
 
 1. **Initial partition (**$$\Pi_1$$**):** States are placed in the same block if they produce identical **outputs** for every input.
-2. **Refinement step (**$$\Pi_k\to\Pi_{k+1}$$**):** States remain in the same block if they were in the same block in  $$\Pi_k$$ **and** their next states fall in the same block of $$\Pi_k$$ for all inputs.
+2. **Refinement step (**$$\Pi_k\to\Pi_{k+1}$$**):** States remain in the same block if they were in the same block in $$\Pi_k$$ **and** their next states fall in the same block of $$\Pi_k$$ for all inputs.
 3. **Convergence:** The refinement process terminates when $$\Pi_{k+1}=\Pi_{k}$$.
 
 <details>
@@ -134,7 +134,7 @@ This method includes the following steps:
 * **Initialization:** Construct the implication (pair) chart and cross out all state pairs that are **I/O incompatible**, i.e., they produce different **outputs** for the same input.
 * **Implication generation:** For each remaining state pair, write the **equivalence conditions** implied by their next states under each input.
   * These equivalence conditions are called **implications**
-  * Example, S<sub>3</sub> and S<sub>4</sub> are equivalent only if S<sub>2</sub>-[^1]S<sub>4</sub> are equivalent and S<sub>1</sub>-S<sub>5</sub> are equivalent.
+  * Example, S<sub>3</sub> and S<sub>4</sub> are equivalent only if S<sub>2</sub>-S<sub>4</sub> are equivalent and S<sub>1</sub>-S<sub>5</sub> are equivalent.
 * **Implication checking:** Cross out a state pair if **any** of its implied state pairs is already crossed out.
 * **Iteration:** Repeat the implication checking step until no new cells can be crossed out.
 * **Result:** State pairs corresponding to **uncrossed cells** in the chart are equivalent and can be merged.
@@ -317,7 +317,7 @@ This number is dependent **purely** on the number of **state bits** we use to en
 
 Most **classical heuristic methods** for **state encoding** are based on a **reduced dependency criterion**. The rationale is to encode the states so that the **state variables** have the **least dependencies** on those representing the **previous states**. **Reduced dependencies** correlate **weakly** with the **minimality** of a **sum-of-products representation**.
 
-For example, [adjacent code](#user-content-fn-2)[^2] should be used to states that share/have
+For example, [adjacent code](#user-content-fn-1)[^1] should be used to states that share/have
 
 1. a **common next-state**
 2. a **common predecessor (ancestor) state**
@@ -336,14 +336,12 @@ Some examples of this encoding is: [**Gray Code**](https://electronics.stackexch
 **State encoding techniques for multiple-level circuits** use the **logic network model** for the **combinational component** of the **finite-state machine**. The **overall area measure** is related to
 
 1. the number of **encoding bits** (i.e., **registers**) and
-2. to the number of [**literals**](#user-content-fn-3)[^3] in the **logic network**.
+2. to the number of [**literals**](#user-content-fn-2)[^2] in the **logic network**.
 
 The **delay** corresponds to the **critical path length** in the network. To date, only **heuristic methods** have been developed for computing **state encodings** that optimize the **area estimate**.
 
 > TODO: Some "state-of-art" techniques are left as FYI part and they are on the book.
 
-[^1]: Here, it is literally just the **minus** sign.
+[^1]: This means, the difference between two codes should be only 1 bit. Example, {001, 011} are considered as adjacent codes, while {001, 010} are **not adjacent.**
 
-[^2]: This means, the difference between two codes should be only 1 bit. Example, {001, 011} are considered as adjacent codes, while {001, 010} are **not adjacent.**
-
-[^3]: A **literal** is simply an instance of a variable or its complement (inverse) appearing in a boolean equation.
+[^2]: A **literal** is simply an instance of a variable or its complement (inverse) appearing in a boolean equation.

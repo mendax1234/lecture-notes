@@ -38,16 +38,16 @@ A small tip for coding comments style:
 
 {% stepper %}
 {% step %}
-#### Nets
+**Nets**
 
 The `wire` data type in **Verilog** represents a **wire** in an **ASIC** and **cannot store or hold a value**. A **wire** must be **continuously driven** by an **assignment statement**, and its **default initial value** is **‘z’**. Most common net types are
 
 * `wire` and `tri`
-* `supply1`  and `supply0` (which are equivalent to the positive and negative power supplies respectively)
+* `supply1` and `supply0` (which are equivalent to the positive and negative power supplies respectively)
 {% endstep %}
 
 {% step %}
-#### Registers
+**Registers**
 
 A **register** data type in **Verilog** is declared using the keyword **reg** and is comparable to a **variable** in a **programming language**.
 
@@ -59,7 +59,7 @@ The default initial value for a reg is 'x'.
 {% endstep %}
 
 {% step %}
-#### Parameters
+**Parameters**
 
 Just the **constants** in Verilog.
 {% endstep %}
@@ -104,15 +104,15 @@ endmodule
 
 {% stepper %}
 {% step %}
-#### Basic Modeling Structure
+**Basic Modeling Structure**
 
 The basic modeling structure is shown as follows:
 
-<figure><img src="../.gitbook/assets/basic-model-structure-verilog-module.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/basic-model-structure-verilog-module (1).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
-#### Port Connection Rules
+**Port Connection Rules**
 
 | Port Type | Parent Side (External Connection) | Child Side (Internal Port Declaration) |
 | --------- | --------------------------------- | -------------------------------------- |
@@ -180,7 +180,7 @@ endmodule
 {% endstep %}
 
 {% step %}
-#### User-Defined Primitives
+**User-Defined Primitives**
 
 We can define **primitive gates** (a **user-defined primitive** or **UDP**) using a **truth-table specification**. The **first port** of a UDP must be an **output port**, and it must be the **only output port**; **vector** or **inout ports** are not allowed. For example,
 
@@ -202,7 +202,7 @@ endprimitive
 {% endstep %}
 
 {% step %}
-#### User-Defined Functions
+**User-Defined Functions**
 
 Similar to **functions in other programming languages**, **functions in Verilog are** useful for modeling **combinational logic** (like a **subroutine**). Its syntax is shown as follows:
 
@@ -333,10 +333,10 @@ endmodule
 
 The synthesis of the above block of code will be:
 
-<figure><img src="../.gitbook/assets/blocking-assignment-synthesis.png" alt="" width="493"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/blocking-assignment-synthesis (1).png" alt="" width="493"><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
-There is a register in front of `sum` because `sum` is defined as a `reg` and it appears in an `always @(posedge)` block. But it is **not recommended** to do so, use **non-blocking assignment `<=`**  instead!
+There is a register in front of `sum` because `sum` is defined as a `reg` and it appears in an `always @(posedge)` block. But it is **not recommended** to do so, use **non-blocking assignment `<=`** instead!
 {% endhint %}
 
 #### Non-Blocking Assignments (`<=`)
@@ -367,7 +367,7 @@ endmodule
 
 The synthesis of the above block of code will be:
 
-<figure><img src="../.gitbook/assets/non-blocking-assignment-synthesis.png" alt="" width="487"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/non-blocking-assignment-synthesis (1).png" alt="" width="487"><figcaption></figcaption></figure>
 
 ### Continuous Assignment
 
@@ -386,11 +386,11 @@ The programming statements should **only** be used in procedural blocks.
 
 #### Conditional
 
-In EE4218, we have a glimpse of how the [**conditional expansion**](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/hardware-modeling/compilation-and-behavioral-optimization#conditional-expansion) is done. This helps us a lot in knowing what is getting **synthesized** in an verilog `if/else`  or `case` statement.
+In EE4218, we have a glimpse of how the [**conditional expansion**](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/hardware-modeling/compilation-and-behavioral-optimization#conditional-expansion) is done. This helps us a lot in knowing what is getting **synthesized** in an verilog `if/else` or `case` statement.
 
 {% stepper %}
 {% step %}
-#### If/Else Statements
+**If/Else Statements**
 
 {% code overflow="wrap" lineNumbers="true" %}
 ```verilog
@@ -407,12 +407,12 @@ signal_name <= cond1*value1 + not(cond1)*cond2*value2 + not(cond1)*not(cond2)*..
 If we use the `if/else` statement, we are saying that the first-appeared **conditions** have **higher priority** than the later-appeared **conditions**.
 
 {% hint style="warning" %}
-Let's say if `cond1`  and `cond2` are **mutually exclusive**, then we will have a **redundant** term `not(cond1)*cond2*value2`. This gives us a warning that we should carefully decide our conditions.
+Let's say if `cond1` and `cond2` are **mutually exclusive**, then we will have a **redundant** term `not(cond1)*cond2*value2`. This gives us a warning that we should carefully decide our conditions.
 {% endhint %}
 {% endstep %}
 
 {% step %}
-#### Case Statements
+**Case Statements**
 
 {% code lineNumbers="true" %}
 ```verilog
@@ -453,7 +453,7 @@ end
 
 The synthesis tool will give us a **transparent high** latch shown as follows:
 
-<figure><img src="../.gitbook/assets/inferred-latches-example.png" alt="" width="456"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/inferred-latches-example (1).png" alt="" width="456"><figcaption></figcaption></figure>
 
 The latch is **transparent high** is because `out` will update only when `sel` is high. Otherwise, it will remember its state.
 
@@ -472,7 +472,7 @@ end
 
 And this will give us the correct multiplexer we want:
 
-<figure><img src="../.gitbook/assets/inferred-latches-example-2.png" alt="" width="437"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/inferred-latches-example-2 (1).png" alt="" width="437"><figcaption></figcaption></figure>
 
 </details>
 

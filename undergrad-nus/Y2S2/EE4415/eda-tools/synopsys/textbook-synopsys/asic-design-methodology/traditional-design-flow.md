@@ -35,7 +35,7 @@ The traditional ASIC design flow contains the steps outlined below:
 
 Figure 1-1, graphically illustrates the typical ASIC design flow discussed above.
 
-<figure><picture><source srcset="../../.gitbook/assets/traditional-asic-design-flow-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/traditional-asic-design-flow-light.png" alt="" width="536"></picture><figcaption><p>Figure 1-1 Traditional ASIC Design Flow</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/traditional-asic-design-flow-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/traditional-asic-design-flow-light (1).png" alt="" width="536"></picture><figcaption><p>Figure 1-1 Traditional ASIC Design Flow</p></figcaption></figure>
 
 {% hint style="warning" %}
 The acronyms STA and CT represent static timing analysis and clock tree respectively. DC represents Design Compiler.
@@ -45,7 +45,7 @@ The acronyms STA and CT represent static timing analysis and clock tree respecti
 
 ### Specification
 
-Chip design commences with the conception of an idea dictated by the market. These ideas are then translated into **architectural** and **electrical specifications**.&#x20;
+Chip design commences with the conception of an idea dictated by the market. These ideas are then translated into **architectural** and **electrical specifications**.
 
 1. The **architectural specifications** define the functionality and partitioning of the chip into several manageable blocks, while
 2. the **electrical specifications** define the relationship between the blocks in terms of **timing** information.
@@ -68,7 +68,7 @@ Synopsys recently introduced **Behavior Compiler**, capable of synthesizing Beha
 
 The next step is to check the functionality of the design by simulating the RTL code. Figure 1-2, illustrates a partitioned design surrounded by a **test bench** ready for simulation.
 
-<figure><img src="../../.gitbook/assets/design-hierarchy-example.png" alt="" width="563"><figcaption><p>Figure 1-2 Design Hierarchy Example</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/design-hierarchy-example (1).png" alt="" width="563"><figcaption><p>Figure 1-2 Design Hierarchy Example</p></figcaption></figure>
 
 {% hint style="warning" %}
 This test bench is normally written in behavior HDL while the actual design is coded in RTL.
@@ -100,7 +100,7 @@ This is also why in EE4415, we have the step to setup the Synopsys environment, 
 
 DC reads the RTL code of the design and using the timing constraints, synthesizes the code to structural level, thereby producing a mapped gatelevel netlist. This concept is shown in Figure 1-3.
 
-<figure><img src="../../.gitbook/assets/design-compiler-inputs-outputs.png" alt="" width="563"><figcaption><p>Figure 1-3 Design Compiler Inputs and Outputs</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/design-compiler-inputs-outputs (1).png" alt="" width="563"><figcaption><p>Figure 1-3 Design Compiler Inputs and Outputs</p></figcaption></figure>
 
 ## Formal Verification
 
