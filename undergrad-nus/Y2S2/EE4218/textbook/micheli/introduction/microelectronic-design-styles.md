@@ -24,7 +24,7 @@ Today, the number of **semicustom designs** outnumbers **custom designs**. Recen
 
 These classes further subdivide into **subclasses**, as shown in **Figure 1.2**.
 
-<figure><img src="../../.gitbook/assets/semi-custom-design.png" alt=""><figcaption><p>Figure 1.2 Semicustom design styles: a taxonomy</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/semi-custom-design (1).png" alt=""><figcaption><p>Figure 1.2 Semicustom design styles: a taxonomy</p></figcaption></figure>
 
 ### Cell-based Design
 
@@ -34,13 +34,13 @@ These classes further subdivide into **subclasses**, as shown in **Figure 1.2**.
 
 **Cell-based design styles** include **standard-cell design** (Figure 1.3). In this case, the **fundamental cells** are stored in a **library**. Cells are designed once, but **updates** are required as the progress in **semiconductor technology** allows for **smaller geometries**. Since every cell needs to be **parametrized** in terms of **area** and **delay** over ranges of **temperatures** and **operating voltages**, the **library maintenance** is far from a **trivial task**.
 
-<div align="center"><figure><img src="../../.gitbook/assets/standard-cell-design.png" alt="" width="375"><figcaption><p>Figure 1.3 One of AT&#x26;T's Application Specific Standard Product chips. The chip was designed and laid out using AT&#x26;T CAD tools, with a standard cell design style. (Courtesy of AT&#x26;T.)</p></figcaption></figure></div>
+<div align="center"><figure><img src="../../.gitbook/assets/standard-cell-design (1).png" alt="" width="375"><figcaption><p>Figure 1.3 One of AT&#x26;T's Application Specific Standard Product chips. The chip was designed and laid out using AT&#x26;T CAD tools, with a standard cell design style. (Courtesy of AT&#x26;T.)</p></figcaption></figure></div>
 
 The user of a **standard-cell library** must first conform his or her design to the **available library primitives**, a step called **library binding** or **technology mapping**. Then, cells are **placed** and **wired**. All these tasks have been **automated**. An extension is the **hierarchical standard-cell style**, where **larger cells** can be derived by combining **smaller ones**.
 
 A major advantage of **cell-based design** (**standard** and **macro-cells**) is the **compatibility with custom design**. Indeed, **custom components** can be added to a **semicustom layout**, and vice versa. The combination of **custom design** and **cell-based design** has been used often for **microprocessor design**, and is also referred to as **structured custom design** (Figure 1.4).
 
-<figure><img src="../../.gitbook/assets/structured-custom-design.png" alt="" width="375"><figcaption><p>Figure 1.4 Microphotograph of the Alpha AXP chip by Digital Equipment Corporation, using several macro-cells designed with proprietary CAD tools. (Courtesy of Digital Equipment Corporation.)</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/structured-custom-design (1).png" alt="" width="375"><figcaption><p>Figure 1.4 Microphotograph of the Alpha AXP chip by Digital Equipment Corporation, using several macro-cells designed with proprietary CAD tools. (Courtesy of Digital Equipment Corporation.)</p></figcaption></figure>
 
 #### Macro-cell based Design
 

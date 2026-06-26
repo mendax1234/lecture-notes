@@ -6,7 +6,7 @@ This book presents techniques for **synthesis** and **optimization** of **combin
 
 Figure 1.20 represents schematically the **synthesis** and **optimization** tasks and their relations to the **models**.
 
-<figure><img src="../../.gitbook/assets/circuit-models-synthesis-optimization.png" alt=""><figcaption><p>Figure 1.20 Circuit models, synthesis and optimization: a simplified view</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/circuit-models-synthesis-optimization (1).png" alt=""><figcaption><p>Figure 1.20 Circuit models, synthesis and optimization: a simplified view</p></figcaption></figure>
 
 We assume that **circuit specification** is done by means of **HDL models**. **Synthesis** and **optimization algorithms** are described as being based on **abstract models** that are powerful enough to capture the **essential information** of the HDL models, and that **decouple synthesis from language-specific features**.
 

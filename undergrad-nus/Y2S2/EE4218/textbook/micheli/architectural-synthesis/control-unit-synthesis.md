@@ -17,11 +17,11 @@ It is important to remark that a synthesized **microcoded control unit** is **no
 
 As we already have our scheduled and bound sequence graph, the hard-wired control synthesis is nothing but to generate a **state-transition diagram** for the control unit. For example, suppose we are using the following sequence diagram and we are using a **dedicated binding**,
 
-<figure><picture><source srcset="../../.gitbook/assets/unconstrained-scheduling-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/unconstrained-scheduling-light.png" alt="" width="563"></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/unconstrained-scheduling-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/unconstrained-scheduling-light (1).png" alt="" width="563"></picture><figcaption></figcaption></figure>
 
 Then the state-transition diagram, which is the result of our control-unit synthesis, will be shown as follows:
 
-<figure><picture><source srcset="../../.gitbook/assets/control-unit-synthesis-state-tran-light.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/control-unit-synthesis-state-tran-dark.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/control-unit-synthesis-state-tran-light (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/control-unit-synthesis-state-tran-dark (1).png" alt=""></picture><figcaption></figcaption></figure>
 
 This state-transition diagram basically means when the FSM is in S1, its output will be 1, 2, 6, 8, 10, which are equivalent to activate the $$v_1,v_2,v_6,v_8$$ and $$v_{10}$$ operations. And similar for the rest 3 states.
 
@@ -54,7 +54,7 @@ Consider the **scheduled sequencing graph** we've seen in the [#hard-wired-contr
 
 Thus, a **2-bit counter** driving a **ROM** with **four words** of **11 bits** is sufficient, as shown in Figure 4.13.
 
-<figure><picture><source srcset="../../.gitbook/assets/horizontal-microcode-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/horizontal-microcode-example-light.png" alt="" width="438"></picture><figcaption><p>Figure 4.13 Example of horizontal microcode</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/horizontal-microcode-example-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/horizontal-microcode-example-light (1).png" alt="" width="438"></picture><figcaption><p>Figure 4.13 Example of horizontal microcode</p></figcaption></figure>
 
 </details>
 
@@ -73,7 +73,7 @@ Vertical control schemes can be implemented either by **lengthening the schedule
 
 Consider again the **scheduled sequencing graph** we've seen in the [#hard-wired-control-synthesis](control-unit-synthesis.md#hard-wired-control-synthesis "mention") and assume a **dedicated binding**. For the sake of simplicity, assume that there are as many **activation signals** as **operations**, and that they are encoded using the **4-bit binary encoding** of the **operation identifier**.
 
-<figure><picture><source srcset="../../.gitbook/assets/vertical-microcode-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/vertical-microcode-example-light.png" alt="" width="149"></picture><figcaption><p>Figure 4.14 Example of vertical microcode</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/vertical-microcode-example-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/vertical-microcode-example-light (1).png" alt="" width="149"></picture><figcaption><p>Figure 4.14 Example of vertical microcode</p></figcaption></figure>
 
 Figure 4.14 can be interpreted in two ways:
 
@@ -104,7 +104,7 @@ Consider again the **scheduled sequencing graph** of Figure 4.3 and assume a **d
 
 Note that the operations within each **group** are **not concurrent**. Therefore, each group can be **vertically encoded**, as shown in Figure 4.15.
 
-<figure><picture><source srcset="../../.gitbook/assets/optimize-microcode-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/optimize-microcode-light.png" alt="" width="381"></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/optimize-microcode-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/optimize-microcode-light (1).png" alt="" width="381"></picture><figcaption></figcaption></figure>
 
 In this scheme, **null fields** (e.g., all-zero entries within a field) indicate that no **operation** in that group is activated during the corresponding **control step**.
 

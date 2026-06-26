@@ -6,11 +6,11 @@ There are **four stages** in the creation of an **integrated circuit**: **design
 * Synthesis & Optimization
 * Validation
 
-<figure><img src="../../.gitbook/assets/four-phases-in-creating-microelec-chip.png" alt="" width="563"><figcaption><p>Figure 1.7 The four phases in creating a microelectronic chip</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/four-phases-in-creating-microelec-chip (1).png" alt="" width="563"><figcaption><p>Figure 1.7 The four phases in creating a microelectronic chip</p></figcaption></figure>
 
 ## Modeling
 
-> Modelling consists of **casting an idea into a model**, which captures the **function** that the **circuit** will perform.&#x20;
+> Modelling consists of **casting an idea into a model**, which captures the **function** that the **circuit** will perform.
 
 **Circuit models** are used to **represent ideas**.
 

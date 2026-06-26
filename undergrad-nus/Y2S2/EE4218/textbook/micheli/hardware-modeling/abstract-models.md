@@ -12,7 +12,7 @@ We present in this section some **abstract models** that are used to represent d
 
 For example, the following figure shows an incidence structure.
 
-<figure><picture><source srcset="../../.gitbook/assets/incidence-structure.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/incidence-structure-light.png.png" alt="" width="455"></picture><figcaption><p>Figure 3.5(a) Modules, nets and pins</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/incidence-structure (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/incidence-structure-light.png (1).png" alt="" width="455"></picture><figcaption><p>Figure 3.5(a) Modules, nets and pins</p></figcaption></figure>
 
 <details>
 
@@ -25,11 +25,11 @@ Incidence structures can be made hierarchical in the following way.
 
 For example, let's say the module `m2` in Figure 3.5(a) has **submodules**, the details of `m2` can be shown as follows,
 
-<figure><picture><source srcset="../../.gitbook/assets/hierarchical-abstract-incidence-structure-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/hierarchical-abstract-incidence-structure-light.png" alt="" width="373"></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/hierarchical-abstract-incidence-structure-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/hierarchical-abstract-incidence-structure-light (1).png" alt="" width="373"></picture><figcaption></figcaption></figure>
 
 So, our incidence structure in Figure 3.5(a) will be something like as follows:
 
-<figure><picture><source srcset="../../.gitbook/assets/hierarchy-incidence-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/hierarchy-incidence-light.png.png" alt="" width="320"></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/hierarchy-incidence-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/hierarchy-incidence-light.png (1).png" alt="" width="320"></picture><figcaption></figcaption></figure>
 
 </details>
 
@@ -39,29 +39,29 @@ We have three **abstract models** to model this incidence stucture.
 
 The **module-net incidence matrix** or **module-oriented netlist** to model Figure 3.5(a) are shown as follows:
 
-<figure><picture><source srcset="../../.gitbook/assets/incidence-matrix-netlist-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/incidence-matrix-netlist-light.png.png" alt="" width="258"></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/incidence-matrix-netlist-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/incidence-matrix-netlist-light.png (1).png" alt="" width="258"></picture><figcaption></figcaption></figure>
 
 ### Hypergraph
 
 The **hypergraph** model of Figure 3.5(a) can be shown as follows:
 
-<figure><picture><source srcset="../../.gitbook/assets/hyper-graph-abstract-model-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/hyper-graph-abstract-model-light.png" alt="" width="319"></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/hyper-graph-abstract-model-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/hyper-graph-abstract-model-light (1).png" alt="" width="319"></picture><figcaption></figcaption></figure>
 
 ### Bipartite Graph
 
-The bipartite graph is **equivalent** to a hypergraph. Similarly, the bipartite graph model of Figure 3.5(a)  is shown as follows:
+The bipartite graph is **equivalent** to a hypergraph. Similarly, the bipartite graph model of Figure 3.5(a) is shown as follows:
 
-<figure><picture><source srcset="../../.gitbook/assets/bipartite-graph-abstract-model-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/bipartite-graph-abstract-model-light.png.png" alt="" width="229"></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/bipartite-graph-abstract-model-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/bipartite-graph-abstract-model-light.png (1).png" alt="" width="229"></picture><figcaption></figcaption></figure>
 
 ## Logic Networks
 
 A generalized logic network is a structure in which each leaf module is associated with a **multiple-input and single output** combinational or sequential logic function.
 
-<figure><picture><source srcset="../../.gitbook/assets/logic-network-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/logic-network-example-light.png" alt="" width="534"></picture><figcaption><p>Figure 3.7 Example of a logic network</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/logic-network-example-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/logic-network-example-light (1).png" alt="" width="534"></picture><figcaption><p>Figure 3.7 Example of a logic network</p></figcaption></figure>
 
 Logic networks are usually represented by **graphs**.
 
-<figure><picture><source srcset="../../.gitbook/assets/logic-network-graph-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/logic-network-graph-light.png" alt="" width="500"></picture><figcaption><p>Figure 3.8 Example of a logic network graph</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/logic-network-graph-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/logic-network-graph-light (1).png" alt="" width="500"></picture><figcaption><p>Figure 3.8 Example of a logic network graph</p></figcaption></figure>
 
 {% hint style="warning" %}
 Logic network is a **hybrid structural/behavioral** representation. The node $$V_p$$ adheres to the "multiple inputs, single output" rule because the output coming out from $$V_p$$ used by $$V_q$$ and $$V_x$$ is the same!
@@ -90,18 +90,18 @@ The **behavioral view** of **sequential circuits** at the **logic level** can be
 
 The **state transition table** is a tabulation of the state transition and output functions. Its corresponding graph-based representation is the **state transition diagram**.
 
-<figure><picture><source srcset="../../.gitbook/assets/state-transition-diagram-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/state-transition-diagram-example-light.png" alt="" width="563"></picture><figcaption><p>Figure 3.9 Example of a state transition diagram</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/state-transition-diagram-example-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/state-transition-diagram-example-light (1).png" alt="" width="563"></picture><figcaption><p>Figure 3.9 Example of a state transition diagram</p></figcaption></figure>
 
 ### Hierarchical State Diagram
 
 It is sometimes convenient to represent finite-state machine diagrams **hierarchically** by splitting them into subdiagrams. An example is shown as follows:
 
-<figure><picture><source srcset="../../.gitbook/assets/hierarchical-state-diagram-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/hierarchical-state-diagram-example-light.png" alt=""></picture><figcaption><p>Figure 3.10 Example of a hierarchical state transition diagram.</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/hierarchical-state-diagram-example-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/hierarchical-state-diagram-example-light (1).png" alt=""></picture><figcaption><p>Figure 3.10 Example of a hierarchical state transition diagram.</p></figcaption></figure>
 
 There are two levels in the diagram:
 
 1. the top level has three states, and
-2. the lower level has four.&#x20;
+2. the lower level has four.
 
 A transition into the calling state ($$s_{01}$$) is equivalent to a transition to the entry state of the lower level of the hierarchy, i.e., into ($$s_{10}$$). Transitions into ($$s_{13}$$) correspond to a transition back to ($$s_{01}$$). In simple terms, the dotted edges of the diagram are traversed immediately.
 
@@ -131,7 +131,7 @@ y = y1 ;
 
 The data graph for the code above can be shown as follows:
 
-<figure><picture><source srcset="../../.gitbook/assets/data-flow-graph-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/data-flow-graph-example-light.png.png" alt="" width="563"></picture><figcaption><p>Figure 3.11 Example of a data flow graph</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/data-flow-graph-example-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/data-flow-graph-example-light.png (1).png" alt="" width="563"></picture><figcaption><p>Figure 3.11 Example of a data flow graph</p></figcaption></figure>
 
 Data-Flow graphs are useful to represent **data paths** (not control) and it is **purely behavioral**.
 
@@ -148,7 +148,7 @@ The sequencing graphs are an **extension** of the data graphs. They are useful t
 3. Two extra vertices called **source** and **sink** which always model NOPs.
 4. Often shown without data annotations, especially when doing scheduling and binding
 
-<figure><picture><source srcset="../../.gitbook/assets/sequence-graph-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/sequence-graph-example-light.png.png" alt="" width="563"></picture><figcaption><p>Figure 3.12 Example of a sequencing graph</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/sequence-graph-example-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/sequence-graph-example-light.png (1).png" alt="" width="563"></picture><figcaption><p>Figure 3.12 Example of a sequencing graph</p></figcaption></figure>
 
 {% hint style="warning" %}
 The top NOP is **source** and the bottom NOP is **sink**.
@@ -158,21 +158,21 @@ The top NOP is **source** and the bottom NOP is **sink**.
 
 {% stepper %}
 {% step %}
-#### Hierarchical Sequencing Graph
+**Hierarchical Sequencing Graph**
 
-<figure><picture><source srcset="../../.gitbook/assets/hierarchical-sequencing-graph-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/hierarchical-sequencing-graph-light.png.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/hierarchical-sequencing-graph-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/hierarchical-sequencing-graph-light.png (1).png" alt=""></picture><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
-#### Branching Sequencing Graph
+**Branching Sequencing Graph**
 
-<figure><picture><source srcset="../../.gitbook/assets/branching-sequencing-graph-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/branching-sequencing-graph-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/branching-sequencing-graph-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/branching-sequencing-graph-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
-#### Iteration Sequencing Graph
+**Iteration Sequencing Graph**
 
-<figure><picture><source srcset="../../.gitbook/assets/iteration-sequencing-graph-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/iteration-sequencing-graph-light.png" alt=""></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/iteration-sequencing-graph-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/iteration-sequencing-graph-light (1).png" alt=""></picture><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 

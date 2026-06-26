@@ -41,7 +41,7 @@ Examples of representations for geometric models are **floor plans**, **layouts*
 
 A simple example of the different **modeling levels** of a simple processor is shown in **Figure 1.8**.
 
-<figure><img src="../../.gitbook/assets/circuit-model-abstraction.png" alt="" width="282"><figcaption><p>Figure 1.8 Three abstraction levels of a circuit representation</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/circuit-model-abstraction (1).png" alt="" width="282"><figcaption><p>Figure 1.8 Three abstraction levels of a circuit representation</p></figcaption></figure>
 
 * At the **architectural level**, a **processor** is described by an **HDL model**.
 * A **schematic** captures the **logic-level specification**.
@@ -69,11 +69,11 @@ As another example, consider the **logic-level model** of a synchronous circuit.
 
 **Levels of abstractions** and **views** are **synthetically represented** by Figure 1.9, where **views** are shown as the **segments of the letter "Y"**.
 
-<figure><img src="../../.gitbook/assets/circuit-model-view.png" alt="" width="563"><figcaption><p>Figure 1.9 Circuit views and levels of abstractions</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/circuit-model-view (1).png" alt="" width="563"><figcaption><p>Figure 1.9 Circuit views and levels of abstractions</p></figcaption></figure>
 
 Consider again the **circuit** of example shown in Figure 1.8 above. Figure 1.10 highlights **behavioral** and **structural views** at both the **architectural** and the **logic levels**.
 
-<figure><img src="../../.gitbook/assets/level-of-abstraction-views.png" alt="" width="563"><figcaption><p>Figure 1.10 Levels of abstraction and corresponding views</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/level-of-abstraction-views (1).png" alt="" width="563"><figcaption><p>Figure 1.10 Levels of abstraction and corresponding views</p></figcaption></figure>
 
 ## Synthesis
 
@@ -90,7 +90,7 @@ The model classification relates to a taxonomy of the synthesis tasks. **Synthes
 
 The **synthesis tasks** are **synthetically depicted** in Figure 1.11.
 
-<figure><img src="../../.gitbook/assets/synthesis-tasks.png" alt="" width="563"><figcaption><p>Figure 1.11 Levels of abstractions, views and synthesis tasks</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/synthesis-tasks (1).png" alt="" width="563"><figcaption><p>Figure 1.11 Levels of abstractions, views and synthesis tasks</p></figcaption></figure>
 
 We now describe these tasks in more detail, considering them in the order corresponding to their use in a top-down synthesis system. This sequence is the **converse** of that corresponding to their historical development and level of maturity.
 
@@ -147,7 +147,7 @@ For the architectural synthesis task, let us assume for simplicity that the data
 A **structural view** of the **circuit** at the **architectural level** shows the **macroscopic structure** of the **implementation**. This view can be described by a **block diagram**, as in Figure 1.12, or equivalently by means of a structural HDL.
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/architectural-synthesis-example.png" alt=""><figcaption><p>Figure 1.12 Example of structural view at the architectural level</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/architectural-synthesis-example (1).png" alt=""><figcaption><p>Figure 1.12 Example of structural view at the architectural level</p></figcaption></figure>
 
 </details>
 
@@ -174,7 +174,7 @@ A **behavioral view** of the **control unit** at the **logic level** is given by
 
 A **structural view** of the **control unit** at the **logic level** is shown by the **hierarchical schematic** of **Figure 1.13(b)**, which shows the **logic gates** that implement the **transitions among the states** (**s**<sub>**0**</sub>**, s**<sub>**1**</sub>**, …, s**<sub>**9**</sub>) and that **enable** the **reading** and **writing** of the **data**. The **subcircuit** that controls the **iteration** is represented by the box labeled "**loop control**."
 
-<figure><img src="../../.gitbook/assets/logical-synthesis-example.png" alt=""><figcaption><p>Figure 1.13</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/logical-synthesis-example (1).png" alt=""><figcaption><p>Figure 1.13</p></figcaption></figure>
 
 </details>
 
@@ -219,7 +219,7 @@ Non-piplined synchronous sequential circuits usually care about **cycle-time** a
 
 {% stepper %}
 {% step %}
-#### Cycle-time
+**Cycle-time**
 
 The **performance** of a **synchronous sequential circuit** can be measured by its **cycle-time**, i.e., the **period** of the **fastest clock** that can be applied to the **circuit**.
 
@@ -229,7 +229,7 @@ The **delay** through the **combinational component** of a **sequential circuit*
 {% endstep %}
 
 {% step %}
-#### Latency
+**Latency**
 
 When considering an **architectural-level model** of a **circuit** as a **sequence of operations**, with a **synchronous sequential implementation**, one measure of **performance** is **circuit latency**, i.e., the **time required** to **execute the operations**.
 
@@ -241,9 +241,9 @@ NUS EE4415 also has some notes on [latency](https://app.gitbook.com/s/Sp0XaarBjb
 {% endstep %}
 
 {% step %}
-#### Throughput
+**Throughput**
 
-> **Synchronous circuits** can implement a **sequence of operations** in a **pipeline fashion**, where the **circuit** performs **concurrent operations** on **different data sets**.&#x20;
+> **Synchronous circuits** can implement a **sequence of operations** in a **pipeline fashion**, where the **circuit** performs **concurrent operations** on **different data sets**.
 
 An additional measure of **performance** is the **rate** at which **data** are **produced** and **consumed**, called the **throughput** of the **circuit**. In other words, **throughput** is "number of computations completed per unit of time."
 
@@ -297,7 +297,7 @@ Assume **area costs** as follows: **multiplier = 5 units**, **ALU = 1 unit**, an
 
 Considering the design points **(a**<sub>**1**</sub>**,a**<sub>**2**</sub>**) = (1,1), (1,2), (2,1), (2,2)**, the corresponding **design evaluation space** is shown in **Figure 1.15**, with numbers in parentheses indicating the associated points in the **design space**.
 
-<figure><img src="../../.gitbook/assets/example-design-space.png" alt="" width="563"><figcaption><p>Figure 1.15 Example of design (evaluation) space</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/example-design-space (1).png" alt="" width="563"><figcaption><p>Figure 1.15 Example of design (evaluation) space</p></figcaption></figure>
 
 </details>
 
@@ -329,7 +329,7 @@ We now consider the examples of design (evaluation) spaces for different circuit
 
 In this case, the **design evaluation space objectives** are **(area, delay)**. **Figure 1.16** shows an example of the **trade-off points** in this **space** for **multiple-level logic circuit implementations**. These points can be **interpolated** to form an **area–delay trade-off curve**.
 
-<figure><img src="../../.gitbook/assets/area-delay-design-space.png" alt="" width="527"><figcaption><p>Figure 1.16 Design (evaluation) space: area/delay trade-off points for a 64-bit adder. (Area and delay are measured in terms of equivalent gates)</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/area-delay-design-space (1).png" alt="" width="527"><figcaption><p>Figure 1.16 Design (evaluation) space: area/delay trade-off points for a 64-bit adder. (Area and delay are measured in terms of equivalent gates)</p></figcaption></figure>
 
 <details>
 
@@ -339,7 +339,7 @@ As a second example, consider the **implementation** of a **circuit** whose **lo
 
 The corresponding **design evaluation space** is shown in **Figure 1.18**. Note that the **structures** labeled **c** and **d** in **Figure 1.17** are **not Pareto points**.
 
-<figure><img src="../../.gitbook/assets/area-latency-design-space.png" alt="" width="563"><figcaption><p>Figure 1.18 Example of design evaluation space: (a) and (b) are area/delay trade-off points</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/area-latency-design-space (1).png" alt="" width="563"><figcaption><p>Figure 1.18 Example of design evaluation space: (a) and (b) are area/delay trade-off points</p></figcaption></figure>
 
 </details>
 
@@ -349,15 +349,15 @@ When we consider **logic-level models** for **sequential synchronous circuits**,
 
 {% stepper %}
 {% step %}
-#### Nonpipelined
+#### **Nonpipelined**
 
 When considering **nonpipelined architectural-level models**, the **design evaluation space objectives** are **(area, latency, cycle-time)**, where the **product** of the last two yields the **overall execution delay**. An example of the **design evaluation space** is shown in **Figure 1.19**. **Slices** of the **design evaluation space** for specific values of one **objective** are also of interest; for example, the **(area, latency) trade-off** is shown in **Figure 1.15**.
 
-<figure><img src="../../.gitbook/assets/area-latency-delay-trade-off.png" alt="" width="563"><figcaption><p>Figure 1.19 Design evaluation space: area/latency/cycle-time trade-off points</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/area-latency-delay-trade-off (1).png" alt="" width="563"><figcaption><p>Figure 1.19 Design evaluation space: area/latency/cycle-time trade-off points</p></figcaption></figure>
 {% endstep %}
 
 {% step %}
-#### Pipelined
+#### **Pipelined**
 
 For **architectural-level models** of **synchronous pipelined circuits**, **performance** is additionally measured by the **circuit throughput**. Hence, the **design evaluation space** involves the **quadruple** **(area, latency, cycle-time, throughput)**. **Architectural trade-offs** for **pipelined circuit implementations** will be described later in other section, with **examples** provided.
 {% endstep %}
@@ -371,7 +371,7 @@ In general, **pareto points** are solutions to constrained optimization problems
 
 {% stepper %}
 {% step %}
-#### Combinational Logic Optimization
+#### **Combinational Logic Optimization**
 
 Consider, for example, **combinational logic optimization**. Two **problems** of interest are:
 
@@ -382,7 +382,7 @@ Unfortunately, due to the **difficulty** of the **optimization problems**, only 
 {% endstep %}
 
 {% step %}
-#### Synchronous Sequential Logic Optimization
+#### **Synchronous Sequential Logic Optimization**
 
 Consider next **architectural-level models** of **synchronous circuits**. **Pareto points** are **solutions** to the following **problems**, for different values of the **cycle-time**:
 

@@ -36,14 +36,14 @@ The **latency** of the circuit still depends on the **schedule**, which in turn 
 
 All **data** transferred from one **resource** to another across a **cycle boundary** must be stored in some **register**.
 
-<figure><picture><source srcset="../../.gitbook/assets/unconstrained-scheduling-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/unconstrained-scheduling-light.png" alt="" width="563"></picture><figcaption></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/unconstrained-scheduling-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/unconstrained-scheduling-light (1).png" alt="" width="563"></picture><figcaption></figcaption></figure>
 
 For example, in the figure above we have seen, from opertion 1 to 3, as it crosses a cycle boundary, a register is needed there.
 
 An **upper bound** on the **register usage** can then be derived by examining a **scheduled sequencing graph**. This bound is, in general, **loose**, because the number of registers can be minimized. The **binding information** is needed for evaluating and/or performing the **register optimization**. Therefore, accurate estimation of the number of registers requires both **scheduling** and **binding**.
 
 {% hint style="warning" %}
-We will se how to do the **register optimization** in [problem set 1](https://app.gitbook.com/s/08HOWaEgI5q3ZZTecFRP/tutorial/problem-set-1#id-04.-combine-everything)!
+We will se how to do the **register optimization** in [problem set 1](https://app.gitbook.com/s/08HOWaEgI5q3ZZTecFRP/tutorial/problem-set-1#id-4.-combine-everything)!
 {% endhint %}
 
 ### Steering Logic
@@ -66,7 +66,7 @@ While the **area of multiplexers** can be easily evaluated, determining their nu
 **Wiring** contributes to the overall **area** and **delay**. The **wiring area overhead** can be estimated from the structure, once a **binding** is known, by using models that are appropriate for the physical design style of the implementation. The **propagation delay** on the **wires** may not be negligible, and it is proportional to the **wiring length**.
 
 {% hint style="success" %}
-We can link it to the [wire-load models](/broken/spaces/Sp0XaarBjbEX3JIMrRaR/pages/yiHeUDckY82hF8wEj6os#wire-load-models) used in Synopsys tool suite we have learned in EE4415!
+We can link it to the [wire-load models](https://app.gitbook.com/s/GFmM0S0eSJLSE772wZne/textbook-synopsys/synopsys-technology-library/logic-library-basics#wire-load-models) used in Synopsys tool suite we have learned in EE4415!
 {% endhint %}
 
 Unfortunately, estimating the **wiring area** and **length** requires knowledge of both the structure (i.e., the **binding**) and the **placement** of the physical implementation of the resources. Fast floor planners, statistical placement models, and statistical wiring models have been used for this purpose.

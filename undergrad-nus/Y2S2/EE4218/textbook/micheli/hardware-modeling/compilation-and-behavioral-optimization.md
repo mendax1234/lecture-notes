@@ -13,7 +13,7 @@ The **front end** is **language dependent**, and the **back end** varies accordi
 
 Similarly, a **hardware compiler** can be seen as consisting of a **front end**, an **optimizer**, and a **back end** (Figure 3.16).
 
-<figure><picture><source srcset="../../.gitbook/assets/sw-hw-compiler-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/sw-hw-compiler-light.png" alt=""></picture><figcaption><p>Figure 3.16 Anatomies of software and hardware compilers.</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/sw-hw-compiler-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/sw-hw-compiler-light (1).png" alt=""></picture><figcaption><p>Figure 3.16 Anatomies of software and hardware compilers.</p></figcaption></figure>
 
 The **back end** of a hardware compiler is much more complex than a **software compiler** because of the requirements on **timing** and **interface** of the internal operations. The **back end** exploits several techniques that go under the generic names of:
 
@@ -25,7 +25,7 @@ We describe the **front end** and the **optimization techniques** in this sectio
 
 {% stepper %}
 {% step %}
-#### Software Compilation
+**Software Compilation**
 
 * **Front end:** Compile program into intermediate representation (IR).
 * **Optimisation**: Optimise IR.
@@ -33,7 +33,7 @@ We describe the **front end** and the **optimization techniques** in this sectio
 {% endstep %}
 
 {% step %}
-#### High-level Synthesis
+**High-level Synthesis**
 
 * **Front end**: Compile High-Level model into **sequencing graph.**
 * **Optimisation**: Optimise the sequencing graph.
@@ -41,7 +41,7 @@ We describe the **front end** and the **optimization techniques** in this sectio
 {% endstep %}
 
 {% step %}
-#### RTL/HDL Synthesis
+**RTL/HDL Synthesis**
 
 * **Front end**: Parse RTL description into a **synchronous logic network**.
 * **Optimisation**: Optimise combinational and sequential logic.
@@ -65,7 +65,7 @@ A **lexical analyzer** is a component of a compiler that reads the **source mode
 
 A **parser** receives a set of **tokens**. Its first task is to verify that they satisfy the syntax rules of the language. The parser has knowledge of the grammar of the language and generates a set of **parse trees**, which are tree-like representations of the syntactic structure of a language (an example is shown in Figure 3.17).
 
-<figure><picture><source srcset="../../.gitbook/assets/parse-tree-example-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/parse-tree-example-light.png" alt=""></picture><figcaption><p>Figure 3.17 Example of a parse tree for the statement a = p + q * r.</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/parse-tree-example-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/parse-tree-example-light (1).png" alt=""></picture><figcaption><p>Figure 3.17 Example of a parse tree for the statement a = p + q * r.</p></figcaption></figure>
 
 **Syntactic errors**, as well as some **semantic errors** (such as an operator applied to an incompatible operand), are detected at this stage. The **error recovery policy** depends on the compiler and on the gravity of the error. Software tools can be used to create **lexical analyzers** and **parsers**, such as `lex` and `yacc`, commonly provided with the UNIX operating system.
 
@@ -126,11 +126,11 @@ allows the first two additions to be performed in **parallel** if enough **hardw
 
 </details>
 
-**Tree-height reduction** was studied in depth as an **optimization scheme** for **software compilers**. It is used in **hardware compilers** mainly as a **local transformation**, due to the limited **parallelism** in **basic blocks**. **Tree-height reduction** exploits properties of **arithmetic operations** to **balance the expression tree** as much as possible. In the best case, the **tree height** is  $$O(\log n_{ops})$$ for ($$n_{ops}$$) operations, and the height is proportional to a **lower bound** on the overall **computation time**.
+**Tree-height reduction** was studied in depth as an **optimization scheme** for **software compilers**. It is used in **hardware compilers** mainly as a **local transformation**, due to the limited **parallelism** in **basic blocks**. **Tree-height reduction** exploits properties of **arithmetic operations** to **balance the expression tree** as much as possible. In the best case, the **tree height** is $$O(\log n_{ops})$$ for ($$n_{ops}$$) operations, and the height is proportional to a **lower bound** on the overall **computation time**.
 
 {% stepper %}
 {% step %}
-#### Commutativity and Associativity
+**Commutativity and Associativity**
 
 The simplest **reduction algorithm** uses the **commutativity** and **associativity** of **addition** and **multiplication**. It **permutes the operands** to form subexpressions with the same **operator**, which can then be **reduced** using the **associative property**.
 
@@ -164,7 +164,7 @@ This **transformation** is illustrated in **Figure 3.18**. A further **refinemen
 {% endstep %}
 
 {% step %}
-#### Distributivity
+**Distributivity**
 
 A further refrinement can be achieved by exploring the distributive propery, possibly at the expense of adding an operation.
 
@@ -196,7 +196,7 @@ which has a **tree height of 3** and **one additional operation**. This **transf
 
 {% stepper %}
 {% step %}
-#### Constant Propagation
+**Constant Propagation**
 
 **Constant propagation**, also called **constant folding**, consists of detecting **constant operands** and **pre-computing** the value of the operation involving those operands. Since the result may itself be a **constant**, it can be **propagated** to subsequent **operations** that use it as an **input**.
 
@@ -226,7 +226,7 @@ through **constant propagation**, where **constant values** are **pre-computed**
 {% endstep %}
 
 {% step %}
-#### Variable Propagation
+**Variable Propagation**
 
 **Variable propagation**, also called **copy propagation**, consists of detecting **copies of variables**, i.e., assignments such as:
 

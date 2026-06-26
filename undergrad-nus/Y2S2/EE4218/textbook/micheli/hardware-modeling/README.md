@@ -33,7 +33,7 @@ Perhaps the two bullet points above are the most important **intuitions** from t
 
 Figure 1.20 (we have seen this at the [..](../../ "mention") chapter) shows the relations among HDL models, abstract models, and the synthesis tasks.
 
-<figure><img src="../../.gitbook/assets/circuit-models-synthesis-optimization.png" alt=""><figcaption><p>Figure 1.20 Circuit models, synthesis and optimization: a simplified view</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/circuit-models-synthesis-optimization (1).png" alt=""><figcaption><p>Figure 1.20 Circuit models, synthesis and optimization: a simplified view</p></figcaption></figure>
 
 The **language models** can be thought of as a way to specify the specifications. In other words, what we want to achieve. In HDL, we have two flavors: **normal RTL** and **Netlist**. Thus, we have different **abstract models** to capture the information described by these two flavors of HDL.
 

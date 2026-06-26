@@ -16,7 +16,7 @@ We've seen this one kind of this structure (pipelined) in the RISC-V processor d
 
 {% stepper %}
 {% step %}
-#### Datapath
+#### **Datapath**
 
 The data path consists of
 
@@ -26,7 +26,7 @@ The data path consists of
 {% endstep %}
 
 {% step %}
-#### Control Unit
+#### **Control Unit**
 
 The control unit includes
 
@@ -43,7 +43,7 @@ The control unit is usually a **FSM** of some sort. And the control unit has two
 
 An example of such a macroscopic structure is the differential equation integrator shown in Figure 4.1.
 
-<figure><picture><source srcset="../../.gitbook/assets/control-unit-datapath-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/control-unit-datapath-light.png" alt=""></picture><figcaption><p>Figure 4.1 Structural view of the differential equation integrator with one multiplier and one ALU</p></figcaption></figure>
+<figure><picture><source srcset="../../.gitbook/assets/control-unit-datapath-dark (1).png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/control-unit-datapath-light (1).png" alt=""></picture><figcaption><p>Figure 4.1 Structural view of the differential equation integrator with one multiplier and one ALU</p></figcaption></figure>
 
 So, usually the process to come up with such a structure is that
 
