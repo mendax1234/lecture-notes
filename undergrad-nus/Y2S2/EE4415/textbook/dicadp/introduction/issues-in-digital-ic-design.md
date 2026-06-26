@@ -14,7 +14,7 @@ The obvious next question is why such an approach is feasible in the digital wor
 
 Typically used abstraction levels in digital circuit design are, in order of increasing abstraction, the device, circuit, gate, functional module (e.g., adder) and system levels (e.g., processor), as illustrated in the following figure. A semiconductor device is an entity with a very complex behavior.
 
-<figure><img src="../../.gitbook/assets/dicadp-design-abstra-level.png" alt="" width="563"><figcaption><p>Design abstraction levels in digital circuits</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/dicadp-design-abstra-level (1).png" alt="" width="563"><figcaption><p>Design abstraction levels in digital circuits</p></figcaption></figure>
 
 This design philosophy has been the enabler for the emergence of elaborate computer-aided design (CAD) frameworks for digital integrated circuits; without it the current design complexity would not have been achievable. Design tools include simulation at the various complexity levels, design verification, layout generation, and design synthesis.
 
@@ -38,7 +38,7 @@ The **clock** is one of the most important global signals in a design. The funct
 
 Under ideal circumstances, the clock signal is a periodic step waveform with transitions **synchronized** throughout the designed circuit (in the following figure(a)). In light of our analogy, changes in the traffic lights should be **synchronized** to maximize throughput while avoiding accidents.
 
-<figure><img src="../../.gitbook/assets/dicadp-clock-misalignment.png" alt=""><figcaption><p>Impact of clock misalignment</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/dicadp-clock-misalignment (1).png" alt=""><figcaption><p>Impact of clock misalignment</p></figcaption></figure>
 
 {% hint style="success" %}
 Here, "synchronized" means that ideally there shouldn't be any delay when you apply the same clock on different modules.

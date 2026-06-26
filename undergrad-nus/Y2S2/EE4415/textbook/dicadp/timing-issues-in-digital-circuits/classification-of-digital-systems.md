@@ -15,7 +15,7 @@ In digital systems, signals can be classified depending on how they are related 
 
 In digital systems, a **synchronous signal** is one that has the exact same [frequency](classification-of-digital-systems.md#whats-the-frequency-of-a-signal-that-is-not-a-clk-signal) and a known fixed phase offset with respect to the local clock. In such a timing methodology, the signal is “synchronized” with the clock, and the data can be sampled directly without any uncertainty. In digital logic design, synchronous systems are the most straightforward type of interconnect, where the flow of data in a circuit proceeds in lockstep with the system clock as shown below.
 
-<figure><img src="../../.gitbook/assets/dicadp-synchronous-interconnect-methadology.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/dicadp-synchronous-interconnect-methadology (1).png" alt=""><figcaption></figcaption></figure>
 
 Here, the input data signal `In` is sampled with register R<sub>1</sub> to give signal C<sub>in</sub>, which is synchronous with the system clock and then passed along to the combinational logic block. After a [suitable setting period](#user-content-fn-1)[^1], the output C<sub>out</sub> becomes valid and can be sampled by R<sub>2</sub> which synchronizes the output with the clock. In a sense, the "certainty period" of signal C<sub>out</sub>, or the period where data is valid is synchronized with the system clock, which allows register R<sub>2</sub> to sample the data with complete confidence. The length of the “uncertainty period,” or the period where data is not valid, places an _upper bound on how fast a synchronous interconnect system can be clocked_.
 
