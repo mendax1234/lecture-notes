@@ -68,7 +68,7 @@ When designing an embedded system (sensor -> processor -> actuator[^2]), we must
 
 > HW/SW Co-design is about designing the hardware specifically for a type of software to make it efficient.
 
-The goal is to find the optimal point (a.k.a, [Pareto Point](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/introduction/computer-aided-synthesis-and-optimization#pareto-point)) on the Pareto Curve (trading off Resources vs. Performance)
+The goal is to find the optimal point (a.k.a, [Pareto Point](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/readme/computer-aided-synthesis-and-optimization#pareto-point)) on the Pareto Curve (trading off Resources vs. Performance)
 
 <figure><img src="../.gitbook/assets/hw-sw-codesign-pareto-curve (1).png" alt="" width="331"><figcaption></figcaption></figure>
 
@@ -117,7 +117,7 @@ Here, each decision is binary, making the problem inherently discrete. The knaps
 
 ### Complexity
 
-**Complexity** is defined as the run time on deterministic, sequential machine. We measure algorithms using [**Big-O notation**](https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/KipySCGxC8NC1UpA24DS/) ($$O(f(n))$$), which ignores constants and describes the trend as input size $$n$$ grows.
+**Complexity** is defined as the run time on deterministic, sequential machine. We measure algorithms using [**Big-O notation**](https://app.gitbook.com/s/KipySCGxC8NC1UpA24DS/lec-tut-lab-exes/lab/lab-07-compiling-with-clang#big-o) ($$O(f(n))$$), which ignores constants and describes the trend as input size $$n$$ grows.
 
 * **P (Polynomial)**: Solvable in polynomial time (Tractable).
 * **NP (Non-deterministic Polynomial)**: Exact solution requires exponential time. We usually settle for "heuristics" to find a "good enough" solution rather than the optimal one.

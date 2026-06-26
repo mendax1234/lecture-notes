@@ -269,7 +269,7 @@ Page 83 of the [AMD HLS Optimization guide](https://docs.amd.com/v/u/en-US/ug127
 
 > This is the **fourth** HLS technique that we are introducing in this HLS tutorial. The rest three are: Multicycle, Pipeline, and Unrolling & Partition.
 
-**Dataflow** is nothing but a **macroscopic** pipelining. Now, instead of thinking about how to accelerate a data stream, we are thinking about how to accelerate a **block stream** where a block contains bunches of data. An example will be the coprocessor that we designed in EE4218 [Lab 01](https://app.gitbook.com/s/BcpQMbfvKRcTJoaXhJD0/lab/lab-01-introduction-to-hardware-design).
+**Dataflow** is nothing but a **macroscopic** pipelining. Now, instead of thinking about how to accelerate a data stream, we are thinking about how to accelerate a **block stream** where a block contains bunches of data. An example will be the coprocessor that we designed in EE4218 [Lab 01](https://app.gitbook.com/s/BcpQMbfvKRcTJoaXhJD0/lab/readme).
 
 <figure><img src="../.gitbook/assets/data-flow-example (1).png" alt="" width="377"><figcaption></figcaption></figure>
 
