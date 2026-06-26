@@ -680,7 +680,7 @@ set_max_delay 5 -from [all_inputs] -to [all_outputs]
 This command is the **opposite** of the [#set\_max\_delay](environment-and-constraints.md#set_max_delay "mention") command, and is used to define the **minimum delay** required in terms of time units for a particular **path**.
 
 {% hint style="danger" %}
-This command also has the precedence over [**DC derived timing requirements**](https://wenbo-notes.gitbook.io/ee4415-icd-notes/textbook-2-aacs/constraining-designs/environment-and-constraints#hold-timing-report)!
+This command also has the precedence over [DC derived timing requirements](environment-and-constraints.md#hold-timing-report)!
 {% endhint %}
 
 ### `group_path`
