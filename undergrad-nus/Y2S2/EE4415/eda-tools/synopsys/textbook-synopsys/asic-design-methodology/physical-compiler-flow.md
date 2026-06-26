@@ -28,7 +28,7 @@ The basic Physical Compiler design flow contains the steps outlined below.
 
 Figure 1-4 illustrates the flow chart relating to the design flow described above.
 
-<figure><img src="../../.gitbook/assets/physical-design-flow.png" alt="" width="563"><figcaption><p>Figure 1-4 Physical Compiler Flow</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/physical-design-flow (1).png" alt="" width="563"><figcaption><p>Figure 1-4 Physical Compiler Flow</p></figcaption></figure>
 
 ## Physical Synthesis
 

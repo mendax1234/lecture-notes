@@ -24,7 +24,7 @@ group {U1 U2} -design_name sub1
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/group.png" alt=""><figcaption><p>Figure 5-1 Changing Partitions (Group)</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/group (1).png" alt=""><figcaption><p>Figure 5-1 Changing Partitions (Group)</p></figcaption></figure>
 
 ### Ungroup Command
 
@@ -37,7 +37,7 @@ ungroup -all
 ```
 {% endcode %}
 
-<figure><img src="../../.gitbook/assets/ungroup.png" alt=""><figcaption><p>Figure 5-1 Changing Partitions (Ungroup)</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/ungroup (1).png" alt=""><figcaption><p>Figure 5-1 Changing Partitions (Ungroup)</p></figcaption></figure>
 
 The designer can also use the `ungroup` command along with the `-flatten` and `-all` options to flatten the entier hierarchy. This is illustrated below:
 
@@ -46,4 +46,3 @@ The designer can also use the `ungroup` command along with the `-flatten` and `-
 ungroup -flatten -all
 ```
 {% endcode %}
-
