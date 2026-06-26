@@ -1,0 +1,1456 @@
+\documentclass[math,code]{amznotes}
+\setcounter{tocdepth}{2}  % Only show sections in the ToC
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage{tabularx}
+\usepackage{float} % Needed for [H] placement specifier
+\usepackage{wrapfig} % Needed for wrapping figures
+\usepackage{diagbox} % For diagonal split in table
+\usepackage{booktabs} % For better table formatting
+\usepackage{hyperref} % For hyperlink
+\usepackage{epigraph} % Used for quotes
+\usepackage{xeCJK} % Used for Chinese Characters
+\usepackage{longtable} % Used for long table for quiz preparation
+\usepackage{array} % Used for long table for quiz preparation
+\usepackage{enumitem} % Used for enumerated items inside the table
+
+\graphicspath{ {./images/} }
+\geometry{
+    a4paper,
+    headheight = 1.5cm
+}
+
+\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}
+
+\theoremstyle{remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{remark}{Remark}
+\newtheorem{case}{Case}
+
+\begin{document}
+\fancyhead[L]{
+    GEC1023 Social History of Piano
+}
+\fancyhead[R]{
+    Lecture Notes
+}
+\tableofcontents
+
+\chapter{Lectures}
+\section{The Roles of Early Keyboard Instruments}
+\subsection{Mid-17th Century Germany}
+
+\subsubsection{Historical Background}
+
+In the mid-17th century, Germany experienced major political and social changes that strongly influenced the development of music, especially keyboard music.
+
+The \textbf{Treaties of Westphalia (1648)} marked the end of the Thirty Years' War\footnote{The Thirty Years' War (1618--1648) was a devastating religious and political conflict in Europe that caused massive population loss and economic destruction, particularly in German lands.}. 
+Although peace was restored, the treaties left the Germanic lands politically fragmented rather than unified.
+\subsubsection{Political Structure}
+
+After 1648, the Germanic territories were divided into hundreds of small states, such as duchies, bishoprics, and free cities\footnote{A free city was a city that enjoyed political autonomy under the Holy Roman Empire.}. 
+Each region was ruled by local noble authorities who maintained their own courts and cultural institutions.
+
+This political fragmentation encouraged regional musical styles and led to strong traditions of court-sponsored music, including keyboard performance and composition.
+
+\subsubsection{Social Strata}
+
+German society at the time was clearly divided into three major social classes:
+\begin{itemize}
+    \item \textbf{Noble lords}: The aristocracy who controlled land, wealth, and political power. They were the primary patrons of musicians and owned expensive instruments such as harpsichords.
+    \item \textbf{Burghers}: The urban middle class, including merchants and educated professionals\footnote{Burghers were town citizens who were economically independent but did not belong to the nobility.}. They increasingly valued music education and domestic music-making.
+    \item \textbf{Peasants}: The rural population with limited access to formal education or musical training.
+\end{itemize}
+Access to music education and instruments was largely determined by social class.
+
+\subsubsection{Language and Intellectual Culture}
+
+Latin was the dominant language of education, religion, and intellectual discourse\footnote{Latin functioned as a universal scholarly language across Europe, symbolizing education and authority.}. Music theory treatises and educational materials were commonly written in Latin, reinforcing the idea that music was an intellectual and scholarly discipline.
+
+\subsubsection{Rationalism and Doctrinal Purity}
+
+The intellectual climate was shaped by \textbf{rationalism}, which emphasized reason, order, and logical structure\footnote{Rationalism is a philosophical movement that values reason as the primary source of knowledge.}. 
+In Protestant regions of Germany, there was also a strong focus on doctrinal purity, clarity, and discipline in both religion and art.
+
+These values influenced music by encouraging structural clarity, controlled expression, and systematic keyboard training, laying the foundation for later developments in keyboard and piano music.
+
+\subsection{Musical and Social Scenario}
+
+The musical culture of mid-17th century Germany reflected the social hierarchy and intellectual values of the time.
+
+Music was regarded primarily as an \textbf{intellectual activity rather than an emotional one}\footnote{This reflects the influence of rationalism, which valued structure, logic, and control over spontaneous emotional expression.}. As a result, composers focused on the \textbf{development of musical motives}, emphasizing systematic variation and formal coherence.
+
+Musical practices varied significantly across social classes:
+\begin{itemize}
+    \item \textbf{Peasants} primarily engaged in simple songs and dance music, which were transmitted orally and served social or festive functions.
+    \item \textbf{Princes} maintained chamber orchestras to perform instrumental and court music within palaces.
+    \item \textbf{Kings and dukes} supported large-scale opera productions, which required significant financial and organizational resources\footnote{Opera was an elite art form involving singers, orchestra, stage design, and theater infrastructure.}.
+\end{itemize}
+
+Music also reflected a strong sense of \textbf{foreign influence}. Italian opera was admired for its vocal style and dramatic expression, while court dances often followed French stylistic models\footnote{France was seen as a cultural leader in court etiquette, dance, and artistic taste during this period.}.
+
+The \textbf{educated burgher class} favored sacred music such as chorales and cantatas, particularly within the church setting. These genres combined religious devotion with intellectual musical structure and were accessible to the literate middle class.
+
+\subsection{The Organ}
+
+The \textbf{organ} was regarded as the \textbf{``king of instruments''} during the mid-17th century due to its grandeur, complexity, and intellectual status\footnote{The phrase “king of instruments” reflects the organ's large scale, wide pitch range, and strong association with sacred and intellectual traditions.}.  It was considered lofty, intricate, and highly intellectual, and was primarily used in churches.
+
+The organ played a central role in \textbf{polyphonic music}\footnote{Polyphonic music consists of multiple independent melodic lines sounding simultaneously, requiring precise control and clarity.}, making it especially suitable for complex contrapuntal compositions. Because of its size and cost, the organ was not a domestic instrument but a permanent fixture in sacred spaces.
+
+\subsubsection{Principles of the Organ}
+
+The organ produces sound through the controlled flow of air:
+
+\begin{itemize}
+    \item Sound is generated when \textbf{air flows through valves} and into pipes.
+    \item \textbf{Different pitches} are produced by pipes of different lengths\footnote{Longer pipes produce lower pitches, while shorter pipes produce higher pitches.}.
+\end{itemize}
+
+\subsubsection{Tone Control and Dynamics}
+
+The \textbf{tone quality} of the organ is controlled using \textbf{stops}, which activate different sets of pipes\footnote{Each stop corresponds to a particular timbre or pipe group, allowing varied tone colors.}. Stops can be combined to create rich and complex sounds.
+
+Dynamic changes on the organ are limited but achievable through several methods:
+\begin{itemize}
+    \item \textbf{Swell mechanisms}, which enclose pipes in a box with movable shutters.
+    \item Use of \textbf{different manuals} (keyboards), each controlling different pipe divisions.
+    \item \textbf{Holding keys} to sustain sound, as organ tones do not decay naturally.
+\end{itemize}
+
+\subsubsection{Sound Characteristics, Capabilities, and Limitations}
+
+The organ is characterized by a \textbf{rich, brilliant, and majestic sound}, making it ideal for large architectural spaces such as churches.
+
+Its primary strength lies in its ability to perform \textbf{complex polyphonic music}, supporting multiple independent voices simultaneously. 
+However, the organ has limitations in expressive dynamics and articulation compared to later keyboard instruments, influencing the compositional styles written for it.
+
+\subsection{The Harpsichord}
+
+The \textbf{harpsichord} was a dominant keyboard instrument in the 17th century, especially in courtly and theatrical settings. It appeared under different names and forms across Europe:
+\begin{itemize}
+    \item \textbf{Clavicembalo} (Italian)
+    \item \textbf{Clavecin} (French)
+    \item \textbf{Fl\"ugel} (German)
+    \item \textbf{Spinet}: a smaller harpsichord with strings arranged at an angle to the keyboard\footnote{Spinet（短翼羽管键琴）：体积较小，琴弦与键盘呈斜角排列。}
+    \item \textbf{Virginal}: a simple rectangular keyboard instrument\footnote{Virginal（维吉纳琴）：矩形外形，结构简化，常用于家庭。}
+\end{itemize}
+
+The harpsichord was regarded as \textbf{luxurious and elegant}, and was primarily associated with \textbf{privileged aristocrats}. It was widely used in \textbf{opera productions} and \textbf{orchestral settings}, as well as for solo repertoire and basso continuo.
+
+\subsubsection{Principles of the Harpsichord}
+\begin{itemize}
+    \item \textbf{Mechanism of sound production}: When a key is pressed, a mechanical action causes a small plectrum to \textbf{pluck a string}\footnote{Plectrum（拨片）：通常由羽毛或皮革制成，用于拨动琴弦。}, producing sound. This plucking mechanism distinguishes the harpsichord from the organ, which relies on airflow.
+    \item \textbf{Different pitches}: Pitch is determined by the \textbf{length, thickness, and tension of the strings}, similar to other string instruments.
+    \item \textbf{Different dynamics}: The harpsichord has \textbf{very limited dynamic control}\footnote{Dynamic control（力度控制）：指通过触键力度改变音量的能力。}. Pressing a key harder does not significantly change the loudness. Dynamic contrast is achieved mainly through:
+    \begin{itemize}
+        \item Use of multiple manuals (if available)
+        \item Changing registers or stops
+    \end{itemize}
+    \item \textbf{Tone quality}: The tone is \textbf{bright, crisp, and clear}, with little sustain. This makes the instrument especially suitable for rhythmically precise and highly articulated music.
+\end{itemize}
+
+\subsubsection{Sound Characteristics, Capability, and Limitation}
+
+The harpsichord is characterized by a \textbf{brilliant and percussive sound}, with rapid decay after each note. It excels in:
+\begin{itemize}
+    \item Fast passages
+    \item Ornamentation
+    \item Polyphonic textures\footnote{Polyphonic texture（复调织体）：多条独立旋律同时进行的音乐结构。}
+\end{itemize}
+
+However, its primary limitation is the \textbf{lack of expressive dynamic variation}, which restricts emotional contrast. This limitation played a crucial role in motivating the later development of the piano, an instrument capable of responding to touch-sensitive dynamics.
+
+\subsection{The Clavichord}
+
+The \textbf{clavichord} was a simple and intimate keyboard instrument, widely used for domestic music-making, especially in German-speaking regions. It was inexpensive, compact, and commonly found in middle-class households, making it a typical \textbf{German homemade product} rather than a court instrument.
+
+\subsubsection{Principles of the Clavichord}
+
+\begin{itemize}
+    \item \textbf{Mechanism of sound production}:  The clavichord is \textbf{stroke-responsive}, meaning the sound is directly controlled by the player’s touch. When a key is pressed, a small metal \textbf{tangent} strikes the string and remains in contact with it\footnote{Tangent（切弦片）：固定在琴键末端的金属片，用于敲击并压住琴弦。}. Unlike the harpsichord, the tangent both initiates and sustains the vibration.
+    
+    The mechanism is extremely simple: the \textbf{key and tangent form a single piece}, and there are \textbf{no stops or registers}, reflecting the instrument’s modest design.
+    \item \textbf{Different pitches}: Two structural types of clavichord existed:
+    \begin{itemize}
+        \item \textbf{Fretted clavichord}: one string produces two or more different pitches\footnote{Fretted（共弦式）：多个音高共用一根琴弦，通过不同触键位置改变音高。}.
+        \item \textbf{Unfretted clavichord}: each pitch has its own string, resulting in a larger instrument with clearer intonation.
+    \end{itemize}
+    \item \textbf{Different dynamics}: The clavichord allows \textbf{true dynamic control}, as pressing the key harder increases volume. It also supports \textbf{Bebung}, a vibrato-like expressive effect created by varying finger pressure while holding a key\footnote{Bebung（颤音效果）：通过持续按压并微调压力产生的音高与音量变化，是羽管键琴无法实现的表现手法。}.
+    \item \textbf{Tone quality}: The tone is \textbf{soft, delicate, and intimate}, with very low volume, making it unsuitable for large spaces or ensemble performance.
+\end{itemize}
+
+\subsubsection{Sound Characteristics, Capability, and Limitation}
+
+The clavichord is characterized by its \textbf{high expressive sensitivity} and close connection between finger and sound.
+It excels as:
+\begin{itemize}
+    \item A practice instrument
+    \item A tool for musical education
+    \item An expressive medium for private performance
+\end{itemize}
+
+However, its primary limitation is its \textbf{extremely low volume}, which restricts its use to small rooms and solo contexts. Despite this limitation, the clavichord played a crucial role in shaping expressive keyboard technique and directly influenced later developments in piano touch and articulation.
+
+\subsection{Keyboard Business}
+
+During the mid-17th century, keyboard instrument making was not yet a fully independent industry.
+Instead, it functioned largely as a \textbf{sideline business} for \textbf{organ builders} or \textbf{cabinet makers}\footnote{Cabinet makers（家具木匠）具备制作精细木制外壳的技能，非常适合键盘乐器的结构需求。}.
+These craftsmen already possessed the woodworking and mechanical skills required to construct keyboard instruments.
+
+\subsubsection{Demand, Production, and Sale}
+
+The demand for keyboard instruments grew alongside the expansion of court music and domestic music-making.
+Production was typically small-scale and customized rather than standardized.
+In many cases, instruments were produced and sold \textbf{by delivery}\footnote{Delivery（定制交付）：根据客户需求制作并直接交付，而非大规模库存销售。}, reflecting the artisanal nature of the trade.
+
+\subsubsection{Terminology and Historical Usage}
+
+Terminology related to keyboard instruments evolved over time:
+
+\begin{itemize}
+    \item \textbf{Clavier}: originally referred to string keyboard instruments such as the \textbf{clavichord} or \textbf{harpsichord}\footnote{Clavier（键盘弦乐器的统称）：早期并不特指某一种具体乐器。}.  
+    Later, the term came to include the \textbf{pianoforte}.
+    
+    \item \textbf{Fl\"ugel}: originally used to describe a \textbf{harpsichord}, especially wing-shaped instruments\footnote{Fl\"ugel（翼形琴）：名称源于乐器外形。}.  
+    Over time, the term evolved to refer to the \textbf{grand piano}.
+\end{itemize}
+
+These shifting terms reflect both technological development and changing musical preferences, marking the transition from early string keyboard instruments toward the piano.
+
+\section{Happy Birthday, Piano!}
+
+\subsection{Early 18th Century Germany: Context and Culture}
+
+\subsubsection{The Rise of Pietism}
+In the early 18th century, Germany experienced a significant religious and cultural shift known as \textbf{Pietism}\footnote{Pietism (虔敬主义): A movement within Lutheranism that combines its biblical principles with the Reformed emphasis on individual piety and living a vigorous Christian life.}.
+\begin{itemize}
+    \item \textbf{Core Principles:} The movement sought to combine \textbf{Lutheran}\footnote{Lutheran (路德宗): A major branch of Protestant Christianity which identifies with the theology of Martin Luther.} principles with individual piety.
+    \item \textbf{Personal Devotion:} There was a shift from rigid religious structure to being a "religious enthusiast." The emphasis was placed heavily on \textbf{personal devotion} rather than public ritual.
+    \item \textbf{Emotion over Dogma:} Pietism prioritized "feeling" over \textbf{doctrine}\footnote{Doctrine (教条/教义): A belief or set of beliefs held and taught by a church, political party, or other group.}. The internal emotional state of the believer was more important than theological complexity.
+    \item \textbf{Demographics:} This movement was particularly favored by the "unlearned" (common people) and women, as it was accessible and personal.
+    \item \textbf{Social Impact:} It was not a political revolution, but a spiritual one. It encouraged the usage of the \textbf{native German language} in worship and daily life, replacing the traditional Latin used in formal church settings.
+\end{itemize}
+
+\subsubsection{Musical Implications of Pietism}
+The cultural shift towards Pietism directly influenced musical tastes and instrument preferences during this period.
+\begin{itemize}
+    \item \textbf{Aesthetic Preference:} There was a strong favor for \textbf{musical simplicity} and a rejection of excessive complexity (such as dense polyphony). Music was meant to speak directly to the heart.
+    \item \textbf{The Clavichord:} The \textbf{Clavichord}\footnote{Clavichord (击弦古钢琴): An early keyboard instrument that produces sound by striking strings with small metal blades (tangents). It is known for its ability to produce dynamic changes (volume) and vibrato (Bebung), unlike the harpsichord.} was the preferred instrument of this era because:
+    \begin{itemize}
+        \item It offered control over sound intensity (dynamics).
+        \item It allowed for a better connection to "feeling" and personal expression.
+    \end{itemize}
+    \item \textbf{Arte Modulatoria:} This concept refers to the "Art of Singing" on an instrument. It emphasizes the \textbf{shading of sounds}\footnote{Shading of sounds (音色的明暗/细微变化): The subtle graduation of tone and volume to create expression, similar to how a vocalist shapes a phrase.}, aiming to make the keyboard instrument "sing" with human-like nuance.
+\end{itemize}
+
+\subsubsection{Musical Simplicity: Johann Mattheson's Perspective (1739)}
+
+This section highlights the aesthetic shift towards simplicity in the 18th century, as articulated by the music theorist \textbf{Johann Mattheson}.
+
+\begin{itemize}
+    \item \textbf{Preference for Melody:} Mattheson argues that the ear finds more delight in a "single well-ordered voice" carrying a \textbf{clean melody}.
+    \item \textbf{Critique of Complexity:} He criticizes complex musical textures (metaphorically referring to "four-and-twenty" voices), stating that the musical meaning gets "torn to pieces" when distributed over too many parts. This is a rejection of dense \textbf{polyphony}\footnote{Polyphony (复调音乐): A style of musical texture consisting of two or more simultaneous lines of independent melody, as opposed to a single melody with accompaniment. Mattheson's "four-and-twenty" is an exaggeration of this complexity.}.
+    \item \textbf{The Power of Simplicity:} He advocates for "unadorned melody"\footnote{Unadorned melody (朴实无华的旋律): A melody that is simple, natural, and free from excessive ornamentation or decorative notes.} in its "noble simplicity, clarity, and distinctness".
+    \item \textbf{Emotional Connection:} The ultimate goal is to "move hearts." Mattheson believes that natural simplicity often surpasses the "arts of \textbf{harmony}"\footnote{Harmony (和声): The combination of simultaneously sounded musical notes to produce chords and chord progressions having a pleasing effect. Mattheson argues here that melody is superior to complex harmony for expressing emotion.} in achieving this emotional impact.
+\end{itemize}
+
+\subsubsection{Favor Clavichord: Mattheson's Comparison (1713)}
+
+\begin{itemize}
+    \item \textbf{Ideal Genres:} Mattheson argued that genres such as \textbf{Overtures}, \textbf{Sonatas}, \textbf{Toccatas}, and \textbf{Suites} are "brought out the best and the cleanest" on a good clavichord.
+    \item \textbf{Expressive Capabilities:}
+    \begin{itemize}
+        \item The instrument allows the player to express the \textbf{art of singing} (cantabile style) much more intelligibly.
+        \item It is capable of "sustaining and softening" notes, offering dynamic nuance.
+    \end{itemize}
+    \item \textbf{Critique of Plucked Instruments:} Mattheson contrasted the clavichord with the \textbf{Harpsichord}\footnote{Harpsichord (大键琴/羽管键琴): A keyboard instrument where strings are plucked. It produces a loud, brilliant sound but generally lacks the ability to make gradual dynamic changes (loud/soft) simply by touch.} and \textbf{Spinet}\footnote{Spinet (小型大键琴): A smaller, usually wing-shaped or pentagonal version of the harpsichord, also producing sound by plucking strings.}. He described them as being "always alike strongly resonant," implying a lack of variety in volume and tone.
+    \item \textbf{Test of Skill:} The clavichord was seen as the true test of a musician's touch. Mattheson advised that to hear a "delicate hand and a pure style," one should lead the candidate to a "neat clavichord".
+\end{itemize}
+
+\subsubsection{Pantaleon Hebenstreit and the Pantalon}
+
+This section discusses Pantaleon Hebenstreit, a figure whose instrument bridged the gap between struck string instruments and the keyboard.
+
+\begin{itemize}
+    \item \textbf{The Musician:} Pantaleon Hebenstreit was a renowned \textbf{Dulcimer}\footnote{Dulcimer (扬琴): A stringed instrument with a trapezoidal soundboard, played by striking the strings with small hammers.} player from Leipzig.
+    \item \textbf{The Instrument's Origins:} The instrument he played was essentially a huge \textbf{Cimbalom}\footnote{Cimbalom (辛巴龙): A large, chromatic concert dulcimer, historically popular in Gypsy music (Romani music) in Eastern Europe.}.
+    \begin{itemize}
+        \item At the time, this instrument was associated with the lower classes and used in puppet shows.
+        \item In German, it was known as the \textbf{Hackbrett}\footnote{Hackbrett (德语“剁肉板”/扬琴): Literally translating to "chopping board" or "hacking board," referring to the striking motion used to play it.}, implying a crude method of playing.
+    \end{itemize}
+    \item \textbf{Musical Innovation:} Despite its humble origins, Hebenstreit demonstrated that the instrument was "stroke responsive." This allowed for a wide variety of \textbf{nuances}\footnote{Nuance (细微差别): Subtle differences in expression, volume, or tone color.} depending on how hard the strings were struck.
+    \item \textbf{Royal Recognition:} King \textbf{Louis XIV}\footnote{Louis XIV (路易十四): The King of France (1643–1715), known as the "Sun King," a major patron of the arts.} was so impressed that he renamed the instrument the "Pantalon" (or Pantaleon) after the player.
+    \item \textbf{Limitations and Evolution:}
+    \begin{itemize}
+        \item The Pantalon was cumbersome (difficult to handle) and expensive to maintain.
+        \item This difficulty led to a critical design question that paved the way for the piano: "Why not fitted to finger-playable keys?"
+    \end{itemize}
+\end{itemize}
+
+\subsection{Bartolomeo Cristofori's New Invention (1700)}
+
+This section introduces the inventor of the piano and the first historical documentations of the instrument.
+
+\begin{itemize}
+    \item \textbf{The Inventor and Patron:} The instrument was invented by \textbf{Bartolomeo Cristofori}\footnote{Bartolomeo Cristofori (巴托洛梅奥·克里斯托福里): An Italian instrument maker from Padua, credited with inventing the piano.}, who worked for \textbf{Prince Ferdinand de' Medici}\footnote{Prince Ferdinand de' Medici (费迪南多·德·美第奇王子): A Grand Prince of Tuscany who was a passionate patron of music and employed Cristofori in Florence.} in Florence.
+    \item \textbf{First Historical Record (1700):}
+    \begin{itemize}
+        \item The first record appears in the Medici inventory by Federigo Meccoli.
+        \item It describes the instrument as an "Arpicembalo del piano e forte" (Harpsichord with soft and loud), invented by Cristofori in the year 1700.
+    \end{itemize}
+    \item \textbf{Documentation by Scipione Maffei (1711):}
+    \begin{itemize}
+        \item The invention was detailed in the \textit{Journal of Letters of Italy} by \textbf{Scipione Maffei}\footnote{Scipione Maffei (希皮奥内·马费伊): An Italian writer and art critic whose 1711 article provided the first detailed description and diagram of the piano mechanism.}.
+        \item Maffei described it as a "new invention of a harpsichord (gravicembalo) with soft and loud".
+        \item The article included a diagram of the mechanism  and described successful concerts held in Rome.
+    \end{itemize}
+    \item \textbf{Musical Capabilities:} Maffei highlighted specific musical virtues of the new instrument:
+    \begin{itemize}
+        \item \textbf{Dialogue Manner:} It allowed for a "dialogue manner" with propositions and responses between phrases.
+        \item \textbf{Dynamic Contrast:} It was capable of contrast and \textbf{gradual change of volume}\footnote{Gradual change of volume (音量的渐变): The ability to increase or decrease volume smoothly (crescendo/diminuendo) within a phrase, which was impossible on a standard harpsichord.} within phrases.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Scipione Maffei's Account and Evaluation (1711)}
+
+This section details Scipione Maffei's 1711 article in the \textit{Journal of Letters of Italy}, which provides the rationale for the piano's invention and addresses early criticisms.
+
+\begin{itemize}
+    \item \textbf{The Musical Necessity:} Maffei argues that the "principal source" of musical delight is the \textbf{alternation of soft and loud}\footnote{Alternation of soft and loud (强弱交替): The contrast between dynamic levels, which provides musical expression and emotional depth.}. This includes:
+    \begin{itemize}
+        \item Sudden changes (between a "thesis and its response").
+        \item Gradual changes (diminishing little by little, or returning to "full vigor").
+    \end{itemize}
+    \item \textbf{The Limitation of Existing Keyboards:} While \textbf{bowed instruments}\footnote{Bowed instruments (弓弦乐器): Instruments like the violin or cello where sound is produced by drawing a bow across strings, allowing for continuous dynamic control.} excel at this diversity of tone, the traditional harpsichord is "entirely deprived" of this capability.
+    \item \textbf{Cristofori's Solution:} Bartolomeo Cristofori (referred to as "Ciristofali") constructed an instrument where sound volume depends on the \textbf{varying force}\footnote{Varying force (不同的力度): The physical principle of the piano action where a harder key press results in a louder sound, and a softer press results in a quieter sound.} with which keys are pressed. This allows for gradations and diversity of sound, comparable to a \textbf{violoncello}\footnote{Violoncello (大提琴): A bowed string instrument known for its wide dynamic range and expressive, singing tone.}.
+    \item \textbf{Early Criticisms:} Maffei notes that some "professors" did not initially approve of the instrument:
+    \begin{itemize}
+        \item They failed to understand the \textbf{ingenuity}\footnote{Ingenuity (独创性/精巧): The quality of being clever, original, and inventive.} required to overcome the mechanical challenges.
+        \item They felt the tone was "muffled and dull" compared to the usual "silvery sound" of harpsichords.
+    \end{itemize}
+    \item \textbf{Maffei's Defense:} He argues that this perception is merely due to \textbf{habituation}\footnote{Habituation (习惯化): The diminishing of a physiological or emotional response to a frequently repeated stimulus. Here, it means listeners were just too used to the bright sound of the harpsichord.}. He claims the ear adapts quickly and will eventually take "no more pleasure in the ordinary harpsichord".
+\end{itemize}
+
+\subsubsection{Evaluating Cristofori's Piano: Addressing Criticisms}
+
+This section continues Scipione Maffei's defense of the instrument, specifically addressing the criticism regarding its volume and defining its proper musical context.
+
+\begin{itemize}
+    \item \textbf{The Criticism:} A common complaint was that the instrument did "not have enough volume of tone".
+    \item \textbf{Rebuttal 1 - Technique:} Maffei argues that the instrument actually possesses significantly more tone than people realize, provided the player knows how to bring it out by "striking the keys with \textbf{vigor}"\footnote{Vigor (活力/力度): Physical strength and energy; here referring to the forceful touch required to produce a loud sound on the piano.}.
+    \item \textbf{Rebuttal 2 - Proper Context:}
+    \begin{itemize}
+        \item One must judge the instrument based on its intended purpose.
+        \item It is properly a \textbf{Chamber Instrument}\footnote{Chamber instrument (室内乐乐器): An instrument intended for performance in a smaller room (chamber) rather than a large hall, often for intimate music-making.}.
+        \item It is \textit{not} suitable for \textbf{Church Music}\footnote{Church music (教会音乐): Music intended for performance in a church, typically requiring instruments like the organ that can fill a vast, resonant space.} or for a "large orchestra".
+    \end{itemize}
+    \item \textbf{Ideal Usage:} The piano succeeds perfectly for:
+    \begin{itemize}
+        \item Accompanying a singer.
+        \item An ensemble of a moderate number of pieces.
+        \item Playing alone, similar to the \textbf{Lute} or \textbf{Harp}.
+    \end{itemize}
+    \item \textbf{Demands on the Player:} As a new instrument, it requires a player who has made a "particular study" of it. The player must:
+    \begin{itemize}
+        \item Understand its virtues.
+        \item Regulate the \textbf{impulse}\footnote{Impulse (冲力/脉冲): The force or driving motion applied to the keys.} imparted to the keys.
+        \item Achieve "graceful gradations" at the right time and place.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Cristofori's Piano Action Mechanism}
+
+This section details the mechanical innovation that allowed the piano to function, known as the "Action."
+
+\begin{itemize}
+    \item \textbf{Core Components:} Cristofori's mechanism involved several key innovations distinct from the harpsichord or clavichord:
+    \begin{itemize}
+        \item Hammers swing from a separate rail or rack.
+        \item The inclusion of an \textbf{Escapement}\footnote{Escapement (擒纵结构): A mechanism that allows the hammer to escape from the jack (the part pushing it) just before it hits the string. This ensures the hammer strikes the string and immediately rebounds, letting the string vibrate freely even if the key is still held down.}.
+        \item A \textbf{Synchronous Damper}\footnote{Synchronous Damper (同步制音器): A felt pad that lifts off the string when the key is pressed (allowing sound) and falls back onto the string when the key is released (stopping sound).} and a "check."
+    \end{itemize}
+    \item \textbf{The "Toss" Principle:}
+    \begin{itemize}
+        \item Unlike the clavichord (tangent stays in contact) or harpsichord (pluck), the piano action is designed to \textbf{"Toss the hammer"}. The hammer is thrown at the string and then falls back.
+        \item If the key is pressed too slowly, there is "no toss," meaning the hammer might not reach the string with sufficient force to create sound (or simply describes the separation of the hammer from the key motion).
+        \item This allows for the \textbf{gradual control} of the hammer towards the string, directly translating finger speed to hammer speed (and thus volume).
+    \end{itemize}
+    \item \textbf{The Check (Back Catch):}
+    \begin{itemize}
+        \item The mechanism includes a \textbf{Check} or \textbf{Back Catch}\footnote{Check/Back Catch (制动器/托木): A device that catches the hammer on its rebound from the string to prevent it from bouncing back up and hitting the string a second time (re-rebound) while the key is still depressed.}.
+        \item Its purpose is to prevent the "hammer re-rebound," ensuring a clean single strike.
+    \end{itemize}
+    \item \textbf{Key Structural Parts (Diagrammatic):}
+    \begin{itemize}
+        \item \textbf{Jack}\footnote{Jack (顶杆): The lever that pushes the hammer assembly upward when the key is pressed.}: Transfers energy from the key to the hammer.
+        \item \textbf{Hammer Shank}\footnote{Hammer Shank (槌柄): The thin rod that connects the hammer head to the mechanism.}: Supports the hammer head.
+        \item \textbf{Knuckle}\footnote{Knuckle (关节/轴): A small, leather-covered cylinder attached to the hammer shank that the jack pushes against.}: The contact point for the jack.
+        \item \textbf{Wippen Assembly}\footnote{Wippen Assembly (韦佩结构/联动杠杆): The intermediate lever system that sits between the key and the hammer, holding the jack and other components.}: The complex lever system facilitating the action.
+        \item \textbf{Capstan}\footnote{Capstan (卡钉): A screw used to adjust the height and contact between the key and the wippen.}: Adjusts the regulation between the key and the action.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{The Italian Stagnation: Questions to Ponder}
+
+Despite the innovation, the piano did not immediately dominate the Italian musical landscape. This section explores why the Italians did not continue to heavily develop the pianoforte.
+
+\begin{itemize}
+    \item \textbf{Commercial Failures:}
+    \begin{itemize}
+        \item There was no concept of \textbf{Patenting}\footnote{Patent (专利): A government authority or license conferring a right or title for a set period, especially the sole right to exclude others from making, using, or selling an invention. Cristofori did not patent his invention to make a profit.} the invention for profit.
+        \item There was no organized production or marketing strategy.
+    \end{itemize}
+    \item \textbf{Cultural Context:}
+    \begin{itemize}
+        \item \textbf{Opera Dominance:} Italy had been the home of \textbf{Opera}\footnote{Opera (歌剧): A dramatic work in one or more acts, set to music for singers and instrumentalists. It was the dominant form of entertainment in Italy since the late 16th century, overshadowing instrumental innovations.} since the late 16th century.
+        \item \textbf{Violin Supremacy:} The period of 1700–1725 was the "Golden Period" of \textbf{Stradivari}\footnote{Stradivari (安东尼奥·斯特拉迪瓦里): A renowned Italian luthier (stringed instrument maker) whose violins are considered the finest ever made. The focus on violin perfection may have distracted from keyboard development.}, further cementing the dominance of string instruments.
+    \end{itemize}
+    \item \textbf{Luxury Status:} The early pianos were considered a "luxurious furnish" (furniture), intended for aristocrats like the Medici, not for mass production or general public use.
+\end{itemize}
+
+\subsubsection{Fortepiano Capability Summary}
+
+This section summarizes the unique musical capabilities of Cristofori's fortepiano compared to its predecessors.
+
+\begin{itemize}
+    \item \textbf{Touch Responsive Mechanism:} The key innovation provided:
+    \begin{itemize}
+        \item Volume contrast and graduation in sound.
+        \item Control over the \textbf{Decay}\footnote{Decay (声音的衰减): The way a sound fades into silence. On a piano, the player can control how long a note rings before the damper stops it.} of sound.
+    \end{itemize}
+    \item \textbf{Stylistic Suitability:}
+    \begin{itemize}
+        \item \textbf{Singing Style:} It achieved a "singing style quality" (cantabile).
+        \item \textbf{Baroque Style:} It was well-suited for the \textbf{Baroque}\footnote{Baroque (巴洛克): A style of European architecture, music, and art of the 17th and 18th centuries, characterized by ornate detail. In music, it often involves a "Proposition and Response" structure.} musical style, specifically the concept of "Proposition and Response" (dialogue between phrases).
+        \item \textbf{Melody:} It was capable of bringing out the melody against the accompaniment.
+    \end{itemize}
+    \item \textbf{Acoustic Positioning:}
+    \begin{itemize}
+        \item It was louder than the clavichord.
+        \item It remained a \textbf{Chamber Instrument} (for small rooms).
+        \item It could \textbf{imitate the orchestra}, but was not meant to be played \textit{in} the orchestra (at this stage).
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Cristofori's Influences and Early Repertoire}
+
+This section discusses the first music written specifically for the piano and how the instrument began to spread beyond Italy.
+
+\begin{itemize}
+    \item \textbf{Ludovico Giustini's Sonatas (1732):}
+    \begin{itemize}
+        \item \textbf{Ludovico Giustini}\footnote{Ludovico Giustini (路多维科·朱斯蒂尼): An Italian composer credited with writing the first music specifically for the piano.} published twelve \textbf{Sonatas}\footnote{Sonata (奏鸣曲): A musical composition for a solo instrument, usually consisting of several movements.}.
+        \item This was the \textbf{first publication} for the "piano and forte keyboard, commonly called hammer," appearing in 1732.
+        \item The work was dedicated to the younger brother of the \textbf{Portuguese King}.
+        \item \textbf{Structure:} The pieces contained four or five movements written in traditional \textbf{dance styles}\footnote{Dance styles (舞曲风格): Musical forms based on dances (like the Allemande, Courante, Sarabande), common in the Baroque era.}.
+        \item \textbf{Innovation:} Crucially, these scores included specific \textbf{dynamic markings}\footnote{Dynamic markings (力度记号): Symbols in sheet music indicating how loud or soft to play (e.g., \textit{p} for piano/soft, \textit{f} for forte/loud), which were necessary to utilize the piano's unique capabilities.}.
+    \end{itemize}
+    \item \textbf{Iberian Connection:}
+    \begin{itemize}
+        \item Five Florentine pianos were sold to the royal families in \textbf{Portugal and Spain}.
+        \item This is historically significant because the famous composer \textbf{Domenico Scarlatti}\footnote{Domenico Scarlatti (多梅尼科·斯卡拉蒂): An Italian composer who spent much of his life in the service of the Portuguese and Spanish royal families. He is famous for his 555 keyboard sonatas.} worked there, suggesting he had access to these early pianos.
+    \end{itemize}
+    \item \textbf{Spread to Germany:}
+    \begin{itemize}
+        \item Knowledge of the instrument spread to Germany via an essay by Johanne Ulrich von Koenig, which appeared in \textbf{Johann Mattheson's} \textit{Critica Musica} in 1725.
+        \item \textbf{J.S. Bach and Frederick the Great (1747):} A famous historical event occurred when \textbf{J.S. Bach}\footnote{J.S. Bach (约翰·塞巴斯蒂安·巴赫): A magnificent German composer and musician of the Baroque period.} played on a piano made by \textbf{Gottfried Silbermann}\footnote{Gottfried Silbermann (哥特弗里德·希尔伯曼): A German keyboard instrument maker who built early pianos based on Cristofori's designs.} before \textbf{Frederick the Great}\footnote{Frederick the Great (腓特烈大帝): King of Prussia, a military tactician and a flautist/composer who patronized the arts.} at the Prussian Court in 1747.
+    \end{itemize}
+\end{itemize}
+
+\section{Piano Growing Popularity}
+
+\subsection{Cristofori's Influences}
+
+\subsubsection{The First Published Piano Music}
+\begin{itemize}
+    \item \textbf{Ludovico Giustini's Twelve Sonatas (1732)}: These represent the earliest known music specifically published for the piano.
+    \item \textbf{Original Title}: \textit{Sonate da cimbalo di piano e forte detto volgarmente di martelletti}\footnote{意为“拨弦琴上的强弱音奏鸣曲，通常被称为小锤子（钢琴）”。}.
+    \item \textbf{Translation}: ``Sonata for harpsichord of piano and forte, commonly called hammer''.
+    \item \textbf{Royal Dedication}: The work was dedicated to the younger brother of the King of Portugal.
+\end{itemize}
+
+\subsubsection{Technical and Regional Dissemination}
+\begin{itemize}
+    \item \textbf{Dynamic Markings}: The sonatas included specific dynamic markings\footnote{强弱记号}, which were a novelty compared to traditional harpsichord repertoire.
+    \item \textbf{Iberian Influence}: Florentine pianos\footnote{佛罗伦萨钢琴} were sold to the royal families in Portugal and Spain.
+    \item \textbf{Domenico Scarlatti}: These instruments reached the courts where D. Scarlatti was employed, influencing the keyboard culture of the region.
+\end{itemize}
+
+\subsection{Germany Before 1750}
+
+\subsubsection{Early Dissemination and Translation}
+\begin{itemize}
+    \item \textbf{Maffei's Influence}: J.U. Koenig translated Scipione Maffei's article (which described Cristofori's invention) into German. 
+    \item \textbf{Publication}: It was published in 1725 within Johann Mattheson's \textit{Critica Musica}.
+\end{itemize}
+
+\subsubsection{Gottfried Silbermann (1683–1753)}
+\begin{itemize}
+    \item \textbf{Background}: A renowned organ builder based in Freiberg.
+    \item \textbf{Technical Roots}: He was responsible for maintaining Hebenstreit's dulcimer\footnote{扬琴/大键琴的前身之一}, which influenced his understanding of hammer-based string instruments.
+    \item \textbf{C.P.E. Bach's View}: While Silbermann is famous for pianos, C.P.E. Bach specifically praised his clavichords\footnote{击弦古钢琴}.
+\end{itemize}
+
+\subsubsection{The Interaction with J.S. Bach}
+\begin{itemize}
+    \item \textbf{Initial Reaction (1736)}: J.S. Bach was famously unimpressed with Silbermann's early fortepiano\footnote{早期钢琴}, criticizing its heavy touch and weak treble.
+    \item \textbf{Later Approval (1747)}: Bach eventually approved of the fortepianos owned by King Frederick the Great
+    .
+    \item \textbf{The Musical Offering}: This encounter led to the composition of \textit{The Musical Offering}, which includes a 6-voice Ricercar\footnote{利切卡尔（一种复杂的赋格或前奏曲风格）}.
+\end{itemize}
+
+\subsection{Mid-18th Century Germany}
+
+\subsubsection{Theoretical Treatises and Guidance}
+\begin{itemize}
+    \item \textbf{J.J. Quantz (1752)}: Published \textit{Essay of a Guide to Playing the Transverse Flute}\footnote{长笛演奏教程/指南}. He noted that the fortepiano provided great convenience for shading sounds\footnote{声音的阴暗/层次变化} during accompaniment.
+    \item \textbf{C.P.E. Bach (1753)}: Published his seminal work, \textit{Essay on the Right Way to Play the Clavier}\footnote{键盘乐器演奏法的真谛}.
+    \item \textbf{C.P.E. Bach's Verdict}: He concluded the fortepiano was useful and expressive if durable and well-constructed, though he still considered it less superior than a good clavichord\footnote{击弦古钢琴}.
+\end{itemize}
+
+\subsubsection{Innovation in Keyboard Building}
+\begin{itemize}
+    \item \textbf{Christian Ernst Friederici}: A pupil of Silbermann and considered the foremost builder after him.
+    \item \textbf{Upright-Flügel (1745)}: Constructed an upright version of the piano\footnote{立式钢琴的雏形}.
+    \item \textbf{Tafelklaviere (1758)}: Began producing square pianos\footnote{方形钢琴}, which were more compact for domestic use.
+    \item \textbf{Terminology}: By the mid-18th century, German speakers commonly adopted the name ``fortepiano''.
+\end{itemize}
+
+\subsection{Issues and Features of the Early Fortepiano}
+
+\subsubsection{Technical Limitations and Tone}
+\begin{itemize}
+    \item \textbf{Expression Deficiencies}: Early models lacked subtle gradations of tone.
+    \item \textbf{Timbre}: The sound was duller than a harpsichord and possessed less sustaining power.
+    \item \textbf{Construction}: Featured thin wire strings latched onto a wooden frame and small hammers covered in leather.
+\end{itemize}
+
+\subsubsection{Mechanical Controls and Stops}
+\begin{itemize}
+    \item \textbf{Tone Modification}: Included ``Lute'', ``harp'', and ``piano'' stops\footnote{音栓（用于改变音色的装置）}.
+    \item \textbf{Una Corda}: A stop used to play on only one string\footnote{单弦音栓（弱音踏板的前身）} to change volume and color.
+    \item \textbf{Sustain Mechanisms}: Dampers\footnote{制音器} controlled the sustaining of sound.
+    \item \textbf{Levers}: Control evolved from hand levers to knee levers\footnote{膝盖杠杆（早期的踏板形式）}, with the foot pedal\footnote{脚踏板} arriving from England by the late 18th century.
+\end{itemize}
+
+\subsection{Mid-18th Century Society and Lifestyle}
+
+\subsubsection{The Rise of the Middle Class}
+\begin{itemize}
+    \item \textbf{Economic Growth}: German traders flourished in cities like Hamburg, Berlin, and Leipzig.
+    \item \textbf{Dominant Social Group}: The middle class (burghers) became the dominant group, leading to increased demand for arts and education.
+    \item \textbf{Age of Enlightenment}: A period characterized by reasoning; by 1750, German books outnumbered Latin ones four to one.
+\end{itemize}
+
+\subsubsection{Domestic Music and Women's Roles}
+\begin{itemize}
+    \item \textbf{Family Activity}: Educated burghers used music as a core family activity.
+    \item \textbf{The Clavier in the Home}: The instrument became a standard fixture in family dwellings.
+    \item \textbf{Gender Roles}: Playing the clavier was considered ideal for middle-class women as it was an emotional outlet, added gentleness, and demonstrated modesty.
+\end{itemize}
+
+\subsection{Clavier after 1750 and the "Cult of Feeling"}
+
+\subsubsection{The Sturm und Drang Movement}
+\begin{itemize}
+    \item \textbf{Philosophical Shift}: A reaction against the rationalism of the Enlightenment\footnote{启蒙运动}, favoring nature, humanism, and intense emotion.
+    \item \textbf{Sturm und Drang (1760s--80s)}: Named after Maximilian Klinger's 1776 play\footnote{《狂飙突进》，德国文学与音乐中的原浪漫主义运动。}.
+    \item \textbf{Pietism}: This religious movement evoked a ``cult of feeling,'' emphasizing personal emotional experience.
+    \item \textbf{Literature}: Sentimental poetry by Goethe and Schiller became widely popular, with many poems about the ``Clavier'' being set to song.
+\end{itemize}
+
+\subsubsection{The Clavier as an Emotional Symbol}
+\begin{itemize}
+    \item \textbf{Ode to Joy}: Friedrich Schiller's poem (later used in Beethoven's 9th Symphony) celebrates universal brotherhood and joy.
+    \item \textbf{An mein Klavier}: Lyrics by D. Schubart (set by F. Schubert) personify the piano as a ``mellow-toned'' companion that shares in the player's tears and worries\footnote{《致我的钢琴》，表达了对钢琴作为灵魂伴侣的深情告白。}.
+    \item \textbf{Laura at the Piano}: Another Schiller poem describing the performer as a ``sorceress'' whose music commands the soul and rivals the sounds of nature.
+\end{itemize}
+
+\subsection{Musical Activities in Leipzig}
+
+\subsubsection{A Commercial and Cultural Hub}
+\begin{itemize}
+    \item \textbf{J.S. Bach's Legacy}: Bach served as the music director of St. Thomas Church from 1723 to 1750.
+    \item \textbf{Publishing Center}: Leipzig was the center of the book trade; by the 1760s, Breitkopf began publishing catalogues of keyboard-vocal music.
+    \item \textbf{Music Journalism}: Breitkopf-Härtel published the \textit{Allgemeine Musikalische Zeitung}\footnote{《通俗音乐报》，早期的重要音乐评论期刊。}.
+\end{itemize}
+
+\subsubsection{Key Figures and Institutions}
+\begin{itemize}
+    \item \textbf{Johann Adam Hiller}: The first Kapellmeister\footnote{乐团指挥/乐长} of the Gewandhaus and creator of the \textit{Singspiel}\footnote{歌唱剧（含有对白的德国乐剧形式）}.
+    \item \textbf{Felix Mendelssohn}: Took over the Gewandhaus in 1835 and established the music conservatory in 1843.
+\end{itemize}
+
+\subsection{Clavier Playing and Style after 1750}
+
+\subsubsection{Shift Toward Amateurism}
+\begin{itemize}
+    \item \textbf{Expanding but Shallower}: While piano playing became more widespread, the depth of technical mastery often decreased.
+    \item \textbf{Tuning Issues}: The art of tuning could not keep pace with the rapid sale of instruments; many players did not worry about playing in tune.
+    \item \textbf{Simplified Notation}: Unlike professionals who used figured bass\footnote{通奏低音/数字低音} and complex embellishments\footnote{装饰音}, amateurs preferred notes to be written out fully.
+    \item \textbf{Homophonic Style}: Musical styles moved away from polyphonic\footnote{复调（多声部独立）} complexity toward homophonic\footnote{主调（旋律加简单伴奏）} textures, often using the Alberti bass\footnote{阿尔贝蒂低音（一种分解和弦伴奏音型）}.
+    \item \textbf{Technical Evolution}: The abundance of scales and arpeggios in new compositions led to the increased and systematic use of the thumb.
+\end{itemize}
+
+\subsubsection{Market Democratization: The Square Piano}
+\begin{itemize}
+    \item \textbf{Johannes Zumpe}: Developed the square piano\footnote{方形钢琴} in London.
+    \item \textbf{Accessibility}: These were smaller, had simpler mechanisms, and were significantly cheaper, making them affordable for the middle class.
+    \item \textbf{Piano Industry}: The growth of the instrument created a tripartite industry: public performances, music publication, and manufacturing.
+\end{itemize}
+
+\subsubsection{Professional vs. Amateur Repertoire}
+\begin{itemize}
+    \item \textbf{C.P.E. Bach}: Composed six sets of \textit{Kenner und Liebhaber}\footnote{《致行家与爱好者》，区分专业人士与业余玩家的作品集。} (Connoisseur and Amateur).
+    \item \textbf{Accompanied Sonata}: Often designed for amateurs, where a keyboard was accompanied by other instruments.
+    \item \textbf{Muzio Clementi}: His Op. 2 sonatas specifically differentiated between solo works for professionals and accompanied works for amateurs.
+    \item \textbf{Social Status}: Amateurs felt a sense of pride and status in owning professional-grade solo sonatas.
+\end{itemize}
+
+\section{Piano Design and Development}
+
+\subsection{Piano Development Fundamentals}
+Key technical improvements focused on the action and sound production:
+\begin{itemize}
+    \item \textbf{Escapement\footnote{擒纵机构}}: The mechanism allowing for a "free-flying hammer."
+    \item \textbf{Improving Sound}: 
+    \begin{itemize}
+        \item Used \textbf{thicker strings\footnote{加厚琴弦}} to create a richer tone.
+        \item Addressed the resulting higher string tension by implementing stronger framing and bracing.
+        \item Utilized bigger hammers and a larger \textbf{soundboard\footnote{音板}}.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Design Variations and Market}
+Pianos were designed for different roles:
+\begin{itemize}
+    \item \textbf{Affordability}: Considerations for price and space (cost and target buyers).
+    \item \textbf{Mobility}: Some designs were less movable than others.
+    \item \textbf{Location}: Designed to fit into different specific locations.
+\end{itemize}
+
+\subsection{The Square Piano}
+\begin{itemize}
+    \item Invented by J. Zumpe (German immigrant to London).
+    \item \textbf{Characteristics}: Small, affordable, and no intermediate lever. It featured hand stops for the \textbf{damper\footnote{制音器}} and lute/buff stop.
+    \item \textbf{Market}: Appealed to upper-class women; cost 1/3 the price of a \textbf{harpsichord\footnote{羽管键琴}}.
+    \item \textbf{History}: First recorded public solo piano performance in London by J.C. Bach (1768). Sales relied heavily on J.C. Bach's endorsement.
+    \item Known as \textit{Tafelklavier} (Table piano) by Germans.
+\end{itemize}
+
+\subsection{Pantalon vs. Fortepiano}
+Some early square pianos are misidentified as Pantalons.
+\begin{itemize}
+    \item \textbf{Pantalon\footnote{潘塔隆琴}}: 
+    \begin{itemize}
+        \item No dampers.
+        \item Non-covering wooden hammers.
+        \item Tone-changing stops (Muted "Soft" and "Harp").
+    \end{itemize}
+    \item \textbf{Fortepiano}:
+    \begin{itemize}
+        \item A \textbf{chordophone\footnote{弦鸣乐器}} where strings are the sounding medium.
+        \item Played by keys and sounded by "free-flying" hammers.
+        \item Releasing a key dampens the sound (individual damper for each note).
+    \end{itemize}
+\end{itemize}
+
+\subsection{Upright Grand Piano}
+\begin{itemize}
+    \item European square pianos were discontinued by the 1860s (American by the end of the century), but \textbf{Uprights\footnote{立式钢琴}} persisted.
+    \item \textbf{Stodart (1795)}: Patented the Upright (Cabinet) Piano with a bookcase.
+    \item \textbf{German Designs}: Created "Giraffe" or "Pyramid" pianos.
+\end{itemize}
+
+\subsection{Upright Piano Innovators}
+\begin{itemize}
+    \item \textbf{John Isaac Hawkins (1800)}: Invented the upright pianino ("portable grand"). Features included strings extending to the floor and the first use of metal bars in piano framing.
+    \item \textbf{Robert Wornum (1811)}: Made the cottage piano with \textbf{oblique strings\footnote{斜向琴弦}} and invented the upright mechanical action.
+\end{itemize}
+
+\subsection{Unusual Designs: Vis-à-vis Ditanaklassis}
+\begin{itemize}
+    \item By Mathias Muller (1801).
+    \item Features two keyboards sounding an octave apart: 4' pitch (black naturals, white sharps) and 8' pitch (white naturals, black sharps).
+\end{itemize}
+
+\subsection{John Broadwood (English School)}
+\begin{itemize}
+    \item Led world production by the mid-19th century.
+    \item \textbf{Cost}: A grand piano cost 4/5 of a skilled workman's annual salary.
+    \item \textbf{Target}: Nobility and gentry were regular customers; middle class were "chance" customers.
+    \item \textbf{Range Expansion}:
+    \begin{itemize}
+        \item 1790s: Jan Ladislav Dussek requested 5 octaves and a fifth ($F_1-C_6$).
+        \item 1810: Six octaves ($C_1-C_7$) became popular.
+    \end{itemize}
+    \item Philosophy: "Would to God we could make them like muffins" (mass production focus utilizing skilled labor without machinery).
+\end{itemize}
+
+\subsection{Comparison: English vs. Viennese Action}
+\begin{itemize}
+    \item \textbf{English Action\footnote{英式击弦机}}:
+    \begin{itemize}
+        \item \textbf{Purpose}: Public concerts.
+        \item \textbf{Sound}: Bigger, louder sound.
+        \item \textbf{Touch}: Heavier.
+        \item \textbf{Mechanism}: Direct blow (no intermediate), larger hammer head.
+        \item \textbf{Range}: $C_1$ to $C_7$.
+    \end{itemize}
+    \item \textbf{Viennese Action\footnote{维也纳式击弦机}} (German):
+    \begin{itemize}
+        \item \textbf{Purpose}: Courtly gatherings.
+        \item \textbf{Sound}: Delicate and silvery.
+        \item \textbf{Touch}: Lighter and responsive.
+        \item \textbf{Mechanism}: Direct blow, smaller hammer head.
+        \item \textbf{Range}: $F_1$ to $F_6$.
+        \item \textbf{Controls}: Knee levers instead of pedals.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Johann Andreas Stein}
+\begin{itemize}
+    \item Known for finely crafted pianos with Viennese action.
+    \item Innovations:
+    \begin{itemize}
+        \item Cross A-frame bracing to avoid wood warping.
+        \item Introduced knee levers (switched to pedals after 1800).
+    \end{itemize}
+    \item \textbf{Pedals/Stops}: Austrian pianos could have up to 7 pedals, including the "Bassoon" (buzzing), "Moderator" (muting), "Janissary" (thumping/jingling), and \textbf{Una Corda\footnote{柔音踏板/单弦}}.
+\end{itemize}
+
+\subsection{Sebastien Erard}
+\begin{itemize}
+    \item 1820s: Expanded range to 7 octaves (became standard).
+    \item \textbf{Double Escapement\footnote{双擒纵结构}}: Improved the English stiff action with "Repetition" action, allowing for faster note repetition.
+\end{itemize}
+
+\subsection{Improvement for Powerful Sound}
+\begin{itemize}
+    \item The Challenge: Withstanding string tension without ruining the sound with metal.
+    \item \textbf{Alpheus Babcock (1825)}: Patented the one-piece metal frame.
+    \item \textbf{Henri Pape (1830)}: Introduced felt-covered hammers.
+    \item \textbf{Chickering (1840)}: First to build grand pianos with iron frames.
+    \item \textbf{Henry Steinway (1859)}: Patented the first \textbf{cross-strung\footnote{交叉弦列}} grand piano, setting the standard for louder, richer sound.
+    \item \textbf{Bösendorfer (1909)}: Built the Imperial Model 290 (8 octaves, 97 keys) suggested by Busoni.
+\end{itemize}
+
+\subsection{Piano \& Nobility}
+\begin{itemize}
+    \item \textbf{Steinway}: Associated with wealth/nobility; preferred by leading performers; made by "artisans."
+    \item \textbf{Bösendorfer}: Produces "ultimate design" pianos and collectors' items.
+    \item \textbf{Luxury Variations}: Blüthner Crystal Edition, Schimmel Glas (see-through piano, used on Queen Elizabeth II ocean liner).
+\end{itemize}
+
+\subsection{David Klavins}
+\begin{itemize}
+    \item Critic of traditional piano design; restores old pianos.
+    \item \textbf{Model 370 (1987)}: World's largest upright piano (370cm soundboard, spans two floors).
+    \item \textbf{Una Corda Piano (2014)}: Open design without a cabinet; 64 individually stringed keys.
+\end{itemize}
+
+\subsection{Early Automated Piano}
+\begin{itemize}
+    \item Mechanism: Pneumatic action using punched paper rolls.
+    \item \textbf{History}: "Pianista" (French) and "Pianola" (US, Edwin Votey, 1898).
+    \item \textbf{Decline}: Caused by the growth of radio and electrical recording.
+    \item \textbf{Purpose}: Allowed playing of pieces too difficult for humans (transcending human limitations) and capturing recordings of masters (Debussy, Rachmaninov).
+\end{itemize}
+
+\subsection{Automated Piano in the Digital Era}
+\begin{itemize}
+    \item \textbf{Piano-corder}: Digital signals convert to analog via \textbf{solenoids\footnote{螺线管}} to operate keys.
+    \item \textbf{Yamaha Disklavier}: Includes operation for all pedals.
+    \item \textbf{Technology}: Uses \textbf{MIDI\footnote{乐器数字接口}} and can play from CDs, floppy disks, or computers.
+    \item \textbf{Clavinova}: Uses "sampled sound" rather than acoustic strings.
+\end{itemize}
+
+\section{The Revolution of Piano Culture}
+
+\subsection{Introduction}
+Clementi, Haydn, Mozart, and Beethoven theoretically gather to argue who should be named the "Father of the Entertainment Industry"\footnote{娱乐产业之父}. Each composer revolutionized musical culture centered on the piano during their time, presenting new ideas about the instrument, producing groundbreaking works, and shaping high culture as the piano's popularity surged.
+
+\subsection{Muzio Clementi (1752-1832): The Father of the Pianoforte}
+\subsubsection{Biography and Virtuosity}
+Born in Rome in 1752, Clementi moved to England at age 14, where he practiced long hours daily at Peter Beckford's estate. He died in Evesham in 1832 and was granted a public interment in Westminster Abbey, with his tombstone acknowledging his fame throughout Europe as a musician and composer.
+In the 1760s, keyboard virtuosos\footnote{键盘大师/名家} were typically children, women, foreigners, or blind individuals with abnormal musical abilities (e.g., Mozart and Maria Theresia Paradis). Clementi, however, brought pure technical showmanship. He famously engaged in a musical contest with Mozart under Emperor Joseph II. It was noted that Mozart published for the amateur, while Clementi published for the "devil."
+
+\subsubsection{Piano Culture Revolutionist}
+Clementi aggressively expanded piano culture through business and teaching:
+\begin{itemize}
+    \item \textbf{Manufacturing:} In 1781, he asked Broadwood for a harpsichord and piano in Paris (by the 1790s, Broadwood was making 500 pianos a year). In 1798, he partnered with Longman for piano manufacturing and music publishing. 
+    \item \textbf{Marketing:} Pianist Jan Ladislav Dussek performed on and sold Clementi's pianos.
+    \item \textbf{Teaching:} He authored \textit{Introduction to the Art of Playing on the Pianoforte} and \textit{Gradus ad Parnassum} for advanced students.
+    \item \textbf{Publishing:} He was the first composer to secure copyright through simultaneous publication in major overseas markets. While publishers like Breitkopf-Hartel ran journals (e.g., \textit{Allgemeine musikalische Zeitung}), Clementi collaborated with editors and published the first "keepsake" albums like \textit{Apollo's Gift}, featuring facsimiles\footnote{手稿复印件} of great masters.
+\end{itemize}
+He pioneered the industry comprehensively: from production to marketing, concert to domestic use, manufacture to instruction, and publishing to journalism.
+
+\subsection{Piano Culture and Women}
+\subsubsection{Social Status and Education}
+Arthur Loesser stated, "The history of the pianoforte and the history of the social status of women can be interpreted in terms of one another." Jane Austen's \textit{Pride and Prejudice} (1813) defined an accomplished woman as having thorough knowledge of music, drawing, and modern languages.
+\begin{itemize}
+    \item Playing the piano defined a woman's upbringing and character.
+    \item Literacy (including musical literacy) was the foundation of upper-class female education.
+\end{itemize}
+
+\subsubsection{The Domestic Role of the Piano}
+Women playing the piano was not meant for making money. Instead, it served as a "Vehicle of Attraction" to catch the eye of the right man. The piano became a fixture women were bound to, serving both for family recreation/cultivating musical culture at home, and for a woman's own privacy and solitary moments.
+
+\subsection{Writing for the Piano}
+\subsubsection{Instrument Evolution and Composition}
+Masterpieces written from 1770-1820s aligned closely with the history of piano development. There were distinct differences between Viennese and English pianos, and among makers like Walter, Schantz, and Stein. 
+Early keyboard compositions were written for whatever instrument was at hand, but Haydn, Mozart, and Beethoven began capturing the piano's expressiveness with precise notation.
+\begin{itemize}
+    \item \textbf{Amateurs vs. Professionals:} There was a divergence in music. Piano concertos were for public performances by male professionals. Solo or accompanied sonatas\footnote{伴奏奏鸣曲} were for domestic music-making among female amateurs (though eventually for performers too). Music for publication became more instructive and detailed.
+\end{itemize}
+
+\subsubsection{Joseph Haydn (1732-1809): Keyboard Sonatas}
+Haydn composed 52 sonatas over 40 years.
+\begin{itemize}
+    \item \textbf{Before 1780:} Earliest sonatas were called divertimenti or partitas\footnote{嬉游曲或组曲}, all including a minuet. They were simple in texture (galant style\footnote{华丽风格}), lacked dynamics, and were easy pieces for students/amateurs.
+    \item \textbf{Late 1760s-1770s:} He explored a greater range of keys. His Sonata in C Minor Hob. XVI:20 embraced the \textit{Sturm und Drang}\footnote{狂飙突进运动} style (dark, minor, dynamic contrast, operatic), marking an obvious departure from the harpsichord. Two works explicitly offered "fortepiano" on the title page.
+    \item \textbf{After 1780 (28 Later Sonatas):} Haydn developed a fully realized fortepiano style. He became the "Father of the Piano Trio" (piano dominates; violin/cello double the piano). All sonatas were dedicated to women (except Esterhazy) to feature them at the keyboard.
+    \item \textbf{Late London Influence:} His last three sonatas exploited the new sounds of English pianos (from his 1790s London visit). Sonata in C Major Hob XVI:50 extended the range to a high a'' (exceeding 5 octaves) and explicitly called for "open pedal" (damper pedal) and "pp" (una corda or moderator).
+\end{itemize}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Feature} & \textbf{Sonata \#49 (Eb Major)} & \textbf{Sonata \#52 (Eb Major)} \\ \hline
+Setting & Private, Intimate & Concert, Grand \\ \hline
+Dedicatee & Marianne von Genzinger & Therese Jensen / Magdalene von Kurzbeck \\ \hline
+Target Player & Amateur & Virtuoso \\ \hline
+Instrument & Viennese (Schantz) & English (Broadwood) \\ \hline
+\end{tabular}
+\caption{Comparison of Haydn's Late Sonatas in Eb Major}
+\end{table}
+
+\subsubsection{Wolfgang Amadeus Mozart: Piano Concertos}
+Known as the Father of the Piano Concerto, Mozart wrote 27 original piano concertos, mostly for his own public performances, though some were dedicated to specific women or featured an \textit{ad libitum}\footnote{随意/即兴} ensemble for chamber play.
+\begin{itemize}
+    \item \textbf{Key Works:} Concerto No. 7 (three pianos, easier, for a countess/daughters); Concerto No. 10 (two pianos, demanding, for him and his sister).
+    \item \textbf{Concerto No. 9 in Eb ("Jeunehomme", 1777):} Possibly for Victoire Jenamy. Featured brilliant passages making the soloist an equal partner to the orchestra, an unusual piano entrance at the beginning, two written cadenzas\footnote{华彩乐段}, and an unusual minuet interrupting the fast last movement.
+    \item \textbf{Vienna Concertos (K.413-415):} A "happy medium" between too easy and too difficult. Featured figured bass notation to keep the ensemble together.
+    \item \textbf{Grosse concerte (K.449, K.450 in 1784):} Signaled a change to fully realized symphonic textures meant to "make the performer sweat." Written for the Anton Walter fortepiano.
+    \item \textbf{The Great Six (K.466-503, 1785-6):} Demonstrated operatic theatricality (K.466) and the elegant vocal capacity of the piano (K.488) in perfect partnership with the orchestra.
+\end{itemize}
+
+\subsubsection{Ludwig van Beethoven (1770-1827): Piano Sonatas}
+Beethoven's 32 sonatas were called "the New Testament" of piano music by Hans von Bulow.
+\begin{itemize}
+    \item \textbf{Style \& Demand:} He utilized a larger range of keys (one-third in minor, compared to Mozart's 2/18 and Haydn's 5/52). He demanded virtuosity and stamina, utilizing explosive contrasts of texture, dynamics, and tempo. 
+    \item \textbf{Publication:} Continuous publication suggested high demand, ending the common practice of offering sonatas in groups. They were dedicated to both men and women (mostly aristocratic patrons) and gained nicknames from listeners (Moonlight, Pastoral, Tempest, Appassionata, Cuckoo).
+    \item \textbf{Stretching the Instrument:} Compositions through 1802 stayed within 5 octaves. "Waldstein" and "Appassionata" stretched to $5\frac{1}{2}$ octaves, exploiting extreme registers. "Hammerklavier" required $6\frac{1}{2}$ octaves and was his longest, most technically demanding. Beethoven was acquainted with 14 different pianos (including Broadwood, Erard, Walter, Streicher, Graf).
+    \item \textbf{Use of Pedals for Color:}
+    \begin{itemize}
+        \item Piano Concerto No. 4 (End of 2nd mov): Trills pp to ff.
+        \item Moonlight Sonata: "sempre pp senza sordino" (use of damper and moderator).
+        \item Waldstein: Extended pedal markings idiomatic to Viennese pianos.
+        \item Sonata Op. 110 (2nd mov): Bebung-like\footnote{震音效果 (Bebung)} repeated notes with dynamic changes and tempo fluctuation.
+        \item Tempest Sonata Op. 31 No. 2 (1st mov): Long pedal with pp.
+    \end{itemize}
+\end{itemize}
+
+\section{Piano Lesson}
+
+\subsection{Philosophy and Impact of Piano Study}
+
+\begin{itemize}
+    \item The study of the piano brings up debates regarding its primary purpose: whether it should focus on cultivating artistic expression or be valued as a tool for discipline and cognitive development.
+    \item There are also pedagogical\footnote{教学法的} debates on whether to prioritize creativity and improvisation\footnote{即兴演奏} over technical mastery in performance.
+    \item Socially, questions arise about whether piano study is an elitist pursuit tied to privilege or a universal art form, and whether the music examination system (like ABRSM) functions more as a business enterprise than an educational tool.
+    \item Piano lessons have profound effects on students, impacting them physically, mentally, and emotionally, while also shaping their relationships and lifestyle.
+\end{itemize}
+
+\subsection{18th Century Keyboard Pedagogy (C.P.E. Bach)}
+
+\begin{itemize}
+    \item In the 18th century, there were no music conservatories; teaching relied on composers' letters and pedagogical\footnote{教学法的} treatises. Lessons were often daily, with the teacher constantly beside the student.
+    \item Keyboard playing was tied to service activities like accompanying instrumentalists, realizing basso continuo\footnote{通奏低音 (一种和声伴奏形式)}, and leading orchestras.
+    \item C.P.E. Bach's \textit{Essay on the True Art of Playing Keyboard Instruments} (1753, 1762) is a seminal work. It covers fingering (introducing the use of the thumb), embellishments\footnote{装饰音}, performance, and thorough bass\footnote{通奏低音 (一种和声伴奏形式)}.
+    \item Bach favored the clavichord\footnote{击弦古钢琴} for studying good performance and the harpsichord\footnote{拨弦古钢琴} to develop finger strength. He noted the newer pianoforte\footnote{早期钢琴 (现代钢琴的前身)} had fine qualities, but its touch was difficult to master.
+    \item Bach believed that keyboardists whose chief asset is mere technique are at a disadvantage; they overwhelm the hearing without satisfying it and stun the mind without moving it.
+\end{itemize}
+
+\subsection{The Turn of the 19th Century (Milchmeyer and Clementi)}
+
+\begin{itemize}
+    \item By the end of the 18th century, the piano was replacing the harpsichord\footnote{拨弦古钢琴}, and solo piano repertory blossomed. Orchestral music stopped requiring a keyboardist.
+    \item J.P. Milchmeyer's \textit{The True Art of Playing the Pianoforte} (1797) introduced rounded finger positions and completely omitted harmony instruction, treating the piano as a secure solo instrument.
+    \item Muzio Clementi's \textit{Introduction to the Art of Playing on the Pianoforte} (1801) focused on rudimentary reading, fingerings, scales, and included 50 Preludes \& Lessons. His later \textit{Preludes \& Exercises} (1811) was full of scale passages running through all keys.
+\end{itemize}
+
+\subsection{19th Century Mechanistic Ideals and Etudes}
+
+\begin{itemize}
+    \item This era saw the rise of etudes\footnote{练习曲} (finger exercises) by composers like Hanon, Czerny, and Cramer. Hanon's \textit{The Virtuoso Pianist} aimed to build agility, strength, and perfect equality of the fingers.
+    \item Methods advocated for an hour of daily scale practice. Friedrich Wieck strictly warned against using mechanical finger stretchers --- a device that famously ruined Robert Schumann's hands.
+\end{itemize}
+
+
+\subsection{Schumann and Musicality over Mechanism}
+
+\begin{itemize}
+    \item Reacting against poor-quality pedagogical\footnote{教学法的} music and the escalating demands of middle-class hausmusik, Robert Schumann composed \textit{Album for the Young, Op.68} (1848).
+    \item It was written from a child's perspective to awaken imagination, specifically avoiding virtuosic display.
+    \item Schumann's \textit{Rules for the Musical Home and Life} advised cultivating a sense of hearing, practicing sight singing\footnote{视唱}, and avoiding the brilliant popularity of virtuosi\footnote{炫技名家 / 演奏大师}.
+    \item He urged students not to shut themselves up like hermits practicing mechanical studies, but to seek living musical intercourse and play with heart.
+\end{itemize}
+
+\subsection{Sound Shaping, Singing Tone, and Pedaling}
+
+\begin{itemize}
+    \item Theodor Leschetizky (1830--1915), a famous teacher in Vienna, taught legendary pupils like Paderewski, focusing heavily on producing a singing tone.
+    \item Modern pianists like Murray Perahia emphasize translating the sounds in your head directly to your fingers, mimicking orchestral colors (like an oboe or horn) to create the ``illusion'' of color on the piano.
+    \item The sustain pedal\footnote{延音踏板} is vital; Anton Rubinstein called it ``the soul of the piano'' for making a singing line possible. However, misuse can turn the sound to mud, as Friedrich Wieck complained about the ``growling and buzzing'' of an excessively pedaled piano.
+\end{itemize}
+
+\chapter{Quiz}
+
+\section{Quiz 1}
+
+In quiz 1, the focus is on the meaning of some technical terms and their usage, and also the characteristics of different kinds of pianos.
+
+% Prerequisite: Add \usepackage{longtable}, \usepackage{array}, and \usepackage{booktabs} to your preamble.
+
+% =========================================================
+% TABLE 1: IMPORTANT LITERATURE & TREATISES
+% =========================================================
+\begin{longtable}{p{0.3\textwidth} p{0.35\textwidth} p{0.25\textwidth}}
+\caption{Important Literature, Treatises \& Poems} \\
+\toprule
+\textbf{Title / Work} & \textbf{Author \& Significance} & \textbf{Chinese Translation} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{Title / Work} & \textbf{Author \& Significance} & \textbf{Chinese Translation} \\
+\midrule
+\endhead
+
+\bottomrule
+\endfoot
+
+\textit{Giornale de' Letterati d'Italia} (1711) & \textbf{Scipione Maffei}. The journal article that first described Cristofori's piano and included diagrams. & \textbf{《意大利文学学报》} (马费伊在此发表了关于钢琴发明的第一篇文章和图解) \\
+\midrule
+\textit{Critica Musica} (1725) & \textbf{Johann Mattheson}. Published the German translation of Maffei's article, spreading piano knowledge to Germany. & \textbf{《音乐评论》} (马泰松的著作，刊登了关于钢琴发明的德语翻译) \\
+\midrule
+\textit{12 Sonatas for Cembalo di piano e forte} (1732) & \textbf{Ludovico Giustini}. The \textbf{first} music specifically published for the piano. Dedicated to Portuguese royalty. & \textbf{《钢琴奏鸣曲十二首》} (朱斯蒂尼创作，历史上第一部专门为钢琴出版的乐谱) \\
+\midrule
+\textit{Essay on the Right Way to Play the Clavier} (1753) & \textbf{C.P.E. Bach}. A major treatise. He praised the clavichord but admitted the piano is useful if durable. & \textbf{《键盘乐器演奏法的真谛》} (C.P.E.巴赫的重要论著，确立了键盘演奏的规范) \\
+\midrule
+\textit{Guide to Playing the Transverse Flute} (1752) & \textbf{J.J. Quantz}. Noted that the piano is convenient for accompanying due to its ability to shade sound. & \textbf{《长笛演奏教程》} (匡茨的著作，提到钢琴在伴奏中表现力丰富) \\
+\midrule
+\textit{Ode to Joy} (An die Freude) & \textbf{Friedrich Schiller}. Poem about brotherhood/joy, used in Beethoven's 9th Symphony. Reflects Enlightenment/Romantic ideals. & \textbf{《欢乐颂》} (席勒的诗作，贝多芬第九交响曲的歌词来源) \\
+\midrule
+\textit{An mein Klavier} (To My Piano) & \textbf{C.F.D. Schubart} (Lyrics) / \textbf{Schubert} (Music). Personifies the piano as a "gentle" friend that shares tears and joy. & \textbf{《致我的钢琴》} (舒巴特作词，舒伯特作曲，将钢琴视为知己的艺术歌曲) \\
+\midrule
+\textit{Laura at the Piano} & \textbf{Friedrich Schiller}. Poem describing a female pianist as a "sorceress" with power over life, death, and nature. & \textbf{《劳拉在弹钢琴》} (席勒的诗，描绘了女性演奏者如女巫般掌控情感的魔力) \\
+\end{longtable}
+
+% =========================================================
+% TABLE 2: PIANO MECHANISM ANATOMY
+% =========================================================
+\begin{longtable}{p{0.25\textwidth} p{0.4\textwidth} p{0.25\textwidth}}
+\caption{Anatomy of the Piano Mechanism (From Diagrams)} \\
+\toprule
+\textbf{Part Name} & \textbf{Function} & \textbf{Chinese Term} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{Part Name} & \textbf{Function} & \textbf{Chinese Term} \\
+\midrule
+\endhead
+
+\bottomrule
+\endfoot
+
+Escapement (Jack) & The part that pushes the hammer up but "escapes" just before impact so the hammer can rebound freely. & \textbf{擒纵器 / 顶杆} (推动琴槌并在击弦瞬间脱离的关键部件) \\
+\midrule
+Back Check & Catches the hammer on its return to stop it from bouncing back up to hit the string again. & \textbf{托木 / 制动器} (接住回落的琴槌，防止二次击弦) \\
+\midrule
+Damper & Felt block that lifts off the string when you play, and falls back to stop the sound when you release the key. & \textbf{制音器} (止音毡，控制声音的停止) \\
+\midrule
+Hammer Shank & The thin wooden rod that holds the hammer head. & \textbf{琴槌柄} (连接琴槌头的细木杆) \\
+\midrule
+Knuckle & A leather-covered cylinder on the shank that the jack pushes against to lift the hammer. & \textbf{关节 / 轴} (顶杆与琴槌柄接触的部位) \\
+\midrule
+Wippen & The complex intermediate lever assembly between the key and the hammer. & \textbf{联动杠杆 / 韦佩} (连接琴键与击弦机的中间传动装置) \\
+\midrule
+Capstan & A screw on the key used to adjust the height/contact with the wippen. & \textbf{卡钉} (用于调节琴键与击弦机接触高度的螺丝) \\
+\end{longtable}
+
+% =========================================================
+% TABLE 3: SOCIAL HISTORY & MUSICAL CONCEPTS
+% =========================================================
+\begin{longtable}{p{0.25\textwidth} p{0.4\textwidth} p{0.25\textwidth}}
+\caption{Social History \& Musical Concepts} \\
+\toprule
+\textbf{Concept} & \textbf{Description} & \textbf{Chinese Term} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{Concept} & \textbf{Description} & \textbf{Chinese Term} \\
+\midrule
+\endhead
+
+\bottomrule
+\endfoot
+
+Burghers & The educated middle class (merchants, professionals) in Germany. They favored the clavichord and family music-making. & \textbf{市民阶级 / 中产阶级} (受过教育的城市居民，喜爱家庭音乐活动) \\
+\midrule
+Pietism & Religious movement emphasizing "personal feeling" over strict doctrine. Favored simple, expressive music (Clavichord). & \textbf{虔敬主义} (强调个人情感体验的宗教运动，推动了音乐向情感化发展) \\
+\midrule
+Sturm und Drang & "Storm and Stress" (late 1760s). Literary/musical movement focusing on extreme emotion, nature, and rebellion against rationalism. & \textbf{狂飙突进运动} (强调强烈情感爆发的文学艺术运动) \\
+\midrule
+Empfindsamkeit & (Implied) The "Cult of Feeling." A style of sensitivity and gentle emotion, associated with CPE Bach and the clavichord. & \textbf{敏感风格 / 情感崇拜} (一种追求细腻情感表达的艺术风格) \\
+\midrule
+Singspiel & German musical drama with spoken dialogue. Created/promoted by Johann Adam Hiller. & \textbf{歌唱剧} (一种带有对白的德国歌剧形式) \\
+\midrule
+Alberti Bass & A simple accompaniment pattern (broken chords) common in amateur piano music (Classical era). & \textbf{阿尔贝蒂低音} (一种简单的分解和弦伴奏音型) \\
+\midrule
+Bebung & Vibrato effect on the Clavichord created by varying finger pressure. Impossible on Harpsichord or Piano. & \textbf{颤音 / 揉弦} (击弦古钢琴特有的手指颤音技法) \\
+\end{longtable}
+
+% =========================================================
+% TABLE 4: KEY HISTORICAL FIGURES
+% =========================================================
+\begin{longtable}{p{0.25\textwidth} p{0.4\textwidth} p{0.25\textwidth}}
+\caption{Key Historical Figures (Who did what?)} \\
+\toprule
+\textbf{Name} & \textbf{Role / Action} & \textbf{Chinese Role} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{Name} & \textbf{Role / Action} & \textbf{Chinese Role} \\
+\midrule
+\endhead
+
+\bottomrule
+\endfoot
+
+Bartolomeo Cristofori & Inventor of the piano (1700). Worked for Prince Ferdinand de' Medici. & \textbf{克里斯托福里} (钢琴发明者) \\
+\midrule
+Gottfried Silbermann & German organ builder. Copied Cristofori's design. His pianos were played by J.S. Bach. & \textbf{希尔伯曼} (德国钢琴制造先驱) \\
+\midrule
+Johann Sebastian Bach & Unimpressed by Silbermann's piano in 1736, but approved of it in 1747 (Musical Offering). & \textbf{J.S.巴赫} (最初不喜欢钢琴，后来认可) \\
+\midrule
+Christian Ernst Friederici & Pupil of Silbermann. Built the "Upright-Flugel" (pyramid piano) and "Tafelklaviere" (square piano). & \textbf{弗里德里希} (希尔伯曼的学生，制造了早期立式和方形钢琴) \\
+\midrule
+Johannes Zumpe & Developed the compact "Square Piano" in London, making it affordable for the middle class. & \textbf{祖佩} (方形钢琴推广者，使钢琴普及化) \\
+\midrule
+Johann Adam Hiller & First Kapellmeister of Leipzig Gewandhaus. Creator of Singspiel. & \textbf{希勒} (莱比锡格万特豪斯乐团首任指挥) \\
+\midrule
+Pantaleon Hebenstreit & Famous Dulcimer player. His dynamic skill inspired the idea of a hammer-action keyboard. & \textbf{海本斯特雷特} (扬琴大师，其演奏启发了钢琴的发明) \\
+\midrule
+Muzio Clementi & "Father of the Pianoforte" (playing technique). Composed sonatas for professionals vs amateurs. & \textbf{克莱门蒂} (被称为“钢琴之父”，区分了专业与业余作品) \\
+\end{longtable}
+
+% =========================================================
+% TABLE 5: INSTRUMENT COMPARISON MATRIX
+% =========================================================
+\begin{longtable}{p{0.14\textwidth} p{0.25\textwidth} p{0.25\textwidth} p{0.25\textwidth}}
+\caption{Comparison of Early Keyboard Instruments} \\
+\toprule
+\textbf{Feature} & \textbf{Harpsichord} & \textbf{Clavichord} & \textbf{Piano (Early)} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{Feature} & \textbf{Harpsichord} & \textbf{Clavichord} & \textbf{Piano (Early)} \\
+\midrule
+\endhead
+
+\bottomrule
+\endfoot
+
+\textbf{Action} & Plucked (Plectrum) & Struck (Tangent remains on string) & Struck (Hammer escapes) \\
+\midrule
+\textbf{Dynamics} & None (Terraced only via stops/manuals) & Yes (Touch sensitive) but very quiet & Yes (Touch sensitive), loud and soft \\
+\midrule
+\textbf{Tone} & Brilliant, silvery, short sustain & Delicate, intimate, expressive & Mellow (leather hammers), singing tone \\
+\midrule
+\textbf{Primary Use} & Orchestra, Opera, Aristocracy & Home practice, learning, "Solitude" & Chamber music, accompanying voice \\
+\end{longtable}
+
+\section{Quiz 2}
+\begin{enumerate}
+    \item Week 5:
+    \begin{enumerate}
+        \item Square piano: Invented by J.Zumpe
+        \item Upright Grand Piano: Patented by Stodart. German made ``girafe'' or ``pyramid'' piano.
+        \item John Isaac Hawkins: Inventor of upright piano.
+        \item Robert Wornum: Invent the upright mechanical action.
+        \item Vis-a-vis ditanaklassis: Invented by Mathias Muller.
+        \item John Broadwood: Led the world production by mid-19th century.
+        \item Johann Andreas Stein: Viennese action piano.
+        \item Sebastien Erard: 7 octaves.
+        \item David Klavins: World largest upright piano
+    \end{enumerate}
+    \item Week 6:
+    \begin{enumerate}
+        \item Muzio Clementi: Father of the PianoForte. Keyboard virtuoso
+        \item Joseph Haydn: Keyboard Sonatas before 1780
+        \item Mozart: Piano Concertos.
+        \item Beethoven: Piano Sonatas. Use of pedals for colors.
+    \end{enumerate}
+    \item Week 7:
+    \begin{enumerate}
+        \item Leopold taught W.A. Mozart.
+        \item C.P.E. Bach: Essay on the True Art of Playing Keyboard Instruments (1753, 1762)
+        \item J.P. Milchmeyer: The True Art of Playing the PianoForte (1797)
+        \item Muzio Clementi: Introduction to the Art of Playing on the Pianoforte (1801). Preludes \& Exercises.
+        \item Carl Czerny: Letters to a Young Lady on the Art of Playing Piano (1842), Forty Daily Exercises. Regularity, evenness, exactness brought the mechanistic ideals.
+        \item Etudes (Finger exercises): Czerny, Cramer, Clementi, Chopin, Hummel, Pischna, Brahms, etc.
+        \item Hanon: The Virtuoso Pianist.
+        \item D.G. Turk's Klavierschule: Suggested amateur to practice a handful of hours per week.
+        \item Hunter: Instructions for the pianoforte.
+        \item Herz: Complete method of piano.
+        \item Frederich Wieck: Recommended quarter of an hour daily of scales.
+        \item R.Schumann: Used a finger-strengthening device that ruined his hands. Album for the Young.
+        \begin{itemize}
+            \item Spring Song
+            \item Gathering of Grapes-Happy Time
+            \item Haverst Song
+            \item Wintertime
+        \end{itemize}
+        \item Theodor Leschetizky: Beethoven $\rightarrow$ Czerny $\rightarrow$ Liszt, Leschetizky
+    \end{enumerate}
+    \item Week 8
+    \begin{enumerate}
+        \item Jan Ladislav Dussek: Recepient of Broadwood 6-octaves piano.
+        \item Broadwood and Clementi, Clementi company and Dussek, Pleyel and Kalkbrenner, Erard and Liszt
+        \item Thalberg-Liszt concert organized by Belgiojoso.
+        \begin{itemize}
+            \item Liszt: Pacini's Niobe. Piano transcription on Berlioz's Synphonie fantastique.
+            \item Thalberg: Fantasia on Rossini's Moses. Art of Song Applied to the Piano.
+        \end{itemize}
+        \item Schubert performed his songs, Winterreise
+        \item Chopin: dance pieces.
+        \item The Religion of the Pianoforte by George Bernard Shaw: The pianoforte is the most important of all musical instruments; its invention was to music what the invention of printing was to poetry
+        \item The Wonder of the Piano by Menahem Pressler: He found a very good piano that he liked.
+        \item On Audiences by Vladimir Horowitz: The concentration of the artist is contagious to the public.
+        \item Girl at the Piano by Paul Cezanne.
+        \item Pierre Auguste Renoir: The most prolific painter of woman at the piano. He painted Young girls at the Piano (1892) Yvonne and Christine Lerolle at the Piano (1897).
+    \end{enumerate}
+\end{enumerate}
+
+\small
+\begin{longtable}{|p{3cm}|p{6cm}|p{7cm}|}
+\hline
+\textbf{Figure} & \textbf{Representative Works (曲目/著作)} & \textbf{Characteristics \& Style (特色)} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{Figure} & \textbf{Representative Works (曲目/著作)} & \textbf{Characteristics \& Style (特色)} \\
+\hline
+\endhead
+
+
+Muzio Clementi &
+\begin{itemize}[leftmargin=*]
+\item Introduction to the Art of Playing on the Pianoforte
+\item Gradus ad Parnassum
+\end{itemize}
+&
+\begin{itemize}[leftmargin=*]
+\item Known as ``The Father of the Pianoforte''.
+\item Offered high technical showmanship and composed primarily for virtuosos (the ``devil'') rather than amateurs.
+\end{itemize}
+\\
+\hline
+
+
+Joseph Haydn &
+\begin{itemize}[leftmargin=*]
+\item Early: Sonata in C Minor Hob. XVI:20
+\item Late: Sonata in C Major Hob. XVI:50
+\end{itemize}
+&
+\begin{itemize}[leftmargin=*]
+\item Known as the ``Father of Piano Trio''.
+\item Early works were simple and in the galant style, while later works explored Sturm und Drang.
+\item Later sonatas stretched the fortepiano register and used pedal markings such as \textit{una corda} and open pedal.
+\end{itemize}
+\\
+\hline
+
+
+W. A. Mozart &
+\begin{itemize}[leftmargin=*]
+\item Concerto No. 9 in E$\flat$ ``Jeunehomme''
+\item Concertos K.449, 450 (``Grosse concerti'')
+\item Concertos K.466 and K.488
+\end{itemize}
+&
+\begin{itemize}[leftmargin=*]
+\item Known as the ``Father of the Piano Concerto''.
+\item Unlike Clementi, he often published for amateurs.
+\item His concertos combined brilliant passages, symphonic textures, and partnership between piano and orchestra.
+\end{itemize}
+\\
+\hline
+
+
+Ludwig van Beethoven &
+\begin{itemize}[leftmargin=*]
+\item 32 Piano Sonatas (the ``New Testament'' of piano)
+\item ``Waldstein'' Sonata
+\item ``Appassionata'' Sonata
+\item ``Hammerklavier'' Sonata
+\end{itemize}
+&
+\begin{itemize}[leftmargin=*]
+\item Stretched the mechanical and expressive capabilities of the piano to the limit.
+\item Music demanded immense virtuosity and stamina.
+\item Known for explosive contrasts in texture and dynamics and extreme tempos.
+\end{itemize}
+\\
+\hline
+
+
+C. P. E. Bach &
+\begin{itemize}[leftmargin=*]
+\item Essay on the True Art of Playing Keyboard Instruments
+\end{itemize}
+&
+\begin{itemize}[leftmargin=*]
+\item Believed true keyboard artistry depended on fingering, embellishments, and expressive performance.
+\item Players relying only on technique are at a disadvantage.
+\end{itemize}
+\\
+\hline
+
+
+Carl Czerny &
+\begin{itemize}[leftmargin=*]
+\item Letters to a Young Lady on the Art of Playing Piano
+\item Various Etudes (Finger Exercises)
+\end{itemize}
+&
+\begin{itemize}[leftmargin=*]
+\item Promoted mechanistic ideals in piano playing.
+\item Emphasized regularity, evenness, and striking the keys perpendicularly.
+\item Warned against rushing the tempo, calling fingers ``disobedient creatures''.
+\end{itemize}
+\\
+\hline
+
+
+Robert Schumann &
+\begin{itemize}[leftmargin=*]
+\item Album for the Young, Op.68 (e.g., The Happy Farmer, Wild Rider)
+\item Rules for the Musical Home and Life
+\end{itemize}
+&
+\begin{itemize}[leftmargin=*]
+\item Wrote pedagogical pieces from a child's perspective to inspire imagination.
+\item Believed players must have music in their ``head and heart,'' not just in their fingers.
+\end{itemize}
+\\
+\hline
+
+
+Jan Ladislav Dussek &
+N/A (Noted as a Czech virtuoso)
+&
+Historically significant as the first performer to sit sideways to the audience during a piano performance.
+\\
+\hline
+
+
+Franz Liszt &
+\begin{itemize}[leftmargin=*]
+\item Transcriptions and paraphrases (e.g., Berlioz's \textit{Symphonie fantastique}, Pacini's \textit{Niobe})
+\end{itemize}
+&
+\begin{itemize}[leftmargin=*]
+\item Legendary virtuoso and first pianist to employ an agent to manage concert tours.
+\item Famous for dramatic piano transcriptions of orchestral and operatic works.
+\end{itemize}
+\\
+\hline
+
+
+Sigismond Thalberg &
+\begin{itemize}[leftmargin=*]
+\item Art of Song Applied to the Piano, Op.70
+\item Fantasia on Rossini's \textit{Moses}
+\end{itemize}
+&
+\begin{itemize}[leftmargin=*]
+\item Famous for piano fantasies based on operatic melodies.
+\item Produced influential arrangements of songs and operas for piano.
+\end{itemize}
+\\
+\hline
+
+
+Charles-Louis Hanon &
+\begin{itemize}[leftmargin=*]
+\item The Virtuoso Pianist
+\end{itemize}
+&
+\begin{itemize}[leftmargin=*]
+\item Focused on agility, independence, strength, and equality of the fingers.
+\item His exercises were described by Rachmaninov as the ``secret of the Russian school''.
+\end{itemize}
+\\
+\hline
+
+
+Theodor Leschetizky &
+\begin{itemize}[leftmargin=*]
+\item The Groundwork of the Leschetizky Method
+\end{itemize}
+&
+\begin{itemize}[leftmargin=*]
+\item Known as the ``virtuoso teacher of virtuosi''.
+\item Emphasized singing tone and high-finger technique.
+\end{itemize}
+\\
+\hline
+
+
+Franz Schubert &
+\begin{itemize}[leftmargin=*]
+\item Winterreise
+\end{itemize}
+&
+\begin{itemize}[leftmargin=*]
+\item Often accompanied himself while singing.
+\item Wrote dance music in short repetitive segments suitable for parlor dancing.
+\end{itemize}
+\\
+\hline
+
+
+Frederic Chopin &
+\begin{itemize}[leftmargin=*]
+\item Various dance pieces
+\end{itemize}
+&
+\begin{itemize}[leftmargin=*]
+\item Wrote idealized dance pieces intended for concert listening rather than actual dancing.
+\end{itemize}
+\\
+\hline
+
+\end{longtable}
+
+\section{Quiz 3}
+
+\begin{longtable}{|p{0.18\linewidth}|p{0.45\linewidth}|p{0.3\linewidth}|}
+\caption{Comprehensive Summary of Concert History and Virtuosos (SHP Weeks 9 \& 10)} \label{tab:comprehensive_summary} \\
+
+\hline
+\textbf{Topic / Figure} & \textbf{Key Characteristics \& Historical Context} & \textbf{Notable Facts / Repertoire} \\
+\hline
+\endfirsthead
+
+\multicolumn{3}{c}%
+{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\hline
+\textbf{Topic / Figure} & \textbf{Key Characteristics \& Historical Context} & \textbf{Notable Facts / Repertoire} \\
+\hline
+\endhead
+
+\hline \multicolumn{3}{|r|}{{Continued on next page}} \\ \hline
+\endfoot
+
+\hline
+\endlastfoot
+
+\textbf{Early Concert Culture (London \& Vienna)} & \textbf{London:} Evolved from tavern concerts and \textit{collegia musica}\footnote{音乐社团}. Broadwood pianos gained dominance. \newline \textbf{Vienna:} Mozart played in private aristocratic homes (Esterhazy, Galitzin) and converted warehouses before dedicated halls emerged. & \textbf{London:} Hanover Square Rooms (1775); J.C. Bach used a fortepiano\footnote{早期钢琴/古钢琴} (1767). \newline \textbf{Vienna:} Musikverein (1870); Society for the Friends of Music (1812). \\
+\hline
+\textbf{Early Concert Culture (Paris \& NY)} & \textbf{Paris:} Piano manufacturers' showrooms (Erard, Pleyel) became top venues for virtuosos\footnote{炫技大师/名家} to build reputations. \newline \textbf{New York:} Concert halls built by piano makers (Steinway, Chickering) heavily influenced the rise of virtuoso tours. & \textbf{Paris:} Concert Spirituel (1725-90); Paris Conservatory Hall (1811). \newline \textbf{NY/USA:} Sigismond Thalberg (320 concerts); Carnegie Hall opened with Tchaikovsky (1891). \\
+\hline
+\textbf{The Solo Recital\footnote{独奏会}} & Concerts used to feature mixed programs (symphonies, chamber music\footnote{室内乐}, singers). Liszt famously reduced performers until he declared, ``I am the concert.'' & 1840: Hanover Square Rooms first used the word ``Recitals'' for Liszt. 1870s: Clara Schumann adopted the format. \\
+\hline
+\textbf{Franz Liszt (1811-1886)} & Considered the greatest contemporary pianist. Sparked ``Lisztomania'' (fans fought over his gloves, hair, and broken piano strings). & Known for absolute stage charisma, transcendent technique, and deep communication with the audience. \\
+\hline
+\textbf{Russian Conservatories (Est. 1860s)} & \textbf{St. Petersburg (1862):} Introspective, focused on structure, played looking at the keys without pedal. \newline \textbf{Moscow (1866):} Outgoing, focused on color, virtuosity, lots of pedal, and grand gestures. & \textbf{St. Petersburg:} Founded by A. Rubinstein. Grads: Tchaikovsky, Prokofiev. \newline \textbf{Moscow:} Founded by N. Rubinstein. Grads: Rachmaninoff, Scriabin. \\
+\hline
+\textbf{Anton Rubinstein (1829-1894)} & Liszt called him ``Van II''. Likened to a biblical Samson. Endured a grueling US tour (215 concerts in 239 days), which he despised as ``slavery.'' & Created massive programs (1885-86) designed to exhibit the entire scope of piano literature (from Byrd to Liszt). \\
+\hline
+\textbf{Vladimir Horowitz (1903-1989)} & ``The 20th Century Liszt''. Thunderous sound, contrast of tone colors. Unusual technique: flat fingers, palms below keys, immobile body. & Dazzling Tchaikovsky 1st Concerto\footnote{协奏曲}; revived interest in Scarlatti and Clementi sonatas\footnote{奏鸣曲}; toured with his own piano and technician. \\
+\hline
+\textbf{Sergei Rachmaninoff (1873-1943)} & Expressive, song-like melodies. Played with a ``dry ice'' coolness (cool so that it's hot). Openly criticized Horowitz's playing as unmusical. & 24 Preludes\footnote{前奏曲} (covering all keys); Piano Concerto No. 2 (spawned pop hits like ``All by Myself''); Paganini Variations. \\
+\hline
+\textbf{Hans von Bülow (1830-1894)} & German virtuoso and conductor. Liszt's student. Like A. Rubinstein, he hated his exhausting 1875 US tour (sponsored by Chickering). & First to perform all Beethoven sonatas from memory. Premiered Liszt's B minor Sonata and Tchaikovsky's 1st Concerto. \\
+\hline
+\textbf{Arthur Schnabel (1882-1951)} & Prioritized intellectual insight and artistic truth over technical bravura\footnote{华丽技巧/炫技}. Believed the pianist is just a ``mountain guide'' for the composer's work. & Mastery of Schubert and late Beethoven. First to record all Beethoven sonatas (dubbed ``the man who invented Beethoven''). \\
+\hline
+\textbf{Leopold Godowsky (1870-1938)} & Combined Russian sparkle with Germanic precision. Had small hands but achieved incredibly light, logical, and super-acrobatic playing. & Wrote 53 studies on Chopin's Etudes\footnote{练习曲}, raising their difficulty to near-impossible levels (left hand alone, interweaving). \\
+\hline
+\textbf{Arthur Rubinstein (1887-1982)} & The greatest Chopin interpreter. Played with serious, tender nobility (masculine Chopin). The ``yin'' to Horowitz's ``yang''. & Believed in not over-practicing (max 3 hours). Played the Polish anthem at the 1945 UN inauguration. \\
+\hline
+\textbf{Van Cliburn (1934-2013)} & Texan pianist with a rich, round tone and singing-voice phrasing. Described his fame as a ``sensation,'' not just success. & Won the 1st Tchaikovsky Competition in Moscow (1958) during the Cold War. Played for every US President from Truman to Obama. \\
+\hline
+\textbf{Piano Competitions} & Used to obtain fame and establish a career. Top competitions: Chopin, Tchaikovsky, Van Cliburn, Queen Elisabeth, Rubinstein. & The 19th Chopin Competition saw an ``Asian wave,'' with all top six prizes taken by pianists of Asian heritage (e.g., Eric Lu). \\
+\hline
+\textbf{Valentino Liberace (1919-1987)} & ``Mr. Showmanship''. Transitioned from classical (played Liszt at 20) to highest-paid pop-culture superstar in Vegas. & ``I don't give concerts, I put up a show.'' Added sentimentality and glamor to classical tunes. \\
+\hline
+\textbf{Lang Lang (b. 1982)} & The highest-paid classical pianist today. Known for playing at massive global events. & 2008 Beijing Olympics; UN Messenger of Peace; played Gershwin at the Grammys. \\
+\hline
+
+\end{longtable}
+
+\begin{longtable}{|p{0.18\linewidth}|p{0.45\linewidth}|p{0.3\linewidth}|}
+\caption{Comprehensive Summary of Feminine \& Masculine Expression in Piano Music (SHP Weeks 11 \& 12)} \label{tab:expression_summary} \\
+
+\hline
+\textbf{Composer} & \textbf{Characteristics} & \textbf{Notable Works} \\
+\hline
+\endfirsthead
+
+\multicolumn{3}{c}%
+{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\hline
+\textbf{Composer} & \textbf{Characteristics} & \textbf{Notable Works} \\
+\hline
+\endhead
+
+\hline \multicolumn{3}{|r|}{{Continued on next page}} \\ \hline
+\endfoot
+
+\hline
+\endlastfoot
+
+\textbf{Franz Schubert} (1797-1828) & Known as a great melodist. Described as a ``fountain of good tunes'' but failed in technical skill for their development. His emotions were tempered by classical restraint and never violent. To understand his piano music, one must approach it through his songs and make the piano ``sing''. & Composed 600 songs, Impromptus\footnote{即兴曲}, Moments Musical\footnote{音乐瞬间}, and Piano Sonatas\footnote{奏鸣曲}. \textit{Sonata in Bb, D.960} (his last sonata). \\
+\hline
+\textbf{Robert Schumann} (1810-1856) & A ``dreamer'' who suffered nervous breakdowns and hallucinations. Invented two imaginary characters to represent his split nature: Florestan (passionate/carefree) and Eusebius (passive/introvert). Frequently embedded secret codes in his works. His music is wild, impulsive, and extremely romantic. & \textit{Abegg Variations Op. 1} (spelling A-Bb-E-G-G). \textit{Carnaval, Op. 9} (features codes like Asch and Scha). \textit{Davidsbundlertanz, Op. 6} (expresses passionate love for Clara). \\
+\hline
+\textbf{Johannes Brahms} (1833-1897) & Music was described as serious, thick, with rumbling basses, and radiating bigness. Used Classical structures but wrote in highly Romantic styles. Wrote ``pure music'' rather than program music\footnote{标题音乐}. Critics sometimes called his work academic and unemotional. & Early works: Large scale, highly difficult, e.g., \textit{Variations on a theme by Paganini}. Late works: Short, introspective pieces like \textit{Intermezzo Op.118 No.2} (heartwarming) and \textit{Capriccio Op.116 No.3} (energetic). \\
+\hline
+\textbf{Frédéric Chopin} (1810-1849) & Polish composer who preferred intimate salon surroundings over large concert halls. Hated piano pounding, comparing it to a barking dog. His music is full of poetic refinement without ferocity. Deeply influenced by Bellini's bel canto\footnote{美声唱法} arias. Preferred Pleyel pianos for their silvery sonority. & \textit{Nocturnes}\footnote{夜曲} (popularized from John Field's works). \textit{Mazurkas} \& \textit{Polonaises}\footnote{波兰舞曲} (aroused nationalistic sentiments, shifted accents to weak beats). \\
+\hline
+\textbf{Claude Debussy} (1862-1918) & Impressionistic\footnote{印象派} style; drifted away from convention to bring out mysteriousness. Piano played without hammers to provide an ethereal, weightless sound. Used harmony as a ``secret weapon'' for musical color and perfume. Relied heavily on soft dynamics and murmuring sounds like a glissando\footnote{滑音}. & Early: \textit{Arabesques}, \textit{Suite Bergamasque}, \textit{Pour le Piano}. Later: \textit{Estampes}, \textit{Images}, \textit{24 Preludes}\footnote{前奏曲} (titles placed at the end, e.g., \textit{The Girl with the Flaxen Hair}, \textit{Mists}). \\
+\hline
+\textbf{Ludwig van Beethoven} (1770-1827) & Points to the future and radiates human struggle. Early period: quirky, abrupt, bridged salon and concert hall. Middle (Heroic) period: explored piano capabilities (pedal, extended range), abrupt modulations\footnote{转调}. Late period: intellectual depth, formal innovation, unconventional. & \textit{Pathétique Op. 13}. \textit{Moonlight}, \textit{Tempest}, \textit{Waldstein}, \textit{Appassionata}, \textit{Les Adieux}. \textit{Hammerklavier Op. 106} (longest and most technically challenging, 50 mins). \\
+\hline
+\textbf{Franz Liszt} (1811-1886) & Described as a ``Greek god descended to earth''. Vowed to be Paganini at the piano. His playing was bombastic, searing, jaw-dropping, and fiery. Known for extreme animation and heroic fire. & \textit{Six Paganini Etudes}\footnote{练习曲}. \textit{Twelve Transcendental Etudes} (dedicated to Czerny). \textit{19 Hungarian Rhapsodies}\footnote{狂想曲} (based on folk tunes; No. 2 featured in ``Cat Concerto''). \\
+\hline
+\textbf{Béla Bartók} (1881-1945) & Incorporated folk elements (Hungarian pentatonic\footnote{五声音阶} \& Romanian chromatic). Highly rhythmic-driven, dance-like, filled with accents. & \textit{Allegro Barbaro} (1911; his most famous solo piece). \\
+\hline
+\textbf{Sergei Prokofiev} (1891-1953) & Known for his most dissonant music and cluster chords. Irony of receiving the Stalin Prize while expressing true feelings after the death of the Meyerholds. & \textit{Sonata No. 7 ``Stalingrad''} (one of the War Sonatas). The 3rd movement, \textit{Precipitato}, is a toccata\footnote{托卡塔} bringing Rock \& Roll explosiveness. \\
+\hline
+\textbf{Alexander Scriabin} (1872-1915) & Used mystic chords, leaps, tremolos\footnote{震音}, and percussive sounds. Reflected the accumulation of heat causing earth's destruction. Seriously damaged his hand practicing Balakirev's \textit{Islamey}. & \textit{Vers la Flamme} (Toward the Flame; originally intended as Sonata No. 11). \\
+\hline
+\textbf{Mily Balakirev} (1837-1910) & Composed notoriously difficult oriental fantasies. Ravel intentionally wrote \textit{Gaspard de la nuit} to be even more difficult than Balakirev's work. & \textit{Islamey: Oriental Fantasy} (based on a Caucasus folk dance tune). \\
+\hline
+\textbf{Igor Stravinsky} (1882-1971) & Did not intend to reproduce orchestral sounds on piano, but rather display pianistic challenges. Characterized by wild jumps, polyrhythms\footnote{多重节奏}, fast scales, glissandos, and tremolos. & \textit{Three movements from Petrouchka} (ballet music written for solo piano to influence Arthur Rubinstein). \\
+\hline
+
+\end{longtable}
+
+\end{document}
