@@ -386,7 +386,7 @@ The programming statements should **only** be used in procedural blocks.
 
 #### Conditional
 
-In EE4218, we have a glimpse of how the [**conditional expansion**](/broken/spaces/W45nwClYZdzz9MQG1dUb/pages/ngeOHD7tuT61rAm1ykYl#conditional-expansion) is done. This helps us a lot in knowing what is getting **synthesized** in an verilog `if/else` or `case` statement.
+In EE4218, we have a glimpse of how the [**conditional expansion**](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/hardware-modeling/compilation-and-behavioral-optimization#conditional-expansion) is done. This helps us a lot in knowing what is getting **synthesized** in an verilog `if/else` or `case` statement.
 
 {% stepper %}
 {% step %}
@@ -478,7 +478,7 @@ And this will give us the correct multiplexer we want:
 
 #### Looping
 
-Similarly, we have seen the power of loop unrolling in both [CG3207](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-06-advanced-processor#loop-unrolling) and [EE4218](/broken/spaces/W45nwClYZdzz9MQG1dUb/pages/ngeOHD7tuT61rAm1ykYl#loop-expansion). In Verilog, although the loop statements like `for/while` is supported, there is **no timing** information involved in these statements. This means that the hardware compiler will **expand all the loops** and if the unrolled statements are **independent**, they are all executed **in parallel**.
+Similarly, we have seen the power of loop unrolling in both [CG3207](https://app.gitbook.com/s/jTJFBPtKk6NwweAooH53/lec/lec-06-advanced-processor#loop-unrolling) and [EE4218](https://app.gitbook.com/s/W45nwClYZdzz9MQG1dUb/micheli/hardware-modeling/compilation-and-behavioral-optimization#loop-expansion). In Verilog, although the loop statements like `for/while` is supported, there is **no timing** information involved in these statements. This means that the hardware compiler will **expand all the loops** and if the unrolled statements are **independent**, they are all executed **in parallel**.
 
 For example, in real-world applications (like [Mach-V](https://mendax1234.github.io/Mach-V/)), we prefer to use an `initial` block with a `for` loop to initialize the memory and it may look like below
 

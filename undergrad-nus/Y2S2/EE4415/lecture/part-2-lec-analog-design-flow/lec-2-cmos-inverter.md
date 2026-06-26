@@ -2,7 +2,7 @@
 
 ## CMOS Inverter
 
-This par requires a good understanding of what's been discussed in [CG2027 Lec 02](https://app.gitbook.com/s/6nPr3SObC3azazbFhfgF/lec/lec-02-cmos-inverter).
+This part requires a good understanding of what's been discussed in [CG2027 Lec 02](https://app.gitbook.com/s/6nPr3SObC3azazbFhfgF/lec/lec-02-cmos-inverter).
 
 ### Layout
 
@@ -10,7 +10,7 @@ The circuit symbol and layout of a CMOS Inverter can be shown as follows.
 
 <figure><img src="../.gitbook/assets/CMOS-Inverter-symbol-layout (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
-Note that the voltage at the output $$V_{\text{out}}$$ is always **smaller** than $$V_{\text{DD}}$$ and **bigger** than $$0$$, a.k.a, $$0<V_{\text{out}}<V_{\text{DD}}$$. Remember the **assumptions** we made in [NMOS](https://wenbo-notes.gitbook.io/ee4415-icd-notes/part-2-lec-analog-design-flow/lec-1-mosfet-and-cmos-process#assumptions) and [PMOS](https://wenbo-notes.gitbook.io/ee4415-icd-notes/part-2-lec-analog-design-flow/lec-1-mosfet-and-cmos-process#assumptions-1) source and drain in Lec 01? Basically they are
+Note that the voltage at the output $$V_{\text{out}}$$ is always **smaller** than $$V_{\text{DD}}$$ and **bigger** than $$0$$, a.k.a, $$0<V_{\text{out}}<V_{\text{DD}}$$. Remember the **assumptions** we made in [NMOS](lec-1-mosfet-and-cmos-process.md#nmos) and [PMOS](lec-1-mosfet-and-cmos-process.md#pmos) source and drain in Lec 01? Basically they are
 
 * In NMOS, the voltage at source is **lower** than the voltage at the drain.
 * In PMOS, the voltage at source is **higher** than the voltage at the drain.
@@ -548,7 +548,7 @@ From this diagram, the common industry practice is that:
 #### Summary
 
 * If $$N$$ is given, $$f=\sqrt[N]{F}$$
-* Otherwise, choose $$f_{\text{opt}}=4$$, use $$N=\frac{\ln F}{\ln f_{\text{opt}}}=\frac{\ln F}{1+\gamma/f_{\text{opt}}}$$ to find the number of stages $$N$$.$$N=\fra$$
+* Otherwise, choose $$f_{\text{opt}}=4$$, use $$N=\frac{\ln F}{\ln f_{\text{opt}}}=\frac{\ln F}{1+\gamma/f_{\text{opt}}}$$ to find the number of stages $$N$$.
 
 <details>
 

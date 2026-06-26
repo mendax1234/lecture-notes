@@ -591,7 +591,7 @@ In a circuit, the body of each transistor is usually connected **together**! Thu
 
 > TODO: The idea of this part is to know the layout.
 
-This part has been introduced in the classical textbook [DICADP Chapter 2](/broken/pages/1EVEORIAWvRaoHyUMEPj).
+This part has been introduced in the classical textbook [DICADP Chapter 2](https://app.gitbook.com/s/poTRQsFwJ5BwDDy8paeZ/dicadp/the-manufacturing-process).
 
 [^1]: In other words, can simply think of it as the **number of free carriers**.
 

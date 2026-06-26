@@ -319,7 +319,7 @@ The cell-based flow is a standard industry methodology for taking a design from 
 {% hint style="warning" %}
 This is the industry version of the ASIC Design Flow we introduce below/later.
 
-* In **Synopsys**, this flow is introduced in the [textbook 2: AACS](/broken/pages/o7NI9Vt6bxODKwHnMuXf).
+* In **Synopsys**, this flow is introduced in the [textbook 2: AACS](https://app.gitbook.com/s/GFmM0S0eSJLSE772wZne/).
 {% endhint %}
 
 </details>

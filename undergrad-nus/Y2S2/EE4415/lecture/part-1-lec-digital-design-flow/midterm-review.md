@@ -14,7 +14,7 @@ In this part, I will cover some problems in the problem sets provide by Prof. Ma
 2. **(Ch4.6, Q4)**:
    1. When doing **retiming**, we can draw the **guassian surface** very big so that it can cover the input/output registers.
 3. **(Ch4.6, Q7)**:
-   1. Review the definition of the [**retiming vector**](https://wenbo-notes.gitbook.io/ee4415-icd-notes/lecture/lec-02/lec-02b-rtl-transformations#the-retiming-vector) $$r(V)$$, it denotes the movement of registers across the opeartor $$V$$.
+   1. Review the definition of the [retiming vector](lec-2b-rtl-transformations.md#fundamental-definition) $$r(V)$$, it denotes the movement of registers across the opeartor $$V$$.
 
 ### RTL Transformation 1
 
@@ -332,5 +332,5 @@ endmodule
 6. Memorize the [time unit table](https://app.gitbook.com/s/6nPr3SObC3azazbFhfgF/lec/lec-01-the-devices#unit-table)!
 7. In midterms, we can bring any number of calculators we want and don't need to print out the Verilog reference sheet by ourselves as it will be provided.
 8. Usually, the sub questions in the midterm will be based on the original DFG and not be dependent on the other questions.
-9. Do the [DICADP question](/broken/pages/Jzoje5you3j8KCAHvXFS#example-propagation-and-contamination-delay-estimation) on the false path and the skew! Very classic one.
+9. Do the [DICADP question](https://app.gitbook.com/s/poTRQsFwJ5BwDDy8paeZ/dicadp/timing-issues-in-digital-circuits/synchronous-design-an-in-depth-perspective#example-propagation-and-contamination-delay-estimation) on the false path and the skew! Very classic one.
 10. (AY25/26 Sem 2 Midterm): The energy per operation of a design is to sum the energy consumed by **all the components** (registers, combinational operators)!
