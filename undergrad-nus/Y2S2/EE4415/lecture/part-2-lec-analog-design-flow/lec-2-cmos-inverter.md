@@ -8,7 +8,7 @@ This par requires a good understanding of what's been discussed in [CG2027 Lec 0
 
 The circuit symbol and layout of a CMOS Inverter can be shown as follows.
 
-<figure><img src="../.gitbook/assets/CMOS-Inverter-symbol-layout.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/CMOS-Inverter-symbol-layout (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
 Note that the voltage at the output $$V_{\text{out}}$$ is always **smaller** than $$V_{\text{DD}}$$ and **bigger** than $$0$$, a.k.a, $$0<V_{\text{out}}<V_{\text{DD}}$$. Remember the **assumptions** we made in [NMOS](https://wenbo-notes.gitbook.io/ee4415-icd-notes/part-2-lec-analog-design-flow/lec-1-mosfet-and-cmos-process#assumptions) and [PMOS](https://wenbo-notes.gitbook.io/ee4415-icd-notes/part-2-lec-analog-design-flow/lec-1-mosfet-and-cmos-process#assumptions-1) source and drain in Lec 01? Basically they are
 
@@ -23,13 +23,13 @@ In the CMOS inverter, we have the following properties
 
 {% stepper %}
 {% step %}
-#### Full output swing
+**Full output swing**
 
 We have full rail-to-rail output swing.
 {% endstep %}
 
 {% step %}
-#### Low-impedance path
+**Low-impedance path**
 
 There is always a **low-impedance path** which can be either
 
@@ -38,12 +38,12 @@ There is always a **low-impedance path** which can be either
 {% endstep %}
 
 {% step %}
-#### Direct path
+**Direct path**
 
 There is **no** direct path between $$V_{\text{DD}}$$ and $$\text{GND}$$ in **steady state**. Thus, there is **no static power consumption**.
 
 {% hint style="warning" %}
-#### Steady State
+**Steady State**
 
 In the steady state, the inputs and outputs are held steady.
 {% endhint %}
@@ -58,11 +58,11 @@ In this part, we will mainly see if we change the gate voltage $$V_{\text{gate}}
 
 The voltage transfer characteristic is simply a diagram denoting the relationship between $$V_{\text{in}}$$ and $$V_{\text{out}}$$. One example is shown below.
 
-<figure><img src="../.gitbook/assets/vtc-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/vtc-example (1).png" alt=""><figcaption></figcaption></figure>
 
 1. When $$V_{\text{in}}$$ is low, $$V_{\text{out}}$$ is high. In this case
    1. For the NMOS, it is likely that $$V_{\text{GS}}<V_{\text{TN}}$$. Thus, NMOS is **Off**.
-   2. For the PMOS, it is likely that $$V_{\text{GS}}<V_{\text{TP}}$$  (L.H.S. is around negative $$V_{\text{DD}}$$ while R.H.S is a small negative number) and $$V_{\text{DS}}>V_{\text{GS}}-V_{\text{TP}}$$ (L.H.S is around 0 while R.H.S is confirm negative). Thus, PMOS is in **Linear.**
+   2. For the PMOS, it is likely that $$V_{\text{GS}}<V_{\text{TP}}$$ (L.H.S. is around negative $$V_{\text{DD}}$$ while R.H.S is a small negative number) and $$V_{\text{DS}}>V_{\text{GS}}-V_{\text{TP}}$$ (L.H.S is around 0 while R.H.S is confirm negative). Thus, PMOS is in **Linear.**
 2. When $$V_{\text{in}}$$ increases a bit but $$V_{\text{out}}$$ is still high, in this case
    1. For the NMOS, it is likely that $$V_{\text{GS}}>V_{\text{TN}}$$ and $$V_{\text{DS}}>V_{\text{GS}}-V_{\text{TN}}$$ (L.H.S is around $$V_{\text{DD}}$$ while R.H.S is around 0). Thus, NMOS is in **Saturation**.
    2. For the PMOS, it is likely that $$V_{\text{GS}}<V_{\text{TP}}$$ (L.H.S. is still around negative $$V_{\text{DD}}$$ while R.H.S is a small negative number) but $$V_{\text{DS}}>V_{\text{GS}}-V_{\text{TP}}$$ (L.H.S is around 0 while R.H.S is negative). Thus PMOS is in **Linear**.
@@ -88,11 +88,11 @@ Read the termologies below before opening this example.
 
 Using SPICE to generate an Inverter VTC for the circuit below,
 
-<figure><img src="../.gitbook/assets/cmos-inverter-vtc.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/cmos-inverter-vtc (1).png" alt=""><figcaption></figcaption></figure>
 
 we may get the following combined diagram of VTC and gain vs. $$V_{\text{in}}$$.
 
-<figure><img src="../.gitbook/assets/vtc-gain-combined.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/vtc-gain-combined (1).png" alt=""><figcaption></figcaption></figure>
 
 </details>
 
@@ -102,7 +102,7 @@ It is good to utilize the VTC to review the following very important terminologi
 
 {% stepper %}
 {% step %}
-#### $$V_{\text{OH}}$$ and $$V_{\text{OL}}$$
+$$V_{\text{OH}}$$ **and** $$V_{\text{OL}}$$
 
 $$V_{\text{OH}}$$ and $$V_{\text{OL}}$$ are the output voltages when the **ideal input** low and high are applied to the CMOS Inverter respectively.
 
@@ -112,7 +112,7 @@ Usually, as the ideal input low and high are 0 and $$V_{\text{DD}}$$ respectivel
 {% endstep %}
 
 {% step %}
-#### Switching Threshold $$V_M$$
+**Switching Threshold** $$V_M$$
 
 The switching threshold $$V_M$$ is when the input voltage is equal to the output voltage ($$V_{\text{in}}=V_{\text{out}}$$). The value can be found easily by drawing a line $$y=x$$ in the VTC graph and finding the x/y-coordinate of the intersection point.
 
@@ -152,16 +152,16 @@ The ratio $$W/L$$ is the **size** of NMOS/PMOS.
 
 Compare the switching threshold ($$V_M$$) of inverters with different $$\frac{(W/L)_p}{(W/L)n}$$.
 
-<figure><img src="../.gitbook/assets/impact-of-r-on-vm.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/impact-of-r-on-vm (1).png" alt=""><figcaption></figcaption></figure>
 
 The SPICE diagram we get is as follows.
 
-<figure><img src="../.gitbook/assets/spice-impact-r-on-vm.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/spice-impact-r-on-vm (1).png" alt=""><figcaption></figcaption></figure>
 
 From this diagram, we can clearly see that it matches with our intuition on $$r$$.
 
 {% hint style="warning" %}
-#### PMOS is generally weaker than NMOS
+**PMOS is generally weaker than NMOS**
 
 In the blue curve, when the size of NMOS is the same as the size of PMOS, the threshold voltage is slightly lower than $$V_{\text{DD}}/2$$, this is because when the size of PMOS and NMOS is the same, PMOS is **weaker** than NMOS. This is because of the **mobility** of holes in p-type material is **smaller** than the mobility of electrons in the n-type material.
 {% endhint %}
@@ -170,7 +170,7 @@ In the blue curve, when the size of NMOS is the same as the size of PMOS, the th
 {% endstep %}
 
 {% step %}
-#### $$V_{\text{IH}}$$ and $$V_{\text{IL}}$$
+$$V_{\text{IH}}$$ **and** $$V_{\text{IL}}$$
 
 $$V_{\text{IH}}$$ and $$V_{\text{IL}}$$ are the **minimum** and **maximum** input voltage $$V_{\text{in}}$$ that will cause the output voltage $$V_{\text{out}}$$ to be **low** and **high** respectively.
 
@@ -180,7 +180,7 @@ $$V_{\text{IH}}$$ and $$V_{\text{IL}}$$ are the points where $$d\frac{V_{\text{o
 {% endstep %}
 
 {% step %}
-#### Noise Margin $$\text{NM}_H$$ and $$\text{NM}_L$$
+**Noise Margin** $$\text{NM}_H$$ **and** $$\text{NM}_L$$
 
 * $$\text{NM}_H$$ defines how much the $$V_{\text{out}}$$ can **drop** from the **nominal high voltage** ($$V_{\text{OH}}$$) for it to be **read** correctly as logic HIGH by the following gate.
 * $$\text{NM}_L$$ defines how much the $$V_{\text{out}}$$ can **go up** from the **nominal low voltage** ($$V_{\text{OL}}$$) for it to be **read** correctly as logic LOW by the following gate.
@@ -197,7 +197,7 @@ We want the noise margin to be **bigger**. Thus, the **gain** at the high-gain r
 
 Gain is nothing but the slope and it can be found easily in the VTC. Mathematically, it is defined as $$d\frac{V_{\text{out}}}{V_{\text{in}}}$$. Thus, an example of the gain vs. $$V_{\text{in}}$$ diagram can be shown as follows.
 
-<figure><img src="../.gitbook/assets/gain-vin-diagram.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/gain-vin-diagram (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
 </details>
 {% endstep %}
@@ -211,13 +211,13 @@ In this part, we will mainly see what factors will affect the propagation delay 
 
 In the CMOS Inverter, the **propagation delay** is caused by the charge and discharge of the load capacitance.
 
-<figure><img src="../.gitbook/assets/charge-discharge.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/charge-discharge (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Rise/Fall Time
 
 This will also give rise to the definition of **rise time**, **fall time**, high-to-low propagation delay and low-to-high propagation delay.
 
-<figure><img src="../.gitbook/assets/delay-definition.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/delay-definition (1).png" alt=""><figcaption></figcaption></figure>
 
 The overall propagation delay is the **average** of the $$t_{\text{pHL}}$$ and $$t_{\text{pLH}}$$.
 
@@ -229,7 +229,7 @@ Rise time and fall time are both used on $$V_{\text{out}}$$ and sometimes might 
 
 To calculate the propagation delay $$t_p$$, as we have seen above, we need to know what $$t_{\text{pHL}}$$ and $$t_{\text{pLH}}$$ are. Also, we've seen that they are measured when $$V_{\text{out}}$$ dropped from $$V_{\text{DD}}$$ to $$\frac{V_{\text{DD}}}{2}$$ or rose from 0 to $$\frac{V_{\text{DD}}}{2}$$.
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Equivalent On Resistance
 
@@ -247,7 +247,7 @@ In either one of the two methods, it is **not important** to understand the math
 
 {% stepper %}
 {% step %}
-#### Integration
+**Integration**
 
 By integration, we have
 
@@ -261,11 +261,11 @@ $$
 {% endstep %}
 
 {% step %}
-#### Two endpoints
+**Two endpoints**
 
 The method of two endpoints basically is to calculate the two resistance when $$V_{\text{DS}}$$ is $$V_{\text{DD}}$$ and $$V_{\text{DD}}/2$$. Then the final on resistance is just the average of the sum of these two resistances.
 
-<figure><img src="../.gitbook/assets/two-endpoint-method.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/two-endpoint-method (1).png" alt=""><figcaption></figcaption></figure>
 
 The on resistance at the two endpoints is just the **slope**, which is where we use the ohm's law.
 
@@ -295,11 +295,11 @@ The ohm's law applies in **saturation region** as well. It's just that in the sa
 
 This is just an example of calculating the inverter delay. Assume that the process is $$0.25\mu \text{m}$$, $$V_{\text{DD}}=2.5\text{V}$$, $$(W/L)_n=1.5$$, $$(W/L)_p=4.5$$ and $$C_{L}=6\text{fF}$$ and we are using the unified device model shown below. What is the propagation delay of this inverter?
 
-<figure><img src="../.gitbook/assets/unified-model-0.25um.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/unified-model-0.25um (1).png" alt=""><figcaption></figcaption></figure>
 
 **Sol**: The idea is to separate into two parts first: NMOS and PMOS. And then find the $$I_{\text{DSAT}}$$ and thus $$R_{\text{eq}}$$ for each of the two part. Then use the $$\text{RC}$$ equation to get the $$t_{\text{pHL}}$$ and $$t_{\text{pLH}}$$. Finally we can get the $$t_p$$.
 
-<figure><img src="../.gitbook/assets/inverter-delay-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/inverter-delay-example (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Design for Speed
 
@@ -312,7 +312,7 @@ From the equation we derive in [#propagation-delay-calculation](lec-2-cmos-inver
 
 Suppose we have an interter chain with a given $$C_L$$ as below. How many stages are needed to **minimize** the delay and how do we size the inverters?
 
-<figure><img src="../.gitbook/assets/inverter-chain-opening-question.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/inverter-chain-opening-question (1).png" alt=""><figcaption></figcaption></figure>
 
 Intuitively, we might intuitively think that less gates means less propagation delay. However, we may soon find out that this is **not true** in this case!
 
@@ -325,7 +325,7 @@ In a real CMOS inverter, except for the external load $$C_L$$, it also has an **
 
 The location of these capacitance is shown clearly in the following figure.
 
-<figure><img src="../.gitbook/assets/inverter-load-location.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/inverter-load-location (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
 For the gate capacitance, it is **proportional** to the size of the MOSFET. In other words, **bigger** MOSFET size means
 
@@ -365,7 +365,7 @@ $$C_{\text{int}}$$ is treated as a **constant** and it is completely determined 
 
 The plot of $$t_p-C_L$$ is shown below for reference.
 
-<figure><img src="../.gitbook/assets/tp-cl-plot.png" alt="" width="383"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/tp-cl-plot (1).png" alt="" width="383"><figcaption></figcaption></figure>
 
 <details>
 
@@ -399,7 +399,7 @@ A bigger inverter directly implies the following three things:
 
 As we have seen in the [#inverter-with-a-load](lec-2-cmos-inverter.md#inverter-with-a-load "mention"), the propagation delay of an inverter should also take its **intrinsic capacitance** into account. Given that, we can also add the gate capacitance $$C_{\text{gin}}$$ for the sake of analysis later.
 
-<figure><img src="../.gitbook/assets/inverter-with-load-simplified.png" alt="" width="541"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/inverter-with-load-simplified (1).png" alt="" width="541"><figcaption></figcaption></figure>
 
 The formula for the propagation delay $$t_p$$ can be refactored to as follows by dividing both the nominator and the denominator with $$C_{\text{gin}}$$.
 
@@ -426,7 +426,7 @@ $$
 
 Thus, let's take a relook at our inverter chain.
 
-<figure><img src="../.gitbook/assets/inverter-chain-relook.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/inverter-chain-relook (1).png" alt=""><figcaption></figcaption></figure>
 
 We can thus get the following two formulas:
 
@@ -492,7 +492,7 @@ A 3-stage inverter chain needs to drive a $$C_L$$ of 8 times of its input gate c
 1. What is the required fan-out for minimum delay?
 2. Determine the transistor sizes in all inverters.
 
-<figure><img src="../.gitbook/assets/inverter-chain-delay-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/inverter-chain-delay-example (1).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -538,7 +538,7 @@ $$
 
 Now, we can draw the diagrams of $$f-\gamma$$, $$t_{\text{p,chain}}/t_{\text{p,chain,opt}}-f$$. They may look like below.
 
-<figure><img src="../.gitbook/assets/inverter-chain-numerical.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/inverter-chain-numerical (1).png" alt=""><figcaption></figcaption></figure>
 
 From this diagram, the common industry practice is that:
 
@@ -572,7 +572,7 @@ The CMOS power consumption/dissipation can be divided into three parts:
 
 The dynamic power consumption only comes from **charging** the capacitor. In other words, there is **no power consumption** when NMOS is open!
 
-<figure><img src="../.gitbook/assets/cmos-inverter-dynamic-power-consumption.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/cmos-inverter-dynamic-power-consumption (1).png" alt=""><figcaption></figcaption></figure>
 
 Thus, the formula to calculate the power consumption will be
 
@@ -599,13 +599,13 @@ Consider a $$0.25\mu \text{m}$$ chip with 2 million gates, an average load capac
 
 ***
 
-**Sol**. For the single gate,&#x20;
+**Sol**. For the single gate,
 
-<p align="center"><span class="math">P = V_{\text{DD}}^2 \cdot C_L \cdot f  = (2.5)^2 \times 15 \times 10^{-15} \times 10^9  \approx 93.7\,\mu\text{W}</span></p>
+<p align="center"><span class="math">P = V_{\text{DD}}^2 \cdot C_L \cdot f = (2.5)^2 \times 15 \times 10^{-15} \times 10^9 \approx 93.7\,\mu\text{W}</span></p>
 
 For the whole chip,
 
-<p align="center"><span class="math">P_{\text{total}} = 93.7 \times 10^{-6} \times 2 \times 10^6  \approx 187.4\,\text{W}</span><span class="math">   Uploaded image give me the latex code for these two formulas.  Here are the LaTeX codes for the two formulas:  1. By integration R_{eq} = -\frac{2}{V_{DD}} \int_{V_{DD}}^{V_{DD}/2} \frac{v}{I_{Dsat}(1+\lambda v)} \, dv  \approx \frac{3V_{DD}}{4I_{Dsat}} \left(1 - \frac{7}{9}\lambda V_{DD}\right) 2. Using the two endpoints R_{eq} = \frac{1}{2} \left( \frac{V_{DD}}{I_{Dsat}(1+\lambda V_{DD})}  +  \frac{V_{DD}/2}{I_{Dsat}(1+\lambda V_{DD}/2)} \right) \approx \frac{3V_{DD}}{4I_{Dsat}} \left(1 - \frac{5}{6}\lambda V_{DD}\right) If you want, I can also align them nicely using align or equation environments for your report.   all the subscript use \text{} except for the one character subscript  Got it — here is the corrected LaTeX with multi-character subscripts wrapped in \text{} (and single-character ones like v kept normal):  1. By integration R_{\text{eq}} = -\frac{2}{V_{\text{DD}}}  \int_{V_{\text{DD}}}^{V_{\text{DD}}/2}  \frac{v}{I_{\text{Dsat}}(1+\lambda v)} \, dv  \approx \frac{3V_{\text{DD}}}{4I_{\text{Dsat}}}  \left(1 - \frac{7}{9}\lambda V_{\text{DD}}\right) 2. Using the two endpoints R_{\text{eq}} = \frac{1}{2} \left( \frac{V_{\text{DD}}}{I_{\text{Dsat}}(1+\lambda V_{\text{DD}})}  +  \frac{V_{\text{DD}}/2}{I_{\text{Dsat}}(1+\lambda V_{\text{DD}}/2)} \right) \approx \frac{3V_{\text{DD}}}{4I_{\text{Dsat}}}  \left(1 - \frac{5}{6}\lambda V_{\text{DD}}\right) If you want a cleaner typeset version (e.g., aligned equations), I can format them into an align block too.   Uploaded image Latex code for this formula also! same requreiemt nfro the subscript.  Here’s the LaTeX code with the same subscript rule applied (\text{} for multi-character subscripts):  t_p = 0.69 R_{\text{eq}} (C_{\text{int}} + C_L)  = 0.69 R_{\text{eq}} C_{\text{int}} + 0.69 R_{\text{eq}} C_L  = 0.69 R_{\text{eq}} C_{\text{int}} \left( 1 + \frac{C_L}{C_{\text{int}}} \right) Let me know if you want it in an align environment for better formatting 👍   Uploaded image This formula also, with the same requirement on the subscript.  Here’s the LaTeX code with the same subscript rule applied (\text{} for multi-character subscripts, single-character like  L L kept normal):  t_p = 0.69 R C_{\text{int}} \left(1 + \frac{C_L}{C_{\text{int}}} \right) = 0.69 R C_{\text{int}} \left( 1 + \frac{C_L / C_{\text{gin}}}{C_{\text{int}} / C_{\text{gin}}} \right) = 0.69 R C_{\text{int}} \left( 1 + \frac{f}{\gamma} \right) If you want consistency across your whole document (e.g., always treating “gin” as text), this format is exactly what you should stick with.   Uploaded image Same requiremnt, for these equations, can use block like begin{aligns*} if it is suitable in this case.  Yes, this is a good case for an align* block. Here’s the LaTeX with your subscript requirement applied (multi-character subscripts in \text{}):  \begin{align*} (W/L)_{1n} &#x26;= (W/L)_{1p} = (W/L)_{0n} \cdot f = 2 \\ (W/L)_{2n} &#x26;= (W/L)_{2p} = (W/L)_{1n} \cdot f = 4 \\ (W/L)_{3n} &#x26;= (W/L)_{3p} = (W/L)_{2n} \cdot f = 8 \end{align*} Note: n and p are single-character subscripts, so they correctly remain without \text{}.   ohh, I think need to separate  Yep — if you want to strictly follow your rule, the subscripts like 1n, 2p, 0n are multi-character, so they should be split into number + \text{}.  Here’s the corrected version:  \begin{align*} (W/L)_{1\text{n}} &#x26;= (W/L)_{1\text{p}} = (W/L)_{0\text{n}} \cdot f = 2 \\ (W/L)_{2\text{n}} &#x26;= (W/L)_{2\text{p}} = (W/L)_{1\text{n}} \cdot f = 4 \\ (W/L)_{3\text{n}} &#x26;= (W/L)_{3\text{p}} = (W/L)_{2\text{n}} \cdot f = 8 \end{align*} This way:  1, 2, 3, 0 → normal (single character)  n, p → wrapped in \text{} when combined → 1\text{n}  If you want even cleaner typography, another option is _{\scriptsize \text{n}}, but your current format is already standard 👍   Uploaded image give me the latex code for tehse two equations, each use align*  Here are the two parts, each formatted using align* and following your subscript rule:  Single gate \begin{align*} P &#x26;= V_{\text{DD}}^2 \cdot C_L \cdot f \\   &#x26;= (2.5)^2 \times 15 \times 10^{-15} \times 10^9 \\   &#x26;\approx 93.7\,\mu\text{W} \end{align*} The whole chip \begin{align*} P_{\text{total}} &#x26;= 93.7 \times 10^{-6} \times 2 \times 10^6 \\                  &#x26;\approx 187.4\,\text{W} \end{align*} If you want, I can also wrap the headings (“Single gate”, “The whole chip”) into proper LaTeX sectioning or formatting.</span></p>
+<p align="center"><span class="math">P_{\text{total}} = 93.7 \times 10^{-6} \times 2 \times 10^6 \approx 187.4\,\text{W}</span><span class="math"> Uploaded image give me the latex code for these two formulas. Here are the LaTeX codes for the two formulas: 1. By integration R_{eq} = -\frac{2}{V_{DD}} \int_{V_{DD}}^{V_{DD}/2} \frac{v}{I_{Dsat}(1+\lambda v)} \, dv \approx \frac{3V_{DD}}{4I_{Dsat}} \left(1 - \frac{7}{9}\lambda V_{DD}\right) 2. Using the two endpoints R_{eq} = \frac{1}{2} \left( \frac{V_{DD}}{I_{Dsat}(1+\lambda V_{DD})} + \frac{V_{DD}/2}{I_{Dsat}(1+\lambda V_{DD}/2)} \right) \approx \frac{3V_{DD}}{4I_{Dsat}} \left(1 - \frac{5}{6}\lambda V_{DD}\right) If you want, I can also align them nicely using align or equation environments for your report. all the subscript use \text{} except for the one character subscript Got it — here is the corrected LaTeX with multi-character subscripts wrapped in \text{} (and single-character ones like v kept normal): 1. By integration R_{\text{eq}} = -\frac{2}{V_{\text{DD}}} \int_{V_{\text{DD}}}^{V_{\text{DD}}/2} \frac{v}{I_{\text{Dsat}}(1+\lambda v)} \, dv \approx \frac{3V_{\text{DD}}}{4I_{\text{Dsat}}} \left(1 - \frac{7}{9}\lambda V_{\text{DD}}\right) 2. Using the two endpoints R_{\text{eq}} = \frac{1}{2} \left( \frac{V_{\text{DD}}}{I_{\text{Dsat}}(1+\lambda V_{\text{DD}})} + \frac{V_{\text{DD}}/2}{I_{\text{Dsat}}(1+\lambda V_{\text{DD}}/2)} \right) \approx \frac{3V_{\text{DD}}}{4I_{\text{Dsat}}} \left(1 - \frac{5}{6}\lambda V_{\text{DD}}\right) If you want a cleaner typeset version (e.g., aligned equations), I can format them into an align block too. Uploaded image Latex code for this formula also! same requreiemt nfro the subscript. Here’s the LaTeX code with the same subscript rule applied (\text{} for multi-character subscripts): t_p = 0.69 R_{\text{eq}} (C_{\text{int}} + C_L) = 0.69 R_{\text{eq}} C_{\text{int}} + 0.69 R_{\text{eq}} C_L = 0.69 R_{\text{eq}} C_{\text{int}} \left( 1 + \frac{C_L}{C_{\text{int}}} \right) Let me know if you want it in an align environment for better formatting 👍 Uploaded image This formula also, with the same requirement on the subscript. Here’s the LaTeX code with the same subscript rule applied (\text{} for multi-character subscripts, single-character like L L kept normal): t_p = 0.69 R C_{\text{int}} \left(1 + \frac{C_L}{C_{\text{int}}} \right) = 0.69 R C_{\text{int}} \left( 1 + \frac{C_L / C_{\text{gin}}}{C_{\text{int}} / C_{\text{gin}}} \right) = 0.69 R C_{\text{int}} \left( 1 + \frac{f}{\gamma} \right) If you want consistency across your whole document (e.g., always treating “gin” as text), this format is exactly what you should stick with. Uploaded image Same requiremnt, for these equations, can use block like begin{aligns*} if it is suitable in this case. Yes, this is a good case for an align* block. Here’s the LaTeX with your subscript requirement applied (multi-character subscripts in \text{}): \begin{align*} (W/L)_{1n} &#x26;= (W/L)_{1p} = (W/L)_{0n} \cdot f = 2 \\ (W/L)_{2n} &#x26;= (W/L)_{2p} = (W/L)_{1n} \cdot f = 4 \\ (W/L)_{3n} &#x26;= (W/L)_{3p} = (W/L)_{2n} \cdot f = 8 \end{align*} Note: n and p are single-character subscripts, so they correctly remain without \text{}. ohh, I think need to separate Yep — if you want to strictly follow your rule, the subscripts like 1n, 2p, 0n are multi-character, so they should be split into number + \text{}. Here’s the corrected version: \begin{align*} (W/L)_{1\text{n}} &#x26;= (W/L)_{1\text{p}} = (W/L)_{0\text{n}} \cdot f = 2 \\ (W/L)_{2\text{n}} &#x26;= (W/L)_{2\text{p}} = (W/L)_{1\text{n}} \cdot f = 4 \\ (W/L)_{3\text{n}} &#x26;= (W/L)_{3\text{p}} = (W/L)_{2\text{n}} \cdot f = 8 \end{align*} This way: 1, 2, 3, 0 → normal (single character) n, p → wrapped in \text{} when combined → 1\text{n} If you want even cleaner typography, another option is _{\scriptsize \text{n}}, but your current format is already standard 👍 Uploaded image give me the latex code for tehse two equations, each use align* Here are the two parts, each formatted using align* and following your subscript rule: Single gate \begin{align*} P &#x26;= V_{\text{DD}}^2 \cdot C_L \cdot f \\ &#x26;= (2.5)^2 \times 15 \times 10^{-15} \times 10^9 \\ &#x26;\approx 93.7\,\mu\text{W} \end{align*} The whole chip \begin{align*} P_{\text{total}} &#x26;= 93.7 \times 10^{-6} \times 2 \times 10^6 \\ &#x26;\approx 187.4\,\text{W} \end{align*} If you want, I can also wrap the headings (“Single gate”, “The whole chip”) into proper LaTeX sectioning or formatting.</span></p>
 
 </details>
 
@@ -613,13 +613,13 @@ For the whole chip,
 
 As we have seen in the [VTC](lec-2-cmos-inverter.md#voltage-transfer-characteristic), when $$V_{\text{in}}$$ switches from $$0\to 1$$ or $$1\to0$$, there is a region when both NMOS and PMOS are turned on, this is the source of the short circuit power consumption.
 
-<figure><img src="../.gitbook/assets/short-circuit-power-comsumption-figure.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/short-circuit-power-comsumption-figure (1).png" alt=""><figcaption></figcaption></figure>
 
 To calculate the short circuit power consumption, we have two methods.
 
 {% stepper %}
 {% step %}
-#### Integration
+**Integration**
 
 $$
 \begin{align*}
@@ -634,7 +634,7 @@ $$
 {% endstep %}
 
 {% step %}
-#### Triangular Approximation
+**Triangular Approximation**
 
 $$
 \begin{align*}
@@ -651,7 +651,7 @@ $$
 
 This is also called the **static power consumption** and it is caused by the **leakages** from $$V_{\text{DD}}$$ to GND.
 
-<figure><img src="../.gitbook/assets/static-power-consumption.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/static-power-consumption (1).png" alt=""><figcaption></figcaption></figure>
 
 As you can see from the figure above, the leakage current has two parts
 
@@ -677,7 +677,7 @@ $$
 
 To reduce the power dissipation of the CMOS inverter, we have the following table where "Dev size" represents the device size.
 
-<figure><img src="../.gitbook/assets/power-consumption-reduction.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/power-consumption-reduction (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 The device size will directly affect $$C_L$$, $$I_{\text{peak}}$$ and $$I_{\text{leak}}$$ becasue device size bigger -> width bigger -> more current can pass through.

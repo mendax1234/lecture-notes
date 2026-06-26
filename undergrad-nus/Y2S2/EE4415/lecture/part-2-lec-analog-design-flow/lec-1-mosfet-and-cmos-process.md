@@ -21,40 +21,40 @@ The [**concentration** of **free carriers**](#user-content-fn-1)[^1] determine t
 
 There are 4 stages for the MOS capacitor with P-substrate and the **stage transformation** is done by increasing $$V_{\text{gate}}$$.
 
-<figure><img src="../.gitbook/assets/mos-capacitor-p-substrate.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/mos-capacitor-p-substrate (1).png" alt=""><figcaption></figcaption></figure>
 
 {% stepper %}
 {% step %}
-#### Accumulation
+**Accumulation**
 
 When $$V_{\text{gate}}<0$$, we have a large amount of **electrons** accumulating at the upper side of the Oxide. This will attract the **holes** with positive charge to the lower side of the Oxide. As a result, the **concentration** of the holes, which are the **free carriers** in the p-type semiconductor, **increases** at the top of the p-substrate. This makes the top of the p-substrate **a lot more "**&#x70;-typed".
 {% endstep %}
 
 {% step %}
-#### $$V_{\text{gate}}=0$$
+$$V_{\text{gate}}=0$$
 
 In this stage, we increase $$V_{\text{gate}}$$ from negative to 0. Now, there is no electron at the gate. Thus, the **concentration** of **holes** in the p-substrate is **balanced**.
 {% endstep %}
 
 {% step %}
-#### Depletion
+**Depletion**
 
-When we increase $$V_{\text{gate}}$$  to $$0<V_{\text{gate}}<V_{\text{TN}}$$, there will be **some** **positive charges** at the gate, causing the **holes** in the p-substrate to be pushed to its bottom. This will cause a special region called the **depletion region** to be formed at the top of the p-substrate.
+When we increase $$V_{\text{gate}}$$ to $$0<V_{\text{gate}}<V_{\text{TN}}$$, there will be **some** **positive charges** at the gate, causing the **holes** in the p-substrate to be pushed to its bottom. This will cause a special region called the **depletion region** to be formed at the top of the p-substrate.
 
 {% hint style="success" %}
-#### Depletion Region
+**Depletion Region**
 
 We can just think of the **depletion region** as the region where there is **few/no free carriers**. In this case, as the free carriers — holes — of p-substrate is pushed away by the positive charges in the gate, there is few holes in the top region of the p-substrate.
 {% endhint %}
 {% endstep %}
 
 {% step %}
-#### Inversion
+**Inversion**
 
 When we increase $$V_{\text{gate}}$$ to $$V_{\text{gate}}>V_{\text{TN}}$$, there will be **a large amount** of **positive charges** at the gate, causing **more** holes to be pushed away. **And more electrons will be attracted** to the top of the p-substrate. This will cause a special layer called **inversion layer** to be formed at the top of the p-substrate.
 
 {% hint style="success" %}
-#### Inversion Layer
+**Inversion Layer**
 
 The **inversion layer** can be thought of as the region/layer where there is a **high concentration** of **free minority carriers**. In this case, the free minority carriers in p-substrate are **electrons**.
 {% endhint %}
@@ -63,7 +63,7 @@ The **inversion layer** can be thought of as the region/layer where there is a *
 
 #### The MOS Capacitor with N-Substrate
 
-<figure><img src="../.gitbook/assets/mos-capacitor-n-substrate.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/mos-capacitor-n-substrate (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 Note that for p-type semiconductor, the threshold voltage $$V_{\text{TP}}$$ is **negative**.
@@ -77,12 +77,12 @@ The derivation is very similar to the p-substrate and thus it is left as an exer
 
 The classification of FETs can be shown as follows.
 
-<figure><img src="../.gitbook/assets/fets-classification.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/fets-classification (1).png" alt=""><figcaption></figcaption></figure>
 
 As you can see, our focus in EE4415 will be the MOSFETS under the **enhancement mode**.
 
 {% hint style="success" %}
-#### Enhancement vs. Depletion mode
+**Enhancement vs. Depletion mode**
 
 * **Enhancement**: Electrical stimulus ($$V_{\text{gate}}$$) applied to create **inversion layer** in channel.
 * **Depletion**: Electrical stimulus ($$V_{\text{gate}}$$) applied to **deplete** channel of free carriers.
@@ -96,13 +96,13 @@ As you can see, our focus in EE4415 will be the MOSFETS under the **enhancement 
 
 The NMOS structure as well as its circuit symbol used in EE4415 Part 2 is shown below.
 
-<figure><img src="../.gitbook/assets/nmos-structure.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/nmos-structure (1).png" alt=""><figcaption></figcaption></figure>
 
 The NMOS/PMOS (we will see later) has four pins: 1) source, 2) drain, 3) gate and 4) body. Regarding these four pinrs, there are some very important conventions that we should know.
 
 {% stepper %}
 {% step %}
-#### Body
+**Body**
 
 The **body** pin is usually connected to a **fixed voltage**. We actually don't really care too much about how much that fixed voltage is.
 
@@ -112,7 +112,7 @@ If we really care about the body voltage, that's called **body effect** which we
 {% endstep %}
 
 {% step %}
-#### Source and Drain
+**Source and Drain**
 
 In MOSFETs, the source and drain are **identical**! So, either the left or right n-doped region can be treated as source/drain. And the definition for the **source/drain** comes from the **current flow**, or more precisely, the **free carrier's flow**.
 
@@ -122,17 +122,17 @@ In NMOS, the current flows from the **drain** to the **source**. As the free car
 {% endstep %}
 
 {% step %}
-#### Gate
+**Gate**
 
 As we have seen in CG2027, the **gate** pin is where we apply the voltage to control the "channel width" of the n-channel (in NMOS). If we simply look at the gate part, we can find out that this is the [mos capacitor](lec-1-mosfet-and-cmos-process.md#the-mos-capacitor) we have seen above! Thus, whatever analysis we have done in the MOS capacitor applies here as well!
 
 Besides, there is a small difference between the **gate voltage** we applied and the real voltage above the **channel**. The relationship can be shown below.
 
-<figure><img src="../.gitbook/assets/gate-voltage.svg" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/gate-voltage (1).svg" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
-#### Circuit Symbol
+**Circuit Symbol**
 
 In the circuit symbol of NMOS, we define the **positive current direction** $$I_D$$ to be the direction **flowing into** the drain.
 
@@ -142,7 +142,7 @@ We use the same convention in the PMOS as well even though some other textbooks 
 {% endstep %}
 
 {% step %}
-#### Assumptions
+**Assumptions**
 
 In NMOS, we usually make the following important assumptions:
 
@@ -154,43 +154,43 @@ In NMOS, we usually make the following important assumptions:
 
 To understand the channel formation and the current flow in NMOS, we have the following animation.
 
-<figure><img src="../.gitbook/assets/nmos-channel-formation.gif" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/nmos-channel-formation (1).gif" alt=""><figcaption></figcaption></figure>
 
 #### PMOS
 
 Similarly, the structure and circuit symbol of PMOS can be shown as follows.
 
-<figure><img src="../.gitbook/assets/pmos-structure.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/pmos-structure (1).png" alt=""><figcaption></figcaption></figure>
 
 The conventions made in NMOS apply here as well.
 
 {% stepper %}
 {% step %}
-#### Body
+**Body**
 
 Same as NMOS.
 {% endstep %}
 
 {% step %}
-#### Source and Drain
+**Source and Drain**
 
 Same as NMOS. In PMOS, we will find out that the current flows from source to drain. As the free carrier in p-doped material is **holes** which contain positive charge. The free carrier's flow is the **same** as the current flow, which is from source to drain. Thus, the source and drain definition we made above also applies here!
 {% endstep %}
 
 {% step %}
-#### Gate
+**Gate**
 
 Same as NMOS.
 {% endstep %}
 
 {% step %}
-#### Circuit Symbol
+**Circuit Symbol**
 
 Same as NMOS except that as we have seen above, the current flow in PMOS is from source to drain. Thus, using the same convention of the current direction we've set in NMOS, the current in PMOS will take a **negative sign**.
 {% endstep %}
 
 {% step %}
-#### Assumptions
+**Assumptions**
 
 1. **source** of PMOS is at **higher** voltage than **drain**.
 2. **body** forms **pn-junction** with **source** and **drain.**
@@ -202,7 +202,7 @@ Same as NMOS except that as we have seen above, the current flow in PMOS is from
 
 The same NMOS I-V characteristic equations can be applied to PMOS but the conditions for the regions of operations are **flipped**.
 
-<figure><img src="../.gitbook/assets/nmos-pmos-iv-characteristic.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/nmos-pmos-iv-characteristic (1).png" alt=""><figcaption></figcaption></figure>
 
 So, we just need to memorize one version of the equation. More specifically, we just need to memorize **one formula**, which is the formula of the linear region (Will see soon why it is this case)!
 
@@ -222,7 +222,7 @@ Three regions of operation:
 
 {% stepper %}
 {% step %}
-#### Cut-off: $$V_{\text{GS}}\leq V_{\text{TN}}$$
+**Cut-off:** $$V_{\text{GS}}\leq V_{\text{TN}}$$
 
 $$
 I_D\approx0
@@ -234,7 +234,7 @@ We will see later in this section that in the **cut-off** region, the $$I_D$$ mi
 {% endstep %}
 
 {% step %}
-#### **Linear**: $$V_{\text{GS}}>V_{\text{TN}}$$ and "small" $$V_{\text{DS}}$$
+**Linear:** $$V_{\text{GS}}>V_{\text{TN}}$$ **and "small"** $$V_{\text{DS}}$$
 
 $$
 I_D=\mu_n C_{\text{OX}}\frac{W}{L}\left [ (V_{\text{GS}}-V_{\text{TN}})V_{\text{DS}}-\frac{V_{\text{DS}}^2}{2}\right](1+\lambda_nV_{\text{DS}})
@@ -258,7 +258,7 @@ $$
 {% endstep %}
 
 {% step %}
-#### **Saturation**: $$V_{\text{GS}}>V_{\text{TN}}$$ and "large" $$V_{\text{DS}}$$
+**Saturation:** $$V_{\text{GS}}>V_{\text{TN}}$$ **and "large"** $$V_{\text{DS}}$$
 
 $$
 I_D=\mu_n C_{\text{OX}}\frac{W}{L}\left [ (V_{\text{GS}}-V_{\text{TN}})V_{\text{DSAT,n}}-\frac{V_{\text{DSAT,n}}^2}{2}\right](1+\lambda_nV_{\text{DS}})
@@ -292,7 +292,7 @@ For the three regions of operation, it is exactly the same as NMOS except that w
 
 {% stepper %}
 {% step %}
-#### Cut-off: $$V_{\text{GS}}\geq V_{\text{TP}}$$
+**Cut-off:** $$V_{\text{GS}}\geq V_{\text{TP}}$$
 
 $$
 I_D\approx0
@@ -300,7 +300,7 @@ $$
 {% endstep %}
 
 {% step %}
-#### **Linear**: $$V_{\text{GS}}<V_{\text{TP}}$$ and "small" $$V_{\text{DS}}$$
+**Linear:** $$V_{\text{GS}}<V_{\text{TP}}$$ **and "small"** $$V_{\text{DS}}$$
 
 $$
 I_D=\mu_p C_{\text{OX}}\frac{W}{L}\left [ (V_{\text{GS}}-V_{\text{TP}})V_{\text{DS}}-\frac{V_{\text{DS}}^2}{2}\right](1+\lambda_pV_{\text{DS}})
@@ -324,7 +324,7 @@ $$k_p'<0$$ and $$V_{\text{TP}}<0$$. We assume that the gate voltage $$V_{\text{g
 {% endstep %}
 
 {% step %}
-#### **Saturation**: $$V_{\text{GS}}<V_{\text{TP}}$$ and "large" $$V_{\text{DS}}$$
+**Saturation:** $$V_{\text{GS}}<V_{\text{TP}}$$ **and "large"** $$V_{\text{DS}}$$
 
 $$
 I_D=\mu_p C_{\text{OX}}\frac{W}{L}\left [ (V_{\text{GS}}-V_{\text{TP}})V_{\text{DSAT,p}}-\frac{V_{\text{DSAT,p}}^2}{2}\right](1+\lambda_pV_{\text{DS}})
@@ -378,7 +378,7 @@ Before solving that, let's make the following approximations
 
 {% stepper %}
 {% step %}
-#### First-order approximation 1
+**First-order approximation 1**
 
 Consider the MOS capacitor structure in the channel to be a **parallel-plate capacitor** ($$Q=CV$$). Thus, we have $$Q_{\text{TOTAL}}$$ to be
 
@@ -390,7 +390,7 @@ where $$C_{\text{OX}}$$ is the capacitance per unit area.
 {% endstep %}
 
 {% step %}
-#### First-order approximation 2
+**First-order approximation 2**
 
 Let's consider the channel voltage $$V_{\text{channel}}$$ to be at the **midpoint** of the channel so that,
 
@@ -400,7 +400,7 @@ $$
 {% endstep %}
 
 {% step %}
-#### First-order approximation 3
+**First-order approximation 3**
 
 Up until now, how do we determine the $$Q_{\text{DEPLETION}}$$? This is where oru first-order approximation 3 comes into play. We assume that when $$0<V_{\text{G}}\leq V_{\text{TN}}$$, $$Q_{\text{inv}}=0$$. Thus, right at the **onset/edge point** of inversion (e.g., $$V_G=V_{\text{TN}}$$):
 
@@ -442,7 +442,7 @@ $$
 
 This will be the linear region equation and it is shown in the diagram below. This diagram is composed by fixing the $$V_{\text{GS}}$$, and then slowly increasing the $$V_{\text{DS}}$$ to measure the $$I_D$$.
 
-<figure><img src="../.gitbook/assets/nmos-linear-region.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/nmos-linear-region (1).png" alt=""><figcaption></figcaption></figure>
 
 In the saturation region, we just need to find the **maximum point** of the parabola. This is when $$V_{\text{DS}}\geq V_{\text{GS}}-V_{\text{TN}}$$, we substitute $$V_{\text{DS}}=V_{\text{DSAT,n}}=V_{\text{GS}}-V_{\text{TN}}$$. We will get the following saturated $$I_D$$:
 
@@ -458,7 +458,7 @@ In the real case, the I-V characteristic diagram isn't as **ideal** as we think.
 
 When $$V_{\text{DS}}\neq0$$, the inversion layer is **not uniform** across channel.
 
-<figure><img src="../.gitbook/assets/channle-length-modulation.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/channle-length-modulation (1).png" alt=""><figcaption></figcaption></figure>
 
 This can be intuitively understood by the ["suck" theorem](https://app.gitbook.com/s/6nPr3SObC3azazbFhfgF/lec/lec-01-the-devices#in-between-linear-and-saturation) we have seen in CG2027. Basically, this means that as we increase $$V_{\text{DS}}$$, it will suck **more** free carriers from the source and suck it faster, causing the channel near the drain to be thinner. To take care of this **secondary effect**, we add the term $$(1+\lambda_nV_{\text{DS}})$$ into our formula, so that
 
@@ -482,7 +482,7 @@ In the real circuit design, we often use the following two conventions to make t
 
 The free carriers **cannot** be always accelerated under the electric field along the channel. When the electric field field along the channel reaches a critical value $$\xi_c$$ , the velocity tends to **saturate** due to scattering effects. This can be illustrated in the following Figure.
 
-<figure><img src="../.gitbook/assets/velocity-saturation.png" alt="" width="546"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/velocity-saturation (1).png" alt="" width="546"><figcaption></figcaption></figure>
 
 The saturation velocity for electrons and holes is approximately the same: $$10^5$$m/s. The velocity is approximated by the following expression:
 
@@ -495,7 +495,7 @@ $$
 
 The critical electric field $$\xi_c=\frac{V_{\text{DSAT,S}}}{L}$$, where $$V_{\text{DSAT,S}}$$ is the saturation voltage for a short channel device.
 
-<figure><img src="../.gitbook/assets/short-vs-long-channel.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/short-vs-long-channel (1).png" alt=""><figcaption></figcaption></figure>
 
 From this figure we can see that a short-channel device experiences an **extended saturation** region, and tend to operate more often in saturation condition than their long-channel counterparts.
 
@@ -509,9 +509,9 @@ $$
 This equation applies to both NMOS and PMOS. For the PMOS counterpart, we just need to change the constant and threshold voltage to the PMOS's ones.
 {% endhint %}
 
-In short, the comparison between long-channel device and short-channel device can be summarized  as below.
+In short, the comparison between long-channel device and short-channel device can be summarized as below.
 
-<figure><img src="../.gitbook/assets/short-vs-long-formula.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/short-vs-long-formula (1).png" alt=""><figcaption></figcaption></figure>
 
 For the saturation voltage $$V_{\text{DSAT}}$$:
 
@@ -531,7 +531,7 @@ Plot the $$I_D\sim V_{\text{DS}}$$ characteristic in LTSpice for the NMOS transi
 
 **Sol**. The plot is shown below.
 
-<figure><img src="../.gitbook/assets/output-characteristic-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/output-characteristic-example (1).png" alt=""><figcaption></figcaption></figure>
 
 From the plot, we can not only observe the short-channel effect on M2 easily but also observe that the [#channel-length-modulation](lec-1-mosfet-and-cmos-process.md#channel-length-modulation "mention") affects M2 **more** than M1 because the saturation line in M2 is steeper than the saturation line in M1.
 
@@ -544,11 +544,11 @@ When the gate voltage $$V_{\text{GS}}<V_{\text{TN}}$$, we say that the device op
 * In this case, the channel **almost** doesn't exist.
 * In this region, the drain current $$I_D$$ follows an **exponential relationship** with $$V_{\text{GS}}$$ (not quadratic)
 
-<figure><img src="../.gitbook/assets/subthreshold-region.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/subthreshold-region (1).png" alt=""><figcaption></figcaption></figure>
 
 So, we can see that in this sub-threshold region, the drain current $$I_D$$ is **not zero**! Our understanding that before the gate voltage reaches $$V_{\text{TN}}$$, there is **no current** flowing in the channel is **wrong**! This causes leakage current when the NMOS transistor is turned off (e.g., $$V_{\text{GS}}=0$$) and increases static power consumption.
 
-<figure><img src="../.gitbook/assets/id-vs-vgs-log.png" alt="" width="521"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/id-vs-vgs-log (1).png" alt="" width="521"><figcaption></figcaption></figure>
 
 {% hint style="danger" %}
 In this figure, the y-axis is $$\log(I_D)$$ instead of $$I_D$$!
@@ -556,7 +556,7 @@ In this figure, the y-axis is $$\log(I_D)$$ instead of $$I_D$$!
 
 If we put this $$\lg(I_D)\sim V_{\text{GS}}$$ plot together with the normal quadratic $$I_D\sim V_{\text{GS}}$$ plot, we will get something similar to below.
 
-<figure><img src="../.gitbook/assets/log-normal-comparison.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/log-normal-comparison (1).png" alt=""><figcaption></figcaption></figure>
 
 #### Sub-threshold Swing
 
@@ -572,7 +572,7 @@ $$
 The intuitive understanding for the sub-threshold slope is that if it is smaller, than the gradient is **steeper**. Because we use $$\Delta x/\Delta y$$ to calculate the **swing**!
 
 {% hint style="warning" %}
-#### High or Low sub-threshold swing is better?
+**High or Low sub-threshold swing is better?**
 
 We prefer low sub-threshold swing because small change in the $$V_{\text{GS}}$$ will give us **greater** increase in drain current $$I_D$$ so that the MOSFET "wakes up" faster!
 {% endhint %}
@@ -582,7 +582,7 @@ We prefer low sub-threshold swing because small change in the $$V_{\text{GS}}$$ 
 As we have assumed at the beginning of this note, the body voltage $$V_B$$ is **fixed**. However, in reality, we can change the body voltage to change the **threshold voltage** of the device. This is the intuition of **body effect**.
 
 {% hint style="danger" %}
-#### Why Body Effect is not commonly used?
+**Why Body Effect is not commonly used?**
 
 In a circuit, the body of each transistor is usually connected **together**! Thus it is hard to separate the body and then control the threshold voltage of each transistor.
 {% endhint %}
@@ -595,6 +595,6 @@ This part has been introduced in the classical textbook [DICADP Chapter 2](/brok
 
 [^1]: In other words, can simply think of it as the **number of free carriers**.
 
-[^2]: This means that if the current plot in the saturation is **flatter**, then it is not affected  too much by the channel length modulation.
+[^2]: This means that if the current plot in the saturation is **flatter**, then it is not affected too much by the channel length modulation.
 
 [^3]: This means **increasing** in NMOS or **decreasing** in PMOS.

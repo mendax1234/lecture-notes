@@ -21,7 +21,7 @@ The core idea of pipelining is:
 You will see a more detailed version of the throughput and latency change in the [#performance-analysis](lec-2a-pipelining.md#performance-analysis "mention").
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/pipeline-example.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/pipeline-example (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Performance Analysis
 
@@ -55,7 +55,7 @@ $$
 \frac{f_{\text{pipe}}}{f} = n \frac{\tau_{COMB} + t_{OH}}{\tau_{COMB} + n \cdot t_{OH}}
 $$
 
-<figure><img src="../.gitbook/assets/pipeline-throughput-frequency-improvement.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/pipeline-throughput-frequency-improvement (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
 * Case 1 ($$n \ll \frac{\tau_{\text{COMB}}}{t_{\text{OH}}}$$): Improvement is linear (factor of $$n$$). To verify, can neglect $$n\cdot t_{\text{OH}}$$.
 * Case 2 ($$n > \frac{\tau_{\text{COMB}}}{t_{\text{OH}}}$$): Improvement saturates to a maximum of $$1 + \frac{\tau_{\text{COMB}}}{t_{\text{OH}}}$$. To verify, can neglect the term $$\tau_{\text{COMB}}$$ in the denominator. So as $$n\to +\infty$$, the ratio $$\to 1+\frac{\tau_{\text{COMB}}}{t_{\text{OH}}}$$.
@@ -205,7 +205,7 @@ The pipeline has two states:
 1. **Transient (Filling)**: The pipeline is not yet full. It fills up stage-by-stage.
 2. **Steady State**: Occurs when the last stage ($$n$$-th) activates. From this point on, one output is generated every clock period.
 
-<figure><img src="../.gitbook/assets/data-flow-in-pipeline.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/data-flow-in-pipeline (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Stalls
 

@@ -56,7 +56,7 @@ And the mux can be implemented using different styles:
 
 {% stepper %}
 {% step %}
-#### Transmission Gate Mux
+**Transmission Gate Mux**
 
 <figure><img src="../.gitbook/assets/transmission-gate-mux.png" alt=""><figcaption></figcaption></figure>
 
@@ -72,7 +72,7 @@ In this design, the clock signal will drive 4 transistors. Thus, we say that the
 {% endstep %}
 
 {% step %}
-#### Pass Transistor MUX
+**Pass Transistor MUX**
 
 We can also use the pass transistor mux to build the latch, which can be shown as follows.
 
@@ -124,9 +124,9 @@ In this diagram, what we are interested in is how to read the **timing propertie
 
 {% stepper %}
 {% step %}
-#### Setup Time
+**Setup Time**
 
-The setup time indicates that the input D must be $$t_{\text{su}}$$ before it rising clock edge, meaning that  the input D must arrive at the output of $$I_2$$ $$t_{\text{su}}$$ time before the clock's rising edge. Thus,
+The setup time indicates that the input D must be $$t_{\text{su}}$$ before it rising clock edge, meaning that the input D must arrive at the output of $$I_2$$ $$t_{\text{su}}$$ time before the clock's rising edge. Thus,
 
 $$
 t_{\text{su}}=3\times t_{\text{pd\_inv}}+t_{\text{pd\_tx}}
@@ -148,13 +148,13 @@ However, in the following diagram, there is a setup time violation because the m
 {% endstep %}
 
 {% step %}
-#### Hold Time
+**Hold Time**
 
 The hold time indicates that the input D must be held for $$t_{\text{hold}}$$ before it can change. In this case, assuming that $$I_1$$ and $$I_7$$ has the same delay, the hold tims is 0.
 {% endstep %}
 
 {% step %}
-#### Clock-to-q Delay
+**Clock-to-q Delay**
 
 This is the time between the clock's rising edge and the output $$Q$$. Thus,
 
