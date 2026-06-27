@@ -11,9 +11,9 @@ I took this course in AY25/26 Semester 2 to meet my graduation requirement.
 
 ## Course Content
 
-Overall, this course introduces students to several methodologies and perspectives used in designing sustainable and liveable cities. It provides a broad understanding of how urban planning, environmental considerations, and social factors can come together to shape better urban spaces.
+Overall, this course introduces us to several methodologies and perspectives used in designing sustainable and liveable cities. It provides a broad understanding of how urban planning, environmental considerations, and social factors can come together to shape better urban spaces.
 
-{% hint style="info" %}
+{% hint style="warning" %}
 As I skipped almost all the lectures because they clash with my EE4218 Labs, I am not sure about the topics covered in detail here oops. :joy:
 {% endhint %}
 
@@ -49,7 +49,7 @@ I remember there is no paper coursebook for this course?
 
 ### Personal Experience
 
-Personally, what I really enjoyed about this course was learning how to study and evaluate what makes Singapore more liveable and sustainable. As someone who has lived in a city (I believe most of us live in a city haha :joy:), I found this topic very relatable. It also made me reflect on how some aspects of my own city, Shanghai, could be improved by learning from the experiences of other cities such as Singapore.
+Personally, what I really enjoyed about this course was learning how to study and evaluate what makes Singapore more liveable and sustainable. As someone who has been living in a city (I believe most of us live in a city haha :joy:), I found this topic very relatable. It also made me reflect on how some aspects of my own city, Shanghai, could be improved by learning from the experiences of other cities such as Singapore.
 
 I also appreciated how the course gave me the opportunity to explore Singapore with my groupmates. Our chosen region was Tampines, and working on the project allowed me to better understand the area from a liveability perspective. Besides that, I also learned a lot from my amazing groupmates, which made the experience even more enjoyable!
 
@@ -60,7 +60,7 @@ I also appreciated how the course gave me the opportunity to explore Singapore w
 
 ## Workload and Time Management
 
-* **Level of Difficulty**: **6/10**
+* **Level of Difficulty**: 6/10
 * **Tips for future students**: Hope you can find good and responsible group mates and an interesting tutor!
 
 ## Conclusion

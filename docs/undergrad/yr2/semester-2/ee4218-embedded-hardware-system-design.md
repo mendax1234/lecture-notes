@@ -7,7 +7,7 @@
 * **Purpose of the course**: To provide students with an amazing understanding of hardware/software co-design and the hands-on opportunity to design a modern AI accelerator.
 * **Notes Content**: View the [EE4218 Notes](https://wenbo-notes.gitbook.io/ddca-notes/)
 
-I took this course in AY25/26 Semester 2 mainly as a follow-up for the CG3207 that I took last sem.
+I took this course in AY25/26 Semester 2 mainly as a follow-up for the [CG3207](../sem1/cg3207.md) that I took last sem.
 
 ## Course Content
 

@@ -29,13 +29,13 @@ I took this course in AY25/26 Semester 2 to fulfill my GEC pillar requirement!
 
 #### Theoretical Understanding
 
-As a non-piano major, I found the theory covered in this course very beginner-friendly. The course does not assume much prior piano knowledge, making it accessible to students who are new to the instrument!
+As a non-piano major, I found the theory covered in this course very beginner-friendly. The course does not assume much prior piano knowledge, making it accessible to those who are new to the instrument like me!
 
 In my opinion, the course places greater emphasis on understanding and memorizing the history and evolution of the piano, rather than on advanced music theory.
 
 #### Application and real-world examples
 
-I really enjoyed the weekly hands-on piano practice sessions. Prof. Koo also gave each student access to the piano practice rooms throughout the semester, which was a wonderful opportunity. This made practicing much more convenient, as we no longer had to book the public piano rooms at UTR!
+I really enjoyed the weekly hands-on piano practice sessions. Prof. Koo also gave each student access to the piano practice rooms throughout the semester, which was a wonderful opportunity. This made practicing much more convenient, as we no longer had to book the public piano rooms at Utown!
 
 #### Challenging or Unique Aspects
 
@@ -63,7 +63,7 @@ Beyond enjoying the performances, it was also very interesting to hear the piani
 
 #### Assessments
 
-1. **Three quizzes:** There are three quizzes in total, and each quiz covers four weeks of lecture content. In my opinion, the quizzes mainly test students' familiarity with the terms and concepts introduced in the lectures, so memorizing the lecture content is quite useful and important.
+1. **Three quizzes:** There are three quizzes in total, and each quiz covers four weeks of lecture content. In my opinion, the quizzes mainly test our familiarity with the terms and concepts introduced in the lectures, so memorizing the lecture content is quite useful and important.
 2. **Piano playing:** There are three to four hands-on opportunities to play the piano during the semester. Do not worry too much about this component, as it is very beginner-friendly and Prof. Koo is quite chill on this!
 3. **Two individual essays:** There are two individual essays throughout the semester. One focuses on answering course-related questions, while the other is a reflection based on the experience of attending a piano masterclass.
 4. **One group project:** Each group chooses one country, such as France, England, or Germany, and studies how the piano developed in that country.
@@ -76,7 +76,7 @@ There are three course books provided at the start of this semester. But persona
 
 ### Personal Insights
 
-To be honest, I feel very grateful to have taken this course during my university journey. I had always wanted to pick up the piano again after stopping in primary school, and GEC1023 truly reignited my passion for learning the instrument. This course was not only enjoyable, but also personally meaningful to me!
+To be honest, I feel very grateful to have taken this course during my university journey. I had always wanted to pick up the piano again after stopping in primary school, and GEC1023 truly reignited my passion for learning this musical instrument. This course was not only enjoyable, but also personally meaningful to me!
 
 ### Skills Developed
 
@@ -90,4 +90,4 @@ To be honest, I feel very grateful to have taken this course during my universit
 
 ## Conclusion
 
-I would like to express my heartfelt thanks to Prof. Koo, my group members, and my fellow students from Lecture Group 01. This course would not have been so amazing without all of you.
+I would like to express my heartfelt thanks to Prof. Koo, my group members, and my fellow students from Lecture Group 01. This course would not have been so amazing without yall!
