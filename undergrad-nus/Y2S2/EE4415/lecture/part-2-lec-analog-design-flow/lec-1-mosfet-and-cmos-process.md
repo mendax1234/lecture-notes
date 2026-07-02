@@ -25,36 +25,36 @@ There are 4 stages for the MOS capacitor with P-substrate and the **stage transf
 
 {% stepper %}
 {% step %}
-**Accumulation**
+#### **Accumulation**
 
 When $$V_{\text{gate}}<0$$, we have a large amount of **electrons** accumulating at the upper side of the Oxide. This will attract the **holes** with positive charge to the lower side of the Oxide. As a result, the **concentration** of the holes, which are the **free carriers** in the p-type semiconductor, **increases** at the top of the p-substrate. This makes the top of the p-substrate **a lot more "**&#x70;-typed".
 {% endstep %}
 
 {% step %}
-$$V_{\text{gate}}=0$$
+#### $$V_{\text{gate}}=0$$
 
 In this stage, we increase $$V_{\text{gate}}$$ from negative to 0. Now, there is no electron at the gate. Thus, the **concentration** of **holes** in the p-substrate is **balanced**.
 {% endstep %}
 
 {% step %}
-**Depletion**
+#### **Depletion**
 
 When we increase $$V_{\text{gate}}$$ to $$0<V_{\text{gate}}<V_{\text{TN}}$$, there will be **some** **positive charges** at the gate, causing the **holes** in the p-substrate to be pushed to its bottom. This will cause a special region called the **depletion region** to be formed at the top of the p-substrate.
 
 {% hint style="success" %}
-**Depletion Region**
+#### **Depletion Region**
 
 We can just think of the **depletion region** as the region where there is **few/no free carriers**. In this case, as the free carriers — holes — of p-substrate is pushed away by the positive charges in the gate, there is few holes in the top region of the p-substrate.
 {% endhint %}
 {% endstep %}
 
 {% step %}
-**Inversion**
+#### **Inversion**
 
 When we increase $$V_{\text{gate}}$$ to $$V_{\text{gate}}>V_{\text{TN}}$$, there will be **a large amount** of **positive charges** at the gate, causing **more** holes to be pushed away. **And more electrons will be attracted** to the top of the p-substrate. This will cause a special layer called **inversion layer** to be formed at the top of the p-substrate.
 
 {% hint style="success" %}
-**Inversion Layer**
+#### **Inversion Layer**
 
 The **inversion layer** can be thought of as the region/layer where there is a **high concentration** of **free minority carriers**. In this case, the free minority carriers in p-substrate are **electrons**.
 {% endhint %}
