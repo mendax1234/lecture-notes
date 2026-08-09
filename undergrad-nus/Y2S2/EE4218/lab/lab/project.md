@@ -1,4 +1,8 @@
 ---
+description: >-
+  This page serves as a document when I was doing this project with my group
+  members, to view the latest update for VNN, please read VNN Docs
+  (https://mendax1234.github.io/vnn/)!
 metaLinks:
   alternates:
     - /broken/spaces/W45nwClYZdzz9MQG1dUb/pages/TS5k9E05feWuJM6gRUZJ
