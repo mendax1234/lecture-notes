@@ -48,6 +48,18 @@ The figure above is not a strictly average some but assigned a higher weight to 
 
 </details>
 
+<details>
+
+<summary>The size of the convolution</summary>
+
+Smart readers might have found out that the size of the convolution (third list/image) might have a size bigger than the size of our input lists/images. Yes, this is valid! If our list A has a dimention of $$m$$ and our sliding window (list B) has a dimension of $$n$$, the size of the convolution will be $$n+m-1$$.
+
+To deal with this problem, what we usually do is to trauncate the not used values. This can be shown as below.
+
+<figure><img src="../.gitbook/assets/trancuate-convolution (1).png" alt=""><figcaption></figcaption></figure>
+
+</details>
+
 ### Image Processing
 
 One worth noting example of using the idea of convolution is to do the image processing like:
@@ -94,22 +106,10 @@ It's the training/learning of CNN's job to get this kernel.
 As we put the **centre element** of the kernel at the first pixel and start moving/sliding the kernel through all pixels of the image, the weighted sum will the be RGB value of the pixel at that centre position in the **convoluted image**.
 
 {% hint style="warning" %}
-It is definitely to change the size of the kernel matrix and the value inside it. By doing so will give us different image processing, like blurring or filtering out the shape of the figure, etc.
+It is definitely possible to change the size of the kernel matrix and the value inside it. By doing so will give us different image processing, like blurring or filtering out the shape of the figure, etc.
 {% endhint %}
 
 The purpose of the kernel can be understood as **finding the features/pattern** in the image. Usually we use one kernel for one pattern.
-
-<details>
-
-<summary>The size of the convolution</summary>
-
-Smart readers might have found out that the size of the convolution (third list/image) might have a size bigger than the size of our input lists/images. Yes, this is valid! If our list A has a dimention of $$m$$ and our sliding window (list B) has a dimension of $$n$$, the size of the convolution will be $$n+m-1$$.
-
-To deal with this problem, what we usually do is to trauncate the not used values. This can be shown as below.
-
-<figure><img src="../.gitbook/assets/trancuate-convolution (1).png" alt=""><figcaption></figcaption></figure>
-
-</details>
 
 ## CNN
 
@@ -125,7 +125,7 @@ In the convolution, the process is similar as what we have mentioned in [#image-
 
 <figure><img src="../.gitbook/assets/kernel-filter-features (1).png" alt=""><figcaption></figcaption></figure>
 
-The result after convolution using each kernel is also a very big matrix or maybe we might filter out some **weak** features/patterns. Thus, we need to compress the matrix.
+The result after convolution using each kernel is also a very big matrix so we might need to filter out some **weak** features/patterns. Thus, we need to compress the matrix.
 
 {% hint style="warning" %}
 #### **CNN vs. Plain Vanilla Neural Network**

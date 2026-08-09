@@ -21,7 +21,7 @@ y_9
 \end{bmatrix}
 $$
 
-where function inputs at the L.H.S are the $$28\times28=784$$ pixels and function output at the R.H.S is a **possibility matrix** denoting which number the figure likely to be (from 0 to 9). e.g., $$[0.98, 0, \dots, 0]^T$$ denotes that the output is likely to be a 0.
+where the function inputs at the L.H.S are the $$28\times28=784$$ pixels and the function output at the R.H.S is a **possibility matrix** denoting which number the figure is likely to be (from 0 to 9). e.g., $$[0.98, 0, \dots, 0]^T$$ denotes that the output is likely to be a 0.
 
 Having said that, the neural network can not only be used to recognize the number in an image. Depending its usage, the neural network can have different flavours:
 

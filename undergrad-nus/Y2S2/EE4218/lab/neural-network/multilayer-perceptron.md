@@ -1,13 +1,13 @@
 # Multilayer Perceptron
 
-In this section, we will see the "Hello World" application — the digit recognition — in neural network. And we will also see how the **inference** is done in a neural network. This is also what the base project is aimed at.
+In this section, we will see the "Hello World" application — the digit recognition — in neural network. And we will also see how the **inference** is done in a neural network. This is also what the base project  in EE4218 is aimed at.
 
 ## Plain Vanilla
 
 The MLP is the **plain vanilla** form of the neural network with no added frills. But it is the basics to understand other neural networks! Sometimes, it is also called as the **fully-connected neural network**.
 
 {% hint style="warning" %}
-We will use the image recognition MLP as an example is the following section about MLP.
+We will use the image recognition MLP as an example in the following section about MLP.
 
 * **Input**: An image is a $$28\times28$$ pixel image where each pixel is a value between 0 and 1 representing the gray scale of that pixel.
 * **Output**: The possibilities for the figure to be one of the number between 0 and 9. Thus, we have 10 possibilities to exist in our output.
@@ -52,7 +52,7 @@ The sentence above is perhaps the most important takeaway from this "Layers" sec
 So, what exactly happens in this system is that
 
 1. We feed an image in the required size, lighting up all 784 neurons of the input layer according to the brightness/grey scale of each pixel in the image.
-2. This patterns of activations causes some very specific pattern in the next layer, which causes some patterns in the layer after it, which finally causes some pattern in the output layer.
+2. This pattern of activations causes some very specific pattern in the next layer, which causes some patterns in the layer after it, which finally causes some pattern in the output layer.
 3. And the brightest neuron of the output layer is the network's choice, so to speak, for what digit this image represents.
 
 <figure><img src="../.gitbook/assets/forward-propagation (1).png" alt=""><figcaption></figcaption></figure>
@@ -88,7 +88,7 @@ We start from one neuron in the first hidden layer. From the previous section, w
 
 <figure><img src="../.gitbook/assets/weights (1).png" alt=""><figcaption></figcaption></figure>
 
-These weights are just **numbers**. Then we take all the activations from the input layer and compute their weighted sum according to these weights.
+These weights are just **numbers**. Then we take all the activations from the input layer and compute their weighted sum according to these weights, we will get:
 
 $$
 w_1 a_1 + w_2 a_2 + w_3 a_3 + w_4 a_4 + \cdots + w_n a_n
@@ -123,7 +123,7 @@ $$
 {% hint style="success" %}
 #### **Bias**
 
-But maybe we don't want the neuron to light up when the weighted sum is bigger than 0. Maybe we only want it to be active[^2] when the weighted sum is bigger than 10. That is to say, we want some **bias** for the neuron to be inactive. What will do then is to add some number to the weighted sum before we plug it through the sigmoid function. That additional number is called the **bias**.
+But maybe we don't want the neuron to light up when the weighted sum is bigger than 0. Maybe we only want it to be active[^2] when the weighted sum is bigger than 10. That is to say, we want some **bias** for the neuron to be inactive. What we will then do is to add some number to the weighted sum before we plug it through the sigmoid function. That additional number is called the **bias**.
 
 <p align="center"><span class="math">\sigma(w_1 a_1 + w_2 a_2 + w_3 a_3 + w_4 a_4 + \cdots + w_n a_n-10)</span></p>
 
