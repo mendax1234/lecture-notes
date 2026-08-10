@@ -52,7 +52,7 @@ Let us consider $$H(x)$$ as an underlying mapping to be fit by a few stacked lay
 This reformulation is motivated by the counterintuitive phenomena about the degradation problem (Fig. 1). As we discussed in the introduction, if the added layers can be constructed as identity mappings, a deeper model should have training error no greater than its shallower counterpart. The degradation problem suggests that the solvers might have difficulties in approximating identity mappings by multiple nonlinear layers. With the residual learning reformulation, if identity mappings are optimal, the solvers may simply drive the weights of the multiple nonlinear layers toward zero to approach identity mappings.
 
 {% hint style="warning" %}
-The last sentence is because we are talking about the **residual block** not the traditional neural network. If it's the traditional neural network, the weights of a layer should be an identity matrix and the bias should be 0.
+The last sentence holds because we are talking about the **residual block** here but not the traditional neural network. If it's the traditional neural network, for a layer to become an identity mapping, the weights of a layer should be an identity matrix and the bias should be 0.
 {% endhint %}
 
 In real cases, it is unlikely that identity mappings are optimal, but our reformulation may help to precondition the problem. If the optimal function is closer to an identity mapping than to a zero mapping, it should be easier for the solver to find the perturbations with reference to an identity mapping, than to learn the function as a new one.
