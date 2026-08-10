@@ -16,7 +16,7 @@ By stacking multiple layers, a deep neural network can learn a hierarchy of feat
 
 However, more and more papers and experiments show that this is **not true**! The authors of _"Deep Residual Learning for Image Recognition"_ thus come up with a very thought-provoking question:
 
-> Is learning better networks as easy as stacking mroe layers?
+> Is learning better networks as easy as stacking more layers?
 
 This is obviously **not true** because of the problem of [_vanishing/exploding gradients_](https://en.wikipedia.org/wiki/Vanishing_gradient_problem)_,_ which can be understood as the problem of greatly diverging [gradient](https://en.wikipedia.org/wiki/Gradient) magnitudes between **earlier** and **later layers** encountered when training neural networks with backpropagation.
 
@@ -29,9 +29,9 @@ When deeper networks are able to start converging, a _degradation_ problem has b
 
 <figure><img src="../.gitbook/assets/degradation.png" alt=""><figcaption><p>Training error (left) and test error (right) on CIFAR-10 with 20-layer and 56-layer "plain" networks.</p></figcaption></figure>
 
-The degradation (of training accuracy) indicates that not all systems are similarly easy to optimize. Let us consider a shallower architecture and its deeper counterpart that adds more layers onto it. There exists a solution by construction to the deeper model: the added layers are _identity mapping_, and the other layers are **copied** from the learned shallower model. The existence of this constructed solution indicates that a deeper model should produce no higher training error than its shallower counterpart. But experiments show that our current solvers on hand like stochastic gradient descent (SCD) are unable to find solutions that are comparably good or better than the constructed solution (or unable to do so in feasible time), meaning that the solutions found by the current solvers are **neither** identity maps **nor** mappings that are better than identity maps.
+The degradation (of training accuracy) indicates that not all systems are similarly easy to optimize. Let us consider a shallower architecture and its deeper counterpart that adds more layers onto it. There exists a solution by construction to the deeper model: the added layers are _identity mapping_, and the other layers are **copied** from the learned shallower model. The existence of this constructed solution indicates that a deeper model should produce no higher training error than its shallower counterpart. But experiments show that our current solvers on hand like stochastic gradient descent (SGD) are unable to find solutions that are comparably good or better than the constructed solution (or unable to do so in feasible time), meaning that the solutions found by the current solvers for the newly added layers are **neither** identity maps **nor** mappings that are better than identity maps.
 
-In He's paper, the authors address this degradation problem by introducing a _deep residual learning_ framework. Instead of hoping each few stacked layers directly fit a desired underlying mapping, we explicitly let these layers fit a **residual mapping**. Formally, denoting the desired underlying mapping as $$H(x)$$, we let the stacked nonlinear layers fit another mapping of $$F(x):=H(x)-x$$ (This is called the **residual mapping**). The original mapping is recast into $$F(x)+x$$. We hypothesize that it is easier to optimize the residual mapping than to optimize the original, unreferenced mapping.
+In He's paper, the authors address this degradation problem by introducing a _deep residual learning_ framework. Instead of hoping each few stacked layers directly fit a desired underlying mapping, we explicitly let these layers fit a **residual mapping**. Formally, denoting the desired underlying mapping as $$H(x)$$, we let the stacked nonlinear layers fit another mapping of $$F(x):=H(x)-x$$ (This is called the **residual mapping** and it usually can be understood as the difference between the desired output and the actual input). The original mapping is recast into $$F(x)+x$$. We hypothesize that it is easier to optimize the residual mapping than to optimize the original, unreferenced mapping.
 
 {% hint style="success" %}
 To the extreme, if an identity mapping were optimal, it would be easier to push the **residual to zero** than to fit an identity mapping by a stack of nonlinear layers.
@@ -47,4 +47,3 @@ Identity shortcut connections add neither extra parameter nor computational comp
 
 1. [Deep Residual Learning for Image Recognition by Kaiming He](https://arxiv.org/abs/1512.03385).
 2. [The interpretation of He's paper by Mu Li](https://www.bilibili.com/video/BV1P3411y7nn/?share_source=copy_web\&vd_source=38953bcabbabbab600e123d8740d5a8a).
-
