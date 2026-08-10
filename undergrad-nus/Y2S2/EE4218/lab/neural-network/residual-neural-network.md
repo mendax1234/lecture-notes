@@ -27,7 +27,7 @@ However, this vanishing/exploding gradient problem can be mitigated by several t
 
 When deeper networks are able to start converging, a _degradation_ problem has been exposed: with the network depth increasing, accuracy gets saturated (which might be unsurprising) and then degrades rapidly. Unexpectedly, such degradation is not caused by _overfitting_, which can be briefly understood as having low training error but high test error, and adding more layers to a suitably deep model leads to **higher training errors**. The following figure shows a typical example.
 
-<figure><img src="../.gitbook/assets/degradation.png" alt=""><figcaption><p>Training error (left) and test error (right) on CIFAR-10 with 20-layer and 56-layer "plain" networks.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/degradation.png" alt=""><figcaption><p>Figure 1: Training error (left) and test error (right) on CIFAR-10 with 20-layer and 56-layer "plain" networks.</p></figcaption></figure>
 
 The degradation (of training accuracy) indicates that not all systems are similarly easy to optimize. Let us consider a shallower architecture and its deeper counterpart that adds more layers onto it. There exists a solution by construction to the deeper model: the added layers are _identity mapping_, and the other layers are **copied** from the learned shallower model. The existence of this constructed solution indicates that a deeper model should produce no higher training error than its shallower counterpart. But experiments show that our current solvers on hand like stochastic gradient descent (SGD) are unable to find solutions that are comparably good or better than the constructed solution (or unable to do so in feasible time), meaning that the solutions found by the current solvers for the newly added layers are **neither** identity maps **nor** mappings that are better than identity maps.
 
@@ -42,6 +42,24 @@ The formulation of $$F(x)+x$$ can be realized by feedforward neural networks wit
 <figure><img src="../.gitbook/assets/residual-learning-building-block.png" alt=""><figcaption><p>Figure 2: Residual learning: a building block</p></figcaption></figure>
 
 Identity shortcut connections add neither extra parameter nor computational complexity. The entire network can still be trained end-to-end by SGD with backpropagation, and can be easily implemented using common libraries without modifying the solvers.
+
+## Deep Residual Learning
+
+### Residual Learning
+
+Let us consider $$H(x)$$ as an underlying mapping to be fit by a few stacked layers (not necessarily the entire net), withxdenoting the inputs to the first of these layers. If one hypothesizes that multiple nonlinear layers can asymptotically approximate complicated functions, then it is equivalent to hypothesize that they can asymptotically approximate the residual functions, i.e., $$H(x)−x$$(assuming that the input and output are of the same dimensions). So rather than expect stacked layers to approximate $$H(x)$$, we explicitly let these layers approximate a residual function $$F(x):=H(x)−x$$. The original function thus becomes $$F(x)+x$$. Although both forms should be able to asymptotically approximate the desired functions (as hypothesized), the ease of learning might be different.
+
+This reformulation is motivated by the counterintuitive phenomena about the degradation problem (Fig. 1). As we discussed in the introduction, if the added layers can be constructed as identity mappings, a deeper model should have training error no greater than its shallower counterpart. The degradation problem suggests that the solvers might have difficulties in approximating identity mappings by multiple nonlinear layers. With the residual learning reformulation, if identity mappings are optimal, the solvers may simply drive the weights of the multiple nonlinear layers toward zero to approach identity mappings.
+
+{% hint style="warning" %}
+The last sentence is because we are talking about the **residual block** not the traditional neural network. If it's the traditional neural network, the weights of a layer should be an identity matrix and the bias should be 0.
+{% endhint %}
+
+In real cases, it is unlikely that identity mappings are optimal, but our reformulation may help to precondition the problem. If the optimal function is closer to an identity mapping than to a zero mapping, it should be easier for the solver to find the perturbations with reference to an identity mapping, than to learn the function as a new one.
+
+{% hint style="success" %}
+**Pertubations** can be understood as the minor adjustments or tweaks needed to improve the feature representation and it is significantly easier for a solver like Stochastic Gradient Descent to learn a small change than to reconstruct the entire underlying function.
+{% endhint %}
 
 ## References
 
