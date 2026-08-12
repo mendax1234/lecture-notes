@@ -111,6 +111,34 @@ It is definitely possible to change the size of the kernel matrix and the value 
 
 The purpose of the kernel can be understood as **finding the features/pattern** in the image. Usually we use one kernel for one pattern.
 
+#### Kernel
+
+In a **standard convolution**, each filter spans the **entire depth of the input feature map**. In other words, the filter depth must match the number of input channels. For example, if the input feature map has **64 channels**:
+
+* A single 3x3 filter is actually 3x3x64. It contains $$3 \times 3 \times 64 = 576$$ individual weights.
+* A single 1x1 filter is actually 1x1x64. It contains $$1 \times 1 \times 64 = 64$$ individual weights.
+
+When a filter is applied at a particular spatial location, it covers **all 64 input channels simultaneously**. The corresponding input values are multiplied by the filter weights and then summed together, producing **one scalar value** at that location.
+
+> Therefore, **one filter produces one output channel**.
+
+To create an output with multiple channels, we use multiple independent filters. For example:
+
+* **Input:** 64 channels
+* **Desired output:** 128 channels
+* **Number of filters required:** 128
+* **Size of each 3×3 filter:** 3×3×64
+
+Thus, applying **128 different filters** produces an output feature map with **128 channels**.
+
+#### Stride
+
+In the example above, the **stride** is set to **1** by default. This means that the filter moves **one pixel at a time** across the input.
+
+When appropriate **zero-padding** is added around the border of the input, a stride of 1 allows the output to have the **same spatial dimensions (width and height)** as the input after the convolution operation.
+
+If we increase the **stride to 2**, the filter moves **two pixels at a time**. As a result, the spatial dimensions of the output are approximately **halved**.
+
 ## CNN
 
 A convolutional neural network (CNN) is a type of feedforward neural network that learns **features** via filter (or kernel) optimization. Here, we will use the image classification as an example. Assume that our input is an image, to recognize or classify that image, the flow/layers of CNN can be:
