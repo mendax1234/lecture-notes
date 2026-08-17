@@ -25,31 +25,31 @@ In an electronic computer system, we can also find such abstraction:
 
 {% stepper %}
 {% step %}
-**Physics**
+#### **Physics**
 
 At the lowest level of abstraction is the **physics**, which is about the motion of electrons. The behavior of electrons is described by quantum machanics and Maxwell's equations.
 {% endstep %}
 
 {% step %}
-**Devices**
+#### **Devices**
 
 Our system is constructed from electronic _devices_ such as transistors. These devices have well-defined connection points called _terminals_ and can be modeled by the relationship between voltage and current as measured at each terminal. By abstracting to this **device** level, we can ignore the individual electrons.
 {% endstep %}
 
 {% step %}
-**Analog Circuits**
+#### **Analog Circuits**
 
 The next level of abstraction is _analog circuits_, in which devices are assembled to create components such as amplifiers. Analog circuits input and output a continuous range of voltages.
 {% endstep %}
 
 {% step %}
-**Digital Circuits**
+#### **Digital Circuits**
 
 _Digital circuits_ such as logic gates restrict the voltages to discrete ranges, which we will use to indicated 0 and 1. In logic design, we build more complex structures, such as adders or memories from digital circuits.
 {% endstep %}
 
 {% step %}
-**Micro-architecture**
+#### **Micro-architecture**
 
 (See Architecture first). _Micro-architecture_ links the logic and architecture levels of abstraction. It involves combining logic elements to execute the instructions defined by the architecture/ISA.
 
@@ -57,7 +57,7 @@ Shortly speaking, the micro-architecture is an **implementation of the ISA/archi
 {% endstep %}
 
 {% step %}
-**Architecture (ISA)**
+#### **Architecture (ISA)**
 
 The **architecture** level describes a computer from the programmer's perspective. In other words, it's about what the programmer assumes the hardware will satisfy. It is sometimes referred to as the ISA (**I**nstruction **S**et **A**rchitecture) also, which is an interface/contract between Software and Hardware. This abstract interface between the hardware and the lowest level software encompasses all the information necessary to write a machine language program, including instructions, registers, memory access I/O, ...
 
@@ -65,13 +65,13 @@ For example, the Intel x86 architecture used by microprocessors in most PCs is d
 {% endstep %}
 
 {% step %}
-**Operating System**
+#### **Operating System**
 
 Moving into the software realm, the operating system handles low-level details such as accessing a hard drive or managing memory.
 {% endstep %}
 
 {% step %}
-**Application Software**
+#### **Application Software**
 
 Finally, the application software uses these facilities provided by the operating system to solve a problem for the user.
 {% endstep %}
