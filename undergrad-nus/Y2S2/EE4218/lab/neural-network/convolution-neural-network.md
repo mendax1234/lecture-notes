@@ -131,6 +131,12 @@ To create an output with multiple channels, we use multiple independent filters.
 
 Thus, applying **128 different filters** produces an output feature map with **128 channels**.
 
+{% hint style="success" %}
+#### Bias
+
+Similar to the [multilayer-perceptron.md](multilayer-perceptron.md "mention"), we also have bias in CNN. In CNN, one filter **needs** one bias value.
+{% endhint %}
+
 #### Stride
 
 In the example above, the **stride** is set to **1** by default. This means that the filter moves **one pixel at a time** across the input.
