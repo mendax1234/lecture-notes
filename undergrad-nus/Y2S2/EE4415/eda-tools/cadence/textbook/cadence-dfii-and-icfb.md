@@ -6,7 +6,7 @@ metaLinks:
 
 # Cadence DFII and ICFB
 
-**Cadence** CAD software is generally The custom design targeted at the design of electrical circuits, both digital and analog, and extending from extremely low-level VLSI design to the design of circuit boards for large systems. This book is primarily interested in digital integrated circuit (IC) design so we’ll look primarily at those tools from the **Cadence suite**.
+**Cadence** CAD software is generally the custom design targeted at the design of electrical circuits, both digital and analog, and extending from extremely low-level VLSI design to the design of circuit boards for large systems. This book is primarily interested in digital integrated circuit (IC) design so we’ll look primarily at those tools from the **Cadence suite**.
 
 ## Cadence Design Framework
 
@@ -25,13 +25,13 @@ These are all **individual programs** that perform a piece of the digital IC des
 Note that many of these programs were developed by separate companies that have been acquired by Cadence and folded into the _DFII_ framework after that acquisition. Thus, some integrate better than others.
 {% endhint %}
 
-As we’ll see, though, there are some pieces of the Cadence tool flow that are not linked into the _DFII_ framework.
+As we’ll see, though, there are some pieces of the Cadence tool flow that are not linked into the _DFII_ framework. For examples,
 
 * Most notably place and route of standard cells with _SOC Encounter_,
 * connection of large blocks with _ICC Chip Assembly Router_ (_ccar_) and
 * Verilog synthesis with _RTL Compiler_
 
-are done in separate programs with separate interfaces.
+All these are done in separate programs with separate interfaces.
 
 ### Process Design Kit
 
@@ -88,54 +88,73 @@ We should see a bunch of libraries listed in the Library Manager.
 
 {% stepper %}
 {% step %}
-**NCSU\_TechLib\_xxx**
+#### **NCSU\_TechLib\_xxx**
 
 These are **technology libraries** for each of the MOSIS processes. The "xxx" will be filled in with information about which MOSIS process is being described.
 {% endstep %}
 
 {% step %}
-**basic**
+#### **basic**
 
 This is the Cadence built-in library, which we won't use directly. It has basic components from which other parts are built.
 {% endstep %}
 
 {% step %}
-**cdsDefTechLib**
+#### **cdsDefTechLib**
 
 A generic Cadence technology library that we won't use directly.
 {% endstep %}
+
+{% step %}
+#### analogLib
+
+This library contains various types of voltage and current sources, such as **VDC** and **GND**, which are used in our design.
+{% endstep %}
 {% endstepper %}
 
-### Cell and View
+#### Cell and View
 
 **Cells** in _DFII_ are individual circuits that we want to design separately. In _DFII_ there is a notion of "cell view", which means that we can look at a cell in a number of different ways (in different **views**). For example, we might have
 
 * a **schematic view** that shows the cell in terms of its components in a graphical schematic, or we might have
 * a **Verilog** description of the cell as behavioral Verilog code.
+* and other views
 
-Both of these cell views can exist at the same time and are just alternate ways of looking at the same cell. The **cell** **views** that we’ll eventually end up using in this tool flow are the following:
+Both of these cell views can exist at the same time and are just alternate ways of looking at the same cell. For example, for the circuit named `mos_char`, we have created two views: "schematic" and "maestro".
+
+<figure><img src="../.gitbook/assets/cell-view-example.png" alt=""><figcaption></figcaption></figure>
+
+The **cell** **views** that we'll eventually end up using in this tool flow are the following:
 
 {% stepper %}
 {% step %}
-**schematic**
+#### **Schematic**
 
 This view is a **graphical** schematic showing a cell as an interconnection of basic components, or as hierarchically defined components.
+
+<figure><img src="../.gitbook/assets/mos_char.png" alt=""><figcaption><p>mos_char example schemetic</p></figcaption></figure>
 {% endstep %}
 
 {% step %}
-**Symbol**
+#### Maestro
+
+In Cadence Virtuoso, the **Maestro view** is used to set up and manage **simulation tests**. It allows us to define simulation conditions, select analyses (e.g., DC, AC, transient), specify outputs to measure, and run and **plot** simulation results.
+{% endstep %}
+
+{% step %}
+#### **Symbol**
 
 This view is a **symbolic** view of the cell that can be used to place an **instance** of this cell in another schematic. This is the primary mechanism for generaing hierarchy in a schematic.
 {% endstep %}
 
 {% step %}
-**cmos\_sch**
+#### **cmos\_sch**
 
 A **schematic** that consists of CMOS transistors.
 {% endstep %}
 
 {% step %}
-**behavioral**
+#### **Behavioral**
 
 Verilog code that describes the bahavior of the cell.
 {% endstep %}

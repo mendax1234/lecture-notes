@@ -17,3 +17,6 @@ The tools and flows described here generally fall within the category of support
 {% hint style="success" %}
 In this book, I'll call the tools "CAD Tools" and the companies "EDA companies".
 {% endhint %}
+
+These notes can also be used as a starter guide for using Cadence Virtuoso.
+

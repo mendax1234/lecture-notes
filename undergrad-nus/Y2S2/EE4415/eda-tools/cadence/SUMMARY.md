@@ -1,6 +1,6 @@
 # Table of contents
 
-## Textbook: Cadence
+## Textbook
 
 * [Introduction](README.md)
-* [Cadence DFII and ICFB](textbook-cadence/cadence-dfii-and-icfb.md)
+* [Cadence DFII and ICFB](textbook/cadence-dfii-and-icfb.md)
