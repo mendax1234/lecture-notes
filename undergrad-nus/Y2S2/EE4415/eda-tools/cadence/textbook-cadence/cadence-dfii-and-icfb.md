@@ -88,19 +88,19 @@ We should see a bunch of libraries listed in the Library Manager.
 
 {% stepper %}
 {% step %}
-#### NCSU\_TechLib\_xxx
+**NCSU\_TechLib\_xxx**
 
 These are **technology libraries** for each of the MOSIS processes. The "xxx" will be filled in with information about which MOSIS process is being described.
 {% endstep %}
 
 {% step %}
-#### basic
+**basic**
 
 This is the Cadence built-in library, which we won't use directly. It has basic components from which other parts are built.
 {% endstep %}
 
 {% step %}
-#### cdsDefTechLib
+**cdsDefTechLib**
 
 A generic Cadence technology library that we won't use directly.
 {% endstep %}
@@ -117,25 +117,25 @@ Both of these cell views can exist at the same time and are just alternate ways 
 
 {% stepper %}
 {% step %}
-#### schematic
+**schematic**
 
 This view is a **graphical** schematic showing a cell as an interconnection of basic components, or as hierarchically defined components.
 {% endstep %}
 
 {% step %}
-#### Symbol
+**Symbol**
 
 This view is a **symbolic** view of the cell that can be used to place an **instance** of this cell in another schematic. This is the primary mechanism for generaing hierarchy in a schematic.
 {% endstep %}
 
 {% step %}
-#### cmos\_sch
+**cmos\_sch**
 
 A **schematic** that consists of CMOS transistors.
 {% endstep %}
 
 {% step %}
-#### behavioral
+**behavioral**
 
 Verilog code that describes the bahavior of the cell.
 {% endstep %}
