@@ -130,15 +130,17 @@ The **cell** **views** that we'll eventually end up using in this tool flow are 
 {% step %}
 #### **Schematic**
 
-This view is a **graphical** schematic showing a cell as an interconnection of basic components, or as hierarchically defined components.
-
-<figure><img src="../.gitbook/assets/mos_char.png" alt=""><figcaption><p>mos_char example schemetic</p></figcaption></figure>
+This view is a **graphical** schematic showing a cell as an interconnection of basic components, or as hierarchically defined components. The schematic view is usually opened using **Schematic L**.
 {% endstep %}
 
 {% step %}
+<figure><img src="../.gitbook/assets/schemetic-L.png" alt=""><figcaption></figcaption></figure>
+
 #### Maestro
 
-In Cadence Virtuoso, the **Maestro view** is used to set up and manage **simulation tests**. It allows us to define simulation conditions, select analyses (e.g., DC, AC, transient), specify outputs to measure, and run and **plot** simulation results.
+In Cadence Virtuoso, the **Maestro view** is used to set up and manage **simulation tests**. It allows us to define simulation conditions, select analyses (e.g., DC, AC, transient), specify outputs to measure, and run and **plot** simulation results. This cell view is usually opened using **ADE Explorer**.
+
+<figure><img src="../.gitbook/assets/maestro-ade-explorer.png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
