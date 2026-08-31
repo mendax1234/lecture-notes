@@ -220,4 +220,18 @@ python3 PYNQCode.py
 ```
 {% endcode %}
 {% endstep %}
+
+{% step %}
+#### Power off the board properly
+
+Every time before you power off, shut down the OS properly using
+
+{% code lineNumbers="true" expandable="true" %}
+```bash
+sudo shutdown -h now
+```
+{% endcode %}
+
+Wait until the LEDs next to the fan turns off before removing power.
+{% endstep %}
 {% endstepper %}
