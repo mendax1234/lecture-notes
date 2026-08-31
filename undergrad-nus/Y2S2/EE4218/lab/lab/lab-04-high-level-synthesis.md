@@ -140,7 +140,7 @@ After that, for Windows users, please go to the following settings in your contr
 Pay attention to which Ethernet you are using and select the Ethernet adaptor after Step 5 above!
 {% endhint %}
 
-After that, open your terminal on Windows and type `arp -s`, you might get something like below
+After that, open your terminal on Windows and type `arp -a`, you might get something like below
 
 {% code lineNumbers="true" %}
 ```ps
@@ -179,8 +179,26 @@ Find the interface starting with `192.168.137.1` and within this interface, the 
 After knowing the ip address of the kria board, you can just open your mobaxterm and setup a new session.
 
 {% hint style="warning" %}
-If you are taking EE4218 in AY25/26 Sem 2, the username is `ubuntu` and password is `CEG5203*`. Otherwise, please contact Prof Rajesh for the username and password.
+If you are taking EE4218 in AY25/26 Sem 2, the username is `ubuntu` and password is `ceg5203*`. Otherwise, please contact Prof Rajesh for the username and password.
 {% endhint %}
+
+<details>
+
+<summary>What if the Kria board doesn't get assigned an IP address?</summary>
+
+In this case, we first need to **log in to the board via Serial** using the exact username and password provided above. Then, in the Serial terminal, run the following commands:
+
+{% code lineNumbers="true" expandable="true" %}
+```bash
+sudo ip addr flush dev eth0
+sudo ip addr add 192.168.137.2/24 dev eth0
+sudo ip link set eth0 up
+```
+{% endcode %}
+
+These commands configure `eth0` with a **static IP address** of `192.168.137.2` and bring the interface up. We can then create a new **SSH session** in MobaXterm using `192.168.137.2` as the remote host.
+
+</details>
 {% endstep %}
 
 {% step %}
