@@ -503,9 +503,13 @@ Find the **physical address** of **virtual address** 0x247C using the virtual me
 
 ### Page Table
 
-The processor uses a **page table** to translate **virtual addresses** to **physical addresses**. The **page table** contains an **entry** for each **virtual page**. This entry contains a **physical page number** and a **valid bit**. If the **valid bit** is 1, the virtual page maps to the physical page specified in the entry. Otherwise, the virtual page is found on the **hard drive**.
+The processor uses a **page table** to translate **virtual addresses** to **physical addresses**. The **page table** contains an **entry** for each **virtual page**. This entry contains a **physical page number** and a **valid bit**. If the **valid bit** is 1, the virtual page maps to the physical page specified in the entry. Otherwise, the virtual page is found on the **hard drive**. Because the **page table** is so large, it is stored in **physical memory**.
 
-Because the **page table** is so large, it is stored in **physical memory**. Let us assume for now that it is stored as a contiguous array, as shown in the following figure.
+{% hint style="success" %}
+Each process typically has its own page table, stored in physical memory. Multiple page tables can coexist in RAM, even in a single-core system. This also motivates the [#memory-protection](memory-systems.md#memory-protection "mention") section later!
+{% endhint %}
+
+Let us assume for now that it is stored as a contiguous array, as shown in the following figure.
 
 <figure><img src="../.gitbook/assets/page-table-example.png" alt="" width="271"><figcaption><p>The page table for Figure 8.21</p></figcaption></figure>
 
@@ -561,7 +565,7 @@ The request for **virtual address** `0x5FB0` **misses** in the **TLB**. So, the 
 
 No program should be able to access another program's memory without permission, this is called **memory protection.**
 
-**Virtual memory** systems provide **memory protection** by giving each program its own **virtual address space**. Each program can use as much memory as it wants in that virtual address space, but only a portion of the virtual address space is in **physical memory** at any given time. Each program can use its entire **virtual address space** without having to worry about where other programs are physically located. However, a program can access only those **physical pages** that are mapped in its **page table**. In this way, a program cannot accidentally or maliciously access another program’s physical pages because they are not mapped in its **page table**.
+**Virtual memory** systems provide **memory protection** by giving each program its own **virtual address space**. Each program can use as much memory as it wants in that virtual address space, but only a portion of the virtual address space is in **physical memory** at any given time. Each program can use its entire **virtual address space** without having to worry about where other programs are physically located. However, a program can access only those **physical pages** that are mapped in its **page table**. In this way, a program cannot accidentally or maliciously access another program's physical pages because they are not mapped in its **page table**.
 
 ### Replacement Policies
 
