@@ -1,4 +1,4 @@
-# Memory Systems
+# Lec 07 - Memory System Principles
 
 > This part is almost the same as NUS CG3207 Lec 07 — Memory Systems Principles. So, I will combine the information together here.
 
@@ -24,7 +24,7 @@ Within this memory hierarchy, there are three levels
 
 {% stepper %}
 {% step %}
-#### Cache
+**Cache**
 
 Computers store the **most commonly used instructions and data** in a **faster but smaller memory**, called a **cache**. This is also the **first level** of our memory hierarchy. The cache is usually built out of **SRAM** on the **same chip** as the processor. The **cache speed** is **comparable to the processor speed** because **SRAM is inherently faster than DRAM** (the technology used to build our main memory) and because the **on-chip memory** eliminates **lengthy delays** caused by traveling to and from a separate chip.
 
@@ -33,7 +33,7 @@ Computers store the **most commonly used instructions and data** in a **faster b
 {% endstep %}
 
 {% step %}
-#### Main Memory
+**Main Memory**
 
 Computer memory, which is our **second level** of the memory hierarchy, is generally built from DRAM chips. Unfortunately, **DRAM speed** has improved by only about **7% per year**, whereas **processor performance** has improved at a rate of **25% to 50% per year**, as shown in the figure below.
 
@@ -54,7 +54,7 @@ Main memories have **good throughput** but **long latency**.
 {% endstep %}
 
 {% step %}
-#### Hard Drive
+**Hard Drive**
 
 The **third level** of the memory hierarchy is the **hard drive**. The hard drive has evolved from HDD to NAND Flash devices, like SSD.
 
@@ -81,7 +81,7 @@ There are three memory system performance metrics:
 
 {% stepper %}
 {% step %}
-#### Miss Rate
+**Miss Rate**
 
 $$
 \text{Miss Rate} = \frac{\text{Number of misses}}{\text{Number of total memory accesses}} = 1 - \text{Hit Rate}
@@ -89,7 +89,7 @@ $$
 {% endstep %}
 
 {% step %}
-#### Hit Rate
+**Hit Rate**
 
 $$
 \text{Hit Rate}  = \frac{\text{Number of hits}}{\text{Number of total memory accesses}}  = 1 - \text{Miss Rate}
@@ -97,7 +97,7 @@ $$
 {% endstep %}
 
 {% step %}
-#### Average Memory Access Time (AMAT)
+**Average Memory Access Time (AMAT)**
 
 **Average memory access time (AMAT)** is the average time a processor must wait for memory per load or store instruction. It is calculated as follows:
 
@@ -125,7 +125,7 @@ Calculate the Average Memory Access Time (AMAT) for a computer system with a two
 
 Substituting the values:
 
-<p align="center"><span class="math">\begin{aligned} \text{AMAT} &#x26;= 1 + (0.10 \times 100) \\             &#x26;= 1 + 10                  \\             &#x26;= 11~\text{cycles} \end{aligned} </span></p>
+<p align="center"><span class="math">\begin{aligned} \text{AMAT} &#x26;= 1 + (0.10 \times 100) \\ &#x26;= 1 + 10 \\ &#x26;= 11~\text{cycles} \end{aligned}</span></p>
 
 </details>
 {% endstep %}
@@ -148,7 +148,7 @@ Keep in mind that the spirit of cache is the [two principles of locality](memory
 Because it is **impossible to predict the future with perfect accuracy**, the **cache** must **guess** what data will be needed based on the **past pattern** of **memory accesses**. This pattern is guided by the [two principles of locality](memory-systems.md#two-principles-of-locality):
 
 1. By the **temporal locality**, when the processor **loads or stores data** that is **not in the cache**, the data is **copied from main memory into the cache**. **Subsequent requests** for that data then **hit in the cache**.
-2. By the **spatial locality**, when the **cache** fetches one word from memory, it may also fetch several **adjacent words**. This group of words is called a **cache block** or **cache line**. The number of words in the cache block, $$b$$, is called the **block size**. A cache of **capacity** $$C$$ contains $$B = C/b$$  **blocks**.
+2. By the **spatial locality**, when the **cache** fetches one word from memory, it may also fetch several **adjacent words**. This group of words is called a **cache block** or **cache line**. The number of words in the cache block, $$b$$, is called the **block size**. A cache of **capacity** $$C$$ contains $$B = C/b$$ **blocks**.
 
 ### Mapping
 
@@ -172,13 +172,13 @@ The **cache** has **eight sets**, each of which contains a **one-word block**. T
 
 {% stepper %}
 {% step %}
-#### Tag Bit
+**Tag Bit**
 
 Because many addresses map to a single set, the cache must also keep track of the address of the data actually contained in each set. This is achieved by the **tag bit** and it indicates which of the many possible addresses is held in that set.
 {% endstep %}
 
 {% step %}
-#### Cache Field
+**Cache Field**
 
 In our previous examples, the **two least significant bits** of the **32-bit address** are called the **byte offset** because they indicate the **byte within the word**. The next **three bits** are called the **set bits** because they indicate the **set** to which the address maps. (In general, the number of set bits is $$\log_2 S$$.) The remaining **27 tag bits** indicate the **memory address** of the data stored in a given cache set. The following figure shows the **cache fields** for address `0xFFFFFFE4`. It maps to **set 1** and its **tag** is all 1’s.
 
@@ -198,13 +198,13 @@ Find the number of set and tag bits for a direct-mapped cache with 1024 (2¹⁰)
 {% endstep %}
 
 {% step %}
-#### Valid Bit
+**Valid Bit**
 
 Sometimes, such as when the computer first starts up, the **cache sets** contain **no data** at all. The cache uses a **valid bit** for each set to indicate whether the set holds **meaningful data**. If the **valid bit** is **0**, the contents are **are meaningless**.
 {% endstep %}
 
 {% step %}
-#### Hardware Implementation
+**Hardware Implementation**
 
 The following figure shows the hardware for the direct mapped cache of the above figure. The **cache** is constructed as an **eight-entry SRAM**. Each **entry** (or **set**) contains one line consisting of **32 bits of data**, **27 bits of tag**, and **1 valid bit**. The cache is accessed using the **32-bit address**.
 
@@ -214,7 +214,7 @@ A **load instruction** reads the specified **entry** from the **cache** and chec
 {% endstep %}
 
 {% step %}
-#### Conflict
+**Conflict**
 
 When two **recently accessed addresses** map to the **same cache block**, a **conflict** occurs, and the **most recently accessed address** **evicts** the previous one from the block.
 
@@ -256,13 +256,13 @@ In our previous examples, we only take advantage of the **temporal locality** be
 
 {% stepper %}
 {% step %}
-#### Miss Penalty
+**Miss Penalty**
 
 The time required to load the **missing block** into the **cache** is called the **miss penalty**.
 {% endstep %}
 
 {% step %}
-#### Block Offset Bits
+**Block Offset Bits**
 
 The following figure shows the hardware for a **C = 8-word direct-mapped cache** with a **b = 4-word block size**. The cache now has only **B = C/b = 2 blocks**. A **direct-mapped cache** has **one block** in each set, so this cache is organized as **two sets**. Thus, only **log₂2 = 1 bit** is used to select the set. A **multiplexer** is now needed to select the **word within the block**. The multiplexer is controlled by the **log₂4 = 2 block offset bits** of the address. The **most significant 27 address bits** form the **tag**. Only **one tag** is needed for the entire block, because the words in the block are at **consecutive addresses**.
 
@@ -368,7 +368,7 @@ Changing cache parameters can affect one or more types of cache miss. For exampl
 
 {% stepper %}
 {% step %}
-#### Cache Size vs. Miss Rate
+**Cache Size vs. Miss Rate**
 
 <figure><img src="../.gitbook/assets/cache-size-vs-miss-rate.png" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -376,7 +376,7 @@ As expected, when cache size increases, capacity misses decrease. Increased asso
 {% endstep %}
 
 {% step %}
-#### Block Size vs.Miss Rate
+**Block Size vs.Miss Rate**
 
 <figure><img src="../.gitbook/assets/cache-size-vs-block-size.png" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -437,7 +437,7 @@ The following table summarizes the difference between 4KiB and 4KB.
 Programs can access data anywhere in **virtual memory**, so they must use **virtual addresses** that specify the location in virtual memory. The **physical memory** holds a subset of the most recently accessed virtual memory. In this way, physical memory acts as a **cache** for virtual memory. Thus, most accesses **hit** in physical memory at the speed of **DRAM**, yet the program enjoys the capacity of the larger virtual memory.
 
 {% hint style="success" %}
-Think of physical memory as a **cache** (later you will see it's actually a [fully associative cache](memory-systems.md#fully-associative-cache)) for the virtual memory!&#x20;
+Think of physical memory as a **cache** (later you will see it's actually a [fully associative cache](memory-systems.md#fully-associative-cache)) for the virtual memory!
 {% endhint %}
 
 Given that, we can find the similarities between the **virtual memory** and the [**cache**](memory-systems.md#cache-1) we have discussed above. The following table summarizes the analogous terms.
@@ -475,7 +475,7 @@ In a system with **virtual memory**, programs use **virtual addresses** so that 
 Recall that virtual memory and physical memory are divided into pages.
 
 * The most significant bits of the virtual or physical address specify the **virtual** or **physical page number**.
-* The least significant bits specify the **word within the page** and are called the **page offset**.
+* The least significant bits specify the [**byte**](#user-content-fn-2)[^2] **within the page** and are called the **page offset**.
 
 #### How address translation works
 
@@ -483,7 +483,7 @@ The following figure illustrates the page organization of a virtual memory syste
 
 <figure><img src="../.gitbook/assets/physical-and-virtual-pages.png" alt=""><figcaption><p>Figure 8.21 Physical and virtual pages</p></figcaption></figure>
 
-Because the **page size** is **4 KiB** = 2¹² bytes, there are 2³¹/2¹² = 2¹⁹ **virtual pages** and 2²⁷/2¹² = 2¹⁵ **physical pages**. Thus, the **virtual page number** and **physical page number** are 19 and 15 bits, respectively. Physical memory can only hold up to 1/16th of the virtual pages at any given time. The rest of the virtual pages are kept on the **hard drive**.
+Because the **page size** is **4 KiB** = 2<sup>12</sup> bytes, there are 2<sup>31</sup>/2<sup>12</sup> = 2<sup>19</sup> **virtual pages** and 2<sup>27</sup>/2<sup>12</sup> = 2<sup>15</sup> **physical pages**. Thus, the **virtual page number** and **physical page number** are 19 and 15 bits, respectively. Physical memory can only hold up to 1/16th of the virtual pages at any given time. The rest of the virtual pages are kept on the **hard drive**.
 
 The following figure illustrates the translation of a **virtual address** to a **physical address**. The least significant **12 bits** indicate the **page offset** and require no translation. The upper **19 bits** of the virtual address specify the **virtual page number (VPN)** and are translated to a **15-bit physical page number (PPN)**.
 
@@ -531,11 +531,11 @@ The **12-bit page offset** requires no translation. The remaining **19 bits** of
 
 ### Translation Lookaside Buffer
 
-**Virtual memory** would have a severe performance impact if it required a **page table** read on every load or store, doubling the delay of loads and stores. To solve this, in general, the processor can keep the last several **page table entries** in a **small** **cache** called a **translation lookaside buffer (TLB)**. The processor “looks aside” to find the translation in the **TLB** before having to access the **page table** in **physical memory**.
+**Virtual memory** would have a severe performance impact if it required a **page table** read on every load or store, doubling the delay of loads and stores. To solve this, in general, the processor can keep the last several **page table entries** in a **small** **cache** called a **translation lookaside buffer (TLB)**. The processor "looks aside" to find the translation in the **TLB** before having to access the **page table** in **physical memory**.
 
 A **TLB** is organized as a **fully associative cache** and typically holds 16 to 512 **entries**. Each **TLB entry** holds a **virtual page number** and its corresponding **physical page number**. The **TLB** is accessed using the **virtual page number**. If the **TLB** **hits**, it returns the corresponding **physical page number**. Otherwise, the processor must read the **page table** in **physical memory**. The **TLB** is designed to be small enough that it can be accessed in less than one cycle.
 
-{% hint style="info" %}
+{% hint style="success" %}
 The reason for using a **fully associative cache** in TLB is that the size of TLB is relatively small, so we can afford to use it. It is **not** because a fully associative cache runs faster than other mapping technique. In fact, circuitry for the fully associate cache is the **slowest**.
 {% endhint %}
 
@@ -582,3 +582,5 @@ The **Page** in the virtual address and the index `P` are equivalent to our **Vi
 {% endhint %}
 
 [^1]: **Physical address** means only the address in the physical memory (main memory)!
+
+[^2]: Assume our memory is **byte-addressable**, meaning that each memory address will store **one byte**.
