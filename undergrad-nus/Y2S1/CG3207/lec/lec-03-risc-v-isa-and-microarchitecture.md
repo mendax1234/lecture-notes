@@ -13,6 +13,12 @@ layout:
     visible: true
   metadata:
     visible: true
+  tags:
+    visible: true
+  actions:
+    visible: true
+  anchors:
+    visible: true
 ---
 
 # Lec 03 - RISC-V ISA and Microarchitecture
@@ -25,7 +31,7 @@ As we have already seen in [Harris & Harris](https://wenbo-notes.gitbook.io/ddca
 
 {% stepper %}
 {% step %}
-#### Architecture
+**Architecture**
 
 This is the programmer's view of computer. And it has the following features:
 
@@ -37,7 +43,7 @@ This is the programmer's view of computer. And it has the following features:
 {% endstep %}
 
 {% step %}
-#### Microarchitecture
+**Microarchitecture**
 
 This is about how to implement an architecture in hardware (we will see later in [second half](lec-03-risc-v-isa-and-microarchitecture.md#risc-v-microarchitecture) of this lec series)
 {% endstep %}
@@ -50,9 +56,7 @@ In the lec, we have introduced some interesting features about RISC-V, and they 
 * As a RISC architecture, the RISC-V ISA is a load-store architecture, which means only load/store variants can access memory
   * No mixing of memory access with data processing or branching
 
-{% hint style="warning" %}
 Memory and register is **not the same**! Here, memory usually refers to the main memory.
-{% endhint %}
 
 * Interesting design choices to simplify hardware implementation
   * Especially the encoding of immediates (We will see later).
@@ -65,17 +69,17 @@ Below are some very interesting points starting from the **instruction length vs
 
 {% stepper %}
 {% step %}
-#### Instruction Length vs. Word Length
+#### **Instruction Length vs. Word Length**
 
-The **word length** of a processor is the width of its registers/ALU or the size of most elements in its datapath. For example, the following are three types of Risc-V processors,
+The **word length** of a processor is the width of its registers/ALU or the size of most elements in its datapath. For example, the following are three types of RISC-V processors,
 
-* **RV32** → word length = 32 bits (registers and ALU are 32-bit wide).
-* **RV64** → word length = 64 bits.
-* **RV128** (rare, theoretical) → word length = 128 bits.
+* **RV32 ->** word length = 32 bits (registers and ALU are 32-bit wide).
+* **RV64** -> word length = 64 bits.
+* **RV128** (rare, theoretical) -> word length = 128 bits.
 
 The **instruction length** is the number of bits to encode an instruction and it is determined by the ISA encoding design and extensions included. For example,
 
-* Base ISA (RV32I, RV64I, RV128I) → instructions are **always 32 bits long**.
+* Base ISA (RV32I, RV64I, RV128I) -> instructions are **always 32 bits long**.
 * If you add the **Compressed (C) extension**, some instructions are **16 bits long**.
 * There are also **48-bit and 64-bit instruction encodings** in the RISC-V spec (for special extensions).
 
@@ -85,12 +89,12 @@ In a 32-bit (word length) system, the instruction length **doesn't** have to be 
 {% endstep %}
 
 {% step %}
-#### What if word length and instruction length doesn't match?
+#### **What if word length and instruction length doesn't match?**
 
 * **Instruction length ≠ word length**
   * A 32-bit processor does not mean all instructions must be 32 bits long. This is what we have seen from above.
   * Example: ARM Thumb and RISC-V compressed (`C`) extension use 16-bit instructions on a 32-bit processor.
-  * The processor’s frontend (fetch/decode) handles variable instruction sizes, while the backend (execution units, registers, ALU) still works on 32-bit data.
+  * The processor's frontend (fetch/decode) handles variable instruction sizes, while the backend (execution units, registers, ALU) still works on 32-bit data.
 
 {% hint style="success" %}
 The idea of frontend and backend of a processor is very important and we will come back to it in the [microarchitecture](lec-03-risc-v-isa-and-microarchitecture.md#risc-v-microarchitecture) again later also!
@@ -103,14 +107,16 @@ The idea of frontend and backend of a processor is very important and we will co
   * Shorter instructions (16-bit vs. 32-bit) reduce code size.
   * This allows more instructions to fit into the same memory/cache, improving memory efficiency and potentially performance.
 * **Word length and memory addressing**
-  * In a 32-bit processor, addresses are 32 bits wide.
-  * This limits the maximum directly addressable memory to $$2^{32} = 4\ \text{GB}.$$
-  * This is a **backend (data memory)** property, tied to word length, not instruction length.
+  * In a 32-bit processor, addresses are usually 32 bits wide. If so, the maximum directly addressable memory to $$2^{32} = 4\ \text{GB}.$$
   * Thus, even if instructions are compressed to 16 bits, the system is still limited to 4 GB RAM because addressing depends on word length.
+
+{% hint style="success" %}
+Another important property of a processor is its **address width**, which determines the size of the address space it can represent. The address width can be different from the word length!
+{% endhint %}
 {% endstep %}
 
 {% step %}
-#### More about modern processors
+#### **More about modern processors**
 
 * **ISA Stability**
   * The **Instruction Set Architecture (ISA)** (e.g., x86, ARM, RISC-V) usually remains stable across generations.
@@ -142,28 +148,28 @@ And below are some useful notes
 
 {% stepper %}
 {% step %}
-#### ABI name and ISA name
+**ABI name and ISA name**
 
 In RISC-V assembly code, we can use ABI name, like `zero`, `ra`, etc. But in compiled code, ISA names, like `x0`, `x1`, etc, is used.
 {% endstep %}
 
 {% step %}
-#### PC in RISC-V
+**PC in RISC-V**
 
-In RISC-V, PC is not a register readable/writable explicitly by any&#x20;instruction, e.g., it is not a visible register. And,
+In RISC-V, PC is not a register readable/writable explicitly by any instruction, e.g., it is not a visible register. And,
 
 * In RISC-V, PC just stores the address of the current instruction. (Not like ARM, PC actually stores the address of the current instruction address +4 or +8)
 * Writing PC is done **only by** branch/jump instructions.
 {% endstep %}
 
 {% step %}
-#### **No** instruction updates more than one visible register
+**No instruction updates more than one visible register**
 
 This is a very important golden rule (The step title here). And, in RISC-V, the register updated is **explicitly** specified in the `rd` field. This ensures that the [register file](https://wenbo-notes.gitbook.io/ddca-notes/textbook/digital-building-blocks/memory-arrays#register-files) only needs **one write port**.
 {% endstep %}
 
 {% step %}
-#### **No** instruction reads more than two registers.
+**No instruction reads more than two registers.**
 
 Another golden rule here. This ensures that the register file needs only **2 read ports**. Below is the example of RISC-V's register file,
 
@@ -173,7 +179,7 @@ So, in summary, below is the illustration of RISC-V register file,
 {% endstep %}
 
 {% step %}
-#### No flag registers
+**No flag registers**
 
 In RISC-V, flags are never stored for “future use.” Instead, comparisons and branches are **self-contained**. For example, `beq x1, x2, target;` will directly compare `x1` and `x2`, and branches to `target`.
 
@@ -190,7 +196,7 @@ RISC-V instruction has 6 formats, and they are well summarized in the following 
 
 {% stepper %}
 {% step %}
-#### **Opcode field occupies the least significant part of the instruction**
+**Opcode field occupies the least significant part of the instruction**
 
 This gives us the benefit that,
 
@@ -199,13 +205,13 @@ This gives us the benefit that,
 {% endstep %}
 
 {% step %}
-#### `rd`, `rs1`, `rs2` **always in the same place across formats**
+**`rd`, `rs1`, `rs2` always in the same place across formats**
 
 This makes decoder hardware is simpler (fewer multiplexers, will see later in the microarchitecture).
 {% endstep %}
 
 {% step %}
-#### **All immediates are MSB-extended**
+**All immediates are MSB-extended**
 
 So all immediates become sign-extended words. RISC-V immediates are encoded in **2’s complement form**. So when you sign-extend, you’re effectively just preserving the correct integer value. For example, in RV32I, 12-bit immediate,
 
@@ -224,7 +230,7 @@ However, this may become a bit wired with instruction `sltu`. But, let's look at
 sltiu x3, x1, -8
 ```
 
-Suppose the above is our "set if less than immediate unsigned" instruction, and RISC-V processor will treate `-8` as `0xFFFFFFF8`.&#x20;
+Suppose the above is our "set if less than immediate unsigned" instruction, and RISC-V processor will treate `-8` as `0xFFFFFFF8`.
 
 * `x1=-2`, `x1` will be interpreted as `0xFFFFFFFE`. As ALU just compares unsigned, `0xFFFFFFFE` is greater than `0xFFFFFFF8`, thus `false`, meaning under **unsigned comparison** `x1` is not smaller than `-8`!
 * `x1=5`, `x1` will be interpreted as `0x00000101`. Similarly, ALU just compares unsigned, `0x00000101` is smaller than `0xFFFFFFF8`, thus `true`, meaning under **unsigned comparison** `x1` is **smaller** than `-8` (unsigned)
@@ -239,7 +245,7 @@ Treat negative number in 2's complement as **unsigned** meaning it will become a
 {% endstep %}
 
 {% step %}
-#### **The location of immediate is well-designed**
+**The location of immediate is well-designed**
 
 From the table above, we may think why the immediate's location is that wired! Actually, later from the microarchitecture view, we will see that this is a **genius design** as it minimizes the number of multiplexers!
 {% endstep %}
@@ -266,7 +272,7 @@ All the pseudo-instruction in RISC-V is introduced [here](../lab/resources/risc-
 
 <summary><code>auipc</code> explanation</summary>
 
-In Lab1, the instruction `lw s3, delay_val` at Line 47 is actually implemented by two RISC-V instructions.&#x20;
+In Lab1, the instruction `lw s3, delay_val` at Line 47 is actually implemented by two RISC-V instructions.
 
 {% code lineNumbers="true" %}
 ```riscv
@@ -328,7 +334,7 @@ The following is the base control instructions:
 
 {% stepper %}
 {% step %}
-#### **Jump vs. Branch**
+**Jump vs. Branch**
 
 1. `jal` can jump farther than conditional branches because
    1. `jal` instructions use 20-bit signed immediate
@@ -337,7 +343,7 @@ The following is the base control instructions:
 {% endstep %}
 
 {% step %}
-#### The immediate in branch instructions
+**The immediate in branch instructions**
 
 In the branch instructions, the immediate is 12 bits, but it stores the `[12:1]` instead of `[11:0]`. This is because in RISC-V, every instruction must start at an address that is an even number (a multiple of 2). You can never jump to an odd address (like `0x1001`) because instructions never exist there.
 
@@ -345,7 +351,7 @@ So, instead of storing bits `[11:0]` (which would include the useless last zero)
 {% endstep %}
 
 {% step %}
-#### **Two types of jumps**
+**Two types of jumps**
 
 > Look at the "Description (C)" of `jal` and `jalr` from the table above to understand this part better!
 
@@ -356,10 +362,10 @@ So, instead of storing bits `[11:0]` (which would include the useless last zero)
 2. `jalr`: jump and link register, is an I-type instruction. And it stores return address in `rd` (usually `ra`)
    1. Use when the **target address is dynamic**, stored in a register.
    2. Used in **function return** (Go back to where the function was called from). This is because the function can be called from many different places. The return address isn't known until the program is actually running. Therefore, we jump to the address stored in the **register** `ra`.
-   3. `imm` is 12-bit, but it can jump anywhere in a 32-bit absolute address range. A `lui`      \
-      instruction can first load `rs1` with the upper 20 bits of a target address, then `jalr`      \
+   3. `imm` is 12-bit, but it can jump anywhere in a 32-bit absolute address range. A `lui`\
+      instruction can first load `rs1` with the upper 20 bits of a target address, then `jalr`\
       can add in the lower bits.
-      1. Similarly, `auipc` then `jalr` can jump anywhere in a 32-bit         &#x20;pc-relative address range.
+      1. Similarly, `auipc` then `jalr` can jump anywhere in a 32-bit pc-relative address range.
 
 For example, in the following code, we can see how `jalr` can jump to anywhere with the help of `lui`.
 
@@ -479,7 +485,7 @@ fn2:
 {% endcode %}
 
 {% hint style="success" %}
-#### Code Explanation
+**Code Explanation**
 
 1. From this example, we see some useful pseudo-instructions, like `jr` (for function return) and `mv` (for register copy)
 {% endhint %}
@@ -499,16 +505,16 @@ Datapath is the path through which data "flows". It includes the following eleme
 
 {% stepper %}
 {% step %}
-#### **Storage elements**
+**Storage elements**
 
 Like memories and registers. The storage elements can be further divided into the following parts
 
 1. **Architectural state elements**: manipulated by the programmer, like instruction memory (IROM), data memory (DMEM), register file (x0-x31), PC, and other control registers.
-2. **Microarchitectural state elements**: **not accessible** to the   &#x20;programmers, like pipeline registers, cache tags, and branch predictor state.
+2. **Microarchitectural state elements**: **not accessible** to the programmers, like pipeline registers, cache tags, and branch predictor state.
 {% endstep %}
 
 {% step %}
-#### **Steering logic**
+**Steering logic**
 
 This is to **channel** data properly. For example, in the pipeline, should the ALU take operand from register file, or from immediate, or from forwarding path?
 
@@ -519,7 +525,7 @@ The steering logic is implemented using
 {% endstep %}
 
 {% step %}
-#### **Functional units**
+**Functional units**
 
 These units **operate** on data, like deciding **where the data should go**. For example,
 
@@ -529,7 +535,7 @@ These units **operate** on data, like deciding **where the data should go**. For
 {% endstep %}
 
 {% step %}
-#### **Interface resources**
+**Interface resources**
 
 These connect the CPU to the **outside world**. For example,
 
@@ -548,14 +554,14 @@ From the above points, we may wonder what on earth is a bus? From Wikipedia, the
 
 And, bus in computer architecture can be categorized based on the following two categories
 
-#### The **location** of the bus
+**The location of the bus**
 
 1. **Internal buses**: inside the CPU datapath.
    1. Example: register file → ALU operand buses.
 2. **External buses**: connects CPU to **outside world** (main memory, I/O devices, GPU, etc.).
    1. Example: system bus, PCIe, AMBA, memory bus.
 
-#### The **purpose** of the bus
+**The purpose of the bus**
 
 This is basically what the information a bus can carry
 
@@ -571,7 +577,7 @@ Usually, we use the **location** of the bus first, then say the **purpose** of t
 
 ### Control Unit
 
-Control Unit **controls** the flow/processing/storage of data in&#x20;the datapath via
+Control Unit **controls** the flow/processing/storage of data in the datapath via
 
 * **Mux selects**: choose which input goes into a multiplexer (e.g., should ALU input B come from register or immediate?).
 * **Register write enables**: should this register latch a new value at the clock edge or stay the same?
@@ -588,7 +594,7 @@ In this lecture, we will implement a single-cycle microarchitecture first. So ba
 
 {% stepper %}
 {% step %}
-#### Single-Cycle Processor with Control
+**Single-Cycle Processor with Control**
 
 <figure><img src="../.gitbook/assets/cg3207-lec03-single-cycle-processor-control.png" alt=""><figcaption></figcaption></figure>
 
@@ -612,7 +618,7 @@ For now, our PC only supports the `beq`, it will support more in the following i
 {% endstep %}
 
 {% step %}
-#### PC Logic with all conditions
+**PC Logic with all conditions**
 
 The schematic is the same as the above. But, the PC logic is complete, we will look at `funct3` field in the instruction to decide which branch instruction is being chosen.
 
@@ -620,7 +626,7 @@ The schematic is the same as the above. But, the PC logic is complete, we will l
 {% endstep %}
 
 {% step %}
-#### Support for `lui` and `auipc`
+**Support for `lui` and `auipc`**
 
 <figure><img src="../.gitbook/assets/cg3207-lec03-support-for-lui-auipc.png" alt=""><figcaption></figcaption></figure>
 
@@ -634,7 +640,7 @@ It is clear that we can see from DP Reg to branch instruction, the ALUSrcA is ju
 {% endstep %}
 
 {% step %}
-#### Support for link and `jalr`
+**Support for link and `jalr`**
 
 <figure><img src="../.gitbook/assets/cg3207-lec03-support-for-link-jalr.png" alt=""><figcaption></figcaption></figure>
 
