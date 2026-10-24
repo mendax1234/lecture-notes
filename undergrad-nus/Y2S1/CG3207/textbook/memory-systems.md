@@ -407,7 +407,7 @@ A **write-back** strategy is more appropriate because it **coalesces** (combines
 
 </details>
 
-## Vitural Memory
+## Virtual Memory
 
 Most modern computer systems use a hard drive made of **magnetic** or **solid-state storage** as the lowest level in the **memory hierarchy**. The objective of adding a **hard drive** to the memory hierarchy is to inexpensively give the illusion of a very large memory while still providing the speed of faster memory for most accesses. A computer with only **16 GiB of DRAM**, for example, could effectively provide **128 GiB** of memory using the hard drive.
 
