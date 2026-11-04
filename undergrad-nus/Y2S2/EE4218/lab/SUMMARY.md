@@ -12,5 +12,6 @@
 
 * [Introduction](neural-network/introduction.md)
 * [Multilayer Perceptron](neural-network/multilayer-perceptron.md)
+* [Neural Network Training and Inferencing](neural-network/neural-network-training-and-inferencing.md)
 * [Convolution Neural Network](neural-network/convolution-neural-network.md)
 * [Residual Neural Network](neural-network/residual-neural-network.md)

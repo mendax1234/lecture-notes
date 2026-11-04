@@ -103,7 +103,7 @@ But in our example, we assume that we are using the rotated kernel.
 It's the training/learning of CNN's job to get this kernel.
 {% endhint %}
 
-As we put the **centre element** of the kernel at the first pixel and start moving/sliding the kernel through all pixels of the image, the weighted sum will the be RGB value of the pixel at that centre position in the **convoluted image**.
+As we put the **center element** of the kernel at the first pixel and start moving/sliding the kernel through all pixels of the image, the weighted sum will the be RGB value of the pixel at that centre position in the **convoluted image**.
 
 {% hint style="warning" %}
 It is definitely possible to change the size of the kernel matrix and the value inside it. By doing so will give us different image processing, like blurring or filtering out the shape of the figure, etc.
@@ -147,11 +147,40 @@ If we increase the **stride to 2**, the filter moves **two pixels at a time**. A
 
 ## CNN
 
-A convolutional neural network (CNN) is a type of feedforward neural network that learns **features** via filter (or kernel) optimization. Here, we will use the image classification as an example. Assume that our input is an image, to recognize or classify that image, the flow/layers of CNN can be:
+A convolutional neural network (CNN) is a special type of neural network that significantly **reduces the number of parameters (weights and biases)** in a deep neural network. Thus, CNN is an example of **sparse computation**.
+
+<details>
+
+<summary>Dense Computation vs. Sparse Computation</summary>
+
+Suppose we use a traditional [**fully connected neural network (MLP)**](multilayer-perceptron.md) for image recognition. Given a grayscale input image of size $$200 \times 200$$ and 10,000 neurons in the first hidden layer, the number of weights required is:
+
+<p align="center"><span class="math">200 \times 200 \times 10,000 = 400\text{ million weights}</span></p>
+
+This is only for the first layer, excluding the additional 10,000 biases! Such a fully connected structure results in the computation known as **dense computation**, where every neuron is connected to every input.
+
+<figure><img src="../.gitbook/assets/dense-computation.png" alt="" width="563"><figcaption><p>NUS EE2211 Lec 12: Dense Computation in Fully Connected Networks</p></figcaption></figure>
+
+However, in a **CNN**, we can significantly reduce the number of parameters by using a much smaller **sliding window (kernel)** that moves across the input image (or one layer of the input feature map) to produce one layer of the output feature map. The same kernel weights are reused at every spatial position, a technique known as **weight sharing**.
+
+<figure><img src="../.gitbook/assets/sparse-computation.png" alt="" width="563"><figcaption><p>NUS EE2211 Lec 12: Spare Computation in CNN</p></figcaption></figure>
+
+Furthermore, each output neuron only connects to a small local region of the input, rather than the entire image. This again results in the computation known as **sparse computation**.
+
+</details>
+
+As CNN is very popular in image-related applications, we will use the image classification as an example. Assume that our input is an image, to recognize or classify that image, the flow/layers of CNN can be:
 
 1. Convolution
 2. Pooling
 3. Activation
+
+{% hint style="success" %}
+The same [**training and inference processes**](neural-network-training-and-inferencing.md) introduced earlier for neural networks also apply to **CNNs**.
+
+* During training, the network uses **forward propagation, backpropagation, and gradient descent** to learn the optimal weights and biases.
+* During inference, the trained parameters are used to compute the output through **forward propagation**, without updating any parameters.
+{% endhint %}
 
 ### Convolution
 

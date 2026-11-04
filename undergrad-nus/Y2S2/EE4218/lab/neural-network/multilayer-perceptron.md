@@ -29,6 +29,18 @@ In our application, as our input image has 784 pixels, we treat each pixel as a 
 The value held in the neuron is called its **activation**. You may notice that when the neuron's value/activation is closer to 1, it will be activated/lit up and vice versa.
 {% endhint %}
 
+<details>
+
+<summary>Perceptron vs. Neuron</summary>
+
+A **perceptron** consists of a single computational neuron together with its weighted input connections. Each input $$x_i$$ is multiplied by its corresponding weight $$w_i$$, and the weighted sum is passed through an **activation function** to produce the output.
+
+In the figure below, the **circles represent nodes (neurons)**, while the **connections/edges represent weights**. The whole figure represents a perceptron!
+
+<figure><img src="../.gitbook/assets/perceptron-vs-neuron.png" alt="" width="333"><figcaption><p>NUS EE2211 Lec 12 Perceptron vs. Neuron</p></figcaption></figure>
+
+</details>
+
 ### Layer
 
 Each of the neuron/pixel from the input forms the **input layer** containing 784 neurons with some activation. This is called the **input layer**. Similarly, in our application, the **output layer** consists of 10 neurons, the activaion of [each neuron](#user-content-fn-1)[^1] represents how much possibility the system thinks the given image corresponds to that digit.
@@ -52,7 +64,7 @@ The sentence above is perhaps the most important takeaway from this "Layers" sec
 So, what exactly happens in this system is that
 
 1. We feed an image in the required size, lighting up all 784 neurons of the input layer according to the brightness/grey scale of each pixel in the image.
-2. This pattern of activations causes some very specific pattern in the next layer, which causes some patterns in the layer after it, which finally causes some pattern in the output layer.
+2. This pattern of activations causes some very specific pattern in the next layer, which causes some patterns in the layer after it, which finally causes some pattern in the output layer. This is where the idea of **"nested"** comes from!
 3. And the brightest neuron of the output layer is the network's choice, so to speak, for what digit this image represents.
 
 <figure><img src="../.gitbook/assets/forward-propagation (1).png" alt=""><figcaption></figcaption></figure>
@@ -84,7 +96,7 @@ Similarly, in this neural network, we can think of each neuron in the 2 hidden l
 
 > In this part, we will talk about how the activations in one layer determines the activations in the next layer in more detail.
 
-We start from one neuron in the first hidden layer. From the previous section, we know that this neuron should represent an edge pattern. So, how do we know that this neuron can capture a certain **edge pattern** given all the neurons from the previous layer as inputs? What we will do is to assign a **weight** to each one of the connections between our neuron and neurons from the first layer.
+We start from one neuron in the **first hidden layer**. From the [previous section](multilayer-perceptron.md#why-order-neurons-into-layers), we know that this neuron should represent an edge pattern. So, how do we know that this neuron can capture a certain **edge pattern** given all the neurons from the previous layer as inputs? What we will do is to assign a **weight** to each one of the connections between our neuron and neurons from the first layer.
 
 <figure><img src="../.gitbook/assets/weights (1).png" alt=""><figcaption></figcaption></figure>
 
@@ -109,6 +121,12 @@ Basically, in the sigmoid function
 * Very negative inputs ends up to close to 0
 * Very positive inputs end up to close to 1
 * The output just increases steadily when the inputs are around 0
+
+In fact, **sigmoid** is just one example of an activation function. Other commonly used activation functions include **ReLU (Rectified Linear Unit)**.
+
+<figure><img src="../.gitbook/assets/relu.png" alt="" width="375"><figcaption><p>NUS EE2211 Lec 12: ReLU Activation Function</p></figcaption></figure>
+
+The key requirement is that the activation function should be **non-linear**. Otherwise, stacking multiple layers of neurons would be mathematically equivalent to a single linear transformation, regardless of the number of layers. This aligns with what we've said in the introduction, which is by introducing non-linearity, neural networks can learn and approximate **complex non-linear relationships** between inputs and outputs.
 
 {% hint style="success" %}
 A neuron is **active/lit up** in a network when its calculated activation/output value is close to 1 or non-zero, meaning that it effectively passes the signal to the next layer.
@@ -173,7 +191,23 @@ $$
 {% hint style="success" %}
 #### **Recap on the understanding of** [#neurons](multilayer-perceptron.md#neurons "mention")
 
-Up till this point, we might find out that it is more accurate to think of each neuron as a **function** that takes in the **ouputs** of all the neurons in the previous layer and spits out the number between 0 and 1.
+Up till this point, we might find out that it is more accurate to think of each neuron as a **function** that takes in the **ouputs** of all the neurons in the previous layer and spits out the number between 0 and 1. This is very important!
+{% endhint %}
+
+Now, by combining all the layers together, we can see why a **neural network is essentially a nested non-linear function**. By recursively substituting the outputs of the previous layers, the overall function of an $$n$$-layer neural network becomes:
+
+$$
+\begin{aligned}
+f(X)=\sigma\Big(&W^{(n)}\sigma\big(W^{(n-1)}\
+&\cdots\sigma(W^{(1)}X+b^{(1)})\
+&\cdots+b^{(n-1)}\big)+b^{(n)}\Big)
+\end{aligned}
+$$
+
+where $$X=a^{(0)}$$ is the input vector, and $$W^{(l)}$$ and $$b^{(l)}$$ are the weight matrix and bias vector of layer $$l$$, respectively.
+
+{% hint style="success" %}
+Therefore, by stacking multiple layers of neurons with **non-linear activation functions**, a neural network can represent **complex non-linear relationships** between inputs and outputs. However, if all activation functions are linear, the entire network collapses into a **single linear (or affine) transformation**, regardless of the number of layers.
 {% endhint %}
 
 ## References
@@ -181,6 +215,10 @@ Up till this point, we might find out that it is more accurate to think of each 
 At the point I am taking this course, I haven't taken any AI course at NUS. However, I found that the following resources are very useful when I get on board with the Neural Network.
 
 1. [3Blue1Brown — What is a neural network](https://youtu.be/aircAruvnKk?si=TnZzNrhEZmoWnMvB).
+
+{% hint style="success" %}
+Having said that, there are more amazing videos by 3B1B from their series [here](https://www.3blue1brown.com/?topic=neural-networks)! I will try to add them up once I got time!
+{% endhint %}
 
 [^1]: In the output layer, each neuron has a one-to-one mapping relationship with the digit from 0 to 9.
 

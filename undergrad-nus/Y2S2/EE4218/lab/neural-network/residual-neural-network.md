@@ -112,7 +112,7 @@ Compared with **VGG-19**, which uses **max-pooling layers** for downsampling, th
 
 It is worth noticing that our model has fewer filters and lower complexity than VGG nets (Fig. 3, left). Our 34-layer baseline has 3.6 billion FLOPs (multiply-adds), which is only 18% of VGG-19 (19.6 billion FLOPs).
 
-<figure><img src="../.gitbook/assets/image (3).png" alt="" width="515"><figcaption><p>Figure 3. Example network architectures for ImageNet. Left: the VGG-19 model as a refernce. Mid: a plain network with 34 parameter layers (3.6 billion FLOPs). Right: a residual network with 34 parameter layers (3.6 billion FLOPs). The dotted shortcuts increase dimensions.</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/resnet.png" alt="" width="515"><figcaption><p>Figure 3. Example network architectures for ImageNet. Left: the VGG-19 model as a refernce. Mid: a plain network with 34 parameter layers (3.6 billion FLOPs). Right: a residual network with 34 parameter layers (3.6 billion FLOPs). The dotted shortcuts increase dimensions.</p></figcaption></figure>
 
 {% hint style="success" %}
 #### Label Notation Meaning
