@@ -31,6 +31,10 @@ The three modes are:
 
 They are called **modes of accessing I/O** because they define **how the CPU interacts with I/O devices** to transfer data or handle events. The term "accessing I/O" refers to how the CPU **monitors, receives, or sends data** to peripherals like sensors, buttons, serial ports, etc.
 
+{% hint style="success" %}
+It will be better to have a look at my NUS CG2271 notes for the I/O device chapter from OSTEP! This will give you a better understanding of why we are doing bare-metal programming in this course!
+{% endhint %}
+
 #### What is being accessed?
 
 * **I/O Device Registers** → Status, control, and data registers of peripherals.
@@ -222,7 +226,7 @@ void loop() {
 ```
 {% endcode %}
 
-In the code above,&#x20;
+In the code above,
 
 * Instead of continuously checking the button state in `loop()`, the code **uses an interrupt** to detect the button press immediately.
 * `attachInterrupt(digitalPinToInterrupt(buttonPin), switchISR, RISING);` registers an **interrupt on the rising edge** of the button signal.
@@ -279,7 +283,7 @@ A digital signal is either **LOW (0V)** or **HIGH (e.g., 5V on Arduino Uno)**. T
 
 ### Vector Table
 
-In the ATmega328p, when an interrupt occurs,&#x20;
+In the ATmega328p, when an interrupt occurs,
 
 1. the microcontroller uses the **vector table** to find the address of the corresponding **Interrupt Service Routine (ISR)**.
 2. The CPU then **jumps** to the ISR address, executes it, and returns to the main program after completion.
