@@ -14,8 +14,8 @@ Basically, here we categorize these abstractions into three categories
 2. **System software**: Operating System, a.k.a. service code
    1. Handling input/output
    2. Managing memory and storage
-   3. Scheduling tasks & sharing      &#x20;resources
-3. **Hardware**: Processor, memory, I/O   &#x20;controllers
+   3. Scheduling tasks & sharing resources
+3. **Hardware**: Processor, memory, I/O controllers
 
 ### Levels of Program Code
 
@@ -24,9 +24,9 @@ Basically, here we categorize these abstractions into three categories
 There are three levels when we run a high-level language program (like C) on a processor
 
 1. **High-level language**:
-   1. Level of abstraction closer to      &#x20;problem domain
-   2. Provides for productivity and      &#x20;portability
-2. **Assembly language**: Textual representation of   &#x20;instructions
+   1. Level of abstraction closer to problem domain
+   2. Provides for productivity and portability
+2. **Assembly language**: Textual representation of instructions
 3. **Hardware representation**:
    1. Binary digits (bits)
    2. Encoded instructions and data
@@ -265,7 +265,7 @@ $$
   * It is determined by **CPU hardware**, but can be affected by many other [stuff](lec-01-history-technology-performance.md#example).
 
 {% hint style="info" %}
-#### Notes
+**Notes**
 
 1. If different instructions have different CPI, then the average CPI is affected by instruction mix.
 2. CPI is **not** a fixed property bonded with the processor, it is a **statistics** which is defined by $$\text{Clock Cycles}\div\text{Instruction Count}$$.
@@ -275,14 +275,14 @@ $$
 
 {% stepper %}
 {% step %}
-#### **IC and CPI in CISC and RISC**
+**IC and CPI in CISC and RISC**
 
 * CISC ->lower IC, higher CPI.
 * RISC -> higher IC, lower CPI.
 {% endstep %}
 
 {% step %}
-#### IC and CPI are affected by almost everything
+**IC and CPI are affected by almost everything**
 
 * **Algorithm**
   * The _algorithm_ determines the sequence of operations.
@@ -304,19 +304,19 @@ $$
 {% endstep %}
 
 {% step %}
-#### Use profiling to measure IC and CPI
+**Use profiling to measure IC and CPI**
 
 In real-world, the IC and CPI is hard to measure (it is usually done by executing the program line by line), and the industry uses **profiling tools** instead. The idea of profiling is to try and get performance estimates.
 {% endstep %}
 
 {% step %}
-#### IC is data dependant
+**IC is data dependant**
 
 Instruction Count (IC) is _data-dependent_. The compiler can tell us the **static instruction count** (how many instructions exist in the program), but the **dynamic instruction count** (how many are actually executed) depends on runtime inputs and data. For example, a `while` loop may run 10 times or 1,000,000 times depending on the input, so the actual IC cannot be determined at compile time.
 {% endstep %}
 
 {% step %}
-#### Don't only look at CPI
+**Don't only look at CPI**
 
 A lower CPI doesn’t automatically mean better performance — we must also consider the clock rate and instruction count. The true measure is **execution time**, given by the following formula we have introduced:
 
@@ -464,9 +464,10 @@ Even though disk I/O became **10× faster**, the overall program only got **22% 
 From the Amdahl's law, we can deduce a very useful idea — "**Make the** **common case fast**". As the common case takes larger portion of time, improving it can improve the speed of the whole system significantly.
 {% endhint %}
 
-### Eight Great Ideas
+### Seven Great Ideas
 
-* Design for [Moore's Law](lec-01-history-technology-performance.md#moores-law).
+We now introduce the seven great ideas that computer architects have invented in the last 60 years of computer design. These ideas are so **powerful** they have lasted long after the first computer that used them, with newer architects demonstrating their admiration by imitating their predecessors.
+
 * Use **abstraction** to simplify the design.
 * Make the **common case fast**.
 * Performance via **parallelism**.
@@ -474,6 +475,10 @@ From the Amdahl's law, we can deduce a very useful idea — "**Make the** **comm
 * Performance via **prediction**: prediction depends on the history
 * **Hierarchy** of memories: Cache, main memory, disk.
 * **Dependability** via redundancy: One transistor broken should not affect the whole system.
+
+{% hint style="success" %}
+In the previous edition of the Patterson and Henessy's book, there are actually 8 great ideas. The eighth one is **design for Moore's law**. But now, apparently, the eighth idea no longer holds.
+{% endhint %}
 
 [^1]: words are instructions.
 
