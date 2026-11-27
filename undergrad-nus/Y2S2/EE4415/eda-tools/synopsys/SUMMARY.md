@@ -3,9 +3,9 @@
 ## Textbook: Synopsys
 
 * [ASIC Design Methodology](README.md)
-  * [Traditional Design Flow](textbook-synopsys/asic-design-methodology/traditional-design-flow.md)
-  * [Physical Compiler Flow](textbook-synopsys/asic-design-methodology/physical-compiler-flow.md)
-  * [Chapter Summary](textbook-synopsys/asic-design-methodology/chapter-summary.md)
+  * [Traditional Design Flow](textbook-synopsys/readme/traditional-design-flow.md)
+  * [Physical Compiler Flow](textbook-synopsys/readme/physical-compiler-flow.md)
+  * [Chapter Summary](textbook-synopsys/readme/chapter-summary.md)
 * [Basic Concepts](textbook-synopsys/basic-concepts/README.md)
   * [Synopsys Products](textbook-synopsys/basic-concepts/synopsys-products.md)
   * [Synthesis Environment](textbook-synopsys/basic-concepts/synthesis-environment.md)
