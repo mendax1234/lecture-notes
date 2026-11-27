@@ -18,7 +18,7 @@ Think of the architectural optimization as a **subset** of architectural synthes
 It is obvious that any circuit model described in terms of a **scheduled** and **bound sequencing graph** does not require any optimization, because the desired design point in the design space is already prescribed.
 {% endhint %}
 
-**Architectural optimization** consists of determining a **schedule** $$\phi$$ and a **binding** $$\beta$$ that optimize the objectives (**area**, **latency**, and **cycle time**). The optimization of these multiple objectives reduces to the computation of the [**Pareto points**](../readme/computer-aided-synthesis-and-optimization.md#pareto-point) in the [**design space**](../readme/computer-aided-synthesis-and-optimization.md#design-space) and to the evaluation (or estimation) of the corresponding **objective functions**.
+**Architectural optimization** consists of determining a **schedule** $$\phi$$ and a **binding** $$\beta$$ that optimize the objectives (**area**, **latency**, and **cycle time**). The optimization of these multiple objectives reduces to the computation of the [**Pareto points**](../intro/computer-aided-synthesis-and-optimization.md#pareto-point) in the [**design space**](../intro/computer-aided-synthesis-and-optimization.md#design-space) and to the evaluation (or estimation) of the corresponding **objective functions**.
 
 **Architectural exploration** is often performed by the following three approaches
 

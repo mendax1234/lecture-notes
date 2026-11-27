@@ -69,7 +69,7 @@ After getting the structural pircture similar to what Figure 4.1 shows, we say t
 For pipelined circuits, **throughput** (i.e., the rate at which computations are completed) is also an important performance metric.
 {% endhint %}
 
-The [**design space**](../readme/computer-aided-synthesis-and-optimization.md#design-space), introduced in Chapter 1, is the set of all feasible structures that satisfy a given circuit specification. [**Pareto points**](../readme/computer-aided-synthesis-and-optimization.md#pareto-point) are the design points that are **not dominated** by any other point across all objectives of interest.
+The [**design space**](../intro/computer-aided-synthesis-and-optimization.md#design-space), introduced in Chapter 1, is the set of all feasible structures that satisfy a given circuit specification. [**Pareto points**](../intro/computer-aided-synthesis-and-optimization.md#pareto-point) are the design points that are **not dominated** by any other point across all objectives of interest.
 
 **Architectural exploration** involves traversing this design space to identify a range of feasible, non-inferior solutions, from which the designer can select the preferred implementation. This exploration requires solving constrained optimization problems. **Architectural synthesis tools** assist by selecting an appropriate design point based on user-specified criteria and constructing the corresponding **data path** and **control unit**.
 
