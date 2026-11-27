@@ -1,0 +1,31 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: CG2271 Notes
+  structure:
+    - type: section
+      key: section-1
+      title: Lecture
+      path: lecture
+      description: ""
+      default: true
+      children:
+        - type: space
+          key: space-1
+          title: Lecture
+          path: docs
+          default: true
+          content:
+            directory: ./lecture
+    - type: section
+      key: section-2
+      title: OSTEP
+      path: ostep
+      description: ""
+      children:
+        - type: space
+          key: space-2
+          title: OSTEP
+          path: untitled
+          default: true
+          content:
+            directory: ./ostep
