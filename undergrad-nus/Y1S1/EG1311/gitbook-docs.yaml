@@ -1,0 +1,11 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: EG1311 Notes
+  structure:
+    - type: space
+      key: space-1
+      title: EG1311 Notes
+      path: eg1311-notes
+      default: true
+      content:
+        directory: ./eg1311-notes
