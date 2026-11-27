@@ -3,8 +3,8 @@
 ## DICADP
 
 * [Introduction](README.md)
-  * [Issues in Digital IC Design](dicadp/introduction/issues-in-digital-ic-design.md)
-  * [Quality Metrics of a Digital Design](dicadp/introduction/quality-metrics-of-a-digital-design.md)
+  * [Issues in Digital IC Design](dicadp/readme/issues-in-digital-ic-design.md)
+  * [Quality Metrics of a Digital Design](dicadp/readme/quality-metrics-of-a-digital-design.md)
 * [The Manufacturing Process](dicadp/the-manufacturing-process/README.md)
   * [Manufacturing CMOS IC](dicadp/the-manufacturing-process/manufacturing-cmos-ic.md)
 * [Designing Sequential Logic Circuits](dicadp/designing-sequential-logic-circuits.md)
