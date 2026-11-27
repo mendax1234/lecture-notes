@@ -42,30 +42,26 @@ This code can be converted to the following UML sequence diagram
 <figure><img src="../../.gitbook/assets/sequence-diagram-uml-notation.png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="success" %}
-### Notes
+#### Notes
 
 1. The class/object name is **not underlined** in sequence diagrams.
 2. The arrowhead styles depends on the type of method call.
    1. Synchronous method call will use **filled** arrowheads. (In CS2113, we **always** use the **filled** arrowheads, as shown in the example above)
    2. Asynchronous method call will use **lined** arrowheads. (Out of the scope of CS2113, but you must have learned it in CS2030S)
 3. Some common notation errors
-   1.  Activation bar too long:\
-
+   1.  Activation bar too long:\\
 
        <figure><img src="../../.gitbook/assets/sequence-notation-common-error-1.png" alt=""><figcaption></figcaption></figure>
-   2.  Broken activation bar: When calling the **nested** methods, the outer method shouldn't be **broken**!\
-
+   2.  Broken activation bar: When calling the **nested** methods, the outer method shouldn't be **broken**!\\
 
        <figure><img src="../../.gitbook/assets/sequence-notation-common-error-2.png" alt=""><figcaption></figcaption></figure>
-
-
 {% endhint %}
 
 Now, we sill introduced some detailed notations that will be used when we construct the sequence diagram
 
 {% stepper %}
 {% step %}
-#### Loops
+**Loops**
 
 <figure><img src="../../.gitbook/assets/sequence-diagram-loop-notation.png" alt="" width="338"><figcaption></figcaption></figure>
 
@@ -75,7 +71,7 @@ For example, the `Player` calls the `mark x,y` command or `clear x y` command re
 {% endstep %}
 
 {% step %}
-#### Object Creation
+**Object Creation**
 
 <figure><img src="../../.gitbook/assets/sequence-diagram-object-creation-notation.png" alt="" width="563"><figcaption></figcaption></figure>
 
@@ -88,7 +84,7 @@ For example, the `Logic` object creates a `Minefield` object.
 {% endstep %}
 
 {% step %}
-#### Minimal Notation
+**Minimal Notation**
 
 To reduce clutter, **optional elements (e.g, activation bars, return arrows) may be omitted** if the omission does not result in ambiguities or loss of [relevant information](#user-content-fn-1)[^1].
 {% endstep %}
@@ -248,7 +244,7 @@ Similarly, let's see what is a facade pattern design from its **context**, **pro
 * **Problem**: Access to the component should be allowed without exposing its internal details.
 * **Solution**: Include a Façade[^2] class that sits between the component internals and users of the component such that all access to the component happens through the Facade class.
 
-For example, the `UI` component of a `Library` system might want to access functionality of the `Book` class contained inside the `Logic` component. After applying  the facade pattern, the `LibraryLogic` class is the Facade class.
+For example, the `UI` component of a `Library` system might want to access functionality of the `Book` class contained inside the `Logic` component. After applying the facade pattern, the `LibraryLogic` class is the Facade class.
 
 <figure><img src="../../.gitbook/assets/facade-class-example.png" alt="" width="378"><figcaption></figcaption></figure>
 

@@ -96,7 +96,7 @@ public class IntPairTest {
 {% endcode %}
 
 {% hint style="success" %}
-#### Code Explanation
+**Code Explanation**
 
 1. Each test method is marked with a `@Test` annotation.
 2. Tests use `assertEquals(expected, actual)` methods (provided by JUnit) to compare the expected output with the actual output. If they do not match, the test will fail.
@@ -145,7 +145,7 @@ A **model** provides a **simpler** view of a complex entity because a model capt
 
 {% stepper %}
 {% step %}
-#### Basic Structure
+**Basic Structure**
 
 The basic UML notations used to represent a _class_ is shown as follows:
 
@@ -157,7 +157,7 @@ The **methods** compartment and/or the **attributes** compartment may be omitted
 {% endstep %}
 
 {% step %}
-#### Visibility
+**Visibility**
 
 `+` for public, `-` for private, `#` for protected and `~` for package private
 
@@ -167,7 +167,7 @@ The **methods** compartment and/or the **attributes** compartment may be omitted
 {% endstep %}
 
 {% step %}
-#### Generic Class Notation
+**Generic Class Notation**
 
 Generic classes can be shown as given below.
 
@@ -175,7 +175,7 @@ Generic classes can be shown as given below.
 {% endstep %}
 
 {% step %}
-#### Class Level members and methods notation
+**Class Level members and methods notation**
 
 In UML class diagrams, **underlines** denote **class-level attributes** and **methods.** For example, we have the following `Student` class with class-level member `totalStudents` and class-level method `getTotalStudents()`.
 
@@ -195,7 +195,7 @@ To implement associations, we use instance level variables. In other words, An a
 
 {% stepper %}
 {% step %}
-#### Association notation in UML
+**Association notation in UML**
 
 You should use a solid line to show an association between two classes.
 
@@ -203,7 +203,7 @@ You should use a solid line to show an association between two classes.
 {% endstep %}
 
 {% step %}
-#### Associations as attributes
+**Associations as attributes**
 
 An association can be shown as an attribute instead of a line, and **vice versa**! The notation by default is as follows,
 
@@ -223,7 +223,7 @@ In some cases, associations are better than attributes because they can show **a
 
 {% stepper %}
 {% step %}
-#### Association Labels
+**Association Labels**
 
 _**Association labels**_ describe the meaning of the association. The arrow head indicates the direction in which the label is to be read.
 
@@ -235,7 +235,7 @@ Here, an `Admin` uses a `Student` while a `Student` is used by an `Admin`.
 {% endstep %}
 
 {% step %}
-#### Association Roles
+**Association Roles**
 
 _**Association Roles**_ are used to indicate the **role played by the classes** in the association. We have two classes involved in an association, thus there are two **roles**.
 
@@ -243,7 +243,7 @@ _**Association Roles**_ are used to indicate the **role played by the classes** 
 {% endstep %}
 
 {% step %}
-#### Association Class
+**Association Class**
 
 To know what an association class in Java is, please read this [part](topics.md#java-association-class) in advance. In a class diagram, association classes are denoted as a connection to an association link using a **dashed line** as shown below.
 
@@ -251,7 +251,7 @@ To know what an association class in Java is, please read this [part](topics.md#
 {% endstep %}
 
 {% step %}
-#### UML Notes
+**UML Notes**
 
 **UML notes** can augment UML diagrams with additional information. These notes can be shown connected to a particular element in the diagram or can be shown without a connection. The diagram below shows examples of both.
 
@@ -300,7 +300,7 @@ To implement the multiplicty, we have the following four types
 
 {% stepper %}
 {% step %}
-#### Optional associations
+**Optional associations**
 
 **A normal instance-level variable gives us a `0..1` multiplicity** because a variable can hold a reference to a single object or `null`.
 
@@ -321,7 +321,7 @@ class Minefield {
 {% endstep %}
 
 {% step %}
-#### Compulsory associations
+**Compulsory associations**
 
 When we call the instantiate method `new()`, the multiplicity will be 1.
 
@@ -357,14 +357,14 @@ An **object diagram** shows an object structure at a given point of time and it 
 
 {% stepper %}
 {% step %}
-#### Object Notation
+**Object Notation**
 
 The following is an example notation to represent an object.
 
 <figure><img src="../../.gitbook/assets/object-notation.png" alt="" width="256"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-#### Notes
+**Notes**
 
 1. Unlike classes, there is no compartment for methods.
 2. _Attributes_ compartment can be omitted if it is not relevant to the purpose of the diagram.
@@ -377,7 +377,7 @@ The following are examples of some **acceptable** object notations also.
 {% endstep %}
 
 {% step %}
-#### Association
+**Association**
 
 In object diagrams, we also have **associations**. A solid line indicates an association between two objects, which is similar to the convention used in the class diagram.
 
@@ -413,13 +413,13 @@ There is no special way to implement an association class. It can be implemented
 
 {% stepper %}
 {% step %}
-#### API Documentation
+**API Documentation**
 
 Choose correct statements about API documentation.
 
-* [x] &#x20;a. They are useful for both developers who use the API and developers who maintain the API implementation.
-* [x] &#x20;b. There are tools that can generate API documents from code comments.
-* [x] &#x20;c. API documentation may contain code examples.
+* [x] a. They are useful for both developers who use the API and developers who maintain the API implementation.
+* [x] b. There are tools that can generate API documents from code comments.
+* [x] c. API documentation may contain code examples.
 
 ***
 
@@ -427,15 +427,15 @@ The answer is **All**.
 {% endstep %}
 
 {% step %}
-#### Models
+**Models**
 
 Choose the correct statements about models.
 
-* [x] &#x20;a. Models are abstractions.
-* [x] &#x20;b. Models can be used for communication.
-* [x] &#x20;c. Models can be used for analysis of a problem.
-* [ ] &#x20;d. Generating models from code is useless.
-* [x] &#x20;e. Models can be used as blueprints for generating code.
+* [x] a. Models are abstractions.
+* [x] b. Models can be used for communication.
+* [x] c. Models can be used for analysis of a problem.
+* [ ] d. Generating models from code is useless.
+* [x] e. Models can be used as blueprints for generating code.
 
 ***
 
@@ -443,7 +443,7 @@ Answer is a, b, c, and e.
 {% endstep %}
 
 {% step %}
-#### UML Class Diagram
+**UML Class Diagram**
 
 Which of these follow the correct UML notation?
 
@@ -458,7 +458,7 @@ Which of these follow the correct UML notation?
 {% endstep %}
 
 {% step %}
-#### Association Class
+**Association Class**
 
 Which of these are suitable as an Association Class? Note: the orange color class in the middle is the one being proposed as an association class.
 
@@ -472,13 +472,13 @@ Which of these are suitable as an Association Class? Note: the orange color clas
 {% endstep %}
 
 {% step %}
-#### Project Management: Team Structure
+**Project Management: Team Structure**
 
 Which team structure is the most suitable for a school project?
 
-* [x] &#x20;a. Egoless
-* [ ] &#x20;b. Chief programmer
-* [ ] &#x20;c. Strict hierarchy
+* [x] a. Egoless
+* [ ] b. Chief programmer
+* [ ] c. Strict hierarchy
 
 ***
 

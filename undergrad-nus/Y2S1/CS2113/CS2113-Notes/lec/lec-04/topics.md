@@ -77,7 +77,7 @@ In short, it is just make your code work first, then improve your code quality s
 
 {% stepper %}
 {% step %}
-#### Regression Testing
+**Regression Testing**
 
 Regression testing is the automated re-testing of a software after it has been modified.
 
@@ -91,7 +91,7 @@ It is "Partially true" because regression testing **need not be automated** but 
 {% endstep %}
 
 {% step %}
-#### Refactoring and Regresstion Testing
+**Refactoring and Regresstion Testing**
 
 Do you agree with the following statement? Justify your answer.
 

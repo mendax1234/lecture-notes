@@ -17,7 +17,7 @@ public static void search(String ... keywords) {
 {% endcode %}
 
 {% hint style="success" %}
-#### Code Explanation
+**Code Explanation**
 
 The `search` method below can be called as `search()`, `search("book")`, `search("book", "paper")`, etc.
 {% endhint %}
@@ -85,7 +85,7 @@ Always do code comment is not recommended. Avoid writing comments to explain bad
 
 {% stepper %}
 {% step %}
-#### Don't comment obvious code
+**Don't comment obvious code**
 
 Do not repeat in comments information that is already obvious from the code. If the code is self-explanatory, a comment may not be needed.
 
@@ -102,7 +102,7 @@ trimInput();
 {% endstep %}
 
 {% step %}
-#### Write comments targeting users, not you
+**Write comments targeting users, not you**
 
 Write comments targeting other programmers reading the code. Do not write comments as if they are private notes to yourself.
 
@@ -124,7 +124,7 @@ void trimInput() {
 {% endstep %}
 
 {% step %}
-#### Explain WHAT, WHY, but not HOW
+**Explain WHAT, WHY, but not HOW**
 
 * ✅WHAT: The specification of what the code is _supposed_ to do.
 * ✅WHY: The rationale for the current implementation.

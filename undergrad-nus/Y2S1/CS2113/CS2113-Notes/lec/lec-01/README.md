@@ -62,7 +62,7 @@ RCS stands for Rivistion Control System. The RCS we use in this course is Git.
 3. `git commit msg` to store changes in your repo
 
 {% hint style="warning" %}
-#### Tips
+**Tips**
 
 1. `git commit` is **powerful**, although you can revert, but the history cannot be reverted or hidden.
 2. Pay attendtion to the commit `msg`, make sure it follows the style recommended in this course.

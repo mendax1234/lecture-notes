@@ -16,7 +16,7 @@ Software architectures follow various **high-level styles** (aka architectural p
 
 {% stepper %}
 {% step %}
-#### n-Tier Style
+**n-Tier Style**
 
 In the **n-tier** style, higher layers make use of services provided by lower layers.
 
@@ -24,7 +24,7 @@ In the **n-tier** style, higher layers make use of services provided by lower la
 {% endstep %}
 
 {% step %}
-#### Client-Server Style
+**Client-Server Style**
 
 The **client-server** style has at least one component playing the role of a server and at least one client component accessing the services of the server. For example, ChatGPT is an example.
 {% endstep %}
@@ -73,26 +73,26 @@ Test case design can be of three types, based on how much of the SUT's internal 
 
 {% stepper %}
 {% step %}
-#### GUI Testing vs. API Testing
+**GUI Testing vs. API Testing**
 
 GUI Testing is usually **harder** than the API Testing because the GUI may be different on different devices, etc.
 {% endstep %}
 
 {% step %}
-#### System Testing vs. Acceptance Testing
+**System Testing vs. Acceptance Testing**
 
 Choose the correct statements about system testing and acceptance testing.
 
-* [x] &#x20;a. Both system testing and acceptance testing typically involve the whole system.
-* [x] &#x20;b. System testing is typically more extensive than acceptance testing.
-* [x] &#x20;c. System testing can include testing for non-functional qualities.
-* [x] &#x20;d. Acceptance testing typically has more user involvement than system testing.
-* [x] &#x20;e. In smaller projects, the developers may do system testing as well, in addition to developer testing.
-* [ ] &#x20;f. If system testing is adequately done, we need not do acceptance testing.
+* [x] a. Both system testing and acceptance testing typically involve the whole system.
+* [x] b. System testing is typically more extensive than acceptance testing.
+* [x] c. System testing can include testing for non-functional qualities.
+* [x] d. Acceptance testing typically has more user involvement than system testing.
+* [x] e. In smaller projects, the developers may do system testing as well, in addition to developer testing.
+* [ ] f. If system testing is adequately done, we need not do acceptance testing.
 {% endstep %}
 
 {% step %}
-#### Equivalence Partition
+**Equivalence Partition**
 
 Consider this SUT:
 
@@ -104,10 +104,10 @@ Description: returns true if `s` is not `null` and not longer than 50 characters
 
 Which one of these is least likely to be an equivalence partition for the parameter `s` of the `isValidName` method given above?
 
-* [ ] &#x20;a. null.
-* [ ] &#x20;b. strings having more than 50 characters.
-* [ ] &#x20;c. strings having 50 or fewer characters.
-* [x] &#x20;d. strings consisting of numbers instead of letters.
+* [ ] a. null.
+* [ ] b. strings having more than 50 characters.
+* [ ] c. strings having 50 or fewer characters.
+* [x] d. strings consisting of numbers instead of letters.
 
 ***
 

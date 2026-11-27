@@ -4,7 +4,7 @@
 
 {% stepper %}
 {% step %}
-#### JUnit in tP
+**JUnit in tP**
 
 **Each person** adds some JUnit tests to test their tP code.
 {% endstep %}

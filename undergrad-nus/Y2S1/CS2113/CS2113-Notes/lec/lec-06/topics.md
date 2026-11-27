@@ -43,7 +43,7 @@ Below is a table summarizing the interfaces used in Java Collections.
 | [**SortedMap\<K,V>**](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/SortedMap.html) | Map        | Maintains mappings in ascending key order.                                                         | Keys: ❌ No                            | ✅ Yes                                                   |
 
 {% hint style="warning" %}
-#### Notes
+**Notes**
 
 1. One example of the collections framework mentioned above is C++ STL.
 2. `Collection` and `Collections` are different!
@@ -108,7 +108,7 @@ public class HashMapDemo {
 {% endcode %}
 
 {% hint style="success" %}
-#### Code Explanation
+**Code Explanation**
 
 The example above illustrates how to use a `HashMap<String, Point>` to maintain a list of coordinates and their identifiers e.g., the identifier `x1` is used to identify the point `0,0` where `x1` is the _key_ and `0,0` is the _value_.
 {% endhint %}
@@ -119,7 +119,7 @@ In this part, we will learn how to read from and write to files in Java.
 
 {% stepper %}
 {% step %}
-#### Represent a File in Java
+**Represent a File in Java**
 
 You can use the [`java.io.File`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html) class to represent a file object. It can be used to access properties of the file object.
 
@@ -146,7 +146,7 @@ public class FileClassDemo {
 {% endcode %}
 
 {% hint style="success" %}
-#### Code Explanation
+**Code Explanation**
 
 1. This code creates a `File` object to represent a file `fruits.txt` that exists in the `data` directory relative to the current working directory and uses that object to print some properties of the file.
 2. On Windows, you can just write your path using forward slash "`/`".
@@ -154,7 +154,7 @@ public class FileClassDemo {
 {% endstep %}
 
 {% step %}
-#### Read File as a source of data in `Scanner`
+**Read File as a source of data in `Scanner`**
 
 You can read from a file using a `Scanner` object that uses a `File` object as the _source_ of data. For example,
 
@@ -193,7 +193,7 @@ public class FileReadingDemo {
 {% endstep %}
 
 {% step %}
-#### Write to a File
+**Write to a File**
 
 You can use a [`java.io.FileWriter`](https://docs.oracle.com/javase/9/docs/api/java/io/FileWriter.html) object to write to a file. For example,
 
@@ -233,7 +233,7 @@ Note that you need to call the `close()` method of the `FileWriter` object for t
 {% endstep %}
 
 {% step %}
-#### Append to a File
+**Append to a File**
 
 You can create a `FileWriter` object that appends to the file (instead of overwriting the current content) by specifying an additional boolean parameter to the constructor. For example,
 
@@ -285,7 +285,7 @@ Below are some examples of non-functional requirement categories:
 * Accessibility, Capacity, Compliance with regulations, Documentation, Disaster recovery, Efficiency, Extensibility, Fault tolerance, Interoperability, Maintainability, Privacy, Portability, Quality, Reliability, Response time, Robustness, Scalability, Security, Stability, Testability, and more ...
 
 {% hint style="warning" %}
-[User story](https://wenbo-notes.gitbook.io/cs2113swe-notes/lec/lec-05/topics#swe-user-story) is **function requirement**, not NFR!&#x20;
+[User story](https://wenbo-notes.gitbook.io/cs2113swe-notes/lec/lec-05/topics#swe-user-story) is **function requirement**, not NFR!
 {% endhint %}
 
 #### Functional Requirement
@@ -311,14 +311,14 @@ This part is totally the same as last week's content, maybe should remind the co
 
 {% stepper %}
 {% step %}
-#### `case` statement
+**`case` statement**
 
 1. Always include a default branch in `case` statements.
 2. Furthermore, use the `default` branch for the intended default action and not just to execute the last option.
 {% endstep %}
 
 {% step %}
-#### Don't recycle variables or parameters
+**Don't recycle variables or parameters**
 
 * Use one variable for one purpose.
 * Do not _reuse_ formal parameters as local variables inside the method.
@@ -348,17 +348,17 @@ double computeRectangleArea(double length, double width) {
 
 {% stepper %}
 {% step %}
-#### Non-functional Requirements
+**Non-functional Requirements**
 
 Given below are some requirements of TEAMMATES (an online peer evaluation system for education). Which one of these are non-functional requirements?
 
-* [x] &#x20;a. The response to any use action should become visible within 5 seconds.
-* [ ] &#x20;b. The application admin should be able to view a log of user activities.
-* [x] &#x20;c. The source code should be open source.
-* [x] &#x20;d. A course should be able to have up to 2000 students.
-* [ ] &#x20;e. As a student user, I can view details of my team members so that I can know who they are.
-* [x] &#x20;f. The user interface should be intuitive enough for users who are not IT-savvy.
-* [x] &#x20;g. The product is offered as a free online service.
+* [x] a. The response to any use action should become visible within 5 seconds.
+* [ ] b. The application admin should be able to view a log of user activities.
+* [x] c. The source code should be open source.
+* [x] d. A course should be able to have up to 2000 students.
+* [ ] e. As a student user, I can view details of my team members so that I can know who they are.
+* [x] f. The user interface should be intuitive enough for users who are not IT-savvy.
+* [x] g. The product is offered as a free online service.
 
 ***
 

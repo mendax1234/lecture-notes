@@ -37,7 +37,7 @@ class Goo extends Foo<String> {
 
 {% stepper %}
 {% step %}
-#### Concept
+**Concept**
 
 A bit unlike what I have learned in CS2030S, here a **composition** is an **association** that represents a strong **whole-part** relationship. It implies that
 
@@ -46,7 +46,7 @@ A bit unlike what I have learned in CS2030S, here a **composition** is an **asso
 {% endstep %}
 
 {% step %}
-#### UML Notation
+**UML Notation**
 
 UML uses a **solid diamond** symbol to denote composition.
 
@@ -58,7 +58,7 @@ UML uses a **solid diamond** symbol to denote composition.
 
 {% stepper %}
 {% step %}
-#### Concept
+**Concept**
 
 _**Aggregation**_**&#x20;represents a&#x20;**_**container-contained**_**&#x20;relationship.** It is a weaker relationship than composition.
 
@@ -68,7 +68,7 @@ Aggregation is also an **association**.
 {% endstep %}
 
 {% step %}
-#### UML Notation
+**UML Notation**
 
 UML uses a **hollow diamond** to indicate an aggregation.
 
@@ -92,7 +92,7 @@ In CS2113, we should avoid using aggregation!
 
 {% stepper %}
 {% step %}
-#### Concept
+**Concept**
 
 In the context of OOP associations, **a&#x20;**_**dependency**_**&#x20;is a need for one class to depend on another without having a direct association in the same direction.** Reason for the exclusion: If there is an association from class `Foo` to class `Bar` (e.g., navigable from `Foo` to `Bar`), that means `Foo` is _obviously_ dependent on `Bar` and hence there is no point in mentioning _dependency_ specifically. In other words, we are specifically focusing on _non-obvious_ dependencies here. One cause of such dependencies is interactions between objects that do not have a long-term link between them.
 
@@ -120,7 +120,7 @@ class Bar {
 {% endstep %}
 
 {% step %}
-#### UML Notation
+**UML Notation**
 
 UML uses a **dashed arrow** to show dependencies.
 
@@ -137,7 +137,7 @@ For example, in the example above, the dependency between `Foo` and `Bar` can be
 <summary>Dependency vs. Association</summary>
 
 1. An association and an inheritance already shows dependency, thus no need to show them as a dashed arrow in the UML again.
-2. Use a dependency arrow to indicate a dependency only if that dependency is not already captured by the diagram in another way (for instance, as an association or an inheritance)&#x20;
+2. Use a dependency arrow to indicate a dependency only if that dependency is not already captured by the diagram in another way (for instance, as an association or an inheritance)
 
 </details>
 
@@ -161,13 +161,13 @@ In UML, we can use _italics_ or `{abstract}` (preferred) keyword to denote abstr
 
 {% stepper %}
 {% step %}
-#### Concept
+**Concept**
 
 Nothing much to add on. Just recall that a class implementing an interface results in an _is-a_ relationship.
 {% endstep %}
 
 {% step %}
-#### UML Notation
+**UML Notation**
 
 An interface is shown similar to a class with an additional keyword `<<interface>>`. When a class implements an interface, it is shown similar to class inheritance except a **dashed line** is used instead of a solid line.
 
@@ -219,7 +219,7 @@ The Logger acts as a filter (like a volume threshold). We set a specific level f
 
 ### Java Assertions
 
-**Assertions** are used to define assumptions about the program state so that the runtime can verify them. If the runtime detects an **assertion failure**, it typically takes some drastic action such as terminating the execution with an error message.&#x20;
+**Assertions** are used to define assumptions about the program state so that the runtime can verify them. If the runtime detects an **assertion failure**, it typically takes some drastic action such as terminating the execution with an error message.
 
 #### Implementation
 
@@ -279,7 +279,7 @@ X is **coupled** to Y if a change to Y can potentially require a change in X. So
 
 * `A` has access to the internal structure of `B` (this results in a very high level of coupling)
 * `A` and `B` depend on the same global variable
-* `A` calls `B`  &#x20;
+* `A` calls `B`
 * `A` receives an object of `B` as a parameter or a return value
 * `A` inherits from `B`
 * `A` and `B` are required to follow the same data format or communication protocol
@@ -298,7 +298,7 @@ X is **coupled** to Y if a change to Y can potentially require a change in X. So
 
 {% stepper %}
 {% step %}
-#### Single Responsibility Principle (SRP)
+**Single Responsibility Principle (SRP)**
 
 > A class should have one, and only one, reason to change.
 
@@ -306,7 +306,7 @@ If a class has only one responsibility, it needs to change only when there is a 
 {% endstep %}
 
 {% step %}
-#### Separation of Concerns Principle (SoC)
+**Separation of Concerns Principle (SoC)**
 
 > To achieve better modularity, separate the code into distinct sections, such that each section addresses a separate _concern_.
 
@@ -327,7 +327,7 @@ By now, you may realize that the two principles given above are somewhat similar
 {% endstep %}
 
 {% step %}
-#### [Liskov Substitution Principle (LSP)](https://wenbo-notes.gitbook.io/cs2030s-notes/lec-rec-lab-exes/lecture/lec-03-polymorphism#liskov-substitution-principle)
+[**Liskov Substitution Principle (LSP)**](https://wenbo-notes.gitbook.io/cs2030s-notes/lec-rec-lab-exes/lecture/lec-03-polymorphism#liskov-substitution-principle)
 
 > Derived classes must be substitutable for their base classes.
 
@@ -339,14 +339,14 @@ LSP implies that a subclass **should not be more restrictive** than the behavior
 
 {% stepper %}
 {% step %}
-#### Assertion failure
+**Assertion failure**
 
 A Calculator program crashes with an ‘assertion failure’ message when you try to find the square root of a negative number.
 
-* [ ] &#x20;a. This is a correct use of assertions.
-* [ ] &#x20;b. The application should have terminated with an exception instead.
-* [x] &#x20;c. The program has a bug.
-* [ ] &#x20;d. All statements above are incorrect.
+* [ ] a. This is a correct use of assertions.
+* [ ] b. The application should have terminated with an exception instead.
+* [x] c. The program has a bug.
+* [ ] d. All statements above are incorrect.
 
 ***
 
@@ -354,7 +354,7 @@ A Calculator program crashes with an ‘assertion failure’ message when you tr
 {% endstep %}
 
 {% step %}
-#### Coupling Levels
+**Coupling Levels**
 
 Discuss the coupling levels of alternative designs _x_ and _y_.
 
@@ -366,15 +366,15 @@ Discuss the coupling levels of alternative designs _x_ and _y_.
 {% endstep %}
 
 {% step %}
-#### Statements on coupling
+**Statements on coupling**
 
 Choose the correct statements.
 
-* [x] &#x20;a. As coupling increases, testability decreases.
-* [x] &#x20;b. As coupling increases, the risk of regression increases.
-* [x] &#x20;c. As coupling increases, the value of automated regression testing increases.
-* [ ] &#x20;d. As coupling increases, integration becomes easier as everything is connected together.
-* [x] &#x20;e. As coupling increases, maintainability decreases.
+* [x] a. As coupling increases, testability decreases.
+* [x] b. As coupling increases, the risk of regression increases.
+* [x] c. As coupling increases, the value of automated regression testing increases.
+* [ ] d. As coupling increases, integration becomes easier as everything is connected together.
+* [x] e. As coupling increases, maintainability decreases.
 
 ***
 
@@ -382,13 +382,13 @@ Easy to understand I think.
 {% endstep %}
 
 {% step %}
-#### Some principles
+**Some principles**
 
 “Only the GUI class should interact with the user. The GUI class should only concern itself with user interactions”. This statement follows from,
 
-* [x] &#x20;a. A software design should promote separation of concerns in a design.
-* [x] &#x20;b. A software design should increase cohesion of its components.
-* [x] &#x20;c. A software design should follow single responsibility principle.
+* [x] a. A software design should promote separation of concerns in a design.
+* [x] b. A software design should increase cohesion of its components.
+* [x] c. A software design should follow single responsibility principle.
 
 ***
 

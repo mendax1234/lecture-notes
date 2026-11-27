@@ -10,7 +10,7 @@ From the topics, there are some important rules
 
 {% stepper %}
 {% step %}
-#### **RunTime Behavior**
+**RunTime Behavior**
 
 Due to polymorphism, the behavior of the object will reflect the actual type of the object irrespective of the type of the variable holding a reference to it. For example,
 
@@ -31,14 +31,14 @@ dc.speak();
 {% endcode %}
 
 {% hint style="success" %}
-#### Code Explanation
+**Code Explanation**
 
 The call to the `speak()` method in the code below always executes the `speak()` method of the `DomesticCat` class because the actual type of the object remains `DomesticCat` although the reference to it is being downcast/upcast to various other types.
 {% endhint %}
 {% endstep %}
 
 {% step %}
-#### Casting error only in run-time
+**Casting error only in run-time**
 
 > As we have seen in [CS2030S](https://wenbo-notes.gitbook.io/cs2030s-notes/lec-rec-lab-exes/lecture/lec-04-exception-and-wrapper-classes#exceptions-are-always-triggered-at-run-time), exceptions are always triggered at run-time!
 
@@ -46,7 +46,7 @@ Casting to an incompatible type can result in a `ClassCastException` at **runtim
 {% endstep %}
 
 {% step %}
-#### The use of `instanceof`
+**The use of `instanceof`**
 
 We can use the `instanceof` operator to check if a **cast** is safe to perform. For example,
 
@@ -60,7 +60,7 @@ if (a instanceof Cat){
 {% endcode %}
 
 {% hint style="success" %}
-#### Code Explanation
+**Code Explanation**
 
 This code checks if the object `a` is an instance of the `Cat` class before casting it to a `Cat`.
 {% endhint %}
@@ -75,19 +75,19 @@ Here, there are some importants points regarding Java Abstract Class,
 
 {% stepper %}
 {% step %}
-#### A class that has an **abstract method** becomes an **abstract class**.
+**A class that has an abstract method becomes an abstract class.**
 
 This is because the class definition is incomplete (due to the missing method body) and it is not possible to create objects using an incomplete class definition.
 {% endstep %}
 
 {% step %}
-#### An abstract class can have 0 abstract method
+**An abstract class can have 0 abstract method**
 
 In Java, even a class that **does not** have any abstract methods _can_ be declared as an abstract class.
 {% endstep %}
 
 {% step %}
-#### Subclass of an abstract class
+**Subclass of an abstract class**
 
 There are two possibilities for the subclasse of an abstract class, it can be
 
@@ -119,7 +119,7 @@ public class DomesticCat extends Feline {
 {% endcode %}
 
 {% hint style="success" %}
-#### Code Explanation
+**Code Explanation**
 
 1. The `Feline` class below inherits from the abstract class `Animal` but it does not provide an implementation for the abstract method `speak`. As a result, the `Feline` class needs to be abstract too.
 2. The `DomesticCat` class inherits the abstract `Feline` class and provides the implementation for the abstract method `speak`. As a result, it need not be (but _can_ be) declared as abstract.
@@ -136,7 +136,7 @@ Here, only some extra points are noted,
 
 {% stepper %}
 {% step %}
-#### Interface inherits from other interfaces
+**Interface inherits from other interfaces**
 
 **Interfaces can inherit from other interfaces** using the `extends` keyword, similar to a class inheriting another. For example,
 
@@ -149,7 +149,7 @@ public interface SelfDrivableVehicle extends DrivableVehicle {
 {% endcode %}
 
 {% hint style="success" %}
-#### Code Explanation
+**Code Explanation**
 
 Note that the method signatures have no braces and are terminated with a semicolon.
 {% endhint %}
@@ -209,7 +209,7 @@ public class Formatter {
 {% endcode %}
 
 {% hint style="success" %}
-#### Code Explanation
+**Code Explanation**
 
 The `Formatter` class below (in `<source folder>/seedu/tojava/util/Formatter.java` file) is in the package `seedu.tojava.util`. When it is compiled, the `Formatter.class` file will be in the location `<compiler output folder>/seedu/tojava/util`:
 {% endhint %}
@@ -306,7 +306,7 @@ Given below is an illustration of how branch refs move as branches evolve.
 <figure><img src="../../.gitbook/assets/git-branch-working-example.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
-#### Imgae Explanation
+**Imgae Explanation**
 
 1. As you can see, the `fix1` and `master` are just two labels that points to the two branches named `fix1` and `master`.
 2. `Head` always points to the commit you are currently working on.
@@ -316,7 +316,7 @@ Below are some hands-on practice on Git CLI
 
 {% stepper %}
 {% step %}
-#### Create and switch to a branch
+**Create and switch to a branch**
 
 For example, if we want to create a branch named `feature1` and checkout/swithc to that branch, we can use the following command,
 
@@ -326,7 +326,7 @@ git checkout -b feature1
 {% endstep %}
 
 {% step %}
-#### Switch to a specifc branch
+**Switch to a specifc branch**
 
 This can be done using the command as follows,
 
@@ -336,7 +336,7 @@ git checkout branchName
 {% endstep %}
 
 {% step %}
-#### Create a branch on earlier commit
+**Create a branch on earlier commit**
 
 {% hint style="danger" %}
 Always remember to switch back to the `master` branch before creating a new branch! If not, your new branch will be created on top of the current branch.
@@ -365,7 +365,7 @@ Below are some hands-on practice on Git CLI
 
 {% stepper %}
 {% step %}
-#### Merge branches
+**Merge branches**
 
 There are two steps to merge branches
 
@@ -383,14 +383,14 @@ In this way, the target branch will be merged into the source branch and also Gi
 {% endstep %}
 
 {% step %}
-#### Fast-forward merge
+**Fast-forward merge**
 
 **When the branch you're merging into hasn't diverged** — meaning it hasn't had any new commits since the merge base — **Git simply moves the branch pointer forward to include all the new commits**, keeping the history clean and linear. This is **called a fast-forward merge** because Git simply "fast-forwards" the branch pointer to the tip of the other branch. The result looks as if all the changes had been made directly on one branch, without any branching at all.
 
 <figure><img src="../../.gitbook/assets/git-fast-forward-branch.png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
-#### Image Explanation
+**Image Explanation**
 
 In the example above, the `master` branch has not changed since the merge base (i.e., `m2`). Hence, merging the branch `bug-fix` onto `master` can be done by fast-forwarding the `master` branch ref to the tip of the `bug-fix` branch (i.e., `b2`).
 {% endhint %}
@@ -532,13 +532,13 @@ To do so, there are three wasy to keep your developing branches in sync,
 
 {% stepper %}
 {% step %}
-#### Merging
+**Merging**
 
 This is simply to merge the `master` branch to your `feature` branch (develop branch).
 {% endstep %}
 
 {% step %}
-#### Rebasing
+**Rebasing**
 
 As we know, merging will create _merge commits_, so if you want to keep the commit history cleaner and more linear, you can use _rebasing_. This basically **moves the base of your branch to the tip of the other branch** (e.g., it 're-bases' it — hence the name), as if you had started your work from there in the first place.
 
@@ -554,7 +554,7 @@ Playing with branches locally sounds not interesting enough, thus, we introduce 
 
 {% stepper %}
 {% step %}
-#### Push Branches to a Remote
+**Push Branches to a Remote**
 
 Suppose you have an existing local branch, now you want to push this local branch to your remote GitHub repository. You can use the following command,
 
@@ -564,7 +564,7 @@ git push origin -u branchName
 {% endstep %}
 
 {% step %}
-#### Delete Branches from a Remote
+**Delete Branches from a Remote**
 
 You can also delete the branches from a remote by using the following command,
 
@@ -582,13 +582,13 @@ After learning so much stuff about RCS branching, I believe you can't help pract
 
 {% stepper %}
 {% step %}
-#### Exceptions
+**Exceptions**
 
 Which are the benefits of exceptions?
 
-* [x] &#x20;a. Exceptions allow us to separate normal code from error handling code.
-* [ ] &#x20;b. Exceptions can prevent problems that happen in the environment.
-* [x] &#x20;c. Exceptions allow us to handle in one location an error raised in another location.
+* [x] a. Exceptions allow us to separate normal code from error handling code.
+* [ ] b. Exceptions can prevent problems that happen in the environment.
+* [x] c. Exceptions allow us to handle in one location an error raised in another location.
 
 ***
 
@@ -596,13 +596,13 @@ Which are the benefits of exceptions?
 {% endstep %}
 
 {% step %}
-#### User Story
+**User Story**
 
 Which of these are true about user stories?
 
-* [ ] &#x20;a. They are based on stories users tell about similar systems
-* [x] &#x20;b. They are written from the user/customer perspective
-* [ ] &#x20;c. They are always written in some physical medium such as index cards or sticky note
+* [ ] a. They are based on stories users tell about similar systems
+* [x] b. They are written from the user/customer perspective
+* [ ] c. They are always written in some physical medium such as index cards or sticky note
 
 ​**Explanation**:
 
@@ -614,10 +614,10 @@ Which of these are true about user stories?
 
 Choose the correct statements
 
-* [ ] &#x20;a. User stories are short and written in a formal notation.
-* [ ] &#x20;b. User stories is another name for use cases.
-* [ ] &#x20;c. User stories describes past experiences users had with similar systems. These are helpful in developing the new system.
-* [x] &#x20;d. User stories are not detailed enough to tell us exact details of the product
+* [ ] a. User stories are short and written in a formal notation.
+* [ ] b. User stories is another name for use cases.
+* [ ] c. User stories describes past experiences users had with similar systems. These are helpful in developing the new system.
+* [x] d. User stories are not detailed enough to tell us exact details of the product
 
 ​**Explanation**: Only d is correct. User stories are short and written in natural language, NOT in a formal language. They are used for estimation and scheduling purposes but do not contain enough details to form a complete system specification.
 {% endstep %}

@@ -4,13 +4,13 @@
 
 {% stepper %}
 {% step %}
-#### Difference between `protected` and `public`
+**Difference between `protected` and `public`**
 
 Again, the full explanation is Week 5's content also. Be patient!
 {% endstep %}
 
 {% step %}
-#### tP UML
+**tP UML**
 
 In tP's UML, don't need to show the top `Object` class.
 {% endstep %}
@@ -20,7 +20,7 @@ In tP's UML, don't need to show the top `Object` class.
 
 {% stepper %}
 {% step %}
-#### A tricky problem
+**A tricky problem**
 
 Given the subtype relationship, which is `Box <: Shape`, and `Circle <: Shape`, but there is no subtype relationship between `Circle` and `Box`, which of the following assignments are OK (here it means won't cause runtime error and compile-time error)?
 
@@ -54,8 +54,8 @@ So, obviously, statement 5 won't generate a compile-error. Instead, it will gene
 {% endstep %}
 
 {% step %}
-#### Git branch
+**Git branch**
 
-This is Week 5's content, but better to know how it works&#x20;
+This is Week 5's content, but better to know how it works
 {% endstep %}
 {% endstepper %}
