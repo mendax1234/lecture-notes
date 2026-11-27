@@ -1,0 +1,47 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: EE4218 Notes
+  structure:
+    - type: section
+      key: section-3
+      title: Lecture
+      path: lecture
+      description: ""
+      icon: graduation-cap
+      default: true
+      children:
+        - type: space
+          key: space-3
+          title: Lecture
+          path: lecture
+          default: true
+          content:
+            directory: ./lecture
+    - type: section
+      key: section-2
+      title: Lab
+      path: lab
+      description: ""
+      icon: flask
+      children:
+        - type: space
+          key: space-2
+          title: Lab
+          path: lab
+          default: true
+          content:
+            directory: ./lab
+    - type: section
+      key: section-1
+      title: Textbook
+      path: textbook
+      description: ""
+      icon: book-open
+      children:
+        - type: space
+          key: space-1
+          title: Textbook
+          path: docs
+          default: true
+          content:
+            directory: ./textbook
