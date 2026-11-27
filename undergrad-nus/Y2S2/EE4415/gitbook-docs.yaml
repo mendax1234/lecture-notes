@@ -1,0 +1,66 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: EE4415 Notes
+  structure:
+    - type: section
+      key: section-1
+      title: Lecture
+      path: lecture
+      description: ""
+      icon: graduation-cap
+      default: true
+      children:
+        - type: space
+          key: space-1
+          title: Lecture
+          path: docs
+          default: true
+          content:
+            directory: ./lecture
+    - type: section
+      key: section-2
+      title: Textbook
+      path: textbook
+      description: ""
+      icon: book-open
+      children:
+        - type: space
+          key: space-2
+          title: Textbook
+          path: textbook
+          default: true
+          content:
+            directory: ./textbook
+    - type: section-group
+      key: section-group-1
+      title: EDA Tools
+      icon: screwdriver-wrench
+      children:
+        - type: section
+          key: section-3
+          title: Cadence
+          path: cadence
+          description: ""
+          icon: wrench
+          children:
+            - type: space
+              key: space-3
+              title: Cadence
+              path: cadence
+              default: true
+              content:
+                directory: ./eda-tools/cadence
+        - type: section
+          key: section-4
+          title: Synopsys
+          path: synopsys
+          description: ""
+          icon: toolbox
+          children:
+            - type: space
+              key: space-4
+              title: Synopsys
+              path: synopsys
+              default: true
+              content:
+                directory: ./eda-tools/synopsys
