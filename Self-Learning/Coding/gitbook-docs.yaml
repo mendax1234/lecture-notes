@@ -1,0 +1,11 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: Coding
+  structure:
+    - type: space
+      key: space-1
+      title: Coding
+      path: coding
+      default: true
+      content:
+        directory: ./coding-notes
