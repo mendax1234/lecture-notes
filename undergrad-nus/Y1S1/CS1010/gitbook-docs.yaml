@@ -1,0 +1,11 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: CS1010 Notes
+  structure:
+    - type: space
+      key: space-1
+      title: CS1010 Notes
+      path: cs1010-notes
+      default: true
+      content:
+        directory: ./cs1010-notes
