@@ -1,0 +1,18 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: EE2211 Notes
+  structure:
+    - type: section
+      key: section-1
+      title: EE2211 Notes
+      path: ee2211-notes
+      description: ""
+      default: true
+      children:
+        - type: space
+          key: space-1
+          title: EE2211 Notes
+          path: docs
+          default: true
+          content:
+            directory: ./ee2211-notes
