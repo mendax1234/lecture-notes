@@ -85,5 +85,5 @@ The estimation is very much **implementation dependent**. For example, we have s
 And the **logic optimization** for these two implementations can affect the area and delay significantly.
 
 {% hint style="warning" %}
-**Logic optimization** is part of the **logic synthesis**. As we have seen in the [first chapter](../introduction/computer-aided-synthesis-and-optimization.md#synthesis), the logic synthesis comes after the **architectural synthesis**.
+**Logic optimization** is part of the **logic synthesis**. As we have seen in the [first chapter](../readme/computer-aided-synthesis-and-optimization.md#synthesis), the logic synthesis comes after the **architectural synthesis**.
 {% endhint %}

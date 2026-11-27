@@ -3,12 +3,12 @@
 ## Micheli
 
 * [Introduction](README.md)
-  * [Microelectronics](micheli/introduction/microelectronics.md)
-  * [Semiconductor Technologies and Circuit Taxonomy](micheli/introduction/semiconductor-technologies-and-circuit-taxonomy.md)
-  * [Microelectronic Design Styles](micheli/introduction/microelectronic-design-styles.md)
-  * [Design of Microelectronic Circuits](micheli/introduction/design-of-microelectronic-circuits.md)
-  * [Computer-aided Synthesis and Optimization](micheli/introduction/computer-aided-synthesis-and-optimization.md)
-  * [Organization of the Book](micheli/introduction/organization-of-the-book.md)
+  * [Microelectronics](micheli/readme/microelectronics.md)
+  * [Semiconductor Technologies and Circuit Taxonomy](micheli/readme/semiconductor-technologies-and-circuit-taxonomy.md)
+  * [Microelectronic Design Styles](micheli/readme/microelectronic-design-styles.md)
+  * [Design of Microelectronic Circuits](micheli/readme/design-of-microelectronic-circuits.md)
+  * [Computer-aided Synthesis and Optimization](micheli/readme/computer-aided-synthesis-and-optimization.md)
+  * [Organization of the Book](micheli/readme/organization-of-the-book.md)
 * [Hardware Modeling](micheli/hardware-modeling/README.md)
   * [Abstract Models](micheli/hardware-modeling/abstract-models.md)
   * [Compilation and Behavioral Optimization](micheli/hardware-modeling/compilation-and-behavioral-optimization.md)

@@ -16,7 +16,7 @@ A circuit can be modeled differently according to
 2. **view** (e.g., behavioral, structural, physical), and
 3. the **modeling means** being used (e.g., language, diagram, mathematical model).
 
-Abstraction levels and views were described in [computer-aided-synthesis-and-optimization.md](../introduction/computer-aided-synthesis-and-optimization.md "mention"). We comment now on the "**modeling means**".
+Abstraction levels and views were described in [computer-aided-synthesis-and-optimization.md](../readme/computer-aided-synthesis-and-optimization.md "mention"). We comment now on the "**modeling means**".
 
 {% hint style="warning" %}
 This book does not advocate the use of any specific hardware language. The synthesis techniques that we present have **general value** and are not related to the specifics of any particular language. For this reason, we shall consider also **abstract models** for circuits at both the **architectural** and **logic levels**.
