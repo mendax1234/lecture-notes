@@ -1,0 +1,11 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: NUS CVWO Notes
+  structure:
+    - type: space
+      key: space-1
+      title: NUS CVWO Notes
+      path: cvwo
+      default: true
+      content:
+        directory: ./nus-cvwo-notes
