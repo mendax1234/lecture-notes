@@ -5,7 +5,7 @@
 * **Full name**: [CDE2501 Sustainable Systems for Liveable Cities](https://nusmods.com/courses/CDE2501/sustainable-systems-for-liveable-cities)
 * **Target audience**: NUS undergraduates
 * **Purpose of the course**: This course provides students with hands-on opportunities to explore Singapore and learn how complex urban systems are designed to be liveable and sustainable.
-* **Notes Content**: [CDE2501 Notes](https://github.com/mendax1234/lecture-notes/tree/main/undergrad-nus/Y2S2/CDE2501) (Use at your own risk)
+* **Notes Content**: [CDE2501 Notes](../../../../undergrad-nus/Y2S2/CDE2501) (Use at your own risk)
 
 I took this course in AY25/26 Semester 2 to meet my graduation requirement.
 
