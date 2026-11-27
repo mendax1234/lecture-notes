@@ -1,0 +1,11 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: CG2027 Notes
+  structure:
+    - type: space
+      key: space-1
+      title: CG2027 Notes
+      path: docs
+      default: true
+      content:
+        directory: ./cg2027-notes
