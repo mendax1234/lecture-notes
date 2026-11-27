@@ -1,0 +1,11 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: CS2113 Notes
+  structure:
+    - type: space
+      key: space-1
+      title: CS2113 Notes
+      path: docs
+      default: true
+      content:
+        directory: ./cs2113-notes
