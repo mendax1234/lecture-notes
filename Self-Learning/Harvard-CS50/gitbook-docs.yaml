@@ -1,0 +1,11 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: Harvard CS50 Notes
+  structure:
+    - type: space
+      key: space-1
+      title: Harvard CS50 Notes
+      path: harvard-cs50-notes
+      default: true
+      content:
+        directory: ./harvard-cs50-notes
