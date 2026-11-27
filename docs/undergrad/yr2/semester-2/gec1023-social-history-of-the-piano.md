@@ -5,7 +5,7 @@
 * **Full name**: [GEC1023 Social History of the Piano](https://nusmods.com/courses/GEC1023/social-history-of-the-piano)
 * **Target audience**: NUS undergraduates
 * **Purpose of the course**: This course provides students with the opportunity to experience the beauty of playing the piano while also learning about the history and development of this musical instrument.
-* **Notes Content**: View the [GEC1023 Notes](https://github.com/mendax1234/lecture-notes/tree/main/undergrad-nus/Y2S2/GEC1023).
+* **Notes Content**: View the [GEC1023 Notes](../../../../undergrad-nus/Y2S2/GEC1023).
 
 I took this course in AY25/26 Semester 2 to fulfill my GEC pillar requirement!
 
