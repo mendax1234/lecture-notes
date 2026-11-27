@@ -8,4 +8,4 @@ site:
       path: docs
       default: true
       content:
-        directory: ./cs2113-notes
+        directory: ./CS2113-Notes
