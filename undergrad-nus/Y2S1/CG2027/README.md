@@ -1,3 +1,1 @@
-# Welcome
-
-Welcome to my notes for NUS CG2027!
+# CG2027 Notes
