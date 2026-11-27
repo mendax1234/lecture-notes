@@ -1,0 +1,11 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: CS2030S Notes
+  structure:
+    - type: space
+      key: space-1
+      title: CS2030S Notes
+      path: cs2030s-notes
+      default: true
+      content:
+        directory: ./cs2030s-notes
