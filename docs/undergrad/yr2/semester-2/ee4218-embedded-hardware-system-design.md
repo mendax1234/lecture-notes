@@ -5,7 +5,7 @@
 * **Full name**: [EE4218 Embedded Hardware System Design](https://nusmods.com/courses/EE4218/embedded-hardware-system-design)
 * **Target audience**: NUS Year 4 EE/CEG Students
 * **Purpose of the course**: To provide students with an amazing understanding of hardware/software co-design and the hands-on opportunity to design a modern AI accelerator.
-* **Notes Content**: View the [EE4218 Notes](https://wenbo-notes.gitbook.io/ddca-notes/)
+* **Notes Content**: View the [EE4218 Notes](https://app.gitbook.com/o/MnEKr5A4lYXtOfhoXGj5/s/08HOWaEgI5q3ZZTecFRP/)
 
 I took this course in AY25/26 Semester 2 mainly as a follow-up for the [CG3207](../sem1/cg3207.md) that I took last sem.
 
@@ -39,7 +39,7 @@ A key highlight of this course is its strong emphasis on the application and rea
 For our project, we designed a customized accelerator for CNN inference, called VNN, or Verilog Neural Network.&#x20;
 {% endhint %}
 
-In thsis project, we are required to compare the inference performance across three approaches:
+In this project, we are required to compare the inference performance across three approaches:
 
 * a pure CPU implementation,
 * an HLS-based implementation, and

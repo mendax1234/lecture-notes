@@ -33,3 +33,12 @@
   * [GEC1023 Social History of the Piano](yr2/semester-2/gec1023-social-history-of-the-piano.md)
   * [GEN2007 Resilience in Restoration](yr2/semester-2/gen2007-resilience-in-restoration.md)
   * [CDE2501 Sustainable Systems for Liveable Cities](yr2/semester-2/cde2501-sustainable-systems-for-liveable-cities.md)
+
+## Year 3 <a href="#yr3" id="yr3"></a>
+
+* [Semester 1](yr3/semester-1/README.md)
+  * [EE3408C Integrated Analog Design](yr3/semester-1/ee3408c-integrated-analog-design.md)
+  * [CG2271 Real-Time Operating Systems](yr3/semester-1/cg2271-real-time-operating-systems.md)
+  * [EE2211 Intro to Machine Learning](yr3/semester-1/ee2211-intro-to-machine-learning.md)
+  * [LAF4201 French 5](yr3/semester-1/laf4201-french-5.md)
+  * [EG2401A Engineering Professionalism](yr3/semester-1/eg2401a-engineering-professionalism.md)
